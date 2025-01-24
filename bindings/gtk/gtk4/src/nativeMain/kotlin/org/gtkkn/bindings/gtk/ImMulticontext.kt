@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -16,8 +18,6 @@ import org.gtkkn.native.gtk.gtk_im_multicontext_get_context_id
 import org.gtkkn.native.gtk.gtk_im_multicontext_get_type
 import org.gtkkn.native.gtk.gtk_im_multicontext_new
 import org.gtkkn.native.gtk.gtk_im_multicontext_set_context_id
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkIMMulticontext` is an input method context supporting multiple,
@@ -27,8 +27,9 @@ import kotlin.Unit
  * to implement their `im-module` property for switching between different
  * input methods.
  */
-public open class ImMulticontext(public val gtkImMulticontextPointer: CPointer<GtkIMMulticontext>) :
-    ImContext(gtkImMulticontextPointer.reinterpret()),
+public open class ImMulticontext(
+    public val gtkImMulticontextPointer: CPointer<GtkIMMulticontext>,
+) : ImContext(gtkImMulticontextPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkIMMulticontext`.
@@ -42,8 +43,7 @@ public open class ImMulticontext(public val gtkImMulticontextPointer: CPointer<G
      *
      * @return the id of the currently active delegate
      */
-    public open fun getContextId(): String =
-        gtk_im_multicontext_get_context_id(gtkImMulticontextPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getContextId(): String = gtk_im_multicontext_get_context_id(gtkImMulticontextPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Sets the context id for @context.
@@ -57,18 +57,14 @@ public open class ImMulticontext(public val gtkImMulticontextPointer: CPointer<G
      *
      * @param contextId the id to use
      */
-    public open fun setContextId(contextId: String? = null): Unit =
-        gtk_im_multicontext_set_context_id(gtkImMulticontextPointer, contextId)
+    public open fun setContextId(contextId: String? = null): Unit = gtk_im_multicontext_set_context_id(gtkImMulticontextPointer, contextId)
 
     public companion object : TypeCompanion<ImMulticontext> {
         override val type: GeneratedClassKGType<ImMulticontext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_im_multicontext_get_type")!!) {
-                ImMulticontext(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_im_multicontext_get_type")!!) { ImMulticontext(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of IMMulticontext

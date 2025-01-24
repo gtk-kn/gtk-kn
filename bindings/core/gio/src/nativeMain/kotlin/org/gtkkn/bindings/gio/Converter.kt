@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
@@ -16,7 +17,6 @@ import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.g_converter_get_type
 import org.gtkkn.native.gio.g_converter_reset
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * `GConverter` is an interface for streaming conversions.
@@ -36,9 +36,7 @@ import kotlin.Unit
  * @since 2.24
  */
 @GioVersion2_24
-public interface Converter :
-    Proxy,
-    KGTyped {
+public interface Converter : Proxy, KGTyped {
     public val gioConverterPointer: CPointer<GConverter>
 
     /**
@@ -56,17 +54,17 @@ public interface Converter :
      *
      * @constructor Creates a new instance of Converter for the provided [CPointer].
      */
-    public data class ConverterImpl(override val gioConverterPointer: CPointer<GConverter>) :
-        Object(gioConverterPointer.reinterpret()),
+    public data class ConverterImpl(
+        override val gioConverterPointer: CPointer<GConverter>,
+    ) : Object(gioConverterPointer.reinterpret()),
         Converter
 
     public companion object : TypeCompanion<Converter> {
         override val type: GeneratedInterfaceKGType<Converter> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_converter_get_type")!!) { ConverterImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_converter_get_type")!!) { ConverterImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Converter

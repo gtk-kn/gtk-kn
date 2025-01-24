@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -35,14 +37,13 @@ import org.gtkkn.native.adw.adw_view_stack_page_set_visible
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * An auxiliary class used by [class@ViewStack].
  */
-public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewStackPage>) :
-    Object(adwViewStackPagePointer.reinterpret()),
+public class ViewStackPage(
+    public val adwViewStackPagePointer: CPointer<AdwViewStackPage>,
+) : Object(adwViewStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -63,7 +64,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the badge number for this page
          */
         get() = adw_view_stack_page_get_badge_number(adwViewStackPagePointer)
-
         /**
          * Sets the badge number for this page.
          *
@@ -86,8 +86,7 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the child to which @self belongs
          */
         get() = adw_view_stack_page_get_child(adwViewStackPagePointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * The icon name of the child page.
@@ -99,7 +98,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the icon name of the page
          */
         get() = adw_view_stack_page_get_icon_name(adwViewStackPagePointer)?.toKString()
-
         /**
          * Sets the icon name of the page.
          *
@@ -117,7 +115,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the name of the page
          */
         get() = adw_view_stack_page_get_name(adwViewStackPagePointer)?.toKString()
-
         /**
          * Sets the name of the page.
          *
@@ -137,7 +134,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return whether the page needs attention
          */
         get() = adw_view_stack_page_get_needs_attention(adwViewStackPagePointer).asBoolean()
-
         /**
          * Sets whether the page requires the user attention.
          *
@@ -145,9 +141,7 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          *
          * @param needsAttention the new value to set
          */
-        set(
-            needsAttention
-        ) = adw_view_stack_page_set_needs_attention(adwViewStackPagePointer, needsAttention.asGBoolean())
+        set(needsAttention) = adw_view_stack_page_set_needs_attention(adwViewStackPagePointer, needsAttention.asGBoolean())
 
     /**
      * The title of the child page.
@@ -159,7 +153,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return the page title
          */
         get() = adw_view_stack_page_get_title(adwViewStackPagePointer)?.toKString()
-
         /**
          * Sets the page title.
          *
@@ -177,7 +170,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return whether underlines in the page title indicate mnemonics
          */
         get() = adw_view_stack_page_get_use_underline(adwViewStackPagePointer).asBoolean()
-
         /**
          * Sets whether underlines in the page title indicate mnemonics.
          *
@@ -201,7 +193,6 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
          * @return whether @self is visible
          */
         get() = adw_view_stack_page_get_visible(adwViewStackPagePointer).asBoolean()
-
         /**
          * Sets whether @page is visible in its `AdwViewStack`.
          *
@@ -214,13 +205,10 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
 
     public companion object : TypeCompanion<ViewStackPage> {
         override val type: GeneratedClassKGType<ViewStackPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_view_stack_page_get_type")!!) {
-                ViewStackPage(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_view_stack_page_get_type")!!) { ViewStackPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ViewStackPage

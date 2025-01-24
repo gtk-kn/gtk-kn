@@ -9,67 +9,57 @@ import org.gtkkn.native.glib.GDateMonth
  * Enumeration representing a month; values are %G_DATE_JANUARY,
  * %G_DATE_FEBRUARY, etc. %G_DATE_BAD_MONTH is the invalid value.
  */
-public enum class DateMonth(public val nativeValue: GDateMonth) {
+public enum class DateMonth(
+    public val nativeValue: GDateMonth,
+) {
     /**
      * invalid value
      */
     BAD_MONTH(GDateMonth.G_DATE_BAD_MONTH),
-
     /**
      * January
      */
     JANUARY(GDateMonth.G_DATE_JANUARY),
-
     /**
      * February
      */
     FEBRUARY(GDateMonth.G_DATE_FEBRUARY),
-
     /**
      * March
      */
     MARCH(GDateMonth.G_DATE_MARCH),
-
     /**
      * April
      */
     APRIL(GDateMonth.G_DATE_APRIL),
-
     /**
      * May
      */
     MAY(GDateMonth.G_DATE_MAY),
-
     /**
      * June
      */
     JUNE(GDateMonth.G_DATE_JUNE),
-
     /**
      * July
      */
     JULY(GDateMonth.G_DATE_JULY),
-
     /**
      * August
      */
     AUGUST(GDateMonth.G_DATE_AUGUST),
-
     /**
      * September
      */
     SEPTEMBER(GDateMonth.G_DATE_SEPTEMBER),
-
     /**
      * October
      */
     OCTOBER(GDateMonth.G_DATE_OCTOBER),
-
     /**
      * November
      */
     NOVEMBER(GDateMonth.G_DATE_NOVEMBER),
-
     /**
      * December
      */

@@ -14,20 +14,18 @@ import org.gtkkn.native.gdk.gdk_pixbuf_non_anim_get_type
 import org.gtkkn.native.gdk.gdk_pixbuf_non_anim_new
 import org.gtkkn.native.gobject.GType
 
-public open class PixbufNonAnim(public val gdkPixbufNonAnimPointer: CPointer<GdkPixbufAnimation>) :
-    PixbufAnimation(gdkPixbufNonAnimPointer.reinterpret()),
+public open class PixbufNonAnim(
+    public val gdkPixbufNonAnimPointer: CPointer<GdkPixbufAnimation>,
+) : PixbufAnimation(gdkPixbufNonAnimPointer.reinterpret()),
     KGTyped {
-    public constructor(pixbuf: Pixbuf) : this(gdk_pixbuf_non_anim_new(pixbuf.gdkPixbufPointer)!!.reinterpret())
+    public constructor(pixbuf: Pixbuf) : this(gdk_pixbuf_non_anim_new(pixbuf.gdkPixbufPointer)!!)
 
     public companion object : TypeCompanion<PixbufNonAnim> {
         override val type: GeneratedClassKGType<PixbufNonAnim> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_non_anim_get_type")!!) {
-                PixbufNonAnim(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_non_anim_get_type")!!) { PixbufNonAnim(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
+            GdkPixbufTypeProvider.register()}
 
         /**
          * Get the GType of PixbufNonAnim

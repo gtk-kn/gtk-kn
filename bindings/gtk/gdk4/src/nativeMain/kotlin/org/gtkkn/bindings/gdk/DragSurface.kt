@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,16 +29,11 @@ import org.gtkkn.native.gdk.gdk_drag_surface_present
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GdkDragSurface` is an interface for surfaces used during DND.
  */
-public interface DragSurface :
-    Proxy,
-    KGTyped {
+public interface DragSurface : Proxy, KGTyped {
     public val gdkDragSurfacePointer: CPointer<GdkDragSurface>
 
     /**
@@ -45,8 +43,7 @@ public interface DragSurface :
      * @param height the unconstrained drag_surface height to layout
      * @return false if it failed to be presented, otherwise true.
      */
-    public fun present(width: gint, height: gint): Boolean =
-        gdk_drag_surface_present(gdkDragSurfacePointer, width, height).asBoolean()
+    public fun present(width: gint, height: gint): Boolean = gdk_drag_surface_present(gdkDragSurfacePointer, width, height).asBoolean()
 
     /**
      * Emitted when the size for the surface needs to be computed, when it is
@@ -68,36 +65,24 @@ public interface DragSurface :
      * @since 4.12
      */
     @GdkVersion4_12
-    public fun onComputeSize(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (size: DragSurfaceSize) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gdkDragSurfacePointer,
-        "compute-size",
-        onComputeSizeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onComputeSize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (size: DragSurfaceSize) -> Unit): ULong = g_signal_connect_data(gdkDragSurfacePointer, "compute-size", onComputeSizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The DragSurfaceImpl type represents a native instance of the DragSurface interface.
      *
      * @constructor Creates a new instance of DragSurface for the provided [CPointer].
      */
-    public data class DragSurfaceImpl(override val gdkDragSurfacePointer: CPointer<GdkDragSurface>) :
-        Surface(gdkDragSurfacePointer.reinterpret()),
+    public data class DragSurfaceImpl(
+        override val gdkDragSurfacePointer: CPointer<GdkDragSurface>,
+    ) : Surface(gdkDragSurfacePointer.reinterpret()),
         DragSurface
 
     public companion object : TypeCompanion<DragSurface> {
         override val type: GeneratedInterfaceKGType<DragSurface> =
-            GeneratedInterfaceKGType(getTypeOrNull("gdk_drag_surface_get_type")!!) {
-                DragSurfaceImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gdk_drag_surface_get_type")!!) { DragSurfaceImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of DragSurface
@@ -109,15 +94,12 @@ public interface DragSurface :
 }
 
 private val onComputeSizeFunc: CPointer<CFunction<(CPointer<GdkDragSurfaceSize>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            size: CPointer<GdkDragSurfaceSize>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(size: DragSurfaceSize) -> Unit>().get().invoke(
-            size!!.run {
-                DragSurfaceSize(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    size: CPointer<GdkDragSurfaceSize>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(size: DragSurfaceSize) -> Unit>().get().invoke(size!!.run {
+        DragSurfaceSize(this)}
+    )}
+.reinterpret()

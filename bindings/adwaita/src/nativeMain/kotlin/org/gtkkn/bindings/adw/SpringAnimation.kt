@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
@@ -35,7 +36,6 @@ import org.gtkkn.native.adw.adw_spring_animation_set_value_to
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * A spring-based [class@Animation].
@@ -70,8 +70,9 @@ import kotlin.Boolean
  * If the initial and final values are equal, and the initial velocity is not 0,
  * the animation value will bounce and return to its resting position.
  */
-public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>) :
-    Animation(adwSpringAnimationPointer.reinterpret()),
+public class SpringAnimation(
+    public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>,
+) : Animation(adwSpringAnimationPointer.reinterpret()),
     KGTyped {
     /**
      * Whether the animation should be clamped.
@@ -89,7 +90,6 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return whether @self is clamped
          */
         get() = adw_spring_animation_get_clamp(adwSpringAnimationPointer).asBoolean()
-
         /**
          * Sets whether @self should be clamped.
          *
@@ -124,7 +124,6 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return the epsilon value
          */
         get() = adw_spring_animation_get_epsilon(adwSpringAnimationPointer)
-
         /**
          * Sets the precision of the spring.
          *
@@ -170,7 +169,6 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return the initial velocity
          */
         get() = adw_spring_animation_get_initial_velocity(adwSpringAnimationPointer)
-
         /**
          * Sets the initial velocity of @self.
          *
@@ -190,17 +188,13 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return the spring parameters
          */
         get() = adw_spring_animation_get_spring_params(adwSpringAnimationPointer)!!.run {
-            SpringParams(this)
-        }
-
+            SpringParams(this)}
         /**
          * Sets the physical parameters of the spring of @self.
          *
          * @param springParams the new spring parameters
          */
-        set(
-            springParams
-        ) = adw_spring_animation_set_spring_params(adwSpringAnimationPointer, springParams.adwSpringParamsPointer)
+        set(springParams) = adw_spring_animation_set_spring_params(adwSpringAnimationPointer, springParams.adwSpringParamsPointer)
 
     /**
      * The value to animate from.
@@ -215,7 +209,6 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return the value to animate from
          */
         get() = adw_spring_animation_get_value_from(adwSpringAnimationPointer)
-
         /**
          * Sets the value @self will animate from.
          *
@@ -239,7 +232,6 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
          * @return the value to animate to
          */
         get() = adw_spring_animation_get_value_to(adwSpringAnimationPointer)
-
         /**
          * Sets the value @self will animate to.
          *
@@ -280,15 +272,7 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
         to: gdouble,
         springParams: SpringParams,
         target: AnimationTarget,
-    ) : this(
-        adw_spring_animation_new(
-            widget.gtkWidgetPointer,
-            from,
-            to,
-            springParams.adwSpringParamsPointer,
-            target.adwAnimationTargetPointer
-        )!!.reinterpret()
-    )
+    ) : this(adw_spring_animation_new(widget.gtkWidgetPointer, from, to, springParams.adwSpringParamsPointer, target.adwAnimationTargetPointer)!!.reinterpret())
 
     /**
      * Calculates the value @self will have at @time.
@@ -303,8 +287,7 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun calculateValue(time: guint): gdouble =
-        adw_spring_animation_calculate_value(adwSpringAnimationPointer, time)
+    public fun calculateValue(time: guint): gdouble = adw_spring_animation_calculate_value(adwSpringAnimationPointer, time)
 
     /**
      * Calculates the velocity @self will have at @time.
@@ -319,18 +302,14 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun calculateVelocity(time: guint): gdouble =
-        adw_spring_animation_calculate_velocity(adwSpringAnimationPointer, time)
+    public fun calculateVelocity(time: guint): gdouble = adw_spring_animation_calculate_velocity(adwSpringAnimationPointer, time)
 
     public companion object : TypeCompanion<SpringAnimation> {
         override val type: GeneratedClassKGType<SpringAnimation> =
-            GeneratedClassKGType(getTypeOrNull("adw_spring_animation_get_type")!!) {
-                SpringAnimation(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_spring_animation_get_type")!!) { SpringAnimation(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of SpringAnimation

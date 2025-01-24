@@ -3,12 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GRWLock
@@ -20,11 +23,6 @@ import org.gtkkn.native.glib.g_rw_lock_reader_unlock
 import org.gtkkn.native.glib.g_rw_lock_writer_lock
 import org.gtkkn.native.glib.g_rw_lock_writer_trylock
 import org.gtkkn.native.glib.g_rw_lock_writer_unlock
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The GRWLock struct is an opaque data structure to represent a
@@ -93,29 +91,18 @@ import kotlin.native.ref.createCleaner
  * @since 2.32
  */
 @GLibVersion2_32
-public class RwLock(public val glibRwLockPointer: CPointer<GRWLock>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibRwLockPointer) {
+public class RwLock(
+    public val glibRwLockPointer: CPointer<GRWLock>,
+) : ProxyInstance(glibRwLockPointer) {
     /**
      * Allocate a new RwLock.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GRWLock>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RwLock and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GRWLock>, Cleaner>,
-    ) : this(glibRwLockPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GRWLock>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RwLock using the provided [AutofreeScope].

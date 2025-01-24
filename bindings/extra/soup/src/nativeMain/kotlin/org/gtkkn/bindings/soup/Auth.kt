@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -33,9 +36,6 @@ import org.gtkkn.native.soup.soup_auth_is_for_proxy
 import org.gtkkn.native.soup.soup_auth_is_ready
 import org.gtkkn.native.soup.soup_auth_new
 import org.gtkkn.native.soup.soup_auth_update
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The abstract base class for handling authentication.
@@ -53,8 +53,9 @@ import kotlin.Unit
  * - method `is-cancelled`: Property has no getter nor setter
  * - method `is-for-proxy`: Property has no getter nor setter
  */
-public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
-    Object(soupAuthPointer.reinterpret()),
+public abstract class Auth(
+    public val soupAuthPointer: CPointer<SoupAuth>,
+) : Object(soupAuthPointer.reinterpret()),
     KGTyped {
     /**
      * The authority (host:port) being authenticated to.
@@ -122,8 +123,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      * @param username the username provided by the user or client
      * @param password the password provided by the user or client
      */
-    public open fun authenticate(username: String, password: String): Unit =
-        soup_auth_authenticate(soupAuthPointer, username, password)
+    public open fun authenticate(username: String, password: String): Unit = soup_auth_authenticate(soupAuthPointer, username, password)
 
     /**
      * Tests if @auth is able to authenticate by providing credentials to the
@@ -147,8 +147,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      *
      * @param space the return value from [method@Auth.get_protection_space]
      */
-    public open fun freeProtectionSpace(space: SList): Unit =
-        soup_auth_free_protection_space(soupAuthPointer, space.glibSListPointer)
+    public open fun freeProtectionSpace(space: SList): Unit = soup_auth_free_protection_space(soupAuthPointer, space.glibSListPointer)
 
     /**
      * Generates an appropriate "Authorization" header for @msg.
@@ -159,9 +158,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      * @param msg the #SoupMessage to be authorized
      * @return the "Authorization" header, which must be freed.
      */
-    public open fun getAuthorization(msg: Message): String =
-        soup_auth_get_authorization(soupAuthPointer, msg.soupMessagePointer)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getAuthorization(msg: Message): String = soup_auth_get_authorization(soupAuthPointer, msg.soupMessagePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets an opaque identifier for @auth.
@@ -173,8 +170,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      *
      * @return the identifier
      */
-    public open fun getInfo(): String =
-        soup_auth_get_info(soupAuthPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getInfo(): String = soup_auth_get_info(soupAuthPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a list of paths on the server which @auth extends over.
@@ -188,10 +184,8 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      * @return the list of
      *   paths, which can be freed with [method@Auth.free_protection_space].
      */
-    public open fun getProtectionSpace(sourceUri: Uri): SList =
-        soup_auth_get_protection_space(soupAuthPointer, sourceUri.glibUriPointer)!!.run {
-            SList(this)
-        }
+    public open fun getProtectionSpace(sourceUri: Uri): SList = soup_auth_get_protection_space(soupAuthPointer, sourceUri.glibUriPointer)!!.run {
+        SList(this)}
 
     /**
      * Tests if @auth has been given a username and password.
@@ -225,8 +219,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      * @param msg a #SoupMessage
      * @return true if @auth is ready to make a request with.
      */
-    public open fun isReady(msg: Message): Boolean =
-        soup_auth_is_ready(soupAuthPointer, msg.soupMessagePointer).asBoolean()
+    public open fun isReady(msg: Message): Boolean = soup_auth_is_ready(soupAuthPointer, msg.soupMessagePointer).asBoolean()
 
     /**
      * Updates @auth with the information from @msg and @auth_header,
@@ -240,23 +233,23 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
      *   unauthenticated) #SoupAuth. false if something about @auth_params
      *   could not be parsed or incorporated into @auth at all.
      */
-    public open fun update(msg: Message, authHeader: String): Boolean =
-        soup_auth_update(soupAuthPointer, msg.soupMessagePointer, authHeader).asBoolean()
+    public open fun update(msg: Message, authHeader: String): Boolean = soup_auth_update(soupAuthPointer, msg.soupMessagePointer, authHeader).asBoolean()
 
     /**
      * The AuthImpl type represents a native instance of the abstract Auth class.
      *
      * @constructor Creates a new instance of Auth for the provided [CPointer].
      */
-    public class AuthImpl(pointer: CPointer<SoupAuth>) : Auth(pointer)
+    public class AuthImpl(
+        pointer: CPointer<SoupAuth>,
+    ) : Auth(pointer)
 
     public companion object : TypeCompanion<Auth> {
         override val type: GeneratedClassKGType<Auth> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_get_type")!!) { AuthImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_get_type")!!) { AuthImpl(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of Auth

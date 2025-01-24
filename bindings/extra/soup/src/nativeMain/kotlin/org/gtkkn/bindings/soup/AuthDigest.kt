@@ -20,16 +20,16 @@ import org.gtkkn.native.soup.soup_auth_digest_get_type
  * support for it, call [method@Session.remove_feature_by_type]
  * passing %SOUP_TYPE_AUTH_DIGEST.
  */
-public class AuthDigest(public val soupAuthDigestPointer: CPointer<SoupAuth>) :
-    Auth(soupAuthDigestPointer.reinterpret()),
+public class AuthDigest(
+    public val soupAuthDigestPointer: CPointer<SoupAuth>,
+) : Auth(soupAuthDigestPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<AuthDigest> {
         override val type: GeneratedClassKGType<AuthDigest> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_digest_get_type")!!) { AuthDigest(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_digest_get_type")!!) { AuthDigest(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of AuthDigest

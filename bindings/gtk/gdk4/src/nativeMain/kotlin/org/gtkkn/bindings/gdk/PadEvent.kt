@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
  * - parameter `index`: index: Out parameter is not supported
  * - parameter `group`: group: Out parameter is not supported
  */
-public open class PadEvent(public val gdkPadEventPointer: CPointer<GdkPadEvent>) :
-    Event(gdkPadEventPointer.reinterpret()),
+public open class PadEvent(
+    public val gdkPadEventPointer: CPointer<GdkPadEvent>,
+) : Event(gdkPadEventPointer.reinterpret()),
     KGTyped {
     /**
      * Extracts information about the pressed button from
@@ -36,11 +37,10 @@ public open class PadEvent(public val gdkPadEventPointer: CPointer<GdkPadEvent>)
 
     public companion object : TypeCompanion<PadEvent> {
         override val type: GeneratedClassKGType<PadEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pad_event_get_type")!!) { PadEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_pad_event_get_type")!!) { PadEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of PadEvent

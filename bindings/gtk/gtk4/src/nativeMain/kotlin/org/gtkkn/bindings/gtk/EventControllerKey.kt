@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -32,16 +35,14 @@ import org.gtkkn.native.gtk.gtk_event_controller_key_get_im_context
 import org.gtkkn.native.gtk.gtk_event_controller_key_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_key_new
 import org.gtkkn.native.gtk.gtk_event_controller_key_set_im_context
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkEventControllerKey` is an event controller that provides access
  * to key events.
  */
-public open class EventControllerKey(public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>) :
-    EventController(gtkEventControllerKeyPointer.reinterpret()),
+public open class EventControllerKey(
+    public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>,
+) : EventController(gtkEventControllerKeyPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new event controller that will handle key events.
@@ -61,8 +62,7 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      * @param widget a `GtkWidget`
      * @return whether the @widget handled the event
      */
-    public open fun forward(widget: Widget): Boolean =
-        gtk_event_controller_key_forward(gtkEventControllerKeyPointer, widget.gtkWidgetPointer).asBoolean()
+    public open fun forward(widget: Widget): Boolean = gtk_event_controller_key_forward(gtkEventControllerKeyPointer, widget.gtkWidgetPointer).asBoolean()
 
     /**
      * Gets the key group of the current event of this @controller.
@@ -78,18 +78,15 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      *
      * @return the `GtkIMContext`
      */
-    public open fun getImContext(): ImContext? =
-        gtk_event_controller_key_get_im_context(gtkEventControllerKeyPointer)?.run {
-            ImContext.ImContextImpl(this)
-        }
+    public open fun getImContext(): ImContext? = gtk_event_controller_key_get_im_context(gtkEventControllerKeyPointer)?.run {
+        ImContext.ImContextImpl(this)}
 
     /**
      * Sets the input method context of the key @controller.
      *
      * @param imContext a `GtkIMContext`
      */
-    public open fun setImContext(imContext: ImContext? = null): Unit =
-        gtk_event_controller_key_set_im_context(gtkEventControllerKeyPointer, imContext?.gtkImContextPointer)
+    public open fun setImContext(imContext: ImContext? = null): Unit = gtk_event_controller_key_set_im_context(gtkEventControllerKeyPointer, imContext?.gtkImContextPointer)
 
     /**
      * Emitted whenever the input method context filters away
@@ -101,15 +98,7 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onImUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkEventControllerKeyPointer,
-            "im-update",
-            onImUpdateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onImUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkEventControllerKeyPointer, "im-update", onImUpdateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "im-update" signal. See [onImUpdate].
@@ -124,21 +113,11 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `keyval` the pressed key.; `keycode` the raw code of the pressed key.; `state` the bitmask, representing the state of modifier keys and pointer buttons.. Returns true if the key press was handled, false otherwise.
      */
-    public fun onKeyPressed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            keyval: guint,
-            keycode: guint,
-            state: ModifierType,
-        ) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerKeyPointer,
-        "key-pressed",
-        onKeyPressedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onKeyPressed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        keyval: guint,
+        keycode: guint,
+        state: ModifierType,
+    ) -> Boolean): ULong = g_signal_connect_data(gtkEventControllerKeyPointer, "key-pressed", onKeyPressedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever a key is released.
@@ -146,21 +125,11 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `keyval` the released key.; `keycode` the raw code of the released key.; `state` the bitmask, representing the state of modifier keys and pointer buttons.
      */
-    public fun onKeyReleased(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            keyval: guint,
-            keycode: guint,
-            state: ModifierType,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerKeyPointer,
-        "key-released",
-        onKeyReleasedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onKeyReleased(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        keyval: guint,
+        keycode: guint,
+        state: ModifierType,
+    ) -> Unit): ULong = g_signal_connect_data(gtkEventControllerKeyPointer, "key-released", onKeyReleasedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "key-released" signal. See [onKeyReleased].
@@ -169,7 +138,11 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      * @param keycode the raw code of the released key.
      * @param state the bitmask, representing the state of modifier keys and pointer buttons.
      */
-    public fun emitKeyReleased(keyval: guint, keycode: guint, state: ModifierType) {
+    public fun emitKeyReleased(
+        keyval: guint,
+        keycode: guint,
+        state: ModifierType,
+    ) {
         g_signal_emit_by_name(gtkEventControllerKeyPointer.reinterpret(), "key-released", keyval, keycode, state.mask)
     }
 
@@ -180,27 +153,14 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
      * @param handler the Callback to connect. Params: `state` the bitmask, representing the new state of modifier keys and
      *   pointer buttons.
      */
-    public fun onModifiers(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (state: ModifierType) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerKeyPointer,
-        "modifiers",
-        onModifiersFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onModifiers(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (state: ModifierType) -> Boolean): ULong = g_signal_connect_data(gtkEventControllerKeyPointer, "modifiers", onModifiersFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<EventControllerKey> {
         override val type: GeneratedClassKGType<EventControllerKey> =
-            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_key_get_type")!!) {
-                EventControllerKey(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_event_controller_key_get_type")!!) { EventControllerKey(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EventControllerKey
@@ -212,84 +172,58 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
 }
 
 private val onImUpdateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
-private val onKeyPressedFunc: CPointer<
-    CFunction<
-        (
-            guint,
-            guint,
-            GdkModifierType,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val onKeyPressedFunc: CPointer<CFunction<(
+    guint,
+    guint,
+    GdkModifierType,
+) -> gboolean>> = staticCFunction {
+    _: COpaquePointer,
+    keyval: guint,
+    keycode: guint,
+    state: GdkModifierType,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         keyval: guint,
         keycode: guint,
-        state: GdkModifierType,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            keyval: guint,
-            keycode: guint,
-            state: ModifierType,
-        ) -> Boolean
-        >().get().invoke(
-        keyval,
-        keycode,
-        state.run {
-            ModifierType(this)
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+        state: ModifierType,
+    ) -> Boolean>().get().invoke(keyval, keycode, state.run {
+        ModifierType(this)}
+    ).asGBoolean()}
+.reinterpret()
 
-private val onKeyReleasedFunc: CPointer<
-    CFunction<
-        (
-            guint,
-            guint,
-            GdkModifierType,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val onKeyReleasedFunc: CPointer<CFunction<(
+    guint,
+    guint,
+    GdkModifierType,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    keyval: guint,
+    keycode: guint,
+    state: GdkModifierType,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         keyval: guint,
         keycode: guint,
-        state: GdkModifierType,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            keyval: guint,
-            keycode: guint,
-            state: ModifierType,
-        ) -> Unit
-        >().get().invoke(
-        keyval,
-        keycode,
-        state.run {
-            ModifierType(this)
-        }
-    )
-}
-    .reinterpret()
+        state: ModifierType,
+    ) -> Unit>().get().invoke(keyval, keycode, state.run {
+        ModifierType(this)}
+    )}
+.reinterpret()
 
 private val onModifiersFunc: CPointer<CFunction<(GdkModifierType) -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        state: GdkModifierType,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    state: GdkModifierType,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(state: ModifierType) -> Boolean>().get().invoke(
-        state.run {
-            ModifierType(this)
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(state: ModifierType) -> Boolean>().get().invoke(state.run {
+        ModifierType(this)}
+    ).asGBoolean()}
+.reinterpret()

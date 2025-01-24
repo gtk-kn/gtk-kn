@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -44,10 +48,6 @@ import org.gtkkn.native.gtk.gtk_check_button_set_group
 import org.gtkkn.native.gtk.gtk_check_button_set_inconsistent
 import org.gtkkn.native.gtk.gtk_check_button_set_label
 import org.gtkkn.native.gtk.gtk_check_button_set_use_underline
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkCheckButton` places a label next to an indicator.
@@ -112,8 +112,9 @@ import kotlin.Unit
  *
  * - method `group`: Property has no getter
  */
-public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkCheckButton>) :
-    Widget(gtkCheckButtonPointer.reinterpret()),
+public open class CheckButton(
+    public val gtkCheckButtonPointer: CPointer<GtkCheckButton>,
+) : Widget(gtkCheckButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
     override val gtkActionablePointer: CPointer<GtkActionable>
@@ -141,7 +142,6 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
          * @return whether the check button is active
          */
         get() = gtk_check_button_get_active(gtkCheckButtonPointer).asBoolean()
-
         /**
          * Changes the check buttons active state.
          *
@@ -163,9 +163,7 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
          * @since 4.8
          */
         get() = gtk_check_button_get_child(gtkCheckButtonPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @button.
          *
@@ -194,7 +192,6 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
          * @return true if @check_button is currently in an inconsistent state
          */
         get() = gtk_check_button_get_inconsistent(gtkCheckButtonPointer).asBoolean()
-
         /**
          * Sets the `GtkCheckButton` to inconsistent state.
          *
@@ -216,7 +213,6 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
          *   to the indicator. If no label is shown, null will be returned.
          */
         get() = gtk_check_button_get_label(gtkCheckButtonPointer)?.toKString()
-
         /**
          * Sets the text of @self.
          *
@@ -242,7 +238,6 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
          *   a new value.
          */
         get() = gtk_check_button_get_use_underline(gtkCheckButtonPointer).asBoolean()
-
         /**
          * Sets whether underlines in the label indicate mnemonics.
          *
@@ -289,8 +284,7 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
      * @param group another `GtkCheckButton` to
      *   form a group with
      */
-    public open fun setGroup(group: CheckButton? = null): Unit =
-        gtk_check_button_set_group(gtkCheckButtonPointer, group?.gtkCheckButtonPointer)
+    public open fun setGroup(group: CheckButton? = null): Unit = gtk_check_button_set_group(gtkCheckButtonPointer, group?.gtkCheckButtonPointer)
 
     /**
      * Emitted to when the check button is activated.
@@ -309,15 +303,7 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
      * @since 4.2
      */
     @GtkVersion4_2
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCheckButtonPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCheckButtonPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -336,15 +322,7 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCheckButtonPointer,
-            "toggled",
-            onToggledFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCheckButtonPointer, "toggled", onToggledFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "toggled" signal. See [onToggled].
@@ -355,20 +333,10 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
 
     public companion object : TypeCompanion<CheckButton> {
         override val type: GeneratedClassKGType<CheckButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_check_button_get_type")!!) { CheckButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_check_button_get_type")!!) { CheckButton(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
-
-        /**
-         * Creates a new `GtkCheckButton` with the given text.
-         *
-         * @param label the text for the check button.
-         * @return a new `GtkCheckButton`
-         */
-        public fun newWithLabel(label: String? = null): CheckButton =
-            CheckButton(gtk_check_button_new_with_label(label)!!.reinterpret())
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new `GtkCheckButton` with the given text and a mnemonic.
@@ -377,8 +345,7 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
          *   in front of the mnemonic character
          * @return a new `GtkCheckButton`
          */
-        public fun newWithMnemonic(label: String? = null): CheckButton =
-            CheckButton(gtk_check_button_new_with_mnemonic(label)!!.reinterpret())
+        public fun withMnemonic(label: String? = null): CheckButton = CheckButton(gtk_check_button_new_with_mnemonic(label)!!.reinterpret())
 
         /**
          * Get the GType of CheckButton
@@ -390,17 +357,15 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onToggledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

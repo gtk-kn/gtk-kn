@@ -17,7 +17,9 @@ import org.gtkkn.native.soup.soup_message_flags_get_type
  * Various flags that can be set on a #SoupMessage to alter its
  * behavior.
  */
-public class MessageFlags(public val mask: SoupMessageFlags) : Bitfield<MessageFlags> {
+public class MessageFlags(
+    public val mask: SoupMessageFlags,
+) : Bitfield<MessageFlags> {
     override infix fun or(other: MessageFlags): MessageFlags = MessageFlags(mask or other.mask)
 
     public companion object {
@@ -54,7 +56,7 @@ public class MessageFlags(public val mask: SoupMessageFlags) : Bitfield<MessageF
          *   [method@Message.disable_feature] passing #SOUP_TYPE_AUTH_MANAGER instead.
          */
         public val DO_NOT_USE_AUTH_CACHE: MessageFlags =
-            MessageFlags(SOUP_MESSAGE_DO_NOT_USE_AUTH_CACHE)
+                MessageFlags(SOUP_MESSAGE_DO_NOT_USE_AUTH_CACHE)
 
         /**
          * Metrics will be collected for this message.

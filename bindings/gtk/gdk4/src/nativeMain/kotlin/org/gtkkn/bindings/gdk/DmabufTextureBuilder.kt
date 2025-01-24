@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
@@ -45,8 +47,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GdkDmabufTextureBuilder` is a builder used to construct [class@Gdk.Texture]
@@ -114,8 +114,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GdkVersion4_14
-public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer: CPointer<GdkDmabufTextureBuilder>) :
-    Object(gdkDmabufTextureBuilderPointer.reinterpret()),
+public open class DmabufTextureBuilder(
+    public val gdkDmabufTextureBuilderPointer: CPointer<GdkDmabufTextureBuilder>,
+) : Object(gdkDmabufTextureBuilderPointer.reinterpret()),
     KGTyped {
     /**
      * The display that this texture will be used on.
@@ -132,9 +133,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_display(gdkDmabufTextureBuilderPointer)!!.run {
-            Display(this)
-        }
-
+            Display(this)}
         /**
          * Sets the display that this texture builder is
          * associated with.
@@ -165,7 +164,6 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_fourcc(gdkDmabufTextureBuilderPointer)
-
         /**
          * Sets the format of the texture.
          *
@@ -194,7 +192,6 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_height(gdkDmabufTextureBuilderPointer)
-
         /**
          * Sets the height of the texture.
          *
@@ -220,7 +217,6 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_modifier(gdkDmabufTextureBuilderPointer)
-
         /**
          * Sets the modifier.
          *
@@ -247,7 +243,6 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_n_planes(gdkDmabufTextureBuilderPointer)
-
         /**
          * Sets the number of planes of the texture.
          *
@@ -273,7 +268,6 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_premultiplied(gdkDmabufTextureBuilderPointer).asBoolean()
-
         /**
          * Sets whether the data is premultiplied.
          *
@@ -284,9 +278,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         @GdkVersion4_14
-        set(
-            premultiplied
-        ) = gdk_dmabuf_texture_builder_set_premultiplied(gdkDmabufTextureBuilderPointer, premultiplied.asGBoolean())
+        set(premultiplied) = gdk_dmabuf_texture_builder_set_premultiplied(gdkDmabufTextureBuilderPointer, premultiplied.asGBoolean())
 
     /**
      * The update region for [property@Gdk.GLTextureBuilder:update-texture].
@@ -303,9 +295,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_update_region(gdkDmabufTextureBuilderPointer)?.run {
-            Region(this)
-        }
-
+            Region(this)}
         /**
          * Sets the region to be updated by this texture. Together with
          * [property@Gdk.DmabufTextureBuilder:update-texture] this describes an
@@ -322,9 +312,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         @GdkVersion4_14
-        set(
-            region
-        ) = gdk_dmabuf_texture_builder_set_update_region(gdkDmabufTextureBuilderPointer, region?.cairoRegionPointer)
+        set(region) = gdk_dmabuf_texture_builder_set_update_region(gdkDmabufTextureBuilderPointer, region?.cairoRegionPointer)
 
     /**
      * The texture [property@Gdk.DmabufTextureBuilder:update-region] is an update for.
@@ -341,9 +329,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_update_texture(gdkDmabufTextureBuilderPointer)?.run {
-            Texture.TextureImpl(this)
-        }
-
+            Texture.TextureImpl(this)}
         /**
          * Sets the texture to be updated by this texture. See
          * [method@Gdk.DmabufTextureBuilder.set_update_region] for an explanation.
@@ -352,9 +338,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         @GdkVersion4_14
-        set(
-            texture
-        ) = gdk_dmabuf_texture_builder_set_update_texture(gdkDmabufTextureBuilderPointer, texture?.gdkTexturePointer)
+        set(texture) = gdk_dmabuf_texture_builder_set_update_texture(gdkDmabufTextureBuilderPointer, texture?.gdkTexturePointer)
 
     /**
      * The width of the texture.
@@ -371,7 +355,6 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_width(gdkDmabufTextureBuilderPointer)
-
         /**
          * Sets the width of the texture.
          *
@@ -389,7 +372,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
      * @return the new `GdkTextureBuilder`
      * @since 4.14
      */
-    public constructor() : this(gdk_dmabuf_texture_builder_new()!!.reinterpret())
+    public constructor() : this(gdk_dmabuf_texture_builder_new()!!)
 
     /**
      * Gets the file descriptor for a plane.
@@ -409,8 +392,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
      * @since 4.14
      */
     @GdkVersion4_14
-    public open fun getOffset(plane: guint): guint =
-        gdk_dmabuf_texture_builder_get_offset(gdkDmabufTextureBuilderPointer, plane)
+    public open fun getOffset(plane: guint): guint = gdk_dmabuf_texture_builder_get_offset(gdkDmabufTextureBuilderPointer, plane)
 
     /**
      * Gets the stride value for a plane.
@@ -420,8 +402,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
      * @since 4.14
      */
     @GdkVersion4_14
-    public open fun getStride(plane: guint): guint =
-        gdk_dmabuf_texture_builder_get_stride(gdkDmabufTextureBuilderPointer, plane)
+    public open fun getStride(plane: guint): guint = gdk_dmabuf_texture_builder_get_stride(gdkDmabufTextureBuilderPointer, plane)
 
     /**
      * Sets the file descriptor for a plane.
@@ -431,8 +412,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
      * @since 4.14
      */
     @GdkVersion4_14
-    public open fun setFd(plane: guint, fd: gint): Unit =
-        gdk_dmabuf_texture_builder_set_fd(gdkDmabufTextureBuilderPointer, plane, fd)
+    public open fun setFd(plane: guint, fd: gint): Unit = gdk_dmabuf_texture_builder_set_fd(gdkDmabufTextureBuilderPointer, plane, fd)
 
     /**
      * Sets the offset for a plane.
@@ -442,8 +422,7 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
      * @since 4.14
      */
     @GdkVersion4_14
-    public open fun setOffset(plane: guint, offset: guint): Unit =
-        gdk_dmabuf_texture_builder_set_offset(gdkDmabufTextureBuilderPointer, plane, offset)
+    public open fun setOffset(plane: guint, offset: guint): Unit = gdk_dmabuf_texture_builder_set_offset(gdkDmabufTextureBuilderPointer, plane, offset)
 
     /**
      * Sets the stride for a plane.
@@ -455,18 +434,14 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
      * @since 4.14
      */
     @GdkVersion4_14
-    public open fun setStride(plane: guint, stride: guint): Unit =
-        gdk_dmabuf_texture_builder_set_stride(gdkDmabufTextureBuilderPointer, plane, stride)
+    public open fun setStride(plane: guint, stride: guint): Unit = gdk_dmabuf_texture_builder_set_stride(gdkDmabufTextureBuilderPointer, plane, stride)
 
     public companion object : TypeCompanion<DmabufTextureBuilder> {
         override val type: GeneratedClassKGType<DmabufTextureBuilder> =
-            GeneratedClassKGType(getTypeOrNull("gdk_dmabuf_texture_builder_get_type")!!) {
-                DmabufTextureBuilder(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_dmabuf_texture_builder_get_type")!!) { DmabufTextureBuilder(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of DmabufTextureBuilder

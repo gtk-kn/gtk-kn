@@ -32,7 +32,9 @@ import org.gtkkn.native.gobject.GType
  * of this enumeration. Your code should preserve and ignore them.  You can use
  * %GDK_MODIFIER_MASK to remove all private values.
  */
-public class ModifierType(public val mask: GdkModifierType) : Bitfield<ModifierType> {
+public class ModifierType(
+    public val mask: GdkModifierType,
+) : Bitfield<ModifierType> {
     override infix fun or(other: ModifierType): ModifierType = ModifierType(mask or other.mask)
 
     public companion object {

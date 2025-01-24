@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -43,10 +47,6 @@ import org.gtkkn.native.gtk.gtk_expander_set_label_widget
 import org.gtkkn.native.gtk.gtk_expander_set_resize_toplevel
 import org.gtkkn.native.gtk.gtk_expander_set_use_markup
 import org.gtkkn.native.gtk.gtk_expander_set_use_underline
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkExpander` allows the user to reveal its child by clicking
@@ -142,8 +142,9 @@ import kotlin.Unit
  *
  * `GtkExpander` uses the %GTK_ACCESSIBLE_ROLE_BUTTON role.
  */
-public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>) :
-    Widget(gtkExpanderPointer.reinterpret()),
+public open class Expander(
+    public val gtkExpanderPointer: CPointer<GtkExpander>,
+) : Widget(gtkExpanderPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -164,9 +165,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return the child widget of @expander
          */
         get() = gtk_expander_get_child(gtkExpanderPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @expander.
          *
@@ -186,7 +185,6 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return the current state of the expander
          */
         get() = gtk_expander_get_expanded(gtkExpanderPointer).asBoolean()
-
         /**
          * Sets the state of the expander.
          *
@@ -214,7 +212,6 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          *   by the widget and must not be modified or freed.
          */
         get() = gtk_expander_get_label(gtkExpanderPointer)?.toKString()
-
         /**
          * Sets the text of the label of the expander to @label.
          *
@@ -234,9 +231,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return the label widget
          */
         get() = gtk_expander_get_label_widget(gtkExpanderPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Set the label widget for the expander.
          *
@@ -259,7 +254,6 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return the “resize toplevel” setting.
          */
         get() = gtk_expander_get_resize_toplevel(gtkExpanderPointer).asBoolean()
-
         /**
          * Sets whether the expander will resize the toplevel widget
          * containing the expander upon resizing and collapsing.
@@ -278,7 +272,6 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          * @return true if the label’s text will be parsed for markup
          */
         get() = gtk_expander_get_use_markup(gtkExpanderPointer).asBoolean()
-
         /**
          * Sets whether the text of the label contains Pango markup.
          *
@@ -297,7 +290,6 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          *   label indicates the mnemonic accelerator keys
          */
         get() = gtk_expander_get_use_underline(gtkExpanderPointer).asBoolean()
-
         /**
          * If true, an underline in the text indicates a mnemonic.
          *
@@ -319,15 +311,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkExpanderPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkExpanderPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -338,19 +322,10 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
 
     public companion object : TypeCompanion<Expander> {
         override val type: GeneratedClassKGType<Expander> =
-            GeneratedClassKGType(getTypeOrNull("gtk_expander_get_type")!!) { Expander(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_expander_get_type")!!) { Expander(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
-
-        /**
-         * Creates a new expander using @label as the text of the label.
-         *
-         * @param label the text of the label
-         * @return a new `GtkExpander` widget.
-         */
-        public fun new(label: String? = null): Expander = Expander(gtk_expander_new(label)!!.reinterpret())
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new expander using @label as the text of the label.
@@ -366,8 +341,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
          *   in front of the mnemonic character
          * @return a new `GtkExpander` widget.
          */
-        public fun newWithMnemonic(label: String? = null): Expander =
-            Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret())
+        public fun withMnemonic(label: String? = null): Expander = Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret())
 
         /**
          * Get the GType of Expander
@@ -379,9 +353,8 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

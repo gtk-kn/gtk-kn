@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -16,12 +17,14 @@ import org.gtkkn.native.gsk.gsk_clip_node_get_child
 import org.gtkkn.native.gsk.gsk_clip_node_get_clip
 import org.gtkkn.native.gsk.gsk_clip_node_get_type
 import org.gtkkn.native.gsk.gsk_clip_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node applying a rectangular clip to its single child node.
  */
-public open class ClipNode(public val gskClipNodePointer: CPointer<GskClipNode>) :
-    RenderNode(gskClipNodePointer.reinterpret()),
+public open class ClipNode(
+    public val gskClipNodePointer: CPointer<GskClipNode>,
+) : RenderNode(gskClipNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will clip the @child to the area
@@ -31,10 +34,9 @@ public open class ClipNode(public val gskClipNodePointer: CPointer<GskClipNode>)
      * @param clip The clip to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        clip: Rect,
-    ) : this(gsk_clip_node_new(child.gskRenderNodePointer, clip.grapheneRectPointer)!!.reinterpret())
+    public constructor(child: RenderNode, clip: Rect) : this(gsk_clip_node_new(child.gskRenderNodePointer, clip.grapheneRectPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting clipped by the given @node.
@@ -42,8 +44,7 @@ public open class ClipNode(public val gskClipNodePointer: CPointer<GskClipNode>)
      * @return The child that is getting clipped
      */
     public open fun getChild(): RenderNode = gsk_clip_node_get_child(gskClipNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the clip rectangle for @node.
@@ -51,16 +52,14 @@ public open class ClipNode(public val gskClipNodePointer: CPointer<GskClipNode>)
      * @return a clip rectangle
      */
     public open fun getClip(): Rect = gsk_clip_node_get_clip(gskClipNodePointer.reinterpret())!!.run {
-        Rect(this)
-    }
+        Rect(this)}
 
     public companion object : TypeCompanion<ClipNode> {
         override val type: GeneratedClassKGType<ClipNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_clip_node_get_type")!!) { ClipNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_clip_node_get_type")!!) { ClipNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of ClipNode

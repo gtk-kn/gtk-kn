@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,8 +31,6 @@ import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.GtkShortcutsWindow
 import org.gtkkn.native.gtk.gtk_shortcuts_window_add_section
 import org.gtkkn.native.gtk.gtk_shortcuts_window_get_type
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkShortcutsWindow` shows information about the keyboard shortcuts
@@ -90,8 +90,9 @@ import kotlin.Unit
  * - method `section-name`: Property has no getter nor setter
  * - method `view-name`: Property has no getter nor setter
  */
-public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>) :
-    Window(gtkShortcutsWindowPointer.reinterpret()),
+public open class ShortcutsWindow(
+    public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>,
+) : Window(gtkShortcutsWindowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -124,8 +125,7 @@ public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addSection(section: ShortcutsSection): Unit =
-        gtk_shortcuts_window_add_section(gtkShortcutsWindowPointer, section.gtkShortcutsSectionPointer)
+    public open fun addSection(section: ShortcutsSection): Unit = gtk_shortcuts_window_add_section(gtkShortcutsWindowPointer, section.gtkShortcutsSectionPointer)
 
     /**
      * Emitted when the user uses a keybinding to close the window.
@@ -137,15 +137,7 @@ public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkShortcutsWindowPointer,
-            "close",
-            onCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkShortcutsWindowPointer, "close", onCloseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "close" signal. See [onClose].
@@ -164,15 +156,7 @@ public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkShortcutsWindowPointer,
-            "search",
-            onSearchFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkShortcutsWindowPointer, "search", onSearchFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "search" signal. See [onSearch].
@@ -183,13 +167,10 @@ public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer
 
     public companion object : TypeCompanion<ShortcutsWindow> {
         override val type: GeneratedClassKGType<ShortcutsWindow> =
-            GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_window_get_type")!!) {
-                ShortcutsWindow(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_window_get_type")!!) { ShortcutsWindow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ShortcutsWindow
@@ -201,17 +182,15 @@ public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer
 }
 
 private val onCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onSearchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,13 +12,10 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOnce
 import org.gtkkn.native.glib.gpointer
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GOnce struct controls a one-time initialization function. Any
@@ -36,16 +34,15 @@ import kotlin.native.ref.createCleaner
  * @since 2.4
  */
 @GLibVersion2_4
-public class Once(public val glibOncePointer: CPointer<GOnce>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibOncePointer) {
+public class Once(
+    public val glibOncePointer: CPointer<GOnce>,
+) : ProxyInstance(glibOncePointer) {
     /**
      * the status of the #GOnce
      */
     public var status: OnceStatus
         get() = glibOncePointer.pointed.status.run {
-            OnceStatus.fromNativeValue(this)
-        }
-
+            OnceStatus.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibOncePointer.pointed.status = value.nativeValue
@@ -57,7 +54,6 @@ public class Once(public val glibOncePointer: CPointer<GOnce>, cleaner: Cleaner?
      */
     public var retval: gpointer
         get() = glibOncePointer.pointed.retval!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOncePointer.pointed.retval = value
@@ -69,21 +65,9 @@ public class Once(public val glibOncePointer: CPointer<GOnce>, cleaner: Cleaner?
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOnce>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Once and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GOnce>, Cleaner>,
-    ) : this(glibOncePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GOnce>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Once using the provided [AutofreeScope].

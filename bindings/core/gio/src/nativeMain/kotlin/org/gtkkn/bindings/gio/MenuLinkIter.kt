@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,8 +21,6 @@ import org.gtkkn.native.gio.g_menu_link_iter_get_type
 import org.gtkkn.native.gio.g_menu_link_iter_get_value
 import org.gtkkn.native.gio.g_menu_link_iter_next
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * #GMenuLinkIter is an opaque structure type.  You must access it using
@@ -33,8 +33,9 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>) :
-    Object(gioMenuLinkIterPointer.reinterpret()),
+public abstract class MenuLinkIter(
+    public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>,
+) : Object(gioMenuLinkIterPointer.reinterpret()),
     KGTyped {
     /**
      * Gets the name of the link at the current iterator position.
@@ -45,8 +46,7 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getName(): String =
-        g_menu_link_iter_get_name(gioMenuLinkIterPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getName(): String = g_menu_link_iter_get_name(gioMenuLinkIterPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the linked #GMenuModel at the current iterator position.
@@ -58,8 +58,7 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
      */
     @GioVersion2_32
     public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer)!!.run {
-        MenuModel.MenuModelImpl(this)
-    }
+        MenuModel.MenuModelImpl(this)}
 
     /**
      * Attempts to advance the iterator to the next (possibly first)
@@ -82,17 +81,16 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
      *
      * @constructor Creates a new instance of MenuLinkIter for the provided [CPointer].
      */
-    public class MenuLinkIterImpl(pointer: CPointer<GMenuLinkIter>) : MenuLinkIter(pointer)
+    public class MenuLinkIterImpl(
+        pointer: CPointer<GMenuLinkIter>,
+    ) : MenuLinkIter(pointer)
 
     public companion object : TypeCompanion<MenuLinkIter> {
         override val type: GeneratedClassKGType<MenuLinkIter> =
-            GeneratedClassKGType(getTypeOrNull("g_menu_link_iter_get_type")!!) {
-                MenuLinkIterImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_menu_link_iter_get_type")!!) { MenuLinkIterImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of MenuLinkIter

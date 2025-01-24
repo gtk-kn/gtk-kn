@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -30,9 +33,6 @@ import org.gtkkn.native.gtk.gtk_color_chooser_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_get_use_alpha
 import org.gtkkn.native.gtk.gtk_color_chooser_set_rgba
 import org.gtkkn.native.gtk.gtk_color_chooser_set_use_alpha
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkColorChooser` is an interface that is implemented by widgets
@@ -49,9 +49,7 @@ import kotlin.Unit
  * - parameter `colors`: Array parameter of type Gdk.RGBA is not supported
  * - method `rgba`: Property has no getter
  */
-public interface ColorChooser :
-    Proxy,
-    KGTyped {
+public interface ColorChooser : Proxy, KGTyped {
     public val gtkColorChooserPointer: CPointer<GtkColorChooser>
 
     /**
@@ -72,7 +70,6 @@ public interface ColorChooser :
          *   false if not
          */
         get() = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer).asBoolean()
-
         /**
          * Sets whether or not the color chooser should use the alpha channel.
          *
@@ -107,8 +104,7 @@ public interface ColorChooser :
      *
      * @param useAlpha true if color chooser should use alpha channel, false if not
      */
-    public fun setUseAlpha(useAlpha: Boolean): Unit =
-        gtk_color_chooser_set_use_alpha(gtkColorChooserPointer, useAlpha.asGBoolean())
+    public fun setUseAlpha(useAlpha: Boolean): Unit = gtk_color_chooser_set_use_alpha(gtkColorChooserPointer, useAlpha.asGBoolean())
 
     /**
      * Emitted when a color is activated from the color chooser.
@@ -120,34 +116,24 @@ public interface ColorChooser :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `color` the color
      */
-    public fun onColorActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (color: Rgba) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkColorChooserPointer,
-            "color-activated",
-            onColorActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onColorActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (color: Rgba) -> Unit): ULong = g_signal_connect_data(gtkColorChooserPointer, "color-activated", onColorActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ColorChooserImpl type represents a native instance of the ColorChooser interface.
      *
      * @constructor Creates a new instance of ColorChooser for the provided [CPointer].
      */
-    public data class ColorChooserImpl(override val gtkColorChooserPointer: CPointer<GtkColorChooser>) :
-        Object(gtkColorChooserPointer.reinterpret()),
+    public data class ColorChooserImpl(
+        override val gtkColorChooserPointer: CPointer<GtkColorChooser>,
+    ) : Object(gtkColorChooserPointer.reinterpret()),
         ColorChooser
 
     public companion object : TypeCompanion<ColorChooser> {
         override val type: GeneratedInterfaceKGType<ColorChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_color_chooser_get_type")!!) {
-                ColorChooserImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_color_chooser_get_type")!!) { ColorChooserImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ColorChooser
@@ -159,15 +145,12 @@ public interface ColorChooser :
 }
 
 private val onColorActivatedFunc: CPointer<CFunction<(CPointer<GdkRGBA>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            color: CPointer<GdkRGBA>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(color: Rgba) -> Unit>().get().invoke(
-            color!!.run {
-                Rgba(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    color: CPointer<GdkRGBA>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(color: Rgba) -> Unit>().get().invoke(color!!.run {
+        Rgba(this)}
+    )}
+.reinterpret()

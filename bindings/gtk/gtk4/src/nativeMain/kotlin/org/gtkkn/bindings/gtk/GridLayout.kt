@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -29,8 +31,6 @@ import org.gtkkn.native.gtk.gtk_grid_layout_set_column_spacing
 import org.gtkkn.native.gtk.gtk_grid_layout_set_row_baseline_position
 import org.gtkkn.native.gtk.gtk_grid_layout_set_row_homogeneous
 import org.gtkkn.native.gtk.gtk_grid_layout_set_row_spacing
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GtkGridLayout` is a layout manager which arranges child widgets in
@@ -48,8 +48,9 @@ import kotlin.Unit
  * attached to the same row or column; however, if you only ever need a
  * single row or column, you should consider using `GtkBoxLayout`.
  */
-public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLayout>) :
-    LayoutManager(gtkGridLayoutPointer.reinterpret()),
+public open class GridLayout(
+    public val gtkGridLayoutPointer: CPointer<GtkGridLayout>,
+) : LayoutManager(gtkGridLayoutPointer.reinterpret()),
     KGTyped {
     /**
      * The row to align to the baseline, when `GtkWidget:valign` is set
@@ -62,7 +63,6 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
          * @return the global baseline row
          */
         get() = gtk_grid_layout_get_baseline_row(gtkGridLayoutPointer)
-
         /**
          * Sets which row defines the global baseline for the entire grid.
          *
@@ -84,7 +84,6 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
          * @return true if the columns are homogeneous, and false otherwise
          */
         get() = gtk_grid_layout_get_column_homogeneous(gtkGridLayoutPointer).asBoolean()
-
         /**
          * Sets whether all columns of @grid should have the same width.
          *
@@ -102,7 +101,6 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
          * @return the spacing between consecutive columns
          */
         get() = gtk_grid_layout_get_column_spacing(gtkGridLayoutPointer)
-
         /**
          * Sets the amount of space to insert between consecutive columns.
          *
@@ -120,7 +118,6 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
          * @return true if the rows are homogeneous, and false otherwise
          */
         get() = gtk_grid_layout_get_row_homogeneous(gtkGridLayoutPointer).asBoolean()
-
         /**
          * Sets whether all rows of @grid should have the same height.
          *
@@ -138,7 +135,6 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
          * @return the spacing between consecutive rows
          */
         get() = gtk_grid_layout_get_row_spacing(gtkGridLayoutPointer)
-
         /**
          * Sets the amount of space to insert between consecutive rows.
          *
@@ -164,10 +160,8 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
      * @param row a row index
      * @return the baseline position of @row
      */
-    public open fun getRowBaselinePosition(row: gint): BaselinePosition =
-        gtk_grid_layout_get_row_baseline_position(gtkGridLayoutPointer, row).run {
-            BaselinePosition.fromNativeValue(this)
-        }
+    public open fun getRowBaselinePosition(row: gint): BaselinePosition = gtk_grid_layout_get_row_baseline_position(gtkGridLayoutPointer, row).run {
+        BaselinePosition.fromNativeValue(this)}
 
     /**
      * Sets how the baseline should be positioned on @row of the
@@ -176,16 +170,14 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
      * @param row a row index
      * @param pos a `GtkBaselinePosition`
      */
-    public open fun setRowBaselinePosition(row: gint, pos: BaselinePosition): Unit =
-        gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer, row, pos.nativeValue)
+    public open fun setRowBaselinePosition(row: gint, pos: BaselinePosition): Unit = gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer, row, pos.nativeValue)
 
     public companion object : TypeCompanion<GridLayout> {
         override val type: GeneratedClassKGType<GridLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_grid_layout_get_type")!!) { GridLayout(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_grid_layout_get_type")!!) { GridLayout(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GridLayout

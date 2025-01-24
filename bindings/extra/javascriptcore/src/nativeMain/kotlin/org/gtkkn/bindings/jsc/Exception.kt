@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.jsc
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -25,7 +26,6 @@ import org.gtkkn.native.jsc.jsc_exception_new
 import org.gtkkn.native.jsc.jsc_exception_new_with_name
 import org.gtkkn.native.jsc.jsc_exception_report
 import org.gtkkn.native.jsc.jsc_exception_to_string
-import kotlin.String
 
 /**
  * JSCException represents a JavaScript exception.
@@ -37,8 +37,9 @@ import kotlin.String
  * - constructor `new_with_name_printf`: Varargs parameter is not supported
  * - parameter `args`: va_list type is not supported
  */
-public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
-    Object(jscExceptionPointer.reinterpret()),
+public class Exception(
+    public val jscExceptionPointer: CPointer<JSCException>,
+) : Object(jscExceptionPointer.reinterpret()),
     KGTyped {
     /**
      * Create a new #JSCException in @context with @message.
@@ -47,10 +48,7 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
      * @param message the error message
      * @return a new #JSCException.
      */
-    public constructor(
-        context: Context,
-        message: String,
-    ) : this(jsc_exception_new(context.jscContextPointer, message)!!.reinterpret())
+    public constructor(context: Context, message: String) : this(jsc_exception_new(context.jscContextPointer, message)!!)
 
     /**
      * Create a new #JSCException in @context with @name and @message.
@@ -64,7 +62,7 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
         context: Context,
         name: String,
         message: String,
-    ) : this(jsc_exception_new_with_name(context.jscContextPointer, name, message)!!.reinterpret())
+    ) : this(jsc_exception_new_with_name(context.jscContextPointer, name, message)!!)
 
     /**
      * Get a string with the exception backtrace.
@@ -92,16 +90,14 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
      *
      * @return the @exception error message.
      */
-    public fun getMessage(): String =
-        jsc_exception_get_message(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
+    public fun getMessage(): String = jsc_exception_get_message(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the error name of @exception
      *
      * @return the @exception error name.
      */
-    public fun getName(): String =
-        jsc_exception_get_name(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = jsc_exception_get_name(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the source URI of @exception.
@@ -116,24 +112,21 @@ public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
      *
      * @return a new string with the exception report
      */
-    public fun report(): String =
-        jsc_exception_report(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
+    public fun report(): String = jsc_exception_report(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the string representation of @exception error.
      *
      * @return the string representation of @exception.
      */
-    override fun toString(): String =
-        jsc_exception_to_string(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = jsc_exception_to_string(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Exception> {
         override val type: GeneratedClassKGType<Exception> =
-            GeneratedClassKGType(getTypeOrNull("jsc_exception_get_type")!!) { Exception(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("jsc_exception_get_type")!!) { Exception(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
-        }
+            JavaScriptCoreTypeProvider.register()}
 
         /**
          * Get the GType of Exception

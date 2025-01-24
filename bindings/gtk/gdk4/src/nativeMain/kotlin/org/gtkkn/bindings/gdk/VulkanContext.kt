@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -23,8 +25,6 @@ import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GdkVulkanContext` is an object representing the platform-specific
@@ -37,8 +37,9 @@ import kotlin.Unit
  * Support for `GdkVulkanContext` is platform-specific and context creation
  * can fail, returning null context.
  */
-public abstract class VulkanContext(public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>) :
-    DrawContext(gdkVulkanContextPointer.reinterpret()),
+public abstract class VulkanContext(
+    public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>,
+) : DrawContext(gdkVulkanContextPointer.reinterpret()),
     Initable,
     KGTyped {
     override val gioInitablePointer: CPointer<GInitable>
@@ -53,15 +54,7 @@ public abstract class VulkanContext(public val gdkVulkanContextPointer: CPointer
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gdkVulkanContextPointer,
-            "images-updated",
-            onImagesUpdatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gdkVulkanContextPointer, "images-updated", onImagesUpdatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "images-updated" signal. See [onImagesUpdated].
@@ -75,17 +68,16 @@ public abstract class VulkanContext(public val gdkVulkanContextPointer: CPointer
      *
      * @constructor Creates a new instance of VulkanContext for the provided [CPointer].
      */
-    public class VulkanContextImpl(pointer: CPointer<GdkVulkanContext>) : VulkanContext(pointer)
+    public class VulkanContextImpl(
+        pointer: CPointer<GdkVulkanContext>,
+    ) : VulkanContext(pointer)
 
     public companion object : TypeCompanion<VulkanContext> {
         override val type: GeneratedClassKGType<VulkanContext> =
-            GeneratedClassKGType(getTypeOrNull("gdk_vulkan_context_get_type")!!) {
-                VulkanContextImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_vulkan_context_get_type")!!) { VulkanContextImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of VulkanContext
@@ -97,9 +89,8 @@ public abstract class VulkanContext(public val gdkVulkanContextPointer: CPointer
 }
 
 private val onImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

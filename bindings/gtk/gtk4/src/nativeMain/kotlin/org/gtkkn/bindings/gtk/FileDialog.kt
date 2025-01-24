@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -58,10 +62,6 @@ import org.gtkkn.native.gtk.gtk_file_dialog_set_initial_folder
 import org.gtkkn.native.gtk.gtk_file_dialog_set_initial_name
 import org.gtkkn.native.gtk.gtk_file_dialog_set_modal
 import org.gtkkn.native.gtk.gtk_file_dialog_set_title
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkFileDialog` object collects the arguments that
@@ -77,8 +77,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDialog>) :
-    Object(gtkFileDialogPointer.reinterpret()),
+public open class FileDialog(
+    public val gtkFileDialogPointer: CPointer<GtkFileDialog>,
+) : Object(gtkFileDialogPointer.reinterpret()),
     KGTyped {
     /**
      * Label for the file chooser's accept button.
@@ -94,7 +95,6 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_accept_label(gtkFileDialogPointer)?.toKString()
-
         /**
          * Sets the label shown on the file chooser's accept button.
          *
@@ -130,9 +130,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_default_filter(gtkFileDialogPointer)?.run {
-            FileFilter(this)
-        }
-
+            FileFilter(this)}
         /**
          * Sets the filter that will be selected by default
          * in the file chooser dialog.
@@ -165,9 +163,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_filters(gtkFileDialogPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the filters that will be offered to the user
          * in the file chooser dialog.
@@ -197,9 +193,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_initial_file(gtkFileDialogPointer)?.run {
-            File.FileImpl(reinterpret())
-        }
-
+            File.FileImpl(reinterpret())}
         /**
          * Sets the file that will be initially selected in
          * the file chooser dialog.
@@ -231,9 +225,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_initial_folder(gtkFileDialogPointer)?.run {
-            File.FileImpl(reinterpret())
-        }
-
+            File.FileImpl(reinterpret())}
         /**
          * Sets the folder that will be set as the
          * initial folder in the file chooser dialog.
@@ -259,7 +251,6 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_initial_name(gtkFileDialogPointer)?.toKString()
-
         /**
          * Sets the name for the file that should be initially set.
          * For saving dialogs, this will usually be pre-entered into the name field.
@@ -289,7 +280,6 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_modal(gtkFileDialogPointer).asBoolean()
-
         /**
          * Sets whether the file chooser dialog
          * blocks interaction with the parent window
@@ -316,7 +306,6 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
          * @since 4.10
          */
         get() = gtk_file_dialog_get_title(gtkFileDialogPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the title that will be shown on the
          * file chooser dialog.
@@ -333,7 +322,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
      * @return the new `GtkFileDialog`
      * @since 4.10
      */
-    public constructor() : this(gtk_file_dialog_new()!!.reinterpret())
+    public constructor() : this(gtk_file_dialog_new()!!)
 
     /**
      * This function initiates a file selection operation by
@@ -353,15 +342,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_dialog_open(
-        gtkFileDialogPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_dialog_open(gtkFileDialogPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileDialog.open] call and
@@ -376,8 +357,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
     public open fun openFinish(result: AsyncResult): Result<File?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_file_dialog_open_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            File.FileImpl(reinterpret())
-        }
+            File.FileImpl(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -407,15 +387,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_dialog_open_multiple(
-        gtkFileDialogPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_dialog_open_multiple(gtkFileDialogPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileDialog.open] call and
@@ -430,13 +402,8 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
     @GtkVersion4_10
     public open fun openMultipleFinish(result: AsyncResult): Result<ListModel?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_dialog_open_multiple_finish(
-            gtkFileDialogPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+        val gResult = gtk_file_dialog_open_multiple_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            ListModel.ListModelImpl(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -463,15 +430,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_dialog_save(
-        gtkFileDialogPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_dialog_save(gtkFileDialogPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileDialog.save] call and
@@ -486,8 +445,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
     public open fun saveFinish(result: AsyncResult): Result<File?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_file_dialog_save_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            File.FileImpl(reinterpret())
-        }
+            File.FileImpl(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -518,15 +476,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_dialog_select_folder(
-        gtkFileDialogPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_dialog_select_folder(gtkFileDialogPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileDialog.select_folder] call and
@@ -540,13 +490,8 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
     @GtkVersion4_10
     public open fun selectFolderFinish(result: AsyncResult): Result<File?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_dialog_select_folder_finish(
-            gtkFileDialogPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            File.FileImpl(reinterpret())
-        }
+        val gResult = gtk_file_dialog_select_folder_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            File.FileImpl(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -576,15 +521,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_dialog_select_multiple_folders(
-        gtkFileDialogPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_dialog_select_multiple_folders(gtkFileDialogPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileDialog.select_multiple_folders]
@@ -599,13 +536,8 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
     @GtkVersion4_10
     public open fun selectMultipleFoldersFinish(result: AsyncResult): Result<ListModel?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_dialog_select_multiple_folders_finish(
-            gtkFileDialogPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+        val gResult = gtk_file_dialog_select_multiple_folders_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            ListModel.ListModelImpl(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -616,11 +548,10 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
 
     public companion object : TypeCompanion<FileDialog> {
         override val type: GeneratedClassKGType<FileDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_file_dialog_get_type")!!) { FileDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_file_dialog_get_type")!!) { FileDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FileDialog

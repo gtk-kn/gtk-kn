@@ -3,9 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.GType
@@ -20,8 +23,6 @@ import org.gtkkn.native.gtk.gtk_tree_row_reference_inserted
 import org.gtkkn.native.gtk.gtk_tree_row_reference_new
 import org.gtkkn.native.gtk.gtk_tree_row_reference_new_proxy
 import org.gtkkn.native.gtk.gtk_tree_row_reference_valid
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A GtkTreeRowReference tracks model changes so that it always refers to the
@@ -32,16 +33,71 @@ import kotlin.Unit
  *
  * - parameter `new_order`: Array parameter of type gint is not supported
  */
-public class TreeRowReference(public val gtkTreeRowReferencePointer: CPointer<GtkTreeRowReference>) :
-    ProxyInstance(gtkTreeRowReferencePointer) {
+public class TreeRowReference(
+    public val gtkTreeRowReferencePointer: CPointer<GtkTreeRowReference>,
+) : ProxyInstance(gtkTreeRowReferencePointer) {
+    /**
+     * Creates a row reference based on @path.
+     *
+     * This reference will keep pointing to the node pointed to
+     * by @path, so long as it exists. Any changes that occur on @model are
+     * propagated, and the path is updated appropriately. If
+     * @path isn’t a valid path in @model, then null is returned.
+     *
+     * @param model a `GtkTreeModel`
+     * @param path a valid `GtkTreePath` to monitor
+     * @return a newly allocated `GtkTreeRowReference`
+     */
+    public constructor(model: TreeModel, path: TreePath) : this(gtk_tree_row_reference_new(model.gtkTreeModelPointer, path.gtkTreePathPointer)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * You do not need to use this function.
+     *
+     * Creates a row reference based on @path.
+     *
+     * This reference will keep pointing to the node pointed to
+     * by @path, so long as it exists. If @path isn’t a valid
+     * path in @model, then null is returned. However, unlike
+     * references created with gtk_tree_row_reference_new(), it
+     * does not listen to the model for changes. The creator of
+     * the row reference must do this explicitly using
+     * gtk_tree_row_reference_inserted(), gtk_tree_row_reference_deleted(),
+     * gtk_tree_row_reference_reordered().
+     *
+     * These functions must be called exactly once per proxy when the
+     * corresponding signal on the model is emitted. This single call
+     * updates all row references for that proxy. Since built-in GTK
+     * objects like `GtkTreeView` already use this mechanism internally,
+     * using them as the proxy object will produce unpredictable results.
+     * Further more, passing the same object as @model and @proxy
+     * doesn’t work for reasons of internal implementation.
+     *
+     * This type of row reference is primarily meant by structures that
+     * need to carefully monitor exactly when a row reference updates
+     * itself, and is not generally needed by most applications.
+     *
+     * @param proxy a proxy `GObject`
+     * @param model a `GtkTreeModel`
+     * @param path a valid `GtkTreePath` to monitor
+     * @return a newly allocated `GtkTreeRowReference`
+     */
+    public constructor(
+        proxy: Object,
+        model: TreeModel,
+        path: TreePath,
+    ) : this(gtk_tree_row_reference_new_proxy(proxy.gobjectObjectPointer, model.gtkTreeModelPointer, path.gtkTreePathPointer)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies a `GtkTreeRowReference`.
      *
      * @return a copy of @reference
      */
     public fun copy(): TreeRowReference = gtk_tree_row_reference_copy(gtkTreeRowReferencePointer)!!.run {
-        TreeRowReference(this)
-    }
+        TreeRowReference(this)}
 
     /**
      * Free’s @reference. @reference may be null
@@ -54,8 +110,7 @@ public class TreeRowReference(public val gtkTreeRowReferencePointer: CPointer<Gt
      * @return the model
      */
     public fun getModel(): TreeModel = gtk_tree_row_reference_get_model(gtkTreeRowReferencePointer)!!.run {
-        TreeModel.TreeModelImpl(reinterpret())
-    }
+        TreeModel.TreeModelImpl(reinterpret())}
 
     /**
      * Returns a path that the row reference currently points to,
@@ -64,8 +119,7 @@ public class TreeRowReference(public val gtkTreeRowReferencePointer: CPointer<Gt
      * @return a current path
      */
     public fun getPath(): TreePath? = gtk_tree_row_reference_get_path(gtkTreeRowReferencePointer)?.run {
-        TreePath(this)
-    }
+        TreePath(this)}
 
     /**
      * Returns true if the @reference is non-null and refers to
@@ -77,61 +131,6 @@ public class TreeRowReference(public val gtkTreeRowReferencePointer: CPointer<Gt
 
     public companion object {
         /**
-         * Creates a row reference based on @path.
-         *
-         * This reference will keep pointing to the node pointed to
-         * by @path, so long as it exists. Any changes that occur on @model are
-         * propagated, and the path is updated appropriately. If
-         * @path isn’t a valid path in @model, then null is returned.
-         *
-         * @param model a `GtkTreeModel`
-         * @param path a valid `GtkTreePath` to monitor
-         * @return a newly allocated `GtkTreeRowReference`
-         */
-        public fun new(model: TreeModel, path: TreePath): TreeRowReference? = TreeRowReference(
-            gtk_tree_row_reference_new(model.gtkTreeModelPointer, path.gtkTreePathPointer)!!.reinterpret()
-        )
-
-        /**
-         * You do not need to use this function.
-         *
-         * Creates a row reference based on @path.
-         *
-         * This reference will keep pointing to the node pointed to
-         * by @path, so long as it exists. If @path isn’t a valid
-         * path in @model, then null is returned. However, unlike
-         * references created with gtk_tree_row_reference_new(), it
-         * does not listen to the model for changes. The creator of
-         * the row reference must do this explicitly using
-         * gtk_tree_row_reference_inserted(), gtk_tree_row_reference_deleted(),
-         * gtk_tree_row_reference_reordered().
-         *
-         * These functions must be called exactly once per proxy when the
-         * corresponding signal on the model is emitted. This single call
-         * updates all row references for that proxy. Since built-in GTK
-         * objects like `GtkTreeView` already use this mechanism internally,
-         * using them as the proxy object will produce unpredictable results.
-         * Further more, passing the same object as @model and @proxy
-         * doesn’t work for reasons of internal implementation.
-         *
-         * This type of row reference is primarily meant by structures that
-         * need to carefully monitor exactly when a row reference updates
-         * itself, and is not generally needed by most applications.
-         *
-         * @param proxy a proxy `GObject`
-         * @param model a `GtkTreeModel`
-         * @param path a valid `GtkTreePath` to monitor
-         * @return a newly allocated `GtkTreeRowReference`
-         */
-        public fun newProxy(proxy: Object, model: TreeModel, path: TreePath): TreeRowReference? = TreeRowReference(
-            gtk_tree_row_reference_new_proxy(
-                proxy.gobjectObjectPointer,
-                model.gtkTreeModelPointer,
-                path.gtkTreePathPointer
-            )!!.reinterpret()
-        )
-
-        /**
          * Lets a set of row reference created by
          * gtk_tree_row_reference_new_proxy() know that the
          * model emitted the ::row-deleted signal.
@@ -139,8 +138,7 @@ public class TreeRowReference(public val gtkTreeRowReferencePointer: CPointer<Gt
          * @param proxy a `GObject`
          * @param path the path position that was deleted
          */
-        public fun deleted(proxy: Object, path: TreePath): Unit =
-            gtk_tree_row_reference_deleted(proxy.gobjectObjectPointer, path.gtkTreePathPointer)
+        public fun deleted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_deleted(proxy.gobjectObjectPointer, path.gtkTreePathPointer)
 
         /**
          * Lets a set of row reference created by
@@ -150,8 +148,7 @@ public class TreeRowReference(public val gtkTreeRowReferencePointer: CPointer<Gt
          * @param proxy a `GObject`
          * @param path the row position that was inserted
          */
-        public fun inserted(proxy: Object, path: TreePath): Unit =
-            gtk_tree_row_reference_inserted(proxy.gobjectObjectPointer, path.gtkTreePathPointer)
+        public fun inserted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_inserted(proxy.gobjectObjectPointer, path.gtkTreePathPointer)
 
         /**
          * Get the GType of TreeRowReference

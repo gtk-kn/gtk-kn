@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -25,8 +27,6 @@ import org.gtkkn.native.gtk.gtk_action_bar_pack_start
 import org.gtkkn.native.gtk.gtk_action_bar_remove
 import org.gtkkn.native.gtk.gtk_action_bar_set_center_widget
 import org.gtkkn.native.gtk.gtk_action_bar_set_revealed
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GtkActionBar` is designed to present contextual actions.
@@ -68,8 +68,9 @@ import kotlin.Unit
  *
  * Each of the boxes contains children packed for that side.
  */
-public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBar>) :
-    Widget(gtkActionBarPointer.reinterpret()),
+public open class ActionBar(
+    public val gtkActionBarPointer: CPointer<GtkActionBar>,
+) : Widget(gtkActionBarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -91,7 +92,6 @@ public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBa
          *   property
          */
         get() = gtk_action_bar_get_revealed(gtkActionBarPointer).asBoolean()
-
         /**
          * Reveals or conceals the content of the action bar.
          *
@@ -116,8 +116,7 @@ public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBa
      * @return the center `GtkWidget`
      */
     public open fun getCenterWidget(): Widget? = gtk_action_bar_get_center_widget(gtkActionBarPointer)?.run {
-        Widget.WidgetImpl(this)
-    }
+        Widget.WidgetImpl(this)}
 
     /**
      * Adds @child to @action_bar, packed with reference to the
@@ -133,8 +132,7 @@ public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBa
      *
      * @param child the `GtkWidget` to be added to @action_bar
      */
-    public open fun packStart(child: Widget): Unit =
-        gtk_action_bar_pack_start(gtkActionBarPointer, child.gtkWidgetPointer)
+    public open fun packStart(child: Widget): Unit = gtk_action_bar_pack_start(gtkActionBarPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child from @action_bar.
@@ -148,16 +146,14 @@ public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBa
      *
      * @param centerWidget a widget to use for the center
      */
-    public open fun setCenterWidget(centerWidget: Widget? = null): Unit =
-        gtk_action_bar_set_center_widget(gtkActionBarPointer, centerWidget?.gtkWidgetPointer)
+    public open fun setCenterWidget(centerWidget: Widget? = null): Unit = gtk_action_bar_set_center_widget(gtkActionBarPointer, centerWidget?.gtkWidgetPointer)
 
     public companion object : TypeCompanion<ActionBar> {
         override val type: GeneratedClassKGType<ActionBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_action_bar_get_type")!!) { ActionBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_action_bar_get_type")!!) { ActionBar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ActionBar

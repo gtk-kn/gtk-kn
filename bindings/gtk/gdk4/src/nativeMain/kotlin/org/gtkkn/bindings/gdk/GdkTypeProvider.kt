@@ -3,33 +3,21 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.collections.Map
+import kotlin.reflect.KClass
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.KGType
 import org.gtkkn.extensions.gobject.TypeProvider
-import kotlin.collections.Map
-import kotlin.reflect.KClass
 
 public object GdkTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = buildMap {
-        if (getTypeOrNull("gdk_app_launch_context_get_type") !=
-            null
-        ) {
-            put(AppLaunchContext::class, AppLaunchContext.type)
-        }
+        if (getTypeOrNull("gdk_app_launch_context_get_type") != null) put(AppLaunchContext::class, AppLaunchContext.type)
         if (getTypeOrNull("gdk_button_event_get_type") != null) put(ButtonEvent::class, ButtonEvent.type)
         if (getTypeOrNull("gdk_cairo_context_get_type") != null) put(CairoContext::class, CairoContext.type)
         if (getTypeOrNull("gdk_clipboard_get_type") != null) put(Clipboard::class, Clipboard.type)
-        if (getTypeOrNull("gdk_content_deserializer_get_type") !=
-            null
-        ) {
-            put(ContentDeserializer::class, ContentDeserializer.type)
-        }
+        if (getTypeOrNull("gdk_content_deserializer_get_type") != null) put(ContentDeserializer::class, ContentDeserializer.type)
         if (getTypeOrNull("gdk_content_provider_get_type") != null) put(ContentProvider::class, ContentProvider.type)
-        if (getTypeOrNull("gdk_content_serializer_get_type") !=
-            null
-        ) {
-            put(ContentSerializer::class, ContentSerializer.type)
-        }
+        if (getTypeOrNull("gdk_content_serializer_get_type") != null) put(ContentSerializer::class, ContentSerializer.type)
         if (getTypeOrNull("gdk_crossing_event_get_type") != null) put(CrossingEvent::class, CrossingEvent.type)
         if (getTypeOrNull("gdk_cursor_get_type") != null) put(Cursor::class, Cursor.type)
         if (getTypeOrNull("gdk_dnd_event_get_type") != null) put(DndEvent::class, DndEvent.type)
@@ -39,11 +27,7 @@ public object GdkTypeProvider : TypeProvider {
         if (getTypeOrNull("gdk_display_get_type") != null) put(Display::class, Display.type)
         if (getTypeOrNull("gdk_display_manager_get_type") != null) put(DisplayManager::class, DisplayManager.type)
         if (getTypeOrNull("gdk_dmabuf_texture_get_type") != null) put(DmabufTexture::class, DmabufTexture.type)
-        if (getTypeOrNull("gdk_dmabuf_texture_builder_get_type") !=
-            null
-        ) {
-            put(DmabufTextureBuilder::class, DmabufTextureBuilder.type)
-        }
+        if (getTypeOrNull("gdk_dmabuf_texture_builder_get_type") != null) put(DmabufTextureBuilder::class, DmabufTextureBuilder.type)
         if (getTypeOrNull("gdk_drag_get_type") != null) put(Drag::class, Drag.type)
         if (getTypeOrNull("gdk_draw_context_get_type") != null) put(DrawContext::class, DrawContext.type)
         if (getTypeOrNull("gdk_drop_get_type") != null) put(Drop::class, Drop.type)
@@ -52,11 +36,7 @@ public object GdkTypeProvider : TypeProvider {
         if (getTypeOrNull("gdk_frame_clock_get_type") != null) put(FrameClock::class, FrameClock.type)
         if (getTypeOrNull("gdk_gl_context_get_type") != null) put(GlContext::class, GlContext.type)
         if (getTypeOrNull("gdk_gl_texture_get_type") != null) put(GlTexture::class, GlTexture.type)
-        if (getTypeOrNull("gdk_gl_texture_builder_get_type") !=
-            null
-        ) {
-            put(GlTextureBuilder::class, GlTextureBuilder.type)
-        }
+        if (getTypeOrNull("gdk_gl_texture_builder_get_type") != null) put(GlTextureBuilder::class, GlTextureBuilder.type)
         if (getTypeOrNull("gdk_grab_broken_event_get_type") != null) put(GrabBrokenEvent::class, GrabBrokenEvent.type)
         if (getTypeOrNull("gdk_key_event_get_type") != null) put(KeyEvent::class, KeyEvent.type)
         if (getTypeOrNull("gdk_memory_texture_get_type") != null) put(MemoryTexture::class, MemoryTexture.type)

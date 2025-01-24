@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -18,8 +20,6 @@ import org.gtkkn.native.gdk.gdk_frame_timings_ref
 import org.gtkkn.native.gdk.gdk_frame_timings_unref
 import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `GdkFrameTimings` object holds timing information for a single frame
@@ -31,8 +31,9 @@ import kotlin.Unit
  * the event or audio streams, and for measuring quality metrics for the
  * application’s display, such as latency and jitter.
  */
-public class FrameTimings(public val gdkFrameTimingsPointer: CPointer<GdkFrameTimings>) :
-    ProxyInstance(gdkFrameTimingsPointer) {
+public class FrameTimings(
+    public val gdkFrameTimingsPointer: CPointer<GdkFrameTimings>,
+) : ProxyInstance(gdkFrameTimingsPointer) {
     /**
      * Returns whether @timings are complete.
      *
@@ -90,8 +91,7 @@ public class FrameTimings(public val gdkFrameTimingsPointer: CPointer<GdkFrameTi
      *   in the timescale of g_get_monotonic_time(), or 0 if no predicted
      *   presentation time is available.
      */
-    public fun getPredictedPresentationTime(): gint64 =
-        gdk_frame_timings_get_predicted_presentation_time(gdkFrameTimingsPointer)
+    public fun getPredictedPresentationTime(): gint64 = gdk_frame_timings_get_predicted_presentation_time(gdkFrameTimingsPointer)
 
     /**
      * Reurns the presentation time.
@@ -123,8 +123,7 @@ public class FrameTimings(public val gdkFrameTimingsPointer: CPointer<GdkFrameTi
      * @return @timings
      */
     public fun ref(): FrameTimings = gdk_frame_timings_ref(gdkFrameTimingsPointer)!!.run {
-        FrameTimings(this)
-    }
+        FrameTimings(this)}
 
     /**
      * Decreases the reference count of @timings.

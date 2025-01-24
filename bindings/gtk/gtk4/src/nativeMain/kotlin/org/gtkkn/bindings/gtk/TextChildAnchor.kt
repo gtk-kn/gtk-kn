@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -17,8 +19,6 @@ import org.gtkkn.native.gtk.gtk_text_child_anchor_get_deleted
 import org.gtkkn.native.gtk.gtk_text_child_anchor_get_type
 import org.gtkkn.native.gtk.gtk_text_child_anchor_new
 import org.gtkkn.native.gtk.gtk_text_child_anchor_new_with_replacement
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A `GtkTextChildAnchor` is a spot in a `GtkTextBuffer` where child widgets can
@@ -30,8 +30,9 @@ import kotlin.String
  *
  * - parameter `out_len`: out_len: Out parameter is not supported
  */
-public open class TextChildAnchor(public val gtkTextChildAnchorPointer: CPointer<GtkTextChildAnchor>) :
-    Object(gtkTextChildAnchorPointer.reinterpret()),
+public open class TextChildAnchor(
+    public val gtkTextChildAnchorPointer: CPointer<GtkTextChildAnchor>,
+) : Object(gtkTextChildAnchorPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkTextChildAnchor`.
@@ -43,7 +44,7 @@ public open class TextChildAnchor(public val gtkTextChildAnchorPointer: CPointer
      *
      * @return a new `GtkTextChildAnchor`
      */
-    public constructor() : this(gtk_text_child_anchor_new()!!.reinterpret())
+    public constructor() : this(gtk_text_child_anchor_new()!!)
 
     /**
      * Creates a new `GtkTextChildAnchor` with the given replacement character.
@@ -51,11 +52,11 @@ public open class TextChildAnchor(public val gtkTextChildAnchorPointer: CPointer
      * Usually you would then insert it into a `GtkTextBuffer` with
      * [method@Gtk.TextBuffer.insert_child_anchor].
      *
-     * @param character
+     * @param character 
      * @return a new `GtkTextChildAnchor`
      * @since 4.6
      */
-    public constructor(character: String) : this(gtk_text_child_anchor_new_with_replacement(character)!!.reinterpret())
+    public constructor(character: String) : this(gtk_text_child_anchor_new_with_replacement(character)!!)
 
     /**
      * Determines whether a child anchor has been deleted from
@@ -73,13 +74,10 @@ public open class TextChildAnchor(public val gtkTextChildAnchorPointer: CPointer
 
     public companion object : TypeCompanion<TextChildAnchor> {
         override val type: GeneratedClassKGType<TextChildAnchor> =
-            GeneratedClassKGType(getTypeOrNull("gtk_text_child_anchor_get_type")!!) {
-                TextChildAnchor(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_text_child_anchor_get_type")!!) { TextChildAnchor(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TextChildAnchor

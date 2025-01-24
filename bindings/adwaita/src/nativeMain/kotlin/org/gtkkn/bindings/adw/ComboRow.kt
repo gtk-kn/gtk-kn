@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -40,7 +41,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
 
 /**
  * A [class@Gtk.ListBoxRow] used to choose from a list of items.
@@ -91,8 +91,9 @@ import kotlin.Boolean
  *
  * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
  */
-public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>) :
-    ActionRow(adwComboRowPointer.reinterpret()),
+public open class ComboRow(
+    public val adwComboRowPointer: CPointer<AdwComboRow>,
+) : ActionRow(adwComboRowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -130,7 +131,6 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @since 1.4
          */
         get() = adw_combo_row_get_enable_search(adwComboRowPointer).asBoolean()
-
         /**
          * Sets whether to enable search.
          *
@@ -161,9 +161,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the expression used to obtain strings from items
          */
         get() = adw_combo_row_get_expression(adwComboRowPointer)?.run {
-            Expression.ExpressionImpl(this)
-        }
-
+            Expression.ExpressionImpl(this)}
         /**
          * Sets the expression used to obtain strings from items.
          *
@@ -190,9 +188,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the factory in use
          */
         get() = adw_combo_row_get_factory(adwComboRowPointer)?.run {
-            ListItemFactory(this)
-        }
-
+            ListItemFactory(this)}
         /**
          * Sets the factory for populating list items.
          *
@@ -215,9 +211,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the factory in use
          */
         get() = adw_combo_row_get_list_factory(adwComboRowPointer)?.run {
-            ListItemFactory(this)
-        }
-
+            ListItemFactory(this)}
         /**
          * Sets the factory for populating list items in the popup.
          *
@@ -237,9 +231,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return The model in use
          */
         get() = adw_combo_row_get_model(adwComboRowPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the model that provides the displayed items.
          *
@@ -261,7 +253,6 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          *   [const@Gtk.INVALID_LIST_POSITION] if no item is selected
          */
         get() = adw_combo_row_get_selected(adwComboRowPointer)
-
         /**
          * Selects the item at the given position.
          *
@@ -280,8 +271,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return the selected item
          */
         get() = adw_combo_row_get_selected_item(adwComboRowPointer)?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Whether to use the current value as the subtitle.
@@ -301,7 +291,6 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
          * @return whether to use the current value as the subtitle
          */
         get() = adw_combo_row_get_use_subtitle(adwComboRowPointer).asBoolean()
-
         /**
          * Sets whether to use the current value as the subtitle.
          *
@@ -326,11 +315,10 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
 
     public companion object : TypeCompanion<ComboRow> {
         override val type: GeneratedClassKGType<ComboRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_combo_row_get_type")!!) { ComboRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_combo_row_get_type")!!) { ComboRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ComboRow

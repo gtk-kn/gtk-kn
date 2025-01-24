@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -32,8 +34,6 @@ import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GdkContentDeserializer` is used to deserialize content received via
@@ -52,8 +52,9 @@ import kotlin.Unit
  *
  * - parameter `notify`: GLib.DestroyNotify
  */
-public open class ContentDeserializer(public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>) :
-    Object(gdkContentDeserializerPointer.reinterpret()),
+public open class ContentDeserializer(
+    public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>,
+) : Object(gdkContentDeserializerPointer.reinterpret()),
     AsyncResult,
     KGTyped {
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
@@ -66,10 +67,8 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
      *
      * @return the cancellable for the current operation
      */
-    public open fun getCancellable(): Cancellable? =
-        gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer)?.run {
-            Cancellable(this)
-        }
+    public open fun getCancellable(): Cancellable? = gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer)?.run {
+        Cancellable(this)}
 
     /**
      * Gets the `GType` to create an instance of.
@@ -85,19 +84,15 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
      *
      * @return the input stream for the current operation
      */
-    public open fun getInputStream(): InputStream =
-        gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
-            InputStream.InputStreamImpl(this)
-        }
+    public open fun getInputStream(): InputStream = gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
+        InputStream.InputStreamImpl(this)}
 
     /**
      * Gets the mime type to deserialize from.
      *
      * @return the mime type for the current operation
      */
-    public open fun getMimeType(): String =
-        gdk_content_deserializer_get_mime_type(gdkContentDeserializerPointer)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getMimeType(): String = gdk_content_deserializer_get_mime_type(gdkContentDeserializerPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the I/O priority for the current operation.
@@ -130,8 +125,7 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
      * @return the `GValue` for the current operation
      */
     public open fun getValue(): Value = gdk_content_deserializer_get_value(gdkContentDeserializerPointer)!!.run {
-        Value(this)
-    }
+        Value(this)}
 
     /**
      * Indicate that the deserialization has ended with an error.
@@ -140,8 +134,7 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
      *
      * @param error a `GError`
      */
-    public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(gdkContentDeserializerPointer, error.glibErrorPointer)
+    public open fun returnError(error: Error): Unit = gdk_content_deserializer_return_error(gdkContentDeserializerPointer, error.glibErrorPointer)
 
     /**
      * Indicate that the deserialization has been successfully completed.
@@ -150,13 +143,10 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
 
     public companion object : TypeCompanion<ContentDeserializer> {
         override val type: GeneratedClassKGType<ContentDeserializer> =
-            GeneratedClassKGType(getTypeOrNull("gdk_content_deserializer_get_type")!!) {
-                ContentDeserializer(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_content_deserializer_get_type")!!) { ContentDeserializer(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of ContentDeserializer

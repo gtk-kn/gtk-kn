@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
@@ -20,8 +22,6 @@ import org.gtkkn.native.gio.g_debug_controller_get_debug_enabled
 import org.gtkkn.native.gio.g_debug_controller_get_type
 import org.gtkkn.native.gio.g_debug_controller_set_debug_enabled
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GDebugController` is an interface to expose control of debugging features and
@@ -43,10 +43,7 @@ import kotlin.Unit
  * @since 2.72
  */
 @GioVersion2_72
-public interface DebugController :
-    Proxy,
-    Initable,
-    KGTyped {
+public interface DebugController : Proxy, Initable, KGTyped {
     public val gioDebugControllerPointer: CPointer<GDebugController>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -67,7 +64,6 @@ public interface DebugController :
          * @since 2.72
          */
         get() = g_debug_controller_get_debug_enabled(gioDebugControllerPointer).asBoolean()
-
         /**
          * Set the value of #GDebugController:debug-enabled.
          *
@@ -93,27 +89,24 @@ public interface DebugController :
      * @since 2.72
      */
     @GioVersion2_72
-    public fun setDebugEnabled(debugEnabled: Boolean): Unit =
-        g_debug_controller_set_debug_enabled(gioDebugControllerPointer, debugEnabled.asGBoolean())
+    public fun setDebugEnabled(debugEnabled: Boolean): Unit = g_debug_controller_set_debug_enabled(gioDebugControllerPointer, debugEnabled.asGBoolean())
 
     /**
      * The DebugControllerImpl type represents a native instance of the DebugController interface.
      *
      * @constructor Creates a new instance of DebugController for the provided [CPointer].
      */
-    public data class DebugControllerImpl(override val gioDebugControllerPointer: CPointer<GDebugController>) :
-        Object(gioDebugControllerPointer.reinterpret()),
+    public data class DebugControllerImpl(
+        override val gioDebugControllerPointer: CPointer<GDebugController>,
+    ) : Object(gioDebugControllerPointer.reinterpret()),
         DebugController
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_debug_controller_get_type")!!) {
-                DebugControllerImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_debug_controller_get_type")!!) { DebugControllerImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DebugController

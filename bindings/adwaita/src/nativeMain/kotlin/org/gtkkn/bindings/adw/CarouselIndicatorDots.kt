@@ -42,8 +42,9 @@ import org.gtkkn.native.gtk.GtkOrientable
  * `AdwCarouselIndicatorDots` has a single CSS node with name
  * `carouselindicatordots`.
  */
-public class CarouselIndicatorDots(public val adwCarouselIndicatorDotsPointer: CPointer<AdwCarouselIndicatorDots>) :
-    Widget(adwCarouselIndicatorDotsPointer.reinterpret()),
+public class CarouselIndicatorDots(
+    public val adwCarouselIndicatorDotsPointer: CPointer<AdwCarouselIndicatorDots>,
+) : Widget(adwCarouselIndicatorDotsPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -68,17 +69,13 @@ public class CarouselIndicatorDots(public val adwCarouselIndicatorDotsPointer: C
          * @return the displayed carousel
          */
         get() = adw_carousel_indicator_dots_get_carousel(adwCarouselIndicatorDotsPointer)?.run {
-            Carousel(this)
-        }
-
+            Carousel(this)}
         /**
          * Sets the displayed carousel.
          *
          * @param carousel a carousel
          */
-        set(
-            carousel
-        ) = adw_carousel_indicator_dots_set_carousel(adwCarouselIndicatorDotsPointer, carousel?.adwCarouselPointer)
+        set(carousel) = adw_carousel_indicator_dots_set_carousel(adwCarouselIndicatorDotsPointer, carousel?.adwCarouselPointer)
 
     /**
      * Creates a new `AdwCarouselIndicatorDots`.
@@ -89,13 +86,10 @@ public class CarouselIndicatorDots(public val adwCarouselIndicatorDotsPointer: C
 
     public companion object : TypeCompanion<CarouselIndicatorDots> {
         override val type: GeneratedClassKGType<CarouselIndicatorDots> =
-            GeneratedClassKGType(getTypeOrNull("adw_carousel_indicator_dots_get_type")!!) {
-                CarouselIndicatorDots(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_carousel_indicator_dots_get_type")!!) { CarouselIndicatorDots(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of CarouselIndicatorDots

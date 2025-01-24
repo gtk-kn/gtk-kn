@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -25,9 +28,6 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_get_type
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_new
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_prepend_search_path
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_manager_set_search_path
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * Provides access to [class@StyleScheme]s.
@@ -59,7 +59,7 @@ public open class StyleSchemeManager(
      *
      * @return a new #GtkSourceStyleSchemeManager.
      */
-    public constructor() : this(gtk_source_style_scheme_manager_new()!!.reinterpret())
+    public constructor() : this(gtk_source_style_scheme_manager_new()!!)
 
     /**
      * Appends @path to the list of directories where the @manager looks for
@@ -69,8 +69,7 @@ public open class StyleSchemeManager(
      *
      * @param path a directory or a filename.
      */
-    public open fun appendSearchPath(path: String): Unit =
-        gtk_source_style_scheme_manager_append_search_path(gtksourceStyleSchemeManagerPointer, path)
+    public open fun appendSearchPath(path: String): Unit = gtk_source_style_scheme_manager_append_search_path(gtksourceStyleSchemeManagerPointer, path)
 
     /**
      * Mark any currently cached information about the available style schems
@@ -78,8 +77,7 @@ public open class StyleSchemeManager(
      *
      * All the available style schemes will be reloaded next time the @manager is accessed.
      */
-    public open fun forceRescan(): Unit =
-        gtk_source_style_scheme_manager_force_rescan(gtksourceStyleSchemeManagerPointer)
+    public open fun forceRescan(): Unit = gtk_source_style_scheme_manager_force_rescan(gtksourceStyleSchemeManagerPointer)
 
     /**
      * Looks up style scheme by id.
@@ -88,10 +86,8 @@ public open class StyleSchemeManager(
      * @return a #GtkSourceStyleScheme object.
      *   The returned value is owned by @manager and must not be unref'ed.
      */
-    public open fun getScheme(schemeId: String): StyleScheme? =
-        gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer, schemeId)?.run {
-            StyleScheme(this)
-        }
+    public open fun getScheme(schemeId: String): StyleScheme? = gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer, schemeId)?.run {
+        StyleScheme(this)}
 
     /**
      * Returns the current search path for the @manager.
@@ -102,9 +98,7 @@ public open class StyleSchemeManager(
      * of string containing the search path.
      * The array is owned by the @manager and must not be modified.
      */
-    public open fun getSearchPath(): List<String> =
-        gtk_source_style_scheme_manager_get_search_path(gtksourceStyleSchemeManagerPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getSearchPath(): List<String> = gtk_source_style_scheme_manager_get_search_path(gtksourceStyleSchemeManagerPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Prepends @path to the list of directories where the @manager looks
@@ -114,8 +108,7 @@ public open class StyleSchemeManager(
      *
      * @param path a directory or a filename.
      */
-    public open fun prependSearchPath(path: String): Unit =
-        gtk_source_style_scheme_manager_prepend_search_path(gtksourceStyleSchemeManagerPointer, path)
+    public open fun prependSearchPath(path: String): Unit = gtk_source_style_scheme_manager_prepend_search_path(gtksourceStyleSchemeManagerPointer, path)
 
     /**
      * Sets the list of directories where the @manager looks for
@@ -127,21 +120,14 @@ public open class StyleSchemeManager(
      *   strings or null.
      */
     public open fun setSearchPath(path: List<String>? = null): Unit = memScoped {
-        return gtk_source_style_scheme_manager_set_search_path(
-            gtksourceStyleSchemeManagerPointer,
-            path?.toCStringList(this)
-        )
-    }
+        return gtk_source_style_scheme_manager_set_search_path(gtksourceStyleSchemeManagerPointer, path?.toCStringList(this))}
 
     public companion object : TypeCompanion<StyleSchemeManager> {
         override val type: GeneratedClassKGType<StyleSchemeManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_manager_get_type")!!) {
-                StyleSchemeManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_manager_get_type")!!) { StyleSchemeManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Returns the default #GtkSourceStyleSchemeManager instance.
@@ -150,8 +136,7 @@ public open class StyleSchemeManager(
          * is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): StyleSchemeManager = gtk_source_style_scheme_manager_get_default()!!.run {
-            StyleSchemeManager(this)
-        }
+            StyleSchemeManager(this)}
 
         /**
          * Get the GType of StyleSchemeManager

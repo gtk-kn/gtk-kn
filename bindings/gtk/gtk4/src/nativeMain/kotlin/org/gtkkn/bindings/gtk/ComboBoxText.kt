@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,8 +32,6 @@ import org.gtkkn.native.gtk.gtk_combo_box_text_prepend
 import org.gtkkn.native.gtk.gtk_combo_box_text_prepend_text
 import org.gtkkn.native.gtk.gtk_combo_box_text_remove
 import org.gtkkn.native.gtk.gtk_combo_box_text_remove_all
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkComboBoxText` is a simple variant of `GtkComboBox` for text-only
@@ -90,8 +90,9 @@ import kotlin.Unit
  * the style class .combo to the main CSS nodes of its entry and button
  * children, and the .linked class to the node of its internal box.
  */
-public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>) :
-    ComboBox(gtkComboBoxTextPointer.reinterpret()),
+public open class ComboBoxText(
+    public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>,
+) : ComboBox(gtkComboBoxTextPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -126,8 +127,7 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
      * @param id a string ID for this value
      * @param text A string
      */
-    public open fun append(id: String? = null, text: String): Unit =
-        gtk_combo_box_text_append(gtkComboBoxTextPointer, id, text)
+    public open fun append(id: String? = null, text: String): Unit = gtk_combo_box_text_append(gtkComboBoxTextPointer, id, text)
 
     /**
      * Appends @text to the list of strings stored in @combo_box.
@@ -165,8 +165,11 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
      * @param id a string ID for this value
      * @param text A string to display
      */
-    public open fun insert(position: gint, id: String? = null, text: String): Unit =
-        gtk_combo_box_text_insert(gtkComboBoxTextPointer, position, id, text)
+    public open fun insert(
+        position: gint,
+        id: String? = null,
+        text: String,
+    ): Unit = gtk_combo_box_text_insert(gtkComboBoxTextPointer, position, id, text)
 
     /**
      * Inserts @text at @position in the list of strings stored in @combo_box.
@@ -179,8 +182,7 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
      * @param position An index to insert @text
      * @param text A string
      */
-    public open fun insertText(position: gint, text: String): Unit =
-        gtk_combo_box_text_insert_text(gtkComboBoxTextPointer, position, text)
+    public open fun insertText(position: gint, text: String): Unit = gtk_combo_box_text_insert_text(gtkComboBoxTextPointer, position, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.
@@ -193,8 +195,7 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
      * @param id a string ID for this value
      * @param text a string
      */
-    public open fun prepend(id: String? = null, text: String): Unit =
-        gtk_combo_box_text_prepend(gtkComboBoxTextPointer, id, text)
+    public open fun prepend(id: String? = null, text: String): Unit = gtk_combo_box_text_prepend(gtkComboBoxTextPointer, id, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.
@@ -220,18 +221,17 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
 
     public companion object : TypeCompanion<ComboBoxText> {
         override val type: GeneratedClassKGType<ComboBoxText> =
-            GeneratedClassKGType(getTypeOrNull("gtk_combo_box_text_get_type")!!) { ComboBoxText(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_combo_box_text_get_type")!!) { ComboBoxText(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new `GtkComboBoxText` with an entry.
          *
          * @return a new `GtkComboBoxText`
          */
-        public fun newWithEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
+        public fun withEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
 
         /**
          * Get the GType of ComboBoxText

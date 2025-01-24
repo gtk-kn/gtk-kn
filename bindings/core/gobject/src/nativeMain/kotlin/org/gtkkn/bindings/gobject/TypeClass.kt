@@ -3,14 +3,18 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -26,10 +30,6 @@ import org.gtkkn.native.gobject.g_type_class_peek_static
 import org.gtkkn.native.gobject.g_type_class_ref
 import org.gtkkn.native.gobject.g_type_class_unref
 import org.gtkkn.native.gobject.g_type_class_unref_uncached
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all classes.
@@ -38,29 +38,21 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `private_size_or_offset`: Unsupported pointer to primitive type
  */
-public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectTypeClassPointer) {
+public class TypeClass(
+    public val gobjectTypeClassPointer: CPointer<GTypeClass>,
+) : ProxyInstance(gobjectTypeClassPointer) {
+    public val gType: GType
+        get() = gobjectTypeClassPointer.pointed.g_type
+
     /**
      * Allocate a new TypeClass.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeClass>, Cleaner>,
-    ) : this(gobjectTypeClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeClass using the provided [AutofreeScope].
@@ -157,8 +149,7 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
     @GObjectVersion2_38
     public fun getInstancePrivateOffset(): gint = g_type_class_get_instance_private_offset(gobjectTypeClassPointer)
 
-    public fun getPrivate(privateType: GType): gpointer? =
-        g_type_class_get_private(gobjectTypeClassPointer, privateType)
+    public fun getPrivate(privateType: GType): gpointer? = g_type_class_get_private(gobjectTypeClassPointer, privateType)
 
     /**
      * This is a convenience function often needed in class initializers.
@@ -174,8 +165,7 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
      *     of @g_class
      */
     public fun peekParent(): TypeClass = g_type_class_peek_parent(gobjectTypeClassPointer)!!.run {
-        TypeClass(reinterpret())
-    }
+        TypeClass(reinterpret())}
 
     /**
      * Decrements the reference count of the class structure being passed in.
@@ -193,6 +183,8 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
      */
     public fun unrefUncached(): Unit = g_type_class_unref_uncached(gobjectTypeClassPointer)
 
+    override fun toString(): String = "TypeClass(gType=$gType)"
+
     public companion object {
         /**
          * This function is essentially the same as g_type_class_ref(),
@@ -207,8 +199,7 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
          *     currently exist
          */
         public fun peek(type: GType): TypeClass = g_type_class_peek(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         /**
          * A more efficient version of g_type_class_peek() which works only for
@@ -222,8 +213,7 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
          */
         @GObjectVersion2_4
         public fun peekStatic(type: GType): TypeClass = g_type_class_peek_static(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         /**
          * Increments the reference count of the class structure belonging to
@@ -235,7 +225,6 @@ public class TypeClass(public val gobjectTypeClassPointer: CPointer<GTypeClass>,
          *     structure for the given type ID
          */
         public fun ref(type: GType): TypeClass = g_type_class_ref(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
     }
 }

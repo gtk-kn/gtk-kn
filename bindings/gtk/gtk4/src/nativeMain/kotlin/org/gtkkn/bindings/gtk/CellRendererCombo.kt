@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -26,9 +29,6 @@ import org.gtkkn.native.gtk.GtkCellRendererCombo
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_cell_renderer_combo_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_combo_new
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Renders a combobox in a cell
@@ -50,8 +50,9 @@ import kotlin.Unit
  * - method `model`: Property has no getter nor setter
  * - method `text-column`: Property has no getter nor setter
  */
-public open class CellRendererCombo(public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>) :
-    CellRendererText(gtkCellRendererComboPointer.reinterpret()),
+public open class CellRendererCombo(
+    public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>,
+) : CellRendererText(gtkCellRendererComboPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkCellRendererCombo`.
@@ -84,17 +85,7 @@ public open class CellRendererCombo(public val gtkCellRendererComboPointer: CPoi
      *               (relative to the tree view model); `newIter` the new iter selected in the combo box
      *            (relative to the combo box model)
      */
-    public fun onChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (pathString: String, newIter: TreeIter) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkCellRendererComboPointer,
-        "changed",
-        onChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (pathString: String, newIter: TreeIter) -> Unit): ULong = g_signal_connect_data(gtkCellRendererComboPointer, "changed", onChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "changed" signal. See [onChanged].
@@ -105,23 +96,15 @@ public open class CellRendererCombo(public val gtkCellRendererComboPointer: CPoi
      *            (relative to the combo box model)
      */
     public fun emitChanged(pathString: String, newIter: TreeIter) {
-        g_signal_emit_by_name(
-            gtkCellRendererComboPointer.reinterpret(),
-            "changed",
-            pathString.cstr,
-            newIter.gtkTreeIterPointer
-        )
+        g_signal_emit_by_name(gtkCellRendererComboPointer.reinterpret(), "changed", pathString.cstr, newIter.gtkTreeIterPointer)
     }
 
     public companion object : TypeCompanion<CellRendererCombo> {
         override val type: GeneratedClassKGType<CellRendererCombo> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_combo_get_type")!!) {
-                CellRendererCombo(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_combo_get_type")!!) { CellRendererCombo(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CellRendererCombo
@@ -133,17 +116,13 @@ public open class CellRendererCombo(public val gtkCellRendererComboPointer: CPoi
 }
 
 private val onChangedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<GtkTreeIter>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            pathString: CPointer<ByteVar>?,
-            newIter: CPointer<GtkTreeIter>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(pathString: String, newIter: TreeIter) -> Unit>().get().invoke(
-            pathString?.toKString() ?: error("Expected not null string"),
-            newIter!!.run {
-                TreeIter(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    pathString: CPointer<ByteVar>?,
+    newIter: CPointer<GtkTreeIter>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(pathString: String, newIter: TreeIter) -> Unit>().get().invoke(pathString?.toKString() ?: error("Expected not null string"), newIter!!.run {
+        TreeIter(this)}
+    )}
+.reinterpret()

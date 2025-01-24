@@ -11,7 +11,9 @@ import org.gtkkn.native.cairo.cairo_dither_t
  * @since 1.18
  */
 @CairoVersion1_18
-public enum class Dither(public val nativeValue: cairo_dither_t) {
+public enum class Dither(
+    public val nativeValue: cairo_dither_t,
+) {
     NONE(cairo_dither_t.CAIRO_DITHER_NONE),
     DEFAULT(cairo_dither_t.CAIRO_DITHER_DEFAULT),
     FAST(cairo_dither_t.CAIRO_DITHER_FAST),

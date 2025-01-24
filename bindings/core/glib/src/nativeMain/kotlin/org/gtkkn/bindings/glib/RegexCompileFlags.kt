@@ -30,7 +30,9 @@ import org.gtkkn.native.glib.G_REGEX_UNGREEDY
  * Flags specifying compile-time options.
  * @since 2.14
  */
-public class RegexCompileFlags(public val mask: GRegexCompileFlags) : Bitfield<RegexCompileFlags> {
+public class RegexCompileFlags(
+    public val mask: GRegexCompileFlags,
+) : Bitfield<RegexCompileFlags> {
     override infix fun or(other: RegexCompileFlags): RegexCompileFlags = RegexCompileFlags(mask or other.mask)
 
     @GLibVersion2_14
@@ -185,6 +187,6 @@ public class RegexCompileFlags(public val mask: GRegexCompileFlags) : Bitfield<R
          *     as libpcre2 does not support it. Since: 2.34 Deprecated: 2.74
          */
         public val JAVASCRIPT_COMPAT: RegexCompileFlags =
-            RegexCompileFlags(G_REGEX_JAVASCRIPT_COMPAT)
+                RegexCompileFlags(G_REGEX_JAVASCRIPT_COMPAT)
     }
 }

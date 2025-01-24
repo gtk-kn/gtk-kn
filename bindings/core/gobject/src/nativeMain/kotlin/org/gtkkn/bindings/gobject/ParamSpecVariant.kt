@@ -19,5 +19,6 @@ import org.gtkkn.native.gobject.GParamSpecVariant
  * @since 2.26
  */
 @GObjectVersion2_26
-public open class ParamSpecVariant(public val gobjectParamSpecVariantPointer: CPointer<GParamSpecVariant>) :
-    ParamSpec(gobjectParamSpecVariantPointer.reinterpret())
+public open class ParamSpecVariant(
+    public val gobjectParamSpecVariantPointer: CPointer<GParamSpecVariant>,
+) : ParamSpec(gobjectParamSpecVariantPointer.reinterpret())

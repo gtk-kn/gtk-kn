@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -43,8 +45,6 @@ import org.gtkkn.native.pango.pango_context_set_gravity_hint
 import org.gtkkn.native.pango.pango_context_set_language
 import org.gtkkn.native.pango.pango_context_set_matrix
 import org.gtkkn.native.pango.pango_context_set_round_glyph_positions
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `PangoContext` stores global information used to control the
@@ -60,8 +60,9 @@ import kotlin.Unit
  *
  * - parameter `families`: families: Out parameter is not supported
  */
-public open class Context(public val pangoContextPointer: CPointer<PangoContext>) :
-    Object(pangoContextPointer.reinterpret()),
+public open class Context(
+    public val pangoContextPointer: CPointer<PangoContext>,
+) : Object(pangoContextPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `PangoContext` initialized to default values.
@@ -79,7 +80,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return the newly allocated `PangoContext`, which should
      *   be freed with g_object_unref().
      */
-    public constructor() : this(pango_context_new()!!.reinterpret())
+    public constructor() : this(pango_context_new()!!)
 
     /**
      * Forces a change in the context, which will cause any `PangoLayout`
@@ -103,8 +104,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return the base direction for the context.
      */
     public open fun getBaseDir(): Direction = pango_context_get_base_dir(pangoContextPointer).run {
-        Direction.fromNativeValue(this)
-    }
+        Direction.fromNativeValue(this)}
 
     /**
      * Retrieves the base gravity for the context.
@@ -116,8 +116,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      */
     @PangoVersion1_16
     public open fun getBaseGravity(): Gravity = pango_context_get_base_gravity(pangoContextPointer).run {
-        Gravity.fromNativeValue(this)
-    }
+        Gravity.fromNativeValue(this)}
 
     /**
      * Retrieve the default font description for the context.
@@ -125,10 +124,8 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return a pointer to the context's default font
      *   description. This value must not be modified or freed.
      */
-    public open fun getFontDescription(): FontDescription? =
-        pango_context_get_font_description(pangoContextPointer)?.run {
-            FontDescription(this)
-        }
+    public open fun getFontDescription(): FontDescription? = pango_context_get_font_description(pangoContextPointer)?.run {
+        FontDescription(this)}
 
     /**
      * Gets the `PangoFontMap` used to look up fonts for this context.
@@ -140,8 +137,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      */
     @PangoVersion1_6
     public open fun getFontMap(): FontMap? = pango_context_get_font_map(pangoContextPointer)?.run {
-        FontMap.FontMapImpl(this)
-    }
+        FontMap.FontMapImpl(this)}
 
     /**
      * Retrieves the gravity for the context.
@@ -156,8 +152,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      */
     @PangoVersion1_16
     public open fun getGravity(): Gravity = pango_context_get_gravity(pangoContextPointer).run {
-        Gravity.fromNativeValue(this)
-    }
+        Gravity.fromNativeValue(this)}
 
     /**
      * Retrieves the gravity hint for the context.
@@ -169,8 +164,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      */
     @PangoVersion1_16
     public open fun getGravityHint(): GravityHint = pango_context_get_gravity_hint(pangoContextPointer).run {
-        GravityHint.fromNativeValue(this)
-    }
+        GravityHint.fromNativeValue(this)}
 
     /**
      * Retrieves the global language tag for the context.
@@ -178,8 +172,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return the global language tag.
      */
     public open fun getLanguage(): Language = pango_context_get_language(pangoContextPointer)!!.run {
-        Language(this)
-    }
+        Language(this)}
 
     /**
      * Gets the transformation matrix that will be applied when
@@ -195,8 +188,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      */
     @PangoVersion1_6
     public open fun getMatrix(): Matrix? = pango_context_get_matrix(pangoContextPointer)?.run {
-        Matrix(this)
-    }
+        Matrix(this)}
 
     /**
      * Get overall metric information for a particular font description.
@@ -221,14 +213,8 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return a `PangoFontMetrics` object. The caller must call
      *   [method@Pango.FontMetrics.unref] when finished using the object.
      */
-    public open fun getMetrics(desc: FontDescription? = null, language: Language? = null): FontMetrics =
-        pango_context_get_metrics(
-            pangoContextPointer,
-            desc?.pangoFontDescriptionPointer,
-            language?.pangoLanguagePointer
-        )!!.run {
-            FontMetrics(this)
-        }
+    public open fun getMetrics(desc: FontDescription? = null, language: Language? = null): FontMetrics = pango_context_get_metrics(pangoContextPointer, desc?.pangoFontDescriptionPointer, language?.pangoLanguagePointer)!!.run {
+        FontMetrics(this)}
 
     /**
      * Returns whether font rendering with this context should
@@ -237,8 +223,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun getRoundGlyphPositions(): Boolean =
-        pango_context_get_round_glyph_positions(pangoContextPointer).asBoolean()
+    public open fun getRoundGlyphPositions(): Boolean = pango_context_get_round_glyph_positions(pangoContextPointer).asBoolean()
 
     /**
      * Returns the current serial number of @context.
@@ -268,10 +253,8 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return the newly allocated `PangoFont`
      *   that was loaded, or null if no font matched.
      */
-    public open fun loadFont(desc: FontDescription): Font? =
-        pango_context_load_font(pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
-            Font.FontImpl(this)
-        }
+    public open fun loadFont(desc: FontDescription): Font? = pango_context_load_font(pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
+        Font.FontImpl(this)}
 
     /**
      * Load a set of fonts in the context that can be used to render
@@ -282,13 +265,8 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @return the newly allocated
      *   `PangoFontset` loaded, or null if no font matched.
      */
-    public open fun loadFontset(desc: FontDescription, language: Language): Fontset? = pango_context_load_fontset(
-        pangoContextPointer,
-        desc.pangoFontDescriptionPointer,
-        language.pangoLanguagePointer
-    )?.run {
-        Fontset.FontsetImpl(this)
-    }
+    public open fun loadFontset(desc: FontDescription, language: Language): Fontset? = pango_context_load_fontset(pangoContextPointer, desc.pangoFontDescriptionPointer, language.pangoLanguagePointer)?.run {
+        Fontset.FontsetImpl(this)}
 
     /**
      * Sets the base direction for the context.
@@ -302,8 +280,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      *
      * @param direction the new base direction
      */
-    public open fun setBaseDir(direction: Direction): Unit =
-        pango_context_set_base_dir(pangoContextPointer, direction.nativeValue)
+    public open fun setBaseDir(direction: Direction): Unit = pango_context_set_base_dir(pangoContextPointer, direction.nativeValue)
 
     /**
      * Sets the base gravity for the context.
@@ -314,16 +291,14 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @since 1.16
      */
     @PangoVersion1_16
-    public open fun setBaseGravity(gravity: Gravity): Unit =
-        pango_context_set_base_gravity(pangoContextPointer, gravity.nativeValue)
+    public open fun setBaseGravity(gravity: Gravity): Unit = pango_context_set_base_gravity(pangoContextPointer, gravity.nativeValue)
 
     /**
      * Set the default font description for the context
      *
      * @param desc the new pango font description
      */
-    public open fun setFontDescription(desc: FontDescription? = null): Unit =
-        pango_context_set_font_description(pangoContextPointer, desc?.pangoFontDescriptionPointer)
+    public open fun setFontDescription(desc: FontDescription? = null): Unit = pango_context_set_font_description(pangoContextPointer, desc?.pangoFontDescriptionPointer)
 
     /**
      * Sets the font map to be searched when fonts are looked-up
@@ -335,8 +310,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      *
      * @param fontMap the `PangoFontMap` to set.
      */
-    public open fun setFontMap(fontMap: FontMap? = null): Unit =
-        pango_context_set_font_map(pangoContextPointer, fontMap?.pangoFontMapPointer)
+    public open fun setFontMap(fontMap: FontMap? = null): Unit = pango_context_set_font_map(pangoContextPointer, fontMap?.pangoFontMapPointer)
 
     /**
      * Sets the gravity hint for the context.
@@ -350,8 +324,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @since 1.16
      */
     @PangoVersion1_16
-    public open fun setGravityHint(hint: GravityHint): Unit =
-        pango_context_set_gravity_hint(pangoContextPointer, hint.nativeValue)
+    public open fun setGravityHint(hint: GravityHint): Unit = pango_context_set_gravity_hint(pangoContextPointer, hint.nativeValue)
 
     /**
      * Sets the global language tag for the context.
@@ -361,8 +334,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      *
      * @param language the new language tag.
      */
-    public open fun setLanguage(language: Language? = null): Unit =
-        pango_context_set_language(pangoContextPointer, language?.pangoLanguagePointer)
+    public open fun setLanguage(language: Language? = null): Unit = pango_context_set_language(pangoContextPointer, language?.pangoLanguagePointer)
 
     /**
      * Sets the transformation matrix that will be applied when rendering
@@ -379,8 +351,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @since 1.6
      */
     @PangoVersion1_6
-    public open fun setMatrix(matrix: Matrix? = null): Unit =
-        pango_context_set_matrix(pangoContextPointer, matrix?.pangoMatrixPointer)
+    public open fun setMatrix(matrix: Matrix? = null): Unit = pango_context_set_matrix(pangoContextPointer, matrix?.pangoMatrixPointer)
 
     /**
      * Sets whether font rendering with this context should
@@ -397,16 +368,14 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun setRoundGlyphPositions(roundPositions: Boolean): Unit =
-        pango_context_set_round_glyph_positions(pangoContextPointer, roundPositions.asGBoolean())
+    public open fun setRoundGlyphPositions(roundPositions: Boolean): Unit = pango_context_set_round_glyph_positions(pangoContextPointer, roundPositions.asGBoolean())
 
     public companion object : TypeCompanion<Context> {
         override val type: GeneratedClassKGType<Context> =
-            GeneratedClassKGType(getTypeOrNull("pango_context_get_type")!!) { Context(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("pango_context_get_type")!!) { Context(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of Context

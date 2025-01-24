@@ -68,8 +68,9 @@ import org.gtkkn.native.gtk.gtk_lock_button_set_permission
  * - method `tooltip-not-authorized`: Property has no getter nor setter
  * - method `tooltip-unlock`: Property has no getter nor setter
  */
-public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockButton>) :
-    Button(gtkLockButtonPointer.reinterpret()),
+public open class LockButton(
+    public val gtkLockButtonPointer: CPointer<GtkLockButton>,
+) : Button(gtkLockButtonPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -93,9 +94,7 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
          * @return the `GPermission` of @button
          */
         get() = gtk_lock_button_get_permission(gtkLockButtonPointer)?.run {
-            Permission.PermissionImpl(this)
-        }
-
+            Permission.PermissionImpl(this)}
         /**
          * Sets the `GPermission` object that controls @button.
          *
@@ -109,17 +108,14 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
      * @param permission a `GPermission`
      * @return a new `GtkLockButton`
      */
-    public constructor(
-        permission: Permission? = null,
-    ) : this(gtk_lock_button_new(permission?.gioPermissionPointer)!!.reinterpret())
+    public constructor(permission: Permission? = null) : this(gtk_lock_button_new(permission?.gioPermissionPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<LockButton> {
         override val type: GeneratedClassKGType<LockButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_lock_button_get_type")!!) { LockButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_lock_button_get_type")!!) { LockButton(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of LockButton

@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -44,10 +48,6 @@ import org.gtkkn.native.webkit.webkit_download_get_type
 import org.gtkkn.native.webkit.webkit_download_get_web_view
 import org.gtkkn.native.webkit.webkit_download_set_allow_overwrite
 import org.gtkkn.native.webkit.webkit_download_set_destination
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Object used to communicate with the application when downloading.
@@ -58,8 +58,9 @@ import kotlin.Unit
  * download process, or to simply figure out what is to be downloaded,
  * and handle the download process itself.
  */
-public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>) :
-    Object(webkitDownloadPointer.reinterpret()),
+public class Download(
+    public val webkitDownloadPointer: CPointer<WebKitDownload>,
+) : Object(webkitDownloadPointer.reinterpret()),
     KGTyped {
     /**
      * Whether or not the download is allowed to overwrite an existing file on
@@ -81,7 +82,6 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
          * @since 2.6
          */
         get() = webkit_download_get_allow_overwrite(webkitDownloadPointer).asBoolean()
-
         /**
          * Sets the #WebKitDownload:allow-overwrite property.
          *
@@ -145,8 +145,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
          *     the response hasn't been received yet.
          */
         get() = webkit_download_get_response(webkitDownloadPointer)!!.run {
-            UriResponse(this)
-        }
+            UriResponse(this)}
 
     /**
      * Cancels the download.
@@ -185,8 +184,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @return the #WebKitURIRequest of @download
      */
     public fun getRequest(): UriRequest = webkit_download_get_request(webkitDownloadPointer)!!.run {
-        UriRequest(this)
-    }
+        UriRequest(this)}
 
     /**
      * Get the #WebKitWebView that initiated the download.
@@ -195,8 +193,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      *    or null if @download was not initiated by a #WebKitWebView.
      */
     public fun getWebView(): WebView = webkit_download_get_web_view(webkitDownloadPointer)!!.run {
-        WebView(this)
-    }
+        WebView(this)}
 
     /**
      * Sets the destination to which the downloaded file will be written.
@@ -217,8 +214,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      *
      * @param destination the destination
      */
-    public fun setDestination(destination: String): Unit =
-        webkit_download_set_destination(webkitDownloadPointer, destination)
+    public fun setDestination(destination: String): Unit = webkit_download_set_destination(webkitDownloadPointer, destination)
 
     /**
      * This signal is emitted after #WebKitDownload::decide-destination and before
@@ -228,17 +224,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `destination` the destination
      */
-    public fun onCreatedDestination(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (destination: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitDownloadPointer,
-        "created-destination",
-        onCreatedDestinationFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onCreatedDestination(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (destination: String) -> Unit): ULong = g_signal_connect_data(webkitDownloadPointer, "created-destination", onCreatedDestinationFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "created-destination" signal. See [onCreatedDestination].
@@ -266,17 +252,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @param handler the Callback to connect. Params: `suggestedFilename` the filename suggested for the download. Returns true to stop other handlers from being invoked for the event,
      *   or false to propagate the event further.
      */
-    public fun onDecideDestination(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (suggestedFilename: String) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        webkitDownloadPointer,
-        "decide-destination",
-        onDecideDestinationFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDecideDestination(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (suggestedFilename: String) -> Boolean): ULong = g_signal_connect_data(webkitDownloadPointer, "decide-destination", onDecideDestinationFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when an error occurs during the download
@@ -289,15 +265,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
-        g_signal_connect_data(
-            webkitDownloadPointer,
-            "failed",
-            onFailedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong = g_signal_connect_data(webkitDownloadPointer, "failed", onFailedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "failed" signal. See [onFailed].
@@ -315,15 +283,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitDownloadPointer,
-            "finished",
-            onFinishedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitDownloadPointer, "finished", onFinishedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "finished" signal. See [onFinished].
@@ -340,17 +300,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `dataLength` the length of data received in bytes
      */
-    public fun onReceivedData(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (dataLength: guint64) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitDownloadPointer,
-        "received-data",
-        onReceivedDataFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onReceivedData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (dataLength: guint64) -> Unit): ULong = g_signal_connect_data(webkitDownloadPointer, "received-data", onReceivedDataFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "received-data" signal. See [onReceivedData].
@@ -363,11 +313,10 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
 
     public companion object : TypeCompanion<Download> {
         override val type: GeneratedClassKGType<Download> =
-            GeneratedClassKGType(getTypeOrNull("webkit_download_get_type")!!) { Download(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("webkit_download_get_type")!!) { Download(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of Download
@@ -379,55 +328,44 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
 }
 
 private val onCreatedDestinationFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            destination: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(destination: String) -> Unit>().get().invoke(
-            destination?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    destination: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(destination: String) -> Unit>().get().invoke(destination?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 private val onDecideDestinationFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            suggestedFilename: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(suggestedFilename: String) -> Boolean>().get().invoke(
-            suggestedFilename?.toKString() ?: error("Expected not null string")
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    suggestedFilename: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(suggestedFilename: String) -> Boolean>().get().invoke(suggestedFilename?.toKString() ?: error("Expected not null string")).asGBoolean()}
+.reinterpret()
 
 private val onFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        error: CPointer<GError>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    error: CPointer<GError>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-        error!!.run {
-            Error(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(error!!.run {
+        Error(this)}
+    )}
+.reinterpret()
 
 private val onFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onReceivedDataFunc: CPointer<CFunction<(guint64) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        dataLength: guint64,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    dataLength: guint64,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(dataLength: guint64) -> Unit>().get().invoke(dataLength)
-}
-    .reinterpret()
+    userData.asStableRef<(dataLength: guint64) -> Unit>().get().invoke(dataLength)}
+.reinterpret()

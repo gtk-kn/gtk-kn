@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.TextTag
@@ -14,7 +15,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceTag
 import org.gtkkn.native.gtksource.gtk_source_tag_get_type
 import org.gtkkn.native.gtksource.gtk_source_tag_new
-import kotlin.String
 
 /**
  * A tag that can be applied to text in a [class@Buffer].
@@ -30,8 +30,9 @@ import kotlin.String
  * - method `draw-spaces`: Property has no getter nor setter
  * - method `draw-spaces-set`: Property has no getter nor setter
  */
-public open class Tag(public val gtksourceTagPointer: CPointer<GtkSourceTag>) :
-    TextTag(gtksourceTagPointer.reinterpret()),
+public open class Tag(
+    public val gtksourceTagPointer: CPointer<GtkSourceTag>,
+) : TextTag(gtksourceTagPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GtkSourceTag`.
@@ -48,11 +49,10 @@ public open class Tag(public val gtksourceTagPointer: CPointer<GtkSourceTag>) :
 
     public companion object : TypeCompanion<Tag> {
         override val type: GeneratedClassKGType<Tag> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_tag_get_type")!!) { Tag(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_tag_get_type")!!) { Tag(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of Tag

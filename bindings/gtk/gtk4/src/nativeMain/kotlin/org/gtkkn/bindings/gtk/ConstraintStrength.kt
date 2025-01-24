@@ -13,22 +13,21 @@ import org.gtkkn.native.gtk.gtk_constraint_strength_get_type
  * The strength of a [class@Constraint] can be expressed with any positive
  * integer; the values of this enumeration can be used for readability.
  */
-public enum class ConstraintStrength(public val nativeValue: GtkConstraintStrength) {
+public enum class ConstraintStrength(
+    public val nativeValue: GtkConstraintStrength,
+) {
     /**
      * The constraint is required towards solving the layout
      */
     REQUIRED(GtkConstraintStrength.GTK_CONSTRAINT_STRENGTH_REQUIRED),
-
     /**
      * A strong constraint
      */
     STRONG(GtkConstraintStrength.GTK_CONSTRAINT_STRENGTH_STRONG),
-
     /**
      * A medium constraint
      */
     MEDIUM(GtkConstraintStrength.GTK_CONSTRAINT_STRENGTH_MEDIUM),
-
     /**
      * A weak constraint
      */

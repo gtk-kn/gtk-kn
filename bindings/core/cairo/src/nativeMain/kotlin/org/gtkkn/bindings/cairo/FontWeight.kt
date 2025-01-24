@@ -7,7 +7,9 @@ import org.gtkkn.native.cairo.cairo_font_weight_t
 import org.gtkkn.native.cairo.cairo_gobject_font_weight_get_type
 import org.gtkkn.native.gobject.GType
 
-public enum class FontWeight(public val nativeValue: cairo_font_weight_t) {
+public enum class FontWeight(
+    public val nativeValue: cairo_font_weight_t,
+) {
     NORMAL(cairo_font_weight_t.CAIRO_FONT_WEIGHT_NORMAL),
     BOLD(cairo_font_weight_t.CAIRO_FONT_WEIGHT_BOLD),
     ;

@@ -32,8 +32,9 @@ import org.gtkkn.native.gtk.gtk_list_header_set_child
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ListHeader(public val gtkListHeaderPointer: CPointer<GtkListHeader>) :
-    Object(gtkListHeaderPointer.reinterpret()),
+public open class ListHeader(
+    public val gtkListHeaderPointer: CPointer<GtkListHeader>,
+) : Object(gtkListHeaderPointer.reinterpret()),
     KGTyped {
     /**
      * Widget used for display.
@@ -50,9 +51,7 @@ public open class ListHeader(public val gtkListHeaderPointer: CPointer<GtkListHe
          * @since 4.12
          */
         get() = gtk_list_header_get_child(gtkListHeaderPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child to be used for this listitem.
          *
@@ -102,8 +101,7 @@ public open class ListHeader(public val gtkListHeaderPointer: CPointer<GtkListHe
          * @since 4.12
          */
         get() = gtk_list_header_get_item(gtkListHeaderPointer)?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Number of items in this section.
@@ -142,11 +140,10 @@ public open class ListHeader(public val gtkListHeaderPointer: CPointer<GtkListHe
 
     public companion object : TypeCompanion<ListHeader> {
         override val type: GeneratedClassKGType<ListHeader> =
-            GeneratedClassKGType(getTypeOrNull("gtk_list_header_get_type")!!) { ListHeader(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_list_header_get_type")!!) { ListHeader(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ListHeader

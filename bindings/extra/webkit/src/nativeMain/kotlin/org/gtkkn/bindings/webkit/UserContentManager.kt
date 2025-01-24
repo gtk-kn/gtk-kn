@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -48,10 +52,6 @@ import org.gtkkn.native.webkit.webkit_user_content_manager_remove_filter_by_id
 import org.gtkkn.native.webkit.webkit_user_content_manager_remove_script
 import org.gtkkn.native.webkit.webkit_user_content_manager_remove_style_sheet
 import org.gtkkn.native.webkit.webkit_user_content_manager_unregister_script_message_handler
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Manages user-defined content which affects web pages.
@@ -70,8 +70,9 @@ import kotlin.Unit
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserContentManager(public val webkitUserContentManagerPointer: CPointer<WebKitUserContentManager>) :
-    Object(webkitUserContentManagerPointer.reinterpret()),
+public class UserContentManager(
+    public val webkitUserContentManagerPointer: CPointer<WebKitUserContentManager>,
+) : Object(webkitUserContentManagerPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new user content manager.
@@ -79,7 +80,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @return A #WebKitUserContentManager
      * @since 2.6
      */
-    public constructor() : this(webkit_user_content_manager_new()!!.reinterpret())
+    public constructor() : this(webkit_user_content_manager_new()!!)
 
     /**
      * Adds a #WebKitUserContentFilter to the given #WebKitUserContentManager.
@@ -93,8 +94,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun addFilter(filter: UserContentFilter): Unit =
-        webkit_user_content_manager_add_filter(webkitUserContentManagerPointer, filter.webkitUserContentFilterPointer)
+    public fun addFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_add_filter(webkitUserContentManagerPointer, filter.webkitUserContentFilterPointer)
 
     /**
      * Adds a #WebKitUserScript to the given #WebKitUserContentManager.
@@ -106,8 +106,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun addScript(script: UserScript): Unit =
-        webkit_user_content_manager_add_script(webkitUserContentManagerPointer, script.webkitUserScriptPointer)
+    public fun addScript(script: UserScript): Unit = webkit_user_content_manager_add_script(webkitUserContentManagerPointer, script.webkitUserScriptPointer)
 
     /**
      * Adds a #WebKitUserStyleSheet to the given #WebKitUserContentManager.
@@ -119,10 +118,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun addStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_add_style_sheet(
-        webkitUserContentManagerPointer,
-        stylesheet.webkitUserStyleSheetPointer
-    )
+    public fun addStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_add_style_sheet(webkitUserContentManagerPointer, stylesheet.webkitUserStyleSheetPointer)
 
     /**
      * Registers a new user script message handler in script world.
@@ -158,12 +154,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun registerScriptMessageHandler(name: String, worldName: String? = null): Boolean =
-        webkit_user_content_manager_register_script_message_handler(
-            webkitUserContentManagerPointer,
-            name,
-            worldName
-        ).asBoolean()
+    public fun registerScriptMessageHandler(name: String, worldName: String? = null): Boolean = webkit_user_content_manager_register_script_message_handler(webkitUserContentManagerPointer, name, worldName).asBoolean()
 
     /**
      * Registers a new user script message handler in script world with name @world_name.
@@ -188,12 +179,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun registerScriptMessageHandlerWithReply(name: String, worldName: String? = null): Boolean =
-        webkit_user_content_manager_register_script_message_handler_with_reply(
-            webkitUserContentManagerPointer,
-            name,
-            worldName
-        ).asBoolean()
+    public fun registerScriptMessageHandlerWithReply(name: String, worldName: String? = null): Boolean = webkit_user_content_manager_register_script_message_handler_with_reply(webkitUserContentManagerPointer, name, worldName).asBoolean()
 
     /**
      * Removes all content filters from the given #WebKitUserContentManager.
@@ -201,8 +187,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun removeAllFilters(): Unit =
-        webkit_user_content_manager_remove_all_filters(webkitUserContentManagerPointer)
+    public fun removeAllFilters(): Unit = webkit_user_content_manager_remove_all_filters(webkitUserContentManagerPointer)
 
     /**
      * Removes all user scripts from the given #WebKitUserContentManager
@@ -212,8 +197,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun removeAllScripts(): Unit =
-        webkit_user_content_manager_remove_all_scripts(webkitUserContentManagerPointer)
+    public fun removeAllScripts(): Unit = webkit_user_content_manager_remove_all_scripts(webkitUserContentManagerPointer)
 
     /**
      * Removes all user style sheets from the given #WebKitUserContentManager.
@@ -221,8 +205,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun removeAllStyleSheets(): Unit =
-        webkit_user_content_manager_remove_all_style_sheets(webkitUserContentManagerPointer)
+    public fun removeAllStyleSheets(): Unit = webkit_user_content_manager_remove_all_style_sheets(webkitUserContentManagerPointer)
 
     /**
      * Removes a filter from the given #WebKitUserContentManager.
@@ -231,10 +214,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      *
      * @param filter A #WebKitUserContentFilter
      */
-    public fun removeFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_remove_filter(
-        webkitUserContentManagerPointer,
-        filter.webkitUserContentFilterPointer
-    )
+    public fun removeFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_remove_filter(webkitUserContentManagerPointer, filter.webkitUserContentFilterPointer)
 
     /**
      * Removes a filter by the given identifier.
@@ -247,8 +227,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun removeFilterById(filterId: String): Unit =
-        webkit_user_content_manager_remove_filter_by_id(webkitUserContentManagerPointer, filterId)
+    public fun removeFilterById(filterId: String): Unit = webkit_user_content_manager_remove_filter_by_id(webkitUserContentManagerPointer, filterId)
 
     /**
      * Removes a #WebKitUserScript from the given #WebKitUserContentManager.
@@ -259,8 +238,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.32
      */
     @WebKitVersion2_32
-    public fun removeScript(script: UserScript): Unit =
-        webkit_user_content_manager_remove_script(webkitUserContentManagerPointer, script.webkitUserScriptPointer)
+    public fun removeScript(script: UserScript): Unit = webkit_user_content_manager_remove_script(webkitUserContentManagerPointer, script.webkitUserScriptPointer)
 
     /**
      * Removes a #WebKitUserStyleSheet from the given #WebKitUserContentManager.
@@ -271,10 +249,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.32
      */
     @WebKitVersion2_32
-    public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_remove_style_sheet(
-        webkitUserContentManagerPointer,
-        stylesheet.webkitUserStyleSheetPointer
-    )
+    public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_remove_style_sheet(webkitUserContentManagerPointer, stylesheet.webkitUserStyleSheetPointer)
 
     /**
      * Unregisters a previously registered message handler in script world with name @world_name.
@@ -292,8 +267,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun unregisterScriptMessageHandler(name: String, worldName: String? = null): Unit =
-        webkit_user_content_manager_unregister_script_message_handler(webkitUserContentManagerPointer, name, worldName)
+    public fun unregisterScriptMessageHandler(name: String, worldName: String? = null): Unit = webkit_user_content_manager_unregister_script_message_handler(webkitUserContentManagerPointer, name, worldName)
 
     /**
      * This signal is emitted when JavaScript in a web view calls
@@ -311,18 +285,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
         connectFlags: ConnectFlags = ConnectFlags(0u),
         detail: String? = null,
         handler: (`value`: Value) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitUserContentManagerPointer,
-        "script-message-received" + (
-            detail?.let {
-                "::$it"
-            } ?: ""
-            ),
-        onScriptMessageReceivedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    ): ULong = g_signal_connect_data(webkitUserContentManagerPointer, "script-message-received" + (detail?.let { "::$it" } ?: ""), onScriptMessageReceivedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "script-message-received" signal. See [onScriptMessageReceived].
@@ -333,11 +296,7 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
      */
     @WebKitVersion2_8
     public fun emitScriptMessageReceived(detail: String? = null, `value`: Value) {
-        g_signal_emit_by_name(
-            webkitUserContentManagerPointer.reinterpret(),
-            "script-message-received" + (detail?.let { "::$it" } ?: ""),
-            `value`.jscValuePointer
-        )
+        g_signal_emit_by_name(webkitUserContentManagerPointer.reinterpret(), "script-message-received" + (detail?.let { "::$it" } ?: ""), `value`.jscValuePointer)
     }
 
     /**
@@ -365,28 +324,14 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
         connectFlags: ConnectFlags = ConnectFlags(0u),
         detail: String? = null,
         handler: (`value`: Value, reply: ScriptMessageReply) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        webkitUserContentManagerPointer,
-        "script-message-with-reply-received" + (
-            detail?.let {
-                "::$it"
-            } ?: ""
-            ),
-        onScriptMessageWithReplyReceivedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    ): ULong = g_signal_connect_data(webkitUserContentManagerPointer, "script-message-with-reply-received" + (detail?.let { "::$it" } ?: ""), onScriptMessageWithReplyReceivedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<UserContentManager> {
         override val type: GeneratedClassKGType<UserContentManager> =
-            GeneratedClassKGType(getTypeOrNull("webkit_user_content_manager_get_type")!!) {
-                UserContentManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_user_content_manager_get_type")!!) { UserContentManager(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of UserContentManager
@@ -398,34 +343,27 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
 }
 
 private val onScriptMessageReceivedFunc: CPointer<CFunction<(CPointer<JSCValue>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `value`: CPointer<JSCValue>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(
-            `value`!!.run {
-                Value(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    `value`: CPointer<JSCValue>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(`value`!!.run {
+        Value(this)}
+    )}
+.reinterpret()
 
 private val onScriptMessageWithReplyReceivedFunc:
-    CPointer<CFunction<(CPointer<JSCValue>, CPointer<WebKitScriptMessageReply>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `value`: CPointer<JSCValue>?,
-            reply: CPointer<WebKitScriptMessageReply>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`value`: Value, reply: ScriptMessageReply) -> Boolean>().get().invoke(
-            `value`!!.run {
-                Value(this)
-            },
-            reply!!.run {
-                ScriptMessageReply(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<JSCValue>, CPointer<WebKitScriptMessageReply>) -> gboolean>> =
+        staticCFunction {
+    _: COpaquePointer,
+    `value`: CPointer<JSCValue>?,
+    reply: CPointer<WebKitScriptMessageReply>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`value`: Value, reply: ScriptMessageReply) -> Boolean>().get().invoke(`value`!!.run {
+        Value(this)}
+    , reply!!.run {
+        ScriptMessageReply(this)}
+    ).asGBoolean()}
+.reinterpret()

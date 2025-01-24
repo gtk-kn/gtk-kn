@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -24,8 +26,6 @@ import org.gtkkn.native.gio.g_initable_get_type
 import org.gtkkn.native.gio.g_initable_init
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * `GInitable` is implemented by objects that can fail during
@@ -62,9 +62,7 @@ import kotlin.Result
  * @since 2.22
  */
 @GioVersion2_22
-public interface Initable :
-    Proxy,
-    KGTyped {
+public interface Initable : Proxy, KGTyped {
     public val gioInitablePointer: CPointer<GInitable>
 
     /**
@@ -128,17 +126,17 @@ public interface Initable :
      *
      * @constructor Creates a new instance of Initable for the provided [CPointer].
      */
-    public data class InitableImpl(override val gioInitablePointer: CPointer<GInitable>) :
-        Object(gioInitablePointer.reinterpret()),
+    public data class InitableImpl(
+        override val gioInitablePointer: CPointer<GInitable>,
+    ) : Object(gioInitablePointer.reinterpret()),
         Initable
 
     public companion object : TypeCompanion<Initable> {
         override val type: GeneratedInterfaceKGType<Initable> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_initable_get_type")!!) { InitableImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_initable_get_type")!!) { InitableImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Initable

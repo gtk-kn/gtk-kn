@@ -30,9 +30,7 @@ import org.gtkkn.native.gobject.GType
  * @since 2.24
  */
 @GioVersion2_24
-public interface FileDescriptorBased :
-    Proxy,
-    KGTyped {
+public interface FileDescriptorBased : Proxy, KGTyped {
     public val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
 
     /**
@@ -56,13 +54,10 @@ public interface FileDescriptorBased :
 
     public companion object : TypeCompanion<FileDescriptorBased> {
         override val type: GeneratedInterfaceKGType<FileDescriptorBased> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_file_descriptor_based_get_type")!!) {
-                FileDescriptorBasedImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_file_descriptor_based_get_type")!!) { FileDescriptorBasedImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FileDescriptorBased

@@ -10,17 +10,17 @@ import org.gtkkn.native.soup.soup_same_site_policy_get_type
 /**
  * Represents the same-site policies of a cookie.
  */
-public enum class SameSitePolicy(public val nativeValue: SoupSameSitePolicy) {
+public enum class SameSitePolicy(
+    public val nativeValue: SoupSameSitePolicy,
+) {
     /**
      * The cookie is exposed with both cross-site and same-site requests
      */
     NONE(SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_NONE),
-
     /**
      * The cookie is withheld on cross-site requests but exposed on cross-site navigations
      */
     LAX(SoupSameSitePolicy.SOUP_SAME_SITE_POLICY_LAX),
-
     /**
      * The cookie is only exposed for same-site requests
      */

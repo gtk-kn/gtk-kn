@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,28 +12,25 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDebugKey
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Associates a string with a bit flag.
  * Used in g_parse_debug_string().
  */
-public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibDebugKeyPointer) {
+public class DebugKey(
+    public val glibDebugKeyPointer: CPointer<GDebugKey>,
+) : ProxyInstance(glibDebugKeyPointer) {
     /**
      * the string
      */
     public var key: String?
         get() = glibDebugKeyPointer.pointed.key?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibDebugKeyPointer.pointed.key?.let { g_free(it) }
@@ -44,7 +42,6 @@ public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>, clean
      */
     public var `value`: guint
         get() = glibDebugKeyPointer.pointed.value
-
         @UnsafeFieldSetter
         set(`value`) {
             glibDebugKeyPointer.pointed.value = value
@@ -56,21 +53,9 @@ public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>, clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDebugKey>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DebugKey and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDebugKey>, Cleaner>,
-    ) : this(glibDebugKeyPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDebugKey>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DebugKey using the provided [AutofreeScope].

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.EventSequence
@@ -24,7 +25,6 @@ import org.gtkkn.native.gtk.gtk_gesture_single_get_type
 import org.gtkkn.native.gtk.gtk_gesture_single_set_button
 import org.gtkkn.native.gtk.gtk_gesture_single_set_exclusive
 import org.gtkkn.native.gtk.gtk_gesture_single_set_touch_only
-import kotlin.Boolean
 
 /**
  * `GtkGestureSingle` is a `GtkGestures` subclass optimized for singe-touch
@@ -42,8 +42,9 @@ import kotlin.Boolean
  * button being currently pressed can be known through
  * [method@Gtk.GestureSingle.get_current_button].
  */
-public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>) :
-    Gesture(gtkGestureSinglePointer.reinterpret()),
+public open class GestureSingle(
+    public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>,
+) : Gesture(gtkGestureSinglePointer.reinterpret()),
     KGTyped {
     /**
      * Mouse button number to listen to, or 0 to listen for any button.
@@ -57,7 +58,6 @@ public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<Gtk
          * @return The button number, or 0 for any button
          */
         get() = gtk_gesture_single_get_button(gtkGestureSinglePointer)
-
         /**
          * Sets the button number @gesture listens to.
          *
@@ -83,7 +83,6 @@ public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<Gtk
          * @return Whether the gesture is exclusive
          */
         get() = gtk_gesture_single_get_exclusive(gtkGestureSinglePointer).asBoolean()
-
         /**
          * Sets whether @gesture is exclusive.
          *
@@ -105,7 +104,6 @@ public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<Gtk
          * @return true if the gesture only handles touch events
          */
         get() = gtk_gesture_single_get_touch_only(gtkGestureSinglePointer).asBoolean()
-
         /**
          * Sets whether to handle only touch events.
          *
@@ -133,18 +131,15 @@ public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<Gtk
      *
      * @return the current sequence
      */
-    public open fun getCurrentSequence(): EventSequence? =
-        gtk_gesture_single_get_current_sequence(gtkGestureSinglePointer)?.run {
-            EventSequence(this)
-        }
+    public open fun getCurrentSequence(): EventSequence? = gtk_gesture_single_get_current_sequence(gtkGestureSinglePointer)?.run {
+        EventSequence(this)}
 
     public companion object : TypeCompanion<GestureSingle> {
         override val type: GeneratedClassKGType<GestureSingle> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gesture_single_get_type")!!) { GestureSingle(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_gesture_single_get_type")!!) { GestureSingle(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GestureSingle

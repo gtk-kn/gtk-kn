@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
@@ -22,7 +23,6 @@ import org.gtkkn.native.gio.g_unix_input_stream_new
 import org.gtkkn.native.gio.g_unix_input_stream_set_close_fd
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * `GUnixInputStream` implements [class@Gio.InputStream] for reading from a UNIX
@@ -35,8 +35,9 @@ import kotlin.Boolean
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config
  * file or the `GioUnix-2.0` GIR namespace when using it.
  */
-public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer<GUnixInputStream>) :
-    InputStream(gioUnixInputStreamPointer.reinterpret()),
+public open class UnixInputStream(
+    public val gioUnixInputStreamPointer: CPointer<GUnixInputStream>,
+) : InputStream(gioUnixInputStreamPointer.reinterpret()),
     FileDescriptorBased,
     PollableInputStream,
     KGTyped {
@@ -61,7 +62,6 @@ public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer
          * @since 2.20
          */
         get() = g_unix_input_stream_get_close_fd(gioUnixInputStreamPointer).asBoolean()
-
         /**
          * Sets whether the file descriptor of @stream shall be closed
          * when the stream is closed.
@@ -97,20 +97,14 @@ public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer
      * @param closeFd true to close the file descriptor when done
      * @return a new #GUnixInputStream
      */
-    public constructor(
-        fd: gint,
-        closeFd: Boolean,
-    ) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
+    public constructor(fd: gint, closeFd: Boolean) : this(g_unix_input_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<UnixInputStream> {
         override val type: GeneratedClassKGType<UnixInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_unix_input_stream_get_type")!!) {
-                UnixInputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_unix_input_stream_get_type")!!) { UnixInputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of UnixInputStream

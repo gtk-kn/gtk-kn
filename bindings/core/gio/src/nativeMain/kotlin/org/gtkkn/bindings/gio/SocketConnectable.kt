@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,7 +22,6 @@ import org.gtkkn.native.gio.g_socket_connectable_get_type
 import org.gtkkn.native.gio.g_socket_connectable_proxy_enumerate
 import org.gtkkn.native.gio.g_socket_connectable_to_string
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * Objects that describe one or more potential socket endpoints
@@ -82,9 +82,7 @@ import kotlin.String
  * }
  * ```
  */
-public interface SocketConnectable :
-    Proxy,
-    KGTyped {
+public interface SocketConnectable : Proxy, KGTyped {
     public val gioSocketConnectablePointer: CPointer<GSocketConnectable>
 
     /**
@@ -94,10 +92,8 @@ public interface SocketConnectable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun enumerate(): SocketAddressEnumerator =
-        g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
-            SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)
-        }
+    public fun enumerate(): SocketAddressEnumerator = g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
+        SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)}
 
     /**
      * Creates a #GSocketAddressEnumerator for @connectable that will
@@ -112,10 +108,8 @@ public interface SocketConnectable :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun proxyEnumerate(): SocketAddressEnumerator =
-        g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
-            SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)
-        }
+    public fun proxyEnumerate(): SocketAddressEnumerator = g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
+        SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)}
 
     /**
      * Format a #GSocketConnectable as a string. This is a human-readable format for
@@ -130,27 +124,24 @@ public interface SocketConnectable :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun toStringSocketConnectable(): String =
-        g_socket_connectable_to_string(gioSocketConnectablePointer)?.toKString() ?: error("Expected not null string")
+    public fun toStringSocketConnectable(): String = g_socket_connectable_to_string(gioSocketConnectablePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The SocketConnectableImpl type represents a native instance of the SocketConnectable interface.
      *
      * @constructor Creates a new instance of SocketConnectable for the provided [CPointer].
      */
-    public data class SocketConnectableImpl(override val gioSocketConnectablePointer: CPointer<GSocketConnectable>) :
-        Object(gioSocketConnectablePointer.reinterpret()),
+    public data class SocketConnectableImpl(
+        override val gioSocketConnectablePointer: CPointer<GSocketConnectable>,
+    ) : Object(gioSocketConnectablePointer.reinterpret()),
         SocketConnectable
 
     public companion object : TypeCompanion<SocketConnectable> {
         override val type: GeneratedInterfaceKGType<SocketConnectable> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_socket_connectable_get_type")!!) {
-                SocketConnectableImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_socket_connectable_get_type")!!) { SocketConnectableImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketConnectable

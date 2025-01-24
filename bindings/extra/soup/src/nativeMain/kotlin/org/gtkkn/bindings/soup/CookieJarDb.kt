@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -15,8 +17,6 @@ import org.gtkkn.native.soup.SoupCookieJarDB
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_cookie_jar_db_get_type
 import org.gtkkn.native.soup.soup_cookie_jar_db_new
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * Database-based Cookie Jar.
@@ -32,8 +32,9 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class CookieJarDb(public val soupCookieJarDbPointer: CPointer<SoupCookieJarDB>) :
-    CookieJar(soupCookieJarDbPointer.reinterpret()),
+public class CookieJarDb(
+    public val soupCookieJarDbPointer: CPointer<SoupCookieJarDB>,
+) : CookieJar(soupCookieJarDbPointer.reinterpret()),
     KGTyped {
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
@@ -51,18 +52,14 @@ public class CookieJarDb(public val soupCookieJarDbPointer: CPointer<SoupCookieJ
      * @param readOnly true if @filename is read-only
      * @return the new #SoupCookieJar
      */
-    public constructor(
-        filename: String,
-        readOnly: Boolean,
-    ) : this(soup_cookie_jar_db_new(filename, readOnly.asGBoolean())!!.reinterpret())
+    public constructor(filename: String, readOnly: Boolean) : this(soup_cookie_jar_db_new(filename, readOnly.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<CookieJarDb> {
         override val type: GeneratedClassKGType<CookieJarDb> =
-            GeneratedClassKGType(getTypeOrNull("soup_cookie_jar_db_get_type")!!) { CookieJarDb(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_cookie_jar_db_get_type")!!) { CookieJarDb(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of CookieJarDB

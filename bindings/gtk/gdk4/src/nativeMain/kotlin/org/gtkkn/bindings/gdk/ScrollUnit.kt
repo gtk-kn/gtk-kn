@@ -28,12 +28,13 @@ import org.gtkkn.native.gobject.GType
  * @since 4.8
  */
 @GdkVersion4_8
-public enum class ScrollUnit(public val nativeValue: GdkScrollUnit) {
+public enum class ScrollUnit(
+    public val nativeValue: GdkScrollUnit,
+) {
     /**
      * The delta is in number of wheel clicks.
      */
     WHEEL(GdkScrollUnit.GDK_SCROLL_UNIT_WHEEL),
-
     /**
      * The delta is in surface pixels to scroll directly
      *   on screen.

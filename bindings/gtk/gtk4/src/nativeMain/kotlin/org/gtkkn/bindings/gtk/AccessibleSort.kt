@@ -11,22 +11,21 @@ import org.gtkkn.native.gtk.gtk_accessible_sort_get_type
  * The possible values for the %GTK_ACCESSIBLE_PROPERTY_SORT
  * accessible property.
  */
-public enum class AccessibleSort(public val nativeValue: GtkAccessibleSort) {
+public enum class AccessibleSort(
+    public val nativeValue: GtkAccessibleSort,
+) {
     /**
      * There is no defined sort applied to the column.
      */
     NONE(GtkAccessibleSort.GTK_ACCESSIBLE_SORT_NONE),
-
     /**
      * Items are sorted in ascending order by this column.
      */
     ASCENDING(GtkAccessibleSort.GTK_ACCESSIBLE_SORT_ASCENDING),
-
     /**
      * Items are sorted in descending order by this column.
      */
     DESCENDING(GtkAccessibleSort.GTK_ACCESSIBLE_SORT_DESCENDING),
-
     /**
      * A sort algorithm other than ascending or
      *    descending has been applied.

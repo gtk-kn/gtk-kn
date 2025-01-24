@@ -19,7 +19,9 @@ import org.gtkkn.native.gobject.GType
  * direction the binding works. The default is to synchronize in both
  * directions.
  */
-public class SettingsBindFlags(public val mask: GSettingsBindFlags) : Bitfield<SettingsBindFlags> {
+public class SettingsBindFlags(
+    public val mask: GSettingsBindFlags,
+) : Bitfield<SettingsBindFlags> {
     override infix fun or(other: SettingsBindFlags): SettingsBindFlags = SettingsBindFlags(mask or other.mask)
 
     public companion object {
@@ -44,14 +46,14 @@ public class SettingsBindFlags(public val mask: GSettingsBindFlags) : Bitfield<S
          * Do not try to bind a "sensitivity" property to the writability of the setting
          */
         public val NO_SENSITIVITY: SettingsBindFlags =
-            SettingsBindFlags(G_SETTINGS_BIND_NO_SENSITIVITY)
+                SettingsBindFlags(G_SETTINGS_BIND_NO_SENSITIVITY)
 
         /**
          * When set in addition to %G_SETTINGS_BIND_GET, set the #GObject property
          *     value initially from the setting, but do not listen for changes of the setting
          */
         public val GET_NO_CHANGES: SettingsBindFlags =
-            SettingsBindFlags(G_SETTINGS_BIND_GET_NO_CHANGES)
+                SettingsBindFlags(G_SETTINGS_BIND_GET_NO_CHANGES)
 
         /**
          * When passed to g_settings_bind(), uses a pair of mapping functions that invert
@@ -59,7 +61,7 @@ public class SettingsBindFlags(public val mask: GSettingsBindFlags) : Bitfield<S
          *     be booleans.  You cannot pass this flag to g_settings_bind_with_mapping().
          */
         public val INVERT_BOOLEAN: SettingsBindFlags =
-            SettingsBindFlags(G_SETTINGS_BIND_INVERT_BOOLEAN)
+                SettingsBindFlags(G_SETTINGS_BIND_INVERT_BOOLEAN)
 
         /**
          * Get the GType of SettingsBindFlags

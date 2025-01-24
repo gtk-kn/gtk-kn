@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -23,8 +25,6 @@ import org.gtkkn.native.gio.g_test_dbus_stop
 import org.gtkkn.native.gio.g_test_dbus_unset
 import org.gtkkn.native.gio.g_test_dbus_up
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A helper class for testing code which uses D-Bus without touching the user’s
@@ -109,8 +109,9 @@ import kotlin.Unit
  * @since 2.34
  */
 @GioVersion2_34
-public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
-    Object(gioTestDBusPointer.reinterpret()),
+public open class TestDBus(
+    public val gioTestDBusPointer: CPointer<GTestDBus>,
+) : Object(gioTestDBusPointer.reinterpret()),
     KGTyped {
     /**
      * #GTestDBusFlags specifying the behaviour of the D-Bus session.
@@ -125,8 +126,7 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
          * @return the value of #GTestDBus:flags property
          */
         get() = g_test_dbus_get_flags(gioTestDBusPointer).run {
-            TestDBusFlags(this)
-        }
+            TestDBusFlags(this)}
 
     /**
      * Create a new #GTestDBus object.
@@ -134,7 +134,7 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
      * @param flags a #GTestDBusFlags
      * @return a new #GTestDBus.
      */
-    public constructor(flags: TestDBusFlags) : this(g_test_dbus_new(flags.mask)!!.reinterpret())
+    public constructor(flags: TestDBusFlags) : this(g_test_dbus_new(flags.mask)!!)
 
     /**
      * Add a path where dbus-daemon will look up .service files. This can't be
@@ -186,11 +186,10 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
 
     public companion object : TypeCompanion<TestDBus> {
         override val type: GeneratedClassKGType<TestDBus> =
-            GeneratedClassKGType(getTypeOrNull("g_test_dbus_get_type")!!) { TestDBus(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_test_dbus_get_type")!!) { TestDBus(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Unset DISPLAY and DBUS_SESSION_BUS_ADDRESS env variables to ensure the test

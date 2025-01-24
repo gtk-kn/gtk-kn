@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
@@ -18,7 +19,6 @@ import org.gtkkn.native.gtk.gtk_root_get_display
 import org.gtkkn.native.gtk.gtk_root_get_focus
 import org.gtkkn.native.gtk.gtk_root_get_type
 import org.gtkkn.native.gtk.gtk_root_set_focus
-import kotlin.Unit
 
 /**
  * `GtkRoot` is the interface implemented by all widgets that can act as a toplevel
@@ -35,10 +35,7 @@ import kotlin.Unit
  * `GtkRoot` also maintains the location of keyboard focus inside its widget
  * hierarchy, with [method@Gtk.Root.set_focus] and [method@Gtk.Root.get_focus].
  */
-public interface Root :
-    Proxy,
-    Native,
-    KGTyped {
+public interface Root : Proxy, Native, KGTyped {
     public val gtkRootPointer: CPointer<GtkRoot>
 
     override val gtkNativePointer: CPointer<GtkNative>
@@ -50,8 +47,7 @@ public interface Root :
      * @return the display of @root
      */
     public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer)!!.run {
-        Display(this)
-    }
+        Display(this)}
 
     /**
      * Retrieves the current focused widget within the root.
@@ -64,8 +60,7 @@ public interface Root :
      * @return the currently focused widget
      */
     public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer)?.run {
-        Widget.WidgetImpl(this)
-    }
+        Widget.WidgetImpl(this)}
 
     /**
      * If @focus is not the current focus widget, and is focusable, sets
@@ -87,17 +82,17 @@ public interface Root :
      *
      * @constructor Creates a new instance of Root for the provided [CPointer].
      */
-    public data class RootImpl(override val gtkRootPointer: CPointer<GtkRoot>) :
-        Widget(gtkRootPointer.reinterpret()),
+    public data class RootImpl(
+        override val gtkRootPointer: CPointer<GtkRoot>,
+    ) : Widget(gtkRootPointer.reinterpret()),
         Root
 
     public companion object : TypeCompanion<Root> {
         override val type: GeneratedInterfaceKGType<Root> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_root_get_type")!!) { RootImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_root_get_type")!!) { RootImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Root

@@ -11,47 +11,41 @@ import org.gtkkn.native.pango.pango_stretch_get_type
  * An enumeration specifying the width of the font relative to other designs
  * within a family.
  */
-public enum class Stretch(public val nativeValue: PangoStretch) {
+public enum class Stretch(
+    public val nativeValue: PangoStretch,
+) {
     /**
      * ultra condensed width
      */
     ULTRA_CONDENSED(PangoStretch.PANGO_STRETCH_ULTRA_CONDENSED),
-
     /**
      * extra condensed width
      */
     EXTRA_CONDENSED(PangoStretch.PANGO_STRETCH_EXTRA_CONDENSED),
-
     /**
      * condensed width
      */
     CONDENSED(PangoStretch.PANGO_STRETCH_CONDENSED),
-
     /**
      * semi condensed width
      */
     SEMI_CONDENSED(PangoStretch.PANGO_STRETCH_SEMI_CONDENSED),
-
     /**
      * the normal width
      */
     NORMAL(PangoStretch.PANGO_STRETCH_NORMAL),
-
     /**
      * semi expanded width
      */
     SEMI_EXPANDED(PangoStretch.PANGO_STRETCH_SEMI_EXPANDED),
-
     /**
      * expanded width
      */
     EXPANDED(PangoStretch.PANGO_STRETCH_EXPANDED),
-
     /**
      * extra expanded width
      */
     EXTRA_EXPANDED(PangoStretch.PANGO_STRETCH_EXTRA_EXPANDED),
-
     /**
      * ultra expanded width
      */

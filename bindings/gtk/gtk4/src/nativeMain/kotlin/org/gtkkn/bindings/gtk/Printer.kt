@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -49,10 +53,6 @@ import org.gtkkn.native.gtk.gtk_printer_is_virtual
 import org.gtkkn.native.gtk.gtk_printer_list_papers
 import org.gtkkn.native.gtk.gtk_printer_new
 import org.gtkkn.native.gtk.gtk_printer_request_details
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkPrinter` object represents a printer.
@@ -76,8 +76,9 @@ import kotlin.Unit
  * - method `is-virtual`: Property has no getter nor setter
  * - method `paused`: Property has no getter nor setter
  */
-public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
-    Object(gtkPrinterPointer.reinterpret()),
+public open class Printer(
+    public val gtkPrinterPointer: CPointer<GtkPrinter>,
+) : Object(gtkPrinterPointer.reinterpret()),
     KGTyped {
     /**
      * Icon name to use for the printer.
@@ -147,7 +148,7 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
         name: String,
         backend: PrintBackend,
         virtual: Boolean,
-    ) : this(gtk_printer_new(name, backend.gtkPrintBackendPointer, virtual.asGBoolean())!!.reinterpret())
+    ) : this(gtk_printer_new(name, backend.gtkPrintBackendPointer, virtual.asGBoolean())!!)
 
     /**
      * Returns whether the printer accepts input in
@@ -180,8 +181,7 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
      * @return the backend of @printer
      */
     public open fun getBackend(): PrintBackend = gtk_printer_get_backend(gtkPrinterPointer)!!.run {
-        PrintBackend(this)
-    }
+        PrintBackend(this)}
 
     /**
      * Returns the printer’s capabilities.
@@ -197,8 +197,7 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
      * @return the printer’s capabilities
      */
     public open fun getCapabilities(): PrintCapabilities = gtk_printer_get_capabilities(gtkPrinterPointer).run {
-        PrintCapabilities(this)
-    }
+        PrintCapabilities(this)}
 
     /**
      * Returns default page size of @printer.
@@ -207,16 +206,14 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
      *   of the printer.
      */
     public open fun getDefaultPageSize(): PageSetup = gtk_printer_get_default_page_size(gtkPrinterPointer)!!.run {
-        PageSetup(this)
-    }
+        PageSetup(this)}
 
     /**
      * Gets the description of the printer.
      *
      * @return the description of @printer
      */
-    public open fun getDescription(): String =
-        gtk_printer_get_description(gtkPrinterPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getDescription(): String = gtk_printer_get_description(gtkPrinterPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether the printer details are available.
@@ -277,8 +274,7 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
      *   allocated list of newly allocated `GtkPageSetup`s.
      */
     public open fun listPapers(): List = gtk_printer_list_papers(gtkPrinterPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Requests the printer details.
@@ -299,17 +295,7 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `success` true if the details were successfully acquired
      */
-    public fun onDetailsAcquired(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (success: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkPrinterPointer,
-        "details-acquired",
-        onDetailsAcquiredFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDetailsAcquired(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (success: Boolean) -> Unit): ULong = g_signal_connect_data(gtkPrinterPointer, "details-acquired", onDetailsAcquiredFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "details-acquired" signal. See [onDetailsAcquired].
@@ -322,11 +308,10 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
 
     public companion object : TypeCompanion<Printer> {
         override val type: GeneratedClassKGType<Printer> =
-            GeneratedClassKGType(getTypeOrNull("gtk_printer_get_type")!!) { Printer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_printer_get_type")!!) { Printer(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Printer
@@ -338,10 +323,9 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
 }
 
 private val onDetailsAcquiredFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        success: gboolean,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    success: gboolean,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(success: Boolean) -> Unit>().get().invoke(success.asBoolean())
-}
-    .reinterpret()
+    userData.asStableRef<(success: Boolean) -> Unit>().get().invoke(success.asBoolean())}
+.reinterpret()

@@ -10,12 +10,13 @@ import org.gtkkn.native.webkit.webkit_tls_errors_policy_get_type
 /**
  * Enum values used to denote the TLS errors policy.
  */
-public enum class TlsErrorsPolicy(public val nativeValue: WebKitTLSErrorsPolicy) {
+public enum class TlsErrorsPolicy(
+    public val nativeValue: WebKitTLSErrorsPolicy,
+) {
     /**
      * Ignore TLS errors.
      */
     IGNORE(WebKitTLSErrorsPolicy.WEBKIT_TLS_ERRORS_POLICY_IGNORE),
-
     /**
      * TLS errors will emit
      *   #WebKitWebView::load-failed-with-tls-errors and, if the signal is handled,

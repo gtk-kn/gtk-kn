@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -14,7 +15,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFormSubmissionRequest
 import org.gtkkn.native.webkit.webkit_form_submission_request_get_type
 import org.gtkkn.native.webkit.webkit_form_submission_request_submit
-import kotlin.Unit
 
 /**
  * Represents a form submission request.
@@ -41,13 +41,10 @@ public class FormSubmissionRequest(
 
     public companion object : TypeCompanion<FormSubmissionRequest> {
         override val type: GeneratedClassKGType<FormSubmissionRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_form_submission_request_get_type")!!) {
-                FormSubmissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_form_submission_request_get_type")!!) { FormSubmissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of FormSubmissionRequest

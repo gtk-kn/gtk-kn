@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -30,7 +31,6 @@ import org.gtkkn.native.gtk.gtk_single_selection_set_autoselect
 import org.gtkkn.native.gtk.gtk_single_selection_set_can_unselect
 import org.gtkkn.native.gtk.gtk_single_selection_set_model
 import org.gtkkn.native.gtk.gtk_single_selection_set_selected
-import kotlin.Boolean
 
 /**
  * `GtkSingleSelection` is a `GtkSelectionModel` that allows selecting a single
@@ -46,8 +46,9 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer<GtkSingleSelection>) :
-    Object(gtkSingleSelectionPointer.reinterpret()),
+public open class SingleSelection(
+    public val gtkSingleSelectionPointer: CPointer<GtkSingleSelection>,
+) : Object(gtkSingleSelectionPointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
@@ -72,7 +73,6 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          * @return true if autoselect is enabled
          */
         get() = gtk_single_selection_get_autoselect(gtkSingleSelectionPointer).asBoolean()
-
         /**
          * Enables or disables autoselect.
          *
@@ -95,7 +95,6 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          * @return true to support unselecting
          */
         get() = gtk_single_selection_get_can_unselect(gtkSingleSelectionPointer).asBoolean()
-
         /**
          * If true, unselecting the current item via
          * gtk_selection_model_unselect_item() is supported.
@@ -118,9 +117,7 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          * @return The model being wrapped
          */
         get() = gtk_single_selection_get_model(gtkSingleSelectionPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the model that @self should wrap.
          *
@@ -142,7 +139,6 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          * @return The position of the selected item
          */
         get() = gtk_single_selection_get_selected(gtkSingleSelectionPointer)
-
         /**
          * Selects the item at the given position.
          *
@@ -169,8 +165,7 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
          * @return The selected item
          */
         get() = gtk_single_selection_get_selected_item(gtkSingleSelectionPointer)?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Creates a new selection to handle @model.
@@ -178,19 +173,14 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
      * @param model the `GListModel` to manage
      * @return a new `GtkSingleSelection`
      */
-    public constructor(
-        model: ListModel? = null,
-    ) : this(gtk_single_selection_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null) : this(gtk_single_selection_new(model?.gioListModelPointer)!!)
 
     public companion object : TypeCompanion<SingleSelection> {
         override val type: GeneratedClassKGType<SingleSelection> =
-            GeneratedClassKGType(getTypeOrNull("gtk_single_selection_get_type")!!) {
-                SingleSelection(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_single_selection_get_type")!!) { SingleSelection(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SingleSelection

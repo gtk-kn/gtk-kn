@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -31,8 +33,6 @@ import org.gtkkn.native.gio.g_tls_interaction_request_certificate_async
 import org.gtkkn.native.gio.g_tls_interaction_request_certificate_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GTlsInteraction` provides a mechanism for the TLS connection and database
@@ -58,8 +58,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<GTlsInteraction>) :
-    Object(gioTlsInteractionPointer.reinterpret()),
+public open class TlsInteraction(
+    public val gioTlsInteractionPointer: CPointer<GTlsInteraction>,
+) : Object(gioTlsInteractionPointer.reinterpret()),
     KGTyped {
     /**
      * Run synchronous interaction to ask the user for a password. In general,
@@ -82,24 +83,17 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun askPassword(password: TlsPassword, cancellable: Cancellable? = null): Result<TlsInteractionResult> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_tls_interaction_ask_password(
-                gioTlsInteractionPointer,
-                password.gioTlsPasswordPointer,
-                cancellable?.gioCancellablePointer,
-                gError.ptr
-            ).run {
-                TlsInteractionResult.fromNativeValue(this)
-            }
+    public open fun askPassword(password: TlsPassword, cancellable: Cancellable? = null): Result<TlsInteractionResult> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_tls_interaction_ask_password(gioTlsInteractionPointer, password.gioTlsPasswordPointer, cancellable?.gioCancellablePointer, gError.ptr).run {
+            TlsInteractionResult.fromNativeValue(this)}
 
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
         }
+    }
 
     /**
      * Run asynchronous interaction to ask the user for a password. In general,
@@ -128,15 +122,7 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
         password: TlsPassword,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_tls_interaction_ask_password_async(
-        gioTlsInteractionPointer,
-        password.gioTlsPasswordPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_tls_interaction_ask_password_async(gioTlsInteractionPointer, password.gioTlsPasswordPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Complete an ask password user interaction request. This should be once
@@ -156,13 +142,8 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
     @GioVersion2_30
     public open fun askPasswordFinish(result: AsyncResult): Result<TlsInteractionResult> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_interaction_ask_password_finish(
-            gioTlsInteractionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).run {
-            TlsInteractionResult.fromNativeValue(this)
-        }
+        val gResult = g_tls_interaction_ask_password_finish(gioTlsInteractionPointer, result.gioAsyncResultPointer, gError.ptr).run {
+            TlsInteractionResult.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -198,19 +179,10 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun invokeAskPassword(
-        password: TlsPassword,
-        cancellable: Cancellable? = null,
-    ): Result<TlsInteractionResult> = memScoped {
+    public open fun invokeAskPassword(password: TlsPassword, cancellable: Cancellable? = null): Result<TlsInteractionResult> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_interaction_invoke_ask_password(
-            gioTlsInteractionPointer,
-            password.gioTlsPasswordPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).run {
-            TlsInteractionResult.fromNativeValue(this)
-        }
+        val gResult = g_tls_interaction_invoke_ask_password(gioTlsInteractionPointer, password.gioTlsPasswordPointer, cancellable?.gioCancellablePointer, gError.ptr).run {
+            TlsInteractionResult.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -254,15 +226,8 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
         cancellable: Cancellable? = null,
     ): Result<TlsInteractionResult> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_interaction_invoke_request_certificate(
-            gioTlsInteractionPointer,
-            connection.gioTlsConnectionPointer,
-            flags.nativeValue,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).run {
-            TlsInteractionResult.fromNativeValue(this)
-        }
+        val gResult = g_tls_interaction_invoke_request_certificate(gioTlsInteractionPointer, connection.gioTlsConnectionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, gError.ptr).run {
+            TlsInteractionResult.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -302,15 +267,8 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
         cancellable: Cancellable? = null,
     ): Result<TlsInteractionResult> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_interaction_request_certificate(
-            gioTlsInteractionPointer,
-            connection.gioTlsConnectionPointer,
-            flags.nativeValue,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).run {
-            TlsInteractionResult.fromNativeValue(this)
-        }
+        val gResult = g_tls_interaction_request_certificate(gioTlsInteractionPointer, connection.gioTlsConnectionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, gError.ptr).run {
+            TlsInteractionResult.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -341,16 +299,7 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
         flags: TlsCertificateRequestFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_tls_interaction_request_certificate_async(
-        gioTlsInteractionPointer,
-        connection.gioTlsConnectionPointer,
-        flags.nativeValue,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_tls_interaction_request_certificate_async(gioTlsInteractionPointer, connection.gioTlsConnectionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Complete a request certificate user interaction request. This should be once
@@ -371,13 +320,8 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
     @GioVersion2_40
     public open fun requestCertificateFinish(result: AsyncResult): Result<TlsInteractionResult> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_interaction_request_certificate_finish(
-            gioTlsInteractionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).run {
-            TlsInteractionResult.fromNativeValue(this)
-        }
+        val gResult = g_tls_interaction_request_certificate_finish(gioTlsInteractionPointer, result.gioAsyncResultPointer, gError.ptr).run {
+            TlsInteractionResult.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -388,11 +332,10 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
 
     public companion object : TypeCompanion<TlsInteraction> {
         override val type: GeneratedClassKGType<TlsInteraction> =
-            GeneratedClassKGType(getTypeOrNull("g_tls_interaction_get_type")!!) { TlsInteraction(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_tls_interaction_get_type")!!) { TlsInteraction(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of TlsInteraction

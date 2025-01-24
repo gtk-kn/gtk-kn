@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -17,14 +18,16 @@ import org.gtkkn.native.gsk.gsk_mask_node_get_mask_mode
 import org.gtkkn.native.gsk.gsk_mask_node_get_source
 import org.gtkkn.native.gsk.gsk_mask_node_get_type
 import org.gtkkn.native.gsk.gsk_mask_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node masking one child node with another.
  * @since 4.10
  */
 @GskVersion4_10
-public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>) :
-    RenderNode(gskMaskNodePointer.reinterpret()),
+public open class MaskNode(
+    public val gskMaskNodePointer: CPointer<GskMaskNode>,
+) : RenderNode(gskMaskNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will mask a given node by another.
@@ -43,9 +46,9 @@ public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>)
         source: RenderNode,
         mask: RenderNode,
         maskMode: MaskMode,
-    ) : this(
-        gsk_mask_node_new(source.gskRenderNodePointer, mask.gskRenderNodePointer, maskMode.nativeValue)!!.reinterpret()
-    )
+    ) : this(gsk_mask_node_new(source.gskRenderNodePointer, mask.gskRenderNodePointer, maskMode.nativeValue)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the mask `GskRenderNode` child of the @node.
@@ -55,8 +58,7 @@ public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>)
      */
     @GskVersion4_10
     public open fun getMask(): RenderNode = gsk_mask_node_get_mask(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the mask mode used by @node.
@@ -66,8 +68,7 @@ public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>)
      */
     @GskVersion4_10
     public open fun getMaskMode(): MaskMode = gsk_mask_node_get_mask_mode(gskMaskNodePointer.reinterpret()).run {
-        MaskMode.fromNativeValue(this)
-    }
+        MaskMode.fromNativeValue(this)}
 
     /**
      * Retrieves the source `GskRenderNode` child of the @node.
@@ -77,16 +78,14 @@ public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>)
      */
     @GskVersion4_10
     public open fun getSource(): RenderNode = gsk_mask_node_get_source(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     public companion object : TypeCompanion<MaskNode> {
         override val type: GeneratedClassKGType<MaskNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_mask_node_get_type")!!) { MaskNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_mask_node_get_type")!!) { MaskNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of MaskNode

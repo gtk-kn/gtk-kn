@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -15,15 +16,12 @@ import org.gtkkn.native.gio.GDesktopAppInfoLookup
 import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_default_for_uri_scheme
 import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * #GDesktopAppInfoLookup is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public interface DesktopAppInfoLookup :
-    Proxy,
-    KGTyped {
+public interface DesktopAppInfoLookup : Proxy, KGTyped {
     public val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup>
 
     /**
@@ -40,10 +38,8 @@ public interface DesktopAppInfoLookup :
      * @return #GAppInfo for given @uri_scheme or
      *    null on error.
      */
-    public fun getDefaultForUriScheme(uriScheme: String): AppInfo? =
-        g_desktop_app_info_lookup_get_default_for_uri_scheme(gioDesktopAppInfoLookupPointer, uriScheme)?.run {
-            AppInfo.AppInfoImpl(reinterpret())
-        }
+    public fun getDefaultForUriScheme(uriScheme: String): AppInfo? = g_desktop_app_info_lookup_get_default_for_uri_scheme(gioDesktopAppInfoLookupPointer, uriScheme)?.run {
+        AppInfo.AppInfoImpl(reinterpret())}
 
     /**
      * The DesktopAppInfoLookupImpl type represents a native instance of the DesktopAppInfoLookup interface.
@@ -57,13 +53,10 @@ public interface DesktopAppInfoLookup :
 
     public companion object : TypeCompanion<DesktopAppInfoLookup> {
         override val type: GeneratedInterfaceKGType<DesktopAppInfoLookup> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_desktop_app_info_lookup_get_type")!!) {
-                DesktopAppInfoLookupImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_desktop_app_info_lookup_get_type")!!) { DesktopAppInfoLookupImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DesktopAppInfoLookup

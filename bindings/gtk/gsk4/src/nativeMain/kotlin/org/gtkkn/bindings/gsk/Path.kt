@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -30,9 +33,6 @@ import org.gtkkn.native.gsk.gsk_path_ref
 import org.gtkkn.native.gsk.gsk_path_to_cairo
 import org.gtkkn.native.gsk.gsk_path_to_string
 import org.gtkkn.native.gsk.gsk_path_unref
-import kotlin.Boolean
-import kotlin.Suppress
-import kotlin.Unit
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -64,7 +64,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 4.14
  */
 @GskVersion4_14
-public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(gskPathPointer) {
+public class Path(
+    public val gskPathPointer: CPointer<GskPath>,
+) : ProxyInstance(gskPathPointer) {
     /**
      * Calls @func for every operation of the path.
      *
@@ -87,12 +89,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun foreach(flags: PathForeachFlags, func: PathForeachFunc): Boolean = gsk_path_foreach(
-        gskPathPointer,
-        flags.mask,
-        PathForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    ).asBoolean()
+    public fun foreach(flags: PathForeachFlags, func: PathForeachFunc): Boolean = gsk_path_foreach(gskPathPointer, flags.mask, PathForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer()).asBoolean()
 
     /**
      * Computes the bounds of the given path.
@@ -116,8 +113,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getBounds(bounds: Rect): Boolean =
-        gsk_path_get_bounds(gskPathPointer, bounds.grapheneRectPointer).asBoolean()
+    public fun getBounds(bounds: Rect): Boolean = gsk_path_get_bounds(gskPathPointer, bounds.grapheneRectPointer).asBoolean()
 
     /**
      * Gets the end point of the path.
@@ -130,8 +126,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getEndPoint(result: PathPoint): Boolean =
-        gsk_path_get_end_point(gskPathPointer, result.gskPathPointPointer).asBoolean()
+    public fun getEndPoint(result: PathPoint): Boolean = gsk_path_get_end_point(gskPathPointer, result.gskPathPointPointer).asBoolean()
 
     /**
      * Gets the start point of the path.
@@ -144,8 +139,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getStartPoint(result: PathPoint): Boolean =
-        gsk_path_get_start_point(gskPathPointer, result.gskPathPointPointer).asBoolean()
+    public fun getStartPoint(result: PathPoint): Boolean = gsk_path_get_start_point(gskPathPointer, result.gskPathPointPointer).asBoolean()
 
     /**
      * Computes the bounds for stroking the given path with the
@@ -163,8 +157,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean =
-        gsk_path_get_stroke_bounds(gskPathPointer, stroke.gskStrokePointer, bounds.grapheneRectPointer).asBoolean()
+    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean = gsk_path_get_stroke_bounds(gskPathPointer, stroke.gskStrokePointer, bounds.grapheneRectPointer).asBoolean()
 
     /**
      * Returns whether the given point is inside the area
@@ -180,8 +173,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      * @since 4.14
      */
     @GskVersion4_14
-    public fun inFill(point: Point, fillRule: FillRule): Boolean =
-        gsk_path_in_fill(gskPathPointer, point.graphenePointPointer, fillRule.nativeValue).asBoolean()
+    public fun inFill(point: Point, fillRule: FillRule): Boolean = gsk_path_in_fill(gskPathPointer, point.graphenePointPointer, fillRule.nativeValue).asBoolean()
 
     /**
      * Returns if the path represents a single closed
@@ -224,8 +216,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      */
     @GskVersion4_14
     public fun ref(): Path = gsk_path_ref(gskPathPointer)!!.run {
-        Path(this)
-    }
+        Path(this)}
 
     /**
      * Appends the given @path to the given cairo context for drawing
@@ -257,8 +248,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GskVersion4_14
-    override fun toString(): KotlinString =
-        gsk_path_to_string(gskPathPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): KotlinString = gsk_path_to_string(gskPathPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Decreases the reference count of a `GskPath` by one.
@@ -304,8 +294,7 @@ public class Path(public val gskPathPointer: CPointer<GskPath>) : ProxyInstance(
          */
         @GskVersion4_14
         public fun parse(string: KotlinString): Path? = gsk_path_parse(string)?.run {
-            Path(this)
-        }
+            Path(this)}
 
         /**
          * Get the GType of Path

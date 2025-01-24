@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -26,7 +27,6 @@ import org.gtkkn.native.gtk.gtk_print_context_get_pango_fontmap
 import org.gtkkn.native.gtk.gtk_print_context_get_type
 import org.gtkkn.native.gtk.gtk_print_context_get_width
 import org.gtkkn.native.gtk.gtk_print_context_set_cairo_context
-import kotlin.Unit
 import org.gtkkn.bindings.cairo.Context as CairoContext
 import org.gtkkn.bindings.pango.Context as PangoContext
 
@@ -105,8 +105,9 @@ import org.gtkkn.bindings.pango.Context as PangoContext
  *
  * - parameter `top`: top: Out parameter is not supported
  */
-public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPrintContext>) :
-    Object(gtkPrintContextPointer.reinterpret()),
+public open class PrintContext(
+    public val gtkPrintContextPointer: CPointer<GtkPrintContext>,
+) : Object(gtkPrintContextPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `PangoContext` that can be used with the
@@ -114,10 +115,8 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      *
      * @return a new Pango context for @context
      */
-    public open fun createPangoContext(): PangoContext =
-        gtk_print_context_create_pango_context(gtkPrintContextPointer)!!.run {
-            PangoContext(this)
-        }
+    public open fun createPangoContext(): PangoContext = gtk_print_context_create_pango_context(gtkPrintContextPointer)!!.run {
+        PangoContext(this)}
 
     /**
      * Creates a new `PangoLayout` that is suitable for use
@@ -126,8 +125,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @return a new Pango layout for @context
      */
     public open fun createPangoLayout(): Layout = gtk_print_context_create_pango_layout(gtkPrintContextPointer)!!.run {
-        Layout(this)
-    }
+        Layout(this)}
 
     /**
      * Obtains the cairo context that is associated with the
@@ -135,10 +133,8 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      *
      * @return the cairo context of @context
      */
-    public open fun getCairoContext(): CairoContext =
-        gtk_print_context_get_cairo_context(gtkPrintContextPointer)!!.run {
-            CairoContext(this)
-        }
+    public open fun getCairoContext(): CairoContext = gtk_print_context_get_cairo_context(gtkPrintContextPointer)!!.run {
+        CairoContext(this)}
 
     /**
      * Obtains the horizontal resolution of the `GtkPrintContext`,
@@ -170,8 +166,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @return the page setup of @context
      */
     public open fun getPageSetup(): PageSetup = gtk_print_context_get_page_setup(gtkPrintContextPointer)!!.run {
-        PageSetup(this)
-    }
+        PageSetup(this)}
 
     /**
      * Returns a `PangoFontMap` that is suitable for use
@@ -180,8 +175,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @return the font map of @context
      */
     public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer)!!.run {
-        FontMap.FontMapImpl(this)
-    }
+        FontMap.FontMapImpl(this)}
 
     /**
      * Obtains the width of the `GtkPrintContext`, in pixels.
@@ -202,16 +196,18 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
      * @param dpiX the horizontal resolution to use with @cr
      * @param dpiY the vertical resolution to use with @cr
      */
-    public open fun setCairoContext(cr: CairoContext, dpiX: gdouble, dpiY: gdouble): Unit =
-        gtk_print_context_set_cairo_context(gtkPrintContextPointer, cr.cairoContextPointer, dpiX, dpiY)
+    public open fun setCairoContext(
+        cr: CairoContext,
+        dpiX: gdouble,
+        dpiY: gdouble,
+    ): Unit = gtk_print_context_set_cairo_context(gtkPrintContextPointer, cr.cairoContextPointer, dpiX, dpiY)
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_context_get_type")!!) { PrintContext(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_print_context_get_type")!!) { PrintContext(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PrintContext

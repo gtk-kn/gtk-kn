@@ -16,18 +16,16 @@ import org.gtkkn.native.gobject.GType
 /**
  * An event related to the proximity of a tool to a device.
  */
-public open class ProximityEvent(public val gdkProximityEventPointer: CPointer<GdkProximityEvent>) :
-    Event(gdkProximityEventPointer.reinterpret()),
+public open class ProximityEvent(
+    public val gdkProximityEventPointer: CPointer<GdkProximityEvent>,
+) : Event(gdkProximityEventPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<ProximityEvent> {
         override val type: GeneratedClassKGType<ProximityEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_proximity_event_get_type")!!) {
-                ProximityEvent(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_proximity_event_get_type")!!) { ProximityEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of ProximityEvent

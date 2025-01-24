@@ -26,9 +26,7 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
  * @since 1.18
  */
 @PangoCairoVersion1_18
-public interface Font :
-    Proxy,
-    KGTyped {
+public interface Font : Proxy, KGTyped {
     public val pangocairoFontPointer: CPointer<PangoCairoFont>
 
     /**
@@ -42,25 +40,24 @@ public interface Font :
      */
     @PangoCairoVersion1_18
     public fun getScaledFont(): ScaledFont? = pango_cairo_font_get_scaled_font(pangocairoFontPointer)?.run {
-        ScaledFont(this)
-    }
+        ScaledFont(this)}
 
     /**
      * The FontImpl type represents a native instance of the Font interface.
      *
      * @constructor Creates a new instance of Font for the provided [CPointer].
      */
-    public data class FontImpl(override val pangocairoFontPointer: CPointer<PangoCairoFont>) :
-        org.gtkkn.bindings.pango.Font(pangocairoFontPointer.reinterpret()),
+    public data class FontImpl(
+        override val pangocairoFontPointer: CPointer<PangoCairoFont>,
+    ) : org.gtkkn.bindings.pango.Font(pangocairoFontPointer.reinterpret()),
         Font
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedInterfaceKGType<Font> =
-            GeneratedInterfaceKGType(getTypeOrNull("pango_cairo_font_get_type")!!) { FontImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("pango_cairo_font_get_type")!!) { FontImpl(it.reinterpret()) }
 
         init {
-            PangocairoTypeProvider.register()
-        }
+            PangoCairoTypeProvider.register()}
 
         /**
          * Get the GType of Font

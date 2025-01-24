@@ -17,56 +17,50 @@ import org.gtkkn.native.gobject.GType
  * @since 2.28
  */
 @GioVersion2_28
-public enum class TlsError(public val nativeValue: GTlsError) {
+public enum class TlsError(
+    public val nativeValue: GTlsError,
+) {
     /**
      * No TLS provider is available
      */
     UNAVAILABLE(GTlsError.G_TLS_ERROR_UNAVAILABLE),
-
     /**
      * Miscellaneous TLS error
      */
     MISC(GTlsError.G_TLS_ERROR_MISC),
-
     /**
      * The certificate presented could not
      *   be parsed or failed validation.
      */
     BAD_CERTIFICATE(GTlsError.G_TLS_ERROR_BAD_CERTIFICATE),
-
     /**
      * The TLS handshake failed because the
      *   peer does not seem to be a TLS server.
      */
     NOT_TLS(GTlsError.G_TLS_ERROR_NOT_TLS),
-
     /**
      * The TLS handshake failed because the
      *   peer's certificate was not acceptable.
      */
     HANDSHAKE(GTlsError.G_TLS_ERROR_HANDSHAKE),
-
     /**
      * The TLS handshake failed because
      *   the server requested a client-side certificate, but none was
      *   provided. See g_tls_connection_set_certificate().
      */
     CERTIFICATE_REQUIRED(GTlsError.G_TLS_ERROR_CERTIFICATE_REQUIRED),
-
     /**
      * The TLS connection was closed without proper
      *   notice, which may indicate an attack. See
      *   g_tls_connection_set_require_close_notify().
      */
     EOF(GTlsError.G_TLS_ERROR_EOF),
-
     /**
      * The TLS handshake failed
      *   because the client sent the fallback SCSV, indicating a protocol
      *   downgrade attack. Since: 2.60
      */
     INAPPROPRIATE_FALLBACK(GTlsError.G_TLS_ERROR_INAPPROPRIATE_FALLBACK),
-
     /**
      * The certificate failed
      *   to load because a password was incorrect. Since: 2.72

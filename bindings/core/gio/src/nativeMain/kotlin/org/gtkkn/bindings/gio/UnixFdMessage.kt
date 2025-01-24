@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -26,8 +28,6 @@ import org.gtkkn.native.gio.g_unix_fd_message_new_with_fd_list
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * This [class@Gio.SocketControlMessage] contains a [class@Gio.UnixFDList].
@@ -48,8 +48,9 @@ import kotlin.Result
  *
  * - parameter `length`: length: Out parameter is not supported
  */
-public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>) :
-    SocketControlMessage(gioUnixFdMessagePointer.reinterpret()),
+public open class UnixFdMessage(
+    public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>,
+) : SocketControlMessage(gioUnixFdMessagePointer.reinterpret()),
     KGTyped {
     /**
      * The [class@Gio.UnixFDList] object to send with the message.
@@ -67,8 +68,7 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
          * @since 2.24
          */
         get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer)!!.run {
-            UnixFdList(this)
-        }
+            UnixFdList(this)}
 
     /**
      * Creates a new #GUnixFDMessage containing an empty file descriptor
@@ -86,9 +86,7 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
      * @return a new #GUnixFDMessage
      * @since 2.24
      */
-    public constructor(
-        fdList: UnixFdList,
-    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer)!!.reinterpret())
+    public constructor(fdList: UnixFdList) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer)!!.reinterpret())
 
     /**
      * Adds a file descriptor to @message.
@@ -117,11 +115,10 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
 
     public companion object : TypeCompanion<UnixFdMessage> {
         override val type: GeneratedClassKGType<UnixFdMessage> =
-            GeneratedClassKGType(getTypeOrNull("g_unix_fd_message_get_type")!!) { UnixFdMessage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_unix_fd_message_get_type")!!) { UnixFdMessage(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of UnixFDMessage

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -22,8 +24,6 @@ import org.gtkkn.native.gtk.gtk_cell_area_box_new
 import org.gtkkn.native.gtk.gtk_cell_area_box_pack_end
 import org.gtkkn.native.gtk.gtk_cell_area_box_pack_start
 import org.gtkkn.native.gtk.gtk_cell_area_box_set_spacing
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A cell area that renders GtkCellRenderers into a row or a column
@@ -46,8 +46,9 @@ import kotlin.Unit
  * with gtk_cell_area_cell_set_property() or by specifying the "align"
  * argument to gtk_cell_area_box_pack_start() and gtk_cell_area_box_pack_end().
  */
-public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCellAreaBox>) :
-    CellArea(gtkCellAreaBoxPointer.reinterpret()),
+public open class CellAreaBox(
+    public val gtkCellAreaBoxPointer: CPointer<GtkCellAreaBox>,
+) : CellArea(gtkCellAreaBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -69,7 +70,6 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
          * @return the space added between cell renderers in @box.
          */
         get() = gtk_cell_area_box_get_spacing(gtkCellAreaBoxPointer)
-
         /**
          * Sets the spacing to add between cell renderers in @box.
          *
@@ -96,14 +96,12 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
      * @param align whether @renderer should be aligned in adjacent rows
      * @param fixed whether @renderer should have the same size in all rows
      */
-    public open fun packEnd(renderer: CellRenderer, expand: Boolean, align: Boolean, fixed: Boolean): Unit =
-        gtk_cell_area_box_pack_end(
-            gtkCellAreaBoxPointer,
-            renderer.gtkCellRendererPointer,
-            expand.asGBoolean(),
-            align.asGBoolean(),
-            fixed.asGBoolean()
-        )
+    public open fun packEnd(
+        renderer: CellRenderer,
+        expand: Boolean,
+        align: Boolean,
+        fixed: Boolean,
+    ): Unit = gtk_cell_area_box_pack_end(gtkCellAreaBoxPointer, renderer.gtkCellRendererPointer, expand.asGBoolean(), align.asGBoolean(), fixed.asGBoolean())
 
     /**
      * Adds @renderer to @box, packed with reference to the start of @box.
@@ -117,22 +115,19 @@ public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCell
      * @param align whether @renderer should be aligned in adjacent rows
      * @param fixed whether @renderer should have the same size in all rows
      */
-    public open fun packStart(renderer: CellRenderer, expand: Boolean, align: Boolean, fixed: Boolean): Unit =
-        gtk_cell_area_box_pack_start(
-            gtkCellAreaBoxPointer,
-            renderer.gtkCellRendererPointer,
-            expand.asGBoolean(),
-            align.asGBoolean(),
-            fixed.asGBoolean()
-        )
+    public open fun packStart(
+        renderer: CellRenderer,
+        expand: Boolean,
+        align: Boolean,
+        fixed: Boolean,
+    ): Unit = gtk_cell_area_box_pack_start(gtkCellAreaBoxPointer, renderer.gtkCellRendererPointer, expand.asGBoolean(), align.asGBoolean(), fixed.asGBoolean())
 
     public companion object : TypeCompanion<CellAreaBox> {
         override val type: GeneratedClassKGType<CellAreaBox> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_area_box_get_type")!!) { CellAreaBox(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_cell_area_box_get_type")!!) { CellAreaBox(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CellAreaBox

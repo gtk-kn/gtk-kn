@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -91,10 +95,6 @@ import org.gtkkn.native.gtk.gtk_label_set_wrap
 import org.gtkkn.native.gtk.gtk_label_set_wrap_mode
 import org.gtkkn.native.gtk.gtk_label_set_xalign
 import org.gtkkn.native.gtk.gtk_label_set_yalign
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GtkLabel` widget displays a small amount of text.
@@ -284,8 +284,9 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `start`: start: Out parameter is not supported
  */
-public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
-    Widget(gtkLabelPointer.reinterpret()),
+public open class Label(
+    public val gtkLabelPointer: CPointer<GtkLabel>,
+) : Widget(gtkLabelPointer.reinterpret()),
     AccessibleText,
     KGTyped {
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
@@ -317,9 +318,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the attribute list
          */
         get() = gtk_label_get_attributes(gtkLabelPointer)?.run {
-            AttrList(this)
-        }
-
+            AttrList(this)}
         /**
          * Apply attributes to the label text.
          *
@@ -355,9 +354,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return `PangoEllipsizeMode`
          */
         get() = gtk_label_get_ellipsize(gtkLabelPointer).run {
-            EllipsizeMode.fromNativeValue(this)
-        }
-
+            EllipsizeMode.fromNativeValue(this)}
         /**
          * Sets the mode used to ellipsize the text.
          *
@@ -380,9 +377,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the menu model
          */
         get() = gtk_label_get_extra_menu(gtkLabelPointer)?.run {
-            MenuModel.MenuModelImpl(this)
-        }
-
+            MenuModel.MenuModelImpl(this)}
         /**
          * Sets a menu model to add when constructing
          * the context menu for @label.
@@ -406,9 +401,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return `GtkJustification`
          */
         get() = gtk_label_get_justify(gtkLabelPointer).run {
-            Justification.fromNativeValue(this)
-        }
-
+            Justification.fromNativeValue(this)}
         /**
          * Sets the alignment of the lines in the text of the label relative to
          * each other.
@@ -448,7 +441,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          *   owned by the widget and must not be modified or freed.
          */
         get() = gtk_label_get_label(gtkLabelPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the text of the label.
          *
@@ -477,7 +469,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return The number of lines
          */
         get() = gtk_label_get_lines(gtkLabelPointer)
-
         /**
          * Sets the number of lines to which an ellipsized, wrapping label
          * should be limited.
@@ -507,7 +498,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the maximum width of the label in characters.
          */
         get() = gtk_label_get_max_width_chars(gtkLabelPointer)
-
         /**
          * Sets the desired maximum width in characters of @label to @n_chars.
          *
@@ -544,9 +534,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          *   or null if none has been set and the default algorithm will be used.
          */
         get() = gtk_label_get_mnemonic_widget(gtkLabelPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Associate the label with its mnemonic target.
          *
@@ -592,9 +580,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @since 4.6
          */
         get() = gtk_label_get_natural_wrap_mode(gtkLabelPointer).run {
-            NaturalWrapMode.fromNativeValue(this)
-        }
-
+            NaturalWrapMode.fromNativeValue(this)}
         /**
          * Select the line wrapping for the natural size request.
          *
@@ -617,7 +603,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return true if the user can copy text from the label
          */
         get() = gtk_label_get_selectable(gtkLabelPointer).asBoolean()
-
         /**
          * Makes text in the label selectable.
          *
@@ -643,7 +628,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return true when the label is in single line mode.
          */
         get() = gtk_label_get_single_line_mode(gtkLabelPointer).asBoolean()
-
         /**
          * Sets whether the label is in single line mode.
          *
@@ -670,9 +654,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @since 4.8
          */
         get() = gtk_label_get_tabs(gtkLabelPointer)?.run {
-            TabArray(this)
-        }
-
+            TabArray(this)}
         /**
          * Sets the default tab stops for paragraphs in @self.
          *
@@ -696,7 +678,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return true if the label’s text will be parsed for markup.
          */
         get() = gtk_label_get_use_markup(gtkLabelPointer).asBoolean()
-
         /**
          * Sets whether the text of the label contains markup.
          *
@@ -720,7 +701,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          *   the mnemonic accelerator keys.
          */
         get() = gtk_label_get_use_underline(gtkLabelPointer).asBoolean()
-
         /**
          * Sets whether underlines in the text indicate mnemonics.
          *
@@ -746,7 +726,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the width of the label in characters.
          */
         get() = gtk_label_get_width_chars(gtkLabelPointer)
-
         /**
          * Sets the desired width in characters of @label to @n_chars.
          *
@@ -766,7 +745,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return true if the lines of the label are automatically wrapped.
          */
         get() = gtk_label_get_wrap(gtkLabelPointer).asBoolean()
-
         /**
          * Toggles line wrapping within the `GtkLabel` widget.
          *
@@ -803,9 +781,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the line wrap mode
          */
         get() = gtk_label_get_wrap_mode(gtkLabelPointer).run {
-            WrapMode.fromNativeValue(this)
-        }
-
+            WrapMode.fromNativeValue(this)}
         /**
          * Controls how line wrapping is done.
          *
@@ -835,7 +811,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the xalign property
          */
         get() = gtk_label_get_xalign(gtkLabelPointer)
-
         /**
          * Sets the `xalign` of the label.
          *
@@ -860,7 +835,6 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          * @return the yalign property
          */
         get() = gtk_label_get_yalign(gtkLabelPointer)
-
         /**
          * Sets the `yalign` of the label.
          *
@@ -906,8 +880,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @return the [class@Pango.Layout] for this label
      */
     public open fun getLayout(): Layout = gtk_label_get_layout(gtkLabelPointer)!!.run {
-        Layout(this)
-    }
+        Layout(this)}
 
     /**
      * Fetches the text from a label.
@@ -919,8 +892,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @return the text in the label widget. This is the internal
      *   string used by the label, and must not be modified.
      */
-    public open fun getText(): String =
-        gtk_label_get_text(gtkLabelPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getText(): String = gtk_label_get_text(gtkLabelPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Selects a range of characters in the label, if the label is selectable.
@@ -932,8 +904,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param startOffset start offset (in characters not bytes)
      * @param endOffset end offset (in characters not bytes)
      */
-    public open fun selectRegion(startOffset: gint, endOffset: gint): Unit =
-        gtk_label_select_region(gtkLabelPointer, startOffset, endOffset)
+    public open fun selectRegion(startOffset: gint, endOffset: gint): Unit = gtk_label_select_region(gtkLabelPointer, startOffset, endOffset)
 
     /**
      * Sets the labels text and attributes from markup.
@@ -1026,15 +997,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivateCurrentLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkLabelPointer,
-            "activate-current-link",
-            onActivateCurrentLinkFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivateCurrentLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkLabelPointer, "activate-current-link", onActivateCurrentLinkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate-current-link" signal. See [onActivateCurrentLink].
@@ -1052,15 +1015,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `uri` the URI that is activated. Returns true if the link has been activated
      */
-    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong =
-        g_signal_connect_data(
-            gtkLabelPointer,
-            "activate-link",
-            onActivateLinkFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong = g_signal_connect_data(gtkLabelPointer, "activate-link", onActivateLinkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Gets emitted to copy the selection to the clipboard.
@@ -1072,15 +1027,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onCopyClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkLabelPointer,
-            "copy-clipboard",
-            onCopyClipboardFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onCopyClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkLabelPointer, "copy-clipboard", onCopyClipboardFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "copy-clipboard" signal. See [onCopyClipboard].
@@ -1113,21 +1060,11 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `step` the granularity of the move, as a `GtkMovementStep`; `count` the number of @step units to move; `extendSelection` true if the move should extend the selection
      */
-    public fun onMoveCursor(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            step: MovementStep,
-            count: gint,
-            extendSelection: Boolean,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkLabelPointer,
-        "move-cursor",
-        onMoveCursorFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMoveCursor(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        step: MovementStep,
+        count: gint,
+        extendSelection: Boolean,
+    ) -> Unit): ULong = g_signal_connect_data(gtkLabelPointer, "move-cursor", onMoveCursorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "move-cursor" signal. See [onMoveCursor].
@@ -1136,33 +1073,20 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
      * @param count the number of @step units to move
      * @param extendSelection true if the move should extend the selection
      */
-    public fun emitMoveCursor(step: MovementStep, count: gint, extendSelection: Boolean) {
-        g_signal_emit_by_name(
-            gtkLabelPointer.reinterpret(),
-            "move-cursor",
-            step.nativeValue,
-            count,
-            extendSelection.asGBoolean()
-        )
+    public fun emitMoveCursor(
+        step: MovementStep,
+        count: gint,
+        extendSelection: Boolean,
+    ) {
+        g_signal_emit_by_name(gtkLabelPointer.reinterpret(), "move-cursor", step.nativeValue, count, extendSelection.asGBoolean())
     }
 
     public companion object : TypeCompanion<Label> {
         override val type: GeneratedClassKGType<Label> =
-            GeneratedClassKGType(getTypeOrNull("gtk_label_get_type")!!) { Label(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_label_get_type")!!) { Label(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
-
-        /**
-         * Creates a new label with the given text inside it.
-         *
-         * You can pass null to get an empty label widget.
-         *
-         * @param str The text of the label
-         * @return the new `GtkLabel`
-         */
-        public fun new(str: String? = null): Label = Label(gtk_label_new(str)!!.reinterpret())
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new `GtkLabel`, containing the text in @str.
@@ -1184,7 +1108,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
          *   mnemonic character
          * @return the new `GtkLabel`
          */
-        public fun newWithMnemonic(str: String? = null): Label = Label(gtk_label_new_with_mnemonic(str)!!.reinterpret())
+        public fun withMnemonic(str: String? = null): Label = Label(gtk_label_new_with_mnemonic(str)!!.reinterpret())
 
         /**
          * Get the GType of Label
@@ -1196,62 +1120,44 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
 }
 
 private val onActivateCurrentLinkFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            uri: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                uri: String,
-            ) -> Boolean
-            >().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    uri: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(uri: String) -> Boolean>().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()}
+.reinterpret()
 
 private val onCopyClipboardFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
-private val onMoveCursorFunc: CPointer<
-    CFunction<
-        (
-            GtkMovementStep,
-            gint,
-            gboolean,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        step: GtkMovementStep,
-        count: gint,
-        extendSelection: gboolean,
-        userData: COpaquePointer,
+private val onMoveCursorFunc: CPointer<CFunction<(
+    GtkMovementStep,
+    gint,
+    gboolean,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    step: GtkMovementStep,
+    count: gint,
+    extendSelection: gboolean,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            step: MovementStep,
-            count: gint,
-            extendSelection: Boolean,
-        ) -> Unit
-        >().get().invoke(
-        step.run {
-            MovementStep.fromNativeValue(this)
-        },
-        count,
-        extendSelection.asBoolean()
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        step: MovementStep,
+        count: gint,
+        extendSelection: Boolean,
+    ) -> Unit>().get().invoke(step.run {
+        MovementStep.fromNativeValue(this)}
+    , count, extendSelection.asBoolean())}
+.reinterpret()

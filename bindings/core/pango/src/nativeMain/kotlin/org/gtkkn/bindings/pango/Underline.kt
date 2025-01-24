@@ -11,22 +11,21 @@ import org.gtkkn.native.pango.pango_underline_get_type
  * The `PangoUnderline` enumeration is used to specify whether text
  * should be underlined, and if so, the type of underlining.
  */
-public enum class Underline(public val nativeValue: PangoUnderline) {
+public enum class Underline(
+    public val nativeValue: PangoUnderline,
+) {
     /**
      * no underline should be drawn
      */
     NONE(PangoUnderline.PANGO_UNDERLINE_NONE),
-
     /**
      * a single underline should be drawn
      */
     SINGLE(PangoUnderline.PANGO_UNDERLINE_SINGLE),
-
     /**
      * a double underline should be drawn
      */
     DOUBLE(PangoUnderline.PANGO_UNDERLINE_DOUBLE),
-
     /**
      * a single underline should be drawn at a
      *   position beneath the ink extents of the text being
@@ -36,7 +35,6 @@ public enum class Underline(public val nativeValue: PangoUnderline) {
      *   portions of text.
      */
     LOW(PangoUnderline.PANGO_UNDERLINE_LOW),
-
     /**
      * an underline indicating an error should
      *   be drawn below. The exact style of rendering is up to the
@@ -48,21 +46,18 @@ public enum class Underline(public val nativeValue: PangoUnderline) {
      *   available since Pango 1.4.
      */
     ERROR(PangoUnderline.PANGO_UNDERLINE_ERROR),
-
     /**
      * Like @PANGO_UNDERLINE_SINGLE, but
      *   drawn continuously across multiple runs. This type
      *   of underlining is available since Pango 1.46.
      */
     SINGLE_LINE(PangoUnderline.PANGO_UNDERLINE_SINGLE_LINE),
-
     /**
      * Like @PANGO_UNDERLINE_DOUBLE, but
      *   drawn continuously across multiple runs. This type
      *   of underlining is available since Pango 1.46.
      */
     DOUBLE_LINE(PangoUnderline.PANGO_UNDERLINE_DOUBLE_LINE),
-
     /**
      * Like @PANGO_UNDERLINE_ERROR, but
      *   drawn continuously across multiple runs. This type

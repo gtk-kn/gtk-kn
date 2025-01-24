@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -35,11 +40,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Suppress
-import kotlin.Unit
 
 /**
  * The `GCredentials` type is a reference-counted wrapper for native
@@ -80,8 +80,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class Credentials(public val gioCredentialsPointer: CPointer<GCredentials>) :
-    Object(gioCredentialsPointer.reinterpret()),
+public open class Credentials(
+    public val gioCredentialsPointer: CPointer<GCredentials>,
+) : Object(gioCredentialsPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GCredentials object with credentials matching the
@@ -90,7 +91,7 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
      * @return A #GCredentials. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_credentials_new()!!.reinterpret())
+    public constructor() : this(g_credentials_new()!!)
 
     /**
      * Gets a pointer to native credentials of type @native_type from
@@ -108,8 +109,7 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getNative(nativeType: CredentialsType): gpointer? =
-        g_credentials_get_native(gioCredentialsPointer, nativeType.nativeValue)
+    public open fun getNative(nativeType: CredentialsType): gpointer? = g_credentials_get_native(gioCredentialsPointer, nativeType.nativeValue)
 
     /**
      * Tries to get the UNIX process identifier from @credentials. This
@@ -169,11 +169,7 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
     @GioVersion2_26
     public open fun isSameUser(otherCredentials: Credentials): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_credentials_is_same_user(
-            gioCredentialsPointer,
-            otherCredentials.gioCredentialsPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_credentials_is_same_user(gioCredentialsPointer, otherCredentials.gioCredentialsPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -194,8 +190,7 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setNative(nativeType: CredentialsType, native: gpointer): Unit =
-        g_credentials_set_native(gioCredentialsPointer, nativeType.nativeValue, native)
+    public open fun setNative(nativeType: CredentialsType, native: gpointer): Unit = g_credentials_set_native(gioCredentialsPointer, nativeType.nativeValue, native)
 
     /**
      * Tries to set the UNIX user identifier on @credentials. This method
@@ -231,16 +226,14 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GioVersion2_26
-    override fun toString(): String =
-        g_credentials_to_string(gioCredentialsPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = g_credentials_to_string(gioCredentialsPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Credentials> {
         override val type: GeneratedClassKGType<Credentials> =
-            GeneratedClassKGType(getTypeOrNull("g_credentials_get_type")!!) { Credentials(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_credentials_get_type")!!) { Credentials(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Credentials

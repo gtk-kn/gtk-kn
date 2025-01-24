@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -32,8 +34,6 @@ import org.gtkkn.native.gio.g_network_address_parse_uri
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.String
 
 /**
  * `GNetworkAddress` provides an easy way to resolve a hostname and
@@ -47,8 +47,9 @@ import kotlin.String
  * See [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
-public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<GNetworkAddress>) :
-    Object(gioNetworkAddressPointer.reinterpret()),
+public open class NetworkAddress(
+    public val gioNetworkAddressPointer: CPointer<GNetworkAddress>,
+) : Object(gioNetworkAddressPointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
@@ -68,8 +69,7 @@ public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<G
          * @return @addr's hostname
          * @since 2.22
          */
-        get() = g_network_address_get_hostname(gioNetworkAddressPointer)?.toKString()
-            ?: error("Expected not null string")
+        get() = g_network_address_get_hostname(gioNetworkAddressPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Network port.
@@ -140,11 +140,10 @@ public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<G
 
     public companion object : TypeCompanion<NetworkAddress> {
         override val type: GeneratedClassKGType<NetworkAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_network_address_get_type")!!) { NetworkAddress(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_network_address_get_type")!!) { NetworkAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Creates a new #GSocketConnectable for connecting to the given
@@ -179,8 +178,7 @@ public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<G
         public fun parse(hostAndPort: String, defaultPort: guint16): Result<NetworkAddress> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_network_address_parse(hostAndPort, defaultPort, gError.ptr)?.run {
-                NetworkAddress(reinterpret())
-            }
+                NetworkAddress(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -207,8 +205,7 @@ public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<G
         public fun parseUri(uri: String, defaultPort: guint16): Result<NetworkAddress> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_network_address_parse_uri(uri, defaultPort, gError.ptr)?.run {
-                NetworkAddress(reinterpret())
-            }
+                NetworkAddress(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

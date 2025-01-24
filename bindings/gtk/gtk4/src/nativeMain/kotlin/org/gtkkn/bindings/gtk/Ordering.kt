@@ -18,17 +18,17 @@ import org.gtkkn.native.gtk.gtk_ordering_get_type
  * For converting such a value to a `GtkOrdering` value, use
  * [func@Gtk.Ordering.from_cmpfunc].
  */
-public enum class Ordering(public val nativeValue: GtkOrdering) {
+public enum class Ordering(
+    public val nativeValue: GtkOrdering,
+) {
     /**
      * the first value is smaller than the second
      */
     SMALLER(GtkOrdering.GTK_ORDERING_SMALLER),
-
     /**
      * the two values are equal
      */
     EQUAL(GtkOrdering.GTK_ORDERING_EQUAL),
-
     /**
      * the first value is larger than the second
      */
@@ -53,8 +53,7 @@ public enum class Ordering(public val nativeValue: GtkOrdering) {
          */
         @GtkVersion4_2
         public fun fromCmpfunc(cmpfuncResult: gint): Ordering = gtk_ordering_from_cmpfunc(cmpfuncResult).run {
-            Ordering.fromNativeValue(this)
-        }
+            Ordering.fromNativeValue(this)}
 
         /**
          * Get the GType of Ordering

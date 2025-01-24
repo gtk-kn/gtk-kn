@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
@@ -31,7 +32,6 @@ import org.gtkkn.native.gtk.gtk_center_box_set_center_widget
 import org.gtkkn.native.gtk.gtk_center_box_set_end_widget
 import org.gtkkn.native.gtk.gtk_center_box_set_shrink_center_last
 import org.gtkkn.native.gtk.gtk_center_box_set_start_widget
-import kotlin.Boolean
 
 /**
  * `GtkCenterBox` arranges three children in a row, keeping the middle child
@@ -69,8 +69,9 @@ import kotlin.Boolean
  *
  * Starting from GTK 4.12, `GtkCenterBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBox>) :
-    Widget(gtkCenterBoxPointer.reinterpret()),
+public open class CenterBox(
+    public val gtkCenterBoxPointer: CPointer<GtkCenterBox>,
+) : Widget(gtkCenterBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -95,9 +96,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the baseline position
          */
         get() = gtk_center_box_get_baseline_position(gtkCenterBoxPointer).run {
-            BaselinePosition.fromNativeValue(this)
-        }
-
+            BaselinePosition.fromNativeValue(this)}
         /**
          * Sets the baseline position of a center box.
          *
@@ -124,9 +123,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the center widget.
          */
         get() = gtk_center_box_get_center_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the center widget.
          *
@@ -153,9 +150,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the end widget.
          */
         get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the end widget.
          *
@@ -186,7 +181,6 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @since 4.12
          */
         get() = gtk_center_box_get_shrink_center_last(gtkCenterBoxPointer).asBoolean()
-
         /**
          * Sets whether to shrink the center widget after other children.
          *
@@ -201,9 +195,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            shrinkCenterLast
-        ) = gtk_center_box_set_shrink_center_last(gtkCenterBoxPointer, shrinkCenterLast.asGBoolean())
+        set(shrinkCenterLast) = gtk_center_box_set_shrink_center_last(gtkCenterBoxPointer, shrinkCenterLast.asGBoolean())
 
     /**
      * The widget that is placed at the start position.
@@ -222,9 +214,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
          * @return the start widget.
          */
         get() = gtk_center_box_get_start_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the start widget.
          *
@@ -243,11 +233,10 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
 
     public companion object : TypeCompanion<CenterBox> {
         override val type: GeneratedClassKGType<CenterBox> =
-            GeneratedClassKGType(getTypeOrNull("gtk_center_box_get_type")!!) { CenterBox(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_center_box_get_type")!!) { CenterBox(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CenterBox

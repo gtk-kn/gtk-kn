@@ -3,8 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
@@ -50,12 +57,6 @@ import org.gtkkn.native.gio.g_subprocess_wait_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GSubprocess` allows the creation of and interaction with child
@@ -128,8 +129,9 @@ import kotlin.collections.List
  * @since 2.40
  */
 @GioVersion2_40
-public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubprocess>) :
-    Object(gioSubprocessPointer.reinterpret()),
+public open class Subprocess(
+    public val gioSubprocessPointer: CPointer<GSubprocess>,
+) : Object(gioSubprocessPointer.reinterpret()),
     Initable,
     KGTyped {
     override val gioInitablePointer: CPointer<GInitable>
@@ -147,15 +149,15 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      * @since 2.40
      */
     @Throws(GLibException::class)
-    public constructor(argv: List<String>, flags: SubprocessFlags) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_subprocess_newv(argv.toCStringList(this), flags.mask, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(argv: List<String>, flags: SubprocessFlags) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = g_subprocess_newv(argv.toCStringList(this), flags.mask, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -170,15 +172,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
         stdinBuf: Bytes? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_subprocess_communicate_async(
-        gioSubprocessPointer,
-        stdinBuf?.glibBytesPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_subprocess_communicate_async(gioSubprocessPointer, stdinBuf?.glibBytesPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Asynchronous version of g_subprocess_communicate_utf8().  Complete
@@ -192,15 +186,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
         stdinBuf: String? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_subprocess_communicate_utf8_async(
-        gioSubprocessPointer,
-        stdinBuf,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_subprocess_communicate_utf8_async(gioSubprocessPointer, stdinBuf, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Use an operating-system specific method to attempt an immediate,
@@ -304,8 +290,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      */
     @GioVersion2_40
     public open fun getStderrPipe(): InputStream? = g_subprocess_get_stderr_pipe(gioSubprocessPointer)?.run {
-        InputStream.InputStreamImpl(this)
-    }
+        InputStream.InputStreamImpl(this)}
 
     /**
      * Gets the #GOutputStream that you can write to in order to give data
@@ -319,8 +304,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      */
     @GioVersion2_40
     public open fun getStdinPipe(): OutputStream? = g_subprocess_get_stdin_pipe(gioSubprocessPointer)?.run {
-        OutputStream.OutputStreamImpl(this)
-    }
+        OutputStream.OutputStreamImpl(this)}
 
     /**
      * Gets the #GInputStream from which to read the stdout output of
@@ -334,8 +318,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      */
     @GioVersion2_40
     public open fun getStdoutPipe(): InputStream? = g_subprocess_get_stdout_pipe(gioSubprocessPointer)?.run {
-        InputStream.InputStreamImpl(this)
-    }
+        InputStream.InputStreamImpl(this)}
 
     /**
      * Checks if the process was "successful".  A process is considered
@@ -401,11 +384,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
     @GioVersion2_40
     public open fun wait(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_subprocess_wait(
-            gioSubprocessPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_subprocess_wait(gioSubprocessPointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -423,15 +402,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun waitAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_subprocess_wait_async(
-            gioSubprocessPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun waitAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_subprocess_wait_async(gioSubprocessPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Combines g_subprocess_wait() with g_spawn_check_wait_status().
@@ -444,11 +415,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
     @GioVersion2_40
     public open fun waitCheck(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_subprocess_wait_check(
-            gioSubprocessPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_subprocess_wait_check(gioSubprocessPointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -466,15 +433,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun waitCheckAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_subprocess_wait_check_async(
-            gioSubprocessPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun waitCheckAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_subprocess_wait_check_async(gioSubprocessPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Collects the result of a previous call to
@@ -487,11 +446,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
     @GioVersion2_40
     public open fun waitCheckFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_subprocess_wait_check_finish(
-            gioSubprocessPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_subprocess_wait_check_finish(gioSubprocessPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -510,11 +465,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
     @GioVersion2_40
     public open fun waitFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_subprocess_wait_finish(
-            gioSubprocessPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_subprocess_wait_finish(gioSubprocessPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -524,11 +475,10 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
 
     public companion object : TypeCompanion<Subprocess> {
         override val type: GeneratedClassKGType<Subprocess> =
-            GeneratedClassKGType(getTypeOrNull("g_subprocess_get_type")!!) { Subprocess(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_subprocess_get_type")!!) { Subprocess(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Subprocess

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.List
@@ -15,16 +17,15 @@ import org.gtkkn.native.webkit.webkit_itp_third_party_get_first_parties
 import org.gtkkn.native.webkit.webkit_itp_third_party_get_type
 import org.gtkkn.native.webkit.webkit_itp_third_party_ref
 import org.gtkkn.native.webkit.webkit_itp_third_party_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Describes a third party origin.
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ItpThirdParty(public val webkitItpThirdPartyPointer: CPointer<WebKitITPThirdParty>) :
-    ProxyInstance(webkitItpThirdPartyPointer) {
+public class ItpThirdParty(
+    public val webkitItpThirdPartyPointer: CPointer<WebKitITPThirdParty>,
+) : ProxyInstance(webkitItpThirdPartyPointer) {
     /**
      * Get the domain name of @itp_third_party.
      *
@@ -32,8 +33,7 @@ public class ItpThirdParty(public val webkitItpThirdPartyPointer: CPointer<WebKi
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getDomain(): String =
-        webkit_itp_third_party_get_domain(webkitItpThirdPartyPointer)?.toKString() ?: error("Expected not null string")
+    public fun getDomain(): String = webkit_itp_third_party_get_domain(webkitItpThirdPartyPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the list of #WebKitITPFirstParty under which @itp_third_party has been seen.
@@ -43,8 +43,7 @@ public class ItpThirdParty(public val webkitItpThirdPartyPointer: CPointer<WebKi
      */
     @WebKitVersion2_30
     public fun getFirstParties(): List = webkit_itp_third_party_get_first_parties(webkitItpThirdPartyPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Atomically increments the reference count of @itp_third_party by one.
@@ -56,8 +55,7 @@ public class ItpThirdParty(public val webkitItpThirdPartyPointer: CPointer<WebKi
      */
     @WebKitVersion2_30
     public fun ref(): ItpThirdParty = webkit_itp_third_party_ref(webkitItpThirdPartyPointer)!!.run {
-        ItpThirdParty(this)
-    }
+        ItpThirdParty(this)}
 
     /**
      * Atomically decrements the reference count of @itp_third_party by one.

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -38,9 +41,6 @@ import org.gtkkn.native.pango.pango_font_get_metrics
 import org.gtkkn.native.pango.pango_font_get_type
 import org.gtkkn.native.pango.pango_font_has_char
 import org.gtkkn.native.pango.pango_font_serialize
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * A `PangoFont` is used to represent a font in a
@@ -53,8 +53,9 @@ import kotlin.Unit
  * - method `get_languages`: Array parameter of type Language is not supported
  * - parameter `descs`: Array parameter of type FontDescription is not supported
  */
-public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
-    Object(pangoFontPointer.reinterpret()),
+public abstract class Font(
+    public val pangoFontPointer: CPointer<PangoFont>,
+) : Object(pangoFontPointer.reinterpret()),
     KGTyped {
     /**
      * Returns a description of the font, with font size set in points.
@@ -65,8 +66,7 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      * @return a newly-allocated `PangoFontDescription` object.
      */
     public open fun describe(): FontDescription = pango_font_describe(pangoFontPointer)!!.run {
-        FontDescription(this)
-    }
+        FontDescription(this)}
 
     /**
      * Returns a description of the font, with absolute font size set
@@ -78,10 +78,8 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      * @since 1.14
      */
     @PangoVersion1_14
-    public open fun describeWithAbsoluteSize(): FontDescription =
-        pango_font_describe_with_absolute_size(pangoFontPointer)!!.run {
-            FontDescription(this)
-        }
+    public open fun describeWithAbsoluteSize(): FontDescription = pango_font_describe_with_absolute_size(pangoFontPointer)!!.run {
+        FontDescription(this)}
 
     /**
      * Computes the coverage map for a given font and language tag.
@@ -90,10 +88,8 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      * @return a newly-allocated `PangoCoverage`
      *   object.
      */
-    public open fun getCoverage(language: Language): Coverage =
-        pango_font_get_coverage(pangoFontPointer, language.pangoLanguagePointer)!!.run {
-            Coverage(this)
-        }
+    public open fun getCoverage(language: Language): Coverage = pango_font_get_coverage(pangoFontPointer, language.pangoLanguagePointer)!!.run {
+        Coverage(this)}
 
     /**
      * Gets the `PangoFontFace` to which @font belongs.
@@ -103,8 +99,7 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      */
     @PangoVersion1_46
     public open fun getFace(): FontFace = pango_font_get_face(pangoFontPointer)!!.run {
-        FontFace.FontFaceImpl(this)
-    }
+        FontFace.FontFaceImpl(this)}
 
     /**
      * Gets the font map for which the font was created.
@@ -125,8 +120,7 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      */
     @PangoVersion1_10
     public open fun getFontMap(): FontMap? = pango_font_get_font_map(pangoFontPointer)?.run {
-        FontMap.FontMapImpl(this)
-    }
+        FontMap.FontMapImpl(this)}
 
     /**
      * Gets the logical and ink extents of a glyph within a font.
@@ -145,13 +139,11 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      * @param inkRect rectangle used to store the extents of the glyph as drawn
      * @param logicalRect rectangle used to store the logical extents of the glyph
      */
-    public open fun getGlyphExtents(glyph: Glyph, inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_font_get_glyph_extents(
-            pangoFontPointer,
-            glyph,
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
-        )
+    public open fun getGlyphExtents(
+        glyph: Glyph,
+        inkRect: Rectangle?,
+        logicalRect: Rectangle?,
+    ): Unit = pango_font_get_glyph_extents(pangoFontPointer, glyph, inkRect?.pangoRectanglePointer, logicalRect?.pangoRectanglePointer)
 
     /**
      * Gets overall metric information for a font.
@@ -169,10 +161,8 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      * @return a `PangoFontMetrics` object. The caller must call
      *   [method@Pango.FontMetrics.unref] when finished using the object.
      */
-    public open fun getMetrics(language: Language? = null): FontMetrics =
-        pango_font_get_metrics(pangoFontPointer, language?.pangoLanguagePointer)!!.run {
-            FontMetrics(this)
-        }
+    public open fun getMetrics(language: Language? = null): FontMetrics = pango_font_get_metrics(pangoFontPointer, language?.pangoLanguagePointer)!!.run {
+        FontMetrics(this)}
 
     /**
      * Returns whether the font provides a glyph for this character.
@@ -200,23 +190,23 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
      */
     @PangoVersion1_50
     public open fun serialize(): Bytes = pango_font_serialize(pangoFontPointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * The FontImpl type represents a native instance of the abstract Font class.
      *
      * @constructor Creates a new instance of Font for the provided [CPointer].
      */
-    public class FontImpl(pointer: CPointer<PangoFont>) : Font(pointer)
+    public class FontImpl(
+        pointer: CPointer<PangoFont>,
+    ) : Font(pointer)
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedClassKGType<Font> =
-            GeneratedClassKGType(getTypeOrNull("pango_font_get_type")!!) { FontImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("pango_font_get_type")!!) { FontImpl(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Loads data previously created via [method@Pango.Font.serialize].
@@ -236,8 +226,7 @@ public abstract class Font(public val pangoFontPointer: CPointer<PangoFont>) :
         public fun deserialize(context: Context, bytes: Bytes): Result<Font?> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = pango_font_deserialize(context.pangoContextPointer, bytes.glibBytesPointer, gError.ptr)?.run {
-                FontImpl(this)
-            }
+                FontImpl(this)}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

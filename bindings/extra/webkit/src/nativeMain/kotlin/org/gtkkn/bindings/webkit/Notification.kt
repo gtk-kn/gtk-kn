@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,17 +36,15 @@ import org.gtkkn.native.webkit.webkit_notification_get_id
 import org.gtkkn.native.webkit.webkit_notification_get_tag
 import org.gtkkn.native.webkit.webkit_notification_get_title
 import org.gtkkn.native.webkit.webkit_notification_get_type
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Holds information about a notification that should be shown to the user.
  * @since 2.8
  */
 @WebKitVersion2_8
-public class Notification(public val webkitNotificationPointer: CPointer<WebKitNotification>) :
-    Object(webkitNotificationPointer.reinterpret()),
+public class Notification(
+    public val webkitNotificationPointer: CPointer<WebKitNotification>,
+) : Object(webkitNotificationPointer.reinterpret()),
     KGTyped {
     /**
      * The body for the notification.
@@ -58,8 +59,7 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
          * @return the body for the notification
          * @since 2.8
          */
-        get() = webkit_notification_get_body(webkitNotificationPointer)?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_notification_get_body(webkitNotificationPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The unique id for the notification.
@@ -104,8 +104,7 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
          * @return the title for the notification
          * @since 2.8
          */
-        get() = webkit_notification_get_title(webkitNotificationPointer)?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_notification_get_title(webkitNotificationPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Tells WebKit the notification has been clicked.
@@ -134,15 +133,7 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitNotificationPointer,
-            "clicked",
-            onClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitNotificationPointer, "clicked", onClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "clicked" signal. See [onClicked].
@@ -165,15 +156,7 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitNotificationPointer,
-            "closed",
-            onClosedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitNotificationPointer, "closed", onClosedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "closed" signal. See [onClosed].
@@ -187,11 +170,10 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
-            GeneratedClassKGType(getTypeOrNull("webkit_notification_get_type")!!) { Notification(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("webkit_notification_get_type")!!) { Notification(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of Notification
@@ -203,17 +185,15 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
 }
 
 private val onClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

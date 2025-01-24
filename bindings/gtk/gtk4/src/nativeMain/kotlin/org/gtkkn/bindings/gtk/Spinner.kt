@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -22,8 +24,6 @@ import org.gtkkn.native.gtk.gtk_spinner_new
 import org.gtkkn.native.gtk.gtk_spinner_set_spinning
 import org.gtkkn.native.gtk.gtk_spinner_start
 import org.gtkkn.native.gtk.gtk_spinner_stop
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `GtkSpinner` widget displays an icon-size spinning animation.
@@ -42,8 +42,9 @@ import kotlin.Unit
  * When the animation is active, the :checked pseudoclass is
  * added to this node.
  */
-public open class Spinner(public val gtkSpinnerPointer: CPointer<GtkSpinner>) :
-    Widget(gtkSpinnerPointer.reinterpret()),
+public open class Spinner(
+    public val gtkSpinnerPointer: CPointer<GtkSpinner>,
+) : Widget(gtkSpinnerPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -64,7 +65,6 @@ public open class Spinner(public val gtkSpinnerPointer: CPointer<GtkSpinner>) :
          * @return true if the spinner is active
          */
         get() = gtk_spinner_get_spinning(gtkSpinnerPointer).asBoolean()
-
         /**
          * Sets the activity of the spinner.
          *
@@ -91,11 +91,10 @@ public open class Spinner(public val gtkSpinnerPointer: CPointer<GtkSpinner>) :
 
     public companion object : TypeCompanion<Spinner> {
         override val type: GeneratedClassKGType<Spinner> =
-            GeneratedClassKGType(getTypeOrNull("gtk_spinner_get_type")!!) { Spinner(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_spinner_get_type")!!) { Spinner(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Spinner

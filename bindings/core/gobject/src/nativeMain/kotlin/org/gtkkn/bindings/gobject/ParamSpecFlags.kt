@@ -11,5 +11,6 @@ import org.gtkkn.native.gobject.GParamSpecFlags
  * A #GParamSpec derived structure that contains the meta data for flags
  * properties.
  */
-public open class ParamSpecFlags(public val gobjectParamSpecFlagsPointer: CPointer<GParamSpecFlags>) :
-    ParamSpec(gobjectParamSpecFlagsPointer.reinterpret())
+public open class ParamSpecFlags(
+    public val gobjectParamSpecFlagsPointer: CPointer<GParamSpecFlags>,
+) : ParamSpec(gobjectParamSpecFlagsPointer.reinterpret())

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,29 +11,26 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPollFD
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gushort
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_pollfd_get_type
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a file descriptor, which events to poll for, and which events
  * occurred.
  */
-public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibPollFdPointer) {
+public class PollFd(
+    public val glibPollFdPointer: CPointer<GPollFD>,
+) : ProxyInstance(glibPollFdPointer) {
     /**
      * the file descriptor to poll (or a HANDLE on Win32)
      */
     public var fd: gint
         get() = glibPollFdPointer.pointed.fd
-
         @UnsafeFieldSetter
         set(`value`) {
             glibPollFdPointer.pointed.fd = value
@@ -46,7 +44,6 @@ public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cl
      */
     public var events: gushort
         get() = glibPollFdPointer.pointed.events
-
         @UnsafeFieldSetter
         set(`value`) {
             glibPollFdPointer.pointed.events = value
@@ -58,7 +55,6 @@ public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cl
      */
     public var revents: gushort
         get() = glibPollFdPointer.pointed.revents
-
         @UnsafeFieldSetter
         set(`value`) {
             glibPollFdPointer.pointed.revents = value
@@ -70,21 +66,9 @@ public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cl
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPollFD>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PollFd and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GPollFD>, Cleaner>,
-    ) : this(glibPollFdPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GPollFD>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PollFd using the provided [AutofreeScope].

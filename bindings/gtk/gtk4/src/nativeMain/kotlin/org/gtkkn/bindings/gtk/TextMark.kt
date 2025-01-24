@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -23,9 +26,6 @@ import org.gtkkn.native.gtk.gtk_text_mark_get_type
 import org.gtkkn.native.gtk.gtk_text_mark_get_visible
 import org.gtkkn.native.gtk.gtk_text_mark_new
 import org.gtkkn.native.gtk.gtk_text_mark_set_visible
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkTextMark` is a position in a `GtkTextbuffer` that is preserved
@@ -62,8 +62,9 @@ import kotlin.Unit
  * Marks are typically created using the [method@Gtk.TextBuffer.create_mark]
  * function.
  */
-public open class TextMark(public val gtkTextMarkPointer: CPointer<GtkTextMark>) :
-    Object(gtkTextMarkPointer.reinterpret()),
+public open class TextMark(
+    public val gtkTextMarkPointer: CPointer<GtkTextMark>,
+) : Object(gtkTextMarkPointer.reinterpret()),
     KGTyped {
     /**
      * Whether the mark has left gravity.
@@ -110,10 +111,7 @@ public open class TextMark(public val gtkTextMarkPointer: CPointer<GtkTextMark>)
      * @param leftGravity whether the mark should have left gravity
      * @return new `GtkTextMark`
      */
-    public constructor(
-        name: String? = null,
-        leftGravity: Boolean,
-    ) : this(gtk_text_mark_new(name, leftGravity.asGBoolean())!!.reinterpret())
+    public constructor(name: String? = null, leftGravity: Boolean) : this(gtk_text_mark_new(name, leftGravity.asGBoolean())!!)
 
     /**
      * Gets the buffer this mark is located inside.
@@ -123,8 +121,7 @@ public open class TextMark(public val gtkTextMarkPointer: CPointer<GtkTextMark>)
      * @return the mark’s `GtkTextBuffer`
      */
     public open fun getBuffer(): TextBuffer? = gtk_text_mark_get_buffer(gtkTextMarkPointer)?.run {
-        TextBuffer(this)
-    }
+        TextBuffer(this)}
 
     /**
      * Returns true if the mark has been removed from its buffer.
@@ -145,16 +142,14 @@ public open class TextMark(public val gtkTextMarkPointer: CPointer<GtkTextMark>)
      */
     public open fun getVisible(): Boolean = gtk_text_mark_get_visible(gtkTextMarkPointer).asBoolean()
 
-    public open fun setVisible(setting: Boolean): Unit =
-        gtk_text_mark_set_visible(gtkTextMarkPointer, setting.asGBoolean())
+    public open fun setVisible(setting: Boolean): Unit = gtk_text_mark_set_visible(gtkTextMarkPointer, setting.asGBoolean())
 
     public companion object : TypeCompanion<TextMark> {
         override val type: GeneratedClassKGType<TextMark> =
-            GeneratedClassKGType(getTypeOrNull("gtk_text_mark_get_type")!!) { TextMark(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_text_mark_get_type")!!) { TextMark(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TextMark

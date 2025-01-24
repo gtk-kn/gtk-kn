@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -219,10 +223,6 @@ import org.gtkkn.native.gtk.gtk_widget_unmap
 import org.gtkkn.native.gtk.gtk_widget_unparent
 import org.gtkkn.native.gtk.gtk_widget_unrealize
 import org.gtkkn.native.gtk.gtk_widget_unset_state_flags
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -631,8 +631,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - method `height-request`: Property has no getter nor setter
  * - method `width-request`: Property has no getter nor setter
  */
-public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
-    InitiallyUnowned(gtkWidgetPointer.reinterpret()),
+public abstract class Widget(
+    public val gtkWidgetPointer: CPointer<GtkWidget>,
+) : InitiallyUnowned(gtkWidgetPointer.reinterpret()),
     Accessible,
     Buildable,
     ConstraintTarget,
@@ -663,7 +664,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return true if the input focus can enter @widget, false otherwise
          */
         get() = gtk_widget_get_can_focus(gtkWidgetPointer).asBoolean()
-
         /**
          * Specifies whether the input focus can enter the widget
          * or any of its children.
@@ -695,7 +695,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return true if @widget can receive pointer events
          */
         get() = gtk_widget_get_can_target(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets whether @widget can be the target of pointer events.
          *
@@ -716,7 +715,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          *   list must freed using g_strfreev().
          */
         get() = gtk_widget_get_css_classes(gtkWidgetPointer)?.toKStringList() ?: error("Expected not null string array")
-
         /**
          * Clear all style classes applied to @widget
          * and replace them with @classes.
@@ -724,8 +722,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @param classes null-terminated list of style classes to apply to @widget.
          */
         set(classes) = memScoped {
-            return gtk_widget_set_css_classes(gtkWidgetPointer, classes.toCStringList(this))
-        }
+            return gtk_widget_set_css_classes(gtkWidgetPointer, classes.toCStringList(this))}
 
     /**
      * The name of this widget in the CSS tree.
@@ -754,9 +751,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          *   currently in use or null if the cursor is inherited
          */
         get() = gtk_widget_get_cursor(gtkWidgetPointer)?.run {
-            Cursor(this)
-        }
-
+            Cursor(this)}
         /**
          * Sets the cursor to be shown when pointer devices point
          * towards @widget.
@@ -784,7 +779,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          *   clicked with the mouse
          */
         get() = gtk_widget_get_focus_on_click(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets whether the widget should grab focus when it is clicked
          * with the mouse.
@@ -810,7 +804,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return true if @widget can own the input focus, false otherwise
          */
         get() = gtk_widget_get_focusable(gtkWidgetPointer).asBoolean()
-
         /**
          * Specifies whether @widget can own the input focus.
          *
@@ -846,9 +839,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the horizontal alignment of @widget
          */
         get() = gtk_widget_get_halign(gtkWidgetPointer).run {
-            Align.fromNativeValue(this)
-        }
-
+            Align.fromNativeValue(this)}
         /**
          * Sets the horizontal alignment of @widget.
          *
@@ -870,7 +861,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return current value of `has-tooltip` on @widget.
          */
         get() = gtk_widget_get_has_tooltip(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets the `has-tooltip` property on @widget to @has_tooltip.
          *
@@ -903,7 +893,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return whether hexpand flag is set
          */
         get() = gtk_widget_get_hexpand(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets whether the widget would like any available extra horizontal
          * space.
@@ -956,7 +945,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return whether hexpand has been explicitly set
          */
         get() = gtk_widget_get_hexpand_set(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets whether the hexpand flag will be used.
          *
@@ -993,9 +981,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return a `GtkLayoutManager`
          */
         get() = gtk_widget_get_layout_manager(gtkWidgetPointer)?.run {
-            LayoutManager.LayoutManagerImpl(this)
-        }
-
+            LayoutManager.LayoutManagerImpl(this)}
         /**
          * Sets the layout manager delegate instance that provides an
          * implementation for measuring and allocating the children of @widget.
@@ -1018,7 +1004,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return The bottom margin of @widget
          */
         get() = gtk_widget_get_margin_bottom(gtkWidgetPointer)
-
         /**
          * Sets the bottom margin of @widget.
          *
@@ -1043,7 +1028,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return The end margin of @widget
          */
         get() = gtk_widget_get_margin_end(gtkWidgetPointer)
-
         /**
          * Sets the end margin of @widget.
          *
@@ -1068,7 +1052,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return The start margin of @widget
          */
         get() = gtk_widget_get_margin_start(gtkWidgetPointer)
-
         /**
          * Sets the start margin of @widget.
          *
@@ -1090,7 +1073,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return The top margin of @widget
          */
         get() = gtk_widget_get_margin_top(gtkWidgetPointer)
-
         /**
          * Sets the top margin of @widget.
          *
@@ -1111,7 +1093,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          *   should not be modified or freed
          */
         get() = gtk_widget_get_name(gtkWidgetPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets a widgets name.
          *
@@ -1141,7 +1122,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the requested opacity for this widget.
          */
         get() = gtk_widget_get_opacity(gtkWidgetPointer)
-
         /**
          * Request the @widget to be rendered partially transparent.
          *
@@ -1183,9 +1163,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return The widget's overflow.
          */
         get() = gtk_widget_get_overflow(gtkWidgetPointer).run {
-            Overflow.fromNativeValue(this)
-        }
-
+            Overflow.fromNativeValue(this)}
         /**
          * Sets how @widget treats content that is drawn outside the
          * widget's content area.
@@ -1211,8 +1189,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the parent widget of @widget
          */
         get() = gtk_widget_get_parent(gtkWidgetPointer)?.run {
-            WidgetImpl(this)
-        }
+            WidgetImpl(this)}
 
     /**
      * Whether the widget will receive the default action when it is focused.
@@ -1229,7 +1206,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          *   false otherwise
          */
         get() = gtk_widget_get_receives_default(gtkWidgetPointer).asBoolean()
-
         /**
          * Specifies whether @widget will be treated as the default
          * widget within its toplevel when it has the focus, even if
@@ -1256,8 +1232,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the root widget of @widget
          */
         get() = gtk_widget_get_root(gtkWidgetPointer)?.run {
-            Root.RootImpl(reinterpret())
-        }
+            Root.RootImpl(reinterpret())}
 
     /**
      * The scale factor of the widget.
@@ -1293,7 +1268,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return true if the widget is sensitive
          */
         get() = gtk_widget_get_sensitive(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets the sensitivity of a widget.
          *
@@ -1332,7 +1306,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the tooltip text
          */
         get() = gtk_widget_get_tooltip_markup(gtkWidgetPointer)?.toKString()
-
         /**
          * Sets @markup as the contents of the tooltip, which is marked
          * up with Pango markup.
@@ -1372,7 +1345,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the tooltip text
          */
         get() = gtk_widget_get_tooltip_text(gtkWidgetPointer)?.toKString()
-
         /**
          * Sets @text as the contents of the tooltip.
          *
@@ -1399,9 +1371,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the vertical alignment of @widget
          */
         get() = gtk_widget_get_valign(gtkWidgetPointer).run {
-            Align.fromNativeValue(this)
-        }
-
+            Align.fromNativeValue(this)}
         /**
          * Sets the vertical alignment of @widget.
          *
@@ -1422,7 +1392,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return whether vexpand flag is set
          */
         get() = gtk_widget_get_vexpand(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets whether the widget would like any available extra vertical
          * space.
@@ -1446,7 +1415,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return whether vexpand has been explicitly set
          */
         get() = gtk_widget_get_vexpand_set(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets whether the vexpand flag will be used.
          *
@@ -1475,7 +1443,6 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return true if the widget is visible
          */
         get() = gtk_widget_get_visible(gtkWidgetPointer).asBoolean()
-
         /**
          * Sets the visibility state of @widget.
          *
@@ -1493,8 +1460,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param actionName action name, such as "clipboard.paste"
      * @param enabled whether the action is now enabled
      */
-    public open fun actionSetEnabled(actionName: String, enabled: Boolean): Unit =
-        gtk_widget_action_set_enabled(gtkWidgetPointer, actionName, enabled.asGBoolean())
+    public open fun actionSetEnabled(actionName: String, enabled: Boolean): Unit = gtk_widget_action_set_enabled(gtkWidgetPointer, actionName, enabled.asGBoolean())
 
     /**
      * For widgets that can be “activated” (buttons, menu items, etc.),
@@ -1533,8 +1499,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return true if the action was activated, false if the
      *   action does not exist.
      */
-    public open fun activateActionIfExists(name: String, args: Variant? = null): Boolean =
-        gtk_widget_activate_action_variant(gtkWidgetPointer, name, args?.glibVariantPointer).asBoolean()
+    public open fun activateActionIfExists(name: String, args: Variant? = null): Boolean = gtk_widget_activate_action_variant(gtkWidgetPointer, name, args?.glibVariantPointer).asBoolean()
 
     /**
      * Activates the `default.activate` action from @widget.
@@ -1550,8 +1515,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param controller a `GtkEventController` that hasn't been
      *   added to a widget yet
      */
-    public open fun addController(controller: EventController): Unit =
-        gtk_widget_add_controller(gtkWidgetPointer, controller.gtkEventControllerPointer)
+    public open fun addController(controller: EventController): Unit = gtk_widget_add_controller(gtkWidgetPointer, controller.gtkEventControllerPointer)
 
     /**
      * Adds a style class to @widget.
@@ -1577,8 +1541,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *
      * @param label a `GtkWidget` that acts as a mnemonic label for @widget
      */
-    public open fun addMnemonicLabel(label: Widget): Unit =
-        gtk_widget_add_mnemonic_label(gtkWidgetPointer, label.gtkWidgetPointer)
+    public open fun addMnemonicLabel(label: Widget): Unit = gtk_widget_add_mnemonic_label(gtkWidgetPointer, label.gtkWidgetPointer)
 
     /**
      * Queues an animation frame update and adds a callback to be called
@@ -1609,12 +1572,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   by passing the id returned from this function to
      *   [method@Gtk.Widget.remove_tick_callback]
      */
-    public open fun addTickCallback(callback: TickCallback): guint = gtk_widget_add_tick_callback(
-        gtkWidgetPointer,
-        TickCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun addTickCallback(callback: TickCallback): guint = gtk_widget_add_tick_callback(gtkWidgetPointer, TickCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * This function is only used by `GtkWidget` subclasses, to
@@ -1633,8 +1591,12 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param baseline New baseline of @widget, or -1
      * @param transform Transformation to be applied to @widget
      */
-    public open fun allocate(width: gint, height: gint, baseline: gint, transform: Transform? = null): Unit =
-        gtk_widget_allocate(gtkWidgetPointer, width, height, baseline, transform?.gskTransformPointer)
+    public open fun allocate(
+        width: gint,
+        height: gint,
+        baseline: gint,
+        transform: Transform? = null,
+    ): Unit = gtk_widget_allocate(gtkWidgetPointer, width, height, baseline, transform?.gskTransformPointer)
 
     /**
      * Called by widgets as the user moves around the window using
@@ -1661,8 +1623,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param direction direction of focus movement
      * @return true if focus ended up inside @widget
      */
-    public open fun childFocus(direction: DirectionType): Boolean =
-        gtk_widget_child_focus(gtkWidgetPointer, direction.nativeValue).asBoolean()
+    public open fun childFocus(direction: DirectionType): Boolean = gtk_widget_child_focus(gtkWidgetPointer, direction.nativeValue).asBoolean()
 
     /**
      * Computes the bounds for @widget in the coordinate space of @target.
@@ -1682,8 +1643,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param outBounds the rectangle taking the bounds
      * @return true if the bounds could be computed
      */
-    public open fun computeBounds(target: Widget, outBounds: Rect): Boolean =
-        gtk_widget_compute_bounds(gtkWidgetPointer, target.gtkWidgetPointer, outBounds.grapheneRectPointer).asBoolean()
+    public open fun computeBounds(target: Widget, outBounds: Rect): Boolean = gtk_widget_compute_bounds(gtkWidgetPointer, target.gtkWidgetPointer, outBounds.grapheneRectPointer).asBoolean()
 
     /**
      * Computes whether a container should give this widget
@@ -1703,8 +1663,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param orientation expand direction
      * @return whether widget tree rooted here should be expanded
      */
-    public open fun computeExpand(orientation: Orientation): Boolean =
-        gtk_widget_compute_expand(gtkWidgetPointer, orientation.nativeValue).asBoolean()
+    public open fun computeExpand(orientation: Orientation): Boolean = gtk_widget_compute_expand(gtkWidgetPointer, orientation.nativeValue).asBoolean()
 
     /**
      * Translates the given @point in @widget's coordinates to coordinates
@@ -1720,12 +1679,11 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return true if the point could be determined, false on failure.
      *   In this case, 0 is stored in @out_point.
      */
-    public open fun computePoint(target: Widget, point: Point, outPoint: Point): Boolean = gtk_widget_compute_point(
-        gtkWidgetPointer,
-        target.gtkWidgetPointer,
-        point.graphenePointPointer,
-        outPoint.graphenePointPointer
-    ).asBoolean()
+    public open fun computePoint(
+        target: Widget,
+        point: Point,
+        outPoint: Point,
+    ): Boolean = gtk_widget_compute_point(gtkWidgetPointer, target.gtkWidgetPointer, point.graphenePointPointer, outPoint.graphenePointPointer).asBoolean()
 
     /**
      * Computes a matrix suitable to describe a transformation from
@@ -1743,11 +1701,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   store the final transformation
      * @return true if the transform could be computed, false otherwise
      */
-    public open fun computeTransform(target: Widget, outTransform: Matrix): Boolean = gtk_widget_compute_transform(
-        gtkWidgetPointer,
-        target.gtkWidgetPointer,
-        outTransform.grapheneMatrixPointer
-    ).asBoolean()
+    public open fun computeTransform(target: Widget, outTransform: Matrix): Boolean = gtk_widget_compute_transform(gtkWidgetPointer, target.gtkWidgetPointer, outTransform.grapheneMatrixPointer).asBoolean()
 
     /**
      * Tests if the point at (@x, @y) is contained in @widget.
@@ -1771,8 +1725,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the new `PangoContext`
      */
     public open fun createPangoContext(): Context = gtk_widget_create_pango_context(gtkWidgetPointer)!!.run {
-        Context(this)
-    }
+        Context(this)}
 
     /**
      * Creates a new `PangoLayout` with the appropriate font map,
@@ -1787,10 +1740,8 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param text text to set on the layout
      * @return the new `PangoLayout`
      */
-    public open fun createPangoLayout(text: String? = null): Layout =
-        gtk_widget_create_pango_layout(gtkWidgetPointer, text)!!.run {
-            Layout(this)
-        }
+    public open fun createPangoLayout(text: String? = null): Layout = gtk_widget_create_pango_layout(gtkWidgetPointer, text)!!.run {
+        Layout(this)}
 
     /**
      * Clears the template children for the given widget.
@@ -1834,8 +1785,12 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param currentY current Y coordinate
      * @return true if the drag threshold has been passed.
      */
-    public open fun dragCheckThreshold(startX: gint, startY: gint, currentX: gint, currentY: gint): Boolean =
-        gtk_drag_check_threshold(gtkWidgetPointer, startX, startY, currentX, currentY).asBoolean()
+    public open fun dragCheckThreshold(
+        startX: gint,
+        startY: gint,
+        currentX: gint,
+        currentY: gint,
+    ): Boolean = gtk_drag_check_threshold(gtkWidgetPointer, startX, startY, currentX, currentY).asBoolean()
 
     /**
      * Notifies the user about an input-related error on this widget.
@@ -1899,8 +1854,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *
      * @param allocation a pointer to a `GtkAllocation` to copy to
      */
-    public open fun getAllocation(allocation: Allocation): Unit =
-        gtk_widget_get_allocation(gtkWidgetPointer, allocation.gdkRectanglePointer)
+    public open fun getAllocation(allocation: Allocation): Unit = gtk_widget_get_allocation(gtkWidgetPointer, allocation.gdkRectanglePointer)
 
     /**
      * Gets the first ancestor of @widget with type @widget_type.
@@ -1916,10 +1870,8 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param widgetType ancestor type
      * @return the ancestor widget
      */
-    public open fun getAncestor(widgetType: GType): Widget? =
-        gtk_widget_get_ancestor(gtkWidgetPointer, widgetType)?.run {
-            WidgetImpl(this)
-        }
+    public open fun getAncestor(widgetType: GType): Widget? = gtk_widget_get_ancestor(gtkWidgetPointer, widgetType)?.run {
+        WidgetImpl(this)}
 
     /**
      * Returns the baseline that has currently been allocated to @widget.
@@ -1959,8 +1911,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the appropriate clipboard object
      */
     public open fun getClipboard(): Clipboard = gtk_widget_get_clipboard(gtkWidgetPointer)!!.run {
-        Clipboard(this)
-    }
+        Clipboard(this)}
 
     /**
      * Gets the current foreground color for the widget’s
@@ -1984,8 +1935,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the reading direction for the widget.
      */
     public open fun getDirection(): TextDirection = gtk_widget_get_direction(gtkWidgetPointer).run {
-        TextDirection.fromNativeValue(this)
-    }
+        TextDirection.fromNativeValue(this)}
 
     /**
      * Get the `GdkDisplay` for the toplevel window associated with
@@ -2002,8 +1952,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   for this widget.
      */
     public open fun getDisplay(): Display = gtk_widget_get_display(gtkWidgetPointer)!!.run {
-        Display(this)
-    }
+        Display(this)}
 
     /**
      * Returns the widget’s first child.
@@ -2013,8 +1962,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's first child
      */
     public open fun getFirstChild(): Widget? = gtk_widget_get_first_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
-    }
+        WidgetImpl(this)}
 
     /**
      * Returns the current focus child of @widget.
@@ -2023,8 +1971,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   child of @widget
      */
     public open fun getFocusChild(): Widget? = gtk_widget_get_focus_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
-    }
+        WidgetImpl(this)}
 
     /**
      * Gets the font map of @widget.
@@ -2034,8 +1981,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return A `PangoFontMap`
      */
     public open fun getFontMap(): FontMap? = gtk_widget_get_font_map(gtkWidgetPointer)?.run {
-        FontMap.FontMapImpl(this)
-    }
+        FontMap.FontMapImpl(this)}
 
     /**
      * Returns the `cairo_font_options_t` of widget.
@@ -2046,8 +1992,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   of widget
      */
     public open fun getFontOptions(): FontOptions? = gtk_widget_get_font_options(gtkWidgetPointer)?.run {
-        FontOptions(this)
-    }
+        FontOptions(this)}
 
     /**
      * Obtains the frame clock for a widget.
@@ -2076,8 +2021,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return a `GdkFrameClock`
      */
     public open fun getFrameClock(): FrameClock? = gtk_widget_get_frame_clock(gtkWidgetPointer)?.run {
-        FrameClock.FrameClockImpl(this)
-    }
+        FrameClock.FrameClockImpl(this)}
 
     /**
      * Returns the content height of the widget.
@@ -2103,8 +2047,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's last child
      */
     public open fun getLastChild(): Widget? = gtk_widget_get_last_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
-    }
+        WidgetImpl(this)}
 
     /**
      * Whether the widget is mapped.
@@ -2124,8 +2067,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the `GtkNative` ancestor of @widget
      */
     public open fun getNative(): Native? = gtk_widget_get_native(gtkWidgetPointer)?.run {
-        Native.NativeImpl(reinterpret())
-    }
+        Native.NativeImpl(reinterpret())}
 
     /**
      * Returns the widget’s next sibling.
@@ -2135,8 +2077,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's next sibling
      */
     public open fun getNextSibling(): Widget? = gtk_widget_get_next_sibling(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
-    }
+        WidgetImpl(this)}
 
     /**
      * Gets a `PangoContext` with the appropriate font map, font description,
@@ -2152,8 +2093,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the `PangoContext` for the widget.
      */
     public open fun getPangoContext(): Context = gtk_widget_get_pango_context(gtkWidgetPointer)!!.run {
-        Context(this)
-    }
+        Context(this)}
 
     /**
      * Retrieves the minimum and natural size of a widget, taking
@@ -2174,12 +2114,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param minimumSize location for storing the minimum size
      * @param naturalSize location for storing the natural size
      */
-    public open fun getPreferredSize(minimumSize: Requisition?, naturalSize: Requisition?): Unit =
-        gtk_widget_get_preferred_size(
-            gtkWidgetPointer,
-            minimumSize?.gtkRequisitionPointer,
-            naturalSize?.gtkRequisitionPointer
-        )
+    public open fun getPreferredSize(minimumSize: Requisition?, naturalSize: Requisition?): Unit = gtk_widget_get_preferred_size(gtkWidgetPointer, minimumSize?.gtkRequisitionPointer, naturalSize?.gtkRequisitionPointer)
 
     /**
      * Returns the widget’s previous sibling.
@@ -2189,8 +2124,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget's previous sibling
      */
     public open fun getPrevSibling(): Widget? = gtk_widget_get_prev_sibling(gtkWidgetPointer)?.run {
-        WidgetImpl(this)
-    }
+        WidgetImpl(this)}
 
     /**
      * Gets the primary clipboard of @widget.
@@ -2204,8 +2138,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the appropriate clipboard object
      */
     public open fun getPrimaryClipboard(): Clipboard = gtk_widget_get_primary_clipboard(gtkWidgetPointer)!!.run {
-        Clipboard(this)
-    }
+        Clipboard(this)}
 
     /**
      * Determines whether @widget is realized.
@@ -2226,8 +2159,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The `GtkSizeRequestMode` preferred by @widget.
      */
     public open fun getRequestMode(): SizeRequestMode = gtk_widget_get_request_mode(gtkWidgetPointer).run {
-        SizeRequestMode.fromNativeValue(this)
-    }
+        SizeRequestMode.fromNativeValue(this)}
 
     /**
      * Gets the settings object holding the settings used for this widget.
@@ -2240,8 +2172,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the relevant `GtkSettings` object
      */
     public open fun getSettings(): Settings = gtk_widget_get_settings(gtkWidgetPointer)!!.run {
-        Settings(this)
-    }
+        Settings(this)}
 
     /**
      * Returns the content width or height of the widget.
@@ -2260,8 +2191,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param orientation the orientation to query
      * @return The size of @widget in @orientation.
      */
-    public open fun getSize(orientation: Orientation): gint =
-        gtk_widget_get_size(gtkWidgetPointer, orientation.nativeValue)
+    public open fun getSize(orientation: Orientation): gint = gtk_widget_get_size(gtkWidgetPointer, orientation.nativeValue)
 
     /**
      * Returns the widget state as a flag set.
@@ -2277,8 +2207,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The state flags for widget
      */
     public open fun getStateFlags(): StateFlags = gtk_widget_get_state_flags(gtkWidgetPointer).run {
-        StateFlags(this)
-    }
+        StateFlags(this)}
 
     /**
      * Returns the style context associated to @widget.
@@ -2289,8 +2218,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return the widget’s `GtkStyleContext`
      */
     public open fun getStyleContext(): StyleContext = gtk_widget_get_style_context(gtkWidgetPointer)!!.run {
-        StyleContext(this)
-    }
+        StyleContext(this)}
 
     /**
      * Fetch an object build from the template XML for @widget_type in
@@ -2309,10 +2237,8 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The object built in the template XML with
      *   the id @name
      */
-    public open fun getTemplateChild(widgetType: GType, name: String): Object =
-        gtk_widget_get_template_child(gtkWidgetPointer, widgetType, name)!!.run {
-            Object(this)
-        }
+    public open fun getTemplateChild(widgetType: GType, name: String): Object = gtk_widget_get_template_child(gtkWidgetPointer, widgetType, name)!!.run {
+        Object(this)}
 
     /**
      * Returns the content width of the widget.
@@ -2352,8 +2278,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return true if @css_class is currently applied to @widget,
      *   false otherwise.
      */
-    public open fun hasCssClass(cssClass: String): Boolean =
-        gtk_widget_has_css_class(gtkWidgetPointer, cssClass).asBoolean()
+    public open fun hasCssClass(cssClass: String): Boolean = gtk_widget_has_css_class(gtkWidgetPointer, cssClass).asBoolean()
 
     /**
      * Determines whether @widget is the current default widget
@@ -2451,8 +2376,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param group a `GActionGroup`, or null to remove
      *   the previously inserted group for @name
      */
-    public open fun insertActionGroup(name: String, group: ActionGroup? = null): Unit =
-        gtk_widget_insert_action_group(gtkWidgetPointer, name, group?.gioActionGroupPointer)
+    public open fun insertActionGroup(name: String, group: ActionGroup? = null): Unit = gtk_widget_insert_action_group(gtkWidgetPointer, name, group?.gioActionGroupPointer)
 
     /**
      * Inserts @widget into the child widget list of @parent.
@@ -2473,8 +2397,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param parent the parent `GtkWidget` to insert @widget into
      * @param previousSibling the new previous sibling of @widget
      */
-    public open fun insertAfter(parent: Widget, previousSibling: Widget? = null): Unit =
-        gtk_widget_insert_after(gtkWidgetPointer, parent.gtkWidgetPointer, previousSibling?.gtkWidgetPointer)
+    public open fun insertAfter(parent: Widget, previousSibling: Widget? = null): Unit = gtk_widget_insert_after(gtkWidgetPointer, parent.gtkWidgetPointer, previousSibling?.gtkWidgetPointer)
 
     /**
      * Inserts @widget into the child widget list of @parent.
@@ -2494,8 +2417,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param parent the parent `GtkWidget` to insert @widget into
      * @param nextSibling the new next sibling of @widget
      */
-    public open fun insertBefore(parent: Widget, nextSibling: Widget? = null): Unit =
-        gtk_widget_insert_before(gtkWidgetPointer, parent.gtkWidgetPointer, nextSibling?.gtkWidgetPointer)
+    public open fun insertBefore(parent: Widget, nextSibling: Widget? = null): Unit = gtk_widget_insert_before(gtkWidgetPointer, parent.gtkWidgetPointer, nextSibling?.gtkWidgetPointer)
 
     /**
      * Determines whether @widget is somewhere inside @ancestor,
@@ -2505,8 +2427,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return true if @ancestor contains @widget as a child,
      *   grandchild, great grandchild, etc.
      */
-    public open fun isAncestor(ancestor: Widget): Boolean =
-        gtk_widget_is_ancestor(gtkWidgetPointer, ancestor.gtkWidgetPointer).asBoolean()
+    public open fun isAncestor(ancestor: Widget): Boolean = gtk_widget_is_ancestor(gtkWidgetPointer, ancestor.gtkWidgetPointer).asBoolean()
 
     /**
      * Determines whether @widget can be drawn to.
@@ -2587,8 +2508,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   if the emitting widget should try to handle the keyboard
      *   navigation attempt in its parent container(s).
      */
-    public open fun keynavFailed(direction: DirectionType): Boolean =
-        gtk_widget_keynav_failed(gtkWidgetPointer, direction.nativeValue).asBoolean()
+    public open fun keynavFailed(direction: DirectionType): Boolean = gtk_widget_keynav_failed(gtkWidgetPointer, direction.nativeValue).asBoolean()
 
     /**
      * Returns the widgets for which this widget is the target of a
@@ -2608,8 +2528,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   are done with it.
      */
     public open fun listMnemonicLabels(): GlibList = gtk_widget_list_mnemonic_labels(gtkWidgetPointer)!!.run {
-        GlibList(this)
-    }
+        GlibList(this)}
 
     /**
      * Causes a widget to be mapped if it isn’t already.
@@ -2626,8 +2545,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param groupCycling true if there are other widgets with the same mnemonic
      * @return true if the signal has been handled
      */
-    public open fun mnemonicActivate(groupCycling: Boolean): Boolean =
-        gtk_widget_mnemonic_activate(gtkWidgetPointer, groupCycling.asGBoolean()).asBoolean()
+    public open fun mnemonicActivate(groupCycling: Boolean): Boolean = gtk_widget_mnemonic_activate(gtkWidgetPointer, groupCycling.asGBoolean()).asBoolean()
 
     /**
      * Returns a `GListModel` to track the children of @widget.
@@ -2642,8 +2560,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return a `GListModel` tracking @widget's children
      */
     public open fun observeChildren(): ListModel = gtk_widget_observe_children(gtkWidgetPointer)!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Returns a `GListModel` to track the [class@Gtk.EventController]s
@@ -2659,8 +2576,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return a `GListModel` tracking @widget's controllers
      */
     public open fun observeControllers(): ListModel = gtk_widget_observe_controllers(gtkWidgetPointer)!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Finds the descendant of @widget closest to the point (@x, @y).
@@ -2684,10 +2600,12 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @return The widget descendant at
      *   the given point
      */
-    public open fun pick(x: gdouble, y: gdouble, flags: PickFlags): Widget? =
-        gtk_widget_pick(gtkWidgetPointer, x, y, flags.mask)?.run {
-            WidgetImpl(this)
-        }
+    public open fun pick(
+        x: gdouble,
+        y: gdouble,
+        flags: PickFlags,
+    ): Widget? = gtk_widget_pick(gtkWidgetPointer, x, y, flags.mask)?.run {
+        WidgetImpl(this)}
 
     /**
      * Flags the widget for a rerun of the [vfunc@Gtk.Widget.size_allocate]
@@ -2760,8 +2678,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *
      * @param controller a `GtkEventController`
      */
-    public open fun removeController(controller: EventController): Unit =
-        gtk_widget_remove_controller(gtkWidgetPointer, controller.gtkEventControllerPointer)
+    public open fun removeController(controller: EventController): Unit = gtk_widget_remove_controller(gtkWidgetPointer, controller.gtkEventControllerPointer)
 
     /**
      * Removes a style from @widget.
@@ -2783,8 +2700,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param label a `GtkWidget` that was previously set as a mnemonic
      *   label for @widget with [method@Gtk.Widget.add_mnemonic_label]
      */
-    public open fun removeMnemonicLabel(label: Widget): Unit =
-        gtk_widget_remove_mnemonic_label(gtkWidgetPointer, label.gtkWidgetPointer)
+    public open fun removeMnemonicLabel(label: Widget): Unit = gtk_widget_remove_mnemonic_label(gtkWidgetPointer, label.gtkWidgetPointer)
 
     /**
      * Removes a tick callback previously registered with
@@ -2815,8 +2731,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param childVisible if true, @widget should be mapped along
      *   with its parent.
      */
-    public open fun setChildVisible(childVisible: Boolean): Unit =
-        gtk_widget_set_child_visible(gtkWidgetPointer, childVisible.asGBoolean())
+    public open fun setChildVisible(childVisible: Boolean): Unit = gtk_widget_set_child_visible(gtkWidgetPointer, childVisible.asGBoolean())
 
     /**
      * Sets a named cursor to be shown when pointer devices point
@@ -2833,8 +2748,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *
      * @param name The name of the cursor
      */
-    public open fun setCursorFromName(name: String? = null): Unit =
-        gtk_widget_set_cursor_from_name(gtkWidgetPointer, name)
+    public open fun setCursorFromName(name: String? = null): Unit = gtk_widget_set_cursor_from_name(gtkWidgetPointer, name)
 
     /**
      * Sets the reading direction on a particular widget.
@@ -2865,8 +2779,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param child a direct child widget of @widget or null
      *   to unset the focus child of @widget
      */
-    public open fun setFocusChild(child: Widget? = null): Unit =
-        gtk_widget_set_focus_child(gtkWidgetPointer, child?.gtkWidgetPointer)
+    public open fun setFocusChild(child: Widget? = null): Unit = gtk_widget_set_focus_child(gtkWidgetPointer, child?.gtkWidgetPointer)
 
     /**
      * Sets the font map to use for Pango rendering.
@@ -2881,8 +2794,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param fontMap a `PangoFontMap`, or null to unset any
      *   previously set font map
      */
-    public open fun setFontMap(fontMap: FontMap? = null): Unit =
-        gtk_widget_set_font_map(gtkWidgetPointer, fontMap?.pangoFontMapPointer)
+    public open fun setFontMap(fontMap: FontMap? = null): Unit = gtk_widget_set_font_map(gtkWidgetPointer, fontMap?.pangoFontMapPointer)
 
     /**
      * Sets the `cairo_font_options_t` used for Pango rendering
@@ -2894,8 +2806,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param options a `cairo_font_options_t`
      *   to unset any previously set default font options
      */
-    public open fun setFontOptions(options: FontOptions? = null): Unit =
-        gtk_widget_set_font_options(gtkWidgetPointer, options?.cairoFontOptionsPointer)
+    public open fun setFontOptions(options: FontOptions? = null): Unit = gtk_widget_set_font_options(gtkWidgetPointer, options?.cairoFontOptionsPointer)
 
     /**
      * Sets @parent as the parent widget of @widget.
@@ -2951,8 +2862,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param width width @widget should request, or -1 to unset
      * @param height height @widget should request, or -1 to unset
      */
-    public open fun setSizeRequest(width: gint, height: gint): Unit =
-        gtk_widget_set_size_request(gtkWidgetPointer, width, height)
+    public open fun setSizeRequest(width: gint, height: gint): Unit = gtk_widget_set_size_request(gtkWidgetPointer, width, height)
 
     /**
      * Turns on flag values in the current widget state.
@@ -2968,8 +2878,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param flags State flags to turn on
      * @param clear Whether to clear state before turning on @flags
      */
-    public open fun setStateFlags(flags: StateFlags, clear: Boolean): Unit =
-        gtk_widget_set_state_flags(gtkWidgetPointer, flags.mask, clear.asGBoolean())
+    public open fun setStateFlags(flags: StateFlags, clear: Boolean): Unit = gtk_widget_set_state_flags(gtkWidgetPointer, flags.mask, clear.asGBoolean())
 
     /**
      * Returns whether @widget should contribute to
@@ -3006,8 +2915,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param allocation position and size to be allocated to @widget
      * @param baseline The baseline of the child, or -1
      */
-    public open fun sizeAllocate(allocation: Allocation, baseline: gint): Unit =
-        gtk_widget_size_allocate(gtkWidgetPointer, allocation.gdkRectanglePointer, baseline)
+    public open fun sizeAllocate(allocation: Allocation, baseline: gint): Unit = gtk_widget_size_allocate(gtkWidgetPointer, allocation.gdkRectanglePointer, baseline)
 
     /**
      * Snapshot the a child of @widget.
@@ -3030,8 +2938,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   calls to gtk_snapshot_translate() or other transform calls should
      *   have been made.
      */
-    public open fun snapshotChild(child: Widget, snapshot: Snapshot): Unit =
-        gtk_widget_snapshot_child(gtkWidgetPointer, child.gtkWidgetPointer, snapshot.gtkSnapshotPointer)
+    public open fun snapshotChild(child: Widget, snapshot: Snapshot): Unit = gtk_widget_snapshot_child(gtkWidgetPointer, child.gtkWidgetPointer, snapshot.gtkSnapshotPointer)
 
     /**
      * Triggers a tooltip query on the display where the toplevel
@@ -3071,8 +2978,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *
      * @param flags State flags to turn off
      */
-    public open fun unsetStateFlags(flags: StateFlags): Unit =
-        gtk_widget_unset_state_flags(gtkWidgetPointer, flags.mask)
+    public open fun unsetStateFlags(flags: StateFlags): Unit = gtk_widget_unset_state_flags(gtkWidgetPointer, flags.mask)
 
     /**
      * Signals that all holders of a reference to the widget should release
@@ -3085,15 +2991,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onDestroy(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkWidgetPointer,
-            "destroy",
-            onDestroyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onDestroy(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "destroy", onDestroyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "destroy" signal. See [onDestroy].
@@ -3108,17 +3006,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `previousDirection` the previous text direction of @widget
      */
-    public fun onDirectionChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (previousDirection: TextDirection) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "direction-changed",
-        onDirectionChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDirectionChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (previousDirection: TextDirection) -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "direction-changed", onDirectionChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "direction-changed" signal. See [onDirectionChanged].
@@ -3135,15 +3023,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkWidgetPointer,
-            "hide",
-            onHideFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "hide", onHideFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "hide" signal. See [onHide].
@@ -3162,17 +3042,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   if the emitting widget should try to handle the keyboard
      *   navigation attempt in its parent widget(s).
      */
-    public fun onKeynavFailed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (direction: DirectionType) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "keynav-failed",
-        onKeynavFailedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onKeynavFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (direction: DirectionType) -> Boolean): ULong = g_signal_connect_data(gtkWidgetPointer, "keynav-failed", onKeynavFailedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @widget is going to be mapped.
@@ -3188,14 +3058,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onMap(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "map",
-        onMapFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMap(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "map", onMapFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "map" signal. See [onMap].
@@ -3214,17 +3077,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param handler the Callback to connect. Params: `groupCycling` true if there are other widgets with the same mnemonic. Returns true to stop other handlers from being invoked for the event.
      * false to propagate the event further.
      */
-    public fun onMnemonicActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (groupCycling: Boolean) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "mnemonic-activate",
-        onMnemonicActivateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMnemonicActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (groupCycling: Boolean) -> Boolean): ULong = g_signal_connect_data(gtkWidgetPointer, "mnemonic-activate", onMnemonicActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the focus is moved.
@@ -3237,17 +3090,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `direction` the direction of the focus move
      */
-    public fun onMoveFocus(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (direction: DirectionType) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "move-focus",
-        onMoveFocusFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMoveFocus(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (direction: DirectionType) -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "move-focus", onMoveFocusFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "move-focus" signal. See [onMoveFocus].
@@ -3279,22 +3122,12 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *   been emitted, relative to @widget's left side; `y` the y coordinate of the cursor position where the request has
      *   been emitted, relative to @widget's top; `keyboardMode` true if the tooltip was triggered using the keyboard; `tooltip` a `GtkTooltip`. Returns true if @tooltip should be shown right now, false otherwise.
      */
-    public fun onQueryTooltip(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: gint,
-            y: gint,
-            keyboardMode: Boolean,
-            tooltip: Tooltip,
-        ) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "query-tooltip",
-        onQueryTooltipFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onQueryTooltip(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        x: gint,
+        y: gint,
+        keyboardMode: Boolean,
+        tooltip: Tooltip,
+    ) -> Boolean): ULong = g_signal_connect_data(gtkWidgetPointer, "query-tooltip", onQueryTooltipFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @widget is associated with a `GdkSurface`.
@@ -3305,15 +3138,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onRealize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkWidgetPointer,
-            "realize",
-            onRealizeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onRealize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "realize", onRealizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "realize" signal. See [onRealize].
@@ -3328,15 +3153,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkWidgetPointer,
-            "show",
-            onShowFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "show", onShowFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "show" signal. See [onShow].
@@ -3353,17 +3170,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `flags` The previous state flags.
      */
-    public fun onStateFlagsChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (flags: StateFlags) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkWidgetPointer,
-        "state-flags-changed",
-        onStateFlagsChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onStateFlagsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (flags: StateFlags) -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "state-flags-changed", onStateFlagsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "state-flags-changed" signal. See [onStateFlagsChanged].
@@ -3386,15 +3193,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onUnmap(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkWidgetPointer,
-            "unmap",
-            onUnmapFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onUnmap(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "unmap", onUnmapFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "unmap" signal. See [onUnmap].
@@ -3412,15 +3211,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onUnrealize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkWidgetPointer,
-            "unrealize",
-            onUnrealizeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onUnrealize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWidgetPointer, "unrealize", onUnrealizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "unrealize" signal. See [onUnrealize].
@@ -3434,15 +3225,16 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
      *
      * @constructor Creates a new instance of Widget for the provided [CPointer].
      */
-    public class WidgetImpl(pointer: CPointer<GtkWidget>) : Widget(pointer)
+    public class WidgetImpl(
+        pointer: CPointer<GtkWidget>,
+    ) : Widget(pointer)
 
     public companion object : TypeCompanion<Widget> {
         override val type: GeneratedClassKGType<Widget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_widget_get_type")!!) { WidgetImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_widget_get_type")!!) { WidgetImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Obtains the current default reading direction.
@@ -3452,8 +3244,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
          * @return the current default direction.
          */
         public fun getDefaultDirection(): TextDirection = gtk_widget_get_default_direction().run {
-            TextDirection.fromNativeValue(this)
-        }
+            TextDirection.fromNativeValue(this)}
 
         /**
          * Sets the default reading direction for widgets.
@@ -3474,156 +3265,124 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
 }
 
 private val onDestroyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onDirectionChangedFunc: CPointer<CFunction<(GtkTextDirection) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            previousDirection: GtkTextDirection,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(previousDirection: TextDirection) -> Unit>().get().invoke(
-            previousDirection.run {
-                TextDirection.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    previousDirection: GtkTextDirection,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(previousDirection: TextDirection) -> Unit>().get().invoke(previousDirection.run {
+        TextDirection.fromNativeValue(this)}
+    )}
+.reinterpret()
 
 private val onHideFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onKeynavFailedFunc: CPointer<CFunction<(GtkDirectionType) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            direction: GtkDirectionType,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(direction: DirectionType) -> Boolean>().get().invoke(
-            direction.run {
-                DirectionType.fromNativeValue(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    direction: GtkDirectionType,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(direction: DirectionType) -> Boolean>().get().invoke(direction.run {
+        DirectionType.fromNativeValue(this)}
+    ).asGBoolean()}
+.reinterpret()
 
 private val onMapFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onMnemonicActivateFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        groupCycling: gboolean,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    groupCycling: gboolean,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(groupCycling: Boolean) -> Boolean>().get().invoke(groupCycling.asBoolean()).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(groupCycling: Boolean) -> Boolean>().get().invoke(groupCycling.asBoolean()).asGBoolean()}
+.reinterpret()
 
 private val onMoveFocusFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        direction: GtkDirectionType,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    direction: GtkDirectionType,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(direction: DirectionType) -> Unit>().get().invoke(
-        direction.run {
-            DirectionType.fromNativeValue(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(direction: DirectionType) -> Unit>().get().invoke(direction.run {
+        DirectionType.fromNativeValue(this)}
+    )}
+.reinterpret()
 
-private val onQueryTooltipFunc: CPointer<
-    CFunction<
-        (
-            gint,
-            gint,
-            gboolean,
-            CPointer<GtkTooltip>,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val onQueryTooltipFunc: CPointer<CFunction<(
+    gint,
+    gint,
+    gboolean,
+    CPointer<GtkTooltip>,
+) -> gboolean>> = staticCFunction {
+    _: COpaquePointer,
+    x: gint,
+    y: gint,
+    keyboardMode: gboolean,
+    tooltip: CPointer<GtkTooltip>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         x: gint,
         y: gint,
-        keyboardMode: gboolean,
-        tooltip: CPointer<GtkTooltip>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            x: gint,
-            y: gint,
-            keyboardMode: Boolean,
-            tooltip: Tooltip,
-        ) -> Boolean
-        >().get().invoke(
-        x,
-        y,
-        keyboardMode.asBoolean(),
-        tooltip!!.run {
-            Tooltip(this)
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+        keyboardMode: Boolean,
+        tooltip: Tooltip,
+    ) -> Boolean>().get().invoke(x, y, keyboardMode.asBoolean(), tooltip!!.run {
+        Tooltip(this)}
+    ).asGBoolean()}
+.reinterpret()
 
 private val onRealizeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onShowFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onStateFlagsChangedFunc: CPointer<CFunction<(GtkStateFlags) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            flags: GtkStateFlags,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(flags: StateFlags) -> Unit>().get().invoke(
-            flags.run {
-                StateFlags(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    flags: GtkStateFlags,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(flags: StateFlags) -> Unit>().get().invoke(flags.run {
+        StateFlags(this)}
+    )}
+.reinterpret()
 
 private val onUnmapFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onUnrealizeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

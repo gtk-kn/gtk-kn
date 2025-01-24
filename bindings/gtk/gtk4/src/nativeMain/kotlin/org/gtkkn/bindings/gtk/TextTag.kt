@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -19,9 +22,6 @@ import org.gtkkn.native.gtk.gtk_text_tag_get_priority
 import org.gtkkn.native.gtk.gtk_text_tag_get_type
 import org.gtkkn.native.gtk.gtk_text_tag_new
 import org.gtkkn.native.gtk.gtk_text_tag_set_priority
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A tag that can be applied to text contained in a `GtkTextBuffer`.
@@ -135,8 +135,9 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-mode-set`: Property has no getter nor setter
  */
-public open class TextTag(public val gtkTextTagPointer: CPointer<GtkTextTag>) :
-    Object(gtkTextTagPointer.reinterpret()),
+public open class TextTag(
+    public val gtkTextTagPointer: CPointer<GtkTextTag>,
+) : Object(gtkTextTagPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GtkTextTag`.
@@ -144,7 +145,7 @@ public open class TextTag(public val gtkTextTagPointer: CPointer<GtkTextTag>) :
      * @param name tag name
      * @return a new `GtkTextTag`
      */
-    public constructor(name: String? = null) : this(gtk_text_tag_new(name)!!.reinterpret())
+    public constructor(name: String? = null) : this(gtk_text_tag_new(name)!!)
 
     /**
      * Emits the [signal@Gtk.TextTagTable::tag-changed] signal on the
@@ -155,8 +156,7 @@ public open class TextTag(public val gtkTextTagPointer: CPointer<GtkTextTag>) :
      *
      * @param sizeChanged whether the change affects the `GtkTextView` layout
      */
-    public open fun changed(sizeChanged: Boolean): Unit =
-        gtk_text_tag_changed(gtkTextTagPointer, sizeChanged.asGBoolean())
+    public open fun changed(sizeChanged: Boolean): Unit = gtk_text_tag_changed(gtkTextTagPointer, sizeChanged.asGBoolean())
 
     /**
      * Get the tag priority.
@@ -187,11 +187,10 @@ public open class TextTag(public val gtkTextTagPointer: CPointer<GtkTextTag>) :
 
     public companion object : TypeCompanion<TextTag> {
         override val type: GeneratedClassKGType<TextTag> =
-            GeneratedClassKGType(getTypeOrNull("gtk_text_tag_get_type")!!) { TextTag(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_text_tag_get_type")!!) { TextTag(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TextTag

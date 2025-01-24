@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -28,9 +31,6 @@ import org.gtkkn.native.gio.g_file_io_stream_query_info_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GFileIOStream` provides I/O streams that both read and write to the same
@@ -55,8 +55,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFileIOStream>) :
-    IoStream(gioFileIoStreamPointer.reinterpret()),
+public open class FileIoStream(
+    public val gioFileIoStreamPointer: CPointer<GFileIOStream>,
+) : IoStream(gioFileIoStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
     override val gioSeekablePointer: CPointer<GSeekable>
@@ -100,14 +101,8 @@ public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFile
     @GioVersion2_22
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_file_io_stream_query_info(
-            gioFileIoStreamPointer,
-            attributes,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            FileInfo(this)
-        }
+        val gResult = g_file_io_stream_query_info(gioFileIoStreamPointer, attributes, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            FileInfo(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -138,16 +133,7 @@ public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFile
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_file_io_stream_query_info_async(
-        gioFileIoStreamPointer,
-        attributes,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_file_io_stream_query_info_async(gioFileIoStreamPointer, attributes, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finalizes the asynchronous query started
@@ -160,13 +146,8 @@ public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFile
     @GioVersion2_22
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_file_io_stream_query_info_finish(
-            gioFileIoStreamPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            FileInfo(this)
-        }
+        val gResult = g_file_io_stream_query_info_finish(gioFileIoStreamPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            FileInfo(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -177,11 +158,10 @@ public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFile
 
     public companion object : TypeCompanion<FileIoStream> {
         override val type: GeneratedClassKGType<FileIoStream> =
-            GeneratedClassKGType(getTypeOrNull("g_file_io_stream_get_type")!!) { FileIoStream(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_file_io_stream_get_type")!!) { FileIoStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FileIOStream

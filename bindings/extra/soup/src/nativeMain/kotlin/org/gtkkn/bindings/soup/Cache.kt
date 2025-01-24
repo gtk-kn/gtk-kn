@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -22,8 +24,6 @@ import org.gtkkn.native.soup.soup_cache_get_type
 import org.gtkkn.native.soup.soup_cache_load
 import org.gtkkn.native.soup.soup_cache_new
 import org.gtkkn.native.soup.soup_cache_set_max_size
-import kotlin.String
-import kotlin.Unit
 
 /**
  * File-based cache for HTTP resources.
@@ -33,8 +33,9 @@ import kotlin.Unit
  * - method `cache-dir`: Property has no getter nor setter
  * - method `cache-type`: Property has no getter nor setter
  */
-public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
-    Object(soupCachePointer.reinterpret()),
+public open class Cache(
+    public val soupCachePointer: CPointer<SoupCache>,
+) : Object(soupCachePointer.reinterpret()),
     SessionFeature,
     KGTyped {
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
@@ -50,10 +51,7 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
      * @param cacheType the #SoupCacheType of the cache
      * @return a new #SoupCache
      */
-    public constructor(
-        cacheDir: String? = null,
-        cacheType: CacheType,
-    ) : this(soup_cache_new(cacheDir, cacheType.nativeValue)!!.reinterpret())
+    public constructor(cacheDir: String? = null, cacheType: CacheType) : this(soup_cache_new(cacheDir, cacheType.nativeValue)!!)
 
     /**
      * Will remove all entries in the @cache plus all the cache files.
@@ -109,11 +107,10 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
 
     public companion object : TypeCompanion<Cache> {
         override val type: GeneratedClassKGType<Cache> =
-            GeneratedClassKGType(getTypeOrNull("soup_cache_get_type")!!) { Cache(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_cache_get_type")!!) { Cache(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of Cache

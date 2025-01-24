@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -39,9 +42,6 @@ import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_manual_capabilities
 import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_page_setup
 import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_settings
 import org.gtkkn.native.gtk.gtk_print_unix_dialog_set_support_selection
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkPrintUnixDialog` implements a print dialog for platforms
@@ -105,8 +105,9 @@ import kotlin.Unit
  *
  * - method `print-settings`: Property has no getter nor setter
  */
-public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>) :
-    Dialog(gtkPrintUnixDialogPointer.reinterpret()),
+public open class PrintUnixDialog(
+    public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>,
+) : Dialog(gtkPrintUnixDialogPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -136,7 +137,6 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the current page of @dialog
          */
         get() = gtk_print_unix_dialog_get_current_page(gtkPrintUnixDialogPointer)
-
         /**
          * Sets the current page number.
          *
@@ -157,7 +157,6 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return whether to embed the page setup
          */
         get() = gtk_print_unix_dialog_get_embed_page_setup(gtkPrintUnixDialogPointer).asBoolean()
-
         /**
          * Embed page size combo box and orientation combo box into page setup page.
          *
@@ -175,15 +174,12 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return whether there is a selection
          */
         get() = gtk_print_unix_dialog_get_has_selection(gtkPrintUnixDialogPointer).asBoolean()
-
         /**
          * Sets whether a selection exists.
          *
          * @param hasSelection true indicates that a selection exists
          */
-        set(
-            hasSelection
-        ) = gtk_print_unix_dialog_set_has_selection(gtkPrintUnixDialogPointer, hasSelection.asGBoolean())
+        set(hasSelection) = gtk_print_unix_dialog_set_has_selection(gtkPrintUnixDialogPointer, hasSelection.asGBoolean())
 
     /**
      * Capabilities the application can handle.
@@ -195,9 +191,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the printing capabilities
          */
         get() = gtk_print_unix_dialog_get_manual_capabilities(gtkPrintUnixDialogPointer).run {
-            PrintCapabilities(this)
-        }
-
+            PrintCapabilities(this)}
         /**
          * This lets you specify the printing capabilities your application
          * supports.
@@ -221,9 +215,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the page setup of @dialog.
          */
         get() = gtk_print_unix_dialog_get_page_setup(gtkPrintUnixDialogPointer)!!.run {
-            PageSetup(this)
-        }
-
+            PageSetup(this)}
         /**
          * Sets the page setup of the `GtkPrintUnixDialog`.
          *
@@ -241,8 +233,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return the currently selected printer
          */
         get() = gtk_print_unix_dialog_get_selected_printer(gtkPrintUnixDialogPointer)?.run {
-            Printer(this)
-        }
+            Printer(this)}
 
     /**
      * Whether the dialog supports selection.
@@ -254,15 +245,12 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
          * @return whether the application supports print of selection
          */
         get() = gtk_print_unix_dialog_get_support_selection(gtkPrintUnixDialogPointer).asBoolean()
-
         /**
          * Sets whether the print dialog allows user to print a selection.
          *
          * @param supportSelection true to allow print selection
          */
-        set(
-            supportSelection
-        ) = gtk_print_unix_dialog_set_support_selection(gtkPrintUnixDialogPointer, supportSelection.asGBoolean())
+        set(supportSelection) = gtk_print_unix_dialog_set_support_selection(gtkPrintUnixDialogPointer, supportSelection.asGBoolean())
 
     /**
      * Creates a new `GtkPrintUnixDialog`.
@@ -271,10 +259,7 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
      * @param parent Transient parent of the dialog
      * @return a new `GtkPrintUnixDialog`
      */
-    public constructor(
-        title: String? = null,
-        parent: Window? = null,
-    ) : this(gtk_print_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
+    public constructor(title: String? = null, parent: Window? = null) : this(gtk_print_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
 
     /**
      * Adds a custom tab to the print dialog.
@@ -282,19 +267,14 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
      * @param child the widget to put in the custom tab
      * @param tabLabel the widget to use as tab label
      */
-    public open fun addCustomTab(child: Widget, tabLabel: Widget): Unit = gtk_print_unix_dialog_add_custom_tab(
-        gtkPrintUnixDialogPointer,
-        child.gtkWidgetPointer,
-        tabLabel.gtkWidgetPointer
-    )
+    public open fun addCustomTab(child: Widget, tabLabel: Widget): Unit = gtk_print_unix_dialog_add_custom_tab(gtkPrintUnixDialogPointer, child.gtkWidgetPointer, tabLabel.gtkWidgetPointer)
 
     /**
      * Gets whether a page setup was set by the user.
      *
      * @return whether a page setup was set by user.
      */
-    public open fun getPageSetupSet(): Boolean =
-        gtk_print_unix_dialog_get_page_setup_set(gtkPrintUnixDialogPointer).asBoolean()
+    public open fun getPageSetupSet(): Boolean = gtk_print_unix_dialog_get_page_setup_set(gtkPrintUnixDialogPointer).asBoolean()
 
     /**
      * Gets a new `GtkPrintSettings` object that represents the
@@ -305,10 +285,8 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
      *
      * @return a new `GtkPrintSettings` object with the values from @dialog
      */
-    public open fun getPrintSettings(): PrintSettings =
-        gtk_print_unix_dialog_get_settings(gtkPrintUnixDialogPointer)!!.run {
-            PrintSettings(this)
-        }
+    public open fun getPrintSettings(): PrintSettings = gtk_print_unix_dialog_get_settings(gtkPrintUnixDialogPointer)!!.run {
+        PrintSettings(this)}
 
     /**
      * Sets the `GtkPrintSettings` for the `GtkPrintUnixDialog`.
@@ -319,18 +297,14 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
      *
      * @param settings a `GtkPrintSettings`
      */
-    public open fun setSettings(settings: PrintSettings? = null): Unit =
-        gtk_print_unix_dialog_set_settings(gtkPrintUnixDialogPointer, settings?.gtkPrintSettingsPointer)
+    public open fun setSettings(settings: PrintSettings? = null): Unit = gtk_print_unix_dialog_set_settings(gtkPrintUnixDialogPointer, settings?.gtkPrintSettingsPointer)
 
     public companion object : TypeCompanion<PrintUnixDialog> {
         override val type: GeneratedClassKGType<PrintUnixDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_print_unix_dialog_get_type")!!) {
-                PrintUnixDialog(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_print_unix_dialog_get_type")!!) { PrintUnixDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PrintUnixDialog

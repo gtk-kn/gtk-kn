@@ -3,10 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -17,8 +20,6 @@ import org.gtkkn.native.pango.pango_item_free
 import org.gtkkn.native.pango.pango_item_get_type
 import org.gtkkn.native.pango.pango_item_new
 import org.gtkkn.native.pango.pango_item_split
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The `PangoItem` structure stores information about a segment of text.
@@ -30,13 +31,14 @@ import kotlin.Unit
  *
  * - field `analysis`: Field with not-pointer record/union PangoAnalysis is not supported
  */
-public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInstance(pangoItemPointer) {
+public class Item(
+    public val pangoItemPointer: CPointer<PangoItem>,
+) : ProxyInstance(pangoItemPointer) {
     /**
      * byte offset of the start of this item in text.
      */
     public var offset: gint
         get() = pangoItemPointer.pointed.offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoItemPointer.pointed.offset = value
@@ -47,7 +49,6 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
      */
     public var length: gint
         get() = pangoItemPointer.pointed.length
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoItemPointer.pointed.length = value
@@ -58,11 +59,20 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
      */
     public var numChars: gint
         get() = pangoItemPointer.pointed.num_chars
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoItemPointer.pointed.num_chars = value
         }
+
+    /**
+     * Creates a new `PangoItem` structure initialized to default values.
+     *
+     * @return the newly allocated `PangoItem`, which should
+     *   be freed with [method@Pango.Item.free].
+     */
+    public constructor() : this(pango_item_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Add attributes to a `PangoItem`.
@@ -81,8 +91,7 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun applyAttrs(iter: AttrIterator): Unit =
-        pango_item_apply_attrs(pangoItemPointer, iter.pangoAttrIteratorPointer)
+    public fun applyAttrs(iter: AttrIterator): Unit = pango_item_apply_attrs(pangoItemPointer, iter.pangoAttrIteratorPointer)
 
     /**
      * Copy an existing `PangoItem` structure.
@@ -90,8 +99,7 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
      * @return the newly allocated `PangoItem`
      */
     public fun copy(): Item? = pango_item_copy(pangoItemPointer)?.run {
-        Item(this)
-    }
+        Item(this)}
 
     /**
      * Free a `PangoItem` and all associated memory.
@@ -118,22 +126,12 @@ public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInsta
      * @return new item representing text before @split_index, which
      *   should be freed with [method@Pango.Item.free].
      */
-    public fun split(splitIndex: gint, splitOffset: gint): Item =
-        pango_item_split(pangoItemPointer, splitIndex, splitOffset)!!.run {
-            Item(this)
-        }
+    public fun split(splitIndex: gint, splitOffset: gint): Item = pango_item_split(pangoItemPointer, splitIndex, splitOffset)!!.run {
+        Item(this)}
 
     override fun toString(): String = "Item(offset=$offset, length=$length, numChars=$numChars)"
 
     public companion object {
-        /**
-         * Creates a new `PangoItem` structure initialized to default values.
-         *
-         * @return the newly allocated `PangoItem`, which should
-         *   be freed with [method@Pango.Item.free].
-         */
-        public fun new(): Item = Item(pango_item_new()!!)
-
         /**
          * Get the GType of Item
          *

@@ -38,13 +38,10 @@ public class ClipboardPermissionRequest(
 
     public companion object : TypeCompanion<ClipboardPermissionRequest> {
         override val type: GeneratedClassKGType<ClipboardPermissionRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_clipboard_permission_request_get_type")!!) {
-                ClipboardPermissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_clipboard_permission_request_get_type")!!) { ClipboardPermissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of ClipboardPermissionRequest

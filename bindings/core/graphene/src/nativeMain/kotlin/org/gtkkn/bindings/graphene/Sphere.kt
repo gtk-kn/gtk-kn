@@ -3,12 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
@@ -25,11 +24,6 @@ import org.gtkkn.native.graphene.graphene_sphere_init
 import org.gtkkn.native.graphene.graphene_sphere_is_empty
 import org.gtkkn.native.graphene.graphene_sphere_t
 import org.gtkkn.native.graphene.graphene_sphere_translate
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A sphere, represented by its center and radius.
@@ -42,38 +36,21 @@ import kotlin.native.ref.createCleaner
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(grapheneSpherePointer) {
+public class Sphere(
+    public val grapheneSpherePointer: CPointer<graphene_sphere_t>,
+) : ProxyInstance(grapheneSpherePointer) {
     /**
-     * Allocate a new Sphere.
+     * Allocates a new #graphene_sphere_t.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the newly allocated structure are undefined.
+     *
+     * @return the newly allocated #graphene_sphere_t. Use
+     *   graphene_sphere_free() to free the resources allocated by this function
+     * @since 1.2
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_sphere_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Sphere and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_sphere_t>, Cleaner>,
-    ) : this(grapheneSpherePointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Sphere using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_sphere_t>().ptr)
+    public constructor() : this(graphene_sphere_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Checks whether the given @point is contained in the volume
@@ -84,8 +61,7 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(point: Point3d): Boolean =
-        graphene_sphere_contains_point(grapheneSpherePointer, point.graphenePoint3dPointer)
+    public fun containsPoint(point: Point3d): Boolean = graphene_sphere_contains_point(grapheneSpherePointer, point.graphenePoint3dPointer)
 
     /**
      * Computes the distance of the given @point from the surface of
@@ -96,8 +72,7 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3d): gfloat =
-        graphene_sphere_distance(grapheneSpherePointer, point.graphenePoint3dPointer)
+    public fun distance(point: Point3d): gfloat = graphene_sphere_distance(grapheneSpherePointer, point.graphenePoint3dPointer)
 
     /**
      * Checks whether two #graphene_sphere_t are equal.
@@ -125,8 +100,7 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getBoundingBox(box: Box): Unit =
-        graphene_sphere_get_bounding_box(grapheneSpherePointer, box.grapheneBoxPointer)
+    public fun getBoundingBox(box: Box): Unit = graphene_sphere_get_bounding_box(grapheneSpherePointer, box.grapheneBoxPointer)
 
     /**
      * Retrieves the coordinates of the center of a #graphene_sphere_t.
@@ -136,8 +110,7 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getCenter(center: Point3d): Unit =
-        graphene_sphere_get_center(grapheneSpherePointer, center.graphenePoint3dPointer)
+    public fun getCenter(center: Point3d): Unit = graphene_sphere_get_center(grapheneSpherePointer, center.graphenePoint3dPointer)
 
     /**
      * Retrieves the radius of a #graphene_sphere_t.
@@ -157,10 +130,8 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(center: Point3d? = null, radius: gfloat): Sphere =
-        graphene_sphere_init(grapheneSpherePointer, center?.graphenePoint3dPointer, radius)!!.run {
-            Sphere(this)
-        }
+    public fun `init`(center: Point3d? = null, radius: gfloat): Sphere = graphene_sphere_init(grapheneSpherePointer, center?.graphenePoint3dPointer, radius)!!.run {
+        Sphere(this)}
 
     /**
      * Checks whether the sphere has a zero radius.
@@ -180,21 +151,9 @@ public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun translate(point: Point3d, res: Sphere): Unit =
-        graphene_sphere_translate(grapheneSpherePointer, point.graphenePoint3dPointer, res.grapheneSpherePointer)
+    public fun translate(point: Point3d, res: Sphere): Unit = graphene_sphere_translate(grapheneSpherePointer, point.graphenePoint3dPointer, res.grapheneSpherePointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_sphere_t.
-         *
-         * The contents of the newly allocated structure are undefined.
-         *
-         * @return the newly allocated #graphene_sphere_t. Use
-         *   graphene_sphere_free() to free the resources allocated by this function
-         * @since 1.2
-         */
-        public fun alloc(): Sphere = Sphere(graphene_sphere_alloc()!!)
-
         /**
          * Get the GType of Sphere
          *

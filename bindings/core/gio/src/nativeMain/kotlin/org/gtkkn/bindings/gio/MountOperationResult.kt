@@ -11,19 +11,19 @@ import org.gtkkn.native.gobject.GType
  * #GMountOperationResult is returned as a result when a request for
  * information is send by the mounting operation.
  */
-public enum class MountOperationResult(public val nativeValue: GMountOperationResult) {
+public enum class MountOperationResult(
+    public val nativeValue: GMountOperationResult,
+) {
     /**
      * The request was fulfilled and the
      *     user specified data is now available
      */
     HANDLED(GMountOperationResult.G_MOUNT_OPERATION_HANDLED),
-
     /**
      * The user requested the mount operation
      *     to be aborted
      */
     ABORTED(GMountOperationResult.G_MOUNT_OPERATION_ABORTED),
-
     /**
      * The request was unhandled (i.e. not
      *     implemented)

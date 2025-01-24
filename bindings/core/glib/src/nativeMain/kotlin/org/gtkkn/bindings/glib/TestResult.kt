@@ -5,7 +5,9 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GTestResult
 
-public enum class TestResult(public val nativeValue: GTestResult) {
+public enum class TestResult(
+    public val nativeValue: GTestResult,
+) {
     SUCCESS(GTestResult.G_TEST_RUN_SUCCESS),
     SKIPPED(GTestResult.G_TEST_RUN_SKIPPED),
     FAILURE(GTestResult.G_TEST_RUN_FAILURE),

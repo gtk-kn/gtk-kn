@@ -22,13 +22,10 @@ public open class ConstraintLayoutChild(
     KGTyped {
     public companion object : TypeCompanion<ConstraintLayoutChild> {
         override val type: GeneratedClassKGType<ConstraintLayoutChild> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_child_get_type")!!) {
-                ConstraintLayoutChild(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_child_get_type")!!) { ConstraintLayoutChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ConstraintLayoutChild

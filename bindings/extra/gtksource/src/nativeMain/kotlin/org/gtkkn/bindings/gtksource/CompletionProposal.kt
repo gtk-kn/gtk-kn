@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -17,7 +18,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceCompletionProposal
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_type
 import org.gtkkn.native.gtksource.gtk_source_completion_proposal_get_typed_text
-import kotlin.String
 
 /**
  * Interface for completion proposals.
@@ -30,9 +30,7 @@ import kotlin.String
  * #GtkSourceCompletionProvider can use [func@GObject.IMPLEMENT_INTERFACE] to
  * implement this with null for the interface init function.
  */
-public interface CompletionProposal :
-    Proxy,
-    KGTyped {
+public interface CompletionProposal : Proxy, KGTyped {
     public val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>
 
     /**
@@ -45,8 +43,7 @@ public interface CompletionProposal :
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public fun getTypedText(): String? =
-        gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer)?.toKString()
+    public fun getTypedText(): String? = gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer)?.toKString()
 
     /**
      * The CompletionProposalImpl type represents a native instance of the CompletionProposal interface.
@@ -60,13 +57,10 @@ public interface CompletionProposal :
 
     public companion object : TypeCompanion<CompletionProposal> {
         override val type: GeneratedInterfaceKGType<CompletionProposal> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_completion_proposal_get_type")!!) {
-                CompletionProposalImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_source_completion_proposal_get_type")!!) { CompletionProposalImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of CompletionProposal

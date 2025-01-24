@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -41,10 +45,6 @@ import org.gtkkn.native.gtksource.gtk_source_completion_context_get_view
 import org.gtkkn.native.gtksource.gtk_source_completion_context_get_word
 import org.gtkkn.native.gtksource.gtk_source_completion_context_list_providers
 import org.gtkkn.native.gtksource.gtk_source_completion_context_set_proposals_for_provider
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The context of a completion.
@@ -96,8 +96,7 @@ public open class CompletionContext(
          * @return an #GtkSourceCompletion or null
          */
         get() = gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer)?.run {
-            Completion(this)
-        }
+            Completion(this)}
 
     /**
      * The "empty" property is true when there are no results.
@@ -118,10 +117,8 @@ public open class CompletionContext(
     /**
      * Gets the mode for which the context was activated.
      */
-    public open fun getActivation(): CompletionActivation =
-        gtk_source_completion_context_get_activation(gtksourceCompletionContextPointer).run {
-            CompletionActivation.fromNativeValue(this)
-        }
+    public open fun getActivation(): CompletionActivation = gtk_source_completion_context_get_activation(gtksourceCompletionContextPointer).run {
+        CompletionActivation.fromNativeValue(this)}
 
     /**
      * Gets the bounds for the completion, which is the beginning of the
@@ -138,11 +135,7 @@ public open class CompletionContext(
      * @param end a #GtkTextIter
      * @return true if the marks are still valid and @begin or @end was set.
      */
-    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_completion_context_get_bounds(
-        gtksourceCompletionContextPointer,
-        begin?.gtkTextIterPointer,
-        end?.gtkTextIterPointer
-    ).asBoolean()
+    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_completion_context_get_bounds(gtksourceCompletionContextPointer, begin?.gtkTextIterPointer, end?.gtkTextIterPointer).asBoolean()
 
     /**
      * Gets the underlying buffer used by the context.
@@ -152,20 +145,16 @@ public open class CompletionContext(
      *
      * @return a #GtkTextBuffer or null
      */
-    public open fun getBuffer(): Buffer? =
-        gtk_source_completion_context_get_buffer(gtksourceCompletionContextPointer)?.run {
-            Buffer(this)
-        }
+    public open fun getBuffer(): Buffer? = gtk_source_completion_context_get_buffer(gtksourceCompletionContextPointer)?.run {
+        Buffer(this)}
 
     /**
      * Gets the language of the underlying buffer, if any.
      *
      * @return a #GtkSourceLanguage or null
      */
-    public open fun getLanguage(): Language? =
-        gtk_source_completion_context_get_language(gtksourceCompletionContextPointer)?.run {
-            Language(this)
-        }
+    public open fun getLanguage(): Language? = gtk_source_completion_context_get_language(gtksourceCompletionContextPointer)?.run {
+        Language(this)}
 
     /**
      * Gets the #GListModel associated with the provider.
@@ -178,13 +167,8 @@ public open class CompletionContext(
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public open fun getProposalsForProvider(provider: CompletionProvider): ListModel? =
-        gtk_source_completion_context_get_proposals_for_provider(
-            gtksourceCompletionContextPointer,
-            provider.gtksourceCompletionProviderPointer
-        )?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+    public open fun getProposalsForProvider(provider: CompletionProvider): ListModel? = gtk_source_completion_context_get_proposals_for_provider(gtksourceCompletionContextPointer, provider.gtksourceCompletionProviderPointer)?.run {
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Gets the text view for the context.
@@ -192,17 +176,14 @@ public open class CompletionContext(
      * @return a #GtkSourceView or null
      */
     public open fun getView(): View? = gtk_source_completion_context_get_view(gtksourceCompletionContextPointer)?.run {
-        View(this)
-    }
+        View(this)}
 
     /**
      * Gets the word that is being completed up to the position of the insert mark.
      *
      * @return a string containing the current word
      */
-    public open fun getWord(): String =
-        gtk_source_completion_context_get_word(gtksourceCompletionContextPointer)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getWord(): String = gtk_source_completion_context_get_word(gtksourceCompletionContextPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the providers that are associated with the context.
@@ -211,10 +192,8 @@ public open class CompletionContext(
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public open fun listProviders(): ListModel =
-        gtk_source_completion_context_list_providers(gtksourceCompletionContextPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+    public open fun listProviders(): ListModel = gtk_source_completion_context_list_providers(gtksourceCompletionContextPointer)!!.run {
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * This function allows providers to update their results for a context
@@ -227,12 +206,7 @@ public open class CompletionContext(
      * @param provider an #GtkSourceCompletionProvider
      * @param results a #GListModel or null
      */
-    public open fun setProposalsForProvider(provider: CompletionProvider, results: ListModel? = null): Unit =
-        gtk_source_completion_context_set_proposals_for_provider(
-            gtksourceCompletionContextPointer,
-            provider.gtksourceCompletionProviderPointer,
-            results?.gioListModelPointer
-        )
+    public open fun setProposalsForProvider(provider: CompletionProvider, results: ListModel? = null): Unit = gtk_source_completion_context_set_proposals_for_provider(gtksourceCompletionContextPointer, provider.gtksourceCompletionProviderPointer, results?.gioListModelPointer)
 
     /**
      * Emitted when a provider changes a model.
@@ -246,17 +220,7 @@ public open class CompletionContext(
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public fun onProviderModelChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (provider: CompletionProvider, model: ListModel?) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtksourceCompletionContextPointer,
-        "provider-model-changed",
-        onProviderModelChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onProviderModelChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (provider: CompletionProvider, model: ListModel?) -> Unit): ULong = g_signal_connect_data(gtksourceCompletionContextPointer, "provider-model-changed", onProviderModelChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "provider-model-changed" signal. See [onProviderModelChanged].
@@ -267,23 +231,15 @@ public open class CompletionContext(
      */
     @GtkSourceVersion5_6
     public fun emitProviderModelChanged(provider: CompletionProvider, model: ListModel?) {
-        g_signal_emit_by_name(
-            gtksourceCompletionContextPointer.reinterpret(),
-            "provider-model-changed",
-            provider.gtksourceCompletionProviderPointer,
-            model?.gioListModelPointer
-        )
+        g_signal_emit_by_name(gtksourceCompletionContextPointer.reinterpret(), "provider-model-changed", provider.gtksourceCompletionProviderPointer, model?.gioListModelPointer)
     }
 
     public companion object : TypeCompanion<CompletionContext> {
         override val type: GeneratedClassKGType<CompletionContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_context_get_type")!!) {
-                CompletionContext(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_completion_context_get_type")!!) { CompletionContext(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of CompletionContext
@@ -295,20 +251,16 @@ public open class CompletionContext(
 }
 
 private val onProviderModelChangedFunc:
-    CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>, CPointer<GListModel>?) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            provider: CPointer<GtkSourceCompletionProvider>?,
-            model: CPointer<GListModel>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(provider: CompletionProvider, model: ListModel?) -> Unit>().get().invoke(
-            provider!!.run {
-                CompletionProvider.CompletionProviderImpl(reinterpret())
-            },
-            model?.run {
-                ListModel.ListModelImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>, CPointer<GListModel>?) -> Unit>>
+        = staticCFunction {
+    _: COpaquePointer,
+    provider: CPointer<GtkSourceCompletionProvider>?,
+    model: CPointer<GListModel>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(provider: CompletionProvider, model: ListModel?) -> Unit>().get().invoke(provider!!.run {
+        CompletionProvider.CompletionProviderImpl(reinterpret())}
+    , model?.run {
+        ListModel.ListModelImpl(reinterpret())}
+    )}
+.reinterpret()

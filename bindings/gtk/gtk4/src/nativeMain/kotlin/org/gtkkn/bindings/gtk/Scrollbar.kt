@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -19,7 +20,6 @@ import org.gtkkn.native.gtk.gtk_scrollbar_get_adjustment
 import org.gtkkn.native.gtk.gtk_scrollbar_get_type
 import org.gtkkn.native.gtk.gtk_scrollbar_new
 import org.gtkkn.native.gtk.gtk_scrollbar_set_adjustment
-import kotlin.Unit
 
 /**
  * The `GtkScrollbar` widget is a horizontal or vertical scrollbar.
@@ -69,8 +69,9 @@ import kotlin.Unit
  *
  * - method `adjustment`: Property TypeInfo of getter and setter do not match
  */
-public open class Scrollbar(public val gtkScrollbarPointer: CPointer<GtkScrollbar>) :
-    Widget(gtkScrollbarPointer.reinterpret()),
+public open class Scrollbar(
+    public val gtkScrollbarPointer: CPointer<GtkScrollbar>,
+) : Widget(gtkScrollbarPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -93,10 +94,7 @@ public open class Scrollbar(public val gtkScrollbarPointer: CPointer<GtkScrollba
      *   to create a new adjustment.
      * @return the new `GtkScrollbar`.
      */
-    public constructor(
-        orientation: Orientation,
-        adjustment: Adjustment? = null,
-    ) : this(gtk_scrollbar_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer)!!.reinterpret())
+    public constructor(orientation: Orientation, adjustment: Adjustment? = null) : this(gtk_scrollbar_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer)!!.reinterpret())
 
     /**
      * Returns the scrollbar's adjustment.
@@ -104,24 +102,21 @@ public open class Scrollbar(public val gtkScrollbarPointer: CPointer<GtkScrollba
      * @return the scrollbar's adjustment
      */
     public open fun getAdjustment(): Adjustment = gtk_scrollbar_get_adjustment(gtkScrollbarPointer)!!.run {
-        Adjustment(this)
-    }
+        Adjustment(this)}
 
     /**
      * Makes the scrollbar use the given adjustment.
      *
      * @param adjustment the adjustment to set
      */
-    public open fun setAdjustment(adjustment: Adjustment? = null): Unit =
-        gtk_scrollbar_set_adjustment(gtkScrollbarPointer, adjustment?.gtkAdjustmentPointer)
+    public open fun setAdjustment(adjustment: Adjustment? = null): Unit = gtk_scrollbar_set_adjustment(gtkScrollbarPointer, adjustment?.gtkAdjustmentPointer)
 
     public companion object : TypeCompanion<Scrollbar> {
         override val type: GeneratedClassKGType<Scrollbar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_scrollbar_get_type")!!) { Scrollbar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_scrollbar_get_type")!!) { Scrollbar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Scrollbar

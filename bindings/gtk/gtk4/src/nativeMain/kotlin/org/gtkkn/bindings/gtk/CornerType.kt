@@ -13,25 +13,24 @@ import org.gtkkn.native.gtk.gtk_corner_type_get_type
  *
  * This is effectively the opposite of where the scroll bars are placed.
  */
-public enum class CornerType(public val nativeValue: GtkCornerType) {
+public enum class CornerType(
+    public val nativeValue: GtkCornerType,
+) {
     /**
      * Place the scrollbars on the right and bottom of the
      *   widget (default behaviour).
      */
     TOP_LEFT(GtkCornerType.GTK_CORNER_TOP_LEFT),
-
     /**
      * Place the scrollbars on the top and right of the
      *   widget.
      */
     BOTTOM_LEFT(GtkCornerType.GTK_CORNER_BOTTOM_LEFT),
-
     /**
      * Place the scrollbars on the left and bottom of the
      *   widget.
      */
     TOP_RIGHT(GtkCornerType.GTK_CORNER_TOP_RIGHT),
-
     /**
      * Place the scrollbars on the top and left of the
      *   widget.

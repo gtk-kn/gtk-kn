@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Short
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -38,17 +42,14 @@ import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Short
-import kotlin.String
 
 /**
  * Data output stream implements [class@Gio.OutputStream] and includes functions
  * for writing data directly to an output stream.
  */
-public open class DataOutputStream(public val gioDataOutputStreamPointer: CPointer<GDataOutputStream>) :
-    FilterOutputStream(gioDataOutputStreamPointer.reinterpret()),
+public open class DataOutputStream(
+    public val gioDataOutputStreamPointer: CPointer<GDataOutputStream>,
+) : FilterOutputStream(gioDataOutputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
     override val gioSeekablePointer: CPointer<GSeekable>
@@ -65,9 +66,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
          * @return the #GDataStreamByteOrder for the @stream.
          */
         get() = g_data_output_stream_get_byte_order(gioDataOutputStreamPointer).run {
-            DataStreamByteOrder.fromNativeValue(this)
-        }
-
+            DataStreamByteOrder.fromNativeValue(this)}
         /**
          * Sets the byte order of the data output stream to @order.
          *
@@ -81,9 +80,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      * @param baseStream a #GOutputStream.
      * @return #GDataOutputStream.
      */
-    public constructor(
-        baseStream: OutputStream,
-    ) : this(g_data_output_stream_new(baseStream.gioOutputStreamPointer)!!.reinterpret())
+    public constructor(baseStream: OutputStream) : this(g_data_output_stream_new(baseStream.gioOutputStreamPointer)!!)
 
     /**
      * Puts a byte into the output stream.
@@ -94,12 +91,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putByte(`data`: guint8, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_byte(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_byte(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -116,12 +108,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putInt16(`data`: Short, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_int16(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_int16(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -138,12 +125,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putInt32(`data`: gint, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_int32(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_int32(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -160,12 +142,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putInt64(`data`: gint64, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_int64(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_int64(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -182,12 +159,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putString(str: String, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_string(
-            gioDataOutputStreamPointer,
-            str,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_string(gioDataOutputStreamPointer, str, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -204,12 +176,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putUint16(`data`: guint16, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_uint16(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_uint16(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -226,12 +193,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putUint32(`data`: guint, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_uint32(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_uint32(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -248,12 +210,7 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
      */
     public open fun putUint64(`data`: guint64, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_data_output_stream_put_uint64(
-            gioDataOutputStreamPointer,
-            `data`,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_data_output_stream_put_uint64(gioDataOutputStreamPointer, `data`, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -263,13 +220,10 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
 
     public companion object : TypeCompanion<DataOutputStream> {
         override val type: GeneratedClassKGType<DataOutputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_data_output_stream_get_type")!!) {
-                DataOutputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_data_output_stream_get_type")!!) { DataOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DataOutputStream

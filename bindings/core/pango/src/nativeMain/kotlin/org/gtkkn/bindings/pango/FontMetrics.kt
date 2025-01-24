@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,6 +11,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -26,10 +28,6 @@ import org.gtkkn.native.pango.pango_font_metrics_get_underline_position
 import org.gtkkn.native.pango.pango_font_metrics_get_underline_thickness
 import org.gtkkn.native.pango.pango_font_metrics_ref
 import org.gtkkn.native.pango.pango_font_metrics_unref
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoFontMetrics` structure holds the overall metric information
@@ -47,29 +45,18 @@ import kotlin.native.ref.createCleaner
  *   <img alt="Font metrics" src="fontmetrics-light.png">
  * </picture>
  */
-public class FontMetrics(public val pangoFontMetricsPointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoFontMetricsPointer) {
+public class FontMetrics(
+    public val pangoFontMetricsPointer: CPointer<PangoFontMetrics>,
+) : ProxyInstance(pangoFontMetricsPointer) {
     /**
      * Allocate a new FontMetrics.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoFontMetrics>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FontMetrics and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoFontMetrics>, Cleaner>,
-    ) : this(pangoFontMetricsPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoFontMetrics>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FontMetrics using the provided [AutofreeScope].
@@ -102,8 +89,7 @@ public class FontMetrics(public val pangoFontMetricsPointer: CPointer<PangoFontM
      *
      * @return the digit width, in Pango units.
      */
-    public fun getApproximateDigitWidth(): gint =
-        pango_font_metrics_get_approximate_digit_width(pangoFontMetricsPointer)
+    public fun getApproximateDigitWidth(): gint = pango_font_metrics_get_approximate_digit_width(pangoFontMetricsPointer)
 
     /**
      * Gets the ascent from a font metrics structure.
@@ -162,8 +148,7 @@ public class FontMetrics(public val pangoFontMetricsPointer: CPointer<PangoFontM
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughThickness(): gint =
-        pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer)
+    public fun getStrikethroughThickness(): gint = pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer)
 
     /**
      * Gets the suggested position to draw the underline.
@@ -193,8 +178,7 @@ public class FontMetrics(public val pangoFontMetricsPointer: CPointer<PangoFontM
      * @return @metrics
      */
     public fun ref(): FontMetrics? = pango_font_metrics_ref(pangoFontMetricsPointer)?.run {
-        FontMetrics(this)
-    }
+        FontMetrics(this)}
 
     /**
      * Decrease the reference count of a font metrics structure by one.

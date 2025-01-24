@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -29,7 +30,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.String
 
 /**
  * A page used for empty/error states and similar use-cases.
@@ -50,8 +50,9 @@ import kotlin.String
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
  */
-public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>) :
-    Widget(adwStatusPagePointer.reinterpret()),
+public class StatusPage(
+    public val adwStatusPagePointer: CPointer<AdwStatusPage>,
+) : Widget(adwStatusPagePointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -72,9 +73,7 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the child widget of @self
          */
         get() = adw_status_page_get_child(adwStatusPagePointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -92,7 +91,6 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the description
          */
         get() = adw_status_page_get_description(adwStatusPagePointer)?.toKString()
-
         /**
          * Sets the description markup for @self.
          *
@@ -114,7 +112,6 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the icon name
          */
         get() = adw_status_page_get_icon_name(adwStatusPagePointer)?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -136,9 +133,7 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the paintable
          */
         get() = adw_status_page_get_paintable(adwStatusPagePointer)?.run {
-            Paintable.PaintableImpl(reinterpret())
-        }
-
+            Paintable.PaintableImpl(reinterpret())}
         /**
          * Sets the paintable for @self.
          *
@@ -160,7 +155,6 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
          * @return the title
          */
         get() = adw_status_page_get_title(adwStatusPagePointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the title for @self.
          *
@@ -179,11 +173,10 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
 
     public companion object : TypeCompanion<StatusPage> {
         override val type: GeneratedClassKGType<StatusPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_status_page_get_type")!!) { StatusPage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_status_page_get_type")!!) { StatusPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of StatusPage

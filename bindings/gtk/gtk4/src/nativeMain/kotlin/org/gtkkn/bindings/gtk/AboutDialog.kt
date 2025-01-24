@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -69,11 +74,6 @@ import org.gtkkn.native.gtk.gtk_about_dialog_set_version
 import org.gtkkn.native.gtk.gtk_about_dialog_set_website
 import org.gtkkn.native.gtk.gtk_about_dialog_set_website_label
 import org.gtkkn.native.gtk.gtk_about_dialog_set_wrap_license
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * The `GtkAboutDialog` offers a simple way to display information about
@@ -128,8 +128,9 @@ import kotlin.collections.List
  *
  * - method `website-label`: Property TypeInfo of getter and setter do not match
  */
-public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>) :
-    Window(gtkAboutDialogPointer.reinterpret()),
+public open class AboutDialog(
+    public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>,
+) : Window(gtkAboutDialogPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -164,9 +165,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return A
          *   `NULL`-terminated string array containing the artists
          */
-        get() = gtk_about_dialog_get_artists(gtkAboutDialogPointer)?.toKStringList()
-            ?: error("Expected not null string array")
-
+        get() = gtk_about_dialog_get_artists(gtkAboutDialogPointer)?.toKStringList() ?: error("Expected not null string array")
         /**
          * Sets the names of the artists to be displayed
          * in the "Credits" page.
@@ -175,8 +174,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          *   of the application
          */
         set(artists) = memScoped {
-            return gtk_about_dialog_set_artists(gtkAboutDialogPointer, artists.toCStringList(this))
-        }
+            return gtk_about_dialog_set_artists(gtkAboutDialogPointer, artists.toCStringList(this))}
 
     /**
      * The authors of the program, as a `NULL`-terminated array of strings.
@@ -192,9 +190,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return A
          *   `NULL`-terminated string array containing the authors
          */
-        get() = gtk_about_dialog_get_authors(gtkAboutDialogPointer)?.toKStringList()
-            ?: error("Expected not null string array")
-
+        get() = gtk_about_dialog_get_authors(gtkAboutDialogPointer)?.toKStringList() ?: error("Expected not null string array")
         /**
          * Sets the names of the authors which are displayed
          * in the "Credits" page of the about dialog.
@@ -202,8 +198,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @param authors the authors of the application
          */
         set(authors) = memScoped {
-            return gtk_about_dialog_set_authors(gtkAboutDialogPointer, authors.toCStringList(this))
-        }
+            return gtk_about_dialog_set_authors(gtkAboutDialogPointer, authors.toCStringList(this))}
 
     /**
      * Comments about the program.
@@ -219,7 +214,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The comments
          */
         get() = gtk_about_dialog_get_comments(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the comments string to display in the about dialog.
          *
@@ -239,7 +233,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The copyright string
          */
         get() = gtk_about_dialog_get_copyright(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the copyright string to display in the about dialog.
          *
@@ -263,9 +256,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return A
          *   `NULL`-terminated string array containing the documenters
          */
-        get() = gtk_about_dialog_get_documenters(gtkAboutDialogPointer)?.toKStringList()
-            ?: error("Expected not null string array")
-
+        get() = gtk_about_dialog_get_documenters(gtkAboutDialogPointer)?.toKStringList() ?: error("Expected not null string array")
         /**
          * Sets the names of the documenters which are displayed
          * in the "Credits" page.
@@ -274,8 +265,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          *   of the application
          */
         set(documenters) = memScoped {
-            return gtk_about_dialog_set_documenters(gtkAboutDialogPointer, documenters.toCStringList(this))
-        }
+            return gtk_about_dialog_set_documenters(gtkAboutDialogPointer, documenters.toCStringList(this))}
 
     /**
      * The license of the program, as free-form text.
@@ -300,7 +290,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The license information
          */
         get() = gtk_about_dialog_get_license(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the license information to be displayed in the
          * about dialog.
@@ -335,9 +324,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return a [enum@Gtk.License] value
          */
         get() = gtk_about_dialog_get_license_type(gtkAboutDialogPointer).run {
-            License.fromNativeValue(this)
-        }
-
+            License.fromNativeValue(this)}
         /**
          * Sets the license of the application showing the about dialog from a
          * list of known licenses.
@@ -364,9 +351,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          *   [method@Gtk.AboutDialog.set_logo_icon_name]
          */
         get() = gtk_about_dialog_get_logo(gtkAboutDialogPointer)?.run {
-            Paintable.PaintableImpl(reinterpret())
-        }
-
+            Paintable.PaintableImpl(reinterpret())}
         /**
          * Sets the logo in the about dialog.
          *
@@ -387,7 +372,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          *   or `NULL` if the logo has been set via [method@Gtk.AboutDialog.set_logo]
          */
         get() = gtk_about_dialog_get_logo_icon_name(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the icon name to be displayed as logo in the about dialog.
          *
@@ -408,7 +392,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The program name
          */
         get() = gtk_about_dialog_get_program_name(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the name to display in the about dialog.
          *
@@ -437,7 +420,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return the system information
          */
         get() = gtk_about_dialog_get_system_information(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the system information to be displayed in the about
          * dialog.
@@ -467,7 +449,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The translator credits string
          */
         get() = gtk_about_dialog_get_translator_credits(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the translator credits string which is displayed in
          * the credits page.
@@ -502,7 +483,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The version string
          */
         get() = gtk_about_dialog_get_version(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the version string to display in the about dialog.
          *
@@ -522,7 +502,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return The website URL
          */
         get() = gtk_about_dialog_get_website(gtkAboutDialogPointer)?.toKString()
-
         /**
          * Sets the URL to use for the website link.
          *
@@ -541,7 +520,6 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
          * @return `TRUE` if the license text is wrapped
          */
         get() = gtk_about_dialog_get_wrap_license(gtkAboutDialogPointer).asBoolean()
-
         /**
          * Sets whether the license text in the about dialog should be
          * automatically wrapped.
@@ -564,8 +542,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
      * @param people The people who belong to that section
      */
     public open fun addCreditSection(sectionName: String, people: List<String>): Unit = memScoped {
-        return gtk_about_dialog_add_credit_section(gtkAboutDialogPointer, sectionName, people.toCStringList(this))
-    }
+        return gtk_about_dialog_add_credit_section(gtkAboutDialogPointer, sectionName, people.toCStringList(this))}
 
     /**
      * Returns the label used for the website link.
@@ -579,8 +556,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
      *
      * @param websiteLabel the label used for the website link
      */
-    public open fun setWebsiteLabel(websiteLabel: String): Unit =
-        gtk_about_dialog_set_website_label(gtkAboutDialogPointer, websiteLabel)
+    public open fun setWebsiteLabel(websiteLabel: String): Unit = gtk_about_dialog_set_website_label(gtkAboutDialogPointer, websiteLabel)
 
     /**
      * Emitted every time a URL is activated.
@@ -591,23 +567,14 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `uri` the URI that is activated. Returns `TRUE` if the link has been activated
      */
-    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong =
-        g_signal_connect_data(
-            gtkAboutDialogPointer,
-            "activate-link",
-            onActivateLinkFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong = g_signal_connect_data(gtkAboutDialogPointer, "activate-link", onActivateLinkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<AboutDialog> {
         override val type: GeneratedClassKGType<AboutDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_about_dialog_get_type")!!) { AboutDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_about_dialog_get_type")!!) { AboutDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AboutDialog
@@ -619,15 +586,10 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
 }
 
 private val onActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            uri: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                uri: String,
-            ) -> Boolean
-            >().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    uri: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(uri: String) -> Boolean>().get().invoke(uri?.toKString() ?: error("Expected not null string")).asGBoolean()}
+.reinterpret()

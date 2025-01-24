@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -33,9 +36,6 @@ import org.gtkkn.native.gio.g_icon_to_string
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
 
 /**
  * `GIcon` is a very minimal interface for icons. It provides functions
@@ -69,9 +69,7 @@ import kotlin.String
  * understood by [func@Gio.Icon.deserialize], yielding one of the built-in
  * icon types.
  */
-public interface Icon :
-    Proxy,
-    KGTyped {
+public interface Icon : Proxy, KGTyped {
     public val gioIconPointer: CPointer<GIcon>
 
     /**
@@ -102,8 +100,7 @@ public interface Icon :
      */
     @GioVersion2_38
     public fun serialize(): Variant? = g_icon_serialize(gioIconPointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Generates a textual representation of @icon that can be used for
@@ -135,17 +132,17 @@ public interface Icon :
      *
      * @constructor Creates a new instance of Icon for the provided [CPointer].
      */
-    public data class IconImpl(override val gioIconPointer: CPointer<GIcon>) :
-        Object(gioIconPointer.reinterpret()),
+    public data class IconImpl(
+        override val gioIconPointer: CPointer<GIcon>,
+    ) : Object(gioIconPointer.reinterpret()),
         Icon
 
     public companion object : TypeCompanion<Icon> {
         override val type: GeneratedInterfaceKGType<Icon> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_icon_get_type")!!) { IconImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_icon_get_type")!!) { IconImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Deserializes a #GIcon previously serialized using g_icon_serialize().
@@ -156,8 +153,7 @@ public interface Icon :
          */
         @GioVersion2_38
         public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.glibVariantPointer)?.run {
-            IconImpl(reinterpret())
-        }
+            IconImpl(reinterpret())}
 
         /**
          * Generate a #GIcon instance from @str. This function can fail if
@@ -176,8 +172,7 @@ public interface Icon :
         public fun newForString(str: String): Result<Icon> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_icon_new_for_string(str, gError.ptr)?.run {
-                IconImpl(reinterpret())
-            }
+                IconImpl(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

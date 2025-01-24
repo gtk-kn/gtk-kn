@@ -123,7 +123,7 @@ class BindingsGenerator(
                     async {
                         val ktLintFormatter = KtLintFormatter(config.outputDir)
                         writeType(
-                            iface.typeName,
+                            iface.kotlinTypeName,
                             buildInterface(iface, repository),
                             repositorySrcDir(moduleOutputDir),
                             iface.signals.map { buildStaticSignalCallback(it) },

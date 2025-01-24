@@ -17,17 +17,17 @@ import org.gtkkn.native.gtk.gtk_collation_get_type
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class Collation(public val nativeValue: GtkCollation) {
+public enum class Collation(
+    public val nativeValue: GtkCollation,
+) {
     /**
      * Don't do any collation
      */
     NONE(GtkCollation.GTK_COLLATION_NONE),
-
     /**
      * Use [func@GLib.utf8_collate_key]
      */
     UNICODE(GtkCollation.GTK_COLLATION_UNICODE),
-
     /**
      * Use [func@GLib.utf8_collate_key_for_filename]
      */

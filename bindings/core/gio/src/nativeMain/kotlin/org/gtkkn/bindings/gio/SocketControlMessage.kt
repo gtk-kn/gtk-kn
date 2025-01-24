@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
@@ -21,7 +22,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * A `GSocketControlMessage` is a special-purpose utility message that
@@ -98,25 +98,23 @@ public abstract class SocketControlMessage(
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun serialize(`data`: gpointer): Unit =
-        g_socket_control_message_serialize(gioSocketControlMessagePointer, `data`)
+    public open fun serialize(`data`: gpointer): Unit = g_socket_control_message_serialize(gioSocketControlMessagePointer, `data`)
 
     /**
      * The SocketControlMessageImpl type represents a native instance of the abstract SocketControlMessage class.
      *
      * @constructor Creates a new instance of SocketControlMessage for the provided [CPointer].
      */
-    public class SocketControlMessageImpl(pointer: CPointer<GSocketControlMessage>) : SocketControlMessage(pointer)
+    public class SocketControlMessageImpl(
+        pointer: CPointer<GSocketControlMessage>,
+    ) : SocketControlMessage(pointer)
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_control_message_get_type")!!) {
-                SocketControlMessageImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_socket_control_message_get_type")!!) { SocketControlMessageImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketControlMessage

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -19,7 +20,6 @@ import org.gtkkn.native.gtksource.gtk_source_map_get_type
 import org.gtkkn.native.gtksource.gtk_source_map_get_view
 import org.gtkkn.native.gtksource.gtk_source_map_new
 import org.gtkkn.native.gtksource.gtk_source_map_set_view
-import kotlin.Unit
 
 /**
  * Widget that displays a map for a specific [class@View].
@@ -51,8 +51,9 @@ import kotlin.Unit
  * - method `font-desc`: Property has no getter nor setter
  * - method `view`: Property TypeInfo of getter and setter do not match
  */
-public open class Map(public val gtksourceMapPointer: CPointer<GtkSourceMap>) :
-    View(gtksourceMapPointer.reinterpret()),
+public open class Map(
+    public val gtksourceMapPointer: CPointer<GtkSourceMap>,
+) : View(gtksourceMapPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -79,8 +80,7 @@ public open class Map(public val gtksourceMapPointer: CPointer<GtkSourceMap>) :
      * @return a #GtkSourceView or null.
      */
     public open fun getView(): View? = gtk_source_map_get_view(gtksourceMapPointer)?.run {
-        View(this)
-    }
+        View(this)}
 
     /**
      * Sets the view that @map will be doing the mapping to.
@@ -91,11 +91,10 @@ public open class Map(public val gtksourceMapPointer: CPointer<GtkSourceMap>) :
 
     public companion object : TypeCompanion<Map> {
         override val type: GeneratedClassKGType<Map> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_map_get_type")!!) { Map(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_map_get_type")!!) { Map(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of Map

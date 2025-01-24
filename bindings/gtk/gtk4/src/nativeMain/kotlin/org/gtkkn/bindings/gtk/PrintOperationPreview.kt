@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,9 +32,6 @@ import org.gtkkn.native.gtk.gtk_print_operation_preview_end_preview
 import org.gtkkn.native.gtk.gtk_print_operation_preview_get_type
 import org.gtkkn.native.gtk.gtk_print_operation_preview_is_selected
 import org.gtkkn.native.gtk.gtk_print_operation_preview_render_page
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkPrintOperationPreview` is the interface that is used to
@@ -41,9 +41,7 @@ import kotlin.Unit
  * [signal@Gtk.PrintOperation::preview] signal by
  * [class@Gtk.PrintOperation].
  */
-public interface PrintOperationPreview :
-    Proxy,
-    KGTyped {
+public interface PrintOperationPreview : Proxy, KGTyped {
     public val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>
 
     /**
@@ -60,8 +58,7 @@ public interface PrintOperationPreview :
      * @param pageNr a page number
      * @return true if the page has been selected for printing
      */
-    public fun isSelected(pageNr: gint): Boolean =
-        gtk_print_operation_preview_is_selected(gtkPrintOperationPreviewPointer, pageNr).asBoolean()
+    public fun isSelected(pageNr: gint): Boolean = gtk_print_operation_preview_is_selected(gtkPrintOperationPreviewPointer, pageNr).asBoolean()
 
     /**
      * Renders a page to the preview.
@@ -78,8 +75,7 @@ public interface PrintOperationPreview :
      *
      * @param pageNr the page to render
      */
-    public fun renderPage(pageNr: gint): Unit =
-        gtk_print_operation_preview_render_page(gtkPrintOperationPreviewPointer, pageNr)
+    public fun renderPage(pageNr: gint): Unit = gtk_print_operation_preview_render_page(gtkPrintOperationPreviewPointer, pageNr)
 
     /**
      * Emitted once for each page that gets rendered to the preview.
@@ -91,17 +87,7 @@ public interface PrintOperationPreview :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `context` the current `GtkPrintContext`; `pageSetup` the `GtkPageSetup` for the current page
      */
-    public fun onGotPageSize(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (context: PrintContext, pageSetup: PageSetup) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkPrintOperationPreviewPointer,
-        "got-page-size",
-        onGotPageSizeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onGotPageSize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (context: PrintContext, pageSetup: PageSetup) -> Unit): ULong = g_signal_connect_data(gtkPrintOperationPreviewPointer, "got-page-size", onGotPageSizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ::ready signal gets emitted once per preview operation,
@@ -112,15 +98,7 @@ public interface PrintOperationPreview :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `context` the current `GtkPrintContext`
      */
-    public fun onReady(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (context: PrintContext) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkPrintOperationPreviewPointer,
-            "ready",
-            onReadyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onReady(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (context: PrintContext) -> Unit): ULong = g_signal_connect_data(gtkPrintOperationPreviewPointer, "ready", onReadyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The PrintOperationPreviewImpl type represents a native instance of the PrintOperationPreview interface.
@@ -134,13 +112,10 @@ public interface PrintOperationPreview :
 
     public companion object : TypeCompanion<PrintOperationPreview> {
         override val type: GeneratedInterfaceKGType<PrintOperationPreview> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_print_operation_preview_get_type")!!) {
-                PrintOperationPreviewImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_print_operation_preview_get_type")!!) { PrintOperationPreviewImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PrintOperationPreview
@@ -152,34 +127,27 @@ public interface PrintOperationPreview :
 }
 
 private val onGotPageSizeFunc:
-    CPointer<CFunction<(CPointer<GtkPrintContext>, CPointer<GtkPageSetup>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            context: CPointer<GtkPrintContext>?,
-            pageSetup: CPointer<GtkPageSetup>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(context: PrintContext, pageSetup: PageSetup) -> Unit>().get().invoke(
-            context!!.run {
-                PrintContext(this)
-            },
-            pageSetup!!.run {
-                PageSetup(this)
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkPrintContext>, CPointer<GtkPageSetup>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    context: CPointer<GtkPrintContext>?,
+    pageSetup: CPointer<GtkPageSetup>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(context: PrintContext, pageSetup: PageSetup) -> Unit>().get().invoke(context!!.run {
+        PrintContext(this)}
+    , pageSetup!!.run {
+        PageSetup(this)}
+    )}
+.reinterpret()
 
 private val onReadyFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            context: CPointer<GtkPrintContext>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(context: PrintContext) -> Unit>().get().invoke(
-            context!!.run {
-                PrintContext(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    context: CPointer<GtkPrintContext>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(context: PrintContext) -> Unit>().get().invoke(context!!.run {
+        PrintContext(this)}
+    )}
+.reinterpret()

@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
  * [method@Gdk.Surface.create_cairo_context], and the context
  * can then be used to draw on that surface.
  */
-public abstract class CairoContext(public val gdkCairoContextPointer: CPointer<GdkCairoContext>) :
-    DrawContext(gdkCairoContextPointer.reinterpret()),
+public abstract class CairoContext(
+    public val gdkCairoContextPointer: CPointer<GdkCairoContext>,
+) : DrawContext(gdkCairoContextPointer.reinterpret()),
     KGTyped {
     /**
      * Retrieves a Cairo context to be used to draw on the `GdkSurface`
@@ -40,25 +41,23 @@ public abstract class CairoContext(public val gdkCairoContextPointer: CPointer<G
      *   to draw on `GdkSurface
      */
     public open fun cairoCreate(): Context? = gdk_cairo_context_cairo_create(gdkCairoContextPointer)?.run {
-        Context(this)
-    }
+        Context(this)}
 
     /**
      * The CairoContextImpl type represents a native instance of the abstract CairoContext class.
      *
      * @constructor Creates a new instance of CairoContext for the provided [CPointer].
      */
-    public class CairoContextImpl(pointer: CPointer<GdkCairoContext>) : CairoContext(pointer)
+    public class CairoContextImpl(
+        pointer: CPointer<GdkCairoContext>,
+    ) : CairoContext(pointer)
 
     public companion object : TypeCompanion<CairoContext> {
         override val type: GeneratedClassKGType<CairoContext> =
-            GeneratedClassKGType(getTypeOrNull("gdk_cairo_context_get_type")!!) {
-                CairoContextImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_cairo_context_get_type")!!) { CairoContextImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of CairoContext

@@ -16,10 +16,10 @@ import org.gtkkn.native.gobject.GType
  * Flags describing the access control of a D-Bus property.
  * @since 2.26
  */
-public class DBusPropertyInfoFlags(public val mask: GDBusPropertyInfoFlags) : Bitfield<DBusPropertyInfoFlags> {
-    override infix fun or(other: DBusPropertyInfoFlags): DBusPropertyInfoFlags = DBusPropertyInfoFlags(
-        mask or other.mask
-    )
+public class DBusPropertyInfoFlags(
+    public val mask: GDBusPropertyInfoFlags,
+) : Bitfield<DBusPropertyInfoFlags> {
+    override infix fun or(other: DBusPropertyInfoFlags): DBusPropertyInfoFlags = DBusPropertyInfoFlags(mask or other.mask)
 
     @GioVersion2_26
     public companion object {
@@ -27,19 +27,19 @@ public class DBusPropertyInfoFlags(public val mask: GDBusPropertyInfoFlags) : Bi
          * No flags set.
          */
         public val NONE: DBusPropertyInfoFlags =
-            DBusPropertyInfoFlags(G_DBUS_PROPERTY_INFO_FLAGS_NONE)
+                DBusPropertyInfoFlags(G_DBUS_PROPERTY_INFO_FLAGS_NONE)
 
         /**
          * Property is readable.
          */
         public val READABLE: DBusPropertyInfoFlags =
-            DBusPropertyInfoFlags(G_DBUS_PROPERTY_INFO_FLAGS_READABLE)
+                DBusPropertyInfoFlags(G_DBUS_PROPERTY_INFO_FLAGS_READABLE)
 
         /**
          * Property is writable.
          */
         public val WRITABLE: DBusPropertyInfoFlags =
-            DBusPropertyInfoFlags(G_DBUS_PROPERTY_INFO_FLAGS_WRITABLE)
+                DBusPropertyInfoFlags(G_DBUS_PROPERTY_INFO_FLAGS_WRITABLE)
 
         /**
          * Get the GType of DBusPropertyInfoFlags

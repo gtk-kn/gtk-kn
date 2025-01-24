@@ -13,17 +13,17 @@ import org.gtkkn.native.gsk.gsk_scaling_filter_get_type
  * The actual implementation of each filter is deferred to the
  * rendering pipeline.
  */
-public enum class ScalingFilter(public val nativeValue: GskScalingFilter) {
+public enum class ScalingFilter(
+    public val nativeValue: GskScalingFilter,
+) {
     /**
      * linear interpolation filter
      */
     LINEAR(GskScalingFilter.GSK_SCALING_FILTER_LINEAR),
-
     /**
      * nearest neighbor interpolation filter
      */
     NEAREST(GskScalingFilter.GSK_SCALING_FILTER_NEAREST),
-
     /**
      * linear interpolation along each axis,
      *   plus mipmap generation, with linear interpolation along the mipmap

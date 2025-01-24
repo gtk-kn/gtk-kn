@@ -30,8 +30,9 @@ import org.gtkkn.native.gtk.gtk_multi_selection_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiSelection(public val gtkMultiSelectionPointer: CPointer<GtkMultiSelection>) :
-    Object(gtkMultiSelectionPointer.reinterpret()),
+public open class MultiSelection(
+    public val gtkMultiSelectionPointer: CPointer<GtkMultiSelection>,
+) : Object(gtkMultiSelectionPointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
@@ -55,9 +56,7 @@ public open class MultiSelection(public val gtkMultiSelectionPointer: CPointer<G
          * @return the underlying model
          */
         get() = gtk_multi_selection_get_model(gtkMultiSelectionPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the model that @self should wrap.
          *
@@ -73,19 +72,14 @@ public open class MultiSelection(public val gtkMultiSelectionPointer: CPointer<G
      * @param model the `GListModel` to manage
      * @return a new `GtkMultiSelection`
      */
-    public constructor(
-        model: ListModel? = null,
-    ) : this(gtk_multi_selection_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null) : this(gtk_multi_selection_new(model?.gioListModelPointer)!!)
 
     public companion object : TypeCompanion<MultiSelection> {
         override val type: GeneratedClassKGType<MultiSelection> =
-            GeneratedClassKGType(getTypeOrNull("gtk_multi_selection_get_type")!!) {
-                MultiSelection(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_multi_selection_get_type")!!) { MultiSelection(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of MultiSelection

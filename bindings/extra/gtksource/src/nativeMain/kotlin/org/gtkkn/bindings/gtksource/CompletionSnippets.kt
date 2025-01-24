@@ -36,17 +36,14 @@ public open class CompletionSnippets(
     override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>
         get() = handle.reinterpret()
 
-    public constructor() : this(gtk_source_completion_snippets_new()!!.reinterpret())
+    public constructor() : this(gtk_source_completion_snippets_new()!!)
 
     public companion object : TypeCompanion<CompletionSnippets> {
         override val type: GeneratedClassKGType<CompletionSnippets> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_snippets_get_type")!!) {
-                CompletionSnippets(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_completion_snippets_get_type")!!) { CompletionSnippets(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of CompletionSnippets

@@ -3,11 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.gfloat
@@ -45,8 +48,6 @@ import org.gtkkn.native.gsk.gsk_path_builder_rel_svg_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_svg_arc_to
 import org.gtkkn.native.gsk.gsk_path_builder_to_path
 import org.gtkkn.native.gsk.gsk_path_builder_unref
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GskPathBuilder` is an auxiliary object for constructing
@@ -91,20 +92,33 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuilder>) :
-    ProxyInstance(gskPathBuilderPointer) {
+public class PathBuilder(
+    public val gskPathBuilderPointer: CPointer<GskPathBuilder>,
+) : ProxyInstance(gskPathBuilderPointer) {
+    /**
+     * Create a new `GskPathBuilder` object.
+     *
+     * The resulting builder would create an empty `GskPath`.
+     * Use addition functions to add types to it.
+     *
+     * @return a new `GskPathBuilder`
+     * @since 4.14
+     */
+    public constructor() : this(gsk_path_builder_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Adds a Cairo path to the builder.
      *
      * You can use cairo_copy_path() to access the path
      * from a Cairo context.
      *
-     * @param path
+     * @param path 
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addCairoPath(path: org.gtkkn.bindings.cairo.Path): Unit =
-        gsk_path_builder_add_cairo_path(gskPathBuilderPointer, path.cairoPathPointer)
+    public fun addCairoPath(path: org.gtkkn.bindings.cairo.Path): Unit = gsk_path_builder_add_cairo_path(gskPathBuilderPointer, path.cairoPathPointer)
 
     /**
      * Adds a circle with the @center and @radius.
@@ -118,8 +132,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addCircle(center: Point, radius: gfloat): Unit =
-        gsk_path_builder_add_circle(gskPathBuilderPointer, center.graphenePointPointer, radius)
+    public fun addCircle(center: Point, radius: gfloat): Unit = gsk_path_builder_add_circle(gskPathBuilderPointer, center.graphenePointPointer, radius)
 
     /**
      * Adds the outlines for the glyphs in @layout to the builder.
@@ -128,8 +141,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addLayout(layout: Layout): Unit =
-        gsk_path_builder_add_layout(gskPathBuilderPointer, layout.pangoLayoutPointer)
+    public fun addLayout(layout: Layout): Unit = gsk_path_builder_add_layout(gskPathBuilderPointer, layout.pangoLayoutPointer)
 
     /**
      * Appends all of @path to the builder.
@@ -161,8 +173,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addReversePath(path: Path): Unit =
-        gsk_path_builder_add_reverse_path(gskPathBuilderPointer, path.gskPathPointer)
+    public fun addReversePath(path: Path): Unit = gsk_path_builder_add_reverse_path(gskPathBuilderPointer, path.gskPathPointer)
 
     /**
      * Adds @rect as a new contour to the path built in @self.
@@ -173,8 +184,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addRoundedRect(rect: RoundedRect): Unit =
-        gsk_path_builder_add_rounded_rect(gskPathBuilderPointer, rect.gskRoundedRectPointer)
+    public fun addRoundedRect(rect: RoundedRect): Unit = gsk_path_builder_add_rounded_rect(gskPathBuilderPointer, rect.gskRoundedRectPointer)
 
     /**
      * Adds to @self the segment of @path from @start to @end.
@@ -193,12 +203,11 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun addSegment(path: Path, start: PathPoint, end: PathPoint): Unit = gsk_path_builder_add_segment(
-        gskPathBuilderPointer,
-        path.gskPathPointer,
-        start.gskPathPointPointer,
-        end.gskPathPointPointer
-    )
+    public fun addSegment(
+        path: Path,
+        start: PathPoint,
+        end: PathPoint,
+    ): Unit = gsk_path_builder_add_segment(gskPathBuilderPointer, path.gskPathPointer, start.gskPathPointPointer, end.gskPathPointPointer)
 
     /**
      * Adds an elliptical arc from the current point to @x3, @y3
@@ -223,8 +232,12 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun arcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
-        gsk_path_builder_arc_to(gskPathBuilderPointer, x1, y1, x2, y2)
+    public fun arcTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+    ): Unit = gsk_path_builder_arc_to(gskPathBuilderPointer, x1, y1, x2, y2)
 
     /**
      * Ends the current contour with a line back to the start point.
@@ -266,8 +279,13 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun conicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, weight: gfloat): Unit =
-        gsk_path_builder_conic_to(gskPathBuilderPointer, x1, y1, x2, y2, weight)
+    public fun conicTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+        weight: gfloat,
+    ): Unit = gsk_path_builder_conic_to(gskPathBuilderPointer, x1, y1, x2, y2, weight)
 
     /**
      * Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -290,8 +308,14 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun cubicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, x3: gfloat, y3: gfloat): Unit =
-        gsk_path_builder_cubic_to(gskPathBuilderPointer, x1, y1, x2, y2, x3, y3)
+    public fun cubicTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+        x3: gfloat,
+        y3: gfloat,
+    ): Unit = gsk_path_builder_cubic_to(gskPathBuilderPointer, x1, y1, x2, y2, x3, y3)
 
     /**
      * Creates a new `GskPath` from the current state of the
@@ -303,8 +327,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      */
     @GskVersion4_14
     public fun freeToPath(): Path = gsk_path_builder_free_to_path(gskPathBuilderPointer)!!.run {
-        Path(this)
-    }
+        Path(this)}
 
     /**
      * Gets the current point.
@@ -321,8 +344,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      */
     @GskVersion4_14
     public fun getCurrentPoint(): Point = gsk_path_builder_get_current_point(gskPathBuilderPointer)!!.run {
-        Point(this)
-    }
+        Point(this)}
 
     /**
      * Implements arc-to according to the HTML Canvas spec.
@@ -343,8 +365,13 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun htmlArcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, radius: gfloat): Unit =
-        gsk_path_builder_html_arc_to(gskPathBuilderPointer, x1, y1, x2, y2, radius)
+    public fun htmlArcTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+        radius: gfloat,
+    ): Unit = gsk_path_builder_html_arc_to(gskPathBuilderPointer, x1, y1, x2, y2, radius)
 
     /**
      * Draws a line from the current point to @x, @y and makes it
@@ -394,8 +421,12 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun quadTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
-        gsk_path_builder_quad_to(gskPathBuilderPointer, x1, y1, x2, y2)
+    public fun quadTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+    ): Unit = gsk_path_builder_quad_to(gskPathBuilderPointer, x1, y1, x2, y2)
 
     /**
      * Acquires a reference on the given builder.
@@ -409,8 +440,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      */
     @GskVersion4_14
     public fun ref(): PathBuilder = gsk_path_builder_ref(gskPathBuilderPointer)!!.run {
-        PathBuilder(this)
-    }
+        PathBuilder(this)}
 
     /**
      * Adds an elliptical arc from the current point to @x3, @y3
@@ -427,8 +457,12 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relArcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
-        gsk_path_builder_rel_arc_to(gskPathBuilderPointer, x1, y1, x2, y2)
+    public fun relArcTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+    ): Unit = gsk_path_builder_rel_arc_to(gskPathBuilderPointer, x1, y1, x2, y2)
 
     /**
      * Adds a [conic curve](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)
@@ -447,8 +481,13 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relConicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, weight: gfloat): Unit =
-        gsk_path_builder_rel_conic_to(gskPathBuilderPointer, x1, y1, x2, y2, weight)
+    public fun relConicTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+        weight: gfloat,
+    ): Unit = gsk_path_builder_rel_conic_to(gskPathBuilderPointer, x1, y1, x2, y2, weight)
 
     /**
      * Adds a [cubic Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
@@ -468,8 +507,14 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relCubicTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, x3: gfloat, y3: gfloat): Unit =
-        gsk_path_builder_rel_cubic_to(gskPathBuilderPointer, x1, y1, x2, y2, x3, y3)
+    public fun relCubicTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+        x3: gfloat,
+        y3: gfloat,
+    ): Unit = gsk_path_builder_rel_cubic_to(gskPathBuilderPointer, x1, y1, x2, y2, x3, y3)
 
     /**
      * Implements arc-to according to the HTML Canvas spec.
@@ -486,8 +531,13 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relHtmlArcTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat, radius: gfloat): Unit =
-        gsk_path_builder_rel_html_arc_to(gskPathBuilderPointer, x1, y1, x2, y2, radius)
+    public fun relHtmlArcTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+        radius: gfloat,
+    ): Unit = gsk_path_builder_rel_html_arc_to(gskPathBuilderPointer, x1, y1, x2, y2, radius)
 
     /**
      * Draws a line from the current point to a point offset from it
@@ -530,8 +580,12 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      * @since 4.14
      */
     @GskVersion4_14
-    public fun relQuadTo(x1: gfloat, y1: gfloat, x2: gfloat, y2: gfloat): Unit =
-        gsk_path_builder_rel_quad_to(gskPathBuilderPointer, x1, y1, x2, y2)
+    public fun relQuadTo(
+        x1: gfloat,
+        y1: gfloat,
+        x2: gfloat,
+        y2: gfloat,
+    ): Unit = gsk_path_builder_rel_quad_to(gskPathBuilderPointer, x1, y1, x2, y2)
 
     /**
      * Implements arc-to according to the SVG spec.
@@ -558,16 +612,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
         positiveSweep: Boolean,
         x: gfloat,
         y: gfloat,
-    ): Unit = gsk_path_builder_rel_svg_arc_to(
-        gskPathBuilderPointer,
-        rx,
-        ry,
-        xAxisRotation,
-        largeArc.asGBoolean(),
-        positiveSweep.asGBoolean(),
-        x,
-        y
-    )
+    ): Unit = gsk_path_builder_rel_svg_arc_to(gskPathBuilderPointer, rx, ry, xAxisRotation, largeArc.asGBoolean(), positiveSweep.asGBoolean(), x, y)
 
     /**
      * Implements arc-to according to the SVG spec.
@@ -596,16 +641,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
         positiveSweep: Boolean,
         x: gfloat,
         y: gfloat,
-    ): Unit = gsk_path_builder_svg_arc_to(
-        gskPathBuilderPointer,
-        rx,
-        ry,
-        xAxisRotation,
-        largeArc.asGBoolean(),
-        positiveSweep.asGBoolean(),
-        x,
-        y
-    )
+    ): Unit = gsk_path_builder_svg_arc_to(gskPathBuilderPointer, rx, ry, xAxisRotation, largeArc.asGBoolean(), positiveSweep.asGBoolean(), x, y)
 
     /**
      * Creates a new `GskPath` from the given builder.
@@ -623,8 +659,7 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
      */
     @GskVersion4_14
     public fun toPath(): Path = gsk_path_builder_to_path(gskPathBuilderPointer)!!.run {
-        Path(this)
-    }
+        Path(this)}
 
     /**
      * Releases a reference on the given builder.
@@ -635,17 +670,6 @@ public class PathBuilder(public val gskPathBuilderPointer: CPointer<GskPathBuild
     public fun unref(): Unit = gsk_path_builder_unref(gskPathBuilderPointer)
 
     public companion object {
-        /**
-         * Create a new `GskPathBuilder` object.
-         *
-         * The resulting builder would create an empty `GskPath`.
-         * Use addition functions to add types to it.
-         *
-         * @return a new `GskPathBuilder`
-         * @since 4.14
-         */
-        public fun new(): PathBuilder = PathBuilder(gsk_path_builder_new()!!)
-
         /**
          * Get the GType of PathBuilder
          *

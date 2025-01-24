@@ -3,22 +3,20 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gtk.TextIter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gtksource.GtkSourceRegionIter
 import org.gtkkn.native.gtksource.gtk_source_region_iter_get_subregion
 import org.gtkkn.native.gtksource.gtk_source_region_iter_is_end
 import org.gtkkn.native.gtksource.gtk_source_region_iter_next
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque datatype.
@@ -27,7 +25,6 @@ import kotlin.native.ref.createCleaner
  */
 public class RegionIter(
     public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(gtksourceRegionIterPointer) {
     /**
      * Allocate a new RegionIter.
@@ -35,21 +32,9 @@ public class RegionIter(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkSourceRegionIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RegionIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkSourceRegionIter>, Cleaner>,
-    ) : this(gtksourceRegionIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkSourceRegionIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RegionIter using the provided [AutofreeScope].
@@ -68,11 +53,7 @@ public class RegionIter(
      * @return true if @start and @end have been set successfully (if non-null),
      *   or false if @iter is the end iterator or if the region is empty.
      */
-    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(
-        gtksourceRegionIterPointer,
-        start?.gtkTextIterPointer,
-        end?.gtkTextIterPointer
-    ).asBoolean()
+    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(gtksourceRegionIterPointer, start?.gtkTextIterPointer, end?.gtkTextIterPointer).asBoolean()
 
     /**
      *

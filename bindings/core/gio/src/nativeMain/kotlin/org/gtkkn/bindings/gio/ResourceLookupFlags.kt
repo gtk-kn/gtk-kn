@@ -14,7 +14,9 @@ import org.gtkkn.native.gobject.GType
  * GResourceLookupFlags determine how resource path lookups are handled.
  * @since 2.32
  */
-public class ResourceLookupFlags(public val mask: GResourceLookupFlags) : Bitfield<ResourceLookupFlags> {
+public class ResourceLookupFlags(
+    public val mask: GResourceLookupFlags,
+) : Bitfield<ResourceLookupFlags> {
     override infix fun or(other: ResourceLookupFlags): ResourceLookupFlags = ResourceLookupFlags(mask or other.mask)
 
     @GioVersion2_32

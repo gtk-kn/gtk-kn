@@ -3,114 +3,96 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GSpawnError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Error codes returned by spawning processes.
  */
-public enum class SpawnError(public val nativeValue: GSpawnError) {
+public enum class SpawnError(
+    public val nativeValue: GSpawnError,
+) {
     /**
      * Fork failed due to lack of memory.
      */
     FORK(GSpawnError.G_SPAWN_ERROR_FORK),
-
     /**
      * Read or select on pipes failed.
      */
     READ(GSpawnError.G_SPAWN_ERROR_READ),
-
     /**
      * Changing to working directory failed.
      */
     CHDIR(GSpawnError.G_SPAWN_ERROR_CHDIR),
-
     /**
      * execv() returned `EACCES`
      */
     ACCES(GSpawnError.G_SPAWN_ERROR_ACCES),
-
     /**
      * execv() returned `EPERM`
      */
     PERM(GSpawnError.G_SPAWN_ERROR_PERM),
-
     /**
      * execv() returned `E2BIG`
      */
     TOO_BIG(GSpawnError.G_SPAWN_ERROR_TOO_BIG),
-
     /**
      * deprecated alias for %G_SPAWN_ERROR_TOO_BIG (deprecated since GLib 2.32)
      */
     `2BIG`(GSpawnError.G_SPAWN_ERROR_2BIG),
-
     /**
      * execv() returned `ENOEXEC`
      */
     NOEXEC(GSpawnError.G_SPAWN_ERROR_NOEXEC),
-
     /**
      * execv() returned `ENAMETOOLONG`
      */
     NAMETOOLONG(GSpawnError.G_SPAWN_ERROR_NAMETOOLONG),
-
     /**
      * execv() returned `ENOENT`
      */
     NOENT(GSpawnError.G_SPAWN_ERROR_NOENT),
-
     /**
      * execv() returned `ENOMEM`
      */
     NOMEM(GSpawnError.G_SPAWN_ERROR_NOMEM),
-
     /**
      * execv() returned `ENOTDIR`
      */
     NOTDIR(GSpawnError.G_SPAWN_ERROR_NOTDIR),
-
     /**
      * execv() returned `ELOOP`
      */
     LOOP(GSpawnError.G_SPAWN_ERROR_LOOP),
-
     /**
      * execv() returned `ETXTBUSY`
      */
     TXTBUSY(GSpawnError.G_SPAWN_ERROR_TXTBUSY),
-
     /**
      * execv() returned `EIO`
      */
     IO(GSpawnError.G_SPAWN_ERROR_IO),
-
     /**
      * execv() returned `ENFILE`
      */
     NFILE(GSpawnError.G_SPAWN_ERROR_NFILE),
-
     /**
      * execv() returned `EMFILE`
      */
     MFILE(GSpawnError.G_SPAWN_ERROR_MFILE),
-
     /**
      * execv() returned `EINVAL`
      */
     INVAL(GSpawnError.G_SPAWN_ERROR_INVAL),
-
     /**
      * execv() returned `EISDIR`
      */
     ISDIR(GSpawnError.G_SPAWN_ERROR_ISDIR),
-
     /**
      * execv() returned `ELIBBAD`
      */
     LIBBAD(GSpawnError.G_SPAWN_ERROR_LIBBAD),
-
     /**
      * Some other fatal failure,
      *   `error->message` should explain.

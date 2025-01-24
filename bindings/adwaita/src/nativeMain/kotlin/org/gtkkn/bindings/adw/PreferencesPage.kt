@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -35,9 +38,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A page from [class@PreferencesDialog].
@@ -58,8 +58,9 @@ import kotlin.Unit
  *
  * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>) :
-    Widget(adwPreferencesPagePointer.reinterpret()),
+public open class PreferencesPage(
+    public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>,
+) : Widget(adwPreferencesPagePointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -83,9 +84,7 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
          * @return the description of @self.
          * @since 1.4
          */
-        get() = adw_preferences_page_get_description(adwPreferencesPagePointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_page_get_description(adwPreferencesPagePointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the description of @self.
          *
@@ -107,7 +106,6 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
          * @return the icon name for @self
          */
         get() = adw_preferences_page_get_icon_name(adwPreferencesPagePointer)?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -125,7 +123,6 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
          * @return the name of @self
          */
         get() = adw_preferences_page_get_name(adwPreferencesPagePointer)?.toKString()
-
         /**
          * Sets the name of @self.
          *
@@ -142,9 +139,7 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
          *
          * @return the title of @self.
          */
-        get() = adw_preferences_page_get_title(adwPreferencesPagePointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_page_get_title(adwPreferencesPagePointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of @self.
          *
@@ -162,7 +157,6 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
          * @return whether an embedded underline in the title indicates a mnemonic
          */
         get() = adw_preferences_page_get_use_underline(adwPreferencesPagePointer).asBoolean()
-
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
@@ -182,16 +176,14 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
      *
      * @param group the group to add
      */
-    public open fun add(group: PreferencesGroup): Unit =
-        adw_preferences_page_add(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
+    public open fun add(group: PreferencesGroup): Unit = adw_preferences_page_add(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
 
     /**
      * Removes a group from @self.
      *
      * @param group the group to remove
      */
-    public open fun remove(group: PreferencesGroup): Unit =
-        adw_preferences_page_remove(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
+    public open fun remove(group: PreferencesGroup): Unit = adw_preferences_page_remove(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
 
     /**
      * Scrolls the scrolled window of @self to the top.
@@ -203,13 +195,10 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
 
     public companion object : TypeCompanion<PreferencesPage> {
         override val type: GeneratedClassKGType<PreferencesPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_preferences_page_get_type")!!) {
-                PreferencesPage(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_preferences_page_get_type")!!) { PreferencesPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PreferencesPage

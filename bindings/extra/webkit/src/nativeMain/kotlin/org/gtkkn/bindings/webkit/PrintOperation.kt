@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -34,8 +36,6 @@ import org.gtkkn.native.webkit.webkit_print_operation_print
 import org.gtkkn.native.webkit.webkit_print_operation_run_dialog
 import org.gtkkn.native.webkit.webkit_print_operation_set_page_setup
 import org.gtkkn.native.webkit.webkit_print_operation_set_print_settings
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Controls a print operation.
@@ -49,8 +49,9 @@ import kotlin.Unit
  *
  * - method `web-view`: Property has no getter nor setter
  */
-public class PrintOperation(public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>) :
-    Object(webkitPrintOperationPointer.reinterpret()),
+public class PrintOperation(
+    public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>,
+) : Object(webkitPrintOperationPointer.reinterpret()),
     KGTyped {
     /**
      * The initial #GtkPageSetup for the print operation.
@@ -66,9 +67,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          * @return the current #GtkPageSetup of @print_operation.
          */
         get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer)!!.run {
-            PageSetup(this)
-        }
-
+            PageSetup(this)}
         /**
          * Set the current page setup of @print_operation.
          *
@@ -77,9 +76,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          *
          * @param pageSetup a #GtkPageSetup to set
          */
-        set(
-            pageSetup
-        ) = webkit_print_operation_set_page_setup(webkitPrintOperationPointer, pageSetup.gtkPageSetupPointer)
+        set(pageSetup) = webkit_print_operation_set_page_setup(webkitPrintOperationPointer, pageSetup.gtkPageSetupPointer)
 
     /**
      * The initial #GtkPrintSettings for the print operation.
@@ -95,9 +92,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          * @return the current #GtkPrintSettings of @print_operation.
          */
         get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer)!!.run {
-            PrintSettings(this)
-        }
-
+            PrintSettings(this)}
         /**
          * Set the current print settings of @print_operation.
          *
@@ -106,12 +101,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
          *
          * @param printSettings a #GtkPrintSettings to set
          */
-        set(
-            printSettings
-        ) = webkit_print_operation_set_print_settings(
-            webkitPrintOperationPointer,
-            printSettings.gtkPrintSettingsPointer
-        )
+        set(printSettings) = webkit_print_operation_set_print_settings(webkitPrintOperationPointer, printSettings.gtkPrintSettingsPointer)
 
     /**
      * Create a new #WebKitPrintOperation to print @web_view contents.
@@ -119,9 +109,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
      * @param webView a #WebKitWebView
      * @return a new #WebKitPrintOperation.
      */
-    public constructor(
-        webView: WebView,
-    ) : this(webkit_print_operation_new(webView.webkitWebViewPointer)!!.reinterpret())
+    public constructor(webView: WebView) : this(webkit_print_operation_new(webView.webkitWebViewPointer)!!)
 
     /**
      * Start a print operation using current print settings and page setup.
@@ -161,10 +149,8 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
      * @param parent transient parent of the print dialog
      * @return the #WebKitPrintOperationResponse of the print dialog
      */
-    public fun runDialog(parent: Window? = null): PrintOperationResponse =
-        webkit_print_operation_run_dialog(webkitPrintOperationPointer, parent?.gtkWindowPointer).run {
-            PrintOperationResponse.fromNativeValue(this)
-        }
+    public fun runDialog(parent: Window? = null): PrintOperationResponse = webkit_print_operation_run_dialog(webkitPrintOperationPointer, parent?.gtkWindowPointer).run {
+        PrintOperationResponse.fromNativeValue(this)}
 
     /**
      * Emitted when an error occurs while printing. The given @error, of the domain
@@ -174,15 +160,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
-        g_signal_connect_data(
-            webkitPrintOperationPointer,
-            "failed",
-            onFailedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong = g_signal_connect_data(webkitPrintOperationPointer, "failed", onFailedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "failed" signal. See [onFailed].
@@ -200,15 +178,7 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitPrintOperationPointer,
-            "finished",
-            onFinishedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitPrintOperationPointer, "finished", onFinishedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "finished" signal. See [onFinished].
@@ -219,13 +189,10 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
 
     public companion object : TypeCompanion<PrintOperation> {
         override val type: GeneratedClassKGType<PrintOperation> =
-            GeneratedClassKGType(getTypeOrNull("webkit_print_operation_get_type")!!) {
-                PrintOperation(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_print_operation_get_type")!!) { PrintOperation(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of PrintOperation
@@ -237,22 +204,18 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
 }
 
 private val onFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        error: CPointer<GError>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    error: CPointer<GError>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-        error!!.run {
-            Error(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(error!!.run {
+        Error(this)}
+    )}
+.reinterpret()
 
 private val onFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

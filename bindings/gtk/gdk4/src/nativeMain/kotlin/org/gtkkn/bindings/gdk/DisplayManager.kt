@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,9 +32,6 @@ import org.gtkkn.native.gdk.gdk_display_manager_set_default_display
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A singleton object that offers notification when displays appear or
@@ -81,18 +81,17 @@ import kotlin.Unit
  *
  * - method `default-display`: Property TypeInfo of getter and setter do not match
  */
-public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>) :
-    Object(gdkDisplayManagerPointer.reinterpret()),
+public open class DisplayManager(
+    public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>,
+) : Object(gdkDisplayManagerPointer.reinterpret()),
     KGTyped {
     /**
      * Gets the default `GdkDisplay`.
      *
      * @return a `GdkDisplay`
      */
-    public open fun getDefaultDisplay(): Display? =
-        gdk_display_manager_get_default_display(gdkDisplayManagerPointer)?.run {
-            Display(this)
-        }
+    public open fun getDefaultDisplay(): Display? = gdk_display_manager_get_default_display(gdkDisplayManagerPointer)?.run {
+        Display(this)}
 
     /**
      * List all currently open displays.
@@ -101,8 +100,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
      *   allocated `GSList` of `GdkDisplay` objects
      */
     public open fun listDisplays(): SList = gdk_display_manager_list_displays(gdkDisplayManagerPointer)!!.run {
-        SList(this)
-    }
+        SList(this)}
 
     /**
      * Opens a display.
@@ -111,18 +109,15 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
      * @return a `GdkDisplay`, or null
      *   if the display could not be opened
      */
-    public open fun openDisplay(name: String? = null): Display? =
-        gdk_display_manager_open_display(gdkDisplayManagerPointer, name)?.run {
-            Display(this)
-        }
+    public open fun openDisplay(name: String? = null): Display? = gdk_display_manager_open_display(gdkDisplayManagerPointer, name)?.run {
+        Display(this)}
 
     /**
      * Sets @display as the default display.
      *
      * @param display a `GdkDisplay`
      */
-    public open fun setDefaultDisplay(display: Display): Unit =
-        gdk_display_manager_set_default_display(gdkDisplayManagerPointer, display.gdkDisplayPointer)
+    public open fun setDefaultDisplay(display: Display): Unit = gdk_display_manager_set_default_display(gdkDisplayManagerPointer, display.gdkDisplayPointer)
 
     /**
      * Emitted when a display is opened.
@@ -130,17 +125,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `display` the opened display
      */
-    public fun onDisplayOpened(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (display: Display) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gdkDisplayManagerPointer,
-        "display-opened",
-        onDisplayOpenedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDisplayOpened(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (display: Display) -> Unit): ULong = g_signal_connect_data(gdkDisplayManagerPointer, "display-opened", onDisplayOpenedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "display-opened" signal. See [onDisplayOpened].
@@ -153,13 +138,10 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
 
     public companion object : TypeCompanion<DisplayManager> {
         override val type: GeneratedClassKGType<DisplayManager> =
-            GeneratedClassKGType(getTypeOrNull("gdk_display_manager_get_type")!!) {
-                DisplayManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_display_manager_get_type")!!) { DisplayManager(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Gets the singleton `GdkDisplayManager` object.
@@ -175,8 +157,7 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
          * @return The global `GdkDisplayManager` singleton
          */
         public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
-            DisplayManager(this)
-        }
+            DisplayManager(this)}
 
         /**
          * Get the GType of DisplayManager
@@ -188,15 +169,12 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
 }
 
 private val onDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            display: CPointer<GdkDisplay>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(display: Display) -> Unit>().get().invoke(
-            display!!.run {
-                Display(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    display: CPointer<GdkDisplay>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(display: Display) -> Unit>().get().invoke(display!!.run {
+        Display(this)}
+    )}
+.reinterpret()

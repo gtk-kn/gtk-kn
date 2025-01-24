@@ -13,5 +13,6 @@ import org.gtkkn.native.gobject.GParamSpecGType
  * @since 2.10
  */
 @GObjectVersion2_10
-public open class ParamSpecGType(public val gobjectParamSpecGTypePointer: CPointer<GParamSpecGType>) :
-    ParamSpec(gobjectParamSpecGTypePointer.reinterpret())
+public open class ParamSpecGType(
+    public val gobjectParamSpecGTypePointer: CPointer<GParamSpecGType>,
+) : ParamSpec(gobjectParamSpecGTypePointer.reinterpret())

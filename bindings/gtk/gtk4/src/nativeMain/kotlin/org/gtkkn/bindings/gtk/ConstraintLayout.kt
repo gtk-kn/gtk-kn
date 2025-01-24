@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -34,9 +37,6 @@ import org.gtkkn.native.gtk.gtk_constraint_layout_observe_guides
 import org.gtkkn.native.gtk.gtk_constraint_layout_remove_all_constraints
 import org.gtkkn.native.gtk.gtk_constraint_layout_remove_constraint
 import org.gtkkn.native.gtk.gtk_constraint_layout_remove_guide
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -205,8 +205,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  *   [button1(button2 / 2 + 12)]
  * ```
  */
-public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPointer<GtkConstraintLayout>) :
-    LayoutManager(gtkConstraintLayoutPointer.reinterpret()),
+public open class ConstraintLayout(
+    public val gtkConstraintLayoutPointer: CPointer<GtkConstraintLayout>,
+) : LayoutManager(gtkConstraintLayoutPointer.reinterpret()),
     Buildable,
     KGTyped {
     override val gtkBuildablePointer: CPointer<GtkBuildable>
@@ -236,8 +237,7 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      *
      * @param constraint a [class@Gtk.Constraint]
      */
-    public open fun addConstraint(constraint: Constraint): Unit =
-        gtk_constraint_layout_add_constraint(gtkConstraintLayoutPointer, constraint.gtkConstraintPointer)
+    public open fun addConstraint(constraint: Constraint): Unit = gtk_constraint_layout_add_constraint(gtkConstraintLayoutPointer, constraint.gtkConstraintPointer)
 
     /**
      * Creates a list of constraints from a VFL description.
@@ -338,17 +338,8 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
         views: HashTable,
     ): Result<GlibList> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_constraint_layout_add_constraints_from_descriptionv(
-            gtkConstraintLayoutPointer,
-            lines.toCStringList(this),
-            nLines,
-            hspacing,
-            vspacing,
-            views.glibHashTablePointer,
-            gError.ptr
-        )?.run {
-            GlibList(this)
-        }
+        val gResult = gtk_constraint_layout_add_constraints_from_descriptionv(gtkConstraintLayoutPointer, lines.toCStringList(this), nLines, hspacing, vspacing, views.glibHashTablePointer, gError.ptr)?.run {
+            GlibList(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -368,8 +359,7 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      *
      * @param guide a [class@Gtk.ConstraintGuide] object
      */
-    public open fun addGuide(guide: ConstraintGuide): Unit =
-        gtk_constraint_layout_add_guide(gtkConstraintLayoutPointer, guide.gtkConstraintGuidePointer)
+    public open fun addGuide(guide: ConstraintGuide): Unit = gtk_constraint_layout_add_guide(gtkConstraintLayoutPointer, guide.gtkConstraintGuidePointer)
 
     /**
      * Returns a `GListModel` to track the constraints that are
@@ -385,10 +375,8 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      * @return a
      *   `GListModel` tracking the layout's constraints
      */
-    public open fun observeConstraints(): ListModel =
-        gtk_constraint_layout_observe_constraints(gtkConstraintLayoutPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+    public open fun observeConstraints(): ListModel = gtk_constraint_layout_observe_constraints(gtkConstraintLayoutPointer)!!.run {
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Returns a `GListModel` to track the guides that are
@@ -404,16 +392,13 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      * @return a
      *   `GListModel` tracking the layout's guides
      */
-    public open fun observeGuides(): ListModel =
-        gtk_constraint_layout_observe_guides(gtkConstraintLayoutPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+    public open fun observeGuides(): ListModel = gtk_constraint_layout_observe_guides(gtkConstraintLayoutPointer)!!.run {
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Removes all constraints from the layout manager.
      */
-    public open fun removeAllConstraints(): Unit =
-        gtk_constraint_layout_remove_all_constraints(gtkConstraintLayoutPointer)
+    public open fun removeAllConstraints(): Unit = gtk_constraint_layout_remove_all_constraints(gtkConstraintLayoutPointer)
 
     /**
      * Removes `constraint` from the layout manager,
@@ -421,8 +406,7 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      *
      * @param constraint a [class@Gtk.Constraint]
      */
-    public open fun removeConstraint(constraint: Constraint): Unit =
-        gtk_constraint_layout_remove_constraint(gtkConstraintLayoutPointer, constraint.gtkConstraintPointer)
+    public open fun removeConstraint(constraint: Constraint): Unit = gtk_constraint_layout_remove_constraint(gtkConstraintLayoutPointer, constraint.gtkConstraintPointer)
 
     /**
      * Removes `guide` from the layout manager,
@@ -430,18 +414,14 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
      *
      * @param guide a [class@Gtk.ConstraintGuide] object
      */
-    public open fun removeGuide(guide: ConstraintGuide): Unit =
-        gtk_constraint_layout_remove_guide(gtkConstraintLayoutPointer, guide.gtkConstraintGuidePointer)
+    public open fun removeGuide(guide: ConstraintGuide): Unit = gtk_constraint_layout_remove_guide(gtkConstraintLayoutPointer, guide.gtkConstraintGuidePointer)
 
     public companion object : TypeCompanion<ConstraintLayout> {
         override val type: GeneratedClassKGType<ConstraintLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_get_type")!!) {
-                ConstraintLayout(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_get_type")!!) { ConstraintLayout(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ConstraintLayout

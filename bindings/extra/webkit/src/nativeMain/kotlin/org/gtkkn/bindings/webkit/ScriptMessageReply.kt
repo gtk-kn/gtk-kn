@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.jsc.Value
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
@@ -14,8 +16,6 @@ import org.gtkkn.native.webkit.webkit_script_message_reply_ref
 import org.gtkkn.native.webkit.webkit_script_message_reply_return_error_message
 import org.gtkkn.native.webkit.webkit_script_message_reply_return_value
 import org.gtkkn.native.webkit.webkit_script_message_reply_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A reply for a script message received.
@@ -24,8 +24,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class ScriptMessageReply(public val webkitScriptMessageReplyPointer: CPointer<WebKitScriptMessageReply>) :
-    ProxyInstance(webkitScriptMessageReplyPointer) {
+public class ScriptMessageReply(
+    public val webkitScriptMessageReplyPointer: CPointer<WebKitScriptMessageReply>,
+) : ProxyInstance(webkitScriptMessageReplyPointer) {
     /**
      * Atomically increments the reference count of @script_message_reply by one.
      *
@@ -34,8 +35,7 @@ public class ScriptMessageReply(public val webkitScriptMessageReplyPointer: CPoi
      */
     @WebKitVersion2_40
     public fun ref(): ScriptMessageReply = webkit_script_message_reply_ref(webkitScriptMessageReplyPointer)!!.run {
-        ScriptMessageReply(this)
-    }
+        ScriptMessageReply(this)}
 
     /**
      * Reply to a script message with an error message.
@@ -44,8 +44,7 @@ public class ScriptMessageReply(public val webkitScriptMessageReplyPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun returnErrorMessage(errorMessage: String): Unit =
-        webkit_script_message_reply_return_error_message(webkitScriptMessageReplyPointer, errorMessage)
+    public fun returnErrorMessage(errorMessage: String): Unit = webkit_script_message_reply_return_error_message(webkitScriptMessageReplyPointer, errorMessage)
 
     /**
      * Reply to a script message with a value.
@@ -56,8 +55,7 @@ public class ScriptMessageReply(public val webkitScriptMessageReplyPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun returnValue(replyValue: Value): Unit =
-        webkit_script_message_reply_return_value(webkitScriptMessageReplyPointer, replyValue.jscValuePointer)
+    public fun returnValue(replyValue: Value): Unit = webkit_script_message_reply_return_value(webkitScriptMessageReplyPointer, replyValue.jscValuePointer)
 
     /**
      * Atomically decrements the reference count of @script_message_reply by one.

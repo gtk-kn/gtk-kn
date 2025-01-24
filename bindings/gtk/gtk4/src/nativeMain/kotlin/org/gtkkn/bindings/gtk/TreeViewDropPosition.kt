@@ -10,22 +10,21 @@ import org.gtkkn.native.gtk.gtk_tree_view_drop_position_get_type
 /**
  * An enum for determining where a dropped row goes.
  */
-public enum class TreeViewDropPosition(public val nativeValue: GtkTreeViewDropPosition) {
+public enum class TreeViewDropPosition(
+    public val nativeValue: GtkTreeViewDropPosition,
+) {
     /**
      * dropped row is inserted before
      */
     BEFORE(GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_BEFORE),
-
     /**
      * dropped row is inserted after
      */
     AFTER(GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_AFTER),
-
     /**
      * dropped row becomes a child or is inserted before
      */
     INTO_OR_BEFORE(GtkTreeViewDropPosition.GTK_TREE_VIEW_DROP_INTO_OR_BEFORE),
-
     /**
      * dropped row becomes a child or is inserted after
      */

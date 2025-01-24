@@ -11,37 +11,33 @@ import org.gtkkn.native.jsc.JSCOptionType
  * @since 2.24
  */
 @JavaScriptCoreVersion2_24
-public enum class OptionType(public val nativeValue: JSCOptionType) {
+public enum class OptionType(
+    public val nativeValue: JSCOptionType,
+) {
     /**
      * A #gboolean option type.
      */
     BOOLEAN(JSCOptionType.JSC_OPTION_BOOLEAN),
-
     /**
      * A #gint option type.
      */
     INT(JSCOptionType.JSC_OPTION_INT),
-
     /**
      * A #guint option type.
      */
     UINT(JSCOptionType.JSC_OPTION_UINT),
-
     /**
      * A #gsize options type.
      */
     SIZE(JSCOptionType.JSC_OPTION_SIZE),
-
     /**
      * A #gdouble options type.
      */
     DOUBLE(JSCOptionType.JSC_OPTION_DOUBLE),
-
     /**
      * A string option type.
      */
     STRING(JSCOptionType.JSC_OPTION_STRING),
-
     /**
      * A range string option type.
      */

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,9 +32,6 @@ import org.gtkkn.native.gio.g_dbus_object_get_object_path
 import org.gtkkn.native.gio.g_dbus_object_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GDBusObject` type is the base type for D-Bus objects on both
@@ -39,9 +39,7 @@ import kotlin.Unit
  * (see [class@Gio.DBusObjectProxy]). It is essentially just a container of
  * interfaces.
  */
-public interface DBusObject :
-    Proxy,
-    KGTyped {
+public interface DBusObject : Proxy, KGTyped {
     public val gioDBusObjectPointer: CPointer<GDBusObject>
 
     /**
@@ -54,10 +52,8 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getInterface(interfaceName: String): DBusInterface? =
-        g_dbus_object_get_interface(gioDBusObjectPointer, interfaceName)?.run {
-            DBusInterface.DBusInterfaceImpl(reinterpret())
-        }
+    public fun getInterface(interfaceName: String): DBusInterface? = g_dbus_object_get_interface(gioDBusObjectPointer, interfaceName)?.run {
+        DBusInterface.DBusInterfaceImpl(reinterpret())}
 
     /**
      * Gets the D-Bus interfaces associated with @object.
@@ -69,8 +65,7 @@ public interface DBusObject :
      */
     @GioVersion2_30
     public fun getInterfaces(): List = g_dbus_object_get_interfaces(gioDBusObjectPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Gets the object path for @object.
@@ -79,8 +74,7 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getObjectPath(): String =
-        g_dbus_object_get_object_path(gioDBusObjectPointer)?.toKString() ?: error("Expected not null string")
+    public fun getObjectPath(): String = g_dbus_object_get_object_path(gioDBusObjectPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Emitted when @interface is added to @object.
@@ -90,17 +84,7 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onInterfaceAdded(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`interface`: DBusInterface) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectPointer,
-        "interface-added",
-        onInterfaceAddedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onInterfaceAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`interface`: DBusInterface) -> Unit): ULong = g_signal_connect_data(gioDBusObjectPointer, "interface-added", onInterfaceAddedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @interface is removed from @object.
@@ -110,34 +94,24 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onInterfaceRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`interface`: DBusInterface) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectPointer,
-        "interface-removed",
-        onInterfaceRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onInterfaceRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`interface`: DBusInterface) -> Unit): ULong = g_signal_connect_data(gioDBusObjectPointer, "interface-removed", onInterfaceRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The DBusObjectImpl type represents a native instance of the DBusObject interface.
      *
      * @constructor Creates a new instance of DBusObject for the provided [CPointer].
      */
-    public data class DBusObjectImpl(override val gioDBusObjectPointer: CPointer<GDBusObject>) :
-        Object(gioDBusObjectPointer.reinterpret()),
+    public data class DBusObjectImpl(
+        override val gioDBusObjectPointer: CPointer<GDBusObject>,
+    ) : Object(gioDBusObjectPointer.reinterpret()),
         DBusObject
 
     public companion object : TypeCompanion<DBusObject> {
         override val type: GeneratedInterfaceKGType<DBusObject> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_dbus_object_get_type")!!) { DBusObjectImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_dbus_object_get_type")!!) { DBusObjectImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusObject
@@ -149,29 +123,23 @@ public interface DBusObject :
 }
 
 private val onInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `interface`: CPointer<GDBusInterface>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`interface`: DBusInterface) -> Unit>().get().invoke(
-            `interface`!!.run {
-                DBusInterface.DBusInterfaceImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    `interface`: CPointer<GDBusInterface>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`interface`: DBusInterface) -> Unit>().get().invoke(`interface`!!.run {
+        DBusInterface.DBusInterfaceImpl(reinterpret())}
+    )}
+.reinterpret()
 
 private val onInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `interface`: CPointer<GDBusInterface>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`interface`: DBusInterface) -> Unit>().get().invoke(
-            `interface`!!.run {
-                DBusInterface.DBusInterfaceImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    `interface`: CPointer<GDBusInterface>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`interface`: DBusInterface) -> Unit>().get().invoke(`interface`!!.run {
+        DBusInterface.DBusInterfaceImpl(reinterpret())}
+    )}
+.reinterpret()

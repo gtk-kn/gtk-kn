@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,6 +13,7 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GPathBuf
@@ -29,12 +33,6 @@ import org.gtkkn.native.glib.g_path_buf_set_extension
 import org.gtkkn.native.glib.g_path_buf_set_filename
 import org.gtkkn.native.glib.g_path_buf_to_path
 import org.gtkkn.native.glib.gpointer
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GPathBuf` is a helper type that allows you to easily build paths from
@@ -70,29 +68,18 @@ import kotlin.native.ref.createCleaner
  * @since 2.76
  */
 @GLibVersion2_76
-public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibPathBufPointer) {
+public class PathBuf(
+    public val glibPathBufPointer: CPointer<GPathBuf>,
+) : ProxyInstance(glibPathBufPointer) {
     /**
      * Allocate a new PathBuf.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPathBuf>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PathBuf and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GPathBuf>, Cleaner>,
-    ) : this(glibPathBufPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GPathBuf>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PathBuf using the provided [AutofreeScope].
@@ -136,8 +123,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
      */
     @GLibVersion2_76
     public fun copy(): PathBuf = g_path_buf_copy(glibPathBufPointer)!!.run {
-        PathBuf(this)
-    }
+        PathBuf(this)}
 
     /**
      * Frees a `GPathBuf` allocated by g_path_buf_new().
@@ -169,8 +155,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
      */
     @GLibVersion2_76
     public fun `init`(): PathBuf = g_path_buf_init(glibPathBufPointer)!!.run {
-        PathBuf(this)
-    }
+        PathBuf(this)}
 
     /**
      * Initializes a `GPathBuf` instance with the given path.
@@ -181,8 +166,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
      */
     @GLibVersion2_76
     public fun initFromPath(path: String? = null): PathBuf = g_path_buf_init_from_path(glibPathBufPointer, path)!!.run {
-        PathBuf(this)
-    }
+        PathBuf(this)}
 
     /**
      * Removes the last element of the path buffer.
@@ -250,8 +234,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
      */
     @GLibVersion2_76
     public fun push(path: String): PathBuf = g_path_buf_push(glibPathBufPointer, path)!!.run {
-        PathBuf(this)
-    }
+        PathBuf(this)}
 
     /**
      * Adds an extension to the file name in the path buffer.
@@ -266,8 +249,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun setExtension(extension: String? = null): Boolean =
-        g_path_buf_set_extension(glibPathBufPointer, extension).asBoolean()
+    public fun setExtension(extension: String? = null): Boolean = g_path_buf_set_extension(glibPathBufPointer, extension).asBoolean()
 
     /**
      * Sets the file name of the path.
@@ -306,8 +288,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun setFilename(fileName: String): Boolean =
-        g_path_buf_set_filename(glibPathBufPointer, fileName).asBoolean()
+    public fun setFilename(fileName: String): Boolean = g_path_buf_set_filename(glibPathBufPointer, fileName).asBoolean()
 
     /**
      * Retrieves the built path from the path buffer.
@@ -352,8 +333,7 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
          */
         @GLibVersion2_76
         public fun new(): PathBuf = g_path_buf_new()!!.run {
-            PathBuf(this)
-        }
+            PathBuf(this)}
 
         /**
          * Allocates a new `GPathBuf` with the given @path.
@@ -364,7 +344,6 @@ public class PathBuf(public val glibPathBufPointer: CPointer<GPathBuf>, cleaner:
          */
         @GLibVersion2_76
         public fun newFromPath(path: String? = null): PathBuf = g_path_buf_new_from_path(path)!!.run {
-            PathBuf(this)
-        }
+            PathBuf(this)}
     }
 }

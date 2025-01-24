@@ -3,6 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -55,12 +61,6 @@ import org.gtkkn.native.gio.g_volume_should_automount
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * The `GVolume` interface represents user-visible objects that can be
@@ -105,9 +105,7 @@ import kotlin.collections.List
  * identifier, which can be used to obtain a hal device by means of
  * `libhal_manager_find_device_string_match()`.
  */
-public interface Volume :
-    Proxy,
-    KGTyped {
+public interface Volume : Proxy, KGTyped {
     public val gioVolumePointer: CPointer<GVolume>
 
     /**
@@ -133,16 +131,11 @@ public interface Volume :
      * @param cancellable optional #GCancellable object, null to ignore
      * @param callback a #GAsyncReadyCallback, or null
      */
-    public fun eject(flags: MountUnmountFlags, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_volume_eject(
-            gioVolumePointer,
-            flags.mask,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun eject(
+        flags: MountUnmountFlags,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_volume_eject(gioVolumePointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes ejecting a volume. If any errors occurred during the operation,
@@ -179,16 +172,7 @@ public interface Volume :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_volume_eject_with_operation(
-        gioVolumePointer,
-        flags.mask,
-        mountOperation?.gioMountOperationPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_volume_eject_with_operation(gioVolumePointer, flags.mask, mountOperation?.gioMountOperationPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes ejecting a volume. If any errors occurred during the operation,
@@ -201,11 +185,7 @@ public interface Volume :
     @GioVersion2_22
     public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_volume_eject_with_operation_finish(
-            gioVolumePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_volume_eject_with_operation_finish(gioVolumePointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -220,8 +200,7 @@ public interface Volume :
      * @return a null-terminated array
      *   of strings containing kinds of identifiers. Use g_strfreev() to free.
      */
-    public fun enumerateIdentifiers(): List<String> =
-        g_volume_enumerate_identifiers(gioVolumePointer)?.toKStringList() ?: error("Expected not null string array")
+    public fun enumerateIdentifiers(): List<String> = g_volume_enumerate_identifiers(gioVolumePointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the activation root for a #GVolume if it is known ahead of
@@ -257,8 +236,7 @@ public interface Volume :
      */
     @GioVersion2_18
     public fun getActivationRoot(): File? = g_volume_get_activation_root(gioVolumePointer)?.run {
-        File.FileImpl(reinterpret())
-    }
+        File.FileImpl(reinterpret())}
 
     /**
      * Gets the drive for the @volume.
@@ -268,8 +246,7 @@ public interface Volume :
      *     with g_object_unref() when no longer needed.
      */
     public fun getDrive(): Drive? = g_volume_get_drive(gioVolumePointer)?.run {
-        Drive.DriveImpl(reinterpret())
-    }
+        Drive.DriveImpl(reinterpret())}
 
     /**
      * Gets the icon for @volume.
@@ -279,8 +256,7 @@ public interface Volume :
      *     when no longer needed.
      */
     public fun getIcon(): Icon = g_volume_get_icon(gioVolumePointer)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Gets the identifier of the given kind for @volume.
@@ -302,8 +278,7 @@ public interface Volume :
      *     when no longer needed.
      */
     public fun getMount(): Mount? = g_volume_get_mount(gioVolumePointer)?.run {
-        Mount.MountImpl(reinterpret())
-    }
+        Mount.MountImpl(reinterpret())}
 
     /**
      * Gets the name of @volume.
@@ -332,8 +307,7 @@ public interface Volume :
      */
     @GioVersion2_34
     public fun getSymbolicIcon(): Icon = g_volume_get_symbolic_icon(gioVolumePointer)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Gets the UUID for the @volume. The reference is typically based on
@@ -363,16 +337,7 @@ public interface Volume :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_volume_mount(
-        gioVolumePointer,
-        flags.mask,
-        mountOperation?.gioMountOperationPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_volume_mount(gioVolumePointer, flags.mask, mountOperation?.gioMountOperationPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes mounting a volume. If any errors occurred during the operation,
@@ -409,15 +374,7 @@ public interface Volume :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioVolumePointer,
-            "changed",
-            onChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioVolumePointer, "changed", onChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the #GVolume have been removed. If
@@ -427,32 +384,24 @@ public interface Volume :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioVolumePointer,
-            "removed",
-            onRemovedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioVolumePointer, "removed", onRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The VolumeImpl type represents a native instance of the Volume interface.
      *
      * @constructor Creates a new instance of Volume for the provided [CPointer].
      */
-    public data class VolumeImpl(override val gioVolumePointer: CPointer<GVolume>) :
-        Object(gioVolumePointer.reinterpret()),
+    public data class VolumeImpl(
+        override val gioVolumePointer: CPointer<GVolume>,
+    ) : Object(gioVolumePointer.reinterpret()),
         Volume
 
     public companion object : TypeCompanion<Volume> {
         override val type: GeneratedInterfaceKGType<Volume> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_volume_get_type")!!) { VolumeImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_volume_get_type")!!) { VolumeImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Volume
@@ -464,17 +413,15 @@ public interface Volume :
 }
 
 private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onRemovedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

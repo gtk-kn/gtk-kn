@@ -3,10 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCssSection
@@ -20,7 +22,6 @@ import org.gtkkn.native.gtk.gtk_css_section_print
 import org.gtkkn.native.gtk.gtk_css_section_ref
 import org.gtkkn.native.gtk.gtk_css_section_to_string
 import org.gtkkn.native.gtk.gtk_css_section_unref
-import kotlin.Unit
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -30,8 +31,27 @@ import org.gtkkn.bindings.glib.String as GlibString
  * Because sections are nested into one another, you can use
  * [method@CssSection.get_parent] to get the containing region.
  */
-public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>) :
-    ProxyInstance(gtkCssSectionPointer) {
+public class CssSection(
+    public val gtkCssSectionPointer: CPointer<GtkCssSection>,
+) : ProxyInstance(gtkCssSectionPointer) {
+    /**
+     * Creates a new `GtkCssSection` referring to the section
+     * in the given `file` from the `start` location to the
+     * `end` location.
+     *
+     * @param file The file this section refers to
+     * @param start The start location
+     * @param end The end location
+     * @return a new `GtkCssSection`
+     */
+    public constructor(
+        `file`: File? = null,
+        start: CssLocation,
+        end: CssLocation,
+    ) : this(gtk_css_section_new(`file`?.gioFilePointer, start.gtkCssLocationPointer, end.gtkCssLocationPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Returns the location in the CSS document where this section ends.
      *
@@ -39,8 +59,7 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
      *   this section
      */
     public fun getEndLocation(): CssLocation = gtk_css_section_get_end_location(gtkCssSectionPointer)!!.run {
-        CssLocation(this)
-    }
+        CssLocation(this)}
 
     /**
      * Gets the file that @section was parsed from.
@@ -52,8 +71,7 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
      *   was parsed
      */
     public fun getFile(): File? = gtk_css_section_get_file(gtkCssSectionPointer)?.run {
-        File.FileImpl(reinterpret())
-    }
+        File.FileImpl(reinterpret())}
 
     /**
      * Gets the parent section for the given `section`.
@@ -68,8 +86,7 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
      * @return the parent section
      */
     public fun getParent(): CssSection? = gtk_css_section_get_parent(gtkCssSectionPointer)?.run {
-        CssSection(this)
-    }
+        CssSection(this)}
 
     /**
      * Returns the location in the CSS document where this section starts.
@@ -78,8 +95,7 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
      *   this section
      */
     public fun getStartLocation(): CssLocation = gtk_css_section_get_start_location(gtkCssSectionPointer)!!.run {
-        CssLocation(this)
-    }
+        CssLocation(this)}
 
     /**
      * Prints the `section` into `string` in a human-readable form.
@@ -97,8 +113,7 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
      * @return the CSS section itself.
      */
     public fun ref(): CssSection = gtk_css_section_ref(gtkCssSectionPointer)!!.run {
-        CssSection(this)
-    }
+        CssSection(this)}
 
     /**
      * Prints the section into a human-readable text form using
@@ -106,8 +121,7 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
      *
      * @return A new string.
      */
-    override fun toString(): KotlinString =
-        gtk_css_section_to_string(gtkCssSectionPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): KotlinString = gtk_css_section_to_string(gtkCssSectionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Decrements the reference count on `section`, freeing the
@@ -116,24 +130,6 @@ public class CssSection(public val gtkCssSectionPointer: CPointer<GtkCssSection>
     public fun unref(): Unit = gtk_css_section_unref(gtkCssSectionPointer)
 
     public companion object {
-        /**
-         * Creates a new `GtkCssSection` referring to the section
-         * in the given `file` from the `start` location to the
-         * `end` location.
-         *
-         * @param file The file this section refers to
-         * @param start The start location
-         * @param end The end location
-         * @return a new `GtkCssSection`
-         */
-        public fun new(`file`: File? = null, start: CssLocation, end: CssLocation): CssSection = CssSection(
-            gtk_css_section_new(
-                `file`?.gioFilePointer,
-                start.gtkCssLocationPointer,
-                end.gtkCssLocationPointer
-            )!!.reinterpret()
-        )
-
         /**
          * Get the GType of CssSection
          *

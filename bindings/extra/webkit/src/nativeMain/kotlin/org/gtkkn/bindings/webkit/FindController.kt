@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,9 +36,6 @@ import org.gtkkn.native.webkit.webkit_find_controller_search
 import org.gtkkn.native.webkit.webkit_find_controller_search_finish
 import org.gtkkn.native.webkit.webkit_find_controller_search_next
 import org.gtkkn.native.webkit.webkit_find_controller_search_previous
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Controls text search in a #WebKitWebView.
@@ -54,8 +54,9 @@ import kotlin.Unit
  *
  * - method `text`: Property has no getter nor setter
  */
-public class FindController(public val webkitFindControllerPointer: CPointer<WebKitFindController>) :
-    Object(webkitFindControllerPointer.reinterpret()),
+public class FindController(
+    public val webkitFindControllerPointer: CPointer<WebKitFindController>,
+) : Object(webkitFindControllerPointer.reinterpret()),
     KGTyped {
     /**
      * The maximum number of matches to report for a given search.
@@ -102,8 +103,7 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
          * @return the #WebKitWebView.
          */
         get() = webkit_find_controller_get_web_view(webkitFindControllerPointer)!!.run {
-            WebView(this)
-        }
+            WebView(this)}
 
     /**
      * Counts the number of matches for @search_text.
@@ -117,8 +117,11 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
      * @param findOptions a bitmask with the #WebKitFindOptions used in the search
      * @param maxMatchCount the maximum number of matches allowed in the search
      */
-    public fun countMatches(searchText: String, findOptions: guint, maxMatchCount: guint): Unit =
-        webkit_find_controller_count_matches(webkitFindControllerPointer, searchText, findOptions, maxMatchCount)
+    public fun countMatches(
+        searchText: String,
+        findOptions: guint,
+        maxMatchCount: guint,
+    ): Unit = webkit_find_controller_count_matches(webkitFindControllerPointer, searchText, findOptions, maxMatchCount)
 
     /**
      * Gets the text that @find_controller is searching for.
@@ -130,9 +133,7 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
      *
      * @return the text to look for in the #WebKitWebView.
      */
-    public fun getSearchText(): String =
-        webkit_find_controller_get_search_text(webkitFindControllerPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun getSearchText(): String = webkit_find_controller_get_search_text(webkitFindControllerPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Looks for @search_text associated with @find_controller.
@@ -161,8 +162,11 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
      * @param findOptions a bitmask with the #WebKitFindOptions used in the search
      * @param maxMatchCount the maximum number of matches allowed in the search
      */
-    public fun search(searchText: String, findOptions: guint, maxMatchCount: guint): Unit =
-        webkit_find_controller_search(webkitFindControllerPointer, searchText, findOptions, maxMatchCount)
+    public fun search(
+        searchText: String,
+        findOptions: guint,
+        maxMatchCount: guint,
+    ): Unit = webkit_find_controller_search(webkitFindControllerPointer, searchText, findOptions, maxMatchCount)
 
     /**
      * Finishes a find operation.
@@ -200,17 +204,7 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `matchCount` the number of matches of the search text
      */
-    public fun onCountedMatches(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (matchCount: guint) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitFindControllerPointer,
-        "counted-matches",
-        onCountedMatchesFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onCountedMatches(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (matchCount: guint) -> Unit): ULong = g_signal_connect_data(webkitFindControllerPointer, "counted-matches", onCountedMatchesFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "counted-matches" signal. See [onCountedMatches].
@@ -231,15 +225,7 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onFailedToFindText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitFindControllerPointer,
-            "failed-to-find-text",
-            onFailedToFindTextFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onFailedToFindText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitFindControllerPointer, "failed-to-find-text", onFailedToFindTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "failed-to-find-text" signal. See [onFailedToFindText].
@@ -258,15 +244,7 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `matchCount` the number of matches found of the search text
      */
-    public fun onFoundText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (matchCount: guint) -> Unit): ULong =
-        g_signal_connect_data(
-            webkitFindControllerPointer,
-            "found-text",
-            onFoundTextFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onFoundText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (matchCount: guint) -> Unit): ULong = g_signal_connect_data(webkitFindControllerPointer, "found-text", onFoundTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "found-text" signal. See [onFoundText].
@@ -279,13 +257,10 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
 
     public companion object : TypeCompanion<FindController> {
         override val type: GeneratedClassKGType<FindController> =
-            GeneratedClassKGType(getTypeOrNull("webkit_find_controller_get_type")!!) {
-                FindController(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_find_controller_get_type")!!) { FindController(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of FindController
@@ -297,27 +272,24 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
 }
 
 private val onCountedMatchesFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        matchCount: guint,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    matchCount: guint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(matchCount: guint) -> Unit>().get().invoke(matchCount)
-}
-    .reinterpret()
+    userData.asStableRef<(matchCount: guint) -> Unit>().get().invoke(matchCount)}
+.reinterpret()
 
 private val onFailedToFindTextFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onFoundTextFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        matchCount: guint,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    matchCount: guint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(matchCount: guint) -> Unit>().get().invoke(matchCount)
-}
-    .reinterpret()
+    userData.asStableRef<(matchCount: guint) -> Unit>().get().invoke(matchCount)}
+.reinterpret()

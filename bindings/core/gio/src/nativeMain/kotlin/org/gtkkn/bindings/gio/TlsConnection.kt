@@ -3,6 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -61,12 +67,6 @@ import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GTlsConnection` is the base TLS connection class type, which wraps
@@ -87,8 +87,9 @@ import kotlin.collections.List
  * @since 2.28
  */
 @GioVersion2_28
-public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer<GTlsConnection>) :
-    IoStream(gioTlsConnectionPointer.reinterpret()),
+public abstract class TlsConnection(
+    public val gioTlsConnectionPointer: CPointer<GTlsConnection>,
+) : IoStream(gioTlsConnectionPointer.reinterpret()),
     KGTyped {
     /**
      * The name of the TLS ciphersuite in use. See g_tls_connection_get_ciphersuite_name().
@@ -142,9 +143,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.30
          */
         get() = g_tls_connection_get_database(gioTlsConnectionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)
-        }
-
+            TlsDatabase.TlsDatabaseImpl(this)}
         /**
          * Sets the certificate database that is used to verify peer certificates.
          * This is set to the default database by default. See
@@ -182,9 +181,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.30
          */
         get() = g_tls_connection_get_interaction(gioTlsConnectionPointer)?.run {
-            TlsInteraction(this)
-        }
-
+            TlsInteraction(this)}
         /**
          * Set the object that will be used to interact with the user. It will be used
          * for things like prompting the user for passwords.
@@ -197,9 +194,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.30
          */
         @GioVersion2_30
-        set(
-            interaction
-        ) = g_tls_connection_set_interaction(gioTlsConnectionPointer, interaction?.gioTlsInteractionPointer)
+        set(interaction) = g_tls_connection_set_interaction(gioTlsConnectionPointer, interaction?.gioTlsInteractionPointer)
 
     /**
      * The application-layer protocol negotiated during the TLS
@@ -244,8 +239,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate(gioTlsConnectionPointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)
-        }
+            TlsCertificate.TlsCertificateImpl(this)}
 
     /**
      * The errors noticed while verifying
@@ -278,8 +272,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate_errors(gioTlsConnectionPointer).run {
-            TlsCertificateFlags(this)
-        }
+            TlsCertificateFlags(this)}
 
     /**
      * The TLS protocol version in use. See g_tls_connection_get_protocol_version().
@@ -298,8 +291,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.70
          */
         get() = g_tls_connection_get_protocol_version(gioTlsConnectionPointer).run {
-            TlsProtocolVersion.fromNativeValue(this)
-        }
+            TlsProtocolVersion.fromNativeValue(this)}
 
     /**
      * The rehandshaking mode. See
@@ -317,9 +309,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.28
          */
         get() = g_tls_connection_get_rehandshake_mode(gioTlsConnectionPointer).run {
-            TlsRehandshakeMode.fromNativeValue(this)
-        }
-
+            TlsRehandshakeMode.fromNativeValue(this)}
         /**
          * Since GLib 2.64, changing the rehandshake mode is no longer supported
          * and will have no effect. With TLS 1.3, rehandshaking has been removed from
@@ -350,7 +340,6 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.28
          */
         get() = g_tls_connection_get_require_close_notify(gioTlsConnectionPointer).asBoolean()
-
         /**
          * Sets whether or not @conn expects a proper TLS close notification
          * before the connection is closed. If this is true (the default),
@@ -384,9 +373,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @since 2.28
          */
         @GioVersion2_28
-        set(
-            requireCloseNotify
-        ) = g_tls_connection_set_require_close_notify(gioTlsConnectionPointer, requireCloseNotify.asGBoolean())
+        set(requireCloseNotify) = g_tls_connection_set_require_close_notify(gioTlsConnectionPointer, requireCloseNotify.asGBoolean())
 
     /**
      * Whether or not the system certificate database will be used to
@@ -401,7 +388,6 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          * @return whether @conn uses the system certificate database
          */
         get() = g_tls_connection_get_use_system_certdb(gioTlsConnectionPointer).asBoolean()
-
         /**
          * Sets whether @conn uses the system certificate database to verify
          * peer certificates. This is true by default. If set to false, then
@@ -413,9 +399,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
          *
          * @param useSystemCertdb whether to use the system certificate database
          */
-        set(
-            useSystemCertdb
-        ) = g_tls_connection_set_use_system_certdb(gioTlsConnectionPointer, useSystemCertdb.asGBoolean())
+        set(useSystemCertdb) = g_tls_connection_set_use_system_certdb(gioTlsConnectionPointer, useSystemCertdb.asGBoolean())
 
     /**
      * Used by #GTlsConnection implementations to emit the
@@ -428,12 +412,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun emitAcceptCertificate(peerCert: TlsCertificate, errors: TlsCertificateFlags): Boolean =
-        g_tls_connection_emit_accept_certificate(
-            gioTlsConnectionPointer,
-            peerCert.gioTlsCertificatePointer,
-            errors.mask
-        ).asBoolean()
+    public open fun emitAcceptCertificate(peerCert: TlsCertificate, errors: TlsCertificateFlags): Boolean = g_tls_connection_emit_accept_certificate(gioTlsConnectionPointer, peerCert.gioTlsCertificatePointer, errors.mask).asBoolean()
 
     /**
      * Gets @conn's certificate, as set by
@@ -444,8 +423,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      */
     @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? = g_tls_connection_get_certificate(gioTlsConnectionPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)
-    }
+        TlsCertificate.TlsCertificateImpl(this)}
 
     /**
      * Attempts a TLS handshake on @conn.
@@ -487,11 +465,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
     @GioVersion2_28
     public open fun handshake(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_connection_handshake(
-            gioTlsConnectionPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_tls_connection_handshake(gioTlsConnectionPointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -513,15 +487,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_tls_connection_handshake_async(
-        gioTlsConnectionPointer,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_tls_connection_handshake_async(gioTlsConnectionPointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous TLS handshake operation. See
@@ -535,11 +501,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
     @GioVersion2_28
     public open fun handshakeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_connection_handshake_finish(
-            gioTlsConnectionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_tls_connection_handshake_finish(gioTlsConnectionPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -565,8 +527,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      */
     @GioVersion2_60
     public open fun setAdvertisedProtocols(protocols: List<String>? = null): Unit = memScoped {
-        return g_tls_connection_set_advertised_protocols(gioTlsConnectionPointer, protocols?.toCStringList(this))
-    }
+        return g_tls_connection_set_advertised_protocols(gioTlsConnectionPointer, protocols?.toCStringList(this))}
 
     /**
      * This sets the certificate that @conn will present to its peer
@@ -592,8 +553,7 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun setCertificate(certificate: TlsCertificate): Unit =
-        g_tls_connection_set_certificate(gioTlsConnectionPointer, certificate.gioTlsCertificatePointer)
+    public open fun setCertificate(certificate: TlsCertificate): Unit = g_tls_connection_set_certificate(gioTlsConnectionPointer, certificate.gioTlsCertificatePointer)
 
     /**
      * Emitted during the TLS handshake after the peer certificate has
@@ -647,34 +607,23 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
      * @since 2.28
      */
     @GioVersion2_28
-    public fun onAcceptCertificate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gioTlsConnectionPointer,
-        "accept-certificate",
-        onAcceptCertificateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAcceptCertificate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean): ULong = g_signal_connect_data(gioTlsConnectionPointer, "accept-certificate", onAcceptCertificateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The TlsConnectionImpl type represents a native instance of the abstract TlsConnection class.
      *
      * @constructor Creates a new instance of TlsConnection for the provided [CPointer].
      */
-    public class TlsConnectionImpl(pointer: CPointer<GTlsConnection>) : TlsConnection(pointer)
+    public class TlsConnectionImpl(
+        pointer: CPointer<GTlsConnection>,
+    ) : TlsConnection(pointer)
 
     public companion object : TypeCompanion<TlsConnection> {
         override val type: GeneratedClassKGType<TlsConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_tls_connection_get_type")!!) {
-                TlsConnectionImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_tls_connection_get_type")!!) { TlsConnectionImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of TlsConnection
@@ -686,25 +635,16 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
 }
 
 private val onAcceptCertificateFunc:
-    CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            peerCert: CPointer<GTlsCertificate>?,
-            errors: GTlsCertificateFlags,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                peerCert: TlsCertificate,
-                errors: TlsCertificateFlags,
-            ) -> Boolean
-            >().get().invoke(
-            peerCert!!.run {
-                TlsCertificate.TlsCertificateImpl(this)
-            },
-            errors.run {
-                TlsCertificateFlags(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
+        staticCFunction {
+    _: COpaquePointer,
+    peerCert: CPointer<GTlsCertificate>?,
+    errors: GTlsCertificateFlags,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean>().get().invoke(peerCert!!.run {
+        TlsCertificate.TlsCertificateImpl(this)}
+    , errors.run {
+        TlsCertificateFlags(this)}
+    ).asGBoolean()}
+.reinterpret()

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -26,7 +27,6 @@ import org.gtkkn.native.gio.g_unix_fd_list_new
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
 
 /**
  * A `GUnixFDList` contains a list of file descriptors.  It owns the file
@@ -50,8 +50,9 @@ import kotlin.Result
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `fds`: Array parameter of type gint is not supported
  */
-public open class UnixFdList(public val gioUnixFdListPointer: CPointer<GUnixFDList>) :
-    Object(gioUnixFdListPointer.reinterpret()),
+public open class UnixFdList(
+    public val gioUnixFdListPointer: CPointer<GUnixFDList>,
+) : Object(gioUnixFdListPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GUnixFDList containing no file descriptors.
@@ -59,7 +60,7 @@ public open class UnixFdList(public val gioUnixFdListPointer: CPointer<GUnixFDLi
      * @return a new #GUnixFDList
      * @since 2.24
      */
-    public constructor() : this(g_unix_fd_list_new()!!.reinterpret())
+    public constructor() : this(g_unix_fd_list_new()!!)
 
     /**
      * Adds a file descriptor to @list.
@@ -132,11 +133,10 @@ public open class UnixFdList(public val gioUnixFdListPointer: CPointer<GUnixFDLi
 
     public companion object : TypeCompanion<UnixFdList> {
         override val type: GeneratedClassKGType<UnixFdList> =
-            GeneratedClassKGType(getTypeOrNull("g_unix_fd_list_get_type")!!) { UnixFdList(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_unix_fd_list_get_type")!!) { UnixFdList(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of UnixFDList

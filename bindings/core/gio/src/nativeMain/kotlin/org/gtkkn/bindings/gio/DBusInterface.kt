@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
@@ -19,7 +20,6 @@ import org.gtkkn.native.gio.g_dbus_interface_get_info
 import org.gtkkn.native.gio.g_dbus_interface_get_type
 import org.gtkkn.native.gio.g_dbus_interface_set_object
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * Base type for D-Bus interfaces.
@@ -30,9 +30,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public interface DBusInterface :
-    Proxy,
-    KGTyped {
+public interface DBusInterface : Proxy, KGTyped {
     public val gioDBusInterfacePointer: CPointer<GDBusInterface>
 
     /**
@@ -44,8 +42,7 @@ public interface DBusInterface :
      */
     @GioVersion2_32
     public fun getObject(): DBusObject? = g_dbus_interface_dup_object(gioDBusInterfacePointer)?.run {
-        DBusObject.DBusObjectImpl(reinterpret())
-    }
+        DBusObject.DBusObjectImpl(reinterpret())}
 
     /**
      * Gets D-Bus introspection information for the D-Bus interface
@@ -56,8 +53,7 @@ public interface DBusInterface :
      */
     @GioVersion2_30
     public fun getInfo(): DBusInterfaceInfo = g_dbus_interface_get_info(gioDBusInterfacePointer)!!.run {
-        DBusInterfaceInfo(this)
-    }
+        DBusInterfaceInfo(this)}
 
     /**
      * Sets the #GDBusObject for @interface_ to @object.
@@ -68,27 +64,24 @@ public interface DBusInterface :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun setObject(`object`: DBusObject? = null): Unit =
-        g_dbus_interface_set_object(gioDBusInterfacePointer, `object`?.gioDBusObjectPointer)
+    public fun setObject(`object`: DBusObject? = null): Unit = g_dbus_interface_set_object(gioDBusInterfacePointer, `object`?.gioDBusObjectPointer)
 
     /**
      * The DBusInterfaceImpl type represents a native instance of the DBusInterface interface.
      *
      * @constructor Creates a new instance of DBusInterface for the provided [CPointer].
      */
-    public data class DBusInterfaceImpl(override val gioDBusInterfacePointer: CPointer<GDBusInterface>) :
-        Object(gioDBusInterfacePointer.reinterpret()),
+    public data class DBusInterfaceImpl(
+        override val gioDBusInterfacePointer: CPointer<GDBusInterface>,
+    ) : Object(gioDBusInterfacePointer.reinterpret()),
         DBusInterface
 
     public companion object : TypeCompanion<DBusInterface> {
         override val type: GeneratedInterfaceKGType<DBusInterface> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_dbus_interface_get_type")!!) {
-                DBusInterfaceImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_dbus_interface_get_type")!!) { DBusInterfaceImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusInterface

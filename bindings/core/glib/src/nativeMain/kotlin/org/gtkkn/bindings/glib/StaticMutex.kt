@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,16 +12,12 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GStaticMutex
 import org.gtkkn.native.glib.g_static_mutex_free
 import org.gtkkn.native.glib.g_static_mutex_get_mutex_impl
 import org.gtkkn.native.glib.g_static_mutex_init
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GStaticMutex works like a #GMutex.
@@ -69,13 +67,12 @@ import kotlin.native.ref.createCleaner
  * taking their addresses, you can however use them as if they were
  * functions.
  */
-public class StaticMutex(public val glibStaticMutexPointer: CPointer<GStaticMutex>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibStaticMutexPointer) {
+public class StaticMutex(
+    public val glibStaticMutexPointer: CPointer<GStaticMutex>,
+) : ProxyInstance(glibStaticMutexPointer) {
     public var mutex: Mutex?
         get() = glibStaticMutexPointer.pointed.mutex?.run {
-            Mutex(this)
-        }
-
+            Mutex(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibStaticMutexPointer.pointed.mutex = value?.glibMutexPointer
@@ -87,21 +84,9 @@ public class StaticMutex(public val glibStaticMutexPointer: CPointer<GStaticMute
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticMutex>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to StaticMutex and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GStaticMutex>, Cleaner>,
-    ) : this(glibStaticMutexPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GStaticMutex>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new StaticMutex using the provided [AutofreeScope].
@@ -118,7 +103,7 @@ public class StaticMutex(public val glibStaticMutexPointer: CPointer<GStaticMute
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param mutex
+     * @param mutex 
      */
     public constructor(mutex: Mutex?) : this() {
         this.mutex = mutex
@@ -129,7 +114,7 @@ public class StaticMutex(public val glibStaticMutexPointer: CPointer<GStaticMute
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param mutex
+     * @param mutex 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(mutex: Mutex?, scope: AutofreeScope) : this(scope) {
@@ -150,8 +135,7 @@ public class StaticMutex(public val glibStaticMutexPointer: CPointer<GStaticMute
     public fun free(): Unit = g_static_mutex_free(glibStaticMutexPointer)
 
     public fun getMutexImpl(): Mutex = g_static_mutex_get_mutex_impl(glibStaticMutexPointer)!!.run {
-        Mutex(this)
-    }
+        Mutex(this)}
 
     /**
      * Initializes @mutex.

@@ -25,8 +25,9 @@ import org.gtkkn.native.gtk.gtk_grid_layout_child_set_row_span
 /**
  * `GtkLayoutChild` subclass for children in a `GtkGridLayout`.
  */
-public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>) :
-    LayoutChild(gtkGridLayoutChildPointer.reinterpret()),
+public open class GridLayoutChild(
+    public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>,
+) : LayoutChild(gtkGridLayoutChildPointer.reinterpret()),
     KGTyped {
     /**
      * The column to place the child in.
@@ -38,7 +39,6 @@ public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer
          * @return the column number
          */
         get() = gtk_grid_layout_child_get_column(gtkGridLayoutChildPointer)
-
         /**
          * Sets the column number to attach the left side of @child.
          *
@@ -56,7 +56,6 @@ public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer
          * @return the number of columns
          */
         get() = gtk_grid_layout_child_get_column_span(gtkGridLayoutChildPointer)
-
         /**
          * Sets the number of columns @child spans to.
          *
@@ -74,7 +73,6 @@ public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer
          * @return the row number
          */
         get() = gtk_grid_layout_child_get_row(gtkGridLayoutChildPointer)
-
         /**
          * Sets the row to place @child in.
          *
@@ -92,7 +90,6 @@ public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer
          * @return the number of row
          */
         get() = gtk_grid_layout_child_get_row_span(gtkGridLayoutChildPointer)
-
         /**
          * Sets the number of rows @child spans to.
          *
@@ -102,13 +99,10 @@ public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer
 
     public companion object : TypeCompanion<GridLayoutChild> {
         override val type: GeneratedClassKGType<GridLayoutChild> =
-            GeneratedClassKGType(getTypeOrNull("gtk_grid_layout_child_get_type")!!) {
-                GridLayoutChild(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_grid_layout_child_get_type")!!) { GridLayoutChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GridLayoutChild

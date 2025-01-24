@@ -19,7 +19,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * Flags used when copying or moving files.
  */
-public class FileCopyFlags(public val mask: GFileCopyFlags) : Bitfield<FileCopyFlags> {
+public class FileCopyFlags(
+    public val mask: GFileCopyFlags,
+) : Bitfield<FileCopyFlags> {
     override infix fun or(other: FileCopyFlags): FileCopyFlags = FileCopyFlags(mask or other.mask)
 
     public companion object {
@@ -52,20 +54,20 @@ public class FileCopyFlags(public val mask: GFileCopyFlags) : Bitfield<FileCopyF
          * Don't use copy and delete fallback if native move not supported.
          */
         public val NO_FALLBACK_FOR_MOVE: FileCopyFlags =
-            FileCopyFlags(G_FILE_COPY_NO_FALLBACK_FOR_MOVE)
+                FileCopyFlags(G_FILE_COPY_NO_FALLBACK_FOR_MOVE)
 
         /**
          * Leaves target file with default perms, instead of setting the source file perms.
          */
         public val TARGET_DEFAULT_PERMS: FileCopyFlags =
-            FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_PERMS)
+                FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_PERMS)
 
         /**
          * Use default modification
          *     timestamps instead of copying them from the source file. Since 2.80
          */
         public val TARGET_DEFAULT_MODIFIED_TIME: FileCopyFlags =
-            FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME)
+                FileCopyFlags(G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME)
 
         /**
          * Get the GType of FileCopyFlags

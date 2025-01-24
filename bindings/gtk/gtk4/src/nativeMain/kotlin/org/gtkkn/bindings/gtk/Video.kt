@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
@@ -36,9 +39,6 @@ import org.gtkkn.native.gtk.gtk_video_set_graphics_offload
 import org.gtkkn.native.gtk.gtk_video_set_loop
 import org.gtkkn.native.gtk.gtk_video_set_media_stream
 import org.gtkkn.native.gtk.gtk_video_set_resource
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkVideo` is a widget to show a `GtkMediaStream` with media controls.
@@ -56,8 +56,9 @@ import kotlin.Unit
  * you may want to use the [iface@Gdk.Paintable] API and a media framework
  * such as Gstreamer directly.
  */
-public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
-    Widget(gtkVideoPointer.reinterpret()),
+public open class Video(
+    public val gtkVideoPointer: CPointer<GtkVideo>,
+) : Widget(gtkVideoPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -78,7 +79,6 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
          * @return true if streams should autoplay
          */
         get() = gtk_video_get_autoplay(gtkVideoPointer).asBoolean()
-
         /**
          * Sets whether @self automatically starts playback when it
          * becomes visible or when a new file gets loaded.
@@ -98,9 +98,7 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
          * @return The file played by @self
          */
         get() = gtk_video_get_file(gtkVideoPointer)?.run {
-            File.FileImpl(reinterpret())
-        }
-
+            File.FileImpl(reinterpret())}
         /**
          * Makes @self play the given @file.
          *
@@ -124,9 +122,7 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
          * @since 4.14
          */
         get() = gtk_video_get_graphics_offload(gtkVideoPointer).run {
-            GraphicsOffloadEnabled.fromNativeValue(this)
-        }
-
+            GraphicsOffloadEnabled.fromNativeValue(this)}
         /**
          * Sets whether to enable graphics offload.
          *
@@ -148,7 +144,6 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
          * @return true if streams should loop
          */
         get() = gtk_video_get_loop(gtkVideoPointer).asBoolean()
-
         /**
          * Sets whether new files loaded by @self should be set to loop.
          *
@@ -166,9 +161,7 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
          * @return The media stream managed by @self
          */
         get() = gtk_video_get_media_stream(gtkVideoPointer)?.run {
-            MediaStream.MediaStreamImpl(this)
-        }
-
+            MediaStream.MediaStreamImpl(this)}
         /**
          * Sets the media stream to be played back.
          *
@@ -215,9 +208,7 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
      * @param stream a `GtkMediaStream`
      * @return a new `GtkVideo`
      */
-    public constructor(
-        stream: MediaStream? = null,
-    ) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer)!!.reinterpret())
+    public constructor(stream: MediaStream? = null) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer)!!.reinterpret())
 
     /**
      * Makes @self play the given @filename.
@@ -235,28 +226,14 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
      *
      * @param resourcePath the resource to set
      */
-    public open fun setResource(resourcePath: String? = null): Unit =
-        gtk_video_set_resource(gtkVideoPointer, resourcePath)
+    public open fun setResource(resourcePath: String? = null): Unit = gtk_video_set_resource(gtkVideoPointer, resourcePath)
 
     public companion object : TypeCompanion<Video> {
         override val type: GeneratedClassKGType<Video> =
-            GeneratedClassKGType(getTypeOrNull("gtk_video_get_type")!!) { Video(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_video_get_type")!!) { Video(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
-
-        /**
-         * Creates a `GtkVideo` to play back the given @filename.
-         *
-         * This is a utility function that calls [ctor@Gtk.Video.new_for_file],
-         * See that function for details.
-         *
-         * @param filename filename to play back
-         * @return a new `GtkVideo`
-         */
-        public fun newForFilename(filename: String? = null): Video =
-            Video(gtk_video_new_for_filename(filename)!!.reinterpret())
+            GtkTypeProvider.register()}
 
         /**
          * Creates a `GtkVideo` to play back the resource at the
@@ -267,8 +244,7 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
          * @param resourcePath resource path to play back
          * @return a new `GtkVideo`
          */
-        public fun newForResource(resourcePath: String? = null): Video =
-            Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret())
+        public fun forResource(resourcePath: String? = null): Video = Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret())
 
         /**
          * Get the GType of Video

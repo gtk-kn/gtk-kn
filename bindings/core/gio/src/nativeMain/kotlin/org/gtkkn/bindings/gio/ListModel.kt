@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -28,8 +30,6 @@ import org.gtkkn.native.gio.g_list_model_items_changed
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GListModel` is an interface that represents a mutable list of
@@ -97,9 +97,7 @@ import kotlin.Unit
  *                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
  * ```
  */
-public interface ListModel :
-    Proxy,
-    KGTyped {
+public interface ListModel : Proxy, KGTyped {
     public val gioListModelPointer: CPointer<GListModel>
 
     /**
@@ -151,8 +149,7 @@ public interface ListModel :
      */
     @GioVersion2_44
     public fun getItem(position: guint): Object? = g_list_model_get_object(gioListModelPointer, position)?.run {
-        Object(this)
-    }
+        Object(this)}
 
     /**
      * Emits the #GListModel::items-changed signal on @list.
@@ -182,8 +179,11 @@ public interface ListModel :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun itemsChanged(position: guint, removed: guint, added: guint): Unit =
-        g_list_model_items_changed(gioListModelPointer, position, removed, added)
+    public fun itemsChanged(
+        position: guint,
+        removed: guint,
+        added: guint,
+    ): Unit = g_list_model_items_changed(gioListModelPointer, position, removed, added)
 
     /**
      * This signal is emitted whenever items were added to or removed
@@ -198,38 +198,28 @@ public interface ListModel :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun onItemsChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            position: guint,
-            removed: guint,
-            added: guint,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioListModelPointer,
-        "items-changed",
-        onItemsChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onItemsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        position: guint,
+        removed: guint,
+        added: guint,
+    ) -> Unit): ULong = g_signal_connect_data(gioListModelPointer, "items-changed", onItemsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The ListModelImpl type represents a native instance of the ListModel interface.
      *
      * @constructor Creates a new instance of ListModel for the provided [CPointer].
      */
-    public data class ListModelImpl(override val gioListModelPointer: CPointer<GListModel>) :
-        Object(gioListModelPointer.reinterpret()),
+    public data class ListModelImpl(
+        override val gioListModelPointer: CPointer<GListModel>,
+    ) : Object(gioListModelPointer.reinterpret()),
         ListModel
 
     public companion object : TypeCompanion<ListModel> {
         override val type: GeneratedInterfaceKGType<ListModel> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_list_model_get_type")!!) { ListModelImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_list_model_get_type")!!) { ListModelImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ListModel
@@ -240,27 +230,20 @@ public interface ListModel :
     }
 }
 
-private val onItemsChangedFunc: CPointer<
-    CFunction<
-        (
-            guint,
-            guint,
-            guint,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val onItemsChangedFunc: CPointer<CFunction<(
+    guint,
+    guint,
+    guint,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    position: guint,
+    removed: guint,
+    added: guint,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         position: guint,
         removed: guint,
         added: guint,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            position: guint,
-            removed: guint,
-            added: guint,
-        ) -> Unit
-        >().get().invoke(position, removed, added)
-}
-    .reinterpret()
+    ) -> Unit>().get().invoke(position, removed, added)}
+.reinterpret()

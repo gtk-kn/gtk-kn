@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -44,10 +48,6 @@ import org.gtkkn.native.gtksource.gtk_source_mark_attributes_set_background
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_set_gicon
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_set_icon_name
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_set_pixbuf
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The source mark attributes object.
@@ -86,8 +86,9 @@ import kotlin.Unit
  *
  * - method `background`: Property has no getter
  */
-public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>) :
-    Object(gtksourceMarkAttributesPointer.reinterpret()),
+public open class MarkAttributes(
+    public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>,
+) : Object(gtksourceMarkAttributesPointer.reinterpret()),
     KGTyped {
     /**
      * A #GIcon that may be a base of a rendered icon.
@@ -102,9 +103,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
          * not be unreffed.
          */
         get() = gtk_source_mark_attributes_get_gicon(gtksourceMarkAttributesPointer)!!.run {
-            Icon.IconImpl(reinterpret())
-        }
-
+            Icon.IconImpl(reinterpret())}
         /**
          * Sets an icon to be used as a base for rendered icon.
          *
@@ -124,9 +123,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
          * @return An icon name. The string belongs to @attributes and
          * should not be freed.
          */
-        get() = gtk_source_mark_attributes_get_icon_name(gtksourceMarkAttributesPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_source_mark_attributes_get_icon_name(gtksourceMarkAttributesPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets a name of an icon to be used as a base for rendered icon.
          *
@@ -147,9 +144,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
          * should not be unreffed.
          */
         get() = gtk_source_mark_attributes_get_pixbuf(gtksourceMarkAttributesPointer)!!.run {
-            Pixbuf(this)
-        }
-
+            Pixbuf(this)}
         /**
          * Sets a pixbuf to be used as a base for rendered icon.
          *
@@ -162,7 +157,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      *
      * @return a new source mark attributes.
      */
-    public constructor() : this(gtk_source_mark_attributes_new()!!.reinterpret())
+    public constructor() : this(gtk_source_mark_attributes_new()!!)
 
     /**
      * Stores background color in @background.
@@ -170,8 +165,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      * @param background a #GdkRGBA.
      * @return whether background color for @attributes was set.
      */
-    public open fun getBackground(background: Rgba): Boolean =
-        gtk_source_mark_attributes_get_background(gtksourceMarkAttributesPointer, background.gdkRgbaPointer).asBoolean()
+    public open fun getBackground(background: Rgba): Boolean = gtk_source_mark_attributes_get_background(gtksourceMarkAttributesPointer, background.gdkRgbaPointer).asBoolean()
 
     /**
      * Queries for a tooltip by emitting a [signal@MarkAttributes::query-tooltip-markup] signal.
@@ -182,11 +176,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      * @return A tooltip. The returned string should be freed by
      * using g_free() when done with it.
      */
-    public open fun getTooltipMarkup(mark: Mark): String = gtk_source_mark_attributes_get_tooltip_markup(
-        gtksourceMarkAttributesPointer,
-        mark.gtksourceMarkPointer
-    )?.toKString()
-        ?: error("Expected not null string")
+    public open fun getTooltipMarkup(mark: Mark): String = gtk_source_mark_attributes_get_tooltip_markup(gtksourceMarkAttributesPointer, mark.gtksourceMarkPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries for a tooltip by emitting a [signal@MarkAttributes::query-tooltip-text] signal.
@@ -197,11 +187,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      * @return A tooltip. The returned string should be freed by
      * using g_free() when done with it.
      */
-    public open fun getTooltipText(mark: Mark): String = gtk_source_mark_attributes_get_tooltip_text(
-        gtksourceMarkAttributesPointer,
-        mark.gtksourceMarkPointer
-    )?.toKString()
-        ?: error("Expected not null string")
+    public open fun getTooltipText(mark: Mark): String = gtk_source_mark_attributes_get_tooltip_text(gtksourceMarkAttributesPointer, mark.gtksourceMarkPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Renders an icon of given size.
@@ -219,18 +205,15 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      * @return A #GdkPaintable. The paintable belongs to @attributes
      * and should not be unreffed.
      */
-    public open fun renderIcon(widget: Widget, size: gint): Paintable =
-        gtk_source_mark_attributes_render_icon(gtksourceMarkAttributesPointer, widget.gtkWidgetPointer, size)!!.run {
-            Paintable.PaintableImpl(reinterpret())
-        }
+    public open fun renderIcon(widget: Widget, size: gint): Paintable = gtk_source_mark_attributes_render_icon(gtksourceMarkAttributesPointer, widget.gtkWidgetPointer, size)!!.run {
+        Paintable.PaintableImpl(reinterpret())}
 
     /**
      * Sets background color to the one given in @background.
      *
      * @param background a #GdkRGBA.
      */
-    public open fun setBackground(background: Rgba): Unit =
-        gtk_source_mark_attributes_set_background(gtksourceMarkAttributesPointer, background.gdkRgbaPointer)
+    public open fun setBackground(background: Rgba): Unit = gtk_source_mark_attributes_set_background(gtksourceMarkAttributesPointer, background.gdkRgbaPointer)
 
     /**
      * The code should connect to this signal to provide a tooltip for given
@@ -240,17 +223,7 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      * @param handler the Callback to connect. Params: `mark` The #GtkSourceMark.. Returns A tooltip. The string should be freed with
      * g_free() when done with it.
      */
-    public fun onQueryTooltipMarkup(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (mark: Mark) -> String,
-    ): ULong = g_signal_connect_data(
-        gtksourceMarkAttributesPointer,
-        "query-tooltip-markup",
-        onQueryTooltipMarkupFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onQueryTooltipMarkup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (mark: Mark) -> String): ULong = g_signal_connect_data(gtksourceMarkAttributesPointer, "query-tooltip-markup", onQueryTooltipMarkupFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The code should connect to this signal to provide a tooltip for given
@@ -260,27 +233,14 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
      * @param handler the Callback to connect. Params: `mark` The #GtkSourceMark.. Returns A tooltip. The string should be freed with
      * g_free() when done with it.
      */
-    public fun onQueryTooltipText(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (mark: Mark) -> String,
-    ): ULong = g_signal_connect_data(
-        gtksourceMarkAttributesPointer,
-        "query-tooltip-text",
-        onQueryTooltipTextFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onQueryTooltipText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (mark: Mark) -> String): ULong = g_signal_connect_data(gtksourceMarkAttributesPointer, "query-tooltip-text", onQueryTooltipTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<MarkAttributes> {
         override val type: GeneratedClassKGType<MarkAttributes> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_mark_attributes_get_type")!!) {
-                MarkAttributes(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_mark_attributes_get_type")!!) { MarkAttributes(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of MarkAttributes
@@ -292,29 +252,23 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
 }
 
 private val onQueryTooltipMarkupFunc:
-    CPointer<CFunction<(CPointer<GtkSourceMark>) -> CPointer<ByteVar>>> = staticCFunction {
-            _: COpaquePointer,
-            mark: CPointer<GtkSourceMark>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(mark: Mark) -> String>().get().invoke(
-            mark!!.run {
-                Mark(this)
-            }
-        ).let { g_strdup(it) }
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkSourceMark>) -> CPointer<ByteVar>>> = staticCFunction {
+    _: COpaquePointer,
+    mark: CPointer<GtkSourceMark>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(mark: Mark) -> String>().get().invoke(mark!!.run {
+        Mark(this)}
+    ).let { g_strdup(it) }}
+.reinterpret()
 
 private val onQueryTooltipTextFunc:
-    CPointer<CFunction<(CPointer<GtkSourceMark>) -> CPointer<ByteVar>>> = staticCFunction {
-            _: COpaquePointer,
-            mark: CPointer<GtkSourceMark>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(mark: Mark) -> String>().get().invoke(
-            mark!!.run {
-                Mark(this)
-            }
-        ).let { g_strdup(it) }
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkSourceMark>) -> CPointer<ByteVar>>> = staticCFunction {
+    _: COpaquePointer,
+    mark: CPointer<GtkSourceMark>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(mark: Mark) -> String>().get().invoke(mark!!.run {
+        Mark(this)}
+    ).let { g_strdup(it) }}
+.reinterpret()

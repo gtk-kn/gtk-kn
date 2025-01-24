@@ -10,27 +10,25 @@ import org.gtkkn.native.gobject.GType
 /**
  * Specifies the direction for scroll events.
  */
-public enum class ScrollDirection(public val nativeValue: GdkScrollDirection) {
+public enum class ScrollDirection(
+    public val nativeValue: GdkScrollDirection,
+) {
     /**
      * the surface is scrolled up.
      */
     UP(GdkScrollDirection.GDK_SCROLL_UP),
-
     /**
      * the surface is scrolled down.
      */
     DOWN(GdkScrollDirection.GDK_SCROLL_DOWN),
-
     /**
      * the surface is scrolled to the left.
      */
     LEFT(GdkScrollDirection.GDK_SCROLL_LEFT),
-
     /**
      * the surface is scrolled to the right.
      */
     RIGHT(GdkScrollDirection.GDK_SCROLL_RIGHT),
-
     /**
      * the scrolling is determined by the delta values
      *   in scroll events. See gdk_scroll_event_get_deltas()

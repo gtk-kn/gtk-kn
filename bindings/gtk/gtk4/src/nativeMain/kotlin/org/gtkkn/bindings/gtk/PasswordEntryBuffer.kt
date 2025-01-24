@@ -23,8 +23,9 @@ import org.gtkkn.native.gtk.gtk_password_entry_buffer_new
  * @since 4.4
  */
 @GtkVersion4_4
-public open class PasswordEntryBuffer(public val gtkPasswordEntryBufferPointer: CPointer<GtkPasswordEntryBuffer>) :
-    EntryBuffer(gtkPasswordEntryBufferPointer.reinterpret()),
+public open class PasswordEntryBuffer(
+    public val gtkPasswordEntryBufferPointer: CPointer<GtkPasswordEntryBuffer>,
+) : EntryBuffer(gtkPasswordEntryBufferPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkEntryBuffer` using secure memory allocations.
@@ -35,13 +36,10 @@ public open class PasswordEntryBuffer(public val gtkPasswordEntryBufferPointer: 
 
     public companion object : TypeCompanion<PasswordEntryBuffer> {
         override val type: GeneratedClassKGType<PasswordEntryBuffer> =
-            GeneratedClassKGType(getTypeOrNull("gtk_password_entry_buffer_get_type")!!) {
-                PasswordEntryBuffer(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_password_entry_buffer_get_type")!!) { PasswordEntryBuffer(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PasswordEntryBuffer

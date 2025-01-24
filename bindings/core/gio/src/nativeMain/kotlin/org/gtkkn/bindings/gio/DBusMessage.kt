@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -70,10 +74,6 @@ import org.gtkkn.native.gio.g_dbus_message_to_gerror
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A type for representing D-Bus messages that can be sent or received
@@ -91,8 +91,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMessage>) :
-    Object(gioDBusMessagePointer.reinterpret()),
+public open class DBusMessage(
+    public val gioDBusMessagePointer: CPointer<GDBusMessage>,
+) : Object(gioDBusMessagePointer.reinterpret()),
     KGTyped {
     public open val locked: Boolean
         /**
@@ -111,7 +112,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @return A #GDBusMessage. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_dbus_message_new()!!.reinterpret())
+    public constructor() : this(g_dbus_message_new()!!)
 
     /**
      * Creates a new #GDBusMessage for a method call.
@@ -128,7 +129,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
         path: String,
         `interface`: String? = null,
         method: String,
-    ) : this(g_dbus_message_new_method_call(name, path, `interface`, method)!!.reinterpret())
+    ) : this(g_dbus_message_new_method_call(name, path, `interface`, method)!!)
 
     /**
      * Creates a new #GDBusMessage for a signal emission.
@@ -143,7 +144,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
         path: String,
         `interface`: String,
         signal: String,
-    ) : this(g_dbus_message_new_signal(path, `interface`, signal)!!.reinterpret())
+    ) : this(g_dbus_message_new_signal(path, `interface`, signal)!!)
 
     /**
      * Copies @message. The copy is a deep copy and the returned
@@ -161,8 +162,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
     public open fun copy(): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_message_copy(gioDBusMessagePointer, gError.ptr)?.run {
-            DBusMessage(this)
-        }
+            DBusMessage(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -205,8 +205,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun getBody(): Variant? = g_dbus_message_get_body(gioDBusMessagePointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Gets the byte order of @message.
@@ -214,8 +213,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @return The byte order.
      */
     public open fun getByteOrder(): DBusMessageByteOrder = g_dbus_message_get_byte_order(gioDBusMessagePointer).run {
-        DBusMessageByteOrder.fromNativeValue(this)
-    }
+        DBusMessageByteOrder.fromNativeValue(this)}
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION header field.
@@ -243,8 +241,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun getFlags(): DBusMessageFlags = g_dbus_message_get_flags(gioDBusMessagePointer).run {
-        DBusMessageFlags(this)
-    }
+        DBusMessageFlags(this)}
 
     /**
      * Gets a header field on @message.
@@ -258,10 +255,8 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getHeader(headerField: DBusMessageHeaderField): Variant? =
-        g_dbus_message_get_header(gioDBusMessagePointer, headerField.nativeValue)?.run {
-            Variant(this)
-        }
+    public open fun getHeader(headerField: DBusMessageHeaderField): Variant? = g_dbus_message_get_header(gioDBusMessagePointer, headerField.nativeValue)?.run {
+        Variant(this)}
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.
@@ -289,8 +284,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun getMessageType(): DBusMessageType = g_dbus_message_get_message_type(gioDBusMessagePointer).run {
-        DBusMessageType.fromNativeValue(this)
-    }
+        DBusMessageType.fromNativeValue(this)}
 
     /**
      * Convenience getter for the %G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS header field.
@@ -346,8 +340,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getSignature(): String =
-        g_dbus_message_get_signature(gioDBusMessagePointer)?.toKString() ?: error("Expected not null string")
+    public open fun getSignature(): String = g_dbus_message_get_signature(gioDBusMessagePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the UNIX file descriptors associated with @message, if any.
@@ -366,8 +359,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun getUnixFdList(): UnixFdList? = g_dbus_message_get_unix_fd_list(gioDBusMessagePointer)?.run {
-        UnixFdList(this)
-    }
+        UnixFdList(this)}
 
     /**
      * If @message is locked, does nothing. Otherwise locks the message.
@@ -386,10 +378,8 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun newMethodErrorLiteral(errorName: String, errorMessage: String): DBusMessage =
-        g_dbus_message_new_method_error_literal(gioDBusMessagePointer, errorName, errorMessage)!!.run {
-            DBusMessage(this)
-        }
+    public open fun newMethodErrorLiteral(errorName: String, errorMessage: String): DBusMessage = g_dbus_message_new_method_error_literal(gioDBusMessagePointer, errorName, errorMessage)!!.run {
+        DBusMessage(this)}
 
     /**
      * Creates a new #GDBusMessage that is a reply to @method_call_message.
@@ -399,8 +389,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      */
     @GioVersion2_26
     public open fun newMethodReply(): DBusMessage = g_dbus_message_new_method_reply(gioDBusMessagePointer)!!.run {
-        DBusMessage(this)
-    }
+        DBusMessage(this)}
 
     /**
      * Produces a human-readable multi-line description of @message.
@@ -441,8 +430,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun print(indent: guint): String =
-        g_dbus_message_print(gioDBusMessagePointer, indent)?.toKString() ?: error("Expected not null string")
+    public open fun print(indent: guint): String = g_dbus_message_print(gioDBusMessagePointer, indent)?.toKString() ?: error("Expected not null string")
 
     /**
      * Sets the body @message. As a side-effect the
@@ -455,16 +443,14 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setBody(body: Variant): Unit =
-        g_dbus_message_set_body(gioDBusMessagePointer, body.glibVariantPointer)
+    public open fun setBody(body: Variant): Unit = g_dbus_message_set_body(gioDBusMessagePointer, body.glibVariantPointer)
 
     /**
      * Sets the byte order of @message.
      *
      * @param byteOrder The byte order.
      */
-    public open fun setByteOrder(byteOrder: DBusMessageByteOrder): Unit =
-        g_dbus_message_set_byte_order(gioDBusMessagePointer, byteOrder.nativeValue)
+    public open fun setByteOrder(byteOrder: DBusMessageByteOrder): Unit = g_dbus_message_set_byte_order(gioDBusMessagePointer, byteOrder.nativeValue)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_DESTINATION header field.
@@ -473,8 +459,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setDestination(`value`: String? = null): Unit =
-        g_dbus_message_set_destination(gioDBusMessagePointer, `value`)
+    public open fun setDestination(`value`: String? = null): Unit = g_dbus_message_set_destination(gioDBusMessagePointer, `value`)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_ERROR_NAME header field.
@@ -493,8 +478,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setFlags(flags: DBusMessageFlags): Unit =
-        g_dbus_message_set_flags(gioDBusMessagePointer, flags.mask)
+    public open fun setFlags(flags: DBusMessageFlags): Unit = g_dbus_message_set_flags(gioDBusMessagePointer, flags.mask)
 
     /**
      * Sets a header field on @message.
@@ -506,8 +490,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setHeader(headerField: DBusMessageHeaderField, `value`: Variant? = null): Unit =
-        g_dbus_message_set_header(gioDBusMessagePointer, headerField.nativeValue, `value`?.glibVariantPointer)
+    public open fun setHeader(headerField: DBusMessageHeaderField, `value`: Variant? = null): Unit = g_dbus_message_set_header(gioDBusMessagePointer, headerField.nativeValue, `value`?.glibVariantPointer)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.
@@ -516,8 +499,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setInterface(`value`: String? = null): Unit =
-        g_dbus_message_set_interface(gioDBusMessagePointer, `value`)
+    public open fun setInterface(`value`: String? = null): Unit = g_dbus_message_set_interface(gioDBusMessagePointer, `value`)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_MEMBER header field.
@@ -535,8 +517,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setMessageType(type: DBusMessageType): Unit =
-        g_dbus_message_set_message_type(gioDBusMessagePointer, type.nativeValue)
+    public open fun setMessageType(type: DBusMessageType): Unit = g_dbus_message_set_message_type(gioDBusMessagePointer, type.nativeValue)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_NUM_UNIX_FDS header field.
@@ -545,8 +526,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setNumUnixFds(`value`: guint): Unit =
-        g_dbus_message_set_num_unix_fds(gioDBusMessagePointer, `value`)
+    public open fun setNumUnixFds(`value`: guint): Unit = g_dbus_message_set_num_unix_fds(gioDBusMessagePointer, `value`)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_PATH header field.
@@ -564,8 +544,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setReplySerial(`value`: guint): Unit =
-        g_dbus_message_set_reply_serial(gioDBusMessagePointer, `value`)
+    public open fun setReplySerial(`value`: guint): Unit = g_dbus_message_set_reply_serial(gioDBusMessagePointer, `value`)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_SENDER header field.
@@ -592,8 +571,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setSignature(`value`: String? = null): Unit =
-        g_dbus_message_set_signature(gioDBusMessagePointer, `value`)
+    public open fun setSignature(`value`: String? = null): Unit = g_dbus_message_set_signature(gioDBusMessagePointer, `value`)
 
     /**
      * Sets the UNIX file descriptors associated with @message. As a
@@ -612,8 +590,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setUnixFdList(fdList: UnixFdList? = null): Unit =
-        g_dbus_message_set_unix_fd_list(gioDBusMessagePointer, fdList?.gioUnixFdListPointer)
+    public open fun setUnixFdList(fdList: UnixFdList? = null): Unit = g_dbus_message_set_unix_fd_list(gioDBusMessagePointer, fdList?.gioUnixFdListPointer)
 
     /**
      * If @message is not of type %G_DBUS_MESSAGE_TYPE_ERROR does
@@ -640,11 +617,10 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
 
     public companion object : TypeCompanion<DBusMessage> {
         override val type: GeneratedClassKGType<DBusMessage> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_message_get_type")!!) { DBusMessage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_dbus_message_get_type")!!) { DBusMessage(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusMessage

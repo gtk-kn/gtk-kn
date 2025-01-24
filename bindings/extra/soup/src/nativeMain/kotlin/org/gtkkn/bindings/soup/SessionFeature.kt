@@ -26,9 +26,7 @@ import org.gtkkn.native.soup.soup_session_feature_get_type
  *
  * See [method@Session.add_feature], etc, to add a feature to a session.
  */
-public interface SessionFeature :
-    Proxy,
-    KGTyped {
+public interface SessionFeature : Proxy, KGTyped {
     public val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
 
     /**
@@ -36,19 +34,17 @@ public interface SessionFeature :
      *
      * @constructor Creates a new instance of SessionFeature for the provided [CPointer].
      */
-    public data class SessionFeatureImpl(override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>) :
-        Object(soupSessionFeaturePointer.reinterpret()),
+    public data class SessionFeatureImpl(
+        override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>,
+    ) : Object(soupSessionFeaturePointer.reinterpret()),
         SessionFeature
 
     public companion object : TypeCompanion<SessionFeature> {
         override val type: GeneratedInterfaceKGType<SessionFeature> =
-            GeneratedInterfaceKGType(getTypeOrNull("soup_session_feature_get_type")!!) {
-                SessionFeatureImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("soup_session_feature_get_type")!!) { SessionFeatureImpl(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of SessionFeature

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -12,6 +15,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GHookList
@@ -24,12 +28,6 @@ import org.gtkkn.native.glib.g_hook_list_marshal_check
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.gulong
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GHookList struct represents a list of hook functions.
@@ -39,14 +37,14 @@ import kotlin.native.ref.createCleaner
  * - field `finalize_hook`: HookFinalizeFunc
  * - field `dummy`: Array parameter of type gpointer is not supported
  */
-public class HookList(public val glibHookListPointer: CPointer<GHookList>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibHookListPointer) {
+public class HookList(
+    public val glibHookListPointer: CPointer<GHookList>,
+) : ProxyInstance(glibHookListPointer) {
     /**
      * the next free #GHook id
      */
     public var seqId: gulong
         get() = glibHookListPointer.pointed.seq_id
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.seq_id = value
@@ -57,7 +55,6 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      */
     public var hookSize: guint
         get() = glibHookListPointer.pointed.hook_size
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.hook_size = value
@@ -68,7 +65,6 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      */
     public var isSetup: guint
         get() = glibHookListPointer.pointed.is_setup
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.is_setup = value
@@ -79,9 +75,7 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      */
     public var hooks: Hook?
         get() = glibHookListPointer.pointed.hooks?.run {
-            Hook(this)
-        }
-
+            Hook(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.hooks = value?.glibHookPointer
@@ -92,7 +86,6 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      */
     public var dummy3: gpointer
         get() = glibHookListPointer.pointed.dummy3!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.dummy3 = value
@@ -104,21 +97,9 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHookList>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to HookList and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GHookList>, Cleaner>,
-    ) : this(glibHookListPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GHookList>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new HookList using the provided [AutofreeScope].
@@ -213,8 +194,7 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invokeCheck(mayRecurse: Boolean): Unit =
-        g_hook_list_invoke_check(glibHookListPointer, mayRecurse.asGBoolean())
+    public fun invokeCheck(mayRecurse: Boolean): Unit = g_hook_list_invoke_check(glibHookListPointer, mayRecurse.asGBoolean())
 
     /**
      * Calls a function on each valid #GHook.
@@ -224,12 +204,7 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      *     these are skipped
      * @param marshaller the function to call for each #GHook
      */
-    public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(
-        glibHookListPointer,
-        mayRecurse.asGBoolean(),
-        HookMarshallerFunc.reinterpret(),
-        StableRef.create(marshaller).asCPointer()
-    )
+    public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(glibHookListPointer, mayRecurse.asGBoolean(), HookMarshallerFunc.reinterpret(), StableRef.create(marshaller).asCPointer())
 
     /**
      * Calls a function on each valid #GHook and destroys it if the
@@ -240,13 +215,7 @@ public class HookList(public val glibHookListPointer: CPointer<GHookList>, clean
      *     these are skipped
      * @param marshaller the function to call for each #GHook
      */
-    public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(
-        glibHookListPointer,
-        mayRecurse.asGBoolean(),
-        HookCheckMarshallerFunc.reinterpret(),
-        StableRef.create(marshaller).asCPointer()
-    )
+    public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(glibHookListPointer, mayRecurse.asGBoolean(), HookCheckMarshallerFunc.reinterpret(), StableRef.create(marshaller).asCPointer())
 
-    override fun toString(): String =
-        "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3)"
+    override fun toString(): String = "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3)"
 }

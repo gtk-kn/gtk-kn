@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -15,6 +16,7 @@ import org.gtkkn.native.gtk.GtkConstantExpression
 import org.gtkkn.native.gtk.gtk_constant_expression_get_type
 import org.gtkkn.native.gtk.gtk_constant_expression_get_value
 import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
+import org.gtkkn.native.gtk.gtk_expression_unref
 
 /**
  * A constant value in a `GtkExpression`.
@@ -23,8 +25,9 @@ import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
  *
  * - constructor `new`: Varargs parameter is not supported
  */
-public open class ConstantExpression(public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>) :
-    Expression(gtkConstantExpressionPointer.reinterpret()),
+public open class ConstantExpression(
+    public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>,
+) : Expression(gtkConstantExpressionPointer.reinterpret()),
     KGTyped {
     /**
      * Creates an expression that always evaluates to the given `value`.
@@ -32,29 +35,24 @@ public open class ConstantExpression(public val gtkConstantExpressionPointer: CP
      * @param value a `GValue`
      * @return a new `GtkExpression`
      */
-    public constructor(
-        `value`: Value,
-    ) : this(gtk_constant_expression_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
+    public constructor(`value`: Value) : this(gtk_constant_expression_new_for_value(`value`.gobjectValuePointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gtk_expression_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the value that a constant expression evaluates to.
      *
      * @return the value
      */
-    public open fun getValue(): Value =
-        gtk_constant_expression_get_value(gtkConstantExpressionPointer.reinterpret())!!.run {
-            Value(this)
-        }
+    public open fun getValue(): Value = gtk_constant_expression_get_value(gtkConstantExpressionPointer.reinterpret())!!.run {
+        Value(this)}
 
     public companion object : TypeCompanion<ConstantExpression> {
         override val type: GeneratedClassKGType<ConstantExpression> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constant_expression_get_type")!!) {
-                ConstantExpression(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_constant_expression_get_type")!!) { ConstantExpression(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ConstantExpression

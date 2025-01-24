@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -10,8 +12,6 @@ import org.gtkkn.native.gio.GIOModuleScope
 import org.gtkkn.native.gio.g_io_module_scope_block
 import org.gtkkn.native.gio.g_io_module_scope_free
 import org.gtkkn.native.gio.g_io_module_scope_new
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Represents a scope for loading IO modules. A scope can be used for blocking
@@ -22,8 +22,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public class IoModuleScope(public val gioIoModuleScopePointer: CPointer<GIOModuleScope>) :
-    ProxyInstance(gioIoModuleScopePointer) {
+public class IoModuleScope(
+    public val gioIoModuleScopePointer: CPointer<GIOModuleScope>,
+) : ProxyInstance(gioIoModuleScopePointer) {
     /**
      * Block modules with the given @basename from being loaded when
      * this scope is used with g_io_modules_scan_all_in_directory_with_scope()
@@ -58,7 +59,6 @@ public class IoModuleScope(public val gioIoModuleScopePointer: CPointer<GIOModul
          */
         @GioVersion2_30
         public fun new(flags: IoModuleScopeFlags): IoModuleScope = g_io_module_scope_new(flags.nativeValue)!!.run {
-            IoModuleScope(this)
-        }
+            IoModuleScope(this)}
     }
 }

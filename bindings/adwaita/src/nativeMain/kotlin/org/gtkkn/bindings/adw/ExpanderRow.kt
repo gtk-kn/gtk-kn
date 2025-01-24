@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -43,9 +46,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A [class@Gtk.ListBoxRow] used to reveal widgets.
@@ -82,8 +82,9 @@ import kotlin.Unit
  * - method `subtitle-lines`: Property TypeInfo of getter and setter do not match
  * - method `title-lines`: Property TypeInfo of getter and setter do not match
  */
-public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpanderRow>) :
-    PreferencesRow(adwExpanderRowPointer.reinterpret()),
+public open class ExpanderRow(
+    public val adwExpanderRowPointer: CPointer<AdwExpanderRow>,
+) : PreferencesRow(adwExpanderRowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -107,15 +108,12 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
          * @return whether the expansion of @self is enabled.
          */
         get() = adw_expander_row_get_enable_expansion(adwExpanderRowPointer).asBoolean()
-
         /**
          * Sets whether the expansion of @self is enabled.
          *
          * @param enableExpansion whether to enable the expansion
          */
-        set(
-            enableExpansion
-        ) = adw_expander_row_set_enable_expansion(adwExpanderRowPointer, enableExpansion.asGBoolean())
+        set(enableExpansion) = adw_expander_row_set_enable_expansion(adwExpanderRowPointer, enableExpansion.asGBoolean())
 
     /**
      * Whether the row is expanded.
@@ -127,7 +125,6 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
          * @return whether @self is expanded
          */
         get() = adw_expander_row_get_expanded(adwExpanderRowPointer).asBoolean()
-
         /**
          * Sets whether @self is expanded.
          *
@@ -145,7 +142,6 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
          * @return the icon name for @self
          */
         get() = adw_expander_row_get_icon_name(adwExpanderRowPointer)?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -163,15 +159,12 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
          * @return whether the switch enabling the expansion is visible
          */
         get() = adw_expander_row_get_show_enable_switch(adwExpanderRowPointer).asBoolean()
-
         /**
          * Sets whether the switch enabling the expansion of @self is visible.
          *
          * @param showEnableSwitch whether to show the switch enabling the expansion
          */
-        set(
-            showEnableSwitch
-        ) = adw_expander_row_set_show_enable_switch(adwExpanderRowPointer, showEnableSwitch.asGBoolean())
+        set(showEnableSwitch) = adw_expander_row_set_show_enable_switch(adwExpanderRowPointer, showEnableSwitch.asGBoolean())
 
     /**
      * The subtitle for this row.
@@ -186,7 +179,6 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
          * @return the subtitle for @self
          */
         get() = adw_expander_row_get_subtitle(adwExpanderRowPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the subtitle for @self.
          *
@@ -209,16 +201,14 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
      *
      * @param widget a widget
      */
-    public open fun addAction(widget: Widget): Unit =
-        adw_expander_row_add_action(adwExpanderRowPointer, widget.gtkWidgetPointer)
+    public open fun addAction(widget: Widget): Unit = adw_expander_row_add_action(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a prefix widget to @self.
      *
      * @param widget a widget
      */
-    public open fun addPrefix(widget: Widget): Unit =
-        adw_expander_row_add_prefix(adwExpanderRowPointer, widget.gtkWidgetPointer)
+    public open fun addPrefix(widget: Widget): Unit = adw_expander_row_add_prefix(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a widget to @self.
@@ -227,8 +217,7 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
      *
      * @param child a widget
      */
-    public open fun addRow(child: Widget): Unit =
-        adw_expander_row_add_row(adwExpanderRowPointer, child.gtkWidgetPointer)
+    public open fun addRow(child: Widget): Unit = adw_expander_row_add_row(adwExpanderRowPointer, child.gtkWidgetPointer)
 
     /**
      * Adds an suffix widget to @self.
@@ -237,8 +226,7 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addSuffix(widget: Widget): Unit =
-        adw_expander_row_add_suffix(adwExpanderRowPointer, widget.gtkWidgetPointer)
+    public open fun addSuffix(widget: Widget): Unit = adw_expander_row_add_suffix(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Gets the number of lines at the end of which the subtitle label will be
@@ -274,8 +262,7 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun setSubtitleLines(subtitleLines: gint): Unit =
-        adw_expander_row_set_subtitle_lines(adwExpanderRowPointer, subtitleLines)
+    public open fun setSubtitleLines(subtitleLines: gint): Unit = adw_expander_row_set_subtitle_lines(adwExpanderRowPointer, subtitleLines)
 
     /**
      * Sets the number of lines at the end of which the title label will be
@@ -287,16 +274,14 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun setTitleLines(titleLines: gint): Unit =
-        adw_expander_row_set_title_lines(adwExpanderRowPointer, titleLines)
+    public open fun setTitleLines(titleLines: gint): Unit = adw_expander_row_set_title_lines(adwExpanderRowPointer, titleLines)
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_expander_row_get_type")!!) { ExpanderRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_expander_row_get_type")!!) { ExpanderRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ExpanderRow

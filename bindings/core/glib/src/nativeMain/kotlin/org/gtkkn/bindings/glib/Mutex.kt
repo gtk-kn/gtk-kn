@@ -3,12 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GMutex
@@ -19,11 +22,6 @@ import org.gtkkn.native.glib.g_mutex_lock
 import org.gtkkn.native.glib.g_mutex_new
 import org.gtkkn.native.glib.g_mutex_trylock
 import org.gtkkn.native.glib.g_mutex_unlock
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GMutex struct is an opaque data structure to represent a mutex
@@ -71,29 +69,18 @@ import kotlin.native.ref.createCleaner
  *
  * A #GMutex should only be accessed via g_mutex_ functions.
  */
-public class Mutex(public val glibMutexPointer: CPointer<GMutex>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibMutexPointer) {
+public class Mutex(
+    public val glibMutexPointer: CPointer<GMutex>,
+) : ProxyInstance(glibMutexPointer) {
     /**
      * Allocate a new Mutex.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GMutex>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Mutex and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GMutex>, Cleaner>,
-    ) : this(glibMutexPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GMutex>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Mutex using the provided [AutofreeScope].
@@ -199,7 +186,6 @@ public class Mutex(public val glibMutexPointer: CPointer<GMutex>, cleaner: Clean
          * @return a newly allocated #GMutex. Use g_mutex_free() to free
          */
         public fun new(): Mutex = g_mutex_new()!!.run {
-            Mutex(this)
-        }
+            Mutex(this)}
     }
 }

@@ -18,8 +18,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * An event related to a button on a pointer device.
  */
-public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButtonEvent>) :
-    Event(gdkButtonEventPointer.reinterpret()),
+public open class ButtonEvent(
+    public val gdkButtonEventPointer: CPointer<GdkButtonEvent>,
+) : Event(gdkButtonEventPointer.reinterpret()),
     KGTyped {
     /**
      * Extract the button number from a button event.
@@ -30,11 +31,10 @@ public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButt
 
     public companion object : TypeCompanion<ButtonEvent> {
         override val type: GeneratedClassKGType<ButtonEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_button_event_get_type")!!) { ButtonEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_button_event_get_type")!!) { ButtonEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of ButtonEvent

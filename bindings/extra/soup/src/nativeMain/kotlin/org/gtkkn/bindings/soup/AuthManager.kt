@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Uri
@@ -17,7 +18,6 @@ import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_auth_manager_clear_cached_credentials
 import org.gtkkn.native.soup.soup_auth_manager_get_type
 import org.gtkkn.native.soup.soup_auth_manager_use_auth
-import kotlin.Unit
 
 /**
  * HTTP client-side authentication handler.
@@ -38,8 +38,9 @@ import kotlin.Unit
  * always existed in the background, and you can use `g_type_from_name
  * ("SoupAuthManager")` to get its [alias@GLib.Type] in earlier releases.)
  */
-public class AuthManager(public val soupAuthManagerPointer: CPointer<SoupAuthManager>) :
-    Object(soupAuthManagerPointer.reinterpret()),
+public class AuthManager(
+    public val soupAuthManagerPointer: CPointer<SoupAuthManager>,
+) : Object(soupAuthManagerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
@@ -65,16 +66,14 @@ public class AuthManager(public val soupAuthManagerPointer: CPointer<SoupAuthMan
      * @param uri the #GUri under which @auth is to be used
      * @param auth the #SoupAuth to use
      */
-    public fun useAuth(uri: Uri, auth: Auth): Unit =
-        soup_auth_manager_use_auth(soupAuthManagerPointer, uri.glibUriPointer, auth.soupAuthPointer)
+    public fun useAuth(uri: Uri, auth: Auth): Unit = soup_auth_manager_use_auth(soupAuthManagerPointer, uri.glibUriPointer, auth.soupAuthPointer)
 
     public companion object : TypeCompanion<AuthManager> {
         override val type: GeneratedClassKGType<AuthManager> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_manager_get_type")!!) { AuthManager(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_manager_get_type")!!) { AuthManager(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of AuthManager

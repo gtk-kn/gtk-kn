@@ -27,23 +27,22 @@ import org.gtkkn.native.gobject.GType
  * to undo any visible/permanent changes that were done throughout the
  * progress of the gesture.
  */
-public enum class TouchpadGesturePhase(public val nativeValue: GdkTouchpadGesturePhase) {
+public enum class TouchpadGesturePhase(
+    public val nativeValue: GdkTouchpadGesturePhase,
+) {
     /**
      * The gesture has begun.
      */
     BEGIN(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_BEGIN),
-
     /**
      * The gesture has been updated.
      */
     UPDATE(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_UPDATE),
-
     /**
      * The gesture was finished, changes
      *   should be permanently applied.
      */
     END(GdkTouchpadGesturePhase.GDK_TOUCHPAD_GESTURE_PHASE_END),
-
     /**
      * The gesture was cancelled, all
      *   changes should be undone.

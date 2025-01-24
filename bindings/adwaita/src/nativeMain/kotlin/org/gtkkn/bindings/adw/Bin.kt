@@ -34,8 +34,9 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
  * It is useful for deriving subclasses, since it provides common code needed
  * for handling a single child widget.
  */
-public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
-    Widget(adwBinPointer.reinterpret()),
+public open class Bin(
+    public val adwBinPointer: CPointer<AdwBin>,
+) : Widget(adwBinPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -56,9 +57,7 @@ public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
          * @return the child widget of @self
          */
         get() = adw_bin_get_child(adwBinPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -75,11 +74,10 @@ public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
 
     public companion object : TypeCompanion<Bin> {
         override val type: GeneratedClassKGType<Bin> =
-            GeneratedClassKGType(getTypeOrNull("adw_bin_get_type")!!) { Bin(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_bin_get_type")!!) { Bin(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Bin

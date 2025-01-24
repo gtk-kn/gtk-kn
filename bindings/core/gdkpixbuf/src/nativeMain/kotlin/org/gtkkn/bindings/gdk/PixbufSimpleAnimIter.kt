@@ -13,18 +13,16 @@ import org.gtkkn.native.gdk.GdkPixbufAnimationIter
 import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_iter_get_type
 import org.gtkkn.native.gobject.GType
 
-public open class PixbufSimpleAnimIter(public val gdkPixbufSimpleAnimIterPointer: CPointer<GdkPixbufAnimationIter>) :
-    PixbufAnimationIter(gdkPixbufSimpleAnimIterPointer.reinterpret()),
+public open class PixbufSimpleAnimIter(
+    public val gdkPixbufSimpleAnimIterPointer: CPointer<GdkPixbufAnimationIter>,
+) : PixbufAnimationIter(gdkPixbufSimpleAnimIterPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<PixbufSimpleAnimIter> {
         override val type: GeneratedClassKGType<PixbufSimpleAnimIter> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_iter_get_type")!!) {
-                PixbufSimpleAnimIter(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_iter_get_type")!!) { PixbufSimpleAnimIter(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
+            GdkPixbufTypeProvider.register()}
 
         /**
          * Get the GType of PixbufSimpleAnimIter

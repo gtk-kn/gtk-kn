@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,8 +22,6 @@ import org.gtkkn.native.gtk.gtk_actionable_get_type
 import org.gtkkn.native.gtk.gtk_actionable_set_action_name
 import org.gtkkn.native.gtk.gtk_actionable_set_action_target_value
 import org.gtkkn.native.gtk.gtk_actionable_set_detailed_action_name
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The `GtkActionable` interface provides a convenient way of associating
@@ -43,9 +43,7 @@ import kotlin.Unit
  * - method `set_action_target`: Varargs parameter is not supported
  * - method `action-target`: Property has no getter nor setter
  */
-public interface Actionable :
-    Proxy,
-    KGTyped {
+public interface Actionable : Proxy, KGTyped {
     public val gtkActionablePointer: CPointer<GtkActionable>
 
     public var actionName: String?
@@ -55,7 +53,6 @@ public interface Actionable :
          * @return the action name
          */
         get() = gtk_actionable_get_action_name(gtkActionablePointer)?.toKString()
-
         /**
          * Specifies the name of the action with which this widget should be
          * associated.
@@ -88,8 +85,7 @@ public interface Actionable :
      * @return the current target value
      */
     public fun getActionTargetValue(): Variant? = gtk_actionable_get_action_target_value(gtkActionablePointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Specifies the name of the action with which this widget should be
@@ -108,8 +104,7 @@ public interface Actionable :
      *
      * @param actionName an action name
      */
-    public fun setActionName(actionName: String? = null): Unit =
-        gtk_actionable_set_action_name(gtkActionablePointer, actionName)
+    public fun setActionName(actionName: String? = null): Unit = gtk_actionable_set_action_name(gtkActionablePointer, actionName)
 
     /**
      * Sets the target value of an actionable widget.
@@ -133,8 +128,7 @@ public interface Actionable :
      *
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
-    public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(gtkActionablePointer, targetValue?.glibVariantPointer)
+    public fun setActionTargetValue(targetValue: Variant? = null): Unit = gtk_actionable_set_action_target_value(gtkActionablePointer, targetValue?.glibVariantPointer)
 
     /**
      * Sets the action-name and associated string target value of an
@@ -145,27 +139,24 @@ public interface Actionable :
      *
      * @param detailedActionName the detailed action name
      */
-    public fun setDetailedActionName(detailedActionName: String): Unit =
-        gtk_actionable_set_detailed_action_name(gtkActionablePointer, detailedActionName)
+    public fun setDetailedActionName(detailedActionName: String): Unit = gtk_actionable_set_detailed_action_name(gtkActionablePointer, detailedActionName)
 
     /**
      * The ActionableImpl type represents a native instance of the Actionable interface.
      *
      * @constructor Creates a new instance of Actionable for the provided [CPointer].
      */
-    public data class ActionableImpl(override val gtkActionablePointer: CPointer<GtkActionable>) :
-        Widget(gtkActionablePointer.reinterpret()),
+    public data class ActionableImpl(
+        override val gtkActionablePointer: CPointer<GtkActionable>,
+    ) : Widget(gtkActionablePointer.reinterpret()),
         Actionable
 
     public companion object : TypeCompanion<Actionable> {
         override val type: GeneratedInterfaceKGType<Actionable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_actionable_get_type")!!) {
-                ActionableImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_actionable_get_type")!!) { ActionableImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Actionable

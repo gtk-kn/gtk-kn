@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -18,13 +19,13 @@ import org.gtkkn.native.adw.adw_enum_list_item_get_type
 import org.gtkkn.native.adw.adw_enum_list_item_get_value
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
  */
-public class EnumListItem(public val adwEnumListItemPointer: CPointer<AdwEnumListItem>) :
-    Object(adwEnumListItemPointer.reinterpret()),
+public class EnumListItem(
+    public val adwEnumListItemPointer: CPointer<AdwEnumListItem>,
+) : Object(adwEnumListItemPointer.reinterpret()),
     KGTyped {
     /**
      * The enum value name.
@@ -61,11 +62,10 @@ public class EnumListItem(public val adwEnumListItemPointer: CPointer<AdwEnumLis
 
     public companion object : TypeCompanion<EnumListItem> {
         override val type: GeneratedClassKGType<EnumListItem> =
-            GeneratedClassKGType(getTypeOrNull("adw_enum_list_item_get_type")!!) { EnumListItem(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_enum_list_item_get_type")!!) { EnumListItem(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of EnumListItem

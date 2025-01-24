@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -18,7 +19,6 @@ import org.gtkkn.native.gtksource.gtk_source_mark_get_type
 import org.gtkkn.native.gtksource.gtk_source_mark_new
 import org.gtkkn.native.gtksource.gtk_source_mark_next
 import org.gtkkn.native.gtksource.gtk_source_mark_prev
-import kotlin.String
 
 /**
  * Mark object for [class@Buffer].
@@ -35,8 +35,9 @@ import kotlin.String
  * there are multiple marks in the same line, the pixbufs will be drawn on top
  * of each other. The mark with the highest priority will be drawn on top.
  */
-public open class Mark(public val gtksourceMarkPointer: CPointer<GtkSourceMark>) :
-    TextMark(gtksourceMarkPointer.reinterpret()),
+public open class Mark(
+    public val gtksourceMarkPointer: CPointer<GtkSourceMark>,
+) : TextMark(gtksourceMarkPointer.reinterpret()),
     KGTyped {
     /**
      * The category of the `GtkSourceMark`, classifies the mark and controls
@@ -66,10 +67,7 @@ public open class Mark(public val gtksourceMarkPointer: CPointer<GtkSourceMark>)
      *   to "error" category).
      * @return a new #GtkSourceMark that can be added using [method@Gtk.TextBuffer.add_mark].
      */
-    public constructor(
-        name: String? = null,
-        category: String,
-    ) : this(gtk_source_mark_new(name, category)!!.reinterpret())
+    public constructor(name: String? = null, category: String) : this(gtk_source_mark_new(name, category)!!)
 
     /**
      * Returns the next `GtkSourceMark` in the buffer or null if the mark
@@ -83,8 +81,7 @@ public open class Mark(public val gtksourceMarkPointer: CPointer<GtkSourceMark>)
      * @return the next #GtkSourceMark, or null.
      */
     public open fun next(category: String? = null): Mark? = gtk_source_mark_next(gtksourceMarkPointer, category)?.run {
-        Mark(this)
-    }
+        Mark(this)}
 
     /**
      * Returns the previous `GtkSourceMark` in the buffer or null if the mark
@@ -98,16 +95,14 @@ public open class Mark(public val gtksourceMarkPointer: CPointer<GtkSourceMark>)
      * @return the previous #GtkSourceMark, or null.
      */
     public open fun prev(category: String? = null): Mark? = gtk_source_mark_prev(gtksourceMarkPointer, category)?.run {
-        Mark(this)
-    }
+        Mark(this)}
 
     public companion object : TypeCompanion<Mark> {
         override val type: GeneratedClassKGType<Mark> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_mark_get_type")!!) { Mark(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_mark_get_type")!!) { Mark(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of Mark

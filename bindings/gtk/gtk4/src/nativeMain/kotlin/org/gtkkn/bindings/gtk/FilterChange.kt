@@ -15,20 +15,20 @@ import org.gtkkn.native.gtk.gtk_filter_change_get_type
  * value to pass, %GTK_FILTER_CHANGE_DIFFERENT is always a correct
  * choice.
  */
-public enum class FilterChange(public val nativeValue: GtkFilterChange) {
+public enum class FilterChange(
+    public val nativeValue: GtkFilterChange,
+) {
     /**
      * The filter change cannot be
      *   described with any of the other enumeration values.
      */
     DIFFERENT(GtkFilterChange.GTK_FILTER_CHANGE_DIFFERENT),
-
     /**
      * The filter is less strict than
      *   it was before: All items that it used to return true for
      *   still return true, others now may, too.
      */
     LESS_STRICT(GtkFilterChange.GTK_FILTER_CHANGE_LESS_STRICT),
-
     /**
      * The filter is more strict than
      *   it was before: All items that it used to return false for

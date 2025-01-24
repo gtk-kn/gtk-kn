@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -34,10 +38,6 @@ import org.gtkkn.native.gtk.gtk_toggle_button_new_with_mnemonic
 import org.gtkkn.native.gtk.gtk_toggle_button_set_active
 import org.gtkkn.native.gtk.gtk_toggle_button_set_group
 import org.gtkkn.native.gtk.gtk_toggle_button_toggled
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkToggleButton` is a button which remains “pressed-in” when
@@ -120,8 +120,9 @@ import kotlin.Unit
  *
  * - method `group`: Property has no getter
  */
-public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkToggleButton>) :
-    Button(gtkToggleButtonPointer.reinterpret()),
+public open class ToggleButton(
+    public val gtkToggleButtonPointer: CPointer<GtkToggleButton>,
+) : Button(gtkToggleButtonPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -148,7 +149,6 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
          * @return whether the button is pressed
          */
         get() = gtk_toggle_button_get_active(gtkToggleButtonPointer).asBoolean()
-
         /**
          * Sets the status of the toggle button.
          *
@@ -195,8 +195,7 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
      * @param group another `GtkToggleButton` to
      *   form a group with
      */
-    public open fun setGroup(group: ToggleButton? = null): Unit =
-        gtk_toggle_button_set_group(gtkToggleButtonPointer, group?.gtkToggleButtonPointer)
+    public open fun setGroup(group: ToggleButton? = null): Unit = gtk_toggle_button_set_group(gtkToggleButtonPointer, group?.gtkToggleButtonPointer)
 
     /**
      * Emits the ::toggled signal on the `GtkToggleButton`.
@@ -209,15 +208,7 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkToggleButtonPointer,
-            "toggled",
-            onToggledFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkToggleButtonPointer, "toggled", onToggledFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "toggled" signal. See [onToggled].
@@ -228,20 +219,10 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
 
     public companion object : TypeCompanion<ToggleButton> {
         override val type: GeneratedClassKGType<ToggleButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_toggle_button_get_type")!!) { ToggleButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_toggle_button_get_type")!!) { ToggleButton(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
-
-        /**
-         * Creates a new toggle button with a text label.
-         *
-         * @param label a string containing the message to be placed in the toggle button.
-         * @return a new toggle button.
-         */
-        public fun newWithLabel(label: String): ToggleButton =
-            ToggleButton(gtk_toggle_button_new_with_label(label)!!.reinterpret())
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new `GtkToggleButton` containing a label.
@@ -253,8 +234,7 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
          *   mnemonic character
          * @return a new `GtkToggleButton`
          */
-        public fun newWithMnemonic(label: String): ToggleButton =
-            ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret())
+        public fun withMnemonic(label: String): ToggleButton = ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret())
 
         /**
          * Get the GType of ToggleButton
@@ -266,9 +246,8 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
 }
 
 private val onToggledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

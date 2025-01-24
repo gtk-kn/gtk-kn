@@ -15,7 +15,9 @@ import org.gtkkn.native.soup.soup_cacheability_get_type
 /**
  * Indicates if a message should or shouldn't be cached.
  */
-public class Cacheability(public val mask: SoupCacheability) : Bitfield<Cacheability> {
+public class Cacheability(
+    public val mask: SoupCacheability,
+) : Bitfield<Cacheability> {
     override infix fun or(other: Cacheability): Cacheability = Cacheability(mask or other.mask)
 
     public companion object {

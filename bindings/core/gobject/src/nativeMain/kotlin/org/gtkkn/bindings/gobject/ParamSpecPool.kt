@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
@@ -17,9 +20,6 @@ import org.gtkkn.native.gobject.g_param_spec_pool_list_owned
 import org.gtkkn.native.gobject.g_param_spec_pool_lookup
 import org.gtkkn.native.gobject.g_param_spec_pool_new
 import org.gtkkn.native.gobject.g_param_spec_pool_remove
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A #GParamSpecPool maintains a collection of #GParamSpecs which can be
@@ -32,8 +32,9 @@ import kotlin.Unit
  *
  * - parameter `n_pspecs_p`: n_pspecs_p: Out parameter is not supported
  */
-public class ParamSpecPool(public val gobjectParamSpecPoolPointer: CPointer<GParamSpecPool>) :
-    ProxyInstance(gobjectParamSpecPoolPointer) {
+public class ParamSpecPool(
+    public val gobjectParamSpecPoolPointer: CPointer<GParamSpecPool>,
+) : ProxyInstance(gobjectParamSpecPoolPointer) {
     /**
      * Frees the resources allocated by a #GParamSpecPool.
      *
@@ -48,8 +49,7 @@ public class ParamSpecPool(public val gobjectParamSpecPoolPointer: CPointer<GPar
      * @param pspec the #GParamSpec to insert
      * @param ownerType a #GType identifying the owner of @pspec
      */
-    public fun insert(pspec: ParamSpec, ownerType: GType): Unit =
-        g_param_spec_pool_insert(gobjectParamSpecPoolPointer, pspec.gobjectParamSpecPointer, ownerType)
+    public fun insert(pspec: ParamSpec, ownerType: GType): Unit = g_param_spec_pool_insert(gobjectParamSpecPoolPointer, pspec.gobjectParamSpecPointer, ownerType)
 
     /**
      * Gets an #GList of all #GParamSpecs owned by @owner_type in
@@ -60,10 +60,8 @@ public class ParamSpecPool(public val gobjectParamSpecPoolPointer: CPointer<GPar
      *          #GList of all #GParamSpecs owned by @owner_type in
      *          the pool#GParamSpecs.
      */
-    public fun listOwned(ownerType: GType): List =
-        g_param_spec_pool_list_owned(gobjectParamSpecPoolPointer, ownerType)!!.run {
-            List(reinterpret())
-        }
+    public fun listOwned(ownerType: GType): List = g_param_spec_pool_list_owned(gobjectParamSpecPoolPointer, ownerType)!!.run {
+        List(reinterpret())}
 
     /**
      * Looks up a #GParamSpec in the pool.
@@ -75,18 +73,19 @@ public class ParamSpecPool(public val gobjectParamSpecPoolPointer: CPointer<GPar
      * @return The found #GParamSpec, or null if no
      * matching #GParamSpec was found.
      */
-    public fun lookup(paramName: String, ownerType: GType, walkAncestors: Boolean): ParamSpec? =
-        g_param_spec_pool_lookup(gobjectParamSpecPoolPointer, paramName, ownerType, walkAncestors.asGBoolean())?.run {
-            ParamSpec.ParamSpecImpl(this)
-        }
+    public fun lookup(
+        paramName: String,
+        ownerType: GType,
+        walkAncestors: Boolean,
+    ): ParamSpec? = g_param_spec_pool_lookup(gobjectParamSpecPoolPointer, paramName, ownerType, walkAncestors.asGBoolean())?.run {
+        ParamSpec.ParamSpecImpl(this)}
 
     /**
      * Removes a #GParamSpec from the pool.
      *
      * @param pspec the #GParamSpec to remove
      */
-    public fun remove(pspec: ParamSpec): Unit =
-        g_param_spec_pool_remove(gobjectParamSpecPoolPointer, pspec.gobjectParamSpecPointer)
+    public fun remove(pspec: ParamSpec): Unit = g_param_spec_pool_remove(gobjectParamSpecPoolPointer, pspec.gobjectParamSpecPointer)
 
     public companion object {
         /**
@@ -100,9 +99,7 @@ public class ParamSpecPool(public val gobjectParamSpecPoolPointer: CPointer<GPar
          * @param typePrefixing Whether the pool will support type-prefixed property names.
          * @return a newly allocated #GParamSpecPool.
          */
-        public fun new(typePrefixing: Boolean): ParamSpecPool =
-            g_param_spec_pool_new(typePrefixing.asGBoolean())!!.run {
-                ParamSpecPool(this)
-            }
+        public fun new(typePrefixing: Boolean): ParamSpecPool = g_param_spec_pool_new(typePrefixing.asGBoolean())!!.run {
+            ParamSpecPool(this)}
     }
 }

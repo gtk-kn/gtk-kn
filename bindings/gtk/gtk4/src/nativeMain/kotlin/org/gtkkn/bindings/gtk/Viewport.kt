@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
@@ -25,8 +27,6 @@ import org.gtkkn.native.gtk.gtk_viewport_new
 import org.gtkkn.native.gtk.gtk_viewport_scroll_to
 import org.gtkkn.native.gtk.gtk_viewport_set_child
 import org.gtkkn.native.gtk.gtk_viewport_set_scroll_to_focus
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GtkViewport` implements scrollability for widgets that lack their
@@ -48,8 +48,9 @@ import kotlin.Unit
  *
  * Starting from GTK 4.12, `GtkViewport` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>) :
-    Widget(gtkViewportPointer.reinterpret()),
+public open class Viewport(
+    public val gtkViewportPointer: CPointer<GtkViewport>,
+) : Widget(gtkViewportPointer.reinterpret()),
     Scrollable,
     KGTyped {
     override val gtkScrollablePointer: CPointer<GtkScrollable>
@@ -74,9 +75,7 @@ public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>)
          * @return the child widget of @viewport
          */
         get() = gtk_viewport_get_child(gtkViewportPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @viewport.
          *
@@ -99,7 +98,6 @@ public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>)
          * @return true if the viewport keeps the focus child scrolled to view
          */
         get() = gtk_viewport_get_scroll_to_focus(gtkViewportPointer).asBoolean()
-
         /**
          * Sets whether the viewport should automatically scroll
          * to keep the focused child in view.
@@ -118,10 +116,7 @@ public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>)
      * @param vadjustment vertical adjustment
      * @return a new `GtkViewport`
      */
-    public constructor(
-        hadjustment: Adjustment? = null,
-        vadjustment: Adjustment? = null,
-    ) : this(gtk_viewport_new(hadjustment?.gtkAdjustmentPointer, vadjustment?.gtkAdjustmentPointer)!!.reinterpret())
+    public constructor(hadjustment: Adjustment? = null, vadjustment: Adjustment? = null) : this(gtk_viewport_new(hadjustment?.gtkAdjustmentPointer, vadjustment?.gtkAdjustmentPointer)!!.reinterpret())
 
     /**
      * Scrolls a descendant of the viewport into view.
@@ -135,16 +130,14 @@ public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>)
      * @since 4.12
      */
     @GtkVersion4_12
-    public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit =
-        gtk_viewport_scroll_to(gtkViewportPointer, descendant.gtkWidgetPointer, scroll?.gtkScrollInfoPointer)
+    public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit = gtk_viewport_scroll_to(gtkViewportPointer, descendant.gtkWidgetPointer, scroll?.gtkScrollInfoPointer)
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =
-            GeneratedClassKGType(getTypeOrNull("gtk_viewport_get_type")!!) { Viewport(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_viewport_get_type")!!) { Viewport(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Viewport

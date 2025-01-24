@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -16,12 +17,14 @@ import org.gtkkn.native.gsk.GskColorNode
 import org.gtkkn.native.gsk.gsk_color_node_get_color
 import org.gtkkn.native.gsk.gsk_color_node_get_type
 import org.gtkkn.native.gsk.gsk_color_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node for a solid color.
  */
-public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNode>) :
-    RenderNode(gskColorNodePointer.reinterpret()),
+public open class ColorNode(
+    public val gskColorNodePointer: CPointer<GskColorNode>,
+) : RenderNode(gskColorNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will render the color specified by @rgba into
@@ -31,10 +34,9 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
      * @param bounds the rectangle to render the color into
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        rgba: Rgba,
-        bounds: Rect,
-    ) : this(gsk_color_node_new(rgba.gdkRgbaPointer, bounds.grapheneRectPointer)!!.reinterpret())
+    public constructor(rgba: Rgba, bounds: Rect) : this(gsk_color_node_new(rgba.gdkRgbaPointer, bounds.grapheneRectPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the color of the given @node.
@@ -42,16 +44,14 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
      * @return the color of the node
      */
     public open fun getColor(): Rgba = gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {
-        Rgba(this)
-    }
+        Rgba(this)}
 
     public companion object : TypeCompanion<ColorNode> {
         override val type: GeneratedClassKGType<ColorNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_color_node_get_type")!!) { ColorNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_color_node_get_type")!!) { ColorNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of ColorNode

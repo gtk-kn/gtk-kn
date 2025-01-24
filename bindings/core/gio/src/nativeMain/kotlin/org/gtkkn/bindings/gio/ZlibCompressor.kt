@@ -29,8 +29,9 @@ import org.gtkkn.native.gobject.GType
  * - method `format`: Property has no getter nor setter
  * - method `level`: Property has no getter nor setter
  */
-public open class ZlibCompressor(public val gioZlibCompressorPointer: CPointer<GZlibCompressor>) :
-    Object(gioZlibCompressorPointer.reinterpret()),
+public open class ZlibCompressor(
+    public val gioZlibCompressorPointer: CPointer<GZlibCompressor>,
+) : Object(gioZlibCompressorPointer.reinterpret()),
     Converter,
     KGTyped {
     override val gioConverterPointer: CPointer<GConverter>
@@ -52,9 +53,7 @@ public open class ZlibCompressor(public val gioZlibCompressorPointer: CPointer<G
          * @since 2.26
          */
         get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer)?.run {
-            FileInfo(this)
-        }
-
+            FileInfo(this)}
         /**
          * Sets @file_info in @compressor. If non-null, and @compressor's
          * #GZlibCompressor:format property is %G_ZLIB_COMPRESSOR_FORMAT_GZIP,
@@ -79,18 +78,14 @@ public open class ZlibCompressor(public val gioZlibCompressorPointer: CPointer<G
      * @return a new #GZlibCompressor
      * @since 2.24
      */
-    public constructor(
-        format: ZlibCompressorFormat,
-        level: gint,
-    ) : this(g_zlib_compressor_new(format.nativeValue, level)!!.reinterpret())
+    public constructor(format: ZlibCompressorFormat, level: gint) : this(g_zlib_compressor_new(format.nativeValue, level)!!)
 
     public companion object : TypeCompanion<ZlibCompressor> {
         override val type: GeneratedClassKGType<ZlibCompressor> =
-            GeneratedClassKGType(getTypeOrNull("g_zlib_compressor_get_type")!!) { ZlibCompressor(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_zlib_compressor_get_type")!!) { ZlibCompressor(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ZlibCompressor

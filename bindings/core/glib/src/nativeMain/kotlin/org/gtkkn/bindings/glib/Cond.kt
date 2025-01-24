@@ -3,12 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GCond
@@ -22,11 +25,6 @@ import org.gtkkn.native.glib.g_cond_timed_wait
 import org.gtkkn.native.glib.g_cond_wait
 import org.gtkkn.native.glib.g_cond_wait_until
 import org.gtkkn.native.glib.gint64
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GCond struct is an opaque data structure that represents a
@@ -95,29 +93,18 @@ import kotlin.native.ref.createCleaner
  *
  * A #GCond should only be accessed via the g_cond_ functions.
  */
-public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibCondPointer) {
+public class Cond(
+    public val glibCondPointer: CPointer<GCond>,
+) : ProxyInstance(glibCondPointer) {
     /**
      * Allocate a new Cond.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCond>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Cond and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GCond>, Cleaner>,
-    ) : this(glibCondPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GCond>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Cond using the provided [AutofreeScope].
@@ -201,8 +188,7 @@ public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner?
      * @param absTime a #GTimeVal, determining the final time
      * @return true if @cond was signalled, or false on timeout
      */
-    public fun timedWait(mutex: Mutex, absTime: TimeVal): Boolean =
-        g_cond_timed_wait(glibCondPointer, mutex.glibMutexPointer, absTime.glibTimeValPointer).asBoolean()
+    public fun timedWait(mutex: Mutex, absTime: TimeVal): Boolean = g_cond_timed_wait(glibCondPointer, mutex.glibMutexPointer, absTime.glibTimeValPointer).asBoolean()
 
     /**
      * Atomically releases @mutex and waits until @cond is signalled.
@@ -280,8 +266,7 @@ public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner?
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun waitUntil(mutex: Mutex, endTime: gint64): Boolean =
-        g_cond_wait_until(glibCondPointer, mutex.glibMutexPointer, endTime).asBoolean()
+    public fun waitUntil(mutex: Mutex, endTime: gint64): Boolean = g_cond_wait_until(glibCondPointer, mutex.glibMutexPointer, endTime).asBoolean()
 
     public companion object {
         /**
@@ -290,7 +275,6 @@ public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner?
          * @return a newly allocated #GCond. Free with g_cond_free()
          */
         public fun new(): Cond = g_cond_new()!!.run {
-            Cond(this)
-        }
+            Cond(this)}
     }
 }

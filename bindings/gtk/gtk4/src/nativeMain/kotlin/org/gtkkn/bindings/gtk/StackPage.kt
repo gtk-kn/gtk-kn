@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,9 +33,6 @@ import org.gtkkn.native.gtk.gtk_stack_page_set_needs_attention
 import org.gtkkn.native.gtk.gtk_stack_page_set_title
 import org.gtkkn.native.gtk.gtk_stack_page_set_use_underline
 import org.gtkkn.native.gtk.gtk_stack_page_set_visible
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkStackPage` is an auxiliary class used by `GtkStack`.
@@ -43,8 +43,9 @@ import kotlin.Unit
  * - method `name`: Property TypeInfo of getter and setter do not match
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPage>) :
-    Object(gtkStackPagePointer.reinterpret()),
+public open class StackPage(
+    public val gtkStackPagePointer: CPointer<GtkStackPage>,
+) : Object(gtkStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -60,8 +61,7 @@ public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPag
          * @return the child to which @self belongs
          */
         get() = gtk_stack_page_get_child(gtkStackPagePointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * Whether the page requires the user attention.
@@ -78,7 +78,6 @@ public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPag
          *   property.
          */
         get() = gtk_stack_page_get_needs_attention(gtkStackPagePointer).asBoolean()
-
         /**
          * Sets whether the page is marked as “needs attention”.
          *
@@ -96,7 +95,6 @@ public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPag
          * @return The value of the [property@Gtk.StackPage:use-underline] property
          */
         get() = gtk_stack_page_get_use_underline(gtkStackPagePointer).asBoolean()
-
         /**
          * Sets whether underlines in the page title indicate mnemonics.
          *
@@ -117,7 +115,6 @@ public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPag
          * @return true if @page is visible
          */
         get() = gtk_stack_page_get_visible(gtkStackPagePointer).asBoolean()
-
         /**
          * Sets whether @page is visible in its `GtkStack`.
          *
@@ -169,11 +166,10 @@ public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPag
 
     public companion object : TypeCompanion<StackPage> {
         override val type: GeneratedClassKGType<StackPage> =
-            GeneratedClassKGType(getTypeOrNull("gtk_stack_page_get_type")!!) { StackPage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_stack_page_get_type")!!) { StackPage(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StackPage

@@ -19,20 +19,18 @@ import org.gtkkn.native.gsk.gsk_vulkan_renderer_new
  *
  * This renderer will fail to realize if Vulkan is not supported.
  */
-public open class VulkanRenderer(public val gskVulkanRendererPointer: CPointer<GskVulkanRenderer>) :
-    Renderer(gskVulkanRendererPointer.reinterpret()),
+public open class VulkanRenderer(
+    public val gskVulkanRendererPointer: CPointer<GskVulkanRenderer>,
+) : Renderer(gskVulkanRendererPointer.reinterpret()),
     KGTyped {
     public constructor() : this(gsk_vulkan_renderer_new()!!.reinterpret())
 
     public companion object : TypeCompanion<VulkanRenderer> {
         override val type: GeneratedClassKGType<VulkanRenderer> =
-            GeneratedClassKGType(getTypeOrNull("gsk_vulkan_renderer_get_type")!!) {
-                VulkanRenderer(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_vulkan_renderer_get_type")!!) { VulkanRenderer(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of VulkanRenderer

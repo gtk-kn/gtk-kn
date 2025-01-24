@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -43,10 +47,6 @@ import org.gtkkn.native.gtk.gtk_recent_info_last_application
 import org.gtkkn.native.gtk.gtk_recent_info_match
 import org.gtkkn.native.gtk.gtk_recent_info_ref
 import org.gtkkn.native.gtk.gtk_recent_info_unref
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkRecentInfo` contains the metadata associated with an item in the
@@ -58,8 +58,9 @@ import kotlin.Unit
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  */
-public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>) :
-    ProxyInstance(gtkRecentInfoPointer) {
+public class RecentInfo(
+    public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>,
+) : ProxyInstance(gtkRecentInfoPointer) {
     /**
      * Creates a `GAppInfo` for the specified `GtkRecentInfo`
      *
@@ -74,8 +75,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
     public fun createAppInfo(appName: String? = null): Result<AppInfo?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_recent_info_create_app_info(gtkRecentInfoPointer, appName, gError.ptr)?.run {
-            AppInfo.AppInfoImpl(reinterpret())
-        }
+            AppInfo.AppInfoImpl(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -101,8 +101,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      *    when the resource was added
      */
     public fun getAdded(): DateTime = gtk_recent_info_get_added(gtkRecentInfoPointer)!!.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Gets the number of days elapsed since the last update
@@ -119,8 +118,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return the description of the resource. The returned string
      *   is owned by the recent manager, and should not be freed.
      */
-    public fun getDescription(): String =
-        gtk_recent_info_get_description(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getDescription(): String = gtk_recent_info_get_description(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the resource.
@@ -131,8 +129,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return the display name of the resource. The returned string
      *   is owned by the recent manager, and should not be freed.
      */
-    public fun getDisplayName(): String =
-        gtk_recent_info_get_display_name(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getDisplayName(): String = gtk_recent_info_get_display_name(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the icon associated to the resource MIME type.
@@ -140,8 +137,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return a `GIcon` containing the icon
      */
     public fun getGicon(): Icon? = gtk_recent_info_get_gicon(gtkRecentInfoPointer)?.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Gets the MIME type of the resource.
@@ -149,8 +145,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return the MIME type of the resource. The returned string
      *   is owned by the recent manager, and should not be freed.
      */
-    public fun getMimeType(): String =
-        gtk_recent_info_get_mime_type(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getMimeType(): String = gtk_recent_info_get_mime_type(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the time when the meta-data
@@ -160,8 +155,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      *   when the resource was last modified
      */
     public fun getModified(): DateTime = gtk_recent_info_get_modified(gtkRecentInfoPointer)!!.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Gets the value of the “private” flag.
@@ -184,8 +178,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return A newly-allocated string in UTF-8 encoding
      *   free it with g_free()
      */
-    public fun getShortName(): String =
-        gtk_recent_info_get_short_name(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getShortName(): String = gtk_recent_info_get_short_name(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the URI of the resource.
@@ -193,8 +186,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return the URI of the resource. The returned string is
      *   owned by the recent manager, and should not be freed.
      */
-    public fun getUri(): String =
-        gtk_recent_info_get_uri(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getUri(): String = gtk_recent_info_get_uri(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a displayable version of the resource’s URI.
@@ -216,8 +208,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      *    when the resource was last visited
      */
     public fun getVisited(): DateTime = gtk_recent_info_get_visited(gtkRecentInfoPointer)!!.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Checks whether an application registered this resource using @app_name.
@@ -226,8 +217,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return true if an application with name @app_name was found,
      *   false otherwise
      */
-    public fun hasApplication(appName: String): Boolean =
-        gtk_recent_info_has_application(gtkRecentInfoPointer, appName).asBoolean()
+    public fun hasApplication(appName: String): Boolean = gtk_recent_info_has_application(gtkRecentInfoPointer, appName).asBoolean()
 
     /**
      * Checks whether @group_name appears inside the groups
@@ -236,8 +226,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @param groupName name of a group
      * @return true if the group was found
      */
-    public fun hasGroup(groupName: String): Boolean =
-        gtk_recent_info_has_group(gtkRecentInfoPointer, groupName).asBoolean()
+    public fun hasGroup(groupName: String): Boolean = gtk_recent_info_has_group(gtkRecentInfoPointer, groupName).asBoolean()
 
     /**
      * Checks whether the resource is local or not by looking at the
@@ -253,8 +242,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      *
      * @return an application name. Use g_free() to free it.
      */
-    public fun lastApplication(): String =
-        gtk_recent_info_last_application(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun lastApplication(): String = gtk_recent_info_last_application(gtkRecentInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Checks whether two `GtkRecentInfo` point to the same resource.
@@ -263,8 +251,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      * @return true if both `GtkRecentInfo` point to the same
      *   resource, false otherwise
      */
-    public fun match(infoB: RecentInfo): Boolean =
-        gtk_recent_info_match(gtkRecentInfoPointer, infoB.gtkRecentInfoPointer).asBoolean()
+    public fun match(infoB: RecentInfo): Boolean = gtk_recent_info_match(gtkRecentInfoPointer, infoB.gtkRecentInfoPointer).asBoolean()
 
     /**
      * Increases the reference count of @recent_info by one.
@@ -273,8 +260,7 @@ public class RecentInfo(public val gtkRecentInfoPointer: CPointer<GtkRecentInfo>
      *   increased by one
      */
     public fun ref(): RecentInfo = gtk_recent_info_ref(gtkRecentInfoPointer)!!.run {
-        RecentInfo(this)
-    }
+        RecentInfo(this)}
 
     /**
      * Decreases the reference count of @info by one.

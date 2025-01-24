@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,8 +23,6 @@ import org.gtkkn.native.pango.pango_font_face_get_face_name
 import org.gtkkn.native.pango.pango_font_face_get_family
 import org.gtkkn.native.pango.pango_font_face_get_type
 import org.gtkkn.native.pango.pango_font_face_is_synthesized
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A `PangoFontFace` is used to represent a group of fonts with
@@ -32,8 +32,9 @@ import kotlin.String
  *
  * - parameter `sizes`: sizes: Out parameter is not supported
  */
-public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFontFace>) :
-    Object(pangoFontFacePointer.reinterpret()),
+public abstract class FontFace(
+    public val pangoFontFacePointer: CPointer<PangoFontFace>,
+) : Object(pangoFontFacePointer.reinterpret()),
     KGTyped {
     /**
      * Returns a font description that matches the face.
@@ -47,8 +48,7 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
      *   to free the result.
      */
     public open fun describe(): FontDescription = pango_font_face_describe(pangoFontFacePointer)!!.run {
-        FontDescription(this)
-    }
+        FontDescription(this)}
 
     /**
      * Gets a name representing the style of this face.
@@ -60,8 +60,7 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
      * @return the face name for the face. This string is
      *   owned by the face object and must not be modified or freed.
      */
-    public open fun getFaceName(): String =
-        pango_font_face_get_face_name(pangoFontFacePointer)?.toKString() ?: error("Expected not null string")
+    public open fun getFaceName(): String = pango_font_face_get_face_name(pangoFontFacePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `PangoFontFamily` that @face belongs to.
@@ -71,8 +70,7 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
      */
     @PangoVersion1_46
     public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer)!!.run {
-        FontFamily.FontFamilyImpl(this)
-    }
+        FontFamily.FontFamilyImpl(this)}
 
     /**
      * Returns whether a `PangoFontFace` is synthesized.
@@ -92,15 +90,16 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
      *
      * @constructor Creates a new instance of FontFace for the provided [CPointer].
      */
-    public class FontFaceImpl(pointer: CPointer<PangoFontFace>) : FontFace(pointer)
+    public class FontFaceImpl(
+        pointer: CPointer<PangoFontFace>,
+    ) : FontFace(pointer)
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =
-            GeneratedClassKGType(getTypeOrNull("pango_font_face_get_type")!!) { FontFaceImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("pango_font_face_get_type")!!) { FontFaceImpl(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of FontFace

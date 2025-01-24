@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
@@ -20,7 +21,6 @@ import org.gtkkn.native.gtk.gtk_mount_operation_is_showing
 import org.gtkkn.native.gtk.gtk_mount_operation_new
 import org.gtkkn.native.gtk.gtk_mount_operation_set_display
 import org.gtkkn.native.gtk.gtk_mount_operation_set_parent
-import kotlin.Boolean
 
 /**
  * `GtkMountOperation` is an implementation of `GMountOperation`.
@@ -41,8 +41,9 @@ import kotlin.Boolean
  *
  * - method `is-showing`: Property has no getter nor setter
  */
-public open class MountOperation(public val gtkMountOperationPointer: CPointer<GtkMountOperation>) :
-    org.gtkkn.bindings.gio.MountOperation(gtkMountOperationPointer.reinterpret()),
+public open class MountOperation(
+    public val gtkMountOperationPointer: CPointer<GtkMountOperation>,
+) : org.gtkkn.bindings.gio.MountOperation(gtkMountOperationPointer.reinterpret()),
     KGTyped {
     /**
      * The display where dialogs will be shown.
@@ -55,9 +56,7 @@ public open class MountOperation(public val gtkMountOperationPointer: CPointer<G
          * @return the display on which windows of @op are shown
          */
         get() = gtk_mount_operation_get_display(gtkMountOperationPointer)!!.run {
-            Display(this)
-        }
-
+            Display(this)}
         /**
          * Sets the display to show windows of the `GtkMountOperation` on.
          *
@@ -75,9 +74,7 @@ public open class MountOperation(public val gtkMountOperationPointer: CPointer<G
          * @return the transient parent for windows shown by @op
          */
         get() = gtk_mount_operation_get_parent(gtkMountOperationPointer)?.run {
-            Window(this)
-        }
-
+            Window(this)}
         /**
          * Sets the transient parent for windows shown by the
          * `GtkMountOperation`.
@@ -104,13 +101,10 @@ public open class MountOperation(public val gtkMountOperationPointer: CPointer<G
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =
-            GeneratedClassKGType(getTypeOrNull("gtk_mount_operation_get_type")!!) {
-                MountOperation(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_mount_operation_get_type")!!) { MountOperation(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of MountOperation

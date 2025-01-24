@@ -26,46 +26,39 @@ import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_type
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
-public open class LinearGradientNode(public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>) :
-    RenderNode(gskLinearGradientNodePointer.reinterpret()),
+public open class LinearGradientNode(
+    public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>,
+) : RenderNode(gskLinearGradientNodePointer.reinterpret()),
     KGTyped {
     /**
      * Retrieves the final point of the linear gradient.
      *
      * @return the final point
      */
-    public open fun getEnd(): Point =
-        gsk_linear_gradient_node_get_end(gskLinearGradientNodePointer.reinterpret())!!.run {
-            Point(this)
-        }
+    public open fun getEnd(): Point = gsk_linear_gradient_node_get_end(gskLinearGradientNodePointer.reinterpret())!!.run {
+        Point(this)}
 
     /**
      * Retrieves the number of color stops in the gradient.
      *
      * @return the number of color stops
      */
-    public open fun getNColorStops(): gsize =
-        gsk_linear_gradient_node_get_n_color_stops(gskLinearGradientNodePointer.reinterpret())
+    public open fun getNColorStops(): gsize = gsk_linear_gradient_node_get_n_color_stops(gskLinearGradientNodePointer.reinterpret())
 
     /**
      * Retrieves the initial point of the linear gradient.
      *
      * @return the initial point
      */
-    public open fun getStart(): Point =
-        gsk_linear_gradient_node_get_start(gskLinearGradientNodePointer.reinterpret())!!.run {
-            Point(this)
-        }
+    public open fun getStart(): Point = gsk_linear_gradient_node_get_start(gskLinearGradientNodePointer.reinterpret())!!.run {
+        Point(this)}
 
     public companion object : TypeCompanion<LinearGradientNode> {
         override val type: GeneratedClassKGType<LinearGradientNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_linear_gradient_node_get_type")!!) {
-                LinearGradientNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_linear_gradient_node_get_type")!!) { LinearGradientNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of LinearGradientNode

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pangocairo
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -45,9 +48,6 @@ import org.gtkkn.native.pangocairo.pango_cairo_show_layout
 import org.gtkkn.native.pangocairo.pango_cairo_show_layout_line
 import org.gtkkn.native.pangocairo.pango_cairo_update_context
 import org.gtkkn.native.pangocairo.pango_cairo_update_layout
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 import org.gtkkn.bindings.cairo.Context as CairoContext
 import org.gtkkn.bindings.pango.Context as PangoContext
 
@@ -71,10 +71,8 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextGetFontOptions(context: PangoContext): FontOptions? =
-        pango_cairo_context_get_font_options(context.pangoContextPointer)?.run {
-            FontOptions(this)
-        }
+    public fun contextGetFontOptions(context: PangoContext): FontOptions? = pango_cairo_context_get_font_options(context.pangoContextPointer)?.run {
+        FontOptions(this)}
 
     /**
      * Gets the resolution for the context.
@@ -87,8 +85,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextGetResolution(context: PangoContext): gdouble =
-        pango_cairo_context_get_resolution(context.pangoContextPointer)
+    public fun contextGetResolution(context: PangoContext): gdouble = pango_cairo_context_get_resolution(context.pangoContextPointer)
 
     /**
      * Sets the font options used when rendering text with this context.
@@ -102,8 +99,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextSetFontOptions(context: PangoContext, options: FontOptions? = null): Unit =
-        pango_cairo_context_set_font_options(context.pangoContextPointer, options?.cairoFontOptionsPointer)
+    public fun contextSetFontOptions(context: PangoContext, options: FontOptions? = null): Unit = pango_cairo_context_set_font_options(context.pangoContextPointer, options?.cairoFontOptionsPointer)
 
     /**
      * Sets the resolution for the context.
@@ -119,8 +115,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextSetResolution(context: PangoContext, dpi: gdouble): Unit =
-        pango_cairo_context_set_resolution(context.pangoContextPointer, dpi)
+    public fun contextSetResolution(context: PangoContext, dpi: gdouble): Unit = pango_cairo_context_set_resolution(context.pangoContextPointer, dpi)
 
     /**
      * Sets callback function for context to use for rendering attributes
@@ -134,15 +129,7 @@ public object PangoCairo {
      * @since 1.18
      */
     @PangoCairoVersion1_18
-    public fun contextSetShapeRenderer(context: PangoContext, func: ShapeRendererFunc?): Unit =
-        pango_cairo_context_set_shape_renderer(
-            context.pangoContextPointer,
-            func?.let {
-                ShapeRendererFuncFunc.reinterpret()
-            },
-            func?.let { StableRef.create(func).asCPointer() },
-            func?.let { staticStableRefDestroy.reinterpret() }
-        )
+    public fun contextSetShapeRenderer(context: PangoContext, func: ShapeRendererFunc?): Unit = pango_cairo_context_set_shape_renderer(context.pangoContextPointer, func?.let { ShapeRendererFuncFunc.reinterpret() }, func?.let { StableRef.create(func).asCPointer() }, func?.let { staticStableRefDestroy.reinterpret() })
 
     /**
      * Creates a context object set up to match the current transformation
@@ -161,10 +148,8 @@ public object PangoCairo {
      * @since 1.22
      */
     @PangoCairoVersion1_22
-    public fun createContext(cr: CairoContext): PangoContext =
-        pango_cairo_create_context(cr.cairoContextPointer)!!.run {
-            PangoContext(this)
-        }
+    public fun createContext(cr: CairoContext): PangoContext = pango_cairo_create_context(cr.cairoContextPointer)!!.run {
+        PangoContext(this)}
 
     /**
      * Creates a layout object set up to match the current transformation
@@ -186,8 +171,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun createLayout(cr: CairoContext): Layout = pango_cairo_create_layout(cr.cairoContextPointer)!!.run {
-        Layout(this)
-    }
+        Layout(this)}
 
     /**
      * Add a squiggly line to the current path in the specified cairo context that
@@ -205,8 +189,13 @@ public object PangoCairo {
      * @since 1.14
      */
     @PangoCairoVersion1_14
-    public fun errorUnderlinePath(cr: CairoContext, x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        pango_cairo_error_underline_path(cr.cairoContextPointer, x, y, width, height)
+    public fun errorUnderlinePath(
+        cr: CairoContext,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit = pango_cairo_error_underline_path(cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Adds the glyphs in @glyphs to the current path in the specified
@@ -221,8 +210,11 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun glyphStringPath(cr: CairoContext, font: Font, glyphs: GlyphString): Unit =
-        pango_cairo_glyph_string_path(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
+    public fun glyphStringPath(
+        cr: CairoContext,
+        font: Font,
+        glyphs: GlyphString,
+    ): Unit = pango_cairo_glyph_string_path(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
 
     /**
      * Adds the text in `PangoLayoutLine` to the current path in the
@@ -236,8 +228,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun layoutLinePath(cr: CairoContext, line: LayoutLine): Unit =
-        pango_cairo_layout_line_path(cr.cairoContextPointer, line.pangoLayoutLinePointer)
+    public fun layoutLinePath(cr: CairoContext, line: LayoutLine): Unit = pango_cairo_layout_line_path(cr.cairoContextPointer, line.pangoLayoutLinePointer)
 
     /**
      * Adds the text in a `PangoLayout` to the current path in the
@@ -251,8 +242,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun layoutPath(cr: CairoContext, layout: Layout): Unit =
-        pango_cairo_layout_path(cr.cairoContextPointer, layout.pangoLayoutPointer)
+    public fun layoutPath(cr: CairoContext, layout: Layout): Unit = pango_cairo_layout_path(cr.cairoContextPointer, layout.pangoLayoutPointer)
 
     /**
      * Draw a squiggly line in the specified cairo context that approximately
@@ -271,8 +261,13 @@ public object PangoCairo {
      * @since 1.14
      */
     @PangoCairoVersion1_14
-    public fun showErrorUnderline(cr: CairoContext, x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        pango_cairo_show_error_underline(cr.cairoContextPointer, x, y, width, height)
+    public fun showErrorUnderline(
+        cr: CairoContext,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit = pango_cairo_show_error_underline(cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Draws the glyphs in @glyph_item in the specified cairo context,
@@ -293,8 +288,11 @@ public object PangoCairo {
      * @since 1.22
      */
     @PangoCairoVersion1_22
-    public fun showGlyphItem(cr: CairoContext, text: String, glyphItem: GlyphItem): Unit =
-        pango_cairo_show_glyph_item(cr.cairoContextPointer, text, glyphItem.pangoGlyphItemPointer)
+    public fun showGlyphItem(
+        cr: CairoContext,
+        text: String,
+        glyphItem: GlyphItem,
+    ): Unit = pango_cairo_show_glyph_item(cr.cairoContextPointer, text, glyphItem.pangoGlyphItemPointer)
 
     /**
      * Draws the glyphs in @glyphs in the specified cairo context.
@@ -308,8 +306,11 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun showGlyphString(cr: CairoContext, font: Font, glyphs: GlyphString): Unit =
-        pango_cairo_show_glyph_string(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
+    public fun showGlyphString(
+        cr: CairoContext,
+        font: Font,
+        glyphs: GlyphString,
+    ): Unit = pango_cairo_show_glyph_string(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
 
     /**
      * Draws a `PangoLayout` in the specified cairo context.
@@ -322,8 +323,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun showLayout(cr: CairoContext, layout: Layout): Unit =
-        pango_cairo_show_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
+    public fun showLayout(cr: CairoContext, layout: Layout): Unit = pango_cairo_show_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
 
     /**
      * Draws a `PangoLayoutLine` in the specified cairo context.
@@ -336,8 +336,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun showLayoutLine(cr: CairoContext, line: LayoutLine): Unit =
-        pango_cairo_show_layout_line(cr.cairoContextPointer, line.pangoLayoutLinePointer)
+    public fun showLayoutLine(cr: CairoContext, line: LayoutLine): Unit = pango_cairo_show_layout_line(cr.cairoContextPointer, line.pangoLayoutLinePointer)
 
     /**
      * Updates a `PangoContext` previously created for use with Cairo to
@@ -352,8 +351,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun updateContext(cr: CairoContext, context: PangoContext): Unit =
-        pango_cairo_update_context(cr.cairoContextPointer, context.pangoContextPointer)
+    public fun updateContext(cr: CairoContext, context: PangoContext): Unit = pango_cairo_update_context(cr.cairoContextPointer, context.pangoContextPointer)
 
     /**
      * Updates the private `PangoContext` of a `PangoLayout` created with
@@ -365,41 +363,29 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun updateLayout(cr: CairoContext, layout: Layout): Unit =
-        pango_cairo_update_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
+    public fun updateLayout(cr: CairoContext, layout: Layout): Unit = pango_cairo_update_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
 }
 
-public val ShapeRendererFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<cairo_t>,
-            CPointer<PangoAttrShape>,
-            gboolean,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        cr: CPointer<cairo_t>?,
-        attr: CPointer<PangoAttrShape>?,
-        doPath: gboolean,
-        `data`: gpointer?,
+public val ShapeRendererFuncFunc: CPointer<CFunction<(
+    CPointer<cairo_t>,
+    CPointer<PangoAttrShape>,
+    gboolean,
+) -> Unit>> = staticCFunction {
+    cr: CPointer<cairo_t>?,
+    attr: CPointer<PangoAttrShape>?,
+    doPath: gboolean,
+    `data`: gpointer?,
     ->
-    data!!.asStableRef<
-        (
-            cr: CairoContext,
-            attr: AttrShape,
-            doPath: Boolean,
-        ) -> Unit
-        >().get().invoke(
-        cr!!.run {
-            CairoContext(this)
-        },
-        attr!!.run {
-            AttrShape(this)
-        },
-        doPath.asBoolean()
-    )
-}
-    .reinterpret()
+    data!!.asStableRef<(
+        cr: CairoContext,
+        attr: AttrShape,
+        doPath: Boolean,
+    ) -> Unit>().get().invoke(cr!!.run {
+        CairoContext(this)}
+    , attr!!.run {
+        AttrShape(this)}
+    , doPath.asBoolean())}
+.reinterpret()
 
 /**
  * Function type for rendering attributes of type %PANGO_ATTR_SHAPE

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -35,9 +38,6 @@ import org.gtkkn.native.gio.g_tls_database_verify_chain_async
 import org.gtkkn.native.gio.g_tls_database_verify_chain_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GTlsDatabase` is used to look up certificates and other information
@@ -58,8 +58,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTlsDatabase>) :
-    Object(gioTlsDatabasePointer.reinterpret()),
+public abstract class TlsDatabase(
+    public val gioTlsDatabasePointer: CPointer<GTlsDatabase>,
+) : Object(gioTlsDatabasePointer.reinterpret()),
     KGTyped {
     /**
      * Create a handle string for the certificate. The database will only be able
@@ -77,11 +78,7 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun createCertificateHandle(certificate: TlsCertificate): String? =
-        g_tls_database_create_certificate_handle(
-            gioTlsDatabasePointer,
-            certificate.gioTlsCertificatePointer
-        )?.toKString()
+    public open fun createCertificateHandle(certificate: TlsCertificate): String? = g_tls_database_create_certificate_handle(gioTlsDatabasePointer, certificate.gioTlsCertificatePointer)?.toKString()
 
     /**
      * Look up a certificate by its handle.
@@ -113,16 +110,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
         cancellable: Cancellable? = null,
     ): Result<TlsCertificate?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_lookup_certificate_for_handle(
-            gioTlsDatabasePointer,
-            handle,
-            interaction?.gioTlsInteractionPointer,
-            flags.nativeValue,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            TlsCertificate.TlsCertificateImpl(this)
-        }
+        val gResult = g_tls_database_lookup_certificate_for_handle(gioTlsDatabasePointer, handle, interaction?.gioTlsInteractionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            TlsCertificate.TlsCertificateImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -149,17 +138,7 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_tls_database_lookup_certificate_for_handle_async(
-        gioTlsDatabasePointer,
-        handle,
-        interaction?.gioTlsInteractionPointer,
-        flags.nativeValue,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_tls_database_lookup_certificate_for_handle_async(gioTlsDatabasePointer, handle, interaction?.gioTlsInteractionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous lookup of a certificate by its handle. See
@@ -176,13 +155,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
     @GioVersion2_30
     public open fun lookupCertificateForHandleFinish(result: AsyncResult): Result<TlsCertificate> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_lookup_certificate_for_handle_finish(
-            gioTlsDatabasePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            TlsCertificate.TlsCertificateImpl(this)
-        }
+        val gResult = g_tls_database_lookup_certificate_for_handle_finish(gioTlsDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            TlsCertificate.TlsCertificateImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -229,16 +203,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
         cancellable: Cancellable? = null,
     ): Result<TlsCertificate> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_lookup_certificate_issuer(
-            gioTlsDatabasePointer,
-            certificate.gioTlsCertificatePointer,
-            interaction?.gioTlsInteractionPointer,
-            flags.nativeValue,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            TlsCertificate.TlsCertificateImpl(this)
-        }
+        val gResult = g_tls_database_lookup_certificate_issuer(gioTlsDatabasePointer, certificate.gioTlsCertificatePointer, interaction?.gioTlsInteractionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            TlsCertificate.TlsCertificateImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -265,17 +231,7 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_tls_database_lookup_certificate_issuer_async(
-        gioTlsDatabasePointer,
-        certificate.gioTlsCertificatePointer,
-        interaction?.gioTlsInteractionPointer,
-        flags.nativeValue,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_tls_database_lookup_certificate_issuer_async(gioTlsDatabasePointer, certificate.gioTlsCertificatePointer, interaction?.gioTlsInteractionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous lookup issuer operation. See
@@ -289,13 +245,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
     @GioVersion2_30
     public open fun lookupCertificateIssuerFinish(result: AsyncResult): Result<TlsCertificate> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_lookup_certificate_issuer_finish(
-            gioTlsDatabasePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            TlsCertificate.TlsCertificateImpl(this)
-        }
+        val gResult = g_tls_database_lookup_certificate_issuer_finish(gioTlsDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            TlsCertificate.TlsCertificateImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -316,13 +267,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
     @GioVersion2_30
     public open fun lookupCertificatesIssuedByFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_lookup_certificates_issued_by_finish(
-            gioTlsDatabasePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(this)
-        }
+        val gResult = g_tls_database_lookup_certificates_issued_by_finish(gioTlsDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -413,18 +359,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
         cancellable: Cancellable? = null,
     ): Result<TlsCertificateFlags> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_verify_chain(
-            gioTlsDatabasePointer,
-            chain.gioTlsCertificatePointer,
-            purpose,
-            identity?.gioSocketConnectablePointer,
-            interaction?.gioTlsInteractionPointer,
-            flags.mask,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).run {
-            TlsCertificateFlags(this)
-        }
+        val gResult = g_tls_database_verify_chain(gioTlsDatabasePointer, chain.gioTlsCertificatePointer, purpose, identity?.gioSocketConnectablePointer, interaction?.gioTlsInteractionPointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr).run {
+            TlsCertificateFlags(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -456,13 +392,7 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_tls_database_verify_chain_async(
-        gioTlsDatabasePointer, chain.gioTlsCertificatePointer, purpose, identity?.gioSocketConnectablePointer, interaction?.gioTlsInteractionPointer, flags.mask, cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_tls_database_verify_chain_async(gioTlsDatabasePointer, chain.gioTlsCertificatePointer, purpose, identity?.gioSocketConnectablePointer, interaction?.gioTlsInteractionPointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous verify chain operation. See
@@ -485,13 +415,8 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
     @GioVersion2_30
     public open fun verifyChainFinish(result: AsyncResult): Result<TlsCertificateFlags> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_tls_database_verify_chain_finish(
-            gioTlsDatabasePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).run {
-            TlsCertificateFlags(this)
-        }
+        val gResult = g_tls_database_verify_chain_finish(gioTlsDatabasePointer, result.gioAsyncResultPointer, gError.ptr).run {
+            TlsCertificateFlags(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -505,15 +430,16 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
      *
      * @constructor Creates a new instance of TlsDatabase for the provided [CPointer].
      */
-    public class TlsDatabaseImpl(pointer: CPointer<GTlsDatabase>) : TlsDatabase(pointer)
+    public class TlsDatabaseImpl(
+        pointer: CPointer<GTlsDatabase>,
+    ) : TlsDatabase(pointer)
 
     public companion object : TypeCompanion<TlsDatabase> {
         override val type: GeneratedClassKGType<TlsDatabase> =
-            GeneratedClassKGType(getTypeOrNull("g_tls_database_get_type")!!) { TlsDatabaseImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_tls_database_get_type")!!) { TlsDatabaseImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of TlsDatabase

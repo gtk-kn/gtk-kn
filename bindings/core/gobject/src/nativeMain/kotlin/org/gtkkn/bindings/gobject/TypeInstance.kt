@@ -3,48 +3,39 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeInstance
 import org.gtkkn.native.gobject.g_type_instance_get_private
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all type instances.
  */
 public open class TypeInstance(
     public val gobjectTypeInstancePointer: CPointer<GTypeInstance>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(gobjectTypeInstancePointer) {
+    public val gClass: TypeClass?
+        get() = gobjectTypeInstancePointer.pointed.g_class?.run {
+            TypeClass(this)}
+
     /**
      * Allocate a new TypeInstance.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeInstance>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TypeInstance and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTypeInstance>, Cleaner>,
-    ) : this(gobjectTypeInstancePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTypeInstance>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TypeInstance using the provided [AutofreeScope].
@@ -55,6 +46,7 @@ public open class TypeInstance(
      */
     public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeInstance>().ptr)
 
-    public fun getPrivate(privateType: GType): gpointer? =
-        g_type_instance_get_private(gobjectTypeInstancePointer, privateType)
+    public fun getPrivate(privateType: GType): gpointer? = g_type_instance_get_private(gobjectTypeInstancePointer, privateType)
+
+    override fun toString(): String = "TypeInstance(gClass=$gClass)"
 }

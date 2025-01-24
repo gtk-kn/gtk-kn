@@ -3,10 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -17,14 +19,15 @@ import org.gtkkn.native.gsk.gsk_debug_node_get_child
 import org.gtkkn.native.gsk.gsk_debug_node_get_message
 import org.gtkkn.native.gsk.gsk_debug_node_get_type
 import org.gtkkn.native.gsk.gsk_debug_node_new
-import kotlin.String
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node that emits a debugging message when drawing its
  * child node.
  */
-public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNode>) :
-    RenderNode(gskDebugNodePointer.reinterpret()),
+public open class DebugNode(
+    public val gskDebugNodePointer: CPointer<GskDebugNode>,
+) : RenderNode(gskDebugNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will add debug information about
@@ -36,10 +39,9 @@ public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNod
      * @param message The debug message
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        message: String,
-    ) : this(gsk_debug_node_new(child.gskRenderNodePointer, message.cstr)!!.reinterpret())
+    public constructor(child: RenderNode, message: String) : this(gsk_debug_node_new(child.gskRenderNodePointer, message.cstr)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -47,24 +49,21 @@ public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNod
      * @return the child `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_debug_node_get_child(gskDebugNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Gets the debug message that was set on this node
      *
      * @return The debug message
      */
-    public open fun getMessage(): String =
-        gsk_debug_node_get_message(gskDebugNodePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public open fun getMessage(): String = gsk_debug_node_get_message(gskDebugNodePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<DebugNode> {
         override val type: GeneratedClassKGType<DebugNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_debug_node_get_type")!!) { DebugNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_debug_node_get_type")!!) { DebugNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of DebugNode

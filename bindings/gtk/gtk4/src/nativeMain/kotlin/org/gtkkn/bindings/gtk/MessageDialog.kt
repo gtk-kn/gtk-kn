@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -20,8 +22,6 @@ import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_message_dialog_get_message_area
 import org.gtkkn.native.gtk.gtk_message_dialog_get_type
 import org.gtkkn.native.gtk.gtk_message_dialog_set_markup
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkMessageDialog` presents a dialog with some message text.
@@ -94,8 +94,9 @@ import kotlin.Unit
  * - constructor `new`: Varargs parameter is not supported
  * - constructor `new_with_markup`: Varargs parameter is not supported
  */
-public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>) :
-    Dialog(gtkMessageDialogPointer.reinterpret()),
+public open class MessageDialog(
+    public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>,
+) : Dialog(gtkMessageDialogPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -134,8 +135,7 @@ public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<Gtk
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * Sets the text of the message dialog.
@@ -146,11 +146,10 @@ public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_message_dialog_get_type")!!) { MessageDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_message_dialog_get_type")!!) { MessageDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of MessageDialog

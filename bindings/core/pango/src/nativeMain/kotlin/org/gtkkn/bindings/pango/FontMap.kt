@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -29,8 +31,6 @@ import org.gtkkn.native.pango.pango_font_map_get_type
 import org.gtkkn.native.pango.pango_font_map_load_font
 import org.gtkkn.native.pango.pango_font_map_load_fontset
 import org.gtkkn.native.pango.pango_font_map_reload_font
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `PangoFontMap` represents the set of fonts available for a
@@ -45,8 +45,9 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFontMap>) :
-    Object(pangoFontMapPointer.reinterpret()),
+public abstract class FontMap(
+    public val pangoFontMapPointer: CPointer<PangoFontMap>,
+) : Object(pangoFontMapPointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -83,8 +84,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
      */
     @PangoVersion1_22
     public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer)!!.run {
-        Context(this)
-    }
+        Context(this)}
 
     /**
      * Gets a font family by name.
@@ -95,8 +95,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
      */
     @PangoVersion1_46
     public open fun getFamily(name: String): FontFamily = pango_font_map_get_family(pangoFontMapPointer, name)!!.run {
-        FontFamily.FontFamilyImpl(this)
-    }
+        FontFamily.FontFamilyImpl(this)}
 
     /**
      * Returns the current serial number of @fontmap.
@@ -126,13 +125,8 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
      * @return the newly allocated `PangoFont`
      *   loaded, or null if no font matched.
      */
-    public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(
-        pangoFontMapPointer,
-        context.pangoContextPointer,
-        desc.pangoFontDescriptionPointer
-    )?.run {
-        Font.FontImpl(this)
-    }
+    public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(pangoFontMapPointer, context.pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
+        Font.FontImpl(this)}
 
     /**
      * Load a set of fonts in the fontmap that can be used to render
@@ -144,15 +138,12 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
      * @return the newly allocated
      *   `PangoFontset` loaded, or null if no font matched.
      */
-    public open fun loadFontset(context: Context, desc: FontDescription, language: Language): Fontset? =
-        pango_font_map_load_fontset(
-            pangoFontMapPointer,
-            context.pangoContextPointer,
-            desc.pangoFontDescriptionPointer,
-            language.pangoLanguagePointer
-        )?.run {
-            Fontset.FontsetImpl(this)
-        }
+    public open fun loadFontset(
+        context: Context,
+        desc: FontDescription,
+        language: Language,
+    ): Fontset? = pango_font_map_load_fontset(pangoFontMapPointer, context.pangoContextPointer, desc.pangoFontDescriptionPointer, language.pangoLanguagePointer)?.run {
+        Fontset.FontsetImpl(this)}
 
     /**
      * Returns a new font that is like @font, except that its size
@@ -173,30 +164,24 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
         scale: gdouble,
         context: Context? = null,
         variations: String? = null,
-    ): Font = pango_font_map_reload_font(
-        pangoFontMapPointer,
-        font.pangoFontPointer,
-        scale,
-        context?.pangoContextPointer,
-        variations
-    )!!.run {
-        Font.FontImpl(this)
-    }
+    ): Font = pango_font_map_reload_font(pangoFontMapPointer, font.pangoFontPointer, scale, context?.pangoContextPointer, variations)!!.run {
+        Font.FontImpl(this)}
 
     /**
      * The FontMapImpl type represents a native instance of the abstract FontMap class.
      *
      * @constructor Creates a new instance of FontMap for the provided [CPointer].
      */
-    public class FontMapImpl(pointer: CPointer<PangoFontMap>) : FontMap(pointer)
+    public class FontMapImpl(
+        pointer: CPointer<PangoFontMap>,
+    ) : FontMap(pointer)
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedClassKGType<FontMap> =
-            GeneratedClassKGType(getTypeOrNull("pango_font_map_get_type")!!) { FontMapImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("pango_font_map_get_type")!!) { FontMapImpl(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of FontMap

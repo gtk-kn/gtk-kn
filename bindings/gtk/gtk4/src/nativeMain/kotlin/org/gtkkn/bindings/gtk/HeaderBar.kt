@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -28,9 +31,6 @@ import org.gtkkn.native.gtk.gtk_header_bar_remove
 import org.gtkkn.native.gtk.gtk_header_bar_set_decoration_layout
 import org.gtkkn.native.gtk.gtk_header_bar_set_show_title_buttons
 import org.gtkkn.native.gtk.gtk_header_bar_set_title_widget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkHeaderBar` is a widget for creating custom title bars for windows.
@@ -105,8 +105,9 @@ import kotlin.Unit
  *
  * `GtkHeaderBar` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>) :
-    Widget(gtkHeaderBarPointer.reinterpret()),
+public open class HeaderBar(
+    public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>,
+) : Widget(gtkHeaderBarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -130,7 +131,6 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
          * @return the decoration layout
          */
         get() = gtk_header_bar_get_decoration_layout(gtkHeaderBarPointer)?.toKString()
-
         /**
          * Sets the decoration layout for this header bar.
          *
@@ -170,7 +170,6 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
          * @return true if title buttons are shown
          */
         get() = gtk_header_bar_get_show_title_buttons(gtkHeaderBarPointer).asBoolean()
-
         /**
          * Sets whether this header bar shows the standard window
          * title buttons.
@@ -188,9 +187,7 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
          * @return the title widget of the header
          */
         get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the title for the `GtkHeaderBar`.
          *
@@ -229,8 +226,7 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
      *
      * @param child the `GtkWidget` to be added to @bar
      */
-    public open fun packStart(child: Widget): Unit =
-        gtk_header_bar_pack_start(gtkHeaderBarPointer, child.gtkWidgetPointer)
+    public open fun packStart(child: Widget): Unit = gtk_header_bar_pack_start(gtkHeaderBarPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child from the `GtkHeaderBar`.
@@ -246,11 +242,10 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of HeaderBar

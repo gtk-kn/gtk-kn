@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -16,7 +17,6 @@ import org.gtkkn.native.webkit.WebKitPermissionRequest
 import org.gtkkn.native.webkit.webkit_permission_request_allow
 import org.gtkkn.native.webkit.webkit_permission_request_deny
 import org.gtkkn.native.webkit.webkit_permission_request_get_type
-import kotlin.Unit
 
 /**
  * A permission request.
@@ -28,9 +28,7 @@ import kotlin.Unit
  * #WebKitWebView::permission-request signal with a
  * #WebKitPermissionRequest object attached to it.
  */
-public interface PermissionRequest :
-    Proxy,
-    KGTyped {
+public interface PermissionRequest : Proxy, KGTyped {
     public val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
 
     /**
@@ -55,13 +53,10 @@ public interface PermissionRequest :
 
     public companion object : TypeCompanion<PermissionRequest> {
         override val type: GeneratedInterfaceKGType<PermissionRequest> =
-            GeneratedInterfaceKGType(getTypeOrNull("webkit_permission_request_get_type")!!) {
-                PermissionRequestImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("webkit_permission_request_get_type")!!) { PermissionRequestImpl(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of PermissionRequest

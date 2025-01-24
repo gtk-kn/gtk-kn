@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -24,8 +26,6 @@ import org.gtkkn.native.gio.g_app_info_monitor_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GAppInfoMonitor` monitors application information for changes.
@@ -70,8 +70,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @GioVersion2_40
-public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>) :
-    Object(gioAppInfoMonitorPointer.reinterpret()),
+public open class AppInfoMonitor(
+    public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>,
+) : Object(gioAppInfoMonitorPointer.reinterpret()),
     KGTyped {
     /**
      * Signal emitted when the app info database changes, when applications are
@@ -82,15 +83,7 @@ public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<G
      * @since 2.40
      */
     @GioVersion2_40
-    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioAppInfoMonitorPointer,
-            "changed",
-            onChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioAppInfoMonitorPointer, "changed", onChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "changed" signal. See [onChanged].
@@ -104,13 +97,10 @@ public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<G
 
     public companion object : TypeCompanion<AppInfoMonitor> {
         override val type: GeneratedClassKGType<AppInfoMonitor> =
-            GeneratedClassKGType(getTypeOrNull("g_app_info_monitor_get_type")!!) {
-                AppInfoMonitor(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_app_info_monitor_get_type")!!) { AppInfoMonitor(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Gets the #GAppInfoMonitor for the current thread-default main
@@ -132,8 +122,7 @@ public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<G
          */
         @GioVersion2_40
         public fun `get`(): AppInfoMonitor = g_app_info_monitor_get()!!.run {
-            AppInfoMonitor(this)
-        }
+            AppInfoMonitor(this)}
 
         /**
          * Get the GType of AppInfoMonitor
@@ -145,9 +134,8 @@ public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<G
 }
 
 private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

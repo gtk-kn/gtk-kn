@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -39,8 +41,6 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_hash_table_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The #GHashTable struct is an opaque data structure to represent a
@@ -59,7 +59,9 @@ import kotlin.Unit
  * - function `steal_all_values`: GLib.PtrArray parameter of type gpointer is not supported
  * - parameter `stolen_key`: stolen_key: Out parameter is not supported
  */
-public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : ProxyInstance(glibHashTablePointer) {
+public class HashTable(
+    public val glibHashTablePointer: CPointer<GHashTable>,
+) : ProxyInstance(glibHashTablePointer) {
     public companion object {
         /**
          * This is a convenience function for using a #GHashTable as a set.  It
@@ -84,8 +86,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @since 2.32
          */
         @GLibVersion2_32
-        public fun add(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_add(hashTable.glibHashTablePointer, key).asBoolean()
+        public fun add(hashTable: HashTable, key: gpointer? = null): Boolean = g_hash_table_add(hashTable.glibHashTablePointer, key).asBoolean()
 
         /**
          * Checks if @key is in @hash_table.
@@ -96,8 +97,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @since 2.32
          */
         @GLibVersion2_32
-        public fun contains(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_contains(hashTable.glibHashTablePointer, key).asBoolean()
+        public fun contains(hashTable: HashTable, key: gpointer? = null): Boolean = g_hash_table_contains(hashTable.glibHashTablePointer, key).asBoolean()
 
         /**
          * Destroys all keys and values in the #GHashTable and decrements its
@@ -134,11 +134,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @since 2.4
          */
         @GLibVersion2_4
-        public fun find(hashTable: HashTable, predicate: HrFunc): gpointer? = g_hash_table_find(
-            hashTable.glibHashTablePointer,
-            HrFuncFunc.reinterpret(),
-            StableRef.create(predicate).asCPointer()
-        )
+        public fun find(hashTable: HashTable, predicate: HrFunc): gpointer? = g_hash_table_find(hashTable.glibHashTablePointer, HrFuncFunc.reinterpret(), StableRef.create(predicate).asCPointer())
 
         /**
          * Calls the given function for each of the key/value pairs in the
@@ -157,11 +153,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param hashTable a #GHashTable
          * @param func the function to call for each key/value pair
          */
-        public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(
-            hashTable.glibHashTablePointer,
-            HFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(hashTable.glibHashTablePointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Calls the given function for each key/value pair in the
@@ -177,11 +169,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed
          */
-        public fun foreachRemove(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_remove(
-            hashTable.glibHashTablePointer,
-            HrFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreachRemove(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_remove(hashTable.glibHashTablePointer, HrFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Calls the given function for each key/value pair in the
@@ -196,11 +184,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed.
          */
-        public fun foreachSteal(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_steal(
-            hashTable.glibHashTablePointer,
-            HrFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreachSteal(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_steal(hashTable.glibHashTablePointer, HrFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Retrieves every key inside @hash_table. The returned data is valid
@@ -219,8 +203,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          */
         @GLibVersion2_14
         public fun getKeys(hashTable: HashTable): List = g_hash_table_get_keys(hashTable.glibHashTablePointer)!!.run {
-            List(this)
-        }
+            List(this)}
 
         /**
          * Retrieves every value inside @hash_table. The returned data
@@ -238,10 +221,8 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun getValues(hashTable: HashTable): List =
-            g_hash_table_get_values(hashTable.glibHashTablePointer)!!.run {
-                List(this)
-            }
+        public fun getValues(hashTable: HashTable): List = g_hash_table_get_values(hashTable.glibHashTablePointer)!!.run {
+            List(this)}
 
         /**
          * Inserts a new key and value into a #GHashTable.
@@ -262,8 +243,11 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param value the value to associate with the key
          * @return true if the key did not exist yet
          */
-        public fun insert(hashTable: HashTable, key: gpointer? = null, `value`: gpointer? = null): Boolean =
-            g_hash_table_insert(hashTable.glibHashTablePointer, key, `value`).asBoolean()
+        public fun insert(
+            hashTable: HashTable,
+            key: gpointer? = null,
+            `value`: gpointer? = null,
+        ): Boolean = g_hash_table_insert(hashTable.glibHashTablePointer, key, `value`).asBoolean()
 
         /**
          * Looks up a key in a #GHashTable. Note that this function cannot
@@ -275,8 +259,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param key the key to look up
          * @return the associated value, or null if the key is not found
          */
-        public fun lookup(hashTable: HashTable, key: gpointer? = null): gpointer? =
-            g_hash_table_lookup(hashTable.glibHashTablePointer, key)
+        public fun lookup(hashTable: HashTable, key: gpointer? = null): gpointer? = g_hash_table_lookup(hashTable.glibHashTablePointer, key)
 
         /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference
@@ -293,10 +276,8 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @since 2.72
          */
         @GLibVersion2_72
-        public fun newSimilar(otherHashTable: HashTable): HashTable =
-            g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
-                HashTable(this)
-            }
+        public fun newSimilar(otherHashTable: HashTable): HashTable = g_hash_table_new_similar(otherHashTable.glibHashTablePointer)!!.run {
+            HashTable(this)}
 
         /**
          * Atomically increments the reference count of @hash_table by one.
@@ -308,8 +289,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          */
         @GLibVersion2_10
         public fun ref(hashTable: HashTable): HashTable = g_hash_table_ref(hashTable.glibHashTablePointer)!!.run {
-            HashTable(this)
-        }
+            HashTable(this)}
 
         /**
          * Removes a key and its associated value from a #GHashTable.
@@ -323,8 +303,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param key the key to remove
          * @return true if the key was found and removed from the #GHashTable
          */
-        public fun remove(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_remove(hashTable.glibHashTablePointer, key).asBoolean()
+        public fun remove(hashTable: HashTable, key: gpointer? = null): Boolean = g_hash_table_remove(hashTable.glibHashTablePointer, key).asBoolean()
 
         /**
          * Removes all keys and their associated values from a #GHashTable.
@@ -358,8 +337,11 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param value the value to associate with the key
          * @return true if the key did not exist yet
          */
-        public fun replace(hashTable: HashTable, key: gpointer? = null, `value`: gpointer? = null): Boolean =
-            g_hash_table_replace(hashTable.glibHashTablePointer, key, `value`).asBoolean()
+        public fun replace(
+            hashTable: HashTable,
+            key: gpointer? = null,
+            `value`: gpointer? = null,
+        ): Boolean = g_hash_table_replace(hashTable.glibHashTablePointer, key, `value`).asBoolean()
 
         /**
          * Returns the number of elements contained in the #GHashTable.
@@ -377,8 +359,7 @@ public class HashTable(public val glibHashTablePointer: CPointer<GHashTable>) : 
          * @param key the key to remove
          * @return true if the key was found and removed from the #GHashTable
          */
-        public fun steal(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_steal(hashTable.glibHashTablePointer, key).asBoolean()
+        public fun steal(hashTable: HashTable, key: gpointer? = null): Boolean = g_hash_table_steal(hashTable.glibHashTablePointer, key).asBoolean()
 
         /**
          * Removes all keys and their associated values from a #GHashTable

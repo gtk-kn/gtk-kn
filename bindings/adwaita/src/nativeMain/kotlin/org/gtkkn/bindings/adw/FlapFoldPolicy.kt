@@ -10,18 +10,18 @@ import org.gtkkn.native.gobject.GType
 /**
  * Describes the possible folding behavior of a [class@Flap] widget.
  */
-public enum class FlapFoldPolicy(public val nativeValue: AdwFlapFoldPolicy) {
+public enum class FlapFoldPolicy(
+    public val nativeValue: AdwFlapFoldPolicy,
+) {
     /**
      * Disable folding, the flap cannot reach narrow
      *   sizes.
      */
     NEVER(AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_NEVER),
-
     /**
      * Keep the flap always folded.
      */
     ALWAYS(AdwFlapFoldPolicy.ADW_FLAP_FOLD_POLICY_ALWAYS),
-
     /**
      * Fold and unfold the flap based on available
      *   space.

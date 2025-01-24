@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -35,10 +39,6 @@ import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GSimpleAction` is the obvious simple implementation of the
@@ -53,8 +53,9 @@ import kotlin.Unit
  * - method `state`: Property has no getter
  * - method `state-type`: Property has no getter nor setter
  */
-public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimpleAction>) :
-    Object(gioSimpleActionPointer.reinterpret()),
+public open class SimpleAction(
+    public val gioSimpleActionPointer: CPointer<GSimpleAction>,
+) : Object(gioSimpleActionPointer.reinterpret()),
     Action,
     KGTyped {
     override val gioActionPointer: CPointer<GAction>
@@ -72,10 +73,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
      * @return a new #GSimpleAction
      * @since 2.28
      */
-    public constructor(
-        name: String,
-        parameterType: VariantType? = null,
-    ) : this(g_simple_action_new(name, parameterType?.glibVariantTypePointer)!!.reinterpret())
+    public constructor(name: String, parameterType: VariantType? = null) : this(g_simple_action_new(name, parameterType?.glibVariantTypePointer)!!)
 
     /**
      * Creates a new stateful action.
@@ -96,13 +94,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
         name: String,
         parameterType: VariantType? = null,
         state: Variant,
-    ) : this(
-        g_simple_action_new_stateful(
-            name,
-            parameterType?.glibVariantTypePointer,
-            state.glibVariantPointer
-        )!!.reinterpret()
-    )
+    ) : this(g_simple_action_new_stateful(name, parameterType?.glibVariantTypePointer, state.glibVariantPointer)!!)
 
     /**
      * Sets the action as enabled or not.
@@ -117,8 +109,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun setEnabled(enabled: Boolean): Unit =
-        g_simple_action_set_enabled(gioSimpleActionPointer, enabled.asGBoolean())
+    public open fun setEnabled(enabled: Boolean): Unit = g_simple_action_set_enabled(gioSimpleActionPointer, enabled.asGBoolean())
 
     /**
      * Sets the state of the action.
@@ -136,8 +127,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun setState(`value`: Variant): Unit =
-        g_simple_action_set_state(gioSimpleActionPointer, `value`.glibVariantPointer)
+    public open fun setState(`value`: Variant): Unit = g_simple_action_set_state(gioSimpleActionPointer, `value`.glibVariantPointer)
 
     /**
      * Sets the state hint for the action.
@@ -149,8 +139,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun setStateHint(stateHint: Variant? = null): Unit =
-        g_simple_action_set_state_hint(gioSimpleActionPointer, stateHint?.glibVariantPointer)
+    public open fun setStateHint(stateHint: Variant? = null): Unit = g_simple_action_set_state_hint(gioSimpleActionPointer, stateHint?.glibVariantPointer)
 
     /**
      * Indicates that the action was just activated.
@@ -173,17 +162,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
      * @since 2.28
      */
     @GioVersion2_28
-    public fun onActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (parameter: Variant?) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioSimpleActionPointer,
-        "activate",
-        onActivateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (parameter: Variant?) -> Unit): ULong = g_signal_connect_data(gioSimpleActionPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -237,17 +216,7 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onChangeState(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`value`: Variant?) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioSimpleActionPointer,
-        "change-state",
-        onChangeStateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onChangeState(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`value`: Variant?) -> Unit): ULong = g_signal_connect_data(gioSimpleActionPointer, "change-state", onChangeStateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "change-state" signal. See [onChangeState].
@@ -262,11 +231,10 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
 
     public companion object : TypeCompanion<SimpleAction> {
         override val type: GeneratedClassKGType<SimpleAction> =
-            GeneratedClassKGType(getTypeOrNull("g_simple_action_get_type")!!) { SimpleAction(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_simple_action_get_type")!!) { SimpleAction(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SimpleAction
@@ -278,28 +246,22 @@ public open class SimpleAction(public val gioSimpleActionPointer: CPointer<GSimp
 }
 
 private val onActivateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        parameter: CPointer<GVariant>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    parameter: CPointer<GVariant>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(parameter: Variant?) -> Unit>().get().invoke(
-        parameter?.run {
-            Variant(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(parameter: Variant?) -> Unit>().get().invoke(parameter?.run {
+        Variant(this)}
+    )}
+.reinterpret()
 
 private val onChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `value`: CPointer<GVariant>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`value`: Variant?) -> Unit>().get().invoke(
-            `value`?.run {
-                Variant(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    `value`: CPointer<GVariant>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`value`: Variant?) -> Unit>().get().invoke(`value`?.run {
+        Variant(this)}
+    )}
+.reinterpret()

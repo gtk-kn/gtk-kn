@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -31,11 +36,6 @@ import org.gtkkn.native.glib.g_markup_parse_context_unref
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_markup_parse_context_get_type
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A parse context is used to parse a stream of bytes that
@@ -49,8 +49,9 @@ import kotlin.Unit
  * - parameter `line_number`: line_number: Out parameter is not supported
  * - parameter `user_data_dnotify`: DestroyNotify
  */
-public class MarkupParseContext(public val glibMarkupParseContextPointer: CPointer<GMarkupParseContext>) :
-    ProxyInstance(glibMarkupParseContextPointer) {
+public class MarkupParseContext(
+    public val glibMarkupParseContextPointer: CPointer<GMarkupParseContext>,
+) : ProxyInstance(glibMarkupParseContextPointer) {
     /**
      * Signals to the #GMarkupParseContext that all data has been
      * fed into the parse context with g_markup_parse_context_parse().
@@ -89,8 +90,7 @@ public class MarkupParseContext(public val glibMarkupParseContextPointer: CPoint
      * @since 2.2
      */
     @GLibVersion2_2
-    public fun getElement(): String = g_markup_parse_context_get_element(glibMarkupParseContextPointer)?.toKString()
-        ?: error("Expected not null string")
+    public fun getElement(): String = g_markup_parse_context_get_element(glibMarkupParseContextPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the element stack from the internal state of the parser.
@@ -109,10 +109,8 @@ public class MarkupParseContext(public val glibMarkupParseContextPointer: CPoint
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getElementStack(): SList =
-        g_markup_parse_context_get_element_stack(glibMarkupParseContextPointer)!!.run {
-            SList(this)
-        }
+    public fun getElementStack(): SList = g_markup_parse_context_get_element_stack(glibMarkupParseContextPointer)!!.run {
+        SList(this)}
 
     /**
      * Returns the user_data associated with @context.
@@ -297,8 +295,7 @@ public class MarkupParseContext(public val glibMarkupParseContextPointer: CPoint
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun push(parser: MarkupParser, userData: gpointer? = null): Unit =
-        g_markup_parse_context_push(glibMarkupParseContextPointer, parser.glibMarkupParserPointer, userData)
+    public fun push(parser: MarkupParser, userData: gpointer? = null): Unit = g_markup_parse_context_push(glibMarkupParseContextPointer, parser.glibMarkupParserPointer, userData)
 
     /**
      * Increases the reference count of @context.
@@ -308,8 +305,7 @@ public class MarkupParseContext(public val glibMarkupParseContextPointer: CPoint
      */
     @GLibVersion2_36
     public fun ref(): MarkupParseContext = g_markup_parse_context_ref(glibMarkupParseContextPointer)!!.run {
-        MarkupParseContext(this)
-    }
+        MarkupParseContext(this)}
 
     /**
      * Decreases the reference count of @context.  When its reference count

@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -18,22 +20,35 @@ import org.gtkkn.native.glib.g_main_loop_run
 import org.gtkkn.native.glib.g_main_loop_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_main_loop_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GMainLoop` struct is an opaque data type
  * representing the main event loop of a GLib or GTK application.
  */
-public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : ProxyInstance(glibMainLoopPointer) {
+public class MainLoop(
+    public val glibMainLoopPointer: CPointer<GMainLoop>,
+) : ProxyInstance(glibMainLoopPointer) {
+    /**
+     * Creates a new #GMainLoop structure.
+     *
+     * @param context a #GMainContext  (if null, the global-default
+     *   main context will be used).
+     * @param isRunning set to true to indicate that the loop is running. This
+     * is not very important since calling g_main_loop_run() will set this to
+     * true anyway.
+     * @return a new #GMainLoop.
+     */
+    public constructor(context: MainContext? = null, isRunning: Boolean) : this(g_main_loop_new(context?.glibMainContextPointer, isRunning.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Returns the #GMainContext of @loop.
      *
      * @return the #GMainContext of @loop
      */
     public fun getContext(): MainContext = g_main_loop_get_context(glibMainLoopPointer)!!.run {
-        MainContext(this)
-    }
+        MainContext(this)}
 
     /**
      * Checks to see if the main loop is currently being run via g_main_loop_run().
@@ -57,8 +72,7 @@ public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : Pro
      * @return @loop
      */
     public fun ref(): MainLoop = g_main_loop_ref(glibMainLoopPointer)!!.run {
-        MainLoop(this)
-    }
+        MainLoop(this)}
 
     /**
      * Runs a main loop until g_main_loop_quit() is called on the loop.
@@ -75,19 +89,6 @@ public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : Pro
     public fun unref(): Unit = g_main_loop_unref(glibMainLoopPointer)
 
     public companion object {
-        /**
-         * Creates a new #GMainLoop structure.
-         *
-         * @param context a #GMainContext  (if null, the global-default
-         *   main context will be used).
-         * @param isRunning set to true to indicate that the loop is running. This
-         * is not very important since calling g_main_loop_run() will set this to
-         * true anyway.
-         * @return a new #GMainLoop.
-         */
-        public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop =
-            MainLoop(g_main_loop_new(context?.glibMainContextPointer, isRunning.asGBoolean())!!.reinterpret())
-
         /**
          * Get the GType of MainLoop
          *

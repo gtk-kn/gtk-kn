@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,6 +14,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusPropertyInfo
 import org.gtkkn.native.gio.g_dbus_property_info_get_type
@@ -21,11 +24,6 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a D-Bus property on a D-Bus interface.
@@ -39,14 +37,12 @@ import kotlin.native.ref.createCleaner
 @GioVersion2_26
 public class DBusPropertyInfo(
     public val gioDBusPropertyInfoPointer: CPointer<GDBusPropertyInfo>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(gioDBusPropertyInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
         get() = gioDBusPropertyInfoPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.ref_count = value
@@ -57,7 +53,6 @@ public class DBusPropertyInfo(
      */
     public var name: String?
         get() = gioDBusPropertyInfoPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.name?.let { g_free(it) }
@@ -69,7 +64,6 @@ public class DBusPropertyInfo(
      */
     public var signature: String?
         get() = gioDBusPropertyInfoPointer.pointed.signature?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.signature?.let { g_free(it) }
@@ -81,9 +75,7 @@ public class DBusPropertyInfo(
      */
     public var flags: DBusPropertyInfoFlags
         get() = gioDBusPropertyInfoPointer.pointed.flags.run {
-            DBusPropertyInfoFlags(this)
-        }
-
+            DBusPropertyInfoFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusPropertyInfoPointer.pointed.flags = value.mask
@@ -95,21 +87,9 @@ public class DBusPropertyInfo(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusPropertyInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusPropertyInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusPropertyInfo>, Cleaner>,
-    ) : this(gioDBusPropertyInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusPropertyInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusPropertyInfo using the provided [AutofreeScope].
@@ -176,8 +156,7 @@ public class DBusPropertyInfo(
      */
     @GioVersion2_26
     public fun ref(): DBusPropertyInfo = g_dbus_property_info_ref(gioDBusPropertyInfoPointer)!!.run {
-        DBusPropertyInfo(this)
-    }
+        DBusPropertyInfo(this)}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -189,8 +168,7 @@ public class DBusPropertyInfo(
     @GioVersion2_26
     public fun unref(): Unit = g_dbus_property_info_unref(gioDBusPropertyInfoPointer)
 
-    override fun toString(): String =
-        "DBusPropertyInfo(refCount=$refCount, name=$name, signature=$signature, flags=$flags)"
+    override fun toString(): String = "DBusPropertyInfo(refCount=$refCount, name=$name, signature=$signature, flags=$flags)"
 
     public companion object {
         /**

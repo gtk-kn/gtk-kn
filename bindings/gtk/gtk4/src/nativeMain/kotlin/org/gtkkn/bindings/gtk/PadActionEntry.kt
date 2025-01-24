@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,31 +12,25 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gtk.GtkPadActionEntry
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Struct defining a pad action entry.
  */
 public class PadActionEntry(
     public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(gtkPadActionEntryPointer) {
     /**
      * the type of pad feature that will trigger this action entry.
      */
     public var type: PadActionType
         get() = gtkPadActionEntryPointer.pointed.type.run {
-            PadActionType.fromNativeValue(this)
-        }
-
+            PadActionType.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.type = value.nativeValue
@@ -47,7 +42,6 @@ public class PadActionEntry(
      */
     public var index: gint
         get() = gtkPadActionEntryPointer.pointed.index
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.index = value
@@ -58,7 +52,6 @@ public class PadActionEntry(
      */
     public var mode: gint
         get() = gtkPadActionEntryPointer.pointed.mode
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.mode = value
@@ -70,7 +63,6 @@ public class PadActionEntry(
      */
     public var label: String?
         get() = gtkPadActionEntryPointer.pointed.label?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.label?.let { g_free(it) }
@@ -82,7 +74,6 @@ public class PadActionEntry(
      */
     public var actionName: String?
         get() = gtkPadActionEntryPointer.pointed.action_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.action_name?.let { g_free(it) }
@@ -95,21 +86,9 @@ public class PadActionEntry(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkPadActionEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PadActionEntry and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkPadActionEntry>, Cleaner>,
-    ) : this(gtkPadActionEntryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkPadActionEntry>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PadActionEntry using the provided [AutofreeScope].
@@ -177,6 +156,5 @@ public class PadActionEntry(
         this.actionName = actionName
     }
 
-    override fun toString(): String =
-        "PadActionEntry(type=$type, index=$index, mode=$mode, label=$label, actionName=$actionName)"
+    override fun toString(): String = "PadActionEntry(type=$type, index=$index, mode=$mode, label=$label, actionName=$actionName)"
 }

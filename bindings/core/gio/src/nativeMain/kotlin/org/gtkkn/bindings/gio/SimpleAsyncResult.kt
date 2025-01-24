@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -45,10 +49,6 @@ import org.gtkkn.native.gio.g_simple_async_result_take_error
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * As of GLib 2.46, `GSimpleAsyncResult` is deprecated in favor of
@@ -226,8 +226,9 @@ import kotlin.Unit
  * - parameter `destroy_op_res`: GLib.DestroyNotify
  * - constructor `new_error`: Varargs parameter is not supported
  */
-public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPointer<GSimpleAsyncResult>) :
-    Object(gioSimpleAsyncResultPointer.reinterpret()),
+public open class SimpleAsyncResult(
+    public val gioSimpleAsyncResultPointer: CPointer<GSimpleAsyncResult>,
+) : Object(gioSimpleAsyncResultPointer.reinterpret()),
     AsyncResult,
     KGTyped {
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
@@ -254,16 +255,7 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
         sourceObject: Object? = null,
         callback: AsyncReadyCallback?,
         sourceTag: gpointer? = null,
-    ) : this(
-        g_simple_async_result_new(
-            sourceObject?.gobjectObjectPointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() },
-            sourceTag
-        )!!.reinterpret()
-    )
+    ) : this(g_simple_async_result_new(sourceObject?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, sourceTag)!!)
 
     /**
      * Creates a #GSimpleAsyncResult from an error condition.
@@ -277,16 +269,7 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
         sourceObject: Object? = null,
         callback: AsyncReadyCallback?,
         error: Error,
-    ) : this(
-        g_simple_async_result_new_from_error(
-            sourceObject?.gobjectObjectPointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() },
-            error.glibErrorPointer
-        )!!.reinterpret()
-    )
+    ) : this(g_simple_async_result_new_from_error(sourceObject?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)!!)
 
     /**
      * Completes an asynchronous I/O job immediately. Must be called in
@@ -316,16 +299,14 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
      * @return true if the operation's result was true, false
      *     if the operation's result was false.
      */
-    public open fun getOpResGboolean(): Boolean =
-        g_simple_async_result_get_op_res_gboolean(gioSimpleAsyncResultPointer).asBoolean()
+    public open fun getOpResGboolean(): Boolean = g_simple_async_result_get_op_res_gboolean(gioSimpleAsyncResultPointer).asBoolean()
 
     /**
      * Gets a pointer result as returned by the asynchronous function.
      *
      * @return a pointer from the result.
      */
-    public open fun getOpResGpointer(): gpointer? =
-        g_simple_async_result_get_op_res_gpointer(gioSimpleAsyncResultPointer)
+    public open fun getOpResGpointer(): gpointer? = g_simple_async_result_get_op_res_gpointer(gioSimpleAsyncResultPointer)
 
     /**
      * Gets a gssize from the asynchronous result.
@@ -382,19 +363,14 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun setCheckCancellable(checkCancellable: Cancellable? = null): Unit =
-        g_simple_async_result_set_check_cancellable(
-            gioSimpleAsyncResultPointer,
-            checkCancellable?.gioCancellablePointer
-        )
+    public open fun setCheckCancellable(checkCancellable: Cancellable? = null): Unit = g_simple_async_result_set_check_cancellable(gioSimpleAsyncResultPointer, checkCancellable?.gioCancellablePointer)
 
     /**
      * Sets the result from a #GError.
      *
      * @param error #GError.
      */
-    public open fun setFromError(error: Error): Unit =
-        g_simple_async_result_set_from_error(gioSimpleAsyncResultPointer, error.glibErrorPointer)
+    public open fun setFromError(error: Error): Unit = g_simple_async_result_set_from_error(gioSimpleAsyncResultPointer, error.glibErrorPointer)
 
     /**
      * Sets whether to handle cancellation within the asynchronous operation.
@@ -405,16 +381,14 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
      *
      * @param handleCancellation a #gboolean.
      */
-    public open fun setHandleCancellation(handleCancellation: Boolean): Unit =
-        g_simple_async_result_set_handle_cancellation(gioSimpleAsyncResultPointer, handleCancellation.asGBoolean())
+    public open fun setHandleCancellation(handleCancellation: Boolean): Unit = g_simple_async_result_set_handle_cancellation(gioSimpleAsyncResultPointer, handleCancellation.asGBoolean())
 
     /**
      * Sets the operation result to a boolean within the asynchronous result.
      *
      * @param opRes a #gboolean.
      */
-    public open fun setOpResGboolean(opRes: Boolean): Unit =
-        g_simple_async_result_set_op_res_gboolean(gioSimpleAsyncResultPointer, opRes.asGBoolean())
+    public open fun setOpResGboolean(opRes: Boolean): Unit = g_simple_async_result_set_op_res_gboolean(gioSimpleAsyncResultPointer, opRes.asGBoolean())
 
     /**
      * Sets the operation result within the asynchronous result to
@@ -422,8 +396,7 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
      *
      * @param opRes a #gssize.
      */
-    public open fun setOpResGssize(opRes: Long): Unit =
-        g_simple_async_result_set_op_res_gssize(gioSimpleAsyncResultPointer, opRes)
+    public open fun setOpResGssize(opRes: Long): Unit = g_simple_async_result_set_op_res_gssize(gioSimpleAsyncResultPointer, opRes)
 
     /**
      * Sets the result from @error, and takes over the caller's ownership
@@ -433,41 +406,14 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun takeError(error: Error): Unit =
-        g_simple_async_result_take_error(gioSimpleAsyncResultPointer, error.glibErrorPointer)
+    public open fun takeError(error: Error): Unit = g_simple_async_result_take_error(gioSimpleAsyncResultPointer, error.glibErrorPointer)
 
     public companion object : TypeCompanion<SimpleAsyncResult> {
         override val type: GeneratedClassKGType<SimpleAsyncResult> =
-            GeneratedClassKGType(getTypeOrNull("g_simple_async_result_get_type")!!) {
-                SimpleAsyncResult(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_simple_async_result_get_type")!!) { SimpleAsyncResult(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
-
-        /**
-         * Creates a #GSimpleAsyncResult from an error condition.
-         *
-         * @param sourceObject a #GObject, or null.
-         * @param callback a #GAsyncReadyCallback.
-         * @param error a #GError
-         * @return a #GSimpleAsyncResult.
-         */
-        public fun newFromError(
-            sourceObject: Object? = null,
-            callback: AsyncReadyCallback?,
-            error: Error,
-        ): SimpleAsyncResult = SimpleAsyncResult(
-            g_simple_async_result_new_from_error(
-                sourceObject?.gobjectObjectPointer,
-                callback?.let {
-                    AsyncReadyCallbackFunc.reinterpret()
-                },
-                callback?.let { StableRef.create(callback).asCPointer() },
-                error.glibErrorPointer
-            )!!.reinterpret()
-        )
+            GioTypeProvider.register()}
 
         /**
          * Creates a #GSimpleAsyncResult from an error condition, and takes over the
@@ -479,20 +425,11 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
          * @return a #GSimpleAsyncResult
          * @since 2.28
          */
-        public fun newTakeError(
+        public fun takeError(
             sourceObject: Object? = null,
             callback: AsyncReadyCallback?,
             error: Error,
-        ): SimpleAsyncResult = SimpleAsyncResult(
-            g_simple_async_result_new_take_error(
-                sourceObject?.gobjectObjectPointer,
-                callback?.let {
-                    AsyncReadyCallbackFunc.reinterpret()
-                },
-                callback?.let { StableRef.create(callback).asCPointer() },
-                error.glibErrorPointer
-            )!!.reinterpret()
-        )
+        ): SimpleAsyncResult = SimpleAsyncResult(g_simple_async_result_new_take_error(sourceObject?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)!!)
 
         /**
          * Ensures that the data passed to the _finish function of an async
@@ -515,12 +452,11 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
          * @since 2.20
          */
         @GioVersion2_20
-        public fun isValid(result: AsyncResult, source: Object? = null, sourceTag: gpointer? = null): Boolean =
-            g_simple_async_result_is_valid(
-                result.gioAsyncResultPointer,
-                source?.gobjectObjectPointer,
-                sourceTag
-            ).asBoolean()
+        public fun isValid(
+            result: AsyncResult,
+            source: Object? = null,
+            sourceTag: gpointer? = null,
+        ): Boolean = g_simple_async_result_is_valid(result.gioAsyncResultPointer, source?.gobjectObjectPointer, sourceTag).asBoolean()
 
         /**
          * Get the GType of SimpleAsyncResult

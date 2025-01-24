@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,13 +12,10 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GSignalInvocationHint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GSignalInvocationHint structure is used to pass on additional information
@@ -25,14 +23,12 @@ import kotlin.native.ref.createCleaner
  */
 public class SignalInvocationHint(
     public val gobjectSignalInvocationHintPointer: CPointer<GSignalInvocationHint>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(gobjectSignalInvocationHintPointer) {
     /**
      * The signal id of the signal invoking the callback
      */
     public var signalId: guint
         get() = gobjectSignalInvocationHintPointer.pointed.signal_id
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.signal_id = value
@@ -43,7 +39,6 @@ public class SignalInvocationHint(
      */
     public var detail: Quark
         get() = gobjectSignalInvocationHintPointer.pointed.detail
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.detail = value
@@ -58,9 +53,7 @@ public class SignalInvocationHint(
      */
     public var runType: SignalFlags
         get() = gobjectSignalInvocationHintPointer.pointed.run_type.run {
-            SignalFlags(this)
-        }
-
+            SignalFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalInvocationHintPointer.pointed.run_type = value.mask
@@ -72,21 +65,9 @@ public class SignalInvocationHint(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GSignalInvocationHint>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to SignalInvocationHint and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GSignalInvocationHint>, Cleaner>,
-    ) : this(gobjectSignalInvocationHintPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GSignalInvocationHint>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new SignalInvocationHint using the provided [AutofreeScope].

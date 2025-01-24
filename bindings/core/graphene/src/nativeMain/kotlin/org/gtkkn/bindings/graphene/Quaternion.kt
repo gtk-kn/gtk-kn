@@ -3,14 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
@@ -37,11 +36,6 @@ import org.gtkkn.native.graphene.graphene_quaternion_slerp
 import org.gtkkn.native.graphene.graphene_quaternion_t
 import org.gtkkn.native.graphene.graphene_quaternion_to_matrix
 import org.gtkkn.native.graphene.graphene_quaternion_to_vec4
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A quaternion.
@@ -60,38 +54,18 @@ import kotlin.native.ref.createCleaner
 @GrapheneVersion1_0
 public class Quaternion(
     public val grapheneQuaternionPointer: CPointer<graphene_quaternion_t>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(grapheneQuaternionPointer) {
     /**
-     * Allocate a new Quaternion.
+     * Allocates a new #graphene_quaternion_t.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned value are undefined.
+     *
+     * @return the newly allocated #graphene_quaternion_t
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_quaternion_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Quaternion and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_quaternion_t>, Cleaner>,
-    ) : this(grapheneQuaternionPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Quaternion using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_quaternion_t>().ptr)
+    public constructor() : this(graphene_quaternion_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Adds two #graphene_quaternion_t @a and @b.
@@ -101,8 +75,7 @@ public class Quaternion(
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun add(b: Quaternion, res: Quaternion): Unit =
-        graphene_quaternion_add(grapheneQuaternionPointer, b.grapheneQuaternionPointer, res.grapheneQuaternionPointer)
+    public fun add(b: Quaternion, res: Quaternion): Unit = graphene_quaternion_add(grapheneQuaternionPointer, b.grapheneQuaternionPointer, res.grapheneQuaternionPointer)
 
     /**
      * Computes the dot product of two #graphene_quaternion_t.
@@ -112,8 +85,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun dot(b: Quaternion): gfloat =
-        graphene_quaternion_dot(grapheneQuaternionPointer, b.grapheneQuaternionPointer)
+    public fun dot(b: Quaternion): gfloat = graphene_quaternion_dot(grapheneQuaternionPointer, b.grapheneQuaternionPointer)
 
     /**
      * Checks whether the given quaternions are equal.
@@ -123,8 +95,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Quaternion): Boolean =
-        graphene_quaternion_equal(grapheneQuaternionPointer, b.grapheneQuaternionPointer)
+    public fun equal(b: Quaternion): Boolean = graphene_quaternion_equal(grapheneQuaternionPointer, b.grapheneQuaternionPointer)
 
     /**
      * Releases the resources allocated by graphene_quaternion_alloc().
@@ -145,10 +116,13 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(x: gfloat, y: gfloat, z: gfloat, w: gfloat): Quaternion =
-        graphene_quaternion_init(grapheneQuaternionPointer, x, y, z, w)!!.run {
-            Quaternion(this)
-        }
+    public fun `init`(
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+        w: gfloat,
+    ): Quaternion = graphene_quaternion_init(grapheneQuaternionPointer, x, y, z, w)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t using an @angle on a
@@ -160,10 +134,8 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromAngleVec3(angle: gfloat, axis: Vec3): Quaternion =
-        graphene_quaternion_init_from_angle_vec3(grapheneQuaternionPointer, angle, axis.grapheneVec3Pointer)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromAngleVec3(angle: gfloat, axis: Vec3): Quaternion = graphene_quaternion_init_from_angle_vec3(grapheneQuaternionPointer, angle, axis.grapheneVec3Pointer)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t using the values of
@@ -179,10 +151,12 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromAngles(degX: gfloat, degY: gfloat, degZ: gfloat): Quaternion =
-        graphene_quaternion_init_from_angles(grapheneQuaternionPointer, degX, degY, degZ)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromAngles(
+        degX: gfloat,
+        degY: gfloat,
+        degZ: gfloat,
+    ): Quaternion = graphene_quaternion_init_from_angles(grapheneQuaternionPointer, degX, degY, degZ)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t using the given #graphene_euler_t.
@@ -192,10 +166,8 @@ public class Quaternion(
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromEuler(e: Euler): Quaternion =
-        graphene_quaternion_init_from_euler(grapheneQuaternionPointer, e.grapheneEulerPointer)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromEuler(e: Euler): Quaternion = graphene_quaternion_init_from_euler(grapheneQuaternionPointer, e.grapheneEulerPointer)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t using the rotation components
@@ -206,10 +178,8 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromMatrix(m: Matrix): Quaternion =
-        graphene_quaternion_init_from_matrix(grapheneQuaternionPointer, m.grapheneMatrixPointer)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromMatrix(m: Matrix): Quaternion = graphene_quaternion_init_from_matrix(grapheneQuaternionPointer, m.grapheneMatrixPointer)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t with the values from @src.
@@ -219,10 +189,8 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromQuaternion(src: Quaternion): Quaternion =
-        graphene_quaternion_init_from_quaternion(grapheneQuaternionPointer, src.grapheneQuaternionPointer)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromQuaternion(src: Quaternion): Quaternion = graphene_quaternion_init_from_quaternion(grapheneQuaternionPointer, src.grapheneQuaternionPointer)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t using the values of
@@ -238,10 +206,12 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromRadians(radX: gfloat, radY: gfloat, radZ: gfloat): Quaternion =
-        graphene_quaternion_init_from_radians(grapheneQuaternionPointer, radX, radY, radZ)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromRadians(
+        radX: gfloat,
+        radY: gfloat,
+        radZ: gfloat,
+    ): Quaternion = graphene_quaternion_init_from_radians(grapheneQuaternionPointer, radX, radY, radZ)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t with the values from @src.
@@ -251,10 +221,8 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromVec4(src: Vec4): Quaternion =
-        graphene_quaternion_init_from_vec4(grapheneQuaternionPointer, src.grapheneVec4Pointer)!!.run {
-            Quaternion(this)
-        }
+    public fun initFromVec4(src: Vec4): Quaternion = graphene_quaternion_init_from_vec4(grapheneQuaternionPointer, src.grapheneVec4Pointer)!!.run {
+        Quaternion(this)}
 
     /**
      * Initializes a #graphene_quaternion_t using the identity
@@ -265,8 +233,7 @@ public class Quaternion(
      */
     @GrapheneVersion1_0
     public fun initIdentity(): Quaternion = graphene_quaternion_init_identity(grapheneQuaternionPointer)!!.run {
-        Quaternion(this)
-    }
+        Quaternion(this)}
 
     /**
      * Inverts a #graphene_quaternion_t, and returns the conjugate
@@ -277,8 +244,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun invert(res: Quaternion): Unit =
-        graphene_quaternion_invert(grapheneQuaternionPointer, res.grapheneQuaternionPointer)
+    public fun invert(res: Quaternion): Unit = graphene_quaternion_invert(grapheneQuaternionPointer, res.grapheneQuaternionPointer)
 
     /**
      * Multiplies two #graphene_quaternion_t @a and @b.
@@ -288,11 +254,7 @@ public class Quaternion(
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun multiply(b: Quaternion, res: Quaternion): Unit = graphene_quaternion_multiply(
-        grapheneQuaternionPointer,
-        b.grapheneQuaternionPointer,
-        res.grapheneQuaternionPointer
-    )
+    public fun multiply(b: Quaternion, res: Quaternion): Unit = graphene_quaternion_multiply(grapheneQuaternionPointer, b.grapheneQuaternionPointer, res.grapheneQuaternionPointer)
 
     /**
      * Normalizes a #graphene_quaternion_t.
@@ -302,8 +264,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun normalize(res: Quaternion): Unit =
-        graphene_quaternion_normalize(grapheneQuaternionPointer, res.grapheneQuaternionPointer)
+    public fun normalize(res: Quaternion): Unit = graphene_quaternion_normalize(grapheneQuaternionPointer, res.grapheneQuaternionPointer)
 
     /**
      * Scales all the elements of a #graphene_quaternion_t @q using
@@ -314,8 +275,7 @@ public class Quaternion(
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun scale(factor: gfloat, res: Quaternion): Unit =
-        graphene_quaternion_scale(grapheneQuaternionPointer, factor, res.grapheneQuaternionPointer)
+    public fun scale(factor: gfloat, res: Quaternion): Unit = graphene_quaternion_scale(grapheneQuaternionPointer, factor, res.grapheneQuaternionPointer)
 
     /**
      * Interpolates between the two given quaternions using a spherical
@@ -329,12 +289,11 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun slerp(b: Quaternion, factor: gfloat, res: Quaternion): Unit = graphene_quaternion_slerp(
-        grapheneQuaternionPointer,
-        b.grapheneQuaternionPointer,
-        factor,
-        res.grapheneQuaternionPointer
-    )
+    public fun slerp(
+        b: Quaternion,
+        factor: gfloat,
+        res: Quaternion,
+    ): Unit = graphene_quaternion_slerp(grapheneQuaternionPointer, b.grapheneQuaternionPointer, factor, res.grapheneQuaternionPointer)
 
     /**
      * Converts a quaternion into a transformation matrix expressing
@@ -344,8 +303,7 @@ public class Quaternion(
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun toMatrix(m: Matrix): Unit =
-        graphene_quaternion_to_matrix(grapheneQuaternionPointer, m.grapheneMatrixPointer)
+    public fun toMatrix(m: Matrix): Unit = graphene_quaternion_to_matrix(grapheneQuaternionPointer, m.grapheneMatrixPointer)
 
     /**
      * Copies the components of a #graphene_quaternion_t into a
@@ -359,16 +317,6 @@ public class Quaternion(
     public fun toVec4(res: Vec4): Unit = graphene_quaternion_to_vec4(grapheneQuaternionPointer, res.grapheneVec4Pointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_quaternion_t.
-         *
-         * The contents of the returned value are undefined.
-         *
-         * @return the newly allocated #graphene_quaternion_t
-         * @since 1.0
-         */
-        public fun alloc(): Quaternion = Quaternion(graphene_quaternion_alloc()!!)
-
         /**
          * Get the GType of Quaternion
          *

@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -42,11 +47,6 @@ import org.gtkkn.native.gtk.gtk_recent_manager_move_item
 import org.gtkkn.native.gtk.gtk_recent_manager_new
 import org.gtkkn.native.gtk.gtk_recent_manager_purge_items
 import org.gtkkn.native.gtk.gtk_recent_manager_remove_item
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkRecentManager` manages and looks up recently used files.
@@ -111,8 +111,9 @@ import kotlin.Unit
  * - method `filename`: Property has no getter nor setter
  * - method `size`: Property has no getter nor setter
  */
-public open class RecentManager(public val gtkRecentManagerPointer: CPointer<GtkRecentManager>) :
-    Object(gtkRecentManagerPointer.reinterpret()),
+public open class RecentManager(
+    public val gtkRecentManagerPointer: CPointer<GtkRecentManager>,
+) : Object(gtkRecentManagerPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new recent manager object.
@@ -128,7 +129,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      *
      * @return A newly created `GtkRecentManager` object
      */
-    public constructor() : this(gtk_recent_manager_new()!!.reinterpret())
+    public constructor() : this(gtk_recent_manager_new()!!)
 
     /**
      * Adds a new resource, pointed by @uri, into the recently used
@@ -156,8 +157,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      * @return true if the new item was successfully added to the
      *   recently used resources list, false otherwise
      */
-    public open fun addFull(uri: String, recentData: RecentData): Boolean =
-        gtk_recent_manager_add_full(gtkRecentManagerPointer, uri, recentData.gtkRecentDataPointer).asBoolean()
+    public open fun addFull(uri: String, recentData: RecentData): Boolean = gtk_recent_manager_add_full(gtkRecentManagerPointer, uri, recentData.gtkRecentDataPointer).asBoolean()
 
     /**
      * Adds a new resource, pointed by @uri, into the recently used
@@ -174,8 +174,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      * @return true if the new item was successfully added
      *   to the recently used resources list
      */
-    public open fun addItem(uri: String): Boolean =
-        gtk_recent_manager_add_item(gtkRecentManagerPointer, uri).asBoolean()
+    public open fun addItem(uri: String): Boolean = gtk_recent_manager_add_item(gtkRecentManagerPointer, uri).asBoolean()
 
     /**
      * Gets the list of recently used resources.
@@ -186,8 +185,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      *   free the list itself using g_list_free().
      */
     public open fun getItems(): List = gtk_recent_manager_get_items(gtkRecentManagerPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Checks whether there is a recently used resource registered
@@ -196,8 +194,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      * @param uri a URI
      * @return true if the resource was found, false otherwise
      */
-    public open fun hasItem(uri: String): Boolean =
-        gtk_recent_manager_has_item(gtkRecentManagerPointer, uri).asBoolean()
+    public open fun hasItem(uri: String): Boolean = gtk_recent_manager_has_item(gtkRecentManagerPointer, uri).asBoolean()
 
     /**
      * Searches for a URI inside the recently used resources list, and
@@ -213,8 +210,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
     public open fun lookupItem(uri: String): Result<RecentInfo?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_recent_manager_lookup_item(gtkRecentManagerPointer, uri, gError.ptr)?.run {
-            RecentInfo(this)
-        }
+            RecentInfo(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -288,15 +284,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkRecentManagerPointer,
-            "changed",
-            onChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkRecentManagerPointer, "changed", onChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "changed" signal. See [onChanged].
@@ -307,11 +295,10 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<RecentManager> {
         override val type: GeneratedClassKGType<RecentManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_recent_manager_get_type")!!) { RecentManager(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_recent_manager_get_type")!!) { RecentManager(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Gets a unique instance of `GtkRecentManager` that you can share
@@ -321,8 +308,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
          *   unref it.
          */
         public fun getDefault(): RecentManager = gtk_recent_manager_get_default()!!.run {
-            RecentManager(this)
-        }
+            RecentManager(this)}
 
         /**
          * Get the GType of RecentManager
@@ -334,9 +320,8 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
 }
 
 private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

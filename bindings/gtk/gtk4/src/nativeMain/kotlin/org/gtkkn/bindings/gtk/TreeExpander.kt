@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -32,7 +33,6 @@ import org.gtkkn.native.gtk.gtk_tree_expander_set_hide_expander
 import org.gtkkn.native.gtk.gtk_tree_expander_set_indent_for_depth
 import org.gtkkn.native.gtk.gtk_tree_expander_set_indent_for_icon
 import org.gtkkn.native.gtk.gtk_tree_expander_set_list_row
-import kotlin.Boolean
 
 /**
  * `GtkTreeExpander` is a widget that provides an expander for a list.
@@ -90,8 +90,9 @@ import kotlin.Boolean
  * Since GTK 4.12, `GtkTreeExpander` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
  * Toggling it will change the `GTK_ACCESSIBLE_STATE_EXPANDED` state.
  */
-public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTreeExpander>) :
-    Widget(gtkTreeExpanderPointer.reinterpret()),
+public open class TreeExpander(
+    public val gtkTreeExpanderPointer: CPointer<GtkTreeExpander>,
+) : Widget(gtkTreeExpanderPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -112,9 +113,7 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @return The child displayed by @self
          */
         get() = gtk_tree_expander_get_child(gtkTreeExpanderPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the content widget to display.
          *
@@ -141,7 +140,6 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @since 4.10
          */
         get() = gtk_tree_expander_get_hide_expander(gtkTreeExpanderPointer).asBoolean()
-
         /**
          * Sets whether the expander icon should be visible in a GtkTreeListRow.
          *
@@ -165,7 +163,6 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @since 4.10
          */
         get() = gtk_tree_expander_get_indent_for_depth(gtkTreeExpanderPointer).asBoolean()
-
         /**
          * Sets if the TreeExpander should indent the child according to its depth.
          *
@@ -173,9 +170,7 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @since 4.10
          */
         @GtkVersion4_10
-        set(
-            indentForDepth
-        ) = gtk_tree_expander_set_indent_for_depth(gtkTreeExpanderPointer, indentForDepth.asGBoolean())
+        set(indentForDepth) = gtk_tree_expander_set_indent_for_depth(gtkTreeExpanderPointer, indentForDepth.asGBoolean())
 
     /**
      * TreeExpander indents the child by the width of an expander-icon if it is not expandable.
@@ -191,7 +186,6 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @since 4.6
          */
         get() = gtk_tree_expander_get_indent_for_icon(gtkTreeExpanderPointer).asBoolean()
-
         /**
          * Sets if the TreeExpander should indent the child by the width of an expander-icon when it is not expandable.
          *
@@ -217,8 +211,7 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @return The item of the row
          */
         get() = gtk_tree_expander_get_item(gtkTreeExpanderPointer)?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * The list row to track for expander state.
@@ -230,9 +223,7 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
          * @return The list row displayed by @self
          */
         get() = gtk_tree_expander_get_list_row(gtkTreeExpanderPointer)?.run {
-            TreeListRow(this)
-        }
-
+            TreeListRow(this)}
         /**
          * Sets the tree list row that this expander should manage.
          *
@@ -249,11 +240,10 @@ public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTr
 
     public companion object : TypeCompanion<TreeExpander> {
         override val type: GeneratedClassKGType<TreeExpander> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_expander_get_type")!!) { TreeExpander(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_tree_expander_get_type")!!) { TreeExpander(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeExpander

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -27,8 +29,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A group of preference rows.
@@ -63,8 +63,9 @@ import kotlin.Unit
  *
  * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>) :
-    Widget(adwPreferencesGroupPointer.reinterpret()),
+public open class PreferencesGroup(
+    public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>,
+) : Widget(adwPreferencesGroupPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -85,7 +86,6 @@ public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPoint
          * @return the description of @self
          */
         get() = adw_preferences_group_get_description(adwPreferencesGroupPointer)?.toKString()
-
         /**
          * Sets the description for @self.
          *
@@ -112,9 +112,7 @@ public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPoint
          * @since 1.1
          */
         get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the suffix for @self's header.
          *
@@ -137,9 +135,7 @@ public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPoint
          *
          * @return the title of @self
          */
-        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title for @self.
          *
@@ -159,26 +155,21 @@ public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPoint
      *
      * @param child the widget to add
      */
-    public open fun add(child: Widget): Unit =
-        adw_preferences_group_add(adwPreferencesGroupPointer, child.gtkWidgetPointer)
+    public open fun add(child: Widget): Unit = adw_preferences_group_add(adwPreferencesGroupPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child from @self.
      *
      * @param child the child to remove
      */
-    public open fun remove(child: Widget): Unit =
-        adw_preferences_group_remove(adwPreferencesGroupPointer, child.gtkWidgetPointer)
+    public open fun remove(child: Widget): Unit = adw_preferences_group_remove(adwPreferencesGroupPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =
-            GeneratedClassKGType(getTypeOrNull("adw_preferences_group_get_type")!!) {
-                PreferencesGroup(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_preferences_group_get_type")!!) { PreferencesGroup(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PreferencesGroup

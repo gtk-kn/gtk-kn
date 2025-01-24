@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -32,7 +33,6 @@ import org.gtkkn.native.adw.adw_timed_animation_set_value_to
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * A time-based [class@Animation].
@@ -52,8 +52,9 @@ import kotlin.Boolean
  * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
  * direction every other iteration.
  */
-public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>) :
-    Animation(adwTimedAnimationPointer.reinterpret()),
+public class TimedAnimation(
+    public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>,
+) : Animation(adwTimedAnimationPointer.reinterpret()),
     KGTyped {
     /**
      * Whether the animation changes direction on every iteration.
@@ -65,7 +66,6 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return whether @self alternates
          */
         get() = adw_timed_animation_get_alternate(adwTimedAnimationPointer).asBoolean()
-
         /**
          * Sets whether @self changes direction on every iteration.
          *
@@ -88,7 +88,6 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return the duration of @self, in milliseconds
          */
         get() = adw_timed_animation_get_duration(adwTimedAnimationPointer)
-
         /**
          * Sets the duration of @self.
          *
@@ -112,9 +111,7 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return the easing function @self uses
          */
         get() = adw_timed_animation_get_easing(adwTimedAnimationPointer).run {
-            Easing.fromNativeValue(this)
-        }
-
+            Easing.fromNativeValue(this)}
         /**
          * Sets the easing function @self will use.
          *
@@ -136,7 +133,6 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return the number of times @self will play
          */
         get() = adw_timed_animation_get_repeat_count(adwTimedAnimationPointer)
-
         /**
          * Sets the number of times @self will play.
          *
@@ -156,7 +152,6 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return whether @self plays backwards
          */
         get() = adw_timed_animation_get_reverse(adwTimedAnimationPointer).asBoolean()
-
         /**
          * Sets whether @self plays backwards.
          *
@@ -180,7 +175,6 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return the value to animate from
          */
         get() = adw_timed_animation_get_value_from(adwTimedAnimationPointer)
-
         /**
          * Sets the value @self will animate from.
          *
@@ -210,7 +204,6 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
          * @return the value to animate to
          */
         get() = adw_timed_animation_get_value_to(adwTimedAnimationPointer)
-
         /**
          * Sets the value @self will animate to.
          *
@@ -241,25 +234,14 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
         to: gdouble,
         duration: guint,
         target: AnimationTarget,
-    ) : this(
-        adw_timed_animation_new(
-            widget.gtkWidgetPointer,
-            from,
-            to,
-            duration,
-            target.adwAnimationTargetPointer
-        )!!.reinterpret()
-    )
+    ) : this(adw_timed_animation_new(widget.gtkWidgetPointer, from, to, duration, target.adwAnimationTargetPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<TimedAnimation> {
         override val type: GeneratedClassKGType<TimedAnimation> =
-            GeneratedClassKGType(getTypeOrNull("adw_timed_animation_get_type")!!) {
-                TimedAnimation(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_timed_animation_get_type")!!) { TimedAnimation(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of TimedAnimation

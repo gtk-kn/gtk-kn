@@ -20,7 +20,9 @@ import org.gtkkn.native.soup.soup_server_listen_options_get_type
  * simply listens on whatever kind of socket you give it). And you
  * cannot specify both of them in a single call.
  */
-public class ServerListenOptions(public val mask: SoupServerListenOptions) : Bitfield<ServerListenOptions> {
+public class ServerListenOptions(
+    public val mask: SoupServerListenOptions,
+) : Bitfield<ServerListenOptions> {
     override infix fun or(other: ServerListenOptions): ServerListenOptions = ServerListenOptions(mask or other.mask)
 
     public companion object {
@@ -34,13 +36,13 @@ public class ServerListenOptions(public val mask: SoupServerListenOptions) : Bit
          * Only listen on IPv4 interfaces.
          */
         public val IPV4_ONLY: ServerListenOptions =
-            ServerListenOptions(SOUP_SERVER_LISTEN_IPV4_ONLY)
+                ServerListenOptions(SOUP_SERVER_LISTEN_IPV4_ONLY)
 
         /**
          * Only listen on IPv6 interfaces.
          */
         public val IPV6_ONLY: ServerListenOptions =
-            ServerListenOptions(SOUP_SERVER_LISTEN_IPV6_ONLY)
+                ServerListenOptions(SOUP_SERVER_LISTEN_IPV6_ONLY)
 
         /**
          * Get the GType of ServerListenOptions

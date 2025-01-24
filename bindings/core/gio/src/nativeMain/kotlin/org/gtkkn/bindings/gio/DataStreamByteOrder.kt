@@ -11,17 +11,17 @@ import org.gtkkn.native.gobject.GType
  * #GDataStreamByteOrder is used to ensure proper endianness of streaming data sources
  * across various machine architectures.
  */
-public enum class DataStreamByteOrder(public val nativeValue: GDataStreamByteOrder) {
+public enum class DataStreamByteOrder(
+    public val nativeValue: GDataStreamByteOrder,
+) {
     /**
      * Selects Big Endian byte order.
      */
     BIG_ENDIAN(GDataStreamByteOrder.G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN),
-
     /**
      * Selects Little Endian byte order.
      */
     LITTLE_ENDIAN(GDataStreamByteOrder.G_DATA_STREAM_BYTE_ORDER_LITTLE_ENDIAN),
-
     /**
      * Selects endianness based on host machine's architecture.
      */

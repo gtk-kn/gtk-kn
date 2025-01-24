@@ -26,8 +26,9 @@ import org.gtkkn.native.gsk.gsk_gl_shader_node_get_type
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>) :
-    RenderNode(gskGlShaderNodePointer.reinterpret()),
+public open class GlShaderNode(
+    public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>,
+) : RenderNode(gskGlShaderNodePointer.reinterpret()),
     KGTyped {
     /**
      * Gets args for the node.
@@ -35,8 +36,7 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
      * @return A `GBytes` with the uniform arguments
      */
     public open fun getArgs(): Bytes = gsk_gl_shader_node_get_args(gskGlShaderNodePointer.reinterpret())!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Gets one of the children.
@@ -44,10 +44,8 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
      * @param idx the position of the child to get
      * @return the @idx'th child of @node
      */
-    public open fun getChild(idx: guint): RenderNode =
-        gsk_gl_shader_node_get_child(gskGlShaderNodePointer.reinterpret(), idx)!!.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public open fun getChild(idx: guint): RenderNode = gsk_gl_shader_node_get_child(gskGlShaderNodePointer.reinterpret(), idx)!!.run {
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Returns the number of children
@@ -62,16 +60,14 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
      * @return the `GskGLShader` shader
      */
     public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGlShaderNodePointer.reinterpret())!!.run {
-        GlShader(this)
-    }
+        GlShader(this)}
 
     public companion object : TypeCompanion<GlShaderNode> {
         override val type: GeneratedClassKGType<GlShaderNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_gl_shader_node_get_type")!!) { GlShaderNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_gl_shader_node_get_type")!!) { GlShaderNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of GLShaderNode

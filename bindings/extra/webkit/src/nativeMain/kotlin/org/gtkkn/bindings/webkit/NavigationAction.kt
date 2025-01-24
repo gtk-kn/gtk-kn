@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
@@ -23,15 +26,13 @@ import org.gtkkn.native.webkit.webkit_navigation_action_get_request
 import org.gtkkn.native.webkit.webkit_navigation_action_get_type
 import org.gtkkn.native.webkit.webkit_navigation_action_is_redirect
 import org.gtkkn.native.webkit.webkit_navigation_action_is_user_gesture
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Provides details about interaction resulting in a resource load.
  */
-public class NavigationAction(public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction>) :
-    ProxyInstance(webkitNavigationActionPointer) {
+public class NavigationAction(
+    public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction>,
+) : ProxyInstance(webkitNavigationActionPointer) {
     /**
      * Make a copy of @navigation.
      *
@@ -40,8 +41,7 @@ public class NavigationAction(public val webkitNavigationActionPointer: CPointer
      */
     @WebKitVersion2_6
     public fun copy(): NavigationAction = webkit_navigation_action_copy(webkitNavigationActionPointer)!!.run {
-        NavigationAction(this)
-    }
+        NavigationAction(this)}
 
     /**
      * Free the #WebKitNavigationAction
@@ -60,8 +60,7 @@ public class NavigationAction(public val webkitNavigationActionPointer: CPointer
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getFrameName(): String? =
-        webkit_navigation_action_get_frame_name(webkitNavigationActionPointer)?.toKString()
+    public fun getFrameName(): String? = webkit_navigation_action_get_frame_name(webkitNavigationActionPointer)?.toKString()
 
     /**
      * Return the modifier keys.
@@ -94,10 +93,8 @@ public class NavigationAction(public val webkitNavigationActionPointer: CPointer
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getNavigationType(): NavigationType =
-        webkit_navigation_action_get_navigation_type(webkitNavigationActionPointer).run {
-            NavigationType.fromNativeValue(this)
-        }
+    public fun getNavigationType(): NavigationType = webkit_navigation_action_get_navigation_type(webkitNavigationActionPointer).run {
+        NavigationType.fromNativeValue(this)}
 
     /**
      * Return the #WebKitURIRequest associated with the navigation action.
@@ -113,8 +110,7 @@ public class NavigationAction(public val webkitNavigationActionPointer: CPointer
      */
     @WebKitVersion2_6
     public fun getRequest(): UriRequest = webkit_navigation_action_get_request(webkitNavigationActionPointer)!!.run {
-        UriRequest(this)
-    }
+        UriRequest(this)}
 
     /**
      * Returns whether the @navigation was redirected.
@@ -132,8 +128,7 @@ public class NavigationAction(public val webkitNavigationActionPointer: CPointer
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun isUserGesture(): Boolean =
-        webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer).asBoolean()
+    public fun isUserGesture(): Boolean = webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer).asBoolean()
 
     public companion object {
         /**

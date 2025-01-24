@@ -5,4 +5,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class ConvertErrorException(error: Error, public val code: ConvertError) : GLibException(error)
+public class ConvertErrorException(
+    error: Error,
+    public val code: ConvertError,
+) : GLibException(error)

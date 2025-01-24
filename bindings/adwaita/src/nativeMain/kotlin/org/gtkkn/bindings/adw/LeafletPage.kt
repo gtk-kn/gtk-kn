@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,14 +24,13 @@ import org.gtkkn.native.adw.adw_leaflet_page_get_type
 import org.gtkkn.native.adw.adw_leaflet_page_set_name
 import org.gtkkn.native.adw.adw_leaflet_page_set_navigatable
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * An auxiliary class used by [class@Leaflet].
  */
-public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPage>) :
-    Object(adwLeafletPagePointer.reinterpret()),
+public class LeafletPage(
+    public val adwLeafletPagePointer: CPointer<AdwLeafletPage>,
+) : Object(adwLeafletPagePointer.reinterpret()),
     KGTyped {
     /**
      * The leaflet child to which the page belongs.
@@ -41,8 +42,7 @@ public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPa
          * @return the child to which @self belongs
          */
         get() = adw_leaflet_page_get_child(adwLeafletPagePointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * The name of the child page.
@@ -54,7 +54,6 @@ public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPa
          * @return the name of @self.
          */
         get() = adw_leaflet_page_get_name(adwLeafletPagePointer)?.toKString()
-
         /**
          * Sets the name of the @self.
          *
@@ -78,7 +77,6 @@ public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPa
          * @return whether @self can be navigated to when folded
          */
         get() = adw_leaflet_page_get_navigatable(adwLeafletPagePointer).asBoolean()
-
         /**
          * Sets whether @self can be navigated to when folded.
          *
@@ -93,11 +91,10 @@ public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPa
 
     public companion object : TypeCompanion<LeafletPage> {
         override val type: GeneratedClassKGType<LeafletPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_leaflet_page_get_type")!!) { LeafletPage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_leaflet_page_get_type")!!) { LeafletPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of LeafletPage

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
@@ -14,8 +16,6 @@ import org.gtkkn.native.glib.g_hmac_ref
 import org.gtkkn.native.glib.g_hmac_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_hmac_get_type
-import kotlin.String
-import kotlin.Unit
 
 /**
  * HMACs should be used when producing a cookie or hash based on data
@@ -43,7 +43,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GLibVersion2_30
-public class Hmac(public val glibHmacPointer: CPointer<GHmac>) : ProxyInstance(glibHmacPointer) {
+public class Hmac(
+    public val glibHmacPointer: CPointer<GHmac>,
+) : ProxyInstance(glibHmacPointer) {
     /**
      * Copies a #GHmac. If @hmac has been closed, by calling
      * g_hmac_get_string() or g_hmac_get_digest(), the copied
@@ -55,8 +57,7 @@ public class Hmac(public val glibHmacPointer: CPointer<GHmac>) : ProxyInstance(g
      */
     @GLibVersion2_30
     public fun copy(): Hmac = g_hmac_copy(glibHmacPointer)!!.run {
-        Hmac(this)
-    }
+        Hmac(this)}
 
     /**
      * Gets the HMAC as a hexadecimal string.
@@ -72,8 +73,7 @@ public class Hmac(public val glibHmacPointer: CPointer<GHmac>) : ProxyInstance(g
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun getString(): String =
-        g_hmac_get_string(glibHmacPointer)?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_hmac_get_string(glibHmacPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @hmac by one.
@@ -85,8 +85,7 @@ public class Hmac(public val glibHmacPointer: CPointer<GHmac>) : ProxyInstance(g
      */
     @GLibVersion2_30
     public fun ref(): Hmac = g_hmac_ref(glibHmacPointer)!!.run {
-        Hmac(this)
-    }
+        Hmac(this)}
 
     /**
      * Atomically decrements the reference count of @hmac by one.

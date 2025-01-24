@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,26 +11,23 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.pango.PangoLogAttr
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoLogAttr` structure stores information about the attributes of a
  * single character.
  */
-public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoLogAttrPointer) {
+public class LogAttr(
+    public val pangoLogAttrPointer: CPointer<PangoLogAttr>,
+) : ProxyInstance(pangoLogAttrPointer) {
     /**
      * if set, can break line in front of character
      */
     public var isLineBreak: guint
         get() = pangoLogAttrPointer.pointed.is_line_break
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_line_break = value
@@ -40,7 +38,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isMandatoryBreak: guint
         get() = pangoLogAttrPointer.pointed.is_mandatory_break
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_mandatory_break = value
@@ -51,7 +48,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isCharBreak: guint
         get() = pangoLogAttrPointer.pointed.is_char_break
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_char_break = value
@@ -62,7 +58,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isWhite: guint
         get() = pangoLogAttrPointer.pointed.is_white
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_white = value
@@ -77,7 +72,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isCursorPosition: guint
         get() = pangoLogAttrPointer.pointed.is_cursor_position
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_cursor_position = value
@@ -88,7 +82,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isWordStart: guint
         get() = pangoLogAttrPointer.pointed.is_word_start
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_start = value
@@ -101,7 +94,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isWordEnd: guint
         get() = pangoLogAttrPointer.pointed.is_word_end
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_end = value
@@ -118,7 +110,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isSentenceBoundary: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_boundary
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_boundary = value
@@ -129,7 +120,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isSentenceStart: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_start
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_start = value
@@ -143,7 +133,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isSentenceEnd: guint
         get() = pangoLogAttrPointer.pointed.is_sentence_end
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_sentence_end = value
@@ -160,7 +149,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var backspaceDeletesCharacter: guint
         get() = pangoLogAttrPointer.pointed.backspace_deletes_character
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.backspace_deletes_character = value
@@ -172,7 +160,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isExpandableSpace: guint
         get() = pangoLogAttrPointer.pointed.is_expandable_space
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_expandable_space = value
@@ -188,7 +175,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var isWordBoundary: guint
         get() = pangoLogAttrPointer.pointed.is_word_boundary
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.is_word_boundary = value
@@ -200,7 +186,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var breakInsertsHyphen: guint
         get() = pangoLogAttrPointer.pointed.break_inserts_hyphen
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.break_inserts_hyphen = value
@@ -212,7 +197,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      */
     public var breakRemovesPreceding: guint
         get() = pangoLogAttrPointer.pointed.break_removes_preceding
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.break_removes_preceding = value
@@ -220,7 +204,6 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
 
     public var reserved: guint
         get() = pangoLogAttrPointer.pointed.reserved
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLogAttrPointer.pointed.reserved = value
@@ -232,21 +215,9 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoLogAttr>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to LogAttr and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoLogAttr>, Cleaner>,
-    ) : this(pangoLogAttrPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoLogAttr>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new LogAttr using the provided [AutofreeScope].
@@ -307,7 +278,7 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      *   Since: 1.50
      * @param breakRemovesPreceding when breaking lines before this char, remove the
      *   preceding char. Since 1.50
-     * @param reserved
+     * @param reserved 
      */
     public constructor(
         isLineBreak: guint,
@@ -394,7 +365,7 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
      *   Since: 1.50
      * @param breakRemovesPreceding when breaking lines before this char, remove the
      *   preceding char. Since 1.50
-     * @param reserved
+     * @param reserved 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
@@ -434,6 +405,5 @@ public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cle
         this.reserved = reserved
     }
 
-    override fun toString(): String =
-        "LogAttr(isLineBreak=$isLineBreak, isMandatoryBreak=$isMandatoryBreak, isCharBreak=$isCharBreak, isWhite=$isWhite, isCursorPosition=$isCursorPosition, isWordStart=$isWordStart, isWordEnd=$isWordEnd, isSentenceBoundary=$isSentenceBoundary, isSentenceStart=$isSentenceStart, isSentenceEnd=$isSentenceEnd, backspaceDeletesCharacter=$backspaceDeletesCharacter, isExpandableSpace=$isExpandableSpace, isWordBoundary=$isWordBoundary, breakInsertsHyphen=$breakInsertsHyphen, breakRemovesPreceding=$breakRemovesPreceding, reserved=$reserved)"
+    override fun toString(): String = "LogAttr(isLineBreak=$isLineBreak, isMandatoryBreak=$isMandatoryBreak, isCharBreak=$isCharBreak, isWhite=$isWhite, isCursorPosition=$isCursorPosition, isWordStart=$isWordStart, isWordEnd=$isWordEnd, isSentenceBoundary=$isSentenceBoundary, isSentenceStart=$isSentenceStart, isSentenceEnd=$isSentenceEnd, backspaceDeletesCharacter=$backspaceDeletesCharacter, isExpandableSpace=$isExpandableSpace, isWordBoundary=$isWordBoundary, breakInsertsHyphen=$breakInsertsHyphen, breakRemovesPreceding=$breakRemovesPreceding, reserved=$reserved)"
 }

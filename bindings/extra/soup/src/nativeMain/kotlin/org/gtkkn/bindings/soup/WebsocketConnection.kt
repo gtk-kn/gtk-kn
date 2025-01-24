@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -51,9 +54,6 @@ import org.gtkkn.native.soup.soup_websocket_connection_send_message
 import org.gtkkn.native.soup.soup_websocket_connection_send_text
 import org.gtkkn.native.soup.soup_websocket_connection_set_keepalive_interval
 import org.gtkkn.native.soup.soup_websocket_connection_set_max_incoming_payload_size
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The WebSocket Protocol
@@ -82,8 +82,9 @@ import kotlin.Unit
  *
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPointer<SoupWebsocketConnection>) :
-    Object(soupWebsocketConnectionPointer.reinterpret()),
+public class WebsocketConnection(
+    public val soupWebsocketConnectionPointer: CPointer<SoupWebsocketConnection>,
+) : Object(soupWebsocketConnectionPointer.reinterpret()),
     KGTyped {
     /**
      * The type of connection (client/server).
@@ -95,8 +96,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return the connection type
          */
         get() = soup_websocket_connection_get_connection_type(soupWebsocketConnectionPointer).run {
-            WebsocketConnectionType.fromNativeValue(this)
-        }
+            WebsocketConnectionType.fromNativeValue(this)}
 
     /**
      * List of [class@WebsocketExtension] objects that are active in the connection.
@@ -108,8 +108,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return a #GList of #SoupWebsocketExtension objects
          */
         get() = soup_websocket_connection_get_extensions(soupWebsocketConnectionPointer)!!.run {
-            List(this)
-        }
+            List(this)}
 
     /**
      * The underlying IO stream the WebSocket is communicating
@@ -124,8 +123,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return the WebSocket's I/O stream.
          */
         get() = soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)
-        }
+            IoStream.IoStreamImpl(this)}
 
     /**
      * Interval in seconds on when to send a ping message which will
@@ -140,7 +138,6 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return the keepalive interval.
          */
         get() = soup_websocket_connection_get_keepalive_interval(soupWebsocketConnectionPointer)
-
         /**
          * Sets the interval in seconds on when to send a ping message which will serve
          * as a keepalive message.
@@ -163,7 +160,6 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return the maximum payload size.
          */
         get() = soup_websocket_connection_get_max_incoming_payload_size(soupWebsocketConnectionPointer)
-
         /**
          * Sets the maximum payload size allowed for incoming packets.
          *
@@ -171,12 +167,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          *
          * @param maxIncomingPayloadSize the maximum payload size
          */
-        set(
-            maxIncomingPayloadSize
-        ) = soup_websocket_connection_set_max_incoming_payload_size(
-            soupWebsocketConnectionPointer,
-            maxIncomingPayloadSize
-        )
+        set(maxIncomingPayloadSize) = soup_websocket_connection_set_max_incoming_payload_size(soupWebsocketConnectionPointer, maxIncomingPayloadSize)
 
     /**
      * The client's Origin.
@@ -211,8 +202,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return the state
          */
         get() = soup_websocket_connection_get_state(soupWebsocketConnectionPointer).run {
-            WebsocketState.fromNativeValue(this)
-        }
+            WebsocketState.fromNativeValue(this)}
 
     /**
      * The URI of the WebSocket.
@@ -230,8 +220,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
          * @return the URI
          */
         get() = soup_websocket_connection_get_uri(soupWebsocketConnectionPointer)!!.run {
-            Uri(this)
-        }
+            Uri(this)}
 
     /**
      * Creates a #SoupWebsocketConnection on @stream with the given active @extensions.
@@ -254,16 +243,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
         origin: String? = null,
         protocol: String? = null,
         extensions: List,
-    ) : this(
-        soup_websocket_connection_new(
-            stream.gioIoStreamPointer,
-            uri.glibUriPointer,
-            type.nativeValue,
-            origin,
-            protocol,
-            extensions.glibListPointer
-        )!!.reinterpret()
-    )
+    ) : this(soup_websocket_connection_new(stream.gioIoStreamPointer, uri.glibUriPointer, type.nativeValue, origin, protocol, extensions.glibListPointer)!!)
 
     /**
      * Close the connection in an orderly fashion.
@@ -280,8 +260,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param code close code
      * @param data close data
      */
-    public fun close(code: gushort, `data`: String? = null): Unit =
-        soup_websocket_connection_close(soupWebsocketConnectionPointer, code, `data`)
+    public fun close(code: gushort, `data`: String? = null): Unit = soup_websocket_connection_close(soupWebsocketConnectionPointer, code, `data`)
 
     /**
      * Get the close code received from the WebSocket peer.
@@ -304,9 +283,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      *
      * @return the close data or null
      */
-    public fun getCloseData(): String =
-        soup_websocket_connection_get_close_data(soupWebsocketConnectionPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun getCloseData(): String = soup_websocket_connection_get_close_data(soupWebsocketConnectionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Send a message of the given @type to the peer. Note that this method,
@@ -318,11 +295,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param type the type of message contents
      * @param message the message data as #GBytes
      */
-    public fun sendMessage(type: WebsocketDataType, message: Bytes): Unit = soup_websocket_connection_send_message(
-        soupWebsocketConnectionPointer,
-        type.nativeValue,
-        message.glibBytesPointer
-    )
+    public fun sendMessage(type: WebsocketDataType, message: Bytes): Unit = soup_websocket_connection_send_message(soupWebsocketConnectionPointer, type.nativeValue, message.glibBytesPointer)
 
     /**
      * Send a null-terminated text (UTF-8) message to the peer.
@@ -349,15 +322,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            soupWebsocketConnectionPointer,
-            "closed",
-            onClosedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(soupWebsocketConnectionPointer, "closed", onClosedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "closed" signal. See [onClosed].
@@ -372,15 +337,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onClosing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            soupWebsocketConnectionPointer,
-            "closing",
-            onClosingFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClosing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(soupWebsocketConnectionPointer, "closing", onClosingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "closing" signal. See [onClosing].
@@ -398,15 +355,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the error that occured
      */
-    public fun onError(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
-        g_signal_connect_data(
-            soupWebsocketConnectionPointer,
-            "error",
-            onErrorFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onError(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong = g_signal_connect_data(soupWebsocketConnectionPointer, "error", onErrorFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "error" signal. See [onError].
@@ -427,17 +376,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `type` the type of message contents; `message` the message data
      */
-    public fun onMessage(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (type: gint, message: Bytes) -> Unit,
-    ): ULong = g_signal_connect_data(
-        soupWebsocketConnectionPointer,
-        "message",
-        onMessageFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMessage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (type: gint, message: Bytes) -> Unit): ULong = g_signal_connect_data(soupWebsocketConnectionPointer, "message", onMessageFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "message" signal. See [onMessage].
@@ -460,15 +399,7 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` the application data (if any)
      */
-    public fun onPong(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: Bytes) -> Unit): ULong =
-        g_signal_connect_data(
-            soupWebsocketConnectionPointer,
-            "pong",
-            onPongFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onPong(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: Bytes) -> Unit): ULong = g_signal_connect_data(soupWebsocketConnectionPointer, "pong", onPongFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "pong" signal. See [onPong].
@@ -481,13 +412,10 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
 
     public companion object : TypeCompanion<WebsocketConnection> {
         override val type: GeneratedClassKGType<WebsocketConnection> =
-            GeneratedClassKGType(getTypeOrNull("soup_websocket_connection_get_type")!!) {
-                WebsocketConnection(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("soup_websocket_connection_get_type")!!) { WebsocketConnection(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of WebsocketConnection
@@ -499,58 +427,46 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
 }
 
 private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onClosingFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onErrorFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        error: CPointer<GError>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    error: CPointer<GError>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-        error!!.run {
-            Error(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(error!!.run {
+        Error(this)}
+    )}
+.reinterpret()
 
 private val onMessageFunc: CPointer<CFunction<(gint, CPointer<GBytes>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        type: gint,
-        message: CPointer<GBytes>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    type: gint,
+    message: CPointer<GBytes>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(type: gint, message: Bytes) -> Unit>().get().invoke(
-        type,
-        message!!.run {
-            Bytes(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(type: gint, message: Bytes) -> Unit>().get().invoke(type, message!!.run {
+        Bytes(this)}
+    )}
+.reinterpret()
 
 private val onPongFunc: CPointer<CFunction<(CPointer<GBytes>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        message: CPointer<GBytes>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    message: CPointer<GBytes>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(message: Bytes) -> Unit>().get().invoke(
-        message!!.run {
-            Bytes(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(message: Bytes) -> Unit>().get().invoke(message!!.run {
+        Bytes(this)}
+    )}
+.reinterpret()

@@ -27,7 +27,7 @@ import com.squareup.kotlinpoet.TypeName
 data class InterfaceBlueprint(
     val kotlinName: String,
     val nativeName: String,
-    val typeName: ClassName,
+    val kotlinTypeName: ClassName,
     val methods: List<MethodBlueprint>,
     val properties: List<PropertyBlueprint>,
     val signals: List<SignalBlueprint>,
@@ -41,5 +41,5 @@ data class InterfaceBlueprint(
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 ) {
-    val instanceTypeName = typeName.nestedClass("${typeName.simpleName}Impl")
+    val instanceTypeName = kotlinTypeName.nestedClass("${kotlinTypeName.simpleName}Impl")
 }

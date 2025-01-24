@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,14 +12,11 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputVector
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data output.
@@ -28,14 +26,14 @@ import kotlin.native.ref.createCleaner
  * @since 2.22
  */
 @GioVersion2_22
-public class OutputVector(public val gioOutputVectorPointer: CPointer<GOutputVector>, cleaner: Cleaner? = null) :
-    ProxyInstance(gioOutputVectorPointer) {
+public class OutputVector(
+    public val gioOutputVectorPointer: CPointer<GOutputVector>,
+) : ProxyInstance(gioOutputVectorPointer) {
     /**
      * Pointer to a buffer of data to read.
      */
     public var buffer: gpointer
         get() = gioOutputVectorPointer.pointed.buffer!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputVectorPointer.pointed.buffer = value
@@ -46,7 +44,6 @@ public class OutputVector(public val gioOutputVectorPointer: CPointer<GOutputVec
      */
     public var size: gsize
         get() = gioOutputVectorPointer.pointed.size
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputVectorPointer.pointed.size = value
@@ -58,21 +55,9 @@ public class OutputVector(public val gioOutputVectorPointer: CPointer<GOutputVec
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOutputVector>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to OutputVector and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GOutputVector>, Cleaner>,
-    ) : this(gioOutputVectorPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GOutputVector>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new OutputVector using the provided [AutofreeScope].

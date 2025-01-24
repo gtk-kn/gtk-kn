@@ -10,17 +10,17 @@ import org.gtkkn.native.gtk.gtk_print_duplex_get_type
 /**
  * See also gtk_print_settings_set_duplex().
  */
-public enum class PrintDuplex(public val nativeValue: GtkPrintDuplex) {
+public enum class PrintDuplex(
+    public val nativeValue: GtkPrintDuplex,
+) {
     /**
      * No duplex.
      */
     SIMPLEX(GtkPrintDuplex.GTK_PRINT_DUPLEX_SIMPLEX),
-
     /**
      * Horizontal duplex.
      */
     HORIZONTAL(GtkPrintDuplex.GTK_PRINT_DUPLEX_HORIZONTAL),
-
     /**
      * Vertical duplex.
      */

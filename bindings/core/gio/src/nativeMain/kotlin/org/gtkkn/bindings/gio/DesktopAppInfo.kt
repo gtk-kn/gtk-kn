@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -60,10 +64,6 @@ import org.gtkkn.native.gio.g_desktop_app_info_set_desktop_env
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -80,8 +80,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `length`: length: Out parameter is not supported
  * - function `search`: Nested array types are not supported
  */
-public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<GDesktopAppInfo>) :
-    Object(gioDesktopAppInfoPointer.reinterpret()),
+public open class DesktopAppInfo(
+    public val gioDesktopAppInfoPointer: CPointer<GDesktopAppInfo>,
+) : Object(gioDesktopAppInfoPointer.reinterpret()),
     AppInfo,
     KGTyped {
     override val gioAppInfoPointer: CPointer<GAppInfo>
@@ -128,9 +129,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @return a new #GDesktopAppInfo or null on error.
      * @since 2.18
      */
-    public constructor(
-        keyFile: KeyFile,
-    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
+    public constructor(keyFile: KeyFile) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
 
     /**
      * Gets the user-visible display name of the "additional application
@@ -145,9 +144,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun getActionName(actionName: String): String =
-        g_desktop_app_info_get_action_name(gioDesktopAppInfoPointer, actionName)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getActionName(actionName: String): String = g_desktop_app_info_get_action_name(gioDesktopAppInfoPointer, actionName)?.toKString() ?: error("Expected not null string")
 
     /**
      * Looks up a boolean value in the keyfile backing @info.
@@ -160,8 +157,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun getBoolean(key: String): Boolean =
-        g_desktop_app_info_get_boolean(gioDesktopAppInfoPointer, key).asBoolean()
+    public open fun getBoolean(key: String): Boolean = g_desktop_app_info_get_boolean(gioDesktopAppInfoPointer, key).asBoolean()
 
     /**
      * Gets the categories from the desktop file.
@@ -176,8 +172,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      *
      * @return The value of the GenericName key
      */
-    public open fun getGenericName(): String? =
-        g_desktop_app_info_get_generic_name(gioDesktopAppInfoPointer)?.toKString()
+    public open fun getGenericName(): String? = g_desktop_app_info_get_generic_name(gioDesktopAppInfoPointer)?.toKString()
 
     /**
      * A desktop file is hidden if the Hidden key in it is
@@ -194,9 +189,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getKeywords(): CollectionsList<String> =
-        g_desktop_app_info_get_keywords(gioDesktopAppInfoPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getKeywords(): CollectionsList<String> = g_desktop_app_info_get_keywords(gioDesktopAppInfoPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Looks up a localized string value in the keyfile backing @info
@@ -210,8 +203,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.56
      */
     @GioVersion2_56
-    public open fun getLocaleString(key: String): String? =
-        g_desktop_app_info_get_locale_string(gioDesktopAppInfoPointer, key)?.toKString()
+    public open fun getLocaleString(key: String): String? = g_desktop_app_info_get_locale_string(gioDesktopAppInfoPointer, key)?.toKString()
 
     /**
      * Gets the value of the NoDisplay key, which helps determine if the
@@ -244,8 +236,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun getShowIn(desktopEnv: String? = null): Boolean =
-        g_desktop_app_info_get_show_in(gioDesktopAppInfoPointer, desktopEnv).asBoolean()
+    public open fun getShowIn(desktopEnv: String? = null): Boolean = g_desktop_app_info_get_show_in(gioDesktopAppInfoPointer, desktopEnv).asBoolean()
 
     /**
      * Retrieves the StartupWMClass field from @info. This represents the
@@ -257,8 +248,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun getStartupWmClass(): String? =
-        g_desktop_app_info_get_startup_wm_class(gioDesktopAppInfoPointer)?.toKString()
+    public open fun getStartupWmClass(): String? = g_desktop_app_info_get_startup_wm_class(gioDesktopAppInfoPointer)?.toKString()
 
     /**
      * Looks up a string value in the keyfile backing @info.
@@ -271,8 +261,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun getString(key: String): String? =
-        g_desktop_app_info_get_string(gioDesktopAppInfoPointer, key)?.toKString()
+    public open fun getString(key: String): String? = g_desktop_app_info_get_string(gioDesktopAppInfoPointer, key)?.toKString()
 
     /**
      * Returns whether @key exists in the "Desktop Entry" group
@@ -308,12 +297,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun launchAction(actionName: String, launchContext: AppLaunchContext? = null): Unit =
-        g_desktop_app_info_launch_action(
-            gioDesktopAppInfoPointer,
-            actionName,
-            launchContext?.gioAppLaunchContextPointer
-        )
+    public open fun launchAction(actionName: String, launchContext: AppLaunchContext? = null): Unit = g_desktop_app_info_launch_action(gioDesktopAppInfoPointer, actionName, launchContext?.gioAppLaunchContextPointer)
 
     /**
      * This function performs the equivalent of g_app_info_launch_uris(),
@@ -348,19 +332,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
         pidCallback: DesktopAppLaunchCallback?,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_desktop_app_info_launch_uris_as_manager(
-            gioDesktopAppInfoPointer, uris.glibListPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask,
-            userSetup?.let {
-                SpawnChildSetupFuncFunc.reinterpret()
-            },
-            userSetup?.let {
-                StableRef.create(userSetup).asCPointer()
-            },
-            pidCallback?.let {
-                DesktopAppLaunchCallbackFunc.reinterpret()
-            },
-            pidCallback?.let { StableRef.create(pidCallback).asCPointer() }, gError.ptr
-        ).asBoolean()
+        val gResult = g_desktop_app_info_launch_uris_as_manager(gioDesktopAppInfoPointer, uris.glibListPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask, userSetup?.let { SpawnChildSetupFuncFunc.reinterpret() }, userSetup?.let { StableRef.create(userSetup).asCPointer() }, pidCallback?.let { DesktopAppLaunchCallbackFunc.reinterpret() }, pidCallback?.let { StableRef.create(pidCallback).asCPointer() }, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -400,22 +372,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
         stderrFd: gint,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_desktop_app_info_launch_uris_as_manager_with_fds(
-            gioDesktopAppInfoPointer, uris.glibListPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask,
-            userSetup?.let {
-                SpawnChildSetupFuncFunc.reinterpret()
-            },
-            userSetup?.let {
-                StableRef.create(userSetup).asCPointer()
-            },
-            pidCallback?.let {
-                DesktopAppLaunchCallbackFunc.reinterpret()
-            },
-            pidCallback?.let {
-                StableRef.create(pidCallback).asCPointer()
-            },
-            stdinFd, stdoutFd, stderrFd, gError.ptr
-        ).asBoolean()
+        val gResult = g_desktop_app_info_launch_uris_as_manager_with_fds(gioDesktopAppInfoPointer, uris.glibListPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask, userSetup?.let { SpawnChildSetupFuncFunc.reinterpret() }, userSetup?.let { StableRef.create(userSetup).asCPointer() }, pidCallback?.let { DesktopAppLaunchCallbackFunc.reinterpret() }, pidCallback?.let { StableRef.create(pidCallback).asCPointer() }, stdinFd, stdoutFd, stderrFd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -434,39 +391,14 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun listActions(): CollectionsList<String> =
-        g_desktop_app_info_list_actions(gioDesktopAppInfoPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun listActions(): CollectionsList<String> = g_desktop_app_info_list_actions(gioDesktopAppInfoPointer)?.toKStringList() ?: error("Expected not null string array")
 
     public companion object : TypeCompanion<DesktopAppInfo> {
         override val type: GeneratedClassKGType<DesktopAppInfo> =
-            GeneratedClassKGType(getTypeOrNull("g_desktop_app_info_get_type")!!) {
-                DesktopAppInfo(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_desktop_app_info_get_type")!!) { DesktopAppInfo(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
-
-        /**
-         * Creates a new #GDesktopAppInfo based on a desktop file id.
-         *
-         * A desktop file id is the basename of the desktop file, including the
-         * .desktop extension. GIO is looking for a desktop file with this name
-         * in the `applications` subdirectories of the XDG
-         * data directories (i.e. the directories specified in the `XDG_DATA_HOME`
-         * and `XDG_DATA_DIRS` environment variables). GIO also supports the
-         * prefix-to-subdirectory mapping that is described in the
-         * [Menu Spec](http://standards.freedesktop.org/menu-spec/latest/)
-         * (i.e. a desktop id of kde-foo.desktop will match
-         * `/usr/share/applications/kde/foo.desktop`).
-         *
-         * @param desktopId the desktop file id
-         * @return a new #GDesktopAppInfo, or null if no desktop
-         *     file with that id exists.
-         */
-        public fun new(desktopId: String): DesktopAppInfo =
-            DesktopAppInfo(g_desktop_app_info_new(desktopId)!!.reinterpret())
+            GioTypeProvider.register()}
 
         /**
          * Creates a new #GDesktopAppInfo.
@@ -475,8 +407,7 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
          *      filename encoding
          * @return a new #GDesktopAppInfo or null on error.
          */
-        public fun newFromFilename(filename: String): DesktopAppInfo =
-            DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret())
+        public fun fromFilename(filename: String): DesktopAppInfo = DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret())
 
         /**
          * Gets all applications that implement @interface.
@@ -490,10 +421,8 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
          * @since 2.42
          */
         @GioVersion2_42
-        public fun getImplementations(`interface`: String): GlibList =
-            g_desktop_app_info_get_implementations(`interface`)!!.run {
-                GlibList(this)
-            }
+        public fun getImplementations(`interface`: String): GlibList = g_desktop_app_info_get_implementations(`interface`)!!.run {
+            GlibList(this)}
 
         /**
          * Sets the name of the desktop that the application is running in.

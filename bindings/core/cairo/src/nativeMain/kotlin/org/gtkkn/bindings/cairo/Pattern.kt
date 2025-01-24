@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.cairo
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
@@ -28,37 +29,32 @@ import org.gtkkn.native.cairo.cairo_pattern_status
 import org.gtkkn.native.cairo.cairo_pattern_t
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pattern_t>) :
-    TypeInstance(cairoPatternPointer.reinterpret()),
+public abstract class Pattern(
+    public val cairoPatternPointer: CPointer<cairo_pattern_t>,
+) : TypeInstance(cairoPatternPointer.reinterpret()),
     KGTyped {
     public open fun status(): Status = cairo_pattern_status(cairoPatternPointer).run {
-        Status.fromNativeValue(this)
-    }
+        Status.fromNativeValue(this)}
 
     public open fun setExtend(extend: Extend): Unit = cairo_pattern_set_extend(cairoPatternPointer, extend.nativeValue)
 
     public open fun getExtend(): Extend = cairo_pattern_get_extend(cairoPatternPointer).run {
-        Extend.fromNativeValue(this)
-    }
+        Extend.fromNativeValue(this)}
 
     public open fun setFilter(filter: Filter): Unit = cairo_pattern_set_filter(cairoPatternPointer, filter.nativeValue)
 
     public open fun getFilter(): Filter = cairo_pattern_get_filter(cairoPatternPointer).run {
-        Filter.fromNativeValue(this)
-    }
+        Filter.fromNativeValue(this)}
 
-    public open fun setMatrix(matrix: Matrix): Unit =
-        cairo_pattern_set_matrix(cairoPatternPointer, matrix.cairoMatrixPointer)
+    public open fun setMatrix(matrix: Matrix): Unit = cairo_pattern_set_matrix(cairoPatternPointer, matrix.cairoMatrixPointer)
 
-    public open fun getMatrix(matrix: Matrix): Unit =
-        cairo_pattern_get_matrix(cairoPatternPointer, matrix.cairoMatrixPointer)
+    public open fun getMatrix(matrix: Matrix): Unit = cairo_pattern_get_matrix(cairoPatternPointer, matrix.cairoMatrixPointer)
 
     /**
      *
@@ -67,23 +63,21 @@ public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pat
      */
     @CairoVersion1_2
     public open fun getPatternType(): PatternType = cairo_pattern_get_type(cairoPatternPointer).run {
-        PatternType.fromNativeValue(this)
-    }
+        PatternType.fromNativeValue(this)}
 
     /**
      *
      *
-     * @param key
+     * @param key 
      * @since 1.4
      */
     @CairoVersion1_4
-    public open fun getUserData(key: UserDataKey): gpointer =
-        cairo_pattern_get_user_data(cairoPatternPointer, key.cairoUserDataKeyPointer)!!
+    public open fun getUserData(key: UserDataKey): gpointer = cairo_pattern_get_user_data(cairoPatternPointer, key.cairoUserDataKeyPointer)!!
 
     /**
      *
      *
-     * @param dither
+     * @param dither 
      * @since 1.18
      */
     @CairoVersion1_18
@@ -96,25 +90,23 @@ public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pat
      */
     @CairoVersion1_18
     public open fun getDither(): Dither = cairo_pattern_get_dither(cairoPatternPointer).run {
-        Dither.fromNativeValue(this)
-    }
+        Dither.fromNativeValue(this)}
 
     /**
      * The PatternImpl type represents a native instance of the abstract Pattern class.
      *
      * @constructor Creates a new instance of Pattern for the provided [CPointer].
      */
-    public class PatternImpl(pointer: CPointer<cairo_pattern_t>) : Pattern(pointer)
+    public class PatternImpl(
+        pointer: CPointer<cairo_pattern_t>,
+    ) : Pattern(pointer)
 
     public companion object : TypeCompanion<Pattern> {
         override val type: GeneratedClassKGType<Pattern> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) {
-                PatternImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) { PatternImpl(it.reinterpret()) }
 
         init {
-            CairoTypeProvider.register()
-        }
+            CairoTypeProvider.register()}
 
         /**
          * Get the GType of Pattern

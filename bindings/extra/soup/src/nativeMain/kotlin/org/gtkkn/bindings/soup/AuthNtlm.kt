@@ -20,16 +20,16 @@ import org.gtkkn.native.soup.soup_auth_ntlm_get_type
  * enable support for it, call [method@Session.add_feature_by_type],
  * passing %SOUP_TYPE_AUTH_NTLM.
  */
-public class AuthNtlm(public val soupAuthNtlmPointer: CPointer<SoupAuth>) :
-    Auth(soupAuthNtlmPointer.reinterpret()),
+public class AuthNtlm(
+    public val soupAuthNtlmPointer: CPointer<SoupAuth>,
+) : Auth(soupAuthNtlmPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<AuthNtlm> {
         override val type: GeneratedClassKGType<AuthNtlm> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_ntlm_get_type")!!) { AuthNtlm(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_ntlm_get_type")!!) { AuthNtlm(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of AuthNTLM

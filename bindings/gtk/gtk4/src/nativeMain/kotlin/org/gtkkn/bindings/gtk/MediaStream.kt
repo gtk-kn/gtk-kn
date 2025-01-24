@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Paintable
@@ -54,8 +56,6 @@ import org.gtkkn.native.gtk.gtk_media_stream_stream_unprepared
 import org.gtkkn.native.gtk.gtk_media_stream_unprepared
 import org.gtkkn.native.gtk.gtk_media_stream_unrealize
 import org.gtkkn.native.gtk.gtk_media_stream_update
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GtkMediaStream` is the integration point for media playback inside GTK.
@@ -87,8 +87,9 @@ import kotlin.Unit
  * - method `seekable`: Property has no getter nor setter
  * - method `seeking`: Property has no getter nor setter
  */
-public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<GtkMediaStream>) :
-    Object(gtkMediaStreamPointer.reinterpret()),
+public abstract class MediaStream(
+    public val gtkMediaStreamPointer: CPointer<GtkMediaStream>,
+) : Object(gtkMediaStreamPointer.reinterpret()),
     Paintable,
     KGTyped {
     override val gdkPaintablePointer: CPointer<GdkPaintable>
@@ -132,8 +133,7 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
          *   error state or the `GError` of the stream
          */
         get() = gtk_media_stream_get_error(gtkMediaStreamPointer)?.run {
-            Error(this)
-        }
+            Error(this)}
 
     /**
      * Try to restart the media from the beginning once it ended.
@@ -147,7 +147,6 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
          * @return true if the stream should loop
          */
         get() = gtk_media_stream_get_loop(gtkMediaStreamPointer).asBoolean()
-
         /**
          * Sets whether the stream should loop.
          *
@@ -174,7 +173,6 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
          * @return true if the stream is muted
          */
         get() = gtk_media_stream_get_muted(gtkMediaStreamPointer).asBoolean()
-
         /**
          * Sets whether the audio stream should be muted.
          *
@@ -199,7 +197,6 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
          * @return true if the stream is playing
          */
         get() = gtk_media_stream_get_playing(gtkMediaStreamPointer).asBoolean()
-
         /**
          * Starts or pauses playback of the stream.
          *
@@ -230,7 +227,6 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
          * @return volume of the stream from 0.0 to 1.0
          */
         get() = gtk_media_stream_get_volume(gtkMediaStreamPointer)
-
         /**
          * Sets the volume of the audio stream.
          *
@@ -350,14 +346,12 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
      * @param seekable true if the stream should advertise seekability
      * @param duration The duration of the stream or 0 if unknown
      */
-    public open fun prepared(hasAudio: Boolean, hasVideo: Boolean, seekable: Boolean, duration: gint64): Unit =
-        gtk_media_stream_prepared(
-            gtkMediaStreamPointer,
-            hasAudio.asGBoolean(),
-            hasVideo.asGBoolean(),
-            seekable.asGBoolean(),
-            duration
-        )
+    public open fun prepared(
+        hasAudio: Boolean,
+        hasVideo: Boolean,
+        seekable: Boolean,
+        duration: gint64,
+    ): Unit = gtk_media_stream_prepared(gtkMediaStreamPointer, hasAudio.asGBoolean(), hasVideo.asGBoolean(), seekable.asGBoolean(), duration)
 
     /**
      * Called by users to attach the media stream to a `GdkSurface` they manage.
@@ -379,8 +373,7 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
      *
      * @param surface a `GdkSurface`
      */
-    public open fun realize(surface: Surface): Unit =
-        gtk_media_stream_realize(gtkMediaStreamPointer, surface.gdkSurfacePointer)
+    public open fun realize(surface: Surface): Unit = gtk_media_stream_realize(gtkMediaStreamPointer, surface.gdkSurfacePointer)
 
     /**
      * Start a seek operation on @self to @timestamp.
@@ -453,14 +446,12 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
      * @since 4.4
      */
     @GtkVersion4_4
-    public open fun streamPrepared(hasAudio: Boolean, hasVideo: Boolean, seekable: Boolean, duration: gint64): Unit =
-        gtk_media_stream_stream_prepared(
-            gtkMediaStreamPointer,
-            hasAudio.asGBoolean(),
-            hasVideo.asGBoolean(),
-            seekable.asGBoolean(),
-            duration
-        )
+    public open fun streamPrepared(
+        hasAudio: Boolean,
+        hasVideo: Boolean,
+        seekable: Boolean,
+        duration: gint64,
+    ): Unit = gtk_media_stream_stream_prepared(gtkMediaStreamPointer, hasAudio.asGBoolean(), hasVideo.asGBoolean(), seekable.asGBoolean(), duration)
 
     /**
      * Resets a given media stream implementation.
@@ -487,8 +478,7 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
      *
      * @param surface the `GdkSurface` the stream was realized with
      */
-    public open fun unrealize(surface: Surface): Unit =
-        gtk_media_stream_unrealize(gtkMediaStreamPointer, surface.gdkSurfacePointer)
+    public open fun unrealize(surface: Surface): Unit = gtk_media_stream_unrealize(gtkMediaStreamPointer, surface.gdkSurfacePointer)
 
     /**
      * Media stream implementations should regularly call this
@@ -508,15 +498,16 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
      *
      * @constructor Creates a new instance of MediaStream for the provided [CPointer].
      */
-    public class MediaStreamImpl(pointer: CPointer<GtkMediaStream>) : MediaStream(pointer)
+    public class MediaStreamImpl(
+        pointer: CPointer<GtkMediaStream>,
+    ) : MediaStream(pointer)
 
     public companion object : TypeCompanion<MediaStream> {
         override val type: GeneratedClassKGType<MediaStream> =
-            GeneratedClassKGType(getTypeOrNull("gtk_media_stream_get_type")!!) { MediaStreamImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_media_stream_get_type")!!) { MediaStreamImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of MediaStream

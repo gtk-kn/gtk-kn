@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -28,8 +30,6 @@ import org.gtkkn.native.gtksource.gtk_source_file_is_readonly
 import org.gtkkn.native.gtksource.gtk_source_file_new
 import org.gtkkn.native.gtksource.gtk_source_file_set_location
 import org.gtkkn.native.gtksource.gtk_source_file_set_mount_operation_factory
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * On-disk representation of a [class@Buffer].
@@ -47,8 +47,9 @@ import kotlin.Unit
  * - method `location`: Property TypeInfo of getter and setter do not match
  * - method `read-only`: Property has no getter nor setter
  */
-public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>) :
-    Object(gtksourceFilePointer.reinterpret()),
+public open class File(
+    public val gtksourceFilePointer: CPointer<GtkSourceFile>,
+) : Object(gtksourceFilePointer.reinterpret()),
     KGTyped {
     /**
      * The compression type.
@@ -60,8 +61,7 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
          * @return the compression type.
          */
         get() = gtk_source_file_get_compression_type(gtksourceFilePointer).run {
-            CompressionType.fromNativeValue(this)
-        }
+            CompressionType.fromNativeValue(this)}
 
     /**
      * The character encoding, initially null. After a successful file
@@ -75,8 +75,7 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
          * @return the character encoding.
          */
         get() = gtk_source_file_get_encoding(gtksourceFilePointer)!!.run {
-            Encoding(this)
-        }
+            Encoding(this)}
 
     /**
      * The line ending type.
@@ -88,15 +87,14 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
          * @return the newline type.
          */
         get() = gtk_source_file_get_newline_type(gtksourceFilePointer).run {
-            NewlineType.fromNativeValue(this)
-        }
+            NewlineType.fromNativeValue(this)}
 
     /**
      *
      *
      * @return a new #GtkSourceFile object.
      */
-    public constructor() : this(gtk_source_file_new()!!.reinterpret())
+    public constructor() : this(gtk_source_file_new()!!)
 
     /**
      * Checks synchronously the file on disk, to know whether the file is externally
@@ -116,10 +114,8 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
      *
      * @return the #GFile.
      */
-    public open fun getLocation(): org.gtkkn.bindings.gio.File =
-        gtk_source_file_get_location(gtksourceFilePointer)!!.run {
-            org.gtkkn.bindings.gio.File.FileImpl(reinterpret())
-        }
+    public open fun getLocation(): org.gtkkn.bindings.gio.File = gtk_source_file_get_location(gtksourceFilePointer)!!.run {
+        org.gtkkn.bindings.gio.File.FileImpl(reinterpret())}
 
     /**
      * Returns whether the file has been deleted. If the
@@ -141,8 +137,7 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
      *
      * @return whether the file is externally modified.
      */
-    public open fun isExternallyModified(): Boolean =
-        gtk_source_file_is_externally_modified(gtksourceFilePointer).asBoolean()
+    public open fun isExternallyModified(): Boolean = gtk_source_file_is_externally_modified(gtksourceFilePointer).asBoolean()
 
     /**
      * Returns whether the file is local. If the [property@File:location] is null,
@@ -168,8 +163,7 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
      *
      * @param location the new #GFile, or null.
      */
-    public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit =
-        gtk_source_file_set_location(gtksourceFilePointer, location?.gioFilePointer)
+    public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit = gtk_source_file_set_location(gtksourceFilePointer, location?.gioFilePointer)
 
     /**
      * Sets a [callback@MountOperationFactory] function that will be called when a
@@ -183,21 +177,14 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
      * @param callback a #GtkSourceMountOperationFactory to call when a
      *   #GMountOperation is needed.
      */
-    public open fun setMountOperationFactory(callback: MountOperationFactory): Unit =
-        gtk_source_file_set_mount_operation_factory(
-            gtksourceFilePointer,
-            MountOperationFactoryFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setMountOperationFactory(callback: MountOperationFactory): Unit = gtk_source_file_set_mount_operation_factory(gtksourceFilePointer, MountOperationFactoryFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedClassKGType<File> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_file_get_type")!!) { File(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_file_get_type")!!) { File(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of File

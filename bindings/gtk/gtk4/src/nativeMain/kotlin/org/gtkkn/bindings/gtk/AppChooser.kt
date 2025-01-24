@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -18,8 +20,6 @@ import org.gtkkn.native.gtk.gtk_app_chooser_get_app_info
 import org.gtkkn.native.gtk.gtk_app_chooser_get_content_type
 import org.gtkkn.native.gtk.gtk_app_chooser_get_type
 import org.gtkkn.native.gtk.gtk_app_chooser_refresh
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkAppChooser` is an interface for widgets which allow the user to
@@ -42,9 +42,7 @@ import kotlin.Unit
  * To obtain the application that has been selected in a `GtkAppChooser`,
  * use [method@Gtk.AppChooser.get_app_info].
  */
-public interface AppChooser :
-    Proxy,
-    KGTyped {
+public interface AppChooser : Proxy, KGTyped {
     public val gtkAppChooserPointer: CPointer<GtkAppChooser>
 
     /**
@@ -68,8 +66,7 @@ public interface AppChooser :
      *   currently selected application
      */
     public fun getAppInfo(): AppInfo? = gtk_app_chooser_get_app_info(gtkAppChooserPointer)?.run {
-        AppInfo.AppInfoImpl(reinterpret())
-    }
+        AppInfo.AppInfoImpl(reinterpret())}
 
     /**
      * Returns the content type for which the `GtkAppChooser`
@@ -77,8 +74,7 @@ public interface AppChooser :
      *
      * @return the content type of @self. Free with g_free()
      */
-    public fun getContentType(): String =
-        gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
+    public fun getContentType(): String = gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Reloads the list of applications.
@@ -90,19 +86,17 @@ public interface AppChooser :
      *
      * @constructor Creates a new instance of AppChooser for the provided [CPointer].
      */
-    public data class AppChooserImpl(override val gtkAppChooserPointer: CPointer<GtkAppChooser>) :
-        Widget(gtkAppChooserPointer.reinterpret()),
+    public data class AppChooserImpl(
+        override val gtkAppChooserPointer: CPointer<GtkAppChooser>,
+    ) : Widget(gtkAppChooserPointer.reinterpret()),
         AppChooser
 
     public companion object : TypeCompanion<AppChooser> {
         override val type: GeneratedInterfaceKGType<AppChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_app_chooser_get_type")!!) {
-                AppChooserImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_app_chooser_get_type")!!) { AppChooserImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AppChooser

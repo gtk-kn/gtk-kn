@@ -26,13 +26,10 @@ public open class RepeatingLinearGradientNode(
     KGTyped {
     public companion object : TypeCompanion<RepeatingLinearGradientNode> {
         override val type: GeneratedClassKGType<RepeatingLinearGradientNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_repeating_linear_gradient_node_get_type")!!) {
-                RepeatingLinearGradientNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_repeating_linear_gradient_node_get_type")!!) { RepeatingLinearGradientNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of RepeatingLinearGradientNode

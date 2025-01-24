@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -56,9 +59,6 @@ import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkEditable
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * An [class@ActionRow] with an embedded spin button.
@@ -100,8 +100,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
-    ActionRow(adwSpinRowPointer.reinterpret()),
+public class SpinRow(
+    public val adwSpinRowPointer: CPointer<AdwSpinRow>,
+) : ActionRow(adwSpinRowPointer.reinterpret()),
     Editable,
     KGTyped {
     override val gtkEditablePointer: CPointer<GtkEditable>
@@ -133,7 +134,6 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_climb_rate(adwSpinRowPointer)
-
         /**
          * Sets the acceleration rate when you hold down a button or key.
          *
@@ -157,7 +157,6 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_digits(adwSpinRowPointer)
-
         /**
          * Sets the number of decimal places to display.
          *
@@ -181,7 +180,6 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_numeric(adwSpinRowPointer).asBoolean()
-
         /**
          * Sets whether non-numeric characters should be ignored.
          *
@@ -205,7 +203,6 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_snap_to_ticks(adwSpinRowPointer).asBoolean()
-
         /**
          * Sets whether invalid values are snapped to the nearest step increment.
          *
@@ -231,9 +228,7 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_update_policy(adwSpinRowPointer).run {
-            SpinButtonUpdatePolicy.fromNativeValue(this)
-        }
-
+            SpinButtonUpdatePolicy.fromNativeValue(this)}
         /**
          * Sets the policy for updating the spin row.
          *
@@ -259,7 +254,6 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_value(adwSpinRowPointer)
-
         /**
          * Sets the current value.
          *
@@ -283,7 +277,6 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         get() = adw_spin_row_get_wrap(adwSpinRowPointer).asBoolean()
-
         /**
          * Sets whether the spin row should wrap upon reaching its limits.
          *
@@ -345,8 +338,11 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun configure(adjustment: Adjustment? = null, climbRate: gdouble, digits: guint): Unit =
-        adw_spin_row_configure(adwSpinRowPointer, adjustment?.gtkAdjustmentPointer, climbRate, digits)
+    public fun configure(
+        adjustment: Adjustment? = null,
+        climbRate: gdouble,
+        digits: guint,
+    ): Unit = adw_spin_row_configure(adwSpinRowPointer, adjustment?.gtkAdjustmentPointer, climbRate, digits)
 
     /**
      * Gets the adjustment that holds the value for the spin row.
@@ -356,8 +352,7 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
      */
     @AdwVersion1_4
     public fun getAdjustment(): Adjustment = adw_spin_row_get_adjustment(adwSpinRowPointer)!!.run {
-        Adjustment(this)
-    }
+        Adjustment(this)}
 
     /**
      * Sets the adjustment that holds the value for the spin row.
@@ -366,8 +361,7 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun setAdjustment(adjustment: Adjustment? = null): Unit =
-        adw_spin_row_set_adjustment(adwSpinRowPointer, adjustment?.gtkAdjustmentPointer)
+    public fun setAdjustment(adjustment: Adjustment? = null): Unit = adw_spin_row_set_adjustment(adwSpinRowPointer, adjustment?.gtkAdjustmentPointer)
 
     /**
      * Sets the minimum and maximum allowable values for @self.
@@ -400,15 +394,7 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun onOutput(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            adwSpinRowPointer,
-            "output",
-            onOutputFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onOutput(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(adwSpinRowPointer, "output", onOutputFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted right after the spinbutton wraps.
@@ -420,15 +406,7 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun onWrapped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwSpinRowPointer,
-            "wrapped",
-            onWrappedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onWrapped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwSpinRowPointer, "wrapped", onWrappedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "wrapped" signal. See [onWrapped].
@@ -442,11 +420,10 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
 
     public companion object : TypeCompanion<SpinRow> {
         override val type: GeneratedClassKGType<SpinRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_spin_row_get_type")!!) { SpinRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_spin_row_get_type")!!) { SpinRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of SpinRow
@@ -458,17 +435,15 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
 }
 
 private val onOutputFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()
 
 private val onWrappedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

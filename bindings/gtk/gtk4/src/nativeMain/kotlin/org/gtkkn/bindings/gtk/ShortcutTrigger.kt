@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,8 +32,6 @@ import org.gtkkn.native.gtk.gtk_shortcut_trigger_print_label
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_to_label
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_to_string
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_trigger
-import kotlin.Boolean
-import kotlin.Unit
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -48,8 +48,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * properties during construction. If you want to change a trigger, you
  * have to replace it with a new one.
  */
-public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>) :
-    Object(gtkShortcutTriggerPointer.reinterpret()),
+public abstract class ShortcutTrigger(
+    public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>,
+) : Object(gtkShortcutTriggerPointer.reinterpret()),
     KGTyped {
     /**
      * Tries to parse the given string into a trigger.
@@ -85,8 +86,7 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      *   @trigger1 is found, respectively, to be less than, to match,
      *   or be greater than @trigger2.
      */
-    public open fun compare(trigger2: ShortcutTrigger): gint =
-        gtk_shortcut_trigger_compare(gtkShortcutTriggerPointer, trigger2.gtkShortcutTriggerPointer)
+    public open fun compare(trigger2: ShortcutTrigger): gint = gtk_shortcut_trigger_compare(gtkShortcutTriggerPointer, trigger2.gtkShortcutTriggerPointer)
 
     /**
      * Checks if @trigger1 and @trigger2 trigger under the same conditions.
@@ -97,8 +97,7 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      * @param trigger2 a `GtkShortcutTrigger`
      * @return true if @trigger1 and @trigger2 are equal
      */
-    public open fun equal(trigger2: ShortcutTrigger): Boolean =
-        gtk_shortcut_trigger_equal(gtkShortcutTriggerPointer, trigger2.gtkShortcutTriggerPointer).asBoolean()
+    public open fun equal(trigger2: ShortcutTrigger): Boolean = gtk_shortcut_trigger_equal(gtkShortcutTriggerPointer, trigger2.gtkShortcutTriggerPointer).asBoolean()
 
     /**
      * Generates a hash value for a `GtkShortcutTrigger`.
@@ -124,8 +123,7 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      *
      * @param string a `GString` to print into
      */
-    public open fun print(string: GlibString): Unit =
-        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer, string.glibStringPointer)
+    public open fun print(string: GlibString): Unit = gtk_shortcut_trigger_print(gtkShortcutTriggerPointer, string.glibStringPointer)
 
     /**
      * Prints the given trigger into a string.
@@ -146,11 +144,7 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      *   trigger did not have a textual representation suitable
      *   for end users.
      */
-    public open fun printLabel(display: Display, string: GlibString): Boolean = gtk_shortcut_trigger_print_label(
-        gtkShortcutTriggerPointer,
-        display.gdkDisplayPointer,
-        string.glibStringPointer
-    ).asBoolean()
+    public open fun printLabel(display: Display, string: GlibString): Boolean = gtk_shortcut_trigger_print_label(gtkShortcutTriggerPointer, display.gdkDisplayPointer, string.glibStringPointer).asBoolean()
 
     /**
      * Gets textual representation for the given trigger.
@@ -169,9 +163,7 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      * @param display `GdkDisplay` to print for
      * @return a new string
      */
-    public open fun toLabel(display: Display): KotlinString =
-        gtk_shortcut_trigger_to_label(gtkShortcutTriggerPointer, display.gdkDisplayPointer)?.toKString()
-            ?: error("Expected not null string")
+    public open fun toLabel(display: Display): KotlinString = gtk_shortcut_trigger_to_label(gtkShortcutTriggerPointer, display.gdkDisplayPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Prints the given trigger into a human-readable string.
@@ -181,8 +173,7 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      *
      * @return a new string
      */
-    override fun toString(): KotlinString =
-        gtk_shortcut_trigger_to_string(gtkShortcutTriggerPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): KotlinString = gtk_shortcut_trigger_to_string(gtkShortcutTriggerPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Checks if the given @event triggers @self.
@@ -193,30 +184,24 @@ public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPoi
      *   in @event is a Key event and has the right modifiers set.
      * @return Whether the event triggered the shortcut
      */
-    public open fun trigger(event: Event, enableMnemonics: Boolean): KeyMatch = gtk_shortcut_trigger_trigger(
-        gtkShortcutTriggerPointer,
-        event.gdkEventPointer,
-        enableMnemonics.asGBoolean()
-    ).run {
-        KeyMatch.fromNativeValue(this)
-    }
+    public open fun trigger(event: Event, enableMnemonics: Boolean): KeyMatch = gtk_shortcut_trigger_trigger(gtkShortcutTriggerPointer, event.gdkEventPointer, enableMnemonics.asGBoolean()).run {
+        KeyMatch.fromNativeValue(this)}
 
     /**
      * The ShortcutTriggerImpl type represents a native instance of the abstract ShortcutTrigger class.
      *
      * @constructor Creates a new instance of ShortcutTrigger for the provided [CPointer].
      */
-    public class ShortcutTriggerImpl(pointer: CPointer<GtkShortcutTrigger>) : ShortcutTrigger(pointer)
+    public class ShortcutTriggerImpl(
+        pointer: CPointer<GtkShortcutTrigger>,
+    ) : ShortcutTrigger(pointer)
 
     public companion object : TypeCompanion<ShortcutTrigger> {
         override val type: GeneratedClassKGType<ShortcutTrigger> =
-            GeneratedClassKGType(getTypeOrNull("gtk_shortcut_trigger_get_type")!!) {
-                ShortcutTriggerImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_shortcut_trigger_get_type")!!) { ShortcutTriggerImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ShortcutTrigger

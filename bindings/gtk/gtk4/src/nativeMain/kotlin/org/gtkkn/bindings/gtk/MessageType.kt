@@ -10,27 +10,25 @@ import org.gtkkn.native.gtk.gtk_message_type_get_type
 /**
  * The type of message being displayed in a [class@MessageDialog].
  */
-public enum class MessageType(public val nativeValue: GtkMessageType) {
+public enum class MessageType(
+    public val nativeValue: GtkMessageType,
+) {
     /**
      * Informational message
      */
     INFO(GtkMessageType.GTK_MESSAGE_INFO),
-
     /**
      * Non-fatal warning message
      */
     WARNING(GtkMessageType.GTK_MESSAGE_WARNING),
-
     /**
      * Question requiring a choice
      */
     QUESTION(GtkMessageType.GTK_MESSAGE_QUESTION),
-
     /**
      * Fatal error message
      */
     ERROR(GtkMessageType.GTK_MESSAGE_ERROR),
-
     /**
      * None of the above
      */

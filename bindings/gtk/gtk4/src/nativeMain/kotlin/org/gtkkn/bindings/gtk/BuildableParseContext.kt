@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -11,8 +13,6 @@ import org.gtkkn.native.gtk.GtkBuildableParseContext
 import org.gtkkn.native.gtk.gtk_buildable_parse_context_get_element
 import org.gtkkn.native.gtk.gtk_buildable_parse_context_pop
 import org.gtkkn.native.gtk.gtk_buildable_parse_context_push
-import kotlin.String
-import kotlin.Unit
 
 /**
  * An opaque context struct for `GtkBuildableParser`.
@@ -22,8 +22,9 @@ import kotlin.Unit
  * - method `get_element_stack`: C function gtk_buildable_parse_context_get_element_stack is ignored
  * - parameter `line_number`: line_number: Out parameter is not supported
  */
-public class BuildableParseContext(public val gtkBuildableParseContextPointer: CPointer<GtkBuildableParseContext>) :
-    ProxyInstance(gtkBuildableParseContextPointer) {
+public class BuildableParseContext(
+    public val gtkBuildableParseContextPointer: CPointer<GtkBuildableParseContext>,
+) : ProxyInstance(gtkBuildableParseContextPointer) {
     /**
      * Retrieves the name of the currently open element.
      *
@@ -33,8 +34,7 @@ public class BuildableParseContext(public val gtkBuildableParseContextPointer: C
      *
      * @return the name of the currently open element
      */
-    public fun getElement(): String? =
-        gtk_buildable_parse_context_get_element(gtkBuildableParseContextPointer)?.toKString()
+    public fun getElement(): String? = gtk_buildable_parse_context_get_element(gtkBuildableParseContextPointer)?.toKString()
 
     /**
      * Completes the process of a temporary sub-parser redirection.
@@ -89,6 +89,5 @@ public class BuildableParseContext(public val gtkBuildableParseContextPointer: C
      * @param parser a `GtkBuildableParser`
      * @param userData user data to pass to `GtkBuildableParser` functions
      */
-    public fun push(parser: BuildableParser, userData: gpointer? = null): Unit =
-        gtk_buildable_parse_context_push(gtkBuildableParseContextPointer, parser.gtkBuildableParserPointer, userData)
+    public fun push(parser: BuildableParser, userData: gpointer? = null): Unit = gtk_buildable_parse_context_push(gtkBuildableParseContextPointer, parser.gtkBuildableParserPointer, userData)
 }

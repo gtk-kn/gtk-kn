@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
  * As of GLib 2.34, `GConverterOutputStream` implements
  * [iface@Gio.PollableOutputStream].
  */
-public open class ConverterOutputStream(public val gioConverterOutputStreamPointer: CPointer<GConverterOutputStream>) :
-    FilterOutputStream(gioConverterOutputStreamPointer.reinterpret()),
+public open class ConverterOutputStream(
+    public val gioConverterOutputStreamPointer: CPointer<GConverterOutputStream>,
+) : FilterOutputStream(gioConverterOutputStreamPointer.reinterpret()),
     PollableOutputStream,
     KGTyped {
     override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
@@ -41,8 +42,7 @@ public open class ConverterOutputStream(public val gioConverterOutputStreamPoint
          * @since 2.24
          */
         get() = g_converter_output_stream_get_converter(gioConverterOutputStreamPointer)!!.run {
-            Converter.ConverterImpl(reinterpret())
-        }
+            Converter.ConverterImpl(reinterpret())}
 
     /**
      * Creates a new converter output stream for the @base_stream.
@@ -51,22 +51,14 @@ public open class ConverterOutputStream(public val gioConverterOutputStreamPoint
      * @param converter a #GConverter
      * @return a new #GOutputStream.
      */
-    public constructor(
-        baseStream: OutputStream,
-        converter: Converter,
-    ) : this(
-        g_converter_output_stream_new(baseStream.gioOutputStreamPointer, converter.gioConverterPointer)!!.reinterpret()
-    )
+    public constructor(baseStream: OutputStream, converter: Converter) : this(g_converter_output_stream_new(baseStream.gioOutputStreamPointer, converter.gioConverterPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<ConverterOutputStream> {
         override val type: GeneratedClassKGType<ConverterOutputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_converter_output_stream_get_type")!!) {
-                ConverterOutputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_converter_output_stream_get_type")!!) { ConverterOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ConverterOutputStream

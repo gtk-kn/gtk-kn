@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -28,9 +31,6 @@ import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkCellRendererAccel
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_new
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Renders a keyboard accelerator in a cell
@@ -46,8 +46,9 @@ import kotlin.Unit
  * - method `accel-mods`: Property has no getter nor setter
  * - method `keycode`: Property has no getter nor setter
  */
-public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>) :
-    CellRendererText(gtkCellRendererAccelPointer.reinterpret()),
+public open class CellRendererAccel(
+    public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>,
+) : CellRendererText(gtkCellRendererAccelPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkCellRendererAccel`.
@@ -62,17 +63,7 @@ public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `pathString` the path identifying the row of the edited cell
      */
-    public fun onAccelCleared(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (pathString: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkCellRendererAccelPointer,
-        "accel-cleared",
-        onAccelClearedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAccelCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (pathString: String) -> Unit): ULong = g_signal_connect_data(gtkCellRendererAccelPointer, "accel-cleared", onAccelClearedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "accel-cleared" signal. See [onAccelCleared].
@@ -89,22 +80,12 @@ public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPoi
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `pathString` the path identifying the row of the edited cell; `accelKey` the new accelerator keyval; `accelMods` the new accelerator modifier mask; `hardwareKeycode` the keycode of the new accelerator
      */
-    public fun onAccelEdited(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            pathString: String,
-            accelKey: guint,
-            accelMods: ModifierType,
-            hardwareKeycode: guint,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkCellRendererAccelPointer,
-        "accel-edited",
-        onAccelEditedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAccelEdited(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        pathString: String,
+        accelKey: guint,
+        accelMods: ModifierType,
+        hardwareKeycode: guint,
+    ) -> Unit): ULong = g_signal_connect_data(gtkCellRendererAccelPointer, "accel-edited", onAccelEditedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "accel-edited" signal. See [onAccelEdited].
@@ -114,26 +95,21 @@ public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPoi
      * @param accelMods the new accelerator modifier mask
      * @param hardwareKeycode the keycode of the new accelerator
      */
-    public fun emitAccelEdited(pathString: String, accelKey: guint, accelMods: ModifierType, hardwareKeycode: guint) {
-        g_signal_emit_by_name(
-            gtkCellRendererAccelPointer.reinterpret(),
-            "accel-edited",
-            pathString.cstr,
-            accelKey,
-            accelMods.mask,
-            hardwareKeycode
-        )
+    public fun emitAccelEdited(
+        pathString: String,
+        accelKey: guint,
+        accelMods: ModifierType,
+        hardwareKeycode: guint,
+    ) {
+        g_signal_emit_by_name(gtkCellRendererAccelPointer.reinterpret(), "accel-edited", pathString.cstr, accelKey, accelMods.mask, hardwareKeycode)
     }
 
     public companion object : TypeCompanion<CellRendererAccel> {
         override val type: GeneratedClassKGType<CellRendererAccel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_accel_get_type")!!) {
-                CellRendererAccel(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_accel_get_type")!!) { CellRendererAccel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CellRendererAccel
@@ -145,47 +121,32 @@ public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPoi
 }
 
 private val onAccelClearedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        pathString: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    pathString: CPointer<ByteVar>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(pathString: String) -> Unit>().get().invoke(
-        pathString?.toKString() ?: error("Expected not null string")
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(pathString: String) -> Unit>().get().invoke(pathString?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
-private val onAccelEditedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<ByteVar>,
-            guint,
-            GdkModifierType,
-            guint,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        pathString: CPointer<ByteVar>?,
-        accelKey: guint,
-        accelMods: GdkModifierType,
-        hardwareKeycode: guint,
-        userData: COpaquePointer,
+private val onAccelEditedFunc: CPointer<CFunction<(
+    CPointer<ByteVar>,
+    guint,
+    GdkModifierType,
+    guint,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    pathString: CPointer<ByteVar>?,
+    accelKey: guint,
+    accelMods: GdkModifierType,
+    hardwareKeycode: guint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            pathString: String,
-            accelKey: guint,
-            accelMods: ModifierType,
-            hardwareKeycode: guint,
-        ) -> Unit
-        >().get().invoke(
-        pathString?.toKString() ?: error("Expected not null string"),
-        accelKey,
-        accelMods.run {
-            ModifierType(this)
-        },
-        hardwareKeycode
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        pathString: String,
+        accelKey: guint,
+        accelMods: ModifierType,
+        hardwareKeycode: guint,
+    ) -> Unit>().get().invoke(pathString?.toKString() ?: error("Expected not null string"), accelKey, accelMods.run {
+        ModifierType(this)}
+    , hardwareKeycode)}
+.reinterpret()

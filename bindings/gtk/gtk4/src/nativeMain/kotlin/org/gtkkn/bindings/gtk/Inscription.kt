@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -44,8 +46,6 @@ import org.gtkkn.native.gtk.gtk_inscription_set_text_overflow
 import org.gtkkn.native.gtk.gtk_inscription_set_wrap_mode
 import org.gtkkn.native.gtk.gtk_inscription_set_xalign
 import org.gtkkn.native.gtk.gtk_inscription_set_yalign
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkInscription` is a widget to show text in a predefined area.
@@ -68,8 +68,9 @@ import kotlin.Unit
  * @since 4.8
  */
 @GtkVersion4_8
-public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInscription>) :
-    Widget(gtkInscriptionPointer.reinterpret()),
+public open class Inscription(
+    public val gtkInscriptionPointer: CPointer<GtkInscription>,
+) : Widget(gtkInscriptionPointer.reinterpret()),
     AccessibleText,
     KGTyped {
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
@@ -98,9 +99,7 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_attributes(gtkInscriptionPointer)?.run {
-            AttrList(this)
-        }
-
+            AttrList(this)}
         /**
          * Apply attributes to the inscription text.
          *
@@ -138,7 +137,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_min_chars(gtkInscriptionPointer)
-
         /**
          * Sets the `min-chars` of the inscription.
          *
@@ -175,7 +173,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_min_lines(gtkInscriptionPointer)
-
         /**
          * Sets the `min-lines` of the inscription.
          *
@@ -210,7 +207,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_nat_chars(gtkInscriptionPointer)
-
         /**
          * Sets the `nat-chars` of the inscription.
          *
@@ -245,7 +241,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_nat_lines(gtkInscriptionPointer)
-
         /**
          * Sets the `nat-lines` of the inscription.
          *
@@ -271,7 +266,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_text(gtkInscriptionPointer)?.toKString()
-
         /**
          * Sets the text to be displayed.
          *
@@ -295,9 +289,7 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_text_overflow(gtkInscriptionPointer).run {
-            InscriptionOverflow.fromNativeValue(this)
-        }
-
+            InscriptionOverflow.fromNativeValue(this)}
         /**
          * Sets what to do when the text doesn't fit.
          *
@@ -325,9 +317,7 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_wrap_mode(gtkInscriptionPointer).run {
-            WrapMode.fromNativeValue(this)
-        }
-
+            WrapMode.fromNativeValue(this)}
         /**
          * Controls how line wrapping is done.
          *
@@ -356,7 +346,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_xalign(gtkInscriptionPointer)
-
         /**
          * Sets the `xalign` of the inscription.
          *
@@ -387,7 +376,6 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
          * @since 4.8
          */
         get() = gtk_inscription_get_yalign(gtkInscriptionPointer)
-
         /**
          * Sets the `yalign` of the inscription.
          *
@@ -421,11 +409,10 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
 
     public companion object : TypeCompanion<Inscription> {
         override val type: GeneratedClassKGType<Inscription> =
-            GeneratedClassKGType(getTypeOrNull("gtk_inscription_get_type")!!) { Inscription(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_inscription_get_type")!!) { Inscription(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Inscription

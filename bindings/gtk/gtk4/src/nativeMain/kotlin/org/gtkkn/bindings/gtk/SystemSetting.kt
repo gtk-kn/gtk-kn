@@ -18,17 +18,17 @@ import org.gtkkn.native.gtk.gtk_system_setting_get_type
  *
  * More values may be added over time.
  */
-public enum class SystemSetting(public val nativeValue: GtkSystemSetting) {
+public enum class SystemSetting(
+    public val nativeValue: GtkSystemSetting,
+) {
     /**
      * the [property@Gtk.Settings:gtk-xft-dpi] setting has changed
      */
     DPI(GtkSystemSetting.GTK_SYSTEM_SETTING_DPI),
-
     /**
      * The [property@Gtk.Settings:gtk-font-name] setting has changed
      */
     FONT_NAME(GtkSystemSetting.GTK_SYSTEM_SETTING_FONT_NAME),
-
     /**
      * The font configuration has changed in a way that
      *   requires text to be redrawn. This can be any of the
@@ -39,12 +39,10 @@ public enum class SystemSetting(public val nativeValue: GtkSystemSetting) {
      *   [property@Gtk.Settings:gtk-fontconfig-timestamp] settings
      */
     FONT_CONFIG(GtkSystemSetting.GTK_SYSTEM_SETTING_FONT_CONFIG),
-
     /**
      * The display has changed
      */
     DISPLAY(GtkSystemSetting.GTK_SYSTEM_SETTING_DISPLAY),
-
     /**
      * The icon theme has changed in a way that requires
      *   icons to be looked up again

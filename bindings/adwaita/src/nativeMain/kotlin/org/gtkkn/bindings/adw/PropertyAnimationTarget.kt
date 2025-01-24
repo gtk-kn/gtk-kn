@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
@@ -19,7 +20,6 @@ import org.gtkkn.native.adw.adw_property_animation_target_get_type
 import org.gtkkn.native.adw.adw_property_animation_target_new
 import org.gtkkn.native.adw.adw_property_animation_target_new_for_pspec
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * An [class@AnimationTarget] changing the value of a property of a
@@ -53,8 +53,7 @@ public class PropertyAnimationTarget(
          * @since 1.2
          */
         get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer)!!.run {
-            Object(this)
-        }
+            Object(this)}
 
     /**
      * The `GParamSpec` of the property to be animated.
@@ -70,8 +69,7 @@ public class PropertyAnimationTarget(
          * @since 1.2
          */
         get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer)!!.run {
-            ParamSpec.ParamSpecImpl(this)
-        }
+            ParamSpec.ParamSpecImpl(this)}
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @property_name property on
@@ -82,10 +80,7 @@ public class PropertyAnimationTarget(
      * @return the newly created `AdwPropertyAnimationTarget`
      * @since 1.2
      */
-    public constructor(
-        `object`: Object,
-        propertyName: String,
-    ) : this(adw_property_animation_target_new(`object`.gobjectObjectPointer, propertyName)!!.reinterpret())
+    public constructor(`object`: Object, propertyName: String) : this(adw_property_animation_target_new(`object`.gobjectObjectPointer, propertyName)!!.reinterpret())
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
@@ -96,25 +91,14 @@ public class PropertyAnimationTarget(
      * @return new newly created `AdwPropertyAnimationTarget`
      * @since 1.2
      */
-    public constructor(
-        `object`: Object,
-        pspec: ParamSpec,
-    ) : this(
-        adw_property_animation_target_new_for_pspec(
-            `object`.gobjectObjectPointer,
-            pspec.gobjectParamSpecPointer
-        )!!.reinterpret()
-    )
+    public constructor(`object`: Object, pspec: ParamSpec) : this(adw_property_animation_target_new_for_pspec(`object`.gobjectObjectPointer, pspec.gobjectParamSpecPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =
-            GeneratedClassKGType(getTypeOrNull("adw_property_animation_target_get_type")!!) {
-                PropertyAnimationTarget(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_property_animation_target_get_type")!!) { PropertyAnimationTarget(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PropertyAnimationTarget

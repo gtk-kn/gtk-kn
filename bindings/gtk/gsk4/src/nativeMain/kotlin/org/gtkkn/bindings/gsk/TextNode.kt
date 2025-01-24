@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
@@ -10,6 +11,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphString
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -18,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_text_node_get_color
 import org.gtkkn.native.gsk.gsk_text_node_get_font
 import org.gtkkn.native.gsk.gsk_text_node_get_num_glyphs
@@ -25,7 +28,6 @@ import org.gtkkn.native.gsk.gsk_text_node_get_offset
 import org.gtkkn.native.gsk.gsk_text_node_get_type
 import org.gtkkn.native.gsk.gsk_text_node_has_color_glyphs
 import org.gtkkn.native.gsk.gsk_text_node_new
-import kotlin.Boolean
 
 /**
  * A render node drawing a set of glyphs.
@@ -34,8 +36,9 @@ import kotlin.Boolean
  *
  * - parameter `n_glyphs`: n_glyphs: Out parameter is not supported
  */
-public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>) :
-    RenderNode(gskTextNodePointer.reinterpret()),
+public open class TextNode(
+    public val gskTextNodePointer: CPointer<GskTextNode>,
+) : RenderNode(gskTextNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a render node that renders the given glyphs.
@@ -54,14 +57,9 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
         glyphs: GlyphString,
         color: Rgba,
         offset: Point,
-    ) : this(
-        gsk_text_node_new(
-            font.pangoFontPointer,
-            glyphs.pangoGlyphStringPointer,
-            color.gdkRgbaPointer,
-            offset.graphenePointPointer
-        )!!.reinterpret()
-    )
+    ) : this(gsk_text_node_new(font.pangoFontPointer, glyphs.pangoGlyphStringPointer, color.gdkRgbaPointer, offset.graphenePointPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the color used by the text @node.
@@ -69,8 +67,7 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
      * @return the text color
      */
     public open fun getColor(): Rgba = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
-        Rgba(this)
-    }
+        Rgba(this)}
 
     /**
      * Returns the font used by the text @node.
@@ -78,8 +75,7 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        Font.FontImpl(this)
-    }
+        Font.FontImpl(this)}
 
     /**
      * Retrieves the number of glyphs in the text node.
@@ -94,8 +90,7 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
      * @return a point with the horizontal and vertical offsets
      */
     public open fun getOffset(): Point = gsk_text_node_get_offset(gskTextNodePointer.reinterpret())!!.run {
-        Point(this)
-    }
+        Point(this)}
 
     /**
      * Checks whether the text @node has color glyphs.
@@ -104,16 +99,14 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
      * @since 4.2
      */
     @GskVersion4_2
-    public open fun hasColorGlyphs(): Boolean =
-        gsk_text_node_has_color_glyphs(gskTextNodePointer.reinterpret()).asBoolean()
+    public open fun hasColorGlyphs(): Boolean = gsk_text_node_has_color_glyphs(gskTextNodePointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<TextNode> {
         override val type: GeneratedClassKGType<TextNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_text_node_get_type")!!) { TextNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_text_node_get_type")!!) { TextNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of TextNode

@@ -13,17 +13,17 @@ import org.gtkkn.native.webkit.webkit_media_capture_state_get_type
  * @since 2.34
  */
 @WebKitVersion2_34
-public enum class MediaCaptureState(public val nativeValue: WebKitMediaCaptureState) {
+public enum class MediaCaptureState(
+    public val nativeValue: WebKitMediaCaptureState,
+) {
     /**
      * Media capture is disabled.
      */
     NONE(WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_NONE),
-
     /**
      * Media capture is active.
      */
     ACTIVE(WebKitMediaCaptureState.WEBKIT_MEDIA_CAPTURE_STATE_ACTIVE),
-
     /**
      * Media capture is muted.
      */

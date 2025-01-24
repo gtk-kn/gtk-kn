@@ -14,12 +14,13 @@ import org.gtkkn.native.pango.pango_overline_get_type
  * @since 1.46
  */
 @PangoVersion1_46
-public enum class Overline(public val nativeValue: PangoOverline) {
+public enum class Overline(
+    public val nativeValue: PangoOverline,
+) {
     /**
      * no overline should be drawn
      */
     NONE(PangoOverline.PANGO_OVERLINE_NONE),
-
     /**
      * Draw a single line above the ink
      *   extents of the text being underlined.

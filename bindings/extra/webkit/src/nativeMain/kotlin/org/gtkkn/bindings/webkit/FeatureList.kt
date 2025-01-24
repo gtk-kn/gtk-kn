@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -14,7 +15,6 @@ import org.gtkkn.native.webkit.webkit_feature_list_get_length
 import org.gtkkn.native.webkit.webkit_feature_list_get_type
 import org.gtkkn.native.webkit.webkit_feature_list_ref
 import org.gtkkn.native.webkit.webkit_feature_list_unref
-import kotlin.Unit
 
 /**
  * Contains a set of toggle-able web engine features.
@@ -37,8 +37,9 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class FeatureList(public val webkitFeatureListPointer: CPointer<WebKitFeatureList>) :
-    ProxyInstance(webkitFeatureListPointer) {
+public class FeatureList(
+    public val webkitFeatureListPointer: CPointer<WebKitFeatureList>,
+) : ProxyInstance(webkitFeatureListPointer) {
     /**
      * Gets a feature given its index.
      *
@@ -48,8 +49,7 @@ public class FeatureList(public val webkitFeatureListPointer: CPointer<WebKitFea
      */
     @WebKitVersion2_42
     public fun `get`(index: gsize): Feature = webkit_feature_list_get(webkitFeatureListPointer, index)!!.run {
-        Feature(this)
-    }
+        Feature(this)}
 
     /**
      * Gets the number of elements in the feature list.
@@ -70,8 +70,7 @@ public class FeatureList(public val webkitFeatureListPointer: CPointer<WebKitFea
      */
     @WebKitVersion2_42
     public fun ref(): FeatureList = webkit_feature_list_ref(webkitFeatureListPointer)!!.run {
-        FeatureList(this)
-    }
+        FeatureList(this)}
 
     /**
      * Atomically releases a reference on the given @feature_list.

@@ -18,7 +18,9 @@ import org.gtkkn.native.glib.GTraverseType
  * - Level order: F, B, G, A, D, I, C, E, H
  *   ![](Sorted_binary_tree_breadth-first_traversal.svg)
  */
-public enum class TraverseType(public val nativeValue: GTraverseType) {
+public enum class TraverseType(
+    public val nativeValue: GTraverseType,
+) {
     /**
      * vists a node's left child first, then the node itself,
      *              then its right child. This is the one to use if you
@@ -26,17 +28,14 @@ public enum class TraverseType(public val nativeValue: GTraverseType) {
      *              function.
      */
     IN_ORDER(GTraverseType.G_IN_ORDER),
-
     /**
      * visits a node, then its children.
      */
     PRE_ORDER(GTraverseType.G_PRE_ORDER),
-
     /**
      * visits the node's children, then the node itself.
      */
     POST_ORDER(GTraverseType.G_POST_ORDER),
-
     /**
      * is not implemented for
      *              [balanced binary trees][glib-Balanced-Binary-Trees].

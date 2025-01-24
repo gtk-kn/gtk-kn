@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
@@ -23,8 +25,6 @@ import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_bytes_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A simple refcounted data type representing an immutable sequence of zero or
@@ -65,7 +65,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class Bytes(public val glibBytesPointer: CPointer<GBytes>) : ProxyInstance(glibBytesPointer) {
+public class Bytes(
+    public val glibBytesPointer: CPointer<GBytes>,
+) : ProxyInstance(glibBytesPointer) {
     /**
      * Compares the two #GBytes values.
      *
@@ -129,8 +131,11 @@ public class Bytes(public val glibBytesPointer: CPointer<GBytes>) : ProxyInstanc
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun getRegion(elementSize: gsize, offset: gsize, nElements: gsize): gpointer? =
-        g_bytes_get_region(glibBytesPointer, elementSize, offset, nElements)
+    public fun getRegion(
+        elementSize: gsize,
+        offset: gsize,
+        nElements: gsize,
+    ): gpointer? = g_bytes_get_region(glibBytesPointer, elementSize, offset, nElements)
 
     /**
      * Get the size of the byte data in the #GBytes.
@@ -174,10 +179,8 @@ public class Bytes(public val glibBytesPointer: CPointer<GBytes>) : ProxyInstanc
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun newFromBytes(offset: gsize, length: gsize): Bytes =
-        g_bytes_new_from_bytes(glibBytesPointer, offset, length)!!.run {
-            Bytes(this)
-        }
+    public fun newFromBytes(offset: gsize, length: gsize): Bytes = g_bytes_new_from_bytes(glibBytesPointer, offset, length)!!.run {
+        Bytes(this)}
 
     /**
      * Increase the reference count on @bytes.
@@ -187,8 +190,7 @@ public class Bytes(public val glibBytesPointer: CPointer<GBytes>) : ProxyInstanc
      */
     @GLibVersion2_32
     public fun ref(): Bytes = g_bytes_ref(glibBytesPointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Releases a reference on @bytes.  This may result in the bytes being

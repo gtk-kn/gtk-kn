@@ -13,31 +13,29 @@ import org.gtkkn.native.gobject.GType
  * See the X11 protocol specification of LeaveNotify for
  * full details of crossing event generation.
  */
-public enum class NotifyType(public val nativeValue: GdkNotifyType) {
+public enum class NotifyType(
+    public val nativeValue: GdkNotifyType,
+) {
     /**
      * the surface is entered from an ancestor or
      *   left towards an ancestor.
      */
     ANCESTOR(GdkNotifyType.GDK_NOTIFY_ANCESTOR),
-
     /**
      * the pointer moves between an ancestor and an
      *   inferior of the surface.
      */
     VIRTUAL(GdkNotifyType.GDK_NOTIFY_VIRTUAL),
-
     /**
      * the surface is entered from an inferior or
      *   left towards an inferior.
      */
     INFERIOR(GdkNotifyType.GDK_NOTIFY_INFERIOR),
-
     /**
      * the surface is entered from or left towards
      *   a surface which is neither an ancestor nor an inferior.
      */
     NONLINEAR(GdkNotifyType.GDK_NOTIFY_NONLINEAR),
-
     /**
      * the pointer moves between two surfaces
      *   which are not ancestors of each other and the surface is part of
@@ -45,7 +43,6 @@ public enum class NotifyType(public val nativeValue: GdkNotifyType) {
      *   common ancestor.
      */
     NONLINEAR_VIRTUAL(GdkNotifyType.GDK_NOTIFY_NONLINEAR_VIRTUAL),
-
     /**
      * an unknown type of enter/leave event occurred.
      */

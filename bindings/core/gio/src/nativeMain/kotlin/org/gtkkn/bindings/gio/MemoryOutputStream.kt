@@ -40,8 +40,9 @@ import org.gtkkn.native.gobject.GType
  * - method `realloc-function`: Property has no getter nor setter
  * - parameter `realloc_function`: ReallocFunc
  */
-public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CPointer<GMemoryOutputStream>) :
-    OutputStream(gioMemoryOutputStreamPointer.reinterpret()),
+public open class MemoryOutputStream(
+    public val gioMemoryOutputStreamPointer: CPointer<GMemoryOutputStream>,
+) : OutputStream(gioMemoryOutputStreamPointer.reinterpret()),
     PollableOutputStream,
     Seekable,
     KGTyped {
@@ -130,8 +131,7 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
      */
     @GioVersion2_34
     public open fun stealAsBytes(): Bytes = g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Gets any loaded data from the @ostream. Ownership of the data
@@ -150,13 +150,10 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_memory_output_stream_get_type")!!) {
-                MemoryOutputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_memory_output_stream_get_type")!!) { MemoryOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of MemoryOutputStream

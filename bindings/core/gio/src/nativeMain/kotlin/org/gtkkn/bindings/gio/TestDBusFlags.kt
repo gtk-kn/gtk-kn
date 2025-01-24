@@ -14,7 +14,9 @@ import org.gtkkn.native.gobject.GType
  * Flags to define future #GTestDBus behaviour.
  * @since 2.34
  */
-public class TestDBusFlags(public val mask: GTestDBusFlags) : Bitfield<TestDBusFlags> {
+public class TestDBusFlags(
+    public val mask: GTestDBusFlags,
+) : Bitfield<TestDBusFlags> {
     override infix fun or(other: TestDBusFlags): TestDBusFlags = TestDBusFlags(mask or other.mask)
 
     @GioVersion2_34

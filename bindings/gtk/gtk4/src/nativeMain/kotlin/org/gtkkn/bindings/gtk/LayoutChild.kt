@@ -27,8 +27,9 @@ import org.gtkkn.native.gtk.gtk_layout_child_get_type
  * A `GtkLayoutChild` instance is only ever valid while a widget is part
  * of a layout.
  */
-public abstract class LayoutChild(public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>) :
-    Object(gtkLayoutChildPointer.reinterpret()),
+public abstract class LayoutChild(
+    public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>,
+) : Object(gtkLayoutChildPointer.reinterpret()),
     KGTyped {
     /**
      * The widget that is associated to the `GtkLayoutChild` instance.
@@ -40,8 +41,7 @@ public abstract class LayoutChild(public val gtkLayoutChildPointer: CPointer<Gtk
          * @return a `GtkWidget`
          */
         get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * The layout manager that created the `GtkLayoutChild` instance.
@@ -54,23 +54,23 @@ public abstract class LayoutChild(public val gtkLayoutChildPointer: CPointer<Gtk
          * @return a `GtkLayoutManager`
          */
         get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer)!!.run {
-            LayoutManager.LayoutManagerImpl(this)
-        }
+            LayoutManager.LayoutManagerImpl(this)}
 
     /**
      * The LayoutChildImpl type represents a native instance of the abstract LayoutChild class.
      *
      * @constructor Creates a new instance of LayoutChild for the provided [CPointer].
      */
-    public class LayoutChildImpl(pointer: CPointer<GtkLayoutChild>) : LayoutChild(pointer)
+    public class LayoutChildImpl(
+        pointer: CPointer<GtkLayoutChild>,
+    ) : LayoutChild(pointer)
 
     public companion object : TypeCompanion<LayoutChild> {
         override val type: GeneratedClassKGType<LayoutChild> =
-            GeneratedClassKGType(getTypeOrNull("gtk_layout_child_get_type")!!) { LayoutChildImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_layout_child_get_type")!!) { LayoutChildImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of LayoutChild

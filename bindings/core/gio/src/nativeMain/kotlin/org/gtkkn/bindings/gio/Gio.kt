@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CArrayPointer
 import kotlinx.cinterop.CFunction
@@ -162,10 +166,6 @@ import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -362,7 +362,7 @@ public object Gio {
      * [Extending GIO][extending-gio].
      */
     public const val DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: String =
-        "gio-desktop-app-info-lookup"
+            "gio-desktop-app-info-lookup"
 
     /**
      * The string used to obtain a Unix device path with g_drive_get_identifier().
@@ -623,7 +623,7 @@ public object Gio {
      * @since 2.22
      */
     public const val FILE_ATTRIBUTE_MOUNTABLE_CAN_START_DEGRADED: String =
-        "mountable::can-start-degraded"
+            "mountable::can-start-degraded"
 
     /**
      * A key in the "mountable" namespace for checking if a file (of
@@ -660,7 +660,7 @@ public object Gio {
      * @since 2.22
      */
     public const val FILE_ATTRIBUTE_MOUNTABLE_IS_MEDIA_CHECK_AUTOMATIC: String =
-        "mountable::is-media-check-automatic"
+            "mountable::is-media-check-automatic"
 
     /**
      * A key in the "mountable" namespace for getting the #GDriveStartStopType.
@@ -686,7 +686,7 @@ public object Gio {
      * @since 2.22
      */
     public const val FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE_FILE: String =
-        "mountable::unix-device-file"
+            "mountable::unix-device-file"
 
     /**
      * A key in the "owner" namespace for getting the file owner's group.
@@ -826,7 +826,7 @@ public object Gio {
      * Corresponding #GFileAttributeType is %G_FILE_ATTRIBUTE_TYPE_STRING.
      */
     public const val FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE: String =
-        "standard::fast-content-type"
+            "standard::fast-content-type"
 
     /**
      * A key in the "standard" namespace for getting the icon for the file.
@@ -1006,7 +1006,7 @@ public object Gio {
      * @since 2.76
      */
     public const val FILE_ATTRIBUTE_THUMBNAILING_FAILED_XXLARGE: String =
-        "thumbnail::failed-xxlarge"
+            "thumbnail::failed-xxlarge"
 
     /**
      * A key in the "thumbnail" namespace for checking whether the thumbnail is outdated.
@@ -1094,7 +1094,7 @@ public object Gio {
      * @since 2.76
      */
     public const val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID_XXLARGE: String =
-        "thumbnail::is-valid-xxlarge"
+            "thumbnail::is-valid-xxlarge"
 
     /**
      * A key in the "thumbnail" namespace for getting the path to the thumbnail
@@ -1496,7 +1496,7 @@ public object Gio {
     public const val MENU_LINK_SUBMENU: String = "submenu"
 
     public const val NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME: String =
-        "gio-native-volume-monitor"
+            "gio-native-volume-monitor"
 
     /**
      * Extension point for network status monitoring functionality.
@@ -1513,7 +1513,7 @@ public object Gio {
      * @since 2.70
      */
     public const val POWER_PROFILE_MONITOR_EXTENSION_POINT_NAME: String =
-        "gio-power-profile-monitor"
+            "gio-power-profile-monitor"
 
     /**
      * Extension point for proxy functionality.
@@ -1617,15 +1617,11 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busGet(busType: BusType, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_bus_get(
-            busType.nativeValue,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun busGet(
+        busType: BusType,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_bus_get(busType.nativeValue, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an operation started with g_bus_get().
@@ -1651,8 +1647,7 @@ public object Gio {
     public fun busGetFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_finish(res.gioAsyncResultPointer, gError.ptr)?.run {
-            DBusConnection(this)
-        }
+            DBusConnection(this)}
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -1691,8 +1686,7 @@ public object Gio {
     public fun busGetSync(busType: BusType, cancellable: Cancellable? = null): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_sync(busType.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            DBusConnection(this)
-        }
+            DBusConnection(this)}
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -1723,13 +1717,7 @@ public object Gio {
         flags: BusNameOwnerFlags,
         nameAcquiredClosure: Closure? = null,
         nameLostClosure: Closure? = null,
-    ): guint = g_bus_own_name_on_connection_with_closures(
-        connection.gioDBusConnectionPointer,
-        name,
-        flags.mask,
-        nameAcquiredClosure?.gobjectClosurePointer,
-        nameLostClosure?.gobjectClosurePointer
-    )
+    ): guint = g_bus_own_name_on_connection_with_closures(connection.gioDBusConnectionPointer, name, flags.mask, nameAcquiredClosure?.gobjectClosurePointer, nameLostClosure?.gobjectClosurePointer)
 
     /**
      * Version of g_bus_own_name() using closures instead of callbacks for
@@ -1756,14 +1744,7 @@ public object Gio {
         busAcquiredClosure: Closure? = null,
         nameAcquiredClosure: Closure? = null,
         nameLostClosure: Closure? = null,
-    ): guint = g_bus_own_name_with_closures(
-        busType.nativeValue,
-        name,
-        flags.mask,
-        busAcquiredClosure?.gobjectClosurePointer,
-        nameAcquiredClosure?.gobjectClosurePointer,
-        nameLostClosure?.gobjectClosurePointer
-    )
+    ): guint = g_bus_own_name_with_closures(busType.nativeValue, name, flags.mask, busAcquiredClosure?.gobjectClosurePointer, nameAcquiredClosure?.gobjectClosurePointer, nameLostClosure?.gobjectClosurePointer)
 
     /**
      * Stops owning a name.
@@ -1819,13 +1800,7 @@ public object Gio {
         flags: BusNameWatcherFlags,
         nameAppearedClosure: Closure? = null,
         nameVanishedClosure: Closure? = null,
-    ): guint = g_bus_watch_name_on_connection_with_closures(
-        connection.gioDBusConnectionPointer,
-        name,
-        flags.mask,
-        nameAppearedClosure?.gobjectClosurePointer,
-        nameVanishedClosure?.gobjectClosurePointer
-    )
+    ): guint = g_bus_watch_name_on_connection_with_closures(connection.gioDBusConnectionPointer, name, flags.mask, nameAppearedClosure?.gobjectClosurePointer, nameVanishedClosure?.gobjectClosurePointer)
 
     /**
      * Version of g_bus_watch_name() using closures instead of callbacks for
@@ -1849,13 +1824,7 @@ public object Gio {
         flags: BusNameWatcherFlags,
         nameAppearedClosure: Closure? = null,
         nameVanishedClosure: Closure? = null,
-    ): guint = g_bus_watch_name_with_closures(
-        busType.nativeValue,
-        name,
-        flags.mask,
-        nameAppearedClosure?.gobjectClosurePointer,
-        nameVanishedClosure?.gobjectClosurePointer
-    )
+    ): guint = g_bus_watch_name_with_closures(busType.nativeValue, name, flags.mask, nameAppearedClosure?.gobjectClosurePointer, nameVanishedClosure?.gobjectClosurePointer)
 
     /**
      * Checks if a content type can be executable. Note that for instance
@@ -1875,8 +1844,7 @@ public object Gio {
      * @return true if the two strings are identical or equivalent,
      *     false otherwise.
      */
-    public fun contentTypeEquals(type1: String, type2: String): Boolean =
-        g_content_type_equals(type1, type2).asBoolean()
+    public fun contentTypeEquals(type1: String, type2: String): Boolean = g_content_type_equals(type1, type2).asBoolean()
 
     /**
      * Tries to find a content type based on the mime type name.
@@ -1896,8 +1864,7 @@ public object Gio {
      * @return a short description of the content type @type. Free the
      *     returned string with g_free()
      */
-    public fun contentTypeGetDescription(type: String): String =
-        g_content_type_get_description(type)?.toKString() ?: error("Expected not null string")
+    public fun contentTypeGetDescription(type: String): String = g_content_type_get_description(type)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the generic icon name for a content type.
@@ -1912,8 +1879,7 @@ public object Gio {
      * @since 2.34
      */
     @GioVersion2_34
-    public fun contentTypeGetGenericIconName(type: String): String? =
-        g_content_type_get_generic_icon_name(type)?.toKString()
+    public fun contentTypeGetGenericIconName(type: String): String? = g_content_type_get_generic_icon_name(type)?.toKString()
 
     /**
      * Gets the icon for a content type.
@@ -1923,8 +1889,7 @@ public object Gio {
      *     object with g_object_unref()
      */
     public fun contentTypeGetIcon(type: String): Icon = g_content_type_get_icon(type)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Get the list of directories which MIME data is loaded from. See
@@ -1936,8 +1901,7 @@ public object Gio {
      * @since 2.60
      */
     @GioVersion2_60
-    public fun contentTypeGetMimeDirs(): CollectionsList<String> =
-        g_content_type_get_mime_dirs()?.toKStringList() ?: error("Expected not null string array")
+    public fun contentTypeGetMimeDirs(): CollectionsList<String> = g_content_type_get_mime_dirs()?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the mime type for the content type, if one is registered.
@@ -1958,8 +1922,7 @@ public object Gio {
      */
     @GioVersion2_34
     public fun contentTypeGetSymbolicIcon(type: String): Icon = g_content_type_get_symbolic_icon(type)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Tries to guess the type of the tree with root @root, by
@@ -1981,8 +1944,7 @@ public object Gio {
      * @since 2.18
      */
     @GioVersion2_18
-    public fun contentTypeGuessForTree(root: File): CollectionsList<String> =
-        g_content_type_guess_for_tree(root.gioFilePointer)?.toKStringList() ?: error("Expected not null string array")
+    public fun contentTypeGuessForTree(root: File): CollectionsList<String> = g_content_type_guess_for_tree(root.gioFilePointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Determines if @type is a subset of @supertype.
@@ -1992,8 +1954,7 @@ public object Gio {
      * @return true if @type is a kind of @supertype,
      *     false otherwise.
      */
-    public fun contentTypeIsA(type: String, supertype: String): Boolean =
-        g_content_type_is_a(type, supertype).asBoolean()
+    public fun contentTypeIsA(type: String, supertype: String): Boolean = g_content_type_is_a(type, supertype).asBoolean()
 
     /**
      * Determines if @type is a subset of @mime_type.
@@ -2006,8 +1967,7 @@ public object Gio {
      * @since 2.52
      */
     @GioVersion2_52
-    public fun contentTypeIsMimeType(type: String, mimeType: String): Boolean =
-        g_content_type_is_mime_type(type, mimeType).asBoolean()
+    public fun contentTypeIsMimeType(type: String, mimeType: String): Boolean = g_content_type_is_mime_type(type, mimeType).asBoolean()
 
     /**
      * Checks if the content type is the generic "unknown" type.
@@ -2052,8 +2012,7 @@ public object Gio {
      */
     @GioVersion2_60
     public fun contentTypeSetMimeDirs(dirs: CollectionsList<String>? = null): Unit = memScoped {
-        return g_content_type_set_mime_dirs(dirs?.toCStringList(this))
-    }
+        return g_content_type_set_mime_dirs(dirs?.toCStringList(this))}
 
     /**
      * Gets a list of strings containing all the registered content types
@@ -2064,8 +2023,7 @@ public object Gio {
      *     content types
      */
     public fun contentTypesGetRegistered(): GlibList = g_content_types_get_registered()!!.run {
-        GlibList(this)
-    }
+        GlibList(this)}
 
     /**
      * Escape @string so it can appear in a D-Bus address as the value
@@ -2083,8 +2041,7 @@ public object Gio {
      * @since 2.36
      */
     @GioVersion2_36
-    public fun dbusAddressEscapeValue(string: String): String =
-        g_dbus_address_escape_value(string)?.toKString() ?: error("Expected not null string")
+    public fun dbusAddressEscapeValue(string: String): String = g_dbus_address_escape_value(string)?.toKString() ?: error("Expected not null string")
 
     /**
      * Synchronously looks up the D-Bus address for the well-known message
@@ -2101,20 +2058,15 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun dbusAddressGetForBusSync(busType: BusType, cancellable: Cancellable? = null): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_dbus_address_get_for_bus_sync(
-                busType.nativeValue,
-                cancellable?.gioCancellablePointer,
-                gError.ptr
-            )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun dbusAddressGetForBusSync(busType: BusType, cancellable: Cancellable? = null): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_address_get_for_bus_sync(busType.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
         }
+    }
 
     /**
      * Asynchronously connects to an endpoint specified by @address and
@@ -2139,14 +2091,7 @@ public object Gio {
         address: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_dbus_address_get_stream(
-        address,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_dbus_address_get_stream(address, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * This is a language binding friendly version of g_dbus_escape_object_path_bytestring().
@@ -2156,8 +2101,7 @@ public object Gio {
      * @since 2.68
      */
     @GioVersion2_68
-    public fun dbusEscapeObjectPath(s: String): String =
-        g_dbus_escape_object_path(s)?.toKString() ?: error("Expected not null string")
+    public fun dbusEscapeObjectPath(s: String): String = g_dbus_escape_object_path(s)?.toKString() ?: error("Expected not null string")
 
     /**
      * Generate a D-Bus GUID that can be used with
@@ -2216,10 +2160,8 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun dbusGvalueToGvariant(gvalue: Value, type: VariantType): Variant =
-        g_dbus_gvalue_to_gvariant(gvalue.gobjectValuePointer, type.glibVariantTypePointer)!!.run {
-            Variant(this)
-        }
+    public fun dbusGvalueToGvariant(gvalue: Value, type: VariantType): Variant = g_dbus_gvalue_to_gvariant(gvalue.gobjectValuePointer, type.glibVariantTypePointer)!!.run {
+        Variant(this)}
 
     /**
      * Converts a #GVariant to a #GValue. If @value is floating, it is consumed.
@@ -2239,8 +2181,7 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun dbusGvariantToGvalue(`value`: Variant, outGvalue: Value): Unit =
-        g_dbus_gvariant_to_gvalue(`value`.glibVariantPointer, outGvalue.gobjectValuePointer)
+    public fun dbusGvariantToGvalue(`value`: Variant, outGvalue: Value): Unit = g_dbus_gvariant_to_gvalue(`value`.glibVariantPointer, outGvalue.gobjectValuePointer)
 
     /**
      * Checks if @string is a
@@ -2371,8 +2312,7 @@ public object Gio {
      * @return #GIOErrorEnum value for the given `errno.h` error number
      */
     public fun ioErrorFromErrno(errNo: gint): IoErrorEnum = g_io_error_from_errno(errNo).run {
-        IoErrorEnum.fromNativeValue(this)
-    }
+        IoErrorEnum.fromNativeValue(this)}
 
     /**
      * Converts #GFileError error codes into GIO error codes.
@@ -2382,10 +2322,8 @@ public object Gio {
      * @since 2.74
      */
     @GioVersion2_74
-    public fun ioErrorFromFileError(fileError: FileError): IoErrorEnum =
-        g_io_error_from_file_error(fileError.nativeValue).run {
-            IoErrorEnum.fromNativeValue(this)
-        }
+    public fun ioErrorFromFileError(fileError: FileError): IoErrorEnum = g_io_error_from_file_error(fileError.nativeValue).run {
+        IoErrorEnum.fromNativeValue(this)}
 
     /**
      * Gets the GIO Error Quark.
@@ -2410,10 +2348,8 @@ public object Gio {
      *      g_type_module_unuse() on all the modules. Free the list
      *      with g_list_free().
      */
-    public fun ioModulesLoadAllInDirectory(dirname: String): GlibList =
-        g_io_modules_load_all_in_directory(dirname)!!.run {
-            GlibList(this)
-        }
+    public fun ioModulesLoadAllInDirectory(dirname: String): GlibList = g_io_modules_load_all_in_directory(dirname)!!.run {
+        GlibList(this)}
 
     /**
      * Loads all the modules in the specified directory.
@@ -2434,10 +2370,8 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun ioModulesLoadAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): GlibList =
-        g_io_modules_load_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)!!.run {
-            GlibList(this)
-        }
+    public fun ioModulesLoadAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): GlibList = g_io_modules_load_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)!!.run {
+        GlibList(this)}
 
     /**
      * Scans all the modules in the specified directory, ensuring that
@@ -2478,8 +2412,7 @@ public object Gio {
      * @since 2.30
      */
     @GioVersion2_30
-    public fun ioModulesScanAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): Unit =
-        g_io_modules_scan_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)
+    public fun ioModulesScanAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): Unit = g_io_modules_scan_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)
 
     /**
      * Cancels all cancellable I/O jobs.
@@ -2508,13 +2441,7 @@ public object Gio {
         jobFunc: IoSchedulerJobFunc,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-    ): Unit = g_io_scheduler_push_job(
-        IoSchedulerJobFuncFunc.reinterpret(),
-        StableRef.create(jobFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        ioPriority,
-        cancellable?.gioCancellablePointer
-    )
+    ): Unit = g_io_scheduler_push_job(IoSchedulerJobFuncFunc.reinterpret(), StableRef.create(jobFunc).asCPointer(), staticStableRefDestroy.reinterpret(), ioPriority, cancellable?.gioCancellablePointer)
 
     /**
      * Creates a keyfile-backed #GSettingsBackend.
@@ -2578,8 +2505,7 @@ public object Gio {
         rootPath: String,
         rootGroup: String? = null,
     ): SettingsBackend = g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
-        SettingsBackend.SettingsBackendImpl(this)
-    }
+        SettingsBackend.SettingsBackendImpl(this)}
 
     /**
      * Creates a memory-backed #GSettingsBackend.
@@ -2593,8 +2519,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
-        SettingsBackend.SettingsBackendImpl(this)
-    }
+        SettingsBackend.SettingsBackendImpl(this)}
 
     /**
      * Initializes the platform networking libraries (eg, on Windows, this
@@ -2618,8 +2543,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun nullSettingsBackendNew(): SettingsBackend = g_null_settings_backend_new()!!.run {
-        SettingsBackend.SettingsBackendImpl(this)
-    }
+        SettingsBackend.SettingsBackendImpl(this)}
 
     /**
      * Utility method for #GPollableInputStream and #GPollableOutputStream
@@ -2633,10 +2557,8 @@ public object Gio {
      * @since 2.28
      */
     @GioVersion2_28
-    public fun pollableSourceNew(pollableStream: Object): Source =
-        g_pollable_source_new(pollableStream.gobjectObjectPointer)!!.run {
-            Source(this)
-        }
+    public fun pollableSourceNew(pollableStream: Object): Source = g_pollable_source_new(pollableStream.gobjectObjectPointer)!!.run {
+        Source(this)}
 
     /**
      * Utility method for #GPollableInputStream and #GPollableOutputStream
@@ -2656,13 +2578,8 @@ public object Gio {
         pollableStream: Object,
         childSource: Source? = null,
         cancellable: Cancellable? = null,
-    ): Source = g_pollable_source_new_full(
-        pollableStream.gobjectObjectPointer.reinterpret(),
-        childSource?.glibSourcePointer,
-        cancellable?.gioCancellablePointer
-    )!!.run {
-        Source(this)
-    }
+    ): Source = g_pollable_source_new_full(pollableStream.gobjectObjectPointer.reinterpret(), childSource?.glibSourcePointer, cancellable?.gioCancellablePointer)!!.run {
+        Source(this)}
 
     /**
      * Returns all the names of children at the specified @path in the set of
@@ -2678,10 +2595,7 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesEnumerateChildren(
-        path: String,
-        lookupFlags: ResourceLookupFlags,
-    ): Result<CollectionsList<String>> = memScoped {
+    public fun resourcesEnumerateChildren(path: String, lookupFlags: ResourceLookupFlags): Result<CollectionsList<String>> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_enumerate_children(path, lookupFlags.mask, gError.ptr)?.toKStringList()
         return if (gError.pointed != null) {
@@ -2717,8 +2631,7 @@ public object Gio {
     public fun resourcesLookupData(path: String, lookupFlags: ResourceLookupFlags): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_lookup_data(path, lookupFlags.mask, gError.ptr)?.run {
-            Bytes(this)
-        }
+            Bytes(this)}
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -2744,8 +2657,7 @@ public object Gio {
     public fun resourcesOpenStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)
-        }
+            InputStream.InputStreamImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -2787,14 +2699,7 @@ public object Gio {
         `object`: Object? = null,
         callback: AsyncReadyCallback?,
         error: Error,
-    ): Unit = g_simple_async_report_gerror_in_idle(
-        `object`?.gobjectObjectPointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() },
-        error.glibErrorPointer
-    )
+    ): Unit = g_simple_async_report_gerror_in_idle(`object`?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)
 
     /**
      * Reports an error in an idle function. Similar to
@@ -2811,14 +2716,7 @@ public object Gio {
         `object`: Object? = null,
         callback: AsyncReadyCallback?,
         error: Error,
-    ): Unit = g_simple_async_report_take_gerror_in_idle(
-        `object`?.gobjectObjectPointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() },
-        error.glibErrorPointer
-    )
+    ): Unit = g_simple_async_report_take_gerror_in_idle(`object`?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)
 
     /**
      * Determines if @mount_path is considered an implementation of the
@@ -2830,8 +2728,7 @@ public object Gio {
      * @return true if @mount_path is considered an implementation detail
      *     of the OS.
      */
-    public fun unixIsMountPathSystemInternal(mountPath: String): Boolean =
-        g_unix_is_mount_path_system_internal(mountPath).asBoolean()
+    public fun unixIsMountPathSystemInternal(mountPath: String): Boolean = g_unix_is_mount_path_system_internal(mountPath).asBoolean()
 
     /**
      * Determines if @device_path is considered a block device path which is only
@@ -2848,8 +2745,7 @@ public object Gio {
      * @since 2.56
      */
     @GioVersion2_56
-    public fun unixIsSystemDevicePath(devicePath: String): Boolean =
-        g_unix_is_system_device_path(devicePath).asBoolean()
+    public fun unixIsSystemDevicePath(devicePath: String): Boolean = g_unix_is_system_device_path(devicePath).asBoolean()
 
     /**
      * Determines if @fs_type is considered a type of file system which is only
@@ -2875,8 +2771,7 @@ public object Gio {
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun unixMountCompare(mount1: UnixMountEntry, mount2: UnixMountEntry): gint =
-        g_unix_mount_compare(mount1.gioUnixMountEntryPointer, mount2.gioUnixMountEntryPointer)
+    public fun unixMountCompare(mount1: UnixMountEntry, mount2: UnixMountEntry): gint = g_unix_mount_compare(mount1.gioUnixMountEntryPointer, mount2.gioUnixMountEntryPointer)
 
     /**
      * Makes a copy of @mount_entry.
@@ -2886,10 +2781,8 @@ public object Gio {
      * @since 2.54
      */
     @GioVersion2_54
-    public fun unixMountCopy(mountEntry: UnixMountEntry): UnixMountEntry =
-        g_unix_mount_copy(mountEntry.gioUnixMountEntryPointer)!!.run {
-            UnixMountEntry(this)
-        }
+    public fun unixMountCopy(mountEntry: UnixMountEntry): UnixMountEntry = g_unix_mount_copy(mountEntry.gioUnixMountEntryPointer)!!.run {
+        UnixMountEntry(this)}
 
     /**
      * Frees a unix mount.
@@ -2904,9 +2797,7 @@ public object Gio {
      * @param mountEntry a #GUnixMount.
      * @return a string containing the device path.
      */
-    public fun unixMountGetDevicePath(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_device_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun unixMountGetDevicePath(mountEntry: UnixMountEntry): String = g_unix_mount_get_device_path(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the filesystem type for the unix mount.
@@ -2914,8 +2805,7 @@ public object Gio {
      * @param mountEntry a #GUnixMount.
      * @return a string containing the file system type.
      */
-    public fun unixMountGetFsType(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
+    public fun unixMountGetFsType(mountEntry: UnixMountEntry): String = g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount.
@@ -2923,9 +2813,7 @@ public object Gio {
      * @param mountEntry input #GUnixMountEntry to get the mount path for.
      * @return the mount path for @mount_entry.
      */
-    public fun unixMountGetMountPath(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_mount_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun unixMountGetMountPath(mountEntry: UnixMountEntry): String = g_unix_mount_get_mount_path(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a comma-separated list of mount options for the unix mount. For example,
@@ -2940,8 +2828,7 @@ public object Gio {
      * @since 2.58
      */
     @GioVersion2_58
-    public fun unixMountGetOptions(mountEntry: UnixMountEntry): String? =
-        g_unix_mount_get_options(mountEntry.gioUnixMountEntryPointer)?.toKString()
+    public fun unixMountGetOptions(mountEntry: UnixMountEntry): String? = g_unix_mount_get_options(mountEntry.gioUnixMountEntryPointer)?.toKString()
 
     /**
      * Gets the root of the mount within the filesystem. This is useful e.g. for
@@ -2956,8 +2843,7 @@ public object Gio {
      * @since 2.60
      */
     @GioVersion2_60
-    public fun unixMountGetRootPath(mountEntry: UnixMountEntry): String? =
-        g_unix_mount_get_root_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
+    public fun unixMountGetRootPath(mountEntry: UnixMountEntry): String? = g_unix_mount_get_root_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
 
     /**
      * Guesses whether a Unix mount can be ejected.
@@ -2965,8 +2851,7 @@ public object Gio {
      * @param mountEntry a #GUnixMountEntry
      * @return true if @mount_entry is deemed to be ejectable.
      */
-    public fun unixMountGuessCanEject(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_guess_can_eject(mountEntry.gioUnixMountEntryPointer).asBoolean()
+    public fun unixMountGuessCanEject(mountEntry: UnixMountEntry): Boolean = g_unix_mount_guess_can_eject(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Guesses the icon of a Unix mount.
@@ -2974,10 +2859,8 @@ public object Gio {
      * @param mountEntry a #GUnixMountEntry
      * @return a #GIcon
      */
-    public fun unixMountGuessIcon(mountEntry: UnixMountEntry): Icon =
-        g_unix_mount_guess_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
-            Icon.IconImpl(reinterpret())
-        }
+    public fun unixMountGuessIcon(mountEntry: UnixMountEntry): Icon = g_unix_mount_guess_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Guesses the name of a Unix mount.
@@ -2987,8 +2870,7 @@ public object Gio {
      * @return A newly allocated string that must
      *     be freed with g_free()
      */
-    public fun unixMountGuessName(mountEntry: UnixMountEntry): String =
-        g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
+    public fun unixMountGuessName(mountEntry: UnixMountEntry): String = g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Guesses whether a Unix mount should be displayed in the UI.
@@ -2996,8 +2878,7 @@ public object Gio {
      * @param mountEntry a #GUnixMountEntry
      * @return true if @mount_entry is deemed to be displayable.
      */
-    public fun unixMountGuessShouldDisplay(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_guess_should_display(mountEntry.gioUnixMountEntryPointer).asBoolean()
+    public fun unixMountGuessShouldDisplay(mountEntry: UnixMountEntry): Boolean = g_unix_mount_guess_should_display(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Guesses the symbolic icon of a Unix mount.
@@ -3007,10 +2888,8 @@ public object Gio {
      * @since 2.34
      */
     @GioVersion2_34
-    public fun unixMountGuessSymbolicIcon(mountEntry: UnixMountEntry): Icon =
-        g_unix_mount_guess_symbolic_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
-            Icon.IconImpl(reinterpret())
-        }
+    public fun unixMountGuessSymbolicIcon(mountEntry: UnixMountEntry): Icon = g_unix_mount_guess_symbolic_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Checks if a unix mount is mounted read only.
@@ -3018,8 +2897,7 @@ public object Gio {
      * @param mountEntry a #GUnixMount.
      * @return true if @mount_entry is read only.
      */
-    public fun unixMountIsReadonly(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_is_readonly(mountEntry.gioUnixMountEntryPointer).asBoolean()
+    public fun unixMountIsReadonly(mountEntry: UnixMountEntry): Boolean = g_unix_mount_is_readonly(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Checks if a Unix mount is a system mount. This is the Boolean OR of
@@ -3032,8 +2910,7 @@ public object Gio {
      * @param mountEntry a #GUnixMount.
      * @return true if the unix mount is for a system path.
      */
-    public fun unixMountIsSystemInternal(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_is_system_internal(mountEntry.gioUnixMountEntryPointer).asBoolean()
+    public fun unixMountIsSystemInternal(mountEntry: UnixMountEntry): Boolean = g_unix_mount_is_system_internal(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Checks if the unix mount points have changed since a given unix time.
@@ -3054,840 +2931,590 @@ public object Gio {
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             DBusError.quark() -> DBusError.fromErrorOrNull(error)
-                ?.let {
-                    DBusErrorException(error, it)
-                }
+            ?.let {
+                DBusErrorException(error, it)
+            }
             IoErrorEnum.quark() -> IoErrorEnum.fromErrorOrNull(error)
-                ?.let {
-                    IoErrorEnumException(error, it)
-                }
+            ?.let {
+                IoErrorEnumException(error, it)
+            }
             ResolverError.quark() -> ResolverError.fromErrorOrNull(error)
-                ?.let {
-                    ResolverErrorException(error, it)
-                }
+            ?.let {
+                ResolverErrorException(error, it)
+            }
             ResourceError.quark() -> ResourceError.fromErrorOrNull(error)
-                ?.let {
-                    ResourceErrorException(error, it)
-                }
+            ?.let {
+                ResourceErrorException(error, it)
+            }
             TlsChannelBindingError.quark() -> TlsChannelBindingError.fromErrorOrNull(error)
-                ?.let {
-                    TlsChannelBindingErrorException(error, it)
-                }
+            ?.let {
+                TlsChannelBindingErrorException(error, it)
+            }
             TlsError.quark() -> TlsError.fromErrorOrNull(error)
-                ?.let {
-                    TlsErrorException(error, it)
-                }
+            ?.let {
+                TlsErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
     }
 }
 
-public val AsyncReadyCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GObject>?,
-            CPointer<GAsyncResult>,
-            gpointer?,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        sourceObject: CPointer<GObject>?,
-        res: CPointer<GAsyncResult>?,
-        `data`: gpointer?,
-        userData: COpaquePointer,
+public val AsyncReadyCallbackFunc: CPointer<CFunction<(
+    CPointer<GObject>?,
+    CPointer<GAsyncResult>,
+    gpointer?,
+) -> Unit>> = staticCFunction {
+    sourceObject: CPointer<GObject>?,
+    res: CPointer<GAsyncResult>?,
+    `data`: gpointer?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            sourceObject: Object?,
-            res: AsyncResult,
-            `data`: gpointer?,
-        ) -> Unit
-        >().get().invoke(
-        sourceObject?.run {
-            Object(this)
-        },
-        res!!.run {
-            AsyncResult.AsyncResultImpl(reinterpret())
-        },
-        `data`
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        sourceObject: Object?,
+        res: AsyncResult,
+        `data`: gpointer?,
+    ) -> Unit>().get().invoke(sourceObject?.run {
+        Object(this)}
+    , res!!.run {
+        AsyncResult.AsyncResultImpl(reinterpret())}
+    , `data`)}
+.reinterpret()
 
 public val BusAcquiredCallbackFunc:
-    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            name: CPointer<ByteVar>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
-            connection!!.run {
-                DBusConnection(this)
-            },
-            name?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
+        staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    name: CPointer<ByteVar>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , name?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 public val BusNameAcquiredCallbackFunc:
-    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            name: CPointer<ByteVar>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
-            connection!!.run {
-                DBusConnection(this)
-            },
-            name?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
-
-public val BusNameAppearedCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        name: CPointer<ByteVar>?,
-        nameOwner: CPointer<ByteVar>?,
-        userData: gpointer?,
+        CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
+        staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    name: CPointer<ByteVar>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            name: String,
-            nameOwner: String,
-        ) -> Unit
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        name?.toKString() ?: error("Expected not null string"),
-        nameOwner?.toKString() ?: error("Expected not null string")
-    )
-}
-    .reinterpret()
+    userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , name?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
+
+public val BusNameAppearedCallbackFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+) -> Unit>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    name: CPointer<ByteVar>?,
+    nameOwner: CPointer<ByteVar>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        name: String,
+        nameOwner: String,
+    ) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , name?.toKString() ?: error("Expected not null string"), nameOwner?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 public val BusNameLostCallbackFunc:
-    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            name: CPointer<ByteVar>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
-            connection!!.run {
-                DBusConnection(this)
-            },
-            name?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
+        staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    name: CPointer<ByteVar>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , name?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 public val BusNameVanishedCallbackFunc:
-    CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            connection: CPointer<GDBusConnection>?,
-            name: CPointer<ByteVar>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
-            connection!!.run {
-                DBusConnection(this)
-            },
-            name?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
+        staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    name: CPointer<ByteVar>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , name?.toKString() ?: error("Expected not null string"))}
+.reinterpret()
 
 public val CancellableSourceFuncFunc:
-    CPointer<CFunction<(CPointer<GCancellable>?, gpointer?) -> gboolean>> = staticCFunction {
-            cancellable: CPointer<GCancellable>?,
-            `data`: gpointer?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(cancellable: Cancellable?, `data`: gpointer?) -> Boolean>().get().invoke(
-            cancellable?.run {
-                Cancellable(this)
-            },
-            `data`
-        ).asGBoolean()
-    }
-        .reinterpret()
-
-public val DBusInterfaceGetPropertyFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-        ) -> CPointer<GVariant>
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        sender: CPointer<ByteVar>?,
-        objectPath: CPointer<ByteVar>?,
-        interfaceName: CPointer<ByteVar>?,
-        propertyName: CPointer<ByteVar>?,
-        userData: gpointer?,
+        CPointer<CFunction<(CPointer<GCancellable>?, gpointer?) -> gboolean>> = staticCFunction {
+    cancellable: CPointer<GCancellable>?,
+    `data`: gpointer?,
+    userData: COpaquePointer
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            sender: String,
-            objectPath: String,
-            interfaceName: String,
-            propertyName: String,
-        ) -> Variant
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        sender?.toKString() ?: error("Expected not null string"),
-        objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString() ?: error("Expected not null string"),
-        propertyName?.toKString() ?: error("Expected not null string")
-    ).glibVariantPointer
-}
-    .reinterpret()
+    userData.asStableRef<(cancellable: Cancellable?, `data`: gpointer?) -> Boolean>().get().invoke(cancellable?.run {
+        Cancellable(this)}
+    , `data`).asGBoolean()}
+.reinterpret()
 
-public val DBusInterfaceMethodCallFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<GVariant>,
-            CPointer<GDBusMethodInvocation>,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        sender: CPointer<ByteVar>?,
-        objectPath: CPointer<ByteVar>?,
-        interfaceName: CPointer<ByteVar>?,
-        methodName: CPointer<ByteVar>?,
-        parameters: CPointer<GVariant>?,
-        invocation: CPointer<GDBusMethodInvocation>?,
-        userData: gpointer?,
+public val DBusInterfaceGetPropertyFuncFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+) -> CPointer<GVariant>>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    sender: CPointer<ByteVar>?,
+    objectPath: CPointer<ByteVar>?,
+    interfaceName: CPointer<ByteVar>?,
+    propertyName: CPointer<ByteVar>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            sender: String,
-            objectPath: String,
-            interfaceName: String,
-            methodName: String,
-            parameters: Variant,
-            invocation: DBusMethodInvocation,
-        ) -> Unit
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        sender?.toKString() ?: error("Expected not null string"),
-        objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString() ?: error("Expected not null string"),
-        methodName?.toKString() ?: error("Expected not null string"),
-        parameters!!.run {
-            Variant(this)
-        },
-        invocation!!.run {
-            DBusMethodInvocation(this)
-        }
-    )
-}
-    .reinterpret()
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        sender: String,
+        objectPath: String,
+        interfaceName: String,
+        propertyName: String,
+    ) -> Variant>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), propertyName?.toKString() ?: error("Expected not null string")).glibVariantPointer}
+.reinterpret()
 
-public val DBusInterfaceSetPropertyFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<GVariant>,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        sender: CPointer<ByteVar>?,
-        objectPath: CPointer<ByteVar>?,
-        interfaceName: CPointer<ByteVar>?,
-        propertyName: CPointer<ByteVar>?,
-        `value`: CPointer<GVariant>?,
-        userData: gpointer?,
+public val DBusInterfaceMethodCallFuncFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<GVariant>,
+    CPointer<GDBusMethodInvocation>,
+) -> Unit>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    sender: CPointer<ByteVar>?,
+    objectPath: CPointer<ByteVar>?,
+    interfaceName: CPointer<ByteVar>?,
+    methodName: CPointer<ByteVar>?,
+    parameters: CPointer<GVariant>?,
+    invocation: CPointer<GDBusMethodInvocation>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            sender: String,
-            objectPath: String,
-            interfaceName: String,
-            propertyName: String,
-            `value`: Variant,
-        ) -> Boolean
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        sender?.toKString() ?: error("Expected not null string"),
-        objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString() ?: error("Expected not null string"),
-        propertyName?.toKString() ?: error("Expected not null string"),
-        `value`!!.run {
-            Variant(this)
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        sender: String,
+        objectPath: String,
+        interfaceName: String,
+        methodName: String,
+        parameters: Variant,
+        invocation: DBusMethodInvocation,
+    ) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), methodName?.toKString() ?: error("Expected not null string"), parameters!!.run {
+        Variant(this)}
+    , invocation!!.run {
+        DBusMethodInvocation(this)}
+    )}
+.reinterpret()
 
-public val DBusMessageFilterFunctionFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<GDBusMessage>,
-            gboolean,
-        ) -> CPointer<GDBusMessage>?
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        message: CPointer<GDBusMessage>?,
-        incoming: gboolean,
-        userData: gpointer?,
+public val DBusInterfaceSetPropertyFuncFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<GVariant>,
+) -> gboolean>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    sender: CPointer<ByteVar>?,
+    objectPath: CPointer<ByteVar>?,
+    interfaceName: CPointer<ByteVar>?,
+    propertyName: CPointer<ByteVar>?,
+    `value`: CPointer<GVariant>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            message: DBusMessage,
-            incoming: Boolean,
-        ) -> DBusMessage?
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        message!!.run {
-            DBusMessage(this)
-        },
-        incoming.asBoolean()
-    )?.gioDBusMessagePointer
-}
-    .reinterpret()
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        sender: String,
+        objectPath: String,
+        interfaceName: String,
+        propertyName: String,
+        `value`: Variant,
+    ) -> Boolean>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), propertyName?.toKString() ?: error("Expected not null string"), `value`!!.run {
+        Variant(this)}
+    ).asGBoolean()}
+.reinterpret()
 
-public val DBusProxyTypeFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusObjectManagerClient>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>?,
-            gpointer?,
-        ) -> GType
-        >
-    > = staticCFunction {
-        manager: CPointer<GDBusObjectManagerClient>?,
-        objectPath: CPointer<ByteVar>?,
-        interfaceName: CPointer<ByteVar>?,
+public val DBusMessageFilterFunctionFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<GDBusMessage>,
+    gboolean,
+) -> CPointer<GDBusMessage>?>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    message: CPointer<GDBusMessage>?,
+    incoming: gboolean,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        message: DBusMessage,
+        incoming: Boolean,
+    ) -> DBusMessage?>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , message!!.run {
+        DBusMessage(this)}
+    , incoming.asBoolean())?.gioDBusMessagePointer}
+.reinterpret()
+
+public val DBusProxyTypeFuncFunc: CPointer<CFunction<(
+    CPointer<GDBusObjectManagerClient>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>?,
+    gpointer?,
+) -> GType>> = staticCFunction {
+    manager: CPointer<GDBusObjectManagerClient>?,
+    objectPath: CPointer<ByteVar>?,
+    interfaceName: CPointer<ByteVar>?,
+    `data`: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        manager: DBusObjectManagerClient,
+        objectPath: String,
+        interfaceName: String?,
         `data`: gpointer?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            manager: DBusObjectManagerClient,
-            objectPath: String,
-            interfaceName: String?,
-            `data`: gpointer?,
-        ) -> GType
-        >().get().invoke(
-        manager!!.run {
-            DBusObjectManagerClient(this)
-        },
-        objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString(),
-        `data`
-    )
-}
-    .reinterpret()
+    ) -> GType>().get().invoke(manager!!.run {
+        DBusObjectManagerClient(this)}
+    , objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString(), `data`)}
+.reinterpret()
 
-public val DBusSignalCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>?,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<GVariant>,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        senderName: CPointer<ByteVar>?,
-        objectPath: CPointer<ByteVar>?,
-        interfaceName: CPointer<ByteVar>?,
-        signalName: CPointer<ByteVar>?,
-        parameters: CPointer<GVariant>?,
-        userData: gpointer?,
+public val DBusSignalCallbackFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>?,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<GVariant>,
+) -> Unit>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    senderName: CPointer<ByteVar>?,
+    objectPath: CPointer<ByteVar>?,
+    interfaceName: CPointer<ByteVar>?,
+    signalName: CPointer<ByteVar>?,
+    parameters: CPointer<GVariant>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            senderName: String?,
-            objectPath: String,
-            interfaceName: String,
-            signalName: String,
-            parameters: Variant,
-        ) -> Unit
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        senderName?.toKString(),
-        objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString() ?: error("Expected not null string"),
-        signalName?.toKString() ?: error("Expected not null string"),
-        parameters!!.run {
-            Variant(this)
-        }
-    )
-}
-    .reinterpret()
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        senderName: String?,
+        objectPath: String,
+        interfaceName: String,
+        signalName: String,
+        parameters: Variant,
+    ) -> Unit>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , senderName?.toKString(), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), signalName?.toKString() ?: error("Expected not null string"), parameters!!.run {
+        Variant(this)}
+    )}
+.reinterpret()
 
-public val DBusSubtreeDispatchFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-        ) -> CPointer<GDBusInterfaceVTable>?
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        sender: CPointer<ByteVar>?,
-        objectPath: CPointer<ByteVar>?,
-        interfaceName: CPointer<ByteVar>?,
-        node: CPointer<ByteVar>?,
-        userData: gpointer?,
+public val DBusSubtreeDispatchFuncFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+) -> CPointer<GDBusInterfaceVTable>?>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    sender: CPointer<ByteVar>?,
+    objectPath: CPointer<ByteVar>?,
+    interfaceName: CPointer<ByteVar>?,
+    node: CPointer<ByteVar>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            connection: DBusConnection,
-            sender: String,
-            objectPath: String,
-            interfaceName: String,
-            node: String,
-        ) -> DBusInterfaceVTable?
-        >().get().invoke(
-        connection!!.run {
-            DBusConnection(this)
-        },
-        sender?.toKString() ?: error("Expected not null string"),
-        objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString() ?: error("Expected not null string"),
-        node?.toKString() ?: error("Expected not null string")
-    )?.gioDBusInterfaceVTablePointer
-}
-    .reinterpret()
+    userData!!.asStableRef<(
+        connection: DBusConnection,
+        sender: String,
+        objectPath: String,
+        interfaceName: String,
+        node: String,
+    ) -> DBusInterfaceVTable?>().get().invoke(connection!!.run {
+        DBusConnection(this)}
+    , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), node?.toKString() ?: error("Expected not null string"))?.gioDBusInterfaceVTablePointer}
+.reinterpret()
 
-public val DBusSubtreeEnumerateFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDBusConnection>,
-            CPointer<ByteVar>,
-            CPointer<ByteVar>,
-        ) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>
-        >
-    > = staticCFunction {
-        connection: CPointer<GDBusConnection>?,
-        sender: CPointer<ByteVar>?,
-        objectPath: CPointer<ByteVar>?,
-        userData: gpointer?,
+public val DBusSubtreeEnumerateFuncFunc: CPointer<CFunction<(
+    CPointer<GDBusConnection>,
+    CPointer<ByteVar>,
+    CPointer<ByteVar>,
+) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>>> = staticCFunction {
+    connection: CPointer<GDBusConnection>?,
+    sender: CPointer<ByteVar>?,
+    objectPath: CPointer<ByteVar>?,
+    userData: gpointer?,
     ->
     memScoped {
-        userData!!.asStableRef<
-            (
-                connection: DBusConnection,
-                sender: String,
-                objectPath: String,
-            ) -> CollectionsList<String>
-            >().get().invoke(
-            connection!!.run {
-                DBusConnection(this)
-            },
-            sender?.toKString() ?: error("Expected not null string"),
-            objectPath?.toKString() ?: error("Expected not null string")
-        ).toCStringList(this)
-    }
+        userData!!.asStableRef<(
+            connection: DBusConnection,
+            sender: String,
+            objectPath: String,
+        ) -> CollectionsList<String>>().get().invoke(connection!!.run {
+            DBusConnection(this)}
+        , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string")).toCStringList(this)}
 }
-    .reinterpret()
+.reinterpret()
 
-public val DatagramBasedSourceFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GDatagramBased>,
-            GIOCondition,
-            gpointer?,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        datagramBased: CPointer<GDatagramBased>?,
-        condition: GIOCondition,
-        `data`: gpointer?,
-        userData: COpaquePointer,
+public val DatagramBasedSourceFuncFunc: CPointer<CFunction<(
+    CPointer<GDatagramBased>,
+    GIOCondition,
+    gpointer?,
+) -> gboolean>> = staticCFunction {
+    datagramBased: CPointer<GDatagramBased>?,
+    condition: GIOCondition,
+    `data`: gpointer?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            datagramBased: DatagramBased,
-            condition: IoCondition,
-            `data`: gpointer?,
-        ) -> Boolean
-        >().get().invoke(
-        datagramBased!!.run {
-            DatagramBased.DatagramBasedImpl(reinterpret())
-        },
-        condition.run {
-            IoCondition(this)
-        },
-        `data`
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(
+        datagramBased: DatagramBased,
+        condition: IoCondition,
+        `data`: gpointer?,
+    ) -> Boolean>().get().invoke(datagramBased!!.run {
+        DatagramBased.DatagramBasedImpl(reinterpret())}
+    , condition.run {
+        IoCondition(this)}
+    , `data`).asGBoolean()}
+.reinterpret()
 
 public val DesktopAppLaunchCallbackFunc:
-    CPointer<CFunction<(CPointer<GDesktopAppInfo>, Pid) -> Unit>> = staticCFunction {
-            appinfo: CPointer<GDesktopAppInfo>?,
-            pid: Pid,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(
-            appinfo!!.run {
-                DesktopAppInfo(this)
-            },
-            pid
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDesktopAppInfo>, Pid) -> Unit>> = staticCFunction {
+    appinfo: CPointer<GDesktopAppInfo>?,
+    pid: Pid,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(appinfo!!.run {
+        DesktopAppInfo(this)}
+    , pid)}
+.reinterpret()
 
-public val FileMeasureProgressCallbackFunc: CPointer<
-    CFunction<
-        (
-            gboolean,
-            guint64,
-            guint64,
-            guint64,
-            gpointer?,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        reporting: gboolean,
+public val FileMeasureProgressCallbackFunc: CPointer<CFunction<(
+    gboolean,
+    guint64,
+    guint64,
+    guint64,
+    gpointer?,
+) -> Unit>> = staticCFunction {
+    reporting: gboolean,
+    currentSize: guint64,
+    numDirs: guint64,
+    numFiles: guint64,
+    `data`: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        reporting: Boolean,
         currentSize: guint64,
         numDirs: guint64,
         numFiles: guint64,
         `data`: gpointer?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            reporting: Boolean,
-            currentSize: guint64,
-            numDirs: guint64,
-            numFiles: guint64,
-            `data`: gpointer?,
-        ) -> Unit
-        >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles, `data`)
-}
-    .reinterpret()
+    ) -> Unit>().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles, `data`)}
+.reinterpret()
 
-public val FileProgressCallbackFunc: CPointer<
-    CFunction<
-        (
-            gint64,
-            gint64,
-            gpointer?,
-        ) -> Unit
-        >
-    > = staticCFunction {
+public val FileProgressCallbackFunc: CPointer<CFunction<(
+    gint64,
+    gint64,
+    gpointer?,
+) -> Unit>> = staticCFunction {
+    currentNumBytes: gint64,
+    totalNumBytes: gint64,
+    `data`: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         currentNumBytes: gint64,
         totalNumBytes: gint64,
         `data`: gpointer?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            currentNumBytes: gint64,
-            totalNumBytes: gint64,
-            `data`: gpointer?,
-        ) -> Unit
-        >().get().invoke(currentNumBytes, totalNumBytes, `data`)
-}
-    .reinterpret()
+    ) -> Unit>().get().invoke(currentNumBytes, totalNumBytes, `data`)}
+.reinterpret()
 
-public val FileReadMoreCallbackFunc: CPointer<
-    CFunction<
-        (
-            CPointer<ByteVar>,
-            gint64,
-            gpointer?,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        fileContents: CPointer<ByteVar>?,
+public val FileReadMoreCallbackFunc: CPointer<CFunction<(
+    CPointer<ByteVar>,
+    gint64,
+    gpointer?,
+) -> gboolean>> = staticCFunction {
+    fileContents: CPointer<ByteVar>?,
+    fileSize: gint64,
+    callbackData: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        fileContents: String,
         fileSize: gint64,
         callbackData: gpointer?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            fileContents: String,
-            fileSize: gint64,
-            callbackData: gpointer?,
-        ) -> Boolean
-        >().get().invoke(
-        fileContents?.toKString() ?: error("Expected not null string"),
-        fileSize,
-        callbackData
-    ).asGBoolean()
-}
-    .reinterpret()
+    ) -> Boolean>().get().invoke(fileContents?.toKString() ?: error("Expected not null string"), fileSize, callbackData).asGBoolean()}
+.reinterpret()
 
-public val IoSchedulerJobFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GIOSchedulerJob>,
-            CPointer<GCancellable>?,
-            gpointer?,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        job: CPointer<GIOSchedulerJob>?,
-        cancellable: CPointer<GCancellable>?,
-        `data`: gpointer?,
-        userData: COpaquePointer,
+public val IoSchedulerJobFuncFunc: CPointer<CFunction<(
+    CPointer<GIOSchedulerJob>,
+    CPointer<GCancellable>?,
+    gpointer?,
+) -> gboolean>> = staticCFunction {
+    job: CPointer<GIOSchedulerJob>?,
+    cancellable: CPointer<GCancellable>?,
+    `data`: gpointer?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            job: IoSchedulerJob,
-            cancellable: Cancellable?,
-            `data`: gpointer?,
-        ) -> Boolean
-        >().get().invoke(
-        job!!.run {
-            IoSchedulerJob(this)
-        },
-        cancellable?.run {
-            Cancellable(this)
-        },
-        `data`
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(
+        job: IoSchedulerJob,
+        cancellable: Cancellable?,
+        `data`: gpointer?,
+    ) -> Boolean>().get().invoke(job!!.run {
+        IoSchedulerJob(this)}
+    , cancellable?.run {
+        Cancellable(this)}
+    , `data`).asGBoolean()}
+.reinterpret()
 
 public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>, gpointer?) -> gboolean>> =
-    staticCFunction {
-            pollableStream: CPointer<GObject>?,
-            `data`: gpointer?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(pollableStream: Object, `data`: gpointer?) -> Boolean>().get().invoke(
-            pollableStream!!.run {
-                Object(this)
-            },
-            `data`
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    pollableStream: CPointer<GObject>?,
+    `data`: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(pollableStream: Object, `data`: gpointer?) -> Boolean>().get().invoke(pollableStream!!.run {
+        Object(this)}
+    , `data`).asGBoolean()}
+.reinterpret()
 
 public val ReallocFuncFunc: CPointer<CFunction<(gpointer?, gsize) -> gpointer?>> = staticCFunction {
-        `data`: gpointer?,
-        size: gsize,
-        userData: COpaquePointer,
+    `data`: gpointer?,
+    size: gsize,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(`data`: gpointer?, size: gsize) -> gpointer?>().get().invoke(`data`, size)
-}
-    .reinterpret()
+    userData.asStableRef<(`data`: gpointer?, size: gsize) -> gpointer?>().get().invoke(`data`, size)}
+.reinterpret()
 
 public val SettingsBindGetMappingFunc:
-    CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> gboolean>> = staticCFunction {
-            `value`: CPointer<GValue>?,
-            variant: CPointer<GVariant>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(`value`: Value, variant: Variant) -> Boolean>().get().invoke(
-            `value`!!.run {
-                Value(this)
-            },
-            variant!!.run {
-                Variant(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> gboolean>> = staticCFunction {
+    `value`: CPointer<GValue>?,
+    variant: CPointer<GVariant>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(`value`: Value, variant: Variant) -> Boolean>().get().invoke(`value`!!.run {
+        Value(this)}
+    , variant!!.run {
+        Variant(this)}
+    ).asGBoolean()}
+.reinterpret()
 
 public val SettingsBindSetMappingFunc:
-    CPointer<CFunction<(CPointer<GValue>, CPointer<GVariantType>) -> CPointer<GVariant>>> =
-    staticCFunction {
-            `value`: CPointer<GValue>?,
-            expectedType: CPointer<GVariantType>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>().get().invoke(
-            `value`!!.run {
-                Value(this)
-            },
-            expectedType!!.run {
-                VariantType(this)
-            }
-        ).glibVariantPointer
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GValue>, CPointer<GVariantType>) -> CPointer<GVariant>>> =
+        staticCFunction {
+    `value`: CPointer<GValue>?,
+    expectedType: CPointer<GVariantType>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>().get().invoke(`value`!!.run {
+        Value(this)}
+    , expectedType!!.run {
+        VariantType(this)}
+    ).glibVariantPointer}
+.reinterpret()
 
 public val SettingsGetMappingFunc: CPointer<CFunction<(CPointer<GVariant>) -> gboolean>> =
-    staticCFunction {
-            `value`: CPointer<GVariant>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(`value`: Variant) -> Boolean>().get().invoke(
-            `value`!!.run {
-                Variant(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
-
-public val SimpleAsyncThreadFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GSimpleAsyncResult>,
-            CPointer<GObject>,
-            CPointer<GCancellable>?,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        res: CPointer<GSimpleAsyncResult>?,
-        `object`: CPointer<GObject>?,
-        cancellable: CPointer<GCancellable>?,
-        userData: COpaquePointer,
+        staticCFunction {
+    `value`: CPointer<GVariant>?,
+    userData: gpointer?,
     ->
-    userData.asStableRef<
-        (
-            res: SimpleAsyncResult,
-            `object`: Object,
-            cancellable: Cancellable?,
-        ) -> Unit
-        >().get().invoke(
-        res!!.run {
-            SimpleAsyncResult(this)
-        },
-        `object`!!.run {
-            Object(this)
-        },
-        cancellable?.run {
-            Cancellable(this)
-        }
-    )
-}
-    .reinterpret()
+    userData!!.asStableRef<(`value`: Variant) -> Boolean>().get().invoke(`value`!!.run {
+        Variant(this)}
+    ).asGBoolean()}
+.reinterpret()
 
-public val SocketSourceFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GSocket>,
-            GIOCondition,
-            gpointer?,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        socket: CPointer<GSocket>?,
-        condition: GIOCondition,
+public val SimpleAsyncThreadFuncFunc: CPointer<CFunction<(
+    CPointer<GSimpleAsyncResult>,
+    CPointer<GObject>,
+    CPointer<GCancellable>?,
+) -> Unit>> = staticCFunction {
+    res: CPointer<GSimpleAsyncResult>?,
+    `object`: CPointer<GObject>?,
+    cancellable: CPointer<GCancellable>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        res: SimpleAsyncResult,
+        `object`: Object,
+        cancellable: Cancellable?,
+    ) -> Unit>().get().invoke(res!!.run {
+        SimpleAsyncResult(this)}
+    , `object`!!.run {
+        Object(this)}
+    , cancellable?.run {
+        Cancellable(this)}
+    )}
+.reinterpret()
+
+public val SocketSourceFuncFunc: CPointer<CFunction<(
+    CPointer<GSocket>,
+    GIOCondition,
+    gpointer?,
+) -> gboolean>> = staticCFunction {
+    socket: CPointer<GSocket>?,
+    condition: GIOCondition,
+    `data`: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        socket: Socket,
+        condition: IoCondition,
         `data`: gpointer?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            socket: Socket,
-            condition: IoCondition,
-            `data`: gpointer?,
-        ) -> Boolean
-        >().get().invoke(
-        socket!!.run {
-            Socket(this)
-        },
-        condition.run {
-            IoCondition(this)
-        },
-        `data`
-    ).asGBoolean()
-}
-    .reinterpret()
+    ) -> Boolean>().get().invoke(socket!!.run {
+        Socket(this)}
+    , condition.run {
+        IoCondition(this)}
+    , `data`).asGBoolean()}
+.reinterpret()
 
-public val TaskThreadFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GTask>,
-            CPointer<GObject>,
-            gpointer?,
-            CPointer<GCancellable>?,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        task: CPointer<GTask>?,
-        sourceObject: CPointer<GObject>?,
-        taskData: gpointer?,
-        cancellable: CPointer<GCancellable>?,
-        userData: COpaquePointer,
+public val TaskThreadFuncFunc: CPointer<CFunction<(
+    CPointer<GTask>,
+    CPointer<GObject>,
+    gpointer?,
+    CPointer<GCancellable>?,
+) -> Unit>> = staticCFunction {
+    task: CPointer<GTask>?,
+    sourceObject: CPointer<GObject>?,
+    taskData: gpointer?,
+    cancellable: CPointer<GCancellable>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            task: Task,
-            sourceObject: Object,
-            taskData: gpointer?,
-            cancellable: Cancellable?,
-        ) -> Unit
-        >().get().invoke(
-        task!!.run {
-            Task(this)
-        },
-        sourceObject!!.run {
-            Object(reinterpret())
-        },
-        taskData,
-        cancellable?.run {
-            Cancellable(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(
+        task: Task,
+        sourceObject: Object,
+        taskData: gpointer?,
+        cancellable: Cancellable?,
+    ) -> Unit>().get().invoke(task!!.run {
+        Task(this)}
+    , sourceObject!!.run {
+        Object(reinterpret())}
+    , taskData, cancellable?.run {
+        Cancellable(this)}
+    )}
+.reinterpret()
 
 public val VfsFileLookupFuncFunc:
-    CPointer<CFunction<(CPointer<GVfs>, CPointer<ByteVar>) -> CPointer<GFile>>> =
-    staticCFunction {
-            vfs: CPointer<GVfs>?,
-            identifier: CPointer<ByteVar>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(
-            vfs!!.run {
-                Vfs(this)
-            },
-            identifier?.toKString() ?: error("Expected not null string")
-        ).gioFilePointer
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GVfs>, CPointer<ByteVar>) -> CPointer<GFile>>> =
+        staticCFunction {
+    vfs: CPointer<GVfs>?,
+    identifier: CPointer<ByteVar>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(vfs!!.run {
+        Vfs(this)}
+    , identifier?.toKString() ?: error("Expected not null string")).gioFilePointer}
+.reinterpret()
 
 /**
  * Type definition for a function that will be called back when an asynchronous

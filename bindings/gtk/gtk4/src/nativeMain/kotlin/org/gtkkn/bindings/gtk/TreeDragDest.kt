@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -18,14 +19,11 @@ import org.gtkkn.native.gtk.GtkTreeDragDest
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_drag_data_received
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_get_type
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_row_drop_possible
-import kotlin.Boolean
 
 /**
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
-public interface TreeDragDest :
-    Proxy,
-    KGTyped {
+public interface TreeDragDest : Proxy, KGTyped {
     public val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>
 
     /**
@@ -40,11 +38,7 @@ public interface TreeDragDest :
      * @param value data to drop
      * @return whether a new row was created before position @dest
      */
-    public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(
-        gtkTreeDragDestPointer,
-        dest.gtkTreePathPointer,
-        `value`.gobjectValuePointer
-    ).asBoolean()
+    public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(gtkTreeDragDestPointer, dest.gtkTreePathPointer, `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Determines whether a drop is possible before the given @dest_path,
@@ -57,30 +51,24 @@ public interface TreeDragDest :
      * @param value the data being dropped
      * @return true if a drop is possible before @dest_path
      */
-    public fun rowDropPossible(destPath: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_row_drop_possible(
-        gtkTreeDragDestPointer,
-        destPath.gtkTreePathPointer,
-        `value`.gobjectValuePointer
-    ).asBoolean()
+    public fun rowDropPossible(destPath: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_row_drop_possible(gtkTreeDragDestPointer, destPath.gtkTreePathPointer, `value`.gobjectValuePointer).asBoolean()
 
     /**
      * The TreeDragDestImpl type represents a native instance of the TreeDragDest interface.
      *
      * @constructor Creates a new instance of TreeDragDest for the provided [CPointer].
      */
-    public data class TreeDragDestImpl(override val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>) :
-        Object(gtkTreeDragDestPointer.reinterpret()),
+    public data class TreeDragDestImpl(
+        override val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>,
+    ) : Object(gtkTreeDragDestPointer.reinterpret()),
         TreeDragDest
 
     public companion object : TypeCompanion<TreeDragDest> {
         override val type: GeneratedInterfaceKGType<TreeDragDest> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_drag_dest_get_type")!!) {
-                TreeDragDestImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_drag_dest_get_type")!!) { TreeDragDestImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeDragDest

@@ -14,19 +14,19 @@ import org.gtkkn.native.gobject.GType
  * [class@Flap] widget, as well as which areas can be swiped via
  * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
  */
-public enum class FlapTransitionType(public val nativeValue: AdwFlapTransitionType) {
+public enum class FlapTransitionType(
+    public val nativeValue: AdwFlapTransitionType,
+) {
     /**
      * The flap slides over the content, which is
      *   dimmed. When folded, only the flap can be swiped.
      */
     OVER(AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_OVER),
-
     /**
      * The content slides over the flap. Only the
      *   content can be swiped.
      */
     UNDER(AdwFlapTransitionType.ADW_FLAP_TRANSITION_TYPE_UNDER),
-
     /**
      * The flap slides offscreen when hidden,
      *   neither the flap nor content overlap each other. Both widgets can be

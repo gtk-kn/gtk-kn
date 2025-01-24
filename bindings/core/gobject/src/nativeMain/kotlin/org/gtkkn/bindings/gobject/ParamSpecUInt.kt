@@ -10,5 +10,6 @@ import org.gtkkn.native.gobject.GParamSpecUInt
 /**
  * A #GParamSpec derived structure that contains the meta data for unsigned integer properties.
  */
-public open class ParamSpecUInt(public val gobjectParamSpecUIntPointer: CPointer<GParamSpecUInt>) :
-    ParamSpec(gobjectParamSpecUIntPointer.reinterpret())
+public open class ParamSpecUInt(
+    public val gobjectParamSpecUIntPointer: CPointer<GParamSpecUInt>,
+) : ParamSpec(gobjectParamSpecUIntPointer.reinterpret())

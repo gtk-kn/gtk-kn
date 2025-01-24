@@ -3,10 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -16,15 +17,27 @@ import org.gtkkn.native.webkit.webkit_input_method_underline_free
 import org.gtkkn.native.webkit.webkit_input_method_underline_get_type
 import org.gtkkn.native.webkit.webkit_input_method_underline_new
 import org.gtkkn.native.webkit.webkit_input_method_underline_set_color
-import kotlin.Unit
 
 /**
  * Range of text in an preedit string to be shown underlined.
  * @since 2.28
  */
 @WebKitVersion2_28
-public class InputMethodUnderline(public val webkitInputMethodUnderlinePointer: CPointer<WebKitInputMethodUnderline>) :
-    ProxyInstance(webkitInputMethodUnderlinePointer) {
+public class InputMethodUnderline(
+    public val webkitInputMethodUnderlinePointer: CPointer<WebKitInputMethodUnderline>,
+) : ProxyInstance(webkitInputMethodUnderlinePointer) {
+    /**
+     * Create a new #WebKitInputMethodUnderline for the given range in preedit string
+     *
+     * @param startOffset the start offset in preedit string
+     * @param endOffset the end offset in preedit string
+     * @return A newly created #WebKitInputMethodUnderline
+     * @since 2.28
+     */
+    public constructor(startOffset: guint, endOffset: guint) : this(webkit_input_method_underline_new(startOffset, endOffset)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Make a copy of the #WebKitInputMethodUnderline.
      *
@@ -32,10 +45,8 @@ public class InputMethodUnderline(public val webkitInputMethodUnderlinePointer: 
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun copy(): InputMethodUnderline =
-        webkit_input_method_underline_copy(webkitInputMethodUnderlinePointer)!!.run {
-            InputMethodUnderline(this)
-        }
+    public fun copy(): InputMethodUnderline = webkit_input_method_underline_copy(webkitInputMethodUnderlinePointer)!!.run {
+        InputMethodUnderline(this)}
 
     /**
      * Free the #WebKitInputMethodUnderline.
@@ -55,21 +66,9 @@ public class InputMethodUnderline(public val webkitInputMethodUnderlinePointer: 
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun setColor(rgba: Rgba? = null): Unit =
-        webkit_input_method_underline_set_color(webkitInputMethodUnderlinePointer, rgba?.gdkRgbaPointer)
+    public fun setColor(rgba: Rgba? = null): Unit = webkit_input_method_underline_set_color(webkitInputMethodUnderlinePointer, rgba?.gdkRgbaPointer)
 
     public companion object {
-        /**
-         * Create a new #WebKitInputMethodUnderline for the given range in preedit string
-         *
-         * @param startOffset the start offset in preedit string
-         * @param endOffset the end offset in preedit string
-         * @return A newly created #WebKitInputMethodUnderline
-         * @since 2.28
-         */
-        public fun new(startOffset: guint, endOffset: guint): InputMethodUnderline =
-            InputMethodUnderline(webkit_input_method_underline_new(startOffset, endOffset)!!.reinterpret())
-
         /**
          * Get the GType of InputMethodUnderline
          *

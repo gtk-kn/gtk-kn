@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -17,12 +18,14 @@ import org.gtkkn.native.gsk.gsk_cross_fade_node_get_progress
 import org.gtkkn.native.gsk.gsk_cross_fade_node_get_start_child
 import org.gtkkn.native.gsk.gsk_cross_fade_node_get_type
 import org.gtkkn.native.gsk.gsk_cross_fade_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node cross fading between two child nodes.
  */
-public open class CrossFadeNode(public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>) :
-    RenderNode(gskCrossFadeNodePointer.reinterpret()),
+public open class CrossFadeNode(
+    public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>,
+) : RenderNode(gskCrossFadeNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
@@ -37,17 +40,17 @@ public open class CrossFadeNode(public val gskCrossFadeNodePointer: CPointer<Gsk
         start: RenderNode,
         end: RenderNode,
         progress: gfloat,
-    ) : this(gsk_cross_fade_node_new(start.gskRenderNodePointer, end.gskRenderNodePointer, progress)!!.reinterpret())
+    ) : this(gsk_cross_fade_node_new(start.gskRenderNodePointer, end.gskRenderNodePointer, progress)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the child `GskRenderNode` at the end of the cross-fade.
      *
      * @return a `GskRenderNode`
      */
-    public open fun getEndChild(): RenderNode =
-        gsk_cross_fade_node_get_end_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public open fun getEndChild(): RenderNode = gsk_cross_fade_node_get_end_child(gskCrossFadeNodePointer.reinterpret())!!.run {
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the progress value of the cross fade.
@@ -61,20 +64,15 @@ public open class CrossFadeNode(public val gskCrossFadeNodePointer: CPointer<Gsk
      *
      * @return a `GskRenderNode`
      */
-    public open fun getStartChild(): RenderNode =
-        gsk_cross_fade_node_get_start_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public open fun getStartChild(): RenderNode = gsk_cross_fade_node_get_start_child(gskCrossFadeNodePointer.reinterpret())!!.run {
+        RenderNode.RenderNodeImpl(this)}
 
     public companion object : TypeCompanion<CrossFadeNode> {
         override val type: GeneratedClassKGType<CrossFadeNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_cross_fade_node_get_type")!!) {
-                CrossFadeNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_cross_fade_node_get_type")!!) { CrossFadeNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of CrossFadeNode

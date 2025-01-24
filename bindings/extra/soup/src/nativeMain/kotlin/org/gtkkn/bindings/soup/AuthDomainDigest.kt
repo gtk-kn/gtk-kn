@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -17,8 +19,6 @@ import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.soup_auth_domain_digest_encode_password
 import org.gtkkn.native.soup.soup_auth_domain_digest_get_type
 import org.gtkkn.native.soup.soup_auth_domain_digest_set_auth_callback
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Server-side "Digest" authentication.
@@ -32,8 +32,9 @@ import kotlin.Unit
  * - method `auth-data`: Property has no getter nor setter
  * - constructor `new`: Varargs parameter is not supported
  */
-public class AuthDomainDigest(public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>) :
-    AuthDomain(soupAuthDomainDigestPointer.reinterpret()),
+public class AuthDomainDigest(
+    public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>,
+) : AuthDomain(soupAuthDomainDigestPointer.reinterpret()),
     KGTyped {
     /**
      * Sets the callback that @domain will use to authenticate incoming
@@ -50,23 +51,14 @@ public class AuthDomainDigest(public val soupAuthDomainDigestPointer: CPointer<S
      *
      * @param callback the callback
      */
-    public fun setAuthCallback(callback: AuthDomainDigestAuthCallback): Unit =
-        soup_auth_domain_digest_set_auth_callback(
-            soupAuthDomainDigestPointer.reinterpret(),
-            AuthDomainDigestAuthCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun setAuthCallback(callback: AuthDomainDigestAuthCallback): Unit = soup_auth_domain_digest_set_auth_callback(soupAuthDomainDigestPointer.reinterpret(), AuthDomainDigestAuthCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     public companion object : TypeCompanion<AuthDomainDigest> {
         override val type: GeneratedClassKGType<AuthDomainDigest> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_domain_digest_get_type")!!) {
-                AuthDomainDigest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_domain_digest_get_type")!!) { AuthDomainDigest(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Encodes the username/realm/password triplet for Digest
@@ -90,9 +82,11 @@ public class AuthDomainDigest(public val soupAuthDomainDigestPointer: CPointer<S
          * @param password the password for @username in @realm
          * @return the encoded password
          */
-        public fun encodePassword(username: String, realm: String, password: String): String =
-            soup_auth_domain_digest_encode_password(username, realm, password)?.toKString()
-                ?: error("Expected not null string")
+        public fun encodePassword(
+            username: String,
+            realm: String,
+            password: String,
+        ): String = soup_auth_domain_digest_encode_password(username, realm, password)?.toKString() ?: error("Expected not null string")
 
         /**
          * Get the GType of AuthDomainDigest

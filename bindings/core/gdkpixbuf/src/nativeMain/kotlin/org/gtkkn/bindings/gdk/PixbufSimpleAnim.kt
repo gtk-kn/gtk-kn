@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_18
@@ -22,14 +24,13 @@ import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_set_loop
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * An opaque struct representing a simple animation.
  */
-public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>) :
-    PixbufAnimation(gdkPixbufSimpleAnimPointer.reinterpret()),
+public open class PixbufSimpleAnim(
+    public val gdkPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>,
+) : PixbufAnimation(gdkPixbufSimpleAnimPointer.reinterpret()),
     KGTyped {
     /**
      * Whether the animation should loop when it reaches the end.
@@ -45,7 +46,6 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
          * @since 2.18
          */
         get() = gdk_pixbuf_simple_anim_get_loop(gdkPixbufSimpleAnimPointer).asBoolean()
-
         /**
          * Sets whether @animation should loop indefinitely when it reaches the end.
          *
@@ -68,7 +68,7 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
         width: gint,
         height: gint,
         rate: gfloat,
-    ) : this(gdk_pixbuf_simple_anim_new(width, height, rate)!!.reinterpret())
+    ) : this(gdk_pixbuf_simple_anim_new(width, height, rate)!!)
 
     /**
      * Adds a new frame to @animation. The @pixbuf must
@@ -79,18 +79,14 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
      * @since 2.8
      */
     @GdkPixbufVersion2_8
-    public open fun addFrame(pixbuf: Pixbuf): Unit =
-        gdk_pixbuf_simple_anim_add_frame(gdkPixbufSimpleAnimPointer, pixbuf.gdkPixbufPointer)
+    public open fun addFrame(pixbuf: Pixbuf): Unit = gdk_pixbuf_simple_anim_add_frame(gdkPixbufSimpleAnimPointer, pixbuf.gdkPixbufPointer)
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_get_type")!!) {
-                PixbufSimpleAnim(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_get_type")!!) { PixbufSimpleAnim(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
+            GdkPixbufTypeProvider.register()}
 
         /**
          * Get the GType of PixbufSimpleAnim

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -28,8 +30,6 @@ import org.gtkkn.native.gio.g_async_result_legacy_propagate_error
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * `GAsyncResult` provides a base class for implementing asynchronous function results.
@@ -118,9 +118,7 @@ import kotlin.Result
  * `G_PRIORITY_LOW` and `G_PRIORITY_HIGH`, with `G_PRIORITY_DEFAULT`
  * as a default.
  */
-public interface AsyncResult :
-    Proxy,
-    KGTyped {
+public interface AsyncResult : Proxy, KGTyped {
     public val gioAsyncResultPointer: CPointer<GAsyncResult>
 
     /**
@@ -130,8 +128,7 @@ public interface AsyncResult :
      *    object for the @res, or null if there is none.
      */
     public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer)?.run {
-        Object(this)
-    }
+        Object(this)}
 
     /**
      * Gets the user data from a #GAsyncResult.
@@ -150,8 +147,7 @@ public interface AsyncResult :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun isTagged(sourceTag: gpointer? = null): Boolean =
-        g_async_result_is_tagged(gioAsyncResultPointer, sourceTag).asBoolean()
+    public fun isTagged(sourceTag: gpointer? = null): Boolean = g_async_result_is_tagged(gioAsyncResultPointer, sourceTag).asBoolean()
 
     /**
      * If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -185,19 +181,17 @@ public interface AsyncResult :
      *
      * @constructor Creates a new instance of AsyncResult for the provided [CPointer].
      */
-    public data class AsyncResultImpl(override val gioAsyncResultPointer: CPointer<GAsyncResult>) :
-        Object(gioAsyncResultPointer.reinterpret()),
+    public data class AsyncResultImpl(
+        override val gioAsyncResultPointer: CPointer<GAsyncResult>,
+    ) : Object(gioAsyncResultPointer.reinterpret()),
         AsyncResult
 
     public companion object : TypeCompanion<AsyncResult> {
         override val type: GeneratedInterfaceKGType<AsyncResult> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_async_result_get_type")!!) {
-                AsyncResultImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_async_result_get_type")!!) { AsyncResultImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of AsyncResult

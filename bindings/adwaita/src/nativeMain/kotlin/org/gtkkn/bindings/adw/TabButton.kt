@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -31,8 +33,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A button that displays the number of [class@TabView] pages.
@@ -66,8 +66,9 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
-    Widget(adwTabButtonPointer.reinterpret()),
+public class TabButton(
+    public val adwTabButtonPointer: CPointer<AdwTabButton>,
+) : Widget(adwTabButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
     override val gtkActionablePointer: CPointer<GtkActionable>
@@ -96,9 +97,7 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
          * @since 1.3
          */
         get() = adw_tab_button_get_view(adwTabButtonPointer)?.run {
-            TabView(this)
-        }
-
+            TabView(this)}
         /**
          * Sets the tab view to display.
          *
@@ -127,15 +126,7 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwTabButtonPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwTabButtonPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -155,15 +146,7 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwTabButtonPointer,
-            "clicked",
-            onClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwTabButtonPointer, "clicked", onClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "clicked" signal. See [onClicked].
@@ -177,11 +160,10 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
 
     public companion object : TypeCompanion<TabButton> {
         override val type: GeneratedClassKGType<TabButton> =
-            GeneratedClassKGType(getTypeOrNull("adw_tab_button_get_type")!!) { TabButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_tab_button_get_type")!!) { TabButton(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of TabButton
@@ -193,17 +175,15 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

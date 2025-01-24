@@ -11,7 +11,9 @@ import org.gtkkn.native.cairo.cairo_script_mode_t
  * @since 1.12
  */
 @CairoVersion1_12
-public enum class ScriptMode(public val nativeValue: cairo_script_mode_t) {
+public enum class ScriptMode(
+    public val nativeValue: cairo_script_mode_t,
+) {
     ASCII(cairo_script_mode_t.CAIRO_SCRIPT_MODE_ASCII),
     BINARY(cairo_script_mode_t.CAIRO_SCRIPT_MODE_BINARY),
     ;

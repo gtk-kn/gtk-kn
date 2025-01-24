@@ -26,13 +26,10 @@ public open class RepeatingRadialGradientNode(
     KGTyped {
     public companion object : TypeCompanion<RepeatingRadialGradientNode> {
         override val type: GeneratedClassKGType<RepeatingRadialGradientNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_repeating_radial_gradient_node_get_type")!!) {
-                RepeatingRadialGradientNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_repeating_radial_gradient_node_get_type")!!) { RepeatingRadialGradientNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of RepeatingRadialGradientNode

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Long
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -32,9 +35,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import kotlin.Long
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * Buffered input stream implements #GFilterInputStream and provides
@@ -56,8 +56,9 @@ import kotlin.Unit
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `count`: count: Out parameter is not supported
  */
-public open class BufferedInputStream(public val gioBufferedInputStreamPointer: CPointer<GBufferedInputStream>) :
-    FilterInputStream(gioBufferedInputStreamPointer.reinterpret()),
+public open class BufferedInputStream(
+    public val gioBufferedInputStreamPointer: CPointer<GBufferedInputStream>,
+) : FilterInputStream(gioBufferedInputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
     override val gioSeekablePointer: CPointer<GSeekable>
@@ -73,7 +74,6 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
          * @return the current buffer size.
          */
         get() = g_buffered_input_stream_get_buffer_size(gioBufferedInputStreamPointer)
-
         /**
          * Sets the size of the internal buffer of @stream to @size, or to the
          * size of the contents of the buffer. The buffer can never be resized
@@ -90,9 +90,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
      * @param baseStream a #GInputStream
      * @return a #GInputStream for the given @base_stream.
      */
-    public constructor(
-        baseStream: InputStream,
-    ) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret())
+    public constructor(baseStream: InputStream) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret())
 
     /**
      * Creates a new #GBufferedInputStream from the given @base_stream,
@@ -102,10 +100,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
      * @param size a #gsize
      * @return a #GInputStream.
      */
-    public constructor(
-        baseStream: InputStream,
-        size: gsize,
-    ) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer, size)!!.reinterpret())
+    public constructor(baseStream: InputStream, size: gsize) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer, size)!!.reinterpret())
 
     /**
      * Tries to read @count bytes from the stream into the buffer.
@@ -140,13 +135,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
      */
     public open fun fill(count: Long, cancellable: Cancellable? = null): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_buffered_input_stream_fill(
-                gioBufferedInputStreamPointer,
-                count,
-                cancellable?.gioCancellablePointer,
-                gError.ptr
-            )
+        val gResult = g_buffered_input_stream_fill(gioBufferedInputStreamPointer, count, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -172,16 +161,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_buffered_input_stream_fill_async(
-        gioBufferedInputStreamPointer,
-        count,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_buffered_input_stream_fill_async(gioBufferedInputStreamPointer, count, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous read.
@@ -191,8 +171,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
      */
     public open fun fillFinish(result: AsyncResult): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_buffered_input_stream_fill_finish(gioBufferedInputStreamPointer, result.gioAsyncResultPointer, gError.ptr)
+        val gResult = g_buffered_input_stream_fill_finish(gioBufferedInputStreamPointer, result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -227,12 +206,7 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
      */
     public open fun readInt(cancellable: Cancellable? = null): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_buffered_input_stream_read_byte(
-                gioBufferedInputStreamPointer,
-                cancellable?.gioCancellablePointer,
-                gError.ptr
-            )
+        val gResult = g_buffered_input_stream_read_byte(gioBufferedInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -242,13 +216,10 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
 
     public companion object : TypeCompanion<BufferedInputStream> {
         override val type: GeneratedClassKGType<BufferedInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_buffered_input_stream_get_type")!!) {
-                BufferedInputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_buffered_input_stream_get_type")!!) { BufferedInputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of BufferedInputStream

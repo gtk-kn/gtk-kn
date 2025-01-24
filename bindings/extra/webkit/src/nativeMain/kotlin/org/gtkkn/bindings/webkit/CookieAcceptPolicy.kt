@@ -10,17 +10,17 @@ import org.gtkkn.native.webkit.webkit_cookie_accept_policy_get_type
 /**
  * Enum values used to denote the cookie acceptance policies.
  */
-public enum class CookieAcceptPolicy(public val nativeValue: WebKitCookieAcceptPolicy) {
+public enum class CookieAcceptPolicy(
+    public val nativeValue: WebKitCookieAcceptPolicy,
+) {
     /**
      * Accept all cookies unconditionally.
      */
     ALWAYS(WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_ALWAYS),
-
     /**
      * Reject all cookies unconditionally.
      */
     NEVER(WebKitCookieAcceptPolicy.WEBKIT_COOKIE_POLICY_ACCEPT_NEVER),
-
     /**
      * Accept only cookies set by the main document loaded.
      */

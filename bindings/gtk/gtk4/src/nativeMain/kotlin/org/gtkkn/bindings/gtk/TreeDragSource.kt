@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ContentProvider
@@ -19,14 +20,11 @@ import org.gtkkn.native.gtk.gtk_tree_drag_source_drag_data_delete
 import org.gtkkn.native.gtk.gtk_tree_drag_source_drag_data_get
 import org.gtkkn.native.gtk.gtk_tree_drag_source_get_type
 import org.gtkkn.native.gtk.gtk_tree_drag_source_row_draggable
-import kotlin.Boolean
 
 /**
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
-public interface TreeDragSource :
-    Proxy,
-    KGTyped {
+public interface TreeDragSource : Proxy, KGTyped {
     public val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
 
     /**
@@ -39,8 +37,7 @@ public interface TreeDragSource :
      * @param path row that was being dragged
      * @return true if the row was successfully deleted
      */
-    public fun dragDataDelete(path: TreePath): Boolean =
-        gtk_tree_drag_source_drag_data_delete(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
+    public fun dragDataDelete(path: TreePath): Boolean = gtk_tree_drag_source_drag_data_delete(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
 
     /**
      * Asks the `GtkTreeDragSource` to return a `GdkContentProvider` representing
@@ -51,10 +48,8 @@ public interface TreeDragSource :
      * @return a `GdkContentProvider` for the
      *    given @path
      */
-    public fun dragDataGet(path: TreePath): ContentProvider? =
-        gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gtkTreePathPointer)?.run {
-            ContentProvider(this)
-        }
+    public fun dragDataGet(path: TreePath): ContentProvider? = gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gtkTreePathPointer)?.run {
+        ContentProvider(this)}
 
     /**
      * Asks the `GtkTreeDragSource` whether a particular row can be used as
@@ -64,27 +59,24 @@ public interface TreeDragSource :
      * @param path row on which user is initiating a drag
      * @return true if the row can be dragged
      */
-    public fun rowDraggable(path: TreePath): Boolean =
-        gtk_tree_drag_source_row_draggable(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
+    public fun rowDraggable(path: TreePath): Boolean = gtk_tree_drag_source_row_draggable(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
 
     /**
      * The TreeDragSourceImpl type represents a native instance of the TreeDragSource interface.
      *
      * @constructor Creates a new instance of TreeDragSource for the provided [CPointer].
      */
-    public data class TreeDragSourceImpl(override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>) :
-        Object(gtkTreeDragSourcePointer.reinterpret()),
+    public data class TreeDragSourceImpl(
+        override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>,
+    ) : Object(gtkTreeDragSourcePointer.reinterpret()),
         TreeDragSource
 
     public companion object : TypeCompanion<TreeDragSource> {
         override val type: GeneratedInterfaceKGType<TreeDragSource> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_drag_source_get_type")!!) {
-                TreeDragSourceImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_drag_source_get_type")!!) { TreeDragSourceImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeDragSource

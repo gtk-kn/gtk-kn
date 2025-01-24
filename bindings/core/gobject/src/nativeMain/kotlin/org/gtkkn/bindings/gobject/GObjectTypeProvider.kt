@@ -3,13 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.collections.Map
+import kotlin.reflect.KClass
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.KGType
 import org.gtkkn.extensions.gobject.TypeProvider
-import kotlin.collections.Map
-import kotlin.reflect.KClass
 
-public object GobjectTypeProvider : TypeProvider {
+public object GObjectTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = buildMap {
         if (getTypeOrNull("g_binding_get_type") != null) put(Binding::class, Binding.type)
         if (getTypeOrNull("g_binding_group_get_type") != null) put(BindingGroup::class, BindingGroup.type)

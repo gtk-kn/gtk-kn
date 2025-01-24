@@ -14,18 +14,18 @@ import org.gtkkn.native.gsk.GskRenderer
 import org.gtkkn.native.gsk.gsk_ngl_renderer_get_type
 import org.gtkkn.native.gsk.gsk_ngl_renderer_new
 
-public open class NglRenderer(public val gskNglRendererPointer: CPointer<GskRenderer>) :
-    Renderer(gskNglRendererPointer.reinterpret()),
+public open class NglRenderer(
+    public val gskNglRendererPointer: CPointer<GskRenderer>,
+) : Renderer(gskNglRendererPointer.reinterpret()),
     KGTyped {
-    public constructor() : this(gsk_ngl_renderer_new()!!.reinterpret())
+    public constructor() : this(gsk_ngl_renderer_new()!!)
 
     public companion object : TypeCompanion<NglRenderer> {
         override val type: GeneratedClassKGType<NglRenderer> =
-            GeneratedClassKGType(getTypeOrNull("gsk_ngl_renderer_get_type")!!) { NglRenderer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_ngl_renderer_get_type")!!) { NglRenderer(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of NglRenderer

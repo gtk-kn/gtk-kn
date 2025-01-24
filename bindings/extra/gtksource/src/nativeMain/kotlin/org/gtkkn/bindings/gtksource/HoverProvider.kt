@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -29,9 +32,6 @@ import org.gtkkn.native.gtksource.GtkSourceHoverProvider
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_populate_async
 import org.gtkkn.native.gtksource.gtk_source_hover_provider_populate_finish
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * Interface to populate interactive tooltips.
@@ -45,9 +45,7 @@ import kotlin.Unit
  * may take additional time should use [vfunc@HoverProvider.populate_async]
  * to avoid blocking the main loop.
  */
-public interface HoverProvider :
-    Proxy,
-    KGTyped {
+public interface HoverProvider : Proxy, KGTyped {
     public val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>
 
     public fun populateAsync(
@@ -55,24 +53,11 @@ public interface HoverProvider :
         display: HoverDisplay,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_source_hover_provider_populate_async(
-        gtksourceHoverProviderPointer,
-        context.gtksourceHoverContextPointer,
-        display.gtksourceHoverDisplayPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_source_hover_provider_populate_async(gtksourceHoverProviderPointer, context.gtksourceHoverContextPointer, display.gtksourceHoverDisplayPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     public fun populateFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_source_hover_provider_populate_finish(
-            gtksourceHoverProviderPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_source_hover_provider_populate_finish(gtksourceHoverProviderPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -85,19 +70,17 @@ public interface HoverProvider :
      *
      * @constructor Creates a new instance of HoverProvider for the provided [CPointer].
      */
-    public data class HoverProviderImpl(override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>) :
-        Object(gtksourceHoverProviderPointer.reinterpret()),
+    public data class HoverProviderImpl(
+        override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>,
+    ) : Object(gtksourceHoverProviderPointer.reinterpret()),
         HoverProvider
 
     public companion object : TypeCompanion<HoverProvider> {
         override val type: GeneratedInterfaceKGType<HoverProvider> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_hover_provider_get_type")!!) {
-                HoverProviderImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_source_hover_provider_get_type")!!) { HoverProviderImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of HoverProvider

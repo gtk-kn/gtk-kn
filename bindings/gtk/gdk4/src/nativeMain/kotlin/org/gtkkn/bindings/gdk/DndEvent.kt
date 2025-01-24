@@ -17,8 +17,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * An event related to drag and drop operations.
  */
-public open class DndEvent(public val gdkDndEventPointer: CPointer<GdkDNDEvent>) :
-    Event(gdkDndEventPointer.reinterpret()),
+public open class DndEvent(
+    public val gdkDndEventPointer: CPointer<GdkDNDEvent>,
+) : Event(gdkDndEventPointer.reinterpret()),
     KGTyped {
     /**
      * Gets the `GdkDrop` object from a DND event.
@@ -26,16 +27,14 @@ public open class DndEvent(public val gdkDndEventPointer: CPointer<GdkDNDEvent>)
      * @return the drop
      */
     public open fun getDrop(): Drop? = gdk_dnd_event_get_drop(gdkDndEventPointer.reinterpret())?.run {
-        Drop.DropImpl(this)
-    }
+        Drop.DropImpl(this)}
 
     public companion object : TypeCompanion<DndEvent> {
         override val type: GeneratedClassKGType<DndEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_dnd_event_get_type")!!) { DndEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_dnd_event_get_type")!!) { DndEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of DNDEvent

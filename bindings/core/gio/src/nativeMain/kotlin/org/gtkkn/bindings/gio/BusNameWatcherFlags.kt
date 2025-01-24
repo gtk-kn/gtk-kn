@@ -15,7 +15,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used in g_bus_watch_name().
  * @since 2.26
  */
-public class BusNameWatcherFlags(public val mask: GBusNameWatcherFlags) : Bitfield<BusNameWatcherFlags> {
+public class BusNameWatcherFlags(
+    public val mask: GBusNameWatcherFlags,
+) : Bitfield<BusNameWatcherFlags> {
     override infix fun or(other: BusNameWatcherFlags): BusNameWatcherFlags = BusNameWatcherFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -31,7 +33,7 @@ public class BusNameWatcherFlags(public val mask: GBusNameWatcherFlags) : Bitfie
          * name.
          */
         public val AUTO_START: BusNameWatcherFlags =
-            BusNameWatcherFlags(G_BUS_NAME_WATCHER_FLAGS_AUTO_START)
+                BusNameWatcherFlags(G_BUS_NAME_WATCHER_FLAGS_AUTO_START)
 
         /**
          * Get the GType of BusNameWatcherFlags

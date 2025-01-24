@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * A `GdkTexture` representing image data in memory.
  */
-public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>) :
-    Texture(gdkMemoryTexturePointer.reinterpret()),
+public open class MemoryTexture(
+    public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>,
+) : Texture(gdkMemoryTexturePointer.reinterpret()),
     KGTyped {
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
@@ -58,11 +59,10 @@ public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<Gdk
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =
-            GeneratedClassKGType(getTypeOrNull("gdk_memory_texture_get_type")!!) { MemoryTexture(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_memory_texture_get_type")!!) { MemoryTexture(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of MemoryTexture

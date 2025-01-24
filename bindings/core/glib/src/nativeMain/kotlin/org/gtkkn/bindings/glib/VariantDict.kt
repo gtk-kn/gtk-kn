@@ -3,11 +3,18 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GVariantDict
@@ -24,9 +31,6 @@ import org.gtkkn.native.glib.g_variant_dict_unref
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_dict_get_type
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * #GVariantDict is a mutable interface to #GVariant dictionaries.
@@ -129,13 +133,12 @@ import kotlin.Unit
  * @since 2.40
  */
 @GLibVersion2_40
-public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDict>) :
-    ProxyInstance(glibVariantDictPointer) {
+public class VariantDict(
+    public val glibVariantDictPointer: CPointer<GVariantDict>,
+) : ProxyInstance(glibVariantDictPointer) {
     public var asv: Variant?
         get() = glibVariantDictPointer.pointed.u.s.asv?.run {
-            Variant(this)
-        }
-
+            Variant(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibVariantDictPointer.pointed.u.s.asv = value?.glibVariantPointer
@@ -143,11 +146,82 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
 
     public var partialMagic: gsize
         get() = glibVariantDictPointer.pointed.u.s.partial_magic
-
         @UnsafeFieldSetter
         set(`value`) {
             glibVariantDictPointer.pointed.u.s.partial_magic = value
         }
+
+    /**
+     * Allocates and initialises a new #GVariantDict.
+     *
+     * You should call g_variant_dict_unref() on the return value when it
+     * is no longer needed.  The memory will not be automatically freed by
+     * any other call.
+     *
+     * In some cases it may be easier to place a #GVariantDict directly on
+     * the stack of the calling function and initialise it with
+     * g_variant_dict_init().  This is particularly useful when you are
+     * using #GVariantDict to construct a #GVariant.
+     *
+     * @param fromAsv the #GVariant with which to initialise the
+     *   dictionary
+     * @return a #GVariantDict
+     * @since 2.40
+     */
+    public constructor(fromAsv: Variant? = null) : this(g_variant_dict_new(fromAsv?.glibVariantPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocate a new VariantDict.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GVariantDict>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
+
+    /**
+     * Allocate a new VariantDict using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GVariantDict>().ptr)
+
+    /**
+     * Allocate a new VariantDict.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param asv 
+     * @param partialMagic 
+     */
+    public constructor(asv: Variant?, partialMagic: gsize) : this() {
+        this.asv = asv
+        this.partialMagic = partialMagic
+    }
+
+    /**
+     * Allocate a new VariantDict using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param asv 
+     * @param partialMagic 
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        asv: Variant?,
+        partialMagic: gsize,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.asv = asv
+        this.partialMagic = partialMagic
+    }
 
     /**
      * Releases all memory associated with a #GVariantDict without freeing
@@ -194,8 +268,7 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
      */
     @GLibVersion2_40
     public fun end(): Variant = g_variant_dict_end(glibVariantDictPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Initialises a #GVariantDict structure.
@@ -219,8 +292,7 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun `init`(fromAsv: Variant? = null): Unit =
-        g_variant_dict_init(glibVariantDictPointer, fromAsv?.glibVariantPointer)
+    public fun `init`(fromAsv: Variant? = null): Unit = g_variant_dict_init(glibVariantDictPointer, fromAsv?.glibVariantPointer)
 
     /**
      * Inserts (or replaces) a key in a #GVariantDict.
@@ -232,8 +304,7 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun insertValue(key: String, `value`: Variant): Unit =
-        g_variant_dict_insert_value(glibVariantDictPointer, key, `value`.glibVariantPointer)
+    public fun insertValue(key: String, `value`: Variant): Unit = g_variant_dict_insert_value(glibVariantDictPointer, key, `value`.glibVariantPointer)
 
     /**
      * Looks up a value in a #GVariantDict.
@@ -254,10 +325,8 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant? =
-        g_variant_dict_lookup_value(glibVariantDictPointer, key, expectedType?.glibVariantTypePointer)?.run {
-            Variant(this)
-        }
+    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant? = g_variant_dict_lookup_value(glibVariantDictPointer, key, expectedType?.glibVariantTypePointer)?.run {
+        Variant(this)}
 
     /**
      * Increases the reference count on @dict.
@@ -270,8 +339,7 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
      */
     @GLibVersion2_40
     public fun ref(): VariantDict = g_variant_dict_ref(glibVariantDictPointer)!!.run {
-        VariantDict(this)
-    }
+        VariantDict(this)}
 
     /**
      * Removes a key and its associated value from a #GVariantDict.
@@ -300,26 +368,6 @@ public class VariantDict(public val glibVariantDictPointer: CPointer<GVariantDic
     override fun toString(): String = "VariantDict(asv=$asv, partialMagic=$partialMagic)"
 
     public companion object {
-        /**
-         * Allocates and initialises a new #GVariantDict.
-         *
-         * You should call g_variant_dict_unref() on the return value when it
-         * is no longer needed.  The memory will not be automatically freed by
-         * any other call.
-         *
-         * In some cases it may be easier to place a #GVariantDict directly on
-         * the stack of the calling function and initialise it with
-         * g_variant_dict_init().  This is particularly useful when you are
-         * using #GVariantDict to construct a #GVariant.
-         *
-         * @param fromAsv the #GVariant with which to initialise the
-         *   dictionary
-         * @return a #GVariantDict
-         * @since 2.40
-         */
-        public fun new(fromAsv: Variant? = null): VariantDict =
-            VariantDict(g_variant_dict_new(fromAsv?.glibVariantPointer)!!.reinterpret())
-
         /**
          * Get the GType of VariantDict
          *

@@ -3,10 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.cairo
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -22,35 +26,41 @@ import org.gtkkn.native.cairo.cairo_ps_surface_get_eps
 import org.gtkkn.native.cairo.cairo_ps_surface_restrict_to_level
 import org.gtkkn.native.cairo.cairo_ps_surface_set_eps
 import org.gtkkn.native.cairo.cairo_ps_surface_set_size
+import org.gtkkn.native.cairo.cairo_surface_destroy
 import org.gtkkn.native.cairo.cairo_surface_t
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  *
  * @since 1.2
  */
 @CairoVersion1_2
-public open class PsSurface(public val cairoPsSurfacePointer: CPointer<cairo_surface_t>) :
-    Surface(cairoPsSurfacePointer.reinterpret()),
+public open class PsSurface(
+    public val cairoPsSurfacePointer: CPointer<cairo_surface_t>,
+) : Surface(cairoPsSurfacePointer.reinterpret()),
     KGTyped {
-    /**
-     *
-     *
-     * @param level
-     * @since 1.6
-     */
-    @CairoVersion1_6
-    public open fun restrictToLevel(level: PsLevel): Unit =
-        cairo_ps_surface_restrict_to_level(cairoPsSurfacePointer, level.nativeValue)
+    public constructor(
+        filename: String?,
+        widthInPoints: gdouble,
+        heightInPoints: gdouble,
+    ) : this(cairo_ps_surface_create(filename, widthInPoints, heightInPoints)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
+    }
 
     /**
      *
      *
-     * @param eps
+     * @param level 
+     * @since 1.6
+     */
+    @CairoVersion1_6
+    public open fun restrictToLevel(level: PsLevel): Unit = cairo_ps_surface_restrict_to_level(cairoPsSurfacePointer, level.nativeValue)
+
+    /**
+     *
+     *
+     * @param eps 
      * @since 1.6
      */
     @CairoVersion1_6
@@ -64,8 +74,7 @@ public open class PsSurface(public val cairoPsSurfacePointer: CPointer<cairo_sur
     @CairoVersion1_6
     public open fun getEps(): Boolean = cairo_ps_surface_get_eps(cairoPsSurfacePointer).asBoolean()
 
-    public open fun setSize(widthInPoints: gdouble, heightInPoints: gdouble): Unit =
-        cairo_ps_surface_set_size(cairoPsSurfacePointer, widthInPoints, heightInPoints)
+    public open fun setSize(widthInPoints: gdouble, heightInPoints: gdouble): Unit = cairo_ps_surface_set_size(cairoPsSurfacePointer, widthInPoints, heightInPoints)
 
     public open fun dscBeginSetup(): Unit = cairo_ps_surface_dsc_begin_setup(cairoPsSurfacePointer)
 
@@ -75,16 +84,10 @@ public open class PsSurface(public val cairoPsSurfacePointer: CPointer<cairo_sur
 
     public companion object : TypeCompanion<PsSurface> {
         override val type: GeneratedClassKGType<PsSurface> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { PsSurface(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { PsSurface(it.reinterpret()) }
 
         init {
-            CairoTypeProvider.register()
-        }
-
-        public fun create(filename: String?, widthInPoints: gdouble, heightInPoints: gdouble): PsSurface =
-            cairo_ps_surface_create(filename, widthInPoints, heightInPoints)!!.run {
-                PsSurface(reinterpret())
-            }
+            CairoTypeProvider.register()}
 
         /**
          * Get the GType of PSSurface

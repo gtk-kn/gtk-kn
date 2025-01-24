@@ -13,12 +13,13 @@ import org.gtkkn.native.gtk.gtk_level_bar_mode_get_type
  * Note that this enumeration could be extended with additional modes
  * in the future.
  */
-public enum class LevelBarMode(public val nativeValue: GtkLevelBarMode) {
+public enum class LevelBarMode(
+    public val nativeValue: GtkLevelBarMode,
+) {
     /**
      * the bar has a continuous mode
      */
     CONTINUOUS(GtkLevelBarMode.GTK_LEVEL_BAR_MODE_CONTINUOUS),
-
     /**
      * the bar has a discrete mode
      */

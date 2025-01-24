@@ -57,8 +57,9 @@ import org.gtkkn.native.gtk.GtkOrientable
  *
  * `AdwClamp` has a single CSS node with name `clamp`.
  */
-public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
-    Widget(adwClampPointer.reinterpret()),
+public class Clamp(
+    public val adwClampPointer: CPointer<AdwClamp>,
+) : Widget(adwClampPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -83,9 +84,7 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
          * @return the child widget of @self
          */
         get() = adw_clamp_get_child(adwClampPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -105,7 +104,6 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
          * @return the maximum size to allocate to the child
          */
         get() = adw_clamp_get_maximum_size(adwClampPointer)
-
         /**
          * Sets the maximum size allocated to the child.
          *
@@ -138,7 +136,6 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
          * @return the size above which the child is clamped
          */
         get() = adw_clamp_get_tightening_threshold(adwClampPointer)
-
         /**
          * Sets the size above which the child is clamped.
          *
@@ -175,9 +172,7 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
          * @since 1.4
          */
         get() = adw_clamp_get_unit(adwClampPointer).run {
-            LengthUnit.fromNativeValue(this)
-        }
-
+            LengthUnit.fromNativeValue(this)}
         /**
          * Sets the length unit for maximum size and tightening threshold.
          *
@@ -198,11 +193,10 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
 
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =
-            GeneratedClassKGType(getTypeOrNull("adw_clamp_get_type")!!) { Clamp(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_clamp_get_type")!!) { Clamp(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Clamp

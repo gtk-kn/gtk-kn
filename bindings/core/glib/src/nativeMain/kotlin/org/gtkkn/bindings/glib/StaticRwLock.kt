@@ -3,11 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GStaticRWLock
@@ -19,11 +22,6 @@ import org.gtkkn.native.glib.g_static_rw_lock_reader_unlock
 import org.gtkkn.native.glib.g_static_rw_lock_writer_lock
 import org.gtkkn.native.glib.g_static_rw_lock_writer_trylock
 import org.gtkkn.native.glib.g_static_rw_lock_writer_unlock
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GStaticRWLock struct represents a read-write lock. A read-write
@@ -99,29 +97,18 @@ import kotlin.native.ref.createCleaner
  * #GStaticRWLock. The above example most probably would fare better with a
  * #GStaticMutex.
  */
-public class StaticRwLock(public val glibStaticRwLockPointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibStaticRwLockPointer) {
+public class StaticRwLock(
+    public val glibStaticRwLockPointer: CPointer<GStaticRWLock>,
+) : ProxyInstance(glibStaticRwLockPointer) {
     /**
      * Allocate a new StaticRwLock.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticRWLock>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to StaticRwLock and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GStaticRWLock>, Cleaner>,
-    ) : this(glibStaticRwLockPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GStaticRWLock>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new StaticRwLock using the provided [AutofreeScope].

@@ -9,22 +9,21 @@ import org.gtkkn.native.glib.GIOError
  * #GIOError is only used by the deprecated functions
  * g_io_channel_read(), g_io_channel_write(), and g_io_channel_seek().
  */
-public enum class IoError(public val nativeValue: GIOError) {
+public enum class IoError(
+    public val nativeValue: GIOError,
+) {
     /**
      * no error
      */
     NONE(GIOError.G_IO_ERROR_NONE),
-
     /**
      * an EAGAIN error occurred
      */
     AGAIN(GIOError.G_IO_ERROR_AGAIN),
-
     /**
      * an EINVAL error occurred
      */
     INVAL(GIOError.G_IO_ERROR_INVAL),
-
     /**
      * another error occurred
      */

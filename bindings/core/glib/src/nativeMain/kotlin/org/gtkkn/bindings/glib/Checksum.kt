@@ -3,11 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Long
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_18
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GChecksum
 import org.gtkkn.native.glib.g_checksum_copy
@@ -18,9 +22,6 @@ import org.gtkkn.native.glib.g_checksum_reset
 import org.gtkkn.native.glib.g_checksum_type_get_length
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_checksum_get_type
-import kotlin.Long
-import kotlin.String
-import kotlin.Unit
 
 /**
  * GLib provides a generic API for computing checksums (or ‘digests’)
@@ -48,7 +49,33 @@ import kotlin.Unit
  * @since 2.16
  */
 @GLibVersion2_16
-public class Checksum(public val glibChecksumPointer: CPointer<GChecksum>) : ProxyInstance(glibChecksumPointer) {
+public class Checksum(
+    public val glibChecksumPointer: CPointer<GChecksum>,
+) : ProxyInstance(glibChecksumPointer) {
+    /**
+     * Creates a new #GChecksum, using the checksum algorithm @checksum_type.
+     * If the @checksum_type is not known, null is returned.
+     * A #GChecksum can be used to compute the checksum, or digest, of an
+     * arbitrary binary blob, using different hashing algorithms.
+     *
+     * A #GChecksum works by feeding a binary blob through g_checksum_update()
+     * until there is data to be checked; the digest can then be extracted
+     * using g_checksum_get_string(), which will return the checksum as a
+     * hexadecimal string; or g_checksum_get_digest(), which will return a
+     * vector of raw bytes. Once either g_checksum_get_string() or
+     * g_checksum_get_digest() have been called on a #GChecksum, the checksum
+     * will be closed and it won't be possible to call g_checksum_update()
+     * on it anymore.
+     *
+     * @param checksumType the desired type of checksum
+     * @return the newly created #GChecksum, or null.
+     *   Use g_checksum_free() to free the memory allocated by it.
+     * @since 2.16
+     */
+    public constructor(checksumType: ChecksumType) : this(g_checksum_new(checksumType.nativeValue)!!.reinterpret()) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies a #GChecksum. If @checksum has been closed, by calling
      * g_checksum_get_string() or g_checksum_get_digest(), the copied
@@ -60,8 +87,7 @@ public class Checksum(public val glibChecksumPointer: CPointer<GChecksum>) : Pro
      */
     @GLibVersion2_16
     public fun copy(): Checksum = g_checksum_copy(glibChecksumPointer)!!.run {
-        Checksum(this)
-    }
+        Checksum(this)}
 
     /**
      * Frees the memory allocated for @checksum.
@@ -85,8 +111,7 @@ public class Checksum(public val glibChecksumPointer: CPointer<GChecksum>) : Pro
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getString(): String =
-        g_checksum_get_string(glibChecksumPointer)?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_checksum_get_string(glibChecksumPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Resets the state of the @checksum back to its initial state.
@@ -98,29 +123,6 @@ public class Checksum(public val glibChecksumPointer: CPointer<GChecksum>) : Pro
 
     public companion object {
         /**
-         * Creates a new #GChecksum, using the checksum algorithm @checksum_type.
-         * If the @checksum_type is not known, null is returned.
-         * A #GChecksum can be used to compute the checksum, or digest, of an
-         * arbitrary binary blob, using different hashing algorithms.
-         *
-         * A #GChecksum works by feeding a binary blob through g_checksum_update()
-         * until there is data to be checked; the digest can then be extracted
-         * using g_checksum_get_string(), which will return the checksum as a
-         * hexadecimal string; or g_checksum_get_digest(), which will return a
-         * vector of raw bytes. Once either g_checksum_get_string() or
-         * g_checksum_get_digest() have been called on a #GChecksum, the checksum
-         * will be closed and it won't be possible to call g_checksum_update()
-         * on it anymore.
-         *
-         * @param checksumType the desired type of checksum
-         * @return the newly created #GChecksum, or null.
-         *   Use g_checksum_free() to free the memory allocated by it.
-         * @since 2.16
-         */
-        public fun new(checksumType: ChecksumType): Checksum? =
-            Checksum(g_checksum_new(checksumType.nativeValue)!!.reinterpret())
-
-        /**
          * Gets the length in bytes of digests of type @checksum_type
          *
          * @param checksumType a #GChecksumType
@@ -129,8 +131,7 @@ public class Checksum(public val glibChecksumPointer: CPointer<GChecksum>) : Pro
          * @since 2.16
          */
         @GLibVersion2_16
-        public fun typeGetLength(checksumType: ChecksumType): Long =
-            g_checksum_type_get_length(checksumType.nativeValue)
+        public fun typeGetLength(checksumType: ChecksumType): Long = g_checksum_type_get_length(checksumType.nativeValue)
 
         /**
          * Get the GType of Checksum

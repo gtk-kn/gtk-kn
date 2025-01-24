@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
@@ -39,7 +40,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * `GdkGLTextureBuilder` is a builder used to construct [class@Gdk.Texture] objects from
@@ -61,8 +61,9 @@ import kotlin.Boolean
  * @since 4.12
  */
 @GdkVersion4_12
-public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPointer<GdkGLTextureBuilder>) :
-    Object(gdkGlTextureBuilderPointer.reinterpret()),
+public open class GlTextureBuilder(
+    public val gdkGlTextureBuilderPointer: CPointer<GdkGLTextureBuilder>,
+) : Object(gdkGlTextureBuilderPointer.reinterpret()),
     KGTyped {
     /**
      * The context owning the texture.
@@ -79,9 +80,7 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_context(gdkGlTextureBuilderPointer)?.run {
-            GlContext.GlContextImpl(this)
-        }
-
+            GlContext.GlContextImpl(this)}
         /**
          * Sets the context to be used for the texture. This is the context that owns
          * the texture.
@@ -108,9 +107,7 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_format(gdkGlTextureBuilderPointer).run {
-            MemoryFormat.fromNativeValue(this)
-        }
-
+            MemoryFormat.fromNativeValue(this)}
         /**
          * Sets the format of the texture. The default is `GDK_MEMORY_R8G8B8A8_PREMULTIPLIED`.
          *
@@ -149,7 +146,6 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_has_mipmap(gdkGlTextureBuilderPointer).asBoolean()
-
         /**
          * Sets whether the texture has a mipmap. This allows the renderer and other users of the
          * generated texture to use a higher quality downscaling.
@@ -177,7 +173,6 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_height(gdkGlTextureBuilderPointer)
-
         /**
          * Sets the height of the texture.
          *
@@ -204,7 +199,6 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_id(gdkGlTextureBuilderPointer)
-
         /**
          * Sets the texture id of the texture. The texture id must remain unmodified
          * until the texture was finalized. See [method@Gdk.GLTextureBuilder.build]
@@ -234,7 +228,6 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_sync(gdkGlTextureBuilderPointer)
-
         /**
          * Sets the GLSync object to use for the texture.
          *
@@ -266,9 +259,7 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_update_region(gdkGlTextureBuilderPointer)?.run {
-            Region(this)
-        }
-
+            Region(this)}
         /**
          * Sets the region to be updated by this texture. Together with
          * [property@Gdk.GLTextureBuilder:update-texture] this describes an
@@ -302,9 +293,7 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_update_texture(gdkGlTextureBuilderPointer)?.run {
-            Texture.TextureImpl(this)
-        }
-
+            Texture.TextureImpl(this)}
         /**
          * Sets the texture to be updated by this texture. See
          * [method@Gdk.GLTextureBuilder.set_update_region] for an explanation.
@@ -330,7 +319,6 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_width(gdkGlTextureBuilderPointer)
-
         /**
          * Sets the width of the texture.
          *
@@ -348,17 +336,14 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
      * @return the new `GdkTextureBuilder`
      * @since 4.12
      */
-    public constructor() : this(gdk_gl_texture_builder_new()!!.reinterpret())
+    public constructor() : this(gdk_gl_texture_builder_new()!!)
 
     public companion object : TypeCompanion<GlTextureBuilder> {
         override val type: GeneratedClassKGType<GlTextureBuilder> =
-            GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_builder_get_type")!!) {
-                GlTextureBuilder(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_builder_get_type")!!) { GlTextureBuilder(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of GLTextureBuilder

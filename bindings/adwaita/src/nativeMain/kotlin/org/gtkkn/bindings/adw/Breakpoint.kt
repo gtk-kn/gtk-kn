@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -30,9 +33,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkBuildable
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Describes a breakpoint for [class@Window] or [class@Dialog].
@@ -90,8 +90,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>) :
-    Object(adwBreakpointPointer.reinterpret()),
+public class Breakpoint(
+    public val adwBreakpointPointer: CPointer<AdwBreakpoint>,
+) : Object(adwBreakpointPointer.reinterpret()),
     Buildable,
     KGTyped {
     override val gtkBuildablePointer: CPointer<GtkBuildable>
@@ -111,9 +112,7 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
          * @since 1.4
          */
         get() = adw_breakpoint_get_condition(adwBreakpointPointer)?.run {
-            BreakpointCondition(this)
-        }
-
+            BreakpointCondition(this)}
         /**
          * Sets the condition for @self.
          *
@@ -130,9 +129,7 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
      * @return the newly created `AdwBreakpoint`
      * @since 1.4
      */
-    public constructor(
-        condition: BreakpointCondition,
-    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!.reinterpret())
+    public constructor(condition: BreakpointCondition) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!)
 
     /**
      * Adds a setter to @self.
@@ -178,12 +175,11 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit = adw_breakpoint_add_setter(
-        adwBreakpointPointer,
-        `object`.gobjectObjectPointer,
-        `property`,
-        `value`.gobjectValuePointer
-    )
+    public fun addSetter(
+        `object`: Object,
+        `property`: String,
+        `value`: Value,
+    ): Unit = adw_breakpoint_add_setter(adwBreakpointPointer, `object`.gobjectObjectPointer, `property`, `value`.gobjectValuePointer)
 
     /**
      * Emitted when the breakpoint is applied.
@@ -195,15 +191,7 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwBreakpointPointer,
-            "apply",
-            onApplyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwBreakpointPointer, "apply", onApplyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "apply" signal. See [onApply].
@@ -225,15 +213,7 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun onUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwBreakpointPointer,
-            "unapply",
-            onUnapplyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwBreakpointPointer, "unapply", onUnapplyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "unapply" signal. See [onUnapply].
@@ -247,11 +227,10 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
 
     public companion object : TypeCompanion<Breakpoint> {
         override val type: GeneratedClassKGType<Breakpoint> =
-            GeneratedClassKGType(getTypeOrNull("adw_breakpoint_get_type")!!) { Breakpoint(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_breakpoint_get_type")!!) { Breakpoint(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Breakpoint
@@ -263,17 +242,15 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
 }
 
 private val onApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onUnapplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

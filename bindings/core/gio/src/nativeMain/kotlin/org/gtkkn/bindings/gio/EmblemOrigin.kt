@@ -14,22 +14,21 @@ import org.gtkkn.native.gobject.GType
  * @since 2.18
  */
 @GioVersion2_18
-public enum class EmblemOrigin(public val nativeValue: GEmblemOrigin) {
+public enum class EmblemOrigin(
+    public val nativeValue: GEmblemOrigin,
+) {
     /**
      * Emblem of unknown origin
      */
     UNKNOWN(GEmblemOrigin.G_EMBLEM_ORIGIN_UNKNOWN),
-
     /**
      * Emblem adds device-specific information
      */
     DEVICE(GEmblemOrigin.G_EMBLEM_ORIGIN_DEVICE),
-
     /**
      * Emblem depicts live metadata, such as "readonly"
      */
     LIVEMETADATA(GEmblemOrigin.G_EMBLEM_ORIGIN_LIVEMETADATA),
-
     /**
      * Emblem comes from a user-defined tag, e.g. set by nautilus (in the future)
      */

@@ -28,8 +28,9 @@ import org.gtkkn.native.gobject.GType
  * Currently, only metainformation about the emblem's origin is
  * supported. More may be added in the future.
  */
-public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
-    Object(gioEmblemPointer.reinterpret()),
+public open class Emblem(
+    public val gioEmblemPointer: CPointer<GEmblem>,
+) : Object(gioEmblemPointer.reinterpret()),
     Icon,
     KGTyped {
     override val gioIconPointer: CPointer<GIcon>
@@ -50,8 +51,7 @@ public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
          * @since 2.18
          */
         get() = g_emblem_get_icon(gioEmblemPointer)!!.run {
-            Icon.IconImpl(reinterpret())
-        }
+            Icon.IconImpl(reinterpret())}
 
     /**
      * The origin the emblem is derived from.
@@ -67,8 +67,7 @@ public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
          * @since 2.18
          */
         get() = g_emblem_get_origin(gioEmblemPointer).run {
-            EmblemOrigin.fromNativeValue(this)
-        }
+            EmblemOrigin.fromNativeValue(this)}
 
     /**
      * Creates a new emblem for @icon.
@@ -77,7 +76,7 @@ public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
      * @return a new #GEmblem.
      * @since 2.18
      */
-    public constructor(icon: Icon) : this(g_emblem_new(icon.gioIconPointer)!!.reinterpret())
+    public constructor(icon: Icon) : this(g_emblem_new(icon.gioIconPointer)!!)
 
     /**
      * Creates a new emblem for @icon.
@@ -87,18 +86,14 @@ public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
      * @return a new #GEmblem.
      * @since 2.18
      */
-    public constructor(
-        icon: Icon,
-        origin: EmblemOrigin,
-    ) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!.reinterpret())
+    public constructor(icon: Icon, origin: EmblemOrigin) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!)
 
     public companion object : TypeCompanion<Emblem> {
         override val type: GeneratedClassKGType<Emblem> =
-            GeneratedClassKGType(getTypeOrNull("g_emblem_get_type")!!) { Emblem(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_emblem_get_type")!!) { Emblem(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Emblem

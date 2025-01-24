@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -16,8 +18,6 @@ import org.gtkkn.native.gio.g_io_extension_point_register
 import org.gtkkn.native.gio.g_io_extension_point_set_required_type
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GIOExtensionPoint` provides a mechanism for modules to extend the
@@ -72,8 +72,9 @@ import kotlin.Unit
  *  directories are specified GIO will load modules from the built-in
  *  directory last.
  */
-public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GIOExtensionPoint>) :
-    ProxyInstance(gioIoExtensionPointPointer) {
+public class IoExtensionPoint(
+    public val gioIoExtensionPointPointer: CPointer<GIOExtensionPoint>,
+) : ProxyInstance(gioIoExtensionPointPointer) {
     /**
      * Finds a #GIOExtension for an extension point by name.
      *
@@ -81,10 +82,8 @@ public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GI
      * @return the #GIOExtension for @extension_point that has the
      *    given name, or null if there is no extension with that name
      */
-    public fun getExtensionByName(name: String): IoExtension =
-        g_io_extension_point_get_extension_by_name(gioIoExtensionPointPointer, name)!!.run {
-            IoExtension(this)
-        }
+    public fun getExtensionByName(name: String): IoExtension = g_io_extension_point_get_extension_by_name(gioIoExtensionPointPointer, name)!!.run {
+        IoExtension(this)}
 
     /**
      * Gets a list of all extensions that implement this extension point.
@@ -95,8 +94,7 @@ public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GI
      *     modified.
      */
     public fun getExtensions(): List = g_io_extension_point_get_extensions(gioIoExtensionPointPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Gets the required type for @extension_point.
@@ -112,8 +110,7 @@ public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GI
      *
      * @param type the #GType to require
      */
-    public fun setRequiredType(type: GType): Unit =
-        g_io_extension_point_set_required_type(gioIoExtensionPointPointer, type)
+    public fun setRequiredType(type: GType): Unit = g_io_extension_point_set_required_type(gioIoExtensionPointPointer, type)
 
     public companion object {
         /**
@@ -135,8 +132,7 @@ public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GI
             extensionName: String,
             priority: gint,
         ): IoExtension = g_io_extension_point_implement(extensionPointName, type, extensionName, priority)!!.run {
-            IoExtension(this)
-        }
+            IoExtension(this)}
 
         /**
          * Looks up an existing extension point.
@@ -146,8 +142,7 @@ public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GI
          *    is no registered extension point with the given name.
          */
         public fun lookup(name: String): IoExtensionPoint = g_io_extension_point_lookup(name)!!.run {
-            IoExtensionPoint(this)
-        }
+            IoExtensionPoint(this)}
 
         /**
          * Registers an extension point.
@@ -157,7 +152,6 @@ public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GI
          *    owned by GIO and should not be freed.
          */
         public fun register(name: String): IoExtensionPoint = g_io_extension_point_register(name)!!.run {
-            IoExtensionPoint(this)
-        }
+            IoExtensionPoint(this)}
     }
 }

@@ -3,7 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -20,8 +23,6 @@ import org.gtkkn.native.gdk.gdk_toplevel_layout_set_maximized
 import org.gtkkn.native.gdk.gdk_toplevel_layout_set_resizable
 import org.gtkkn.native.gdk.gdk_toplevel_layout_unref
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GdkToplevelLayout` struct contains information that
@@ -39,16 +40,31 @@ import kotlin.Unit
  * - parameter `fullscreen`: fullscreen: Out parameter is not supported
  * - parameter `maximized`: maximized: Out parameter is not supported
  */
-public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout>) :
-    ProxyInstance(gdkToplevelLayoutPointer) {
+public class ToplevelLayout(
+    public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout>,
+) : ProxyInstance(gdkToplevelLayoutPointer) {
+    /**
+     * Create a toplevel layout description.
+     *
+     * Used together with gdk_toplevel_present() to describe
+     * how a toplevel surface should be placed and behave on-screen.
+     *
+     * The size is in ”application pixels”, not
+     * ”device pixels” (see gdk_surface_get_scale_factor()).
+     *
+     * @return newly created instance of `GdkToplevelLayout`
+     */
+    public constructor() : this(gdk_toplevel_layout_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Create a new `GdkToplevelLayout` and copy the contents of @layout into it.
      *
      * @return a copy of @layout.
      */
     public fun copy(): ToplevelLayout = gdk_toplevel_layout_copy(gdkToplevelLayoutPointer)!!.run {
-        ToplevelLayout(this)
-    }
+        ToplevelLayout(this)}
 
     /**
      * Check whether @layout and @other has identical layout properties.
@@ -57,8 +73,7 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      * @return true if @layout and @other have identical layout properties,
      *   otherwise false.
      */
-    public fun equal(other: ToplevelLayout): Boolean =
-        gdk_toplevel_layout_equal(gdkToplevelLayoutPointer, other.gdkToplevelLayoutPointer).asBoolean()
+    public fun equal(other: ToplevelLayout): Boolean = gdk_toplevel_layout_equal(gdkToplevelLayoutPointer, other.gdkToplevelLayoutPointer).asBoolean()
 
     /**
      * Returns the monitor that the layout is fullscreening
@@ -66,10 +81,8 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      *
      * @return the monitor on which @layout fullscreens
      */
-    public fun getFullscreenMonitor(): Monitor? =
-        gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer)?.run {
-            Monitor(this)
-        }
+    public fun getFullscreenMonitor(): Monitor? = gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer)?.run {
+        Monitor(this)}
 
     /**
      * Returns whether the layout should allow the user
@@ -85,8 +98,7 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      * @return the same @layout
      */
     public fun ref(): ToplevelLayout = gdk_toplevel_layout_ref(gdkToplevelLayoutPointer)!!.run {
-        ToplevelLayout(this)
-    }
+        ToplevelLayout(this)}
 
     /**
      * Sets whether the layout should cause the surface
@@ -95,11 +107,7 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      * @param fullscreen true to fullscreen the surface
      * @param monitor the monitor to fullscreen on
      */
-    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit = gdk_toplevel_layout_set_fullscreen(
-        gdkToplevelLayoutPointer,
-        fullscreen.asGBoolean(),
-        monitor?.gdkMonitorPointer
-    )
+    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit = gdk_toplevel_layout_set_fullscreen(gdkToplevelLayoutPointer, fullscreen.asGBoolean(), monitor?.gdkMonitorPointer)
 
     /**
      * Sets whether the layout should cause the surface
@@ -107,8 +115,7 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      *
      * @param maximized true to maximize
      */
-    public fun setMaximized(maximized: Boolean): Unit =
-        gdk_toplevel_layout_set_maximized(gdkToplevelLayoutPointer, maximized.asGBoolean())
+    public fun setMaximized(maximized: Boolean): Unit = gdk_toplevel_layout_set_maximized(gdkToplevelLayoutPointer, maximized.asGBoolean())
 
     /**
      * Sets whether the layout should allow the user
@@ -116,8 +123,7 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
      *
      * @param resizable true to allow resizing
      */
-    public fun setResizable(resizable: Boolean): Unit =
-        gdk_toplevel_layout_set_resizable(gdkToplevelLayoutPointer, resizable.asGBoolean())
+    public fun setResizable(resizable: Boolean): Unit = gdk_toplevel_layout_set_resizable(gdkToplevelLayoutPointer, resizable.asGBoolean())
 
     /**
      * Decreases the reference count of @layout.
@@ -125,19 +131,6 @@ public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkTop
     public fun unref(): Unit = gdk_toplevel_layout_unref(gdkToplevelLayoutPointer)
 
     public companion object {
-        /**
-         * Create a toplevel layout description.
-         *
-         * Used together with gdk_toplevel_present() to describe
-         * how a toplevel surface should be placed and behave on-screen.
-         *
-         * The size is in ”application pixels”, not
-         * ”device pixels” (see gdk_surface_get_scale_factor()).
-         *
-         * @return newly created instance of `GdkToplevelLayout`
-         */
-        public fun new(): ToplevelLayout = ToplevelLayout(gdk_toplevel_layout_new()!!)
-
         /**
          * Get the GType of ToplevelLayout
          *

@@ -31,8 +31,9 @@ import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_set_sorter
  * gtk_column_view_set_model (view, G_LIST_MODEL (selection));
  * ```
  */
-public open class TreeListRowSorter(public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>) :
-    Sorter(gtkTreeListRowSorterPointer.reinterpret()),
+public open class TreeListRowSorter(
+    public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>,
+) : Sorter(gtkTreeListRowSorterPointer.reinterpret()),
     KGTyped {
     /**
      * The underlying sorter
@@ -44,9 +45,7 @@ public open class TreeListRowSorter(public val gtkTreeListRowSorterPointer: CPoi
          * @return the sorter used
          */
         get() = gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer)?.run {
-            Sorter(this)
-        }
-
+            Sorter(this)}
         /**
          * Sets the sorter to use for items with the same parent.
          *
@@ -67,19 +66,14 @@ public open class TreeListRowSorter(public val gtkTreeListRowSorterPointer: CPoi
      * @param sorter a `GtkSorter`
      * @return a new `GtkTreeListRowSorter`
      */
-    public constructor(
-        sorter: Sorter? = null,
-    ) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer)!!.reinterpret())
+    public constructor(sorter: Sorter? = null) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer)!!)
 
     public companion object : TypeCompanion<TreeListRowSorter> {
         override val type: GeneratedClassKGType<TreeListRowSorter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_sorter_get_type")!!) {
-                TreeListRowSorter(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_sorter_get_type")!!) { TreeListRowSorter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeListRowSorter

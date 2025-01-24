@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -17,8 +19,6 @@ import org.gtkkn.native.gio.g_filter_output_stream_get_close_base_stream
 import org.gtkkn.native.gio.g_filter_output_stream_get_type
 import org.gtkkn.native.gio.g_filter_output_stream_set_close_base_stream
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * Base class for output stream implementations that perform some
@@ -26,8 +26,9 @@ import kotlin.Unit
  * of filtering operations are character set conversion, compression
  * and byte order flipping.
  */
-public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>) :
-    OutputStream(gioFilterOutputStreamPointer.reinterpret()),
+public abstract class FilterOutputStream(
+    public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>,
+) : OutputStream(gioFilterOutputStreamPointer.reinterpret()),
     KGTyped {
     public open val baseStream: OutputStream
         /**
@@ -36,8 +37,7 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
          * @return a #GOutputStream.
          */
         get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer)!!.run {
-            OutputStream.OutputStreamImpl(this)
-        }
+            OutputStream.OutputStreamImpl(this)}
 
     /**
      * Whether the base stream should be closed when the filter stream is closed.
@@ -56,25 +56,23 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
      *
      * @param closeBase true to close the base stream.
      */
-    public open fun setCloseBaseStream(closeBase: Boolean): Unit =
-        g_filter_output_stream_set_close_base_stream(gioFilterOutputStreamPointer, closeBase.asGBoolean())
+    public open fun setCloseBaseStream(closeBase: Boolean): Unit = g_filter_output_stream_set_close_base_stream(gioFilterOutputStreamPointer, closeBase.asGBoolean())
 
     /**
      * The FilterOutputStreamImpl type represents a native instance of the abstract FilterOutputStream class.
      *
      * @constructor Creates a new instance of FilterOutputStream for the provided [CPointer].
      */
-    public class FilterOutputStreamImpl(pointer: CPointer<GFilterOutputStream>) : FilterOutputStream(pointer)
+    public class FilterOutputStreamImpl(
+        pointer: CPointer<GFilterOutputStream>,
+    ) : FilterOutputStream(pointer)
 
     public companion object : TypeCompanion<FilterOutputStream> {
         override val type: GeneratedClassKGType<FilterOutputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_filter_output_stream_get_type")!!) {
-                FilterOutputStreamImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_filter_output_stream_get_type")!!) { FilterOutputStreamImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FilterOutputStream

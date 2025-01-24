@@ -13,27 +13,25 @@ import org.gtkkn.native.webkit.webkit_network_error_quark
 /**
  * Enum values used to denote the various network errors.
  */
-public enum class NetworkError(public val nativeValue: WebKitNetworkError) {
+public enum class NetworkError(
+    public val nativeValue: WebKitNetworkError,
+) {
     /**
      * Generic load failure
      */
     FAILED(WebKitNetworkError.WEBKIT_NETWORK_ERROR_FAILED),
-
     /**
      * Load failure due to transport error
      */
     TRANSPORT(WebKitNetworkError.WEBKIT_NETWORK_ERROR_TRANSPORT),
-
     /**
      * Load failure due to unknown protocol
      */
     UNKNOWN_PROTOCOL(WebKitNetworkError.WEBKIT_NETWORK_ERROR_UNKNOWN_PROTOCOL),
-
     /**
      * Load failure due to cancellation
      */
     CANCELLED(WebKitNetworkError.WEBKIT_NETWORK_ERROR_CANCELLED),
-
     /**
      * Load failure due to missing file
      */

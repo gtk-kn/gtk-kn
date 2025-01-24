@@ -13,18 +13,18 @@ import org.gtkkn.native.pango.pango_baseline_shift_get_type
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class BaselineShift(public val nativeValue: PangoBaselineShift) {
+public enum class BaselineShift(
+    public val nativeValue: PangoBaselineShift,
+) {
     /**
      * Leave the baseline unchanged
      */
     NONE(PangoBaselineShift.PANGO_BASELINE_SHIFT_NONE),
-
     /**
      * Shift the baseline to the superscript position,
      *   relative to the previous run
      */
     SUPERSCRIPT(PangoBaselineShift.PANGO_BASELINE_SHIFT_SUPERSCRIPT),
-
     /**
      * Shift the baseline to the subscript position,
      *   relative to the previous run

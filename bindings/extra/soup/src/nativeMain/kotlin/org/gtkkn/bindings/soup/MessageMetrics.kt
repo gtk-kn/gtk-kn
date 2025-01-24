@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint64
@@ -26,7 +27,6 @@ import org.gtkkn.native.soup.soup_message_metrics_get_response_header_bytes_rece
 import org.gtkkn.native.soup.soup_message_metrics_get_response_start
 import org.gtkkn.native.soup.soup_message_metrics_get_tls_start
 import org.gtkkn.native.soup.soup_message_metrics_get_type
-import kotlin.Unit
 
 /**
  * Contains metrics collected while loading a [class@Message] either from the
@@ -44,16 +44,16 @@ import kotlin.Unit
  * being loaded. You can connect to different [class@Message] signals to get the
  * final result of every value.
  */
-public class MessageMetrics(public val soupMessageMetricsPointer: CPointer<SoupMessageMetrics>) :
-    ProxyInstance(soupMessageMetricsPointer) {
+public class MessageMetrics(
+    public val soupMessageMetricsPointer: CPointer<SoupMessageMetrics>,
+) : ProxyInstance(soupMessageMetricsPointer) {
     /**
      * Copies @metrics.
      *
      * @return a copy of @metrics
      */
     public fun copy(): MessageMetrics = soup_message_metrics_copy(soupMessageMetricsPointer)!!.run {
-        MessageMetrics(this)
-    }
+        MessageMetrics(this)}
 
     /**
      * Frees @metrics.
@@ -128,8 +128,7 @@ public class MessageMetrics(public val soupMessageMetricsPointer: CPointer<SoupM
      *
      * @return the request body bytes sent
      */
-    public fun getRequestBodyBytesSent(): guint64 =
-        soup_message_metrics_get_request_body_bytes_sent(soupMessageMetricsPointer)
+    public fun getRequestBodyBytesSent(): guint64 = soup_message_metrics_get_request_body_bytes_sent(soupMessageMetricsPointer)
 
     /**
      * Get the request body size in bytes. This is the size of the original body
@@ -150,8 +149,7 @@ public class MessageMetrics(public val soupMessageMetricsPointer: CPointer<SoupM
      *
      * @return the request headers bytes sent
      */
-    public fun getRequestHeaderBytesSent(): guint64 =
-        soup_message_metrics_get_request_header_bytes_sent(soupMessageMetricsPointer)
+    public fun getRequestHeaderBytesSent(): guint64 = soup_message_metrics_get_request_header_bytes_sent(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately before the [class@Message] started the
@@ -170,8 +168,7 @@ public class MessageMetrics(public val soupMessageMetricsPointer: CPointer<SoupM
      *
      * @return the response body bytes received
      */
-    public fun getResponseBodyBytesReceived(): guint64 =
-        soup_message_metrics_get_response_body_bytes_received(soupMessageMetricsPointer)
+    public fun getResponseBodyBytesReceived(): guint64 = soup_message_metrics_get_response_body_bytes_received(soupMessageMetricsPointer)
 
     /**
      * Get the response body size in bytes.
@@ -206,8 +203,7 @@ public class MessageMetrics(public val soupMessageMetricsPointer: CPointer<SoupM
      *
      * @return the response headers bytes received
      */
-    public fun getResponseHeaderBytesReceived(): guint64 =
-        soup_message_metrics_get_response_header_bytes_received(soupMessageMetricsPointer)
+    public fun getResponseHeaderBytesReceived(): guint64 = soup_message_metrics_get_response_header_bytes_received(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately after the [class@Message] received the first

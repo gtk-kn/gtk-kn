@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -29,8 +31,6 @@ import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_gicon
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_icon_name
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_paintable
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_pixbuf
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Renders a pixbuf in the gutter.
@@ -65,20 +65,13 @@ public open class GutterRendererPixbuf(
          * @return a #GdkPaintable or null
          */
         get() = gtk_source_gutter_renderer_pixbuf_get_paintable(gtksourceGutterRendererPixbufPointer)?.run {
-            Paintable.PaintableImpl(reinterpret())
-        }
-
+            Paintable.PaintableImpl(reinterpret())}
         /**
          *
          *
          * @param paintable the paintable, or null.
          */
-        set(
-            paintable
-        ) = gtk_source_gutter_renderer_pixbuf_set_paintable(
-            gtksourceGutterRendererPixbufPointer,
-            paintable?.gdkPaintablePointer
-        )
+        set(paintable) = gtk_source_gutter_renderer_pixbuf_set_paintable(gtksourceGutterRendererPixbufPointer, paintable?.gdkPaintablePointer)
 
     /**
      * Create a new #GtkSourceGutterRendererPixbuf.
@@ -92,24 +85,18 @@ public open class GutterRendererPixbuf(
      *
      * @return a #GIcon
      */
-    public open fun getGicon(): Icon =
-        gtk_source_gutter_renderer_pixbuf_get_gicon(gtksourceGutterRendererPixbufPointer)!!.run {
-            Icon.IconImpl(reinterpret())
-        }
+    public open fun getGicon(): Icon = gtk_source_gutter_renderer_pixbuf_get_gicon(gtksourceGutterRendererPixbufPointer)!!.run {
+        Icon.IconImpl(reinterpret())}
 
-    public open fun getIconName(): String =
-        gtk_source_gutter_renderer_pixbuf_get_icon_name(gtksourceGutterRendererPixbufPointer)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getIconName(): String = gtk_source_gutter_renderer_pixbuf_get_icon_name(gtksourceGutterRendererPixbufPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the pixbuf of the renderer.
      *
      * @return a #GdkPixbuf
      */
-    public open fun getPixbuf(): Pixbuf =
-        gtk_source_gutter_renderer_pixbuf_get_pixbuf(gtksourceGutterRendererPixbufPointer)!!.run {
-            Pixbuf(this)
-        }
+    public open fun getPixbuf(): Pixbuf = gtk_source_gutter_renderer_pixbuf_get_pixbuf(gtksourceGutterRendererPixbufPointer)!!.run {
+        Pixbuf(this)}
 
     /**
      * Allows overlaying a paintable on top of any other image that
@@ -118,44 +105,35 @@ public open class GutterRendererPixbuf(
      *
      * @param paintable a #GdkPaintable
      */
-    public open fun overlayPaintable(paintable: Paintable): Unit = gtk_source_gutter_renderer_pixbuf_overlay_paintable(
-        gtksourceGutterRendererPixbufPointer,
-        paintable.gdkPaintablePointer
-    )
+    public open fun overlayPaintable(paintable: Paintable): Unit = gtk_source_gutter_renderer_pixbuf_overlay_paintable(gtksourceGutterRendererPixbufPointer, paintable.gdkPaintablePointer)
 
     /**
      *
      *
      * @param icon the icon, or null.
      */
-    public open fun setGicon(icon: Icon? = null): Unit =
-        gtk_source_gutter_renderer_pixbuf_set_gicon(gtksourceGutterRendererPixbufPointer, icon?.gioIconPointer)
+    public open fun setGicon(icon: Icon? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_gicon(gtksourceGutterRendererPixbufPointer, icon?.gioIconPointer)
 
     /**
      *
      *
      * @param iconName the icon name, or null.
      */
-    public open fun setIconName(iconName: String? = null): Unit =
-        gtk_source_gutter_renderer_pixbuf_set_icon_name(gtksourceGutterRendererPixbufPointer, iconName)
+    public open fun setIconName(iconName: String? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_icon_name(gtksourceGutterRendererPixbufPointer, iconName)
 
     /**
      *
      *
      * @param pixbuf the pixbuf, or null.
      */
-    public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_source_gutter_renderer_pixbuf_set_pixbuf(gtksourceGutterRendererPixbufPointer, pixbuf?.gdkPixbufPointer)
+    public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_pixbuf(gtksourceGutterRendererPixbufPointer, pixbuf?.gdkPixbufPointer)
 
     public companion object : TypeCompanion<GutterRendererPixbuf> {
         override val type: GeneratedClassKGType<GutterRendererPixbuf> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_pixbuf_get_type")!!) {
-                GutterRendererPixbuf(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_pixbuf_get_type")!!) { GutterRendererPixbuf(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of GutterRendererPixbuf

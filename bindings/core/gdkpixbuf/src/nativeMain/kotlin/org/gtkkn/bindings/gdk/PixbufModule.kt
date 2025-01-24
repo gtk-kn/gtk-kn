@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,14 +13,11 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gmodule.Module
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkPixbufModule
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkPixbufModule` contains the necessary functions to load and save
@@ -84,15 +82,15 @@ import kotlin.native.ref.createCleaner
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) :
-    ProxyInstance(gdkPixbufModulePointer) {
+public class PixbufModule(
+    public val gdkPixbufModulePointer: CPointer<GdkPixbufModule>,
+) : ProxyInstance(gdkPixbufModulePointer) {
     /**
      * the name of the module, usually the same as the
      *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
      */
     public var moduleName: String?
         get() = gdkPixbufModulePointer.pointed.module_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkPixbufModulePointer.pointed.module_name?.let { g_free(it) }
@@ -104,7 +102,6 @@ public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufM
      */
     public var modulePath: String?
         get() = gdkPixbufModulePointer.pointed.module_path?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkPixbufModulePointer.pointed.module_path?.let { g_free(it) }
@@ -116,9 +113,7 @@ public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufM
      */
     public var module: Module?
         get() = gdkPixbufModulePointer.pointed.module?.run {
-            Module(this)
-        }
-
+            Module(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gdkPixbufModulePointer.pointed.module = value?.gmoduleModulePointer
@@ -129,9 +124,7 @@ public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufM
      */
     public var info: PixbufFormat?
         get() = gdkPixbufModulePointer.pointed.info?.run {
-            PixbufFormat(this)
-        }
-
+            PixbufFormat(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gdkPixbufModulePointer.pointed.info = value?.gdkPixbufFormatPointer
@@ -143,21 +136,9 @@ public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufM
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkPixbufModule>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PixbufModule and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkPixbufModule>, Cleaner>,
-    ) : this(gdkPixbufModulePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkPixbufModule>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PixbufModule using the provided [AutofreeScope].
@@ -217,6 +198,5 @@ public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufM
         this.info = info
     }
 
-    override fun toString(): String =
-        "PixbufModule(moduleName=$moduleName, modulePath=$modulePath, module=$module, info=$info)"
+    override fun toString(): String = "PixbufModule(moduleName=$moduleName, modulePath=$modulePath, module=$module, info=$info)"
 }

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -31,9 +34,6 @@ import org.gtkkn.native.gobject.g_param_spec_set_qdata
 import org.gtkkn.native.gobject.g_param_spec_sink
 import org.gtkkn.native.gobject.g_param_spec_steal_qdata
 import org.gtkkn.native.gobject.g_param_spec_unref
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
@@ -53,8 +53,9 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GParamSpec>) :
-    TypeInstance(gobjectParamSpecPointer.reinterpret()) {
+public abstract class ParamSpec(
+    public val gobjectParamSpecPointer: CPointer<GParamSpec>,
+) : TypeInstance(gobjectParamSpecPointer.reinterpret()) {
     /**
      * Get the short description of a #GParamSpec.
      *
@@ -72,8 +73,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      */
     @GObjectVersion2_38
     public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gobjectParamSpecPointer)!!.run {
-        Value(this)
-    }
+        Value(this)}
 
     /**
      * Get the name of a #GParamSpec.
@@ -83,8 +83,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      *
      * @return the name of @pspec.
      */
-    public open fun getName(): String =
-        g_param_spec_get_name(gobjectParamSpecPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getName(): String = g_param_spec_get_name(gobjectParamSpecPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the GQuark for the name.
@@ -100,8 +99,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      *
      * @return the nickname of @pspec.
      */
-    public open fun getNick(): String =
-        g_param_spec_get_nick(gobjectParamSpecPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getNick(): String = g_param_spec_get_nick(gobjectParamSpecPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets back user data pointers stored via g_param_spec_set_qdata().
@@ -126,8 +124,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      */
     @GObjectVersion2_4
     public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gobjectParamSpecPointer)?.run {
-        ParamSpecImpl(this)
-    }
+        ParamSpecImpl(this)}
 
     /**
      * Increments the reference count of @pspec.
@@ -135,8 +132,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      * @return the #GParamSpec that was passed into this function
      */
     public open fun ref(): ParamSpec = g_param_spec_ref(gobjectParamSpecPointer)!!.run {
-        ParamSpecImpl(this)
-    }
+        ParamSpecImpl(this)}
 
     /**
      * Convenience function to ref and sink a #GParamSpec.
@@ -146,8 +142,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      */
     @GObjectVersion2_10
     public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gobjectParamSpecPointer)!!.run {
-        ParamSpecImpl(this)
-    }
+        ParamSpecImpl(this)}
 
     /**
      * Sets an opaque, named pointer on a #GParamSpec. The name is
@@ -160,8 +155,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      * @param quark a #GQuark, naming the user data pointer
      * @param data an opaque user data pointer
      */
-    public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit =
-        g_param_spec_set_qdata(gobjectParamSpecPointer, quark, `data`)
+    public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit = g_param_spec_set_qdata(gobjectParamSpecPointer, quark, `data`)
 
     /**
      * The initial reference count of a newly created #GParamSpec is 1,
@@ -195,7 +189,9 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
      *
      * @constructor Creates a new instance of ParamSpec for the provided [CPointer].
      */
-    public class ParamSpecImpl(pointer: CPointer<GParamSpec>) : ParamSpec(pointer)
+    public class ParamSpecImpl(
+        pointer: CPointer<GParamSpec>,
+    ) : ParamSpec(pointer)
 
     public companion object {
         /**
@@ -227,8 +223,7 @@ public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GPa
             blurb: String? = null,
             flags: ParamFlags,
         ): ParamSpec = g_param_spec_internal(paramType, name, nick, blurb, flags.mask)!!.run {
-            ParamSpecImpl(reinterpret())
-        }
+            ParamSpecImpl(reinterpret())}
 
         /**
          * Validate a property name for a #GParamSpec. This can be useful for

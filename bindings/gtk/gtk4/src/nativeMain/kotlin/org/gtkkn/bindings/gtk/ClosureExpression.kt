@@ -21,18 +21,16 @@ import org.gtkkn.native.gtk.gtk_closure_expression_get_type
  *
  * - parameter `params`: Array parameter of type Expression is not supported
  */
-public open class ClosureExpression(public val gtkClosureExpressionPointer: CPointer<GtkClosureExpression>) :
-    Expression(gtkClosureExpressionPointer.reinterpret()),
+public open class ClosureExpression(
+    public val gtkClosureExpressionPointer: CPointer<GtkClosureExpression>,
+) : Expression(gtkClosureExpressionPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<ClosureExpression> {
         override val type: GeneratedClassKGType<ClosureExpression> =
-            GeneratedClassKGType(getTypeOrNull("gtk_closure_expression_get_type")!!) {
-                ClosureExpression(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_closure_expression_get_type")!!) { ClosureExpression(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ClosureExpression

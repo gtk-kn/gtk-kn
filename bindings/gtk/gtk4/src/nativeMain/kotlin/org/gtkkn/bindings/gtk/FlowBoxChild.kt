@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -32,15 +35,13 @@ import org.gtkkn.native.gtk.gtk_flow_box_child_get_type
 import org.gtkkn.native.gtk.gtk_flow_box_child_is_selected
 import org.gtkkn.native.gtk.gtk_flow_box_child_new
 import org.gtkkn.native.gtk.gtk_flow_box_child_set_child
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkFlowBoxChild` is the kind of widget that can be added to a `GtkFlowBox`.
  */
-public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>) :
-    Widget(gtkFlowBoxChildPointer.reinterpret()),
+public open class FlowBoxChild(
+    public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>,
+) : Widget(gtkFlowBoxChildPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -61,9 +62,7 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
          * @return the child widget of @self
          */
         get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -133,15 +132,7 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkFlowBoxChildPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkFlowBoxChildPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -152,11 +143,10 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
 
     public companion object : TypeCompanion<FlowBoxChild> {
         override val type: GeneratedClassKGType<FlowBoxChild> =
-            GeneratedClassKGType(getTypeOrNull("gtk_flow_box_child_get_type")!!) { FlowBoxChild(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_flow_box_child_get_type")!!) { FlowBoxChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FlowBoxChild
@@ -168,9 +158,8 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

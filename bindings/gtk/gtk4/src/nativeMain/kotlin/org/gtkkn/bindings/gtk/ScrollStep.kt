@@ -10,32 +10,29 @@ import org.gtkkn.native.gtk.gtk_scroll_step_get_type
 /**
  * Passed as argument to various keybinding signals.
  */
-public enum class ScrollStep(public val nativeValue: GtkScrollStep) {
+public enum class ScrollStep(
+    public val nativeValue: GtkScrollStep,
+) {
     /**
      * Scroll in steps.
      */
     STEPS(GtkScrollStep.GTK_SCROLL_STEPS),
-
     /**
      * Scroll by pages.
      */
     PAGES(GtkScrollStep.GTK_SCROLL_PAGES),
-
     /**
      * Scroll to ends.
      */
     ENDS(GtkScrollStep.GTK_SCROLL_ENDS),
-
     /**
      * Scroll in horizontal steps.
      */
     HORIZONTAL_STEPS(GtkScrollStep.GTK_SCROLL_HORIZONTAL_STEPS),
-
     /**
      * Scroll by horizontal pages.
      */
     HORIZONTAL_PAGES(GtkScrollStep.GTK_SCROLL_HORIZONTAL_PAGES),
-
     /**
      * Scroll to the horizontal ends.
      */

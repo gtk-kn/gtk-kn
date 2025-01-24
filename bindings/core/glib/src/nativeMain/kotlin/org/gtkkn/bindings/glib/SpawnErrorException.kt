@@ -5,4 +5,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class SpawnErrorException(error: Error, public val code: SpawnError) : GLibException(error)
+public class SpawnErrorException(
+    error: Error,
+    public val code: SpawnError,
+) : GLibException(error)

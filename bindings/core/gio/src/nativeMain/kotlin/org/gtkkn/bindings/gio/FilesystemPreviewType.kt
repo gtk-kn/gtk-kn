@@ -12,17 +12,17 @@ import org.gtkkn.native.gobject.GType
  * previewed in a file manager. Returned as the value of the key
  * %G_FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW.
  */
-public enum class FilesystemPreviewType(public val nativeValue: GFilesystemPreviewType) {
+public enum class FilesystemPreviewType(
+    public val nativeValue: GFilesystemPreviewType,
+) {
     /**
      * Only preview files if user has explicitly requested it.
      */
     IF_ALWAYS(GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_IF_ALWAYS),
-
     /**
      * Preview files if user has requested preview of "local" files.
      */
     IF_LOCAL(GFilesystemPreviewType.G_FILESYSTEM_PREVIEW_TYPE_IF_LOCAL),
-
     /**
      * Never preview files.
      */

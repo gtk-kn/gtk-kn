@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -61,10 +65,6 @@ import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A dialog presenting a message or a question.
@@ -210,8 +210,9 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAlertDialog>) :
-    Dialog(adwAlertDialogPointer.reinterpret()),
+public open class AlertDialog(
+    public val adwAlertDialogPointer: CPointer<AdwAlertDialog>,
+) : Dialog(adwAlertDialogPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -236,7 +237,6 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @since 1.5
          */
         get() = adw_alert_dialog_get_body(adwAlertDialogPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the body text of @self.
          *
@@ -262,7 +262,6 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @since 1.5
          */
         get() = adw_alert_dialog_get_body_use_markup(adwAlertDialogPointer).asBoolean()
-
         /**
          * Sets whether the body text of @self includes Pango markup.
          *
@@ -294,9 +293,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @return the close response ID
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_close_response(adwAlertDialogPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_alert_dialog_get_close_response(adwAlertDialogPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the ID of the close response of @self.
          *
@@ -332,7 +329,6 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @since 1.5
          */
         get() = adw_alert_dialog_get_default_response(adwAlertDialogPointer)?.toKString()
-
         /**
          * Sets the ID of the default response of @self.
          *
@@ -363,9 +359,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @since 1.5
          */
         get() = adw_alert_dialog_get_extra_child(adwAlertDialogPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -391,7 +385,6 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @since 1.5
          */
         get() = adw_alert_dialog_get_heading(adwAlertDialogPointer)?.toKString()
-
         /**
          * Sets the heading of @self.
          *
@@ -417,7 +410,6 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
          * @since 1.5
          */
         get() = adw_alert_dialog_get_heading_use_markup(adwAlertDialogPointer).asBoolean()
-
         /**
          * Sets whether the heading of @self includes Pango markup.
          *
@@ -450,10 +442,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @return the newly created `AdwAlertDialog`
      * @since 1.5
      */
-    public constructor(
-        heading: String? = null,
-        body: String? = null,
-    ) : this(adw_alert_dialog_new(heading, body)!!.reinterpret())
+    public constructor(heading: String? = null, body: String? = null) : this(adw_alert_dialog_new(heading, body)!!.reinterpret())
 
     /**
      * Adds a response with @id and @label to @self.
@@ -478,8 +467,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun addResponse(id: String, label: String): Unit =
-        adw_alert_dialog_add_response(adwAlertDialogPointer, id, label)
+    public open fun addResponse(id: String, label: String): Unit = adw_alert_dialog_add_response(adwAlertDialogPointer, id, label)
 
     /**
      * This function shows @self to the user.
@@ -500,15 +488,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
         parent: Widget? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = adw_alert_dialog_choose(
-        adwAlertDialogPointer,
-        parent?.gtkWidgetPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = adw_alert_dialog_choose(adwAlertDialogPointer, parent?.gtkWidgetPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@AlertDialog.choose] call and returns the response ID.
@@ -519,9 +499,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun chooseFinish(result: AsyncResult): String =
-        adw_alert_dialog_choose_finish(adwAlertDialogPointer, result.gioAsyncResultPointer)?.toKString()
-            ?: error("Expected not null string")
+    public open fun chooseFinish(result: AsyncResult): String = adw_alert_dialog_choose_finish(adwAlertDialogPointer, result.gioAsyncResultPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the appearance of @response.
@@ -533,10 +511,8 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getResponseAppearance(response: String): ResponseAppearance =
-        adw_alert_dialog_get_response_appearance(adwAlertDialogPointer, response).run {
-            ResponseAppearance.fromNativeValue(this)
-        }
+    public open fun getResponseAppearance(response: String): ResponseAppearance = adw_alert_dialog_get_response_appearance(adwAlertDialogPointer, response).run {
+        ResponseAppearance.fromNativeValue(this)}
 
     /**
      * Gets whether @response is enabled.
@@ -548,8 +524,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getResponseEnabled(response: String): Boolean =
-        adw_alert_dialog_get_response_enabled(adwAlertDialogPointer, response).asBoolean()
+    public open fun getResponseEnabled(response: String): Boolean = adw_alert_dialog_get_response_enabled(adwAlertDialogPointer, response).asBoolean()
 
     /**
      * Gets the label of @response.
@@ -561,9 +536,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getResponseLabel(response: String): String =
-        adw_alert_dialog_get_response_label(adwAlertDialogPointer, response)?.toKString()
-            ?: error("Expected not null string")
+    public open fun getResponseLabel(response: String): String = adw_alert_dialog_get_response_label(adwAlertDialogPointer, response)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether @self has a response with the ID @response.
@@ -573,8 +546,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun hasResponse(response: String): Boolean =
-        adw_alert_dialog_has_response(adwAlertDialogPointer, response).asBoolean()
+    public open fun hasResponse(response: String): Boolean = adw_alert_dialog_has_response(adwAlertDialogPointer, response).asBoolean()
 
     /**
      * Removes a response from @self.
@@ -609,8 +581,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setResponseAppearance(response: String, appearance: ResponseAppearance): Unit =
-        adw_alert_dialog_set_response_appearance(adwAlertDialogPointer, response, appearance.nativeValue)
+    public open fun setResponseAppearance(response: String, appearance: ResponseAppearance): Unit = adw_alert_dialog_set_response_appearance(adwAlertDialogPointer, response, appearance.nativeValue)
 
     /**
      * Sets whether @response is enabled.
@@ -629,8 +600,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setResponseEnabled(response: String, enabled: Boolean): Unit =
-        adw_alert_dialog_set_response_enabled(adwAlertDialogPointer, response, enabled.asGBoolean())
+    public open fun setResponseEnabled(response: String, enabled: Boolean): Unit = adw_alert_dialog_set_response_enabled(adwAlertDialogPointer, response, enabled.asGBoolean())
 
     /**
      * Sets the label of @response to @label.
@@ -643,8 +613,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setResponseLabel(response: String, label: String): Unit =
-        adw_alert_dialog_set_response_label(adwAlertDialogPointer, response, label)
+    public open fun setResponseLabel(response: String, label: String): Unit = adw_alert_dialog_set_response_label(adwAlertDialogPointer, response, label)
 
     /**
      * This signal is emitted when the dialog is closed.
@@ -666,18 +635,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
         connectFlags: ConnectFlags = ConnectFlags(0u),
         detail: String? = null,
         handler: (response: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        adwAlertDialogPointer,
-        "response" + (
-            detail?.let {
-                "::$it"
-            } ?: ""
-            ),
-        onResponseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    ): ULong = g_signal_connect_data(adwAlertDialogPointer, "response" + (detail?.let { "::$it" } ?: ""), onResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "response" signal. See [onResponse].
@@ -688,24 +646,15 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
      */
     @AdwVersion1_5
     public fun emitResponse(detail: String? = null, response: String) {
-        g_signal_emit_by_name(
-            adwAlertDialogPointer.reinterpret(),
-            "response" + (
-                detail?.let {
-                    "::$it"
-                } ?: ""
-                ),
-            response.cstr
-        )
+        g_signal_emit_by_name(adwAlertDialogPointer.reinterpret(), "response" + (detail?.let { "::$it" } ?: ""), response.cstr)
     }
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =
-            GeneratedClassKGType(getTypeOrNull("adw_alert_dialog_get_type")!!) { AlertDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_alert_dialog_get_type")!!) { AlertDialog(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of AlertDialog
@@ -717,12 +666,9 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
 }
 
 private val onResponseFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        response: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    response: CPointer<ByteVar>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(response: String) -> Unit>().get().invoke(
-        response?.toKString() ?: error("Expected not null string")
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(response: String) -> Unit>().get().invoke(response?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

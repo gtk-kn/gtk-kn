@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.TypeInstance
@@ -28,8 +30,6 @@ import org.gtkkn.native.gdk.gdk_event_triggers_context_menu
 import org.gtkkn.native.gdk.gdk_event_unref
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GdkEvent`s are immutable data structures, created by GDK to
@@ -49,8 +49,9 @@ import kotlin.Unit
  * - parameter `out_n_coords`: out_n_coords: Out parameter is not supported
  * - parameter `x`: x: Out parameter is not supported
  */
-public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
-    TypeInstance(gdkEventPointer.reinterpret()),
+public abstract class Event(
+    public val gdkEventPointer: CPointer<GdkEvent>,
+) : TypeInstance(gdkEventPointer.reinterpret()),
     KGTyped {
     /**
      * Returns the device of an event.
@@ -58,8 +59,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gdk_event_get_device(gdkEventPointer)?.run {
-        Device.DeviceImpl(this)
-    }
+        Device.DeviceImpl(this)}
 
     /**
      * Returns a `GdkDeviceTool` representing the tool that
@@ -76,8 +76,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return The current device tool
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_event_get_device_tool(gdkEventPointer)?.run {
-        DeviceTool(this)
-    }
+        DeviceTool(this)}
 
     /**
      * Retrieves the display associated to the @event.
@@ -85,8 +84,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return a `GdkDisplay`
      */
     public open fun getDisplay(): Display? = gdk_event_get_display(gdkEventPointer)?.run {
-        Display(this)
-    }
+        Display(this)}
 
     /**
      * Returns the event sequence to which the event belongs.
@@ -97,8 +95,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return the event sequence that the event belongs to
      */
     public open fun getEventSequence(): EventSequence = gdk_event_get_event_sequence(gdkEventPointer)!!.run {
-        EventSequence(this)
-    }
+        EventSequence(this)}
 
     /**
      * Retrieves the type of the event.
@@ -106,8 +103,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return a `GdkEvent`Type
      */
     public open fun getEventType(): EventType = gdk_event_get_event_type(gdkEventPointer).run {
-        EventType.fromNativeValue(this)
-    }
+        EventType.fromNativeValue(this)}
 
     /**
      * Returns the modifier state field of an event.
@@ -115,8 +111,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return the modifier state of @event
      */
     public open fun getModifierState(): ModifierType = gdk_event_get_modifier_state(gdkEventPointer).run {
-        ModifierType(this)
-    }
+        ModifierType(this)}
 
     /**
      * Returns whether this event is an 'emulated' pointer event.
@@ -133,8 +128,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return a `GdkSeat`.
      */
     public open fun getSeat(): Seat? = gdk_event_get_seat(gdkEventPointer)?.run {
-        Seat.SeatImpl(this)
-    }
+        Seat.SeatImpl(this)}
 
     /**
      * Extracts the surface associated with an event.
@@ -142,8 +136,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return The `GdkSurface` associated with the event
      */
     public open fun getSurface(): Surface? = gdk_event_get_surface(gdkEventPointer)?.run {
-        Surface.SurfaceImpl(this)
-    }
+        Surface.SurfaceImpl(this)}
 
     /**
      * Returns the timestamp of @event.
@@ -161,8 +154,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      * @return @event
      */
     public open fun ref(): Event = gdk_event_ref(gdkEventPointer)!!.run {
-        EventImpl(this)
-    }
+        EventImpl(this)}
 
     /**
      * Returns whether a `GdkEvent` should trigger a context menu,
@@ -189,15 +181,16 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
      *
      * @constructor Creates a new instance of Event for the provided [CPointer].
      */
-    public class EventImpl(pointer: CPointer<GdkEvent>) : Event(pointer)
+    public class EventImpl(
+        pointer: CPointer<GdkEvent>,
+    ) : Event(pointer)
 
     public companion object : TypeCompanion<Event> {
         override val type: GeneratedClassKGType<Event> =
-            GeneratedClassKGType(getTypeOrNull("gdk_event_get_type")!!) { EventImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_event_get_type")!!) { EventImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of Event

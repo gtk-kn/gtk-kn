@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -13,6 +14,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskSubsurfaceNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_subsurface_node_get_child
 import org.gtkkn.native.gsk.gsk_subsurface_node_get_subsurface
 import org.gtkkn.native.gsk.gsk_subsurface_node_get_type
@@ -23,8 +25,9 @@ import org.gtkkn.native.gsk.gsk_subsurface_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class SubsurfaceNode(public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>) :
-    RenderNode(gskSubsurfaceNodePointer.reinterpret()),
+public open class SubsurfaceNode(
+    public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>,
+) : RenderNode(gskSubsurfaceNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will possibly divert the child
@@ -39,10 +42,9 @@ public open class SubsurfaceNode(public val gskSubsurfaceNodePointer: CPointer<G
      * @return A new `GskRenderNode`
      * @since 4.14
      */
-    public constructor(
-        child: RenderNode,
-        subsurface: gpointer? = null,
-    ) : this(gsk_subsurface_node_new(child.gskRenderNodePointer, subsurface)!!.reinterpret())
+    public constructor(child: RenderNode, subsurface: gpointer? = null) : this(gsk_subsurface_node_new(child.gskRenderNodePointer, subsurface)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -51,20 +53,15 @@ public open class SubsurfaceNode(public val gskSubsurfaceNodePointer: CPointer<G
      * @since 4.14
      */
     @GskVersion4_14
-    public open fun getChild(): RenderNode =
-        gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public open fun getChild(): RenderNode = gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
+        RenderNode.RenderNodeImpl(this)}
 
     public companion object : TypeCompanion<SubsurfaceNode> {
         override val type: GeneratedClassKGType<SubsurfaceNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_subsurface_node_get_type")!!) {
-                SubsurfaceNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_subsurface_node_get_type")!!) { SubsurfaceNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Gets the subsurface that was set on this node
@@ -74,8 +71,7 @@ public open class SubsurfaceNode(public val gskSubsurfaceNodePointer: CPointer<G
          * @since 4.14
          */
         @GskVersion4_14
-        public fun getSubsurface(node: DebugNode): gpointer? =
-            gsk_subsurface_node_get_subsurface(node.gskDebugNodePointer.reinterpret())
+        public fun getSubsurface(node: DebugNode): gpointer? = gsk_subsurface_node_get_subsurface(node.gskDebugNodePointer.reinterpret())
 
         /**
          * Get the GType of SubsurfaceNode

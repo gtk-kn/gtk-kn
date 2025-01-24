@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -23,7 +24,6 @@ import org.gtkkn.native.soup.soup_logger_set_max_body_size
 import org.gtkkn.native.soup.soup_logger_set_printer
 import org.gtkkn.native.soup.soup_logger_set_request_filter
 import org.gtkkn.native.soup.soup_logger_set_response_filter
-import kotlin.Unit
 
 /**
  * Debug logging support
@@ -89,8 +89,9 @@ import kotlin.Unit
  *
  * - method `level`: Property has no getter nor setter
  */
-public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
-    Object(soupLoggerPointer.reinterpret()),
+public class Logger(
+    public val soupLoggerPointer: CPointer<SoupLogger>,
+) : Object(soupLoggerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
@@ -108,7 +109,6 @@ public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
          * @return the maximum body size, or -1 if unlimited
          */
         get() = soup_logger_get_max_body_size(soupLoggerPointer)
-
         /**
          * Sets the maximum body size for @logger (-1 means no limit).
          *
@@ -126,7 +126,7 @@ public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
      * @param level the debug level
      * @return a new #SoupLogger
      */
-    public constructor(level: LoggerLogLevel) : this(soup_logger_new(level.nativeValue)!!.reinterpret())
+    public constructor(level: LoggerLogLevel) : this(soup_logger_new(level.nativeValue)!!)
 
     /**
      * Sets up an alternate log printing routine, if you don't want
@@ -134,12 +134,7 @@ public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
      *
      * @param printer the callback for printing logging output
      */
-    public fun setPrinter(printer: LoggerPrinter): Unit = soup_logger_set_printer(
-        soupLoggerPointer,
-        LoggerPrinterFunc.reinterpret(),
-        StableRef.create(printer).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setPrinter(printer: LoggerPrinter): Unit = soup_logger_set_printer(soupLoggerPointer, LoggerPrinterFunc.reinterpret(), StableRef.create(printer).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets up a filter to determine the log level for a given request.
@@ -151,12 +146,7 @@ public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
      *
      * @param requestFilter the callback for request debugging
      */
-    public fun setRequestFilter(requestFilter: LoggerFilter): Unit = soup_logger_set_request_filter(
-        soupLoggerPointer,
-        LoggerFilterFunc.reinterpret(),
-        StableRef.create(requestFilter).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setRequestFilter(requestFilter: LoggerFilter): Unit = soup_logger_set_request_filter(soupLoggerPointer, LoggerFilterFunc.reinterpret(), StableRef.create(requestFilter).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets up a filter to determine the log level for a given response.
@@ -168,20 +158,14 @@ public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
      *
      * @param responseFilter the callback for response debugging
      */
-    public fun setResponseFilter(responseFilter: LoggerFilter): Unit = soup_logger_set_response_filter(
-        soupLoggerPointer,
-        LoggerFilterFunc.reinterpret(),
-        StableRef.create(responseFilter).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setResponseFilter(responseFilter: LoggerFilter): Unit = soup_logger_set_response_filter(soupLoggerPointer, LoggerFilterFunc.reinterpret(), StableRef.create(responseFilter).asCPointer(), staticStableRefDestroy.reinterpret())
 
     public companion object : TypeCompanion<Logger> {
         override val type: GeneratedClassKGType<Logger> =
-            GeneratedClassKGType(getTypeOrNull("soup_logger_get_type")!!) { Logger(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_logger_get_type")!!) { Logger(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of Logger

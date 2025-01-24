@@ -14,19 +14,19 @@ import org.gtkkn.native.gobject.GType
  * @since 2.30
  */
 @GioVersion2_30
-public enum class TlsInteractionResult(public val nativeValue: GTlsInteractionResult) {
+public enum class TlsInteractionResult(
+    public val nativeValue: GTlsInteractionResult,
+) {
     /**
      * The interaction was unhandled (i.e. not
      *     implemented).
      */
     UNHANDLED(GTlsInteractionResult.G_TLS_INTERACTION_UNHANDLED),
-
     /**
      * The interaction completed, and resulting data
      *     is available.
      */
     HANDLED(GTlsInteractionResult.G_TLS_INTERACTION_HANDLED),
-
     /**
      * The interaction has failed, or was cancelled.
      *     and the operation should be aborted.

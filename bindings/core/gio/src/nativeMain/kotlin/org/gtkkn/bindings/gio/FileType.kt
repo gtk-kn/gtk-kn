@@ -19,39 +19,35 @@ import org.gtkkn.native.gobject.GType
  * which is why all Windows symlinks will continue to be reported as
  * %G_FILE_TYPE_REGULAR or %G_FILE_TYPE_DIRECTORY.
  */
-public enum class FileType(public val nativeValue: GFileType) {
+public enum class FileType(
+    public val nativeValue: GFileType,
+) {
     /**
      * File's type is unknown.
      */
     UNKNOWN(GFileType.G_FILE_TYPE_UNKNOWN),
-
     /**
      * File handle represents a regular file.
      */
     REGULAR(GFileType.G_FILE_TYPE_REGULAR),
-
     /**
      * File handle represents a directory.
      */
     DIRECTORY(GFileType.G_FILE_TYPE_DIRECTORY),
-
     /**
      * File handle represents a symbolic link
      *    (Unix systems).
      */
     SYMBOLIC_LINK(GFileType.G_FILE_TYPE_SYMBOLIC_LINK),
-
     /**
      * File is a "special" file, such as a socket, fifo,
      *    block device, or character device.
      */
     SPECIAL(GFileType.G_FILE_TYPE_SPECIAL),
-
     /**
      * File is a shortcut (Windows systems).
      */
     SHORTCUT(GFileType.G_FILE_TYPE_SHORTCUT),
-
     /**
      * File is a mountable location.
      */

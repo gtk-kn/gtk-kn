@@ -35,8 +35,9 @@ import org.gtkkn.native.gtk.gtk_no_selection_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class NoSelection(public val gtkNoSelectionPointer: CPointer<GtkNoSelection>) :
-    Object(gtkNoSelectionPointer.reinterpret()),
+public open class NoSelection(
+    public val gtkNoSelectionPointer: CPointer<GtkNoSelection>,
+) : Object(gtkNoSelectionPointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
@@ -60,9 +61,7 @@ public open class NoSelection(public val gtkNoSelectionPointer: CPointer<GtkNoSe
          * @return The model being wrapped
          */
         get() = gtk_no_selection_get_model(gtkNoSelectionPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the model that @self should wrap.
          *
@@ -78,17 +77,14 @@ public open class NoSelection(public val gtkNoSelectionPointer: CPointer<GtkNoSe
      * @param model the `GListModel` to manage
      * @return a new `GtkNoSelection`
      */
-    public constructor(
-        model: ListModel? = null,
-    ) : this(gtk_no_selection_new(model?.gioListModelPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null) : this(gtk_no_selection_new(model?.gioListModelPointer)!!)
 
     public companion object : TypeCompanion<NoSelection> {
         override val type: GeneratedClassKGType<NoSelection> =
-            GeneratedClassKGType(getTypeOrNull("gtk_no_selection_get_type")!!) { NoSelection(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_no_selection_get_type")!!) { NoSelection(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of NoSelection

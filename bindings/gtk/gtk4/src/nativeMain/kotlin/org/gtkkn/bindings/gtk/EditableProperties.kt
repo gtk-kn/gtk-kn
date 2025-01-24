@@ -13,47 +13,41 @@ import org.gtkkn.native.gtk.gtk_editable_properties_get_type
  * See [func@Gtk.Editable.install_properties] for details on how to
  * implement the `GtkEditable` interface.
  */
-public enum class EditableProperties(public val nativeValue: GtkEditableProperties) {
+public enum class EditableProperties(
+    public val nativeValue: GtkEditableProperties,
+) {
     /**
      * the property id for [property@Gtk.Editable:text]
      */
     PROP_TEXT(GtkEditableProperties.GTK_EDITABLE_PROP_TEXT),
-
     /**
      * the property id for [property@Gtk.Editable:cursor-position]
      */
     PROP_CURSOR_POSITION(GtkEditableProperties.GTK_EDITABLE_PROP_CURSOR_POSITION),
-
     /**
      * the property id for [property@Gtk.Editable:selection-bound]
      */
     PROP_SELECTION_BOUND(GtkEditableProperties.GTK_EDITABLE_PROP_SELECTION_BOUND),
-
     /**
      * the property id for [property@Gtk.Editable:editable]
      */
     PROP_EDITABLE(GtkEditableProperties.GTK_EDITABLE_PROP_EDITABLE),
-
     /**
      * the property id for [property@Gtk.Editable:width-chars]
      */
     PROP_WIDTH_CHARS(GtkEditableProperties.GTK_EDITABLE_PROP_WIDTH_CHARS),
-
     /**
      * the property id for [property@Gtk.Editable:max-width-chars]
      */
     PROP_MAX_WIDTH_CHARS(GtkEditableProperties.GTK_EDITABLE_PROP_MAX_WIDTH_CHARS),
-
     /**
      * the property id for [property@Gtk.Editable:xalign]
      */
     PROP_XALIGN(GtkEditableProperties.GTK_EDITABLE_PROP_XALIGN),
-
     /**
      * the property id for [property@Gtk.Editable:enable-undo]
      */
     PROP_ENABLE_UNDO(GtkEditableProperties.GTK_EDITABLE_PROP_ENABLE_UNDO),
-
     /**
      * the number of properties
      */

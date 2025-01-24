@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceInfo
 import org.gtkkn.native.gio.g_dbus_interface_info_cache_build
@@ -29,10 +31,6 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -51,14 +49,12 @@ import org.gtkkn.bindings.glib.String as GlibString
 @GioVersion2_26
 public class DBusInterfaceInfo(
     public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(gioDBusInterfaceInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
         get() = gioDBusInterfaceInfoPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusInterfaceInfoPointer.pointed.ref_count = value
@@ -69,7 +65,6 @@ public class DBusInterfaceInfo(
      */
     public var name: KotlinString?
         get() = gioDBusInterfaceInfoPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusInterfaceInfoPointer.pointed.name?.let { g_free(it) }
@@ -82,21 +77,9 @@ public class DBusInterfaceInfo(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusInterfaceInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to DBusInterfaceInfo and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GDBusInterfaceInfo>, Cleaner>,
-    ) : this(gioDBusInterfaceInfoPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GDBusInterfaceInfo>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new DBusInterfaceInfo using the provided [AutofreeScope].
@@ -179,8 +162,7 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit =
-        g_dbus_interface_info_generate_xml(gioDBusInterfaceInfoPointer, indent, stringBuilder.glibStringPointer)
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(gioDBusInterfaceInfoPointer, indent, stringBuilder.glibStringPointer)
 
     /**
      * Looks up information about a method.
@@ -193,10 +175,8 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupMethod(name: KotlinString): DBusMethodInfo? =
-        g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer, name)?.run {
-            DBusMethodInfo(this)
-        }
+    public fun lookupMethod(name: KotlinString): DBusMethodInfo? = g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer, name)?.run {
+        DBusMethodInfo(this)}
 
     /**
      * Looks up information about a property.
@@ -209,10 +189,8 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupProperty(name: KotlinString): DBusPropertyInfo? =
-        g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer, name)?.run {
-            DBusPropertyInfo(this)
-        }
+    public fun lookupProperty(name: KotlinString): DBusPropertyInfo? = g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer, name)?.run {
+        DBusPropertyInfo(this)}
 
     /**
      * Looks up information about a signal.
@@ -225,10 +203,8 @@ public class DBusInterfaceInfo(
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupSignal(name: KotlinString): DBusSignalInfo? =
-        g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer, name)?.run {
-            DBusSignalInfo(this)
-        }
+    public fun lookupSignal(name: KotlinString): DBusSignalInfo? = g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer, name)?.run {
+        DBusSignalInfo(this)}
 
     /**
      * If @info is statically allocated does nothing. Otherwise increases
@@ -239,8 +215,7 @@ public class DBusInterfaceInfo(
      */
     @GioVersion2_26
     public fun ref(): DBusInterfaceInfo = g_dbus_interface_info_ref(gioDBusInterfaceInfoPointer)!!.run {
-        DBusInterfaceInfo(this)
-    }
+        DBusInterfaceInfo(this)}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

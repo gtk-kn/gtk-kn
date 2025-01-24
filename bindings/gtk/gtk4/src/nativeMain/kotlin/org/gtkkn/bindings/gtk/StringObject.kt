@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -16,7 +17,6 @@ import org.gtkkn.native.gtk.GtkStringObject
 import org.gtkkn.native.gtk.gtk_string_object_get_string
 import org.gtkkn.native.gtk.gtk_string_object_get_type
 import org.gtkkn.native.gtk.gtk_string_object_new
-import kotlin.String
 
 /**
  * `GtkStringObject` is the type of items in a `GtkStringList`.
@@ -25,8 +25,9 @@ import kotlin.String
  * a [property@Gtk.StringObject:string] property that can be used
  * for property bindings and expressions.
  */
-public open class StringObject(public val gtkStringObjectPointer: CPointer<GtkStringObject>) :
-    Object(gtkStringObjectPointer.reinterpret()),
+public open class StringObject(
+    public val gtkStringObjectPointer: CPointer<GtkStringObject>,
+) : Object(gtkStringObjectPointer.reinterpret()),
     KGTyped {
     /**
      * The string.
@@ -45,15 +46,14 @@ public open class StringObject(public val gtkStringObjectPointer: CPointer<GtkSt
      * @param string The string to wrap
      * @return a new `GtkStringObject`
      */
-    public constructor(string: String) : this(gtk_string_object_new(string)!!.reinterpret())
+    public constructor(string: String) : this(gtk_string_object_new(string)!!)
 
     public companion object : TypeCompanion<StringObject> {
         override val type: GeneratedClassKGType<StringObject> =
-            GeneratedClassKGType(getTypeOrNull("gtk_string_object_get_type")!!) { StringObject(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_string_object_get_type")!!) { StringObject(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StringObject

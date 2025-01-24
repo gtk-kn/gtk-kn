@@ -10,17 +10,17 @@ import org.gtkkn.native.gobject.GType
 /**
  * A pad feature.
  */
-public enum class DevicePadFeature(public val nativeValue: GdkDevicePadFeature) {
+public enum class DevicePadFeature(
+    public val nativeValue: GdkDevicePadFeature,
+) {
     /**
      * a button
      */
     BUTTON(GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_BUTTON),
-
     /**
      * a ring-shaped interactive area
      */
     RING(GdkDevicePadFeature.GDK_DEVICE_PAD_FEATURE_RING),
-
     /**
      * a straight interactive area
      */

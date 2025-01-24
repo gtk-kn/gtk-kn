@@ -10,12 +10,13 @@ import org.gtkkn.native.gtk.gtk_entry_icon_position_get_type
 /**
  * Specifies the side of the entry at which an icon is placed.
  */
-public enum class EntryIconPosition(public val nativeValue: GtkEntryIconPosition) {
+public enum class EntryIconPosition(
+    public val nativeValue: GtkEntryIconPosition,
+) {
     /**
      * At the beginning of the entry (depending on the text direction).
      */
     PRIMARY(GtkEntryIconPosition.GTK_ENTRY_ICON_PRIMARY),
-
     /**
      * At the end of the entry (depending on the text direction).
      */

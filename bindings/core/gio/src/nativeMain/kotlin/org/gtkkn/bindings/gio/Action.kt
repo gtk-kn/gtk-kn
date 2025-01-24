@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -31,9 +34,6 @@ import org.gtkkn.native.gio.g_action_get_type
 import org.gtkkn.native.gio.g_action_name_is_valid
 import org.gtkkn.native.gio.g_action_print_detailed_name
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GAction` represents a single named action.
@@ -70,9 +70,7 @@ import kotlin.Unit
  *
  * - parameter `action_name`: action_name: Out parameter is not supported
  */
-public interface Action :
-    Proxy,
-    KGTyped {
+public interface Action : Proxy, KGTyped {
     public val gioActionPointer: CPointer<GAction>
 
     /**
@@ -135,8 +133,7 @@ public interface Action :
          * @since 2.28
          */
         get() = g_action_get_parameter_type(gioActionPointer)?.run {
-            VariantType(this)
-        }
+            VariantType(this)}
 
     /**
      * The state of the action, or null if the action is stateless.
@@ -159,8 +156,7 @@ public interface Action :
          * @since 2.28
          */
         get() = g_action_get_state(gioActionPointer)?.run {
-            Variant(this)
-        }
+            Variant(this)}
 
     /**
      * The #GVariantType of the state that the action has, or null if the
@@ -188,8 +184,7 @@ public interface Action :
          * @since 2.28
          */
         get() = g_action_get_state_type(gioActionPointer)?.run {
-            VariantType(this)
-        }
+            VariantType(this)}
 
     /**
      * Activates the action.
@@ -204,8 +199,7 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun activate(parameter: Variant? = null): Unit =
-        g_action_activate(gioActionPointer, parameter?.glibVariantPointer)
+    public fun activate(parameter: Variant? = null): Unit = g_action_activate(gioActionPointer, parameter?.glibVariantPointer)
 
     /**
      * Request for the state of @action to be changed to @value.
@@ -261,8 +255,7 @@ public interface Action :
      */
     @GioVersion2_28
     public fun getParameterType(): VariantType? = g_action_get_parameter_type(gioActionPointer)?.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Queries the current state of @action.
@@ -279,8 +272,7 @@ public interface Action :
      */
     @GioVersion2_28
     public fun getState(): Variant? = g_action_get_state(gioActionPointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Requests a hint about the valid range of values for the state of
@@ -307,8 +299,7 @@ public interface Action :
      */
     @GioVersion2_28
     public fun getStateHint(): Variant? = g_action_get_state_hint(gioActionPointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Queries the type of the state of @action.
@@ -329,25 +320,24 @@ public interface Action :
      */
     @GioVersion2_28
     public fun getStateType(): VariantType? = g_action_get_state_type(gioActionPointer)?.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * The ActionImpl type represents a native instance of the Action interface.
      *
      * @constructor Creates a new instance of Action for the provided [CPointer].
      */
-    public data class ActionImpl(override val gioActionPointer: CPointer<GAction>) :
-        Object(gioActionPointer.reinterpret()),
+    public data class ActionImpl(
+        override val gioActionPointer: CPointer<GAction>,
+    ) : Object(gioActionPointer.reinterpret()),
         Action
 
     public companion object : TypeCompanion<Action> {
         override val type: GeneratedInterfaceKGType<Action> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_action_get_type")!!) { ActionImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_action_get_type")!!) { ActionImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Checks if @action_name is valid.
@@ -383,9 +373,7 @@ public interface Action :
          * @since 2.38
          */
         @GioVersion2_38
-        public fun printDetailedName(actionName: String, targetValue: Variant? = null): String =
-            g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer)?.toKString()
-                ?: error("Expected not null string")
+        public fun printDetailedName(actionName: String, targetValue: Variant? = null): String = g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Get the GType of Action

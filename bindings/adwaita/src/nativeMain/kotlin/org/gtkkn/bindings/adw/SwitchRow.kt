@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -22,7 +23,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
 
 /**
  * A [class@Gtk.ListBoxRow] used to represent two states.
@@ -54,8 +54,9 @@ import kotlin.Boolean
  * @since 1.4
  */
 @AdwVersion1_4
-public class SwitchRow(public val adwSwitchRowPointer: CPointer<AdwSwitchRow>) :
-    ActionRow(adwSwitchRowPointer.reinterpret()),
+public class SwitchRow(
+    public val adwSwitchRowPointer: CPointer<AdwSwitchRow>,
+) : ActionRow(adwSwitchRowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -83,7 +84,6 @@ public class SwitchRow(public val adwSwitchRowPointer: CPointer<AdwSwitchRow>) :
          * @since 1.4
          */
         get() = adw_switch_row_get_active(adwSwitchRowPointer).asBoolean()
-
         /**
          * Sets whether @self is in its "on" or "off" position
          *
@@ -103,11 +103,10 @@ public class SwitchRow(public val adwSwitchRowPointer: CPointer<AdwSwitchRow>) :
 
     public companion object : TypeCompanion<SwitchRow> {
         override val type: GeneratedClassKGType<SwitchRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_switch_row_get_type")!!) { SwitchRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_switch_row_get_type")!!) { SwitchRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of SwitchRow

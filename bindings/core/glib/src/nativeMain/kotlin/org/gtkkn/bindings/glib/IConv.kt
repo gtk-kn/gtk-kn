@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GIConv
 import org.gtkkn.native.glib.g_iconv_close
 import org.gtkkn.native.glib.g_iconv_open
 import org.gtkkn.native.glib.gint
-import kotlin.String
 
 /**
  * The GIConv struct wraps an iconv() conversion descriptor. It contains
@@ -18,7 +18,9 @@ import kotlin.String
  *
  * - method `iconv`: In/Out parameter is not supported
  */
-public class IConv(public val glibIConvPointer: GIConv) : ProxyInstance(glibIConvPointer) {
+public class IConv(
+    public val glibIConvPointer: GIConv,
+) : ProxyInstance(glibIConvPointer) {
     /**
      * Same as the standard UNIX routine iconv_close(), but
      * may be implemented via libiconv on UNIX flavors that lack
@@ -48,7 +50,6 @@ public class IConv(public val glibIConvPointer: GIConv) : ProxyInstance(glibICon
          *  opening the converter failed.
          */
         public fun `open`(toCodeset: String, fromCodeset: String): IConv = g_iconv_open(toCodeset, fromCodeset)!!.run {
-            IConv(this)
-        }
+            IConv(this)}
     }
 }

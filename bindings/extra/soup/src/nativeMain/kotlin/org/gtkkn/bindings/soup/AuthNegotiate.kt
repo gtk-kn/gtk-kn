@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -14,7 +15,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.soup_auth_negotiate_get_type
 import org.gtkkn.native.soup.soup_auth_negotiate_supported
-import kotlin.Boolean
 
 /**
  * HTTP-based GSS-Negotiate authentication, as defined by
@@ -28,18 +28,16 @@ import kotlin.Boolean
  * support; you can check [func@AuthNegotiate.supported] to see if it
  * was.
  */
-public class AuthNegotiate(public val soupAuthNegotiatePointer: CPointer<SoupAuth>) :
-    Auth(soupAuthNegotiatePointer.reinterpret()),
+public class AuthNegotiate(
+    public val soupAuthNegotiatePointer: CPointer<SoupAuth>,
+) : Auth(soupAuthNegotiatePointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<AuthNegotiate> {
         override val type: GeneratedClassKGType<AuthNegotiate> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_negotiate_get_type")!!) {
-                AuthNegotiate(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_negotiate_get_type")!!) { AuthNegotiate(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Indicates whether libsoup was built with GSSAPI support.

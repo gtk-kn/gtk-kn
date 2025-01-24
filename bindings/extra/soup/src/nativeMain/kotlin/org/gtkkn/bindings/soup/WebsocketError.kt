@@ -13,24 +13,23 @@ import org.gtkkn.native.soup.soup_websocket_error_quark
 /**
  * WebSocket-related errors.
  */
-public enum class WebsocketError(public val nativeValue: SoupWebsocketError) {
+public enum class WebsocketError(
+    public val nativeValue: SoupWebsocketError,
+) {
     /**
      * a generic error
      */
     FAILED(SoupWebsocketError.SOUP_WEBSOCKET_ERROR_FAILED),
-
     /**
      * attempted to handshake with a
      *   server that does not appear to understand WebSockets.
      */
     NOT_WEBSOCKET(SoupWebsocketError.SOUP_WEBSOCKET_ERROR_NOT_WEBSOCKET),
-
     /**
      * the WebSocket handshake failed
      *   because some detail was invalid (eg, incorrect accept key).
      */
     BAD_HANDSHAKE(SoupWebsocketError.SOUP_WEBSOCKET_ERROR_BAD_HANDSHAKE),
-
     /**
      * the WebSocket handshake failed
      *   because the "Origin" header was not an allowed value.

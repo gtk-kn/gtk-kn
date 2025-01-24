@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
@@ -16,8 +18,6 @@ import org.gtkkn.native.webkit.webkit_website_data_get_type
 import org.gtkkn.native.webkit.webkit_website_data_get_types
 import org.gtkkn.native.webkit.webkit_website_data_ref
 import org.gtkkn.native.webkit.webkit_website_data_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Data stored locally by a web site.
@@ -38,8 +38,9 @@ import kotlin.Unit
  * @since 2.16
  */
 @WebKitVersion2_16
-public class WebsiteData(public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData>) :
-    ProxyInstance(webkitWebsiteDataPointer) {
+public class WebsiteData(
+    public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData>,
+) : ProxyInstance(webkitWebsiteDataPointer) {
     /**
      * Gets the name of #WebKitWebsiteData.
      *
@@ -51,8 +52,7 @@ public class WebsiteData(public val webkitWebsiteDataPointer: CPointer<WebKitWeb
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getName(): String =
-        webkit_website_data_get_name(webkitWebsiteDataPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = webkit_website_data_get_name(webkitWebsiteDataPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the size of the data of types @types in a #WebKitWebsiteData.
@@ -65,8 +65,7 @@ public class WebsiteData(public val webkitWebsiteDataPointer: CPointer<WebKitWeb
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getSize(types: WebsiteDataTypes): guint64 =
-        webkit_website_data_get_size(webkitWebsiteDataPointer, types.mask)
+    public fun getSize(types: WebsiteDataTypes): guint64 = webkit_website_data_get_size(webkitWebsiteDataPointer, types.mask)
 
     /**
      * Gets the types of data stored in the client for a #WebKitWebsiteData.
@@ -79,8 +78,7 @@ public class WebsiteData(public val webkitWebsiteDataPointer: CPointer<WebKitWeb
      */
     @WebKitVersion2_16
     public fun getTypes(): WebsiteDataTypes = webkit_website_data_get_types(webkitWebsiteDataPointer).run {
-        WebsiteDataTypes(this)
-    }
+        WebsiteDataTypes(this)}
 
     /**
      * Atomically increments the reference count of @website_data by one.
@@ -92,8 +90,7 @@ public class WebsiteData(public val webkitWebsiteDataPointer: CPointer<WebKitWeb
      */
     @WebKitVersion2_16
     public fun ref(): WebsiteData = webkit_website_data_ref(webkitWebsiteDataPointer)!!.run {
-        WebsiteData(this)
-    }
+        WebsiteData(this)}
 
     /**
      * Atomically decrements the reference count of @website_data by one.

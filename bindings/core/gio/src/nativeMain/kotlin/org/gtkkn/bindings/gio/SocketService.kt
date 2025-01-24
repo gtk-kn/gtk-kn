@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -31,9 +34,6 @@ import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GSocketService` is an object that represents a service that
@@ -70,8 +70,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketService(public val gioSocketServicePointer: CPointer<GSocketService>) :
-    SocketListener(gioSocketServicePointer.reinterpret()),
+public open class SocketService(
+    public val gioSocketServicePointer: CPointer<GSocketService>,
+) : SocketListener(gioSocketServicePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GSocketService with no sockets to listen for.
@@ -85,7 +86,7 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
      * @return a new #GSocketService.
      * @since 2.22
      */
-    public constructor() : this(g_socket_service_new()!!.reinterpret())
+    public constructor() : this(g_socket_service_new()!!)
 
     /**
      * Check whether the service is active or not. An active
@@ -150,25 +151,14 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
      * @since 2.22
      */
     @GioVersion2_22
-    public fun onIncoming(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gioSocketServicePointer,
-        "incoming",
-        onIncomingFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onIncoming(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean): ULong = g_signal_connect_data(gioSocketServicePointer, "incoming", onIncomingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SocketService> {
         override val type: GeneratedClassKGType<SocketService> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_service_get_type")!!) { SocketService(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_socket_service_get_type")!!) { SocketService(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketService
@@ -180,25 +170,16 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
 }
 
 private val onIncomingFunc:
-    CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            connection: CPointer<GSocketConnection>?,
-            sourceObject: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                connection: SocketConnection,
-                sourceObject: Object?,
-            ) -> Boolean
-            >().get().invoke(
-            connection!!.run {
-                SocketConnection(this)
-            },
-            sourceObject?.run {
-                Object(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> gboolean>> =
+        staticCFunction {
+    _: COpaquePointer,
+    connection: CPointer<GSocketConnection>?,
+    sourceObject: CPointer<GObject>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>().get().invoke(connection!!.run {
+        SocketConnection(this)}
+    , sourceObject?.run {
+        Object(this)}
+    ).asGBoolean()}
+.reinterpret()

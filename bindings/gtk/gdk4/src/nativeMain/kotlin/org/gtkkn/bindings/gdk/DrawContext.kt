@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
@@ -21,8 +23,6 @@ import org.gtkkn.native.gdk.gdk_draw_context_get_surface
 import org.gtkkn.native.gdk.gdk_draw_context_get_type
 import org.gtkkn.native.gdk.gdk_draw_context_is_in_frame
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * Base class for objects implementing different rendering methods.
@@ -35,8 +35,9 @@ import kotlin.Unit
  *
  * A `GdkDrawContext` is always associated with a single toplevel surface.
  */
-public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<GdkDrawContext>) :
-    Object(gdkDrawContextPointer.reinterpret()),
+public abstract class DrawContext(
+    public val gdkDrawContextPointer: CPointer<GdkDrawContext>,
+) : Object(gdkDrawContextPointer.reinterpret()),
     KGTyped {
     /**
      * The `GdkDisplay` used to create the `GdkDrawContext`.
@@ -48,8 +49,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
          * @return the `GdkDisplay`
          */
         get() = gdk_draw_context_get_display(gdkDrawContextPointer)?.run {
-            Display(this)
-        }
+            Display(this)}
 
     /**
      * The `GdkSurface` the context is bound to.
@@ -61,8 +61,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
          * @return a `GdkSurface`
          */
         get() = gdk_draw_context_get_surface(gdkDrawContextPointer)?.run {
-            Surface.SurfaceImpl(this)
-        }
+            Surface.SurfaceImpl(this)}
 
     /**
      * Indicates that you are beginning the process of redrawing @region
@@ -92,8 +91,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
      *
      * @param region minimum region that should be drawn
      */
-    public open fun beginFrame(region: Region): Unit =
-        gdk_draw_context_begin_frame(gdkDrawContextPointer, region.cairoRegionPointer)
+    public open fun beginFrame(region: Region): Unit = gdk_draw_context_begin_frame(gdkDrawContextPointer, region.cairoRegionPointer)
 
     /**
      * Ends a drawing operation started with gdk_draw_context_begin_frame().
@@ -120,8 +118,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
      * @return a Cairo region
      */
     public open fun getFrameRegion(): Region? = gdk_draw_context_get_frame_region(gdkDrawContextPointer)?.run {
-        Region(this)
-    }
+        Region(this)}
 
     /**
      * Returns true if @context is in the process of drawing to its surface.
@@ -140,15 +137,16 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
      *
      * @constructor Creates a new instance of DrawContext for the provided [CPointer].
      */
-    public class DrawContextImpl(pointer: CPointer<GdkDrawContext>) : DrawContext(pointer)
+    public class DrawContextImpl(
+        pointer: CPointer<GdkDrawContext>,
+    ) : DrawContext(pointer)
 
     public companion object : TypeCompanion<DrawContext> {
         override val type: GeneratedClassKGType<DrawContext> =
-            GeneratedClassKGType(getTypeOrNull("gdk_draw_context_get_type")!!) { DrawContextImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_draw_context_get_type")!!) { DrawContextImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of DrawContext

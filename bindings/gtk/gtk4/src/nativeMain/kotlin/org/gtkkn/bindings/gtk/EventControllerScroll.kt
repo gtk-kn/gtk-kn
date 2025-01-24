@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -30,9 +33,6 @@ import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_unit
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_new
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_set_flags
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkEventControllerScroll` is an event controller that handles scroll
@@ -84,9 +84,7 @@ public open class EventControllerScroll(
          * @return the controller flags.
          */
         get() = gtk_event_controller_scroll_get_flags(gtkEventControllerScrollPointer).run {
-            EventControllerScrollFlags(this)
-        }
-
+            EventControllerScrollFlags(this)}
         /**
          * Sets the flags conditioning scroll controller behavior.
          *
@@ -100,9 +98,7 @@ public open class EventControllerScroll(
      * @param flags flags affecting the controller behavior
      * @return a new `GtkEventControllerScroll`
      */
-    public constructor(
-        flags: EventControllerScrollFlags,
-    ) : this(gtk_event_controller_scroll_new(flags.mask)!!.reinterpret())
+    public constructor(flags: EventControllerScrollFlags) : this(gtk_event_controller_scroll_new(flags.mask)!!.reinterpret())
 
     /**
      * Gets the scroll unit of the last
@@ -116,8 +112,7 @@ public open class EventControllerScroll(
      */
     @GtkVersion4_8
     public open fun getUnit(): ScrollUnit = gtk_event_controller_scroll_get_unit(gtkEventControllerScrollPointer).run {
-        ScrollUnit.fromNativeValue(this)
-    }
+        ScrollUnit.fromNativeValue(this)}
 
     /**
      * Emitted after scroll is finished if the
@@ -130,17 +125,7 @@ public open class EventControllerScroll(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velX` X velocity; `velY` Y velocity
      */
-    public fun onDecelerate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (velX: gdouble, velY: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerScrollPointer,
-        "decelerate",
-        onDecelerateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDecelerate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velX: gdouble, velY: gdouble) -> Unit): ULong = g_signal_connect_data(gtkEventControllerScrollPointer, "decelerate", onDecelerateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "decelerate" signal. See [onDecelerate].
@@ -163,17 +148,7 @@ public open class EventControllerScroll(
      * @param handler the Callback to connect. Params: `dx` X delta; `dy` Y delta. Returns true if the scroll event was handled,
      *   false otherwise.
      */
-    public fun onScroll(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (dx: gdouble, dy: gdouble) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerScrollPointer,
-        "scroll",
-        onScrollFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onScroll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (dx: gdouble, dy: gdouble) -> Boolean): ULong = g_signal_connect_data(gtkEventControllerScrollPointer, "scroll", onScrollFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Signals that a new scrolling operation has begun.
@@ -183,15 +158,7 @@ public open class EventControllerScroll(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onScrollBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkEventControllerScrollPointer,
-            "scroll-begin",
-            onScrollBeginFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onScrollBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkEventControllerScrollPointer, "scroll-begin", onScrollBeginFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "scroll-begin" signal. See [onScrollBegin].
@@ -208,15 +175,7 @@ public open class EventControllerScroll(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onScrollEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkEventControllerScrollPointer,
-            "scroll-end",
-            onScrollEndFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onScrollEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkEventControllerScrollPointer, "scroll-end", onScrollEndFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "scroll-end" signal. See [onScrollEnd].
@@ -227,13 +186,10 @@ public open class EventControllerScroll(
 
     public companion object : TypeCompanion<EventControllerScroll> {
         override val type: GeneratedClassKGType<EventControllerScroll> =
-            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_scroll_get_type")!!) {
-                EventControllerScroll(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_event_controller_scroll_get_type")!!) { EventControllerScroll(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EventControllerScroll
@@ -245,37 +201,33 @@ public open class EventControllerScroll(
 }
 
 private val onDecelerateFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        velX: gdouble,
-        velY: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    velX: gdouble,
+    velY: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(velX: gdouble, velY: gdouble) -> Unit>().get().invoke(velX, velY)
-}
-    .reinterpret()
+    userData.asStableRef<(velX: gdouble, velY: gdouble) -> Unit>().get().invoke(velX, velY)}
+.reinterpret()
 
 private val onScrollFunc: CPointer<CFunction<(gdouble, gdouble) -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        dx: gdouble,
-        dy: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    dx: gdouble,
+    dy: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(dx: gdouble, dy: gdouble) -> Boolean>().get().invoke(dx, dy).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(dx: gdouble, dy: gdouble) -> Boolean>().get().invoke(dx, dy).asGBoolean()}
+.reinterpret()
 
 private val onScrollBeginFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onScrollEndFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

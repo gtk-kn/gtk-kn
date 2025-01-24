@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -30,9 +33,6 @@ import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_emoji_chooser_get_type
 import org.gtkkn.native.gtk.gtk_emoji_chooser_new
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GtkEmojiChooser` is used by text widgets such as `GtkEntry` or
@@ -64,8 +64,9 @@ import kotlin.Unit
  * consists of buttons with the .emoji-section style class and gets the
  * .emoji-toolbar style class itself.
  */
-public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>) :
-    Popover(gtkEmojiChooserPointer.reinterpret()),
+public open class EmojiChooser(
+    public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>,
+) : Popover(gtkEmojiChooserPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -95,15 +96,7 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `text` the Unicode sequence for the picked Emoji, in UTF-8
      */
-    public fun onEmojiPicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (text: String) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkEmojiChooserPointer,
-            "emoji-picked",
-            onEmojiPickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onEmojiPicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (text: String) -> Unit): ULong = g_signal_connect_data(gtkEmojiChooserPointer, "emoji-picked", onEmojiPickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "emoji-picked" signal. See [onEmojiPicked].
@@ -116,11 +109,10 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
 
     public companion object : TypeCompanion<EmojiChooser> {
         override val type: GeneratedClassKGType<EmojiChooser> =
-            GeneratedClassKGType(getTypeOrNull("gtk_emoji_chooser_get_type")!!) { EmojiChooser(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_emoji_chooser_get_type")!!) { EmojiChooser(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EmojiChooser
@@ -132,14 +124,9 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
 }
 
 private val onEmojiPickedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        text: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    text: CPointer<ByteVar>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            text: String,
-        ) -> Unit
-        >().get().invoke(text?.toKString() ?: error("Expected not null string"))
-}
-    .reinterpret()
+    userData.asStableRef<(text: String) -> Unit>().get().invoke(text?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

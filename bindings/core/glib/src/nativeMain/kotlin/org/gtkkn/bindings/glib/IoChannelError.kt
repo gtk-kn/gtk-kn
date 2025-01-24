@@ -3,54 +3,48 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GIOChannelError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Error codes returned by #GIOChannel operations.
  */
-public enum class IoChannelError(public val nativeValue: GIOChannelError) {
+public enum class IoChannelError(
+    public val nativeValue: GIOChannelError,
+) {
     /**
      * File too large.
      */
     FBIG(GIOChannelError.G_IO_CHANNEL_ERROR_FBIG),
-
     /**
      * Invalid argument.
      */
     INVAL(GIOChannelError.G_IO_CHANNEL_ERROR_INVAL),
-
     /**
      * IO error.
      */
     IO(GIOChannelError.G_IO_CHANNEL_ERROR_IO),
-
     /**
      * File is a directory.
      */
     ISDIR(GIOChannelError.G_IO_CHANNEL_ERROR_ISDIR),
-
     /**
      * No space left on device.
      */
     NOSPC(GIOChannelError.G_IO_CHANNEL_ERROR_NOSPC),
-
     /**
      * No such device or address.
      */
     NXIO(GIOChannelError.G_IO_CHANNEL_ERROR_NXIO),
-
     /**
      * Value too large for defined datatype.
      */
     OVERFLOW(GIOChannelError.G_IO_CHANNEL_ERROR_OVERFLOW),
-
     /**
      * Broken pipe.
      */
     PIPE(GIOChannelError.G_IO_CHANNEL_ERROR_PIPE),
-
     /**
      * Some other error.
      */

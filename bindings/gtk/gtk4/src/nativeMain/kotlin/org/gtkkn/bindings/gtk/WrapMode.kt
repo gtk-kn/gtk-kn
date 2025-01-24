@@ -10,24 +10,23 @@ import org.gtkkn.native.gtk.gtk_wrap_mode_get_type
 /**
  * Describes a type of line wrapping.
  */
-public enum class WrapMode(public val nativeValue: GtkWrapMode) {
+public enum class WrapMode(
+    public val nativeValue: GtkWrapMode,
+) {
     /**
      * do not wrap lines; just make the text area wider
      */
     NONE(GtkWrapMode.GTK_WRAP_NONE),
-
     /**
      * wrap text, breaking lines anywhere the cursor can
      *   appear (between characters, usually - if you want to be technical,
      *   between graphemes, see pango_get_log_attrs())
      */
     CHAR(GtkWrapMode.GTK_WRAP_CHAR),
-
     /**
      * wrap text, breaking lines in between words
      */
     WORD(GtkWrapMode.GTK_WRAP_WORD),
-
     /**
      * wrap text, breaking lines in between words, or if
      *   that is not enough, also between graphemes

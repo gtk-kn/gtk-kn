@@ -26,8 +26,9 @@ import org.gtkkn.native.gobject.GType
  * @since 2.28
  */
 @GioVersion2_28
-public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>) :
-    TcpConnection(gioTcpWrapperConnectionPointer.reinterpret()),
+public open class TcpWrapperConnection(
+    public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>,
+) : TcpConnection(gioTcpWrapperConnectionPointer.reinterpret()),
     KGTyped {
     /**
      * The wrapped [class@Gio.IOStream].
@@ -42,8 +43,7 @@ public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer
          * @return @conn's base #GIOStream
          */
         get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)
-        }
+            IoStream.IoStreamImpl(this)}
 
     /**
      * Wraps @base_io_stream and @socket together as a #GSocketConnection.
@@ -53,20 +53,14 @@ public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer
      * @return the new #GSocketConnection.
      * @since 2.28
      */
-    public constructor(
-        baseIoStream: IoStream,
-        socket: Socket,
-    ) : this(g_tcp_wrapper_connection_new(baseIoStream.gioIoStreamPointer, socket.gioSocketPointer)!!.reinterpret())
+    public constructor(baseIoStream: IoStream, socket: Socket) : this(g_tcp_wrapper_connection_new(baseIoStream.gioIoStreamPointer, socket.gioSocketPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<TcpWrapperConnection> {
         override val type: GeneratedClassKGType<TcpWrapperConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_tcp_wrapper_connection_get_type")!!) {
-                TcpWrapperConnection(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_tcp_wrapper_connection_get_type")!!) { TcpWrapperConnection(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of TcpWrapperConnection

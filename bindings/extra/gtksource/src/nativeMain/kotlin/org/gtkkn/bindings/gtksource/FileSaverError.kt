@@ -13,13 +13,14 @@ import org.gtkkn.native.gtksource.gtk_source_file_saver_error_quark
 /**
  * An error code used with the %GTK_SOURCE_FILE_SAVER_ERROR domain.
  */
-public enum class FileSaverError(public val nativeValue: GtkSourceFileSaverError) {
+public enum class FileSaverError(
+    public val nativeValue: GtkSourceFileSaverError,
+) {
     /**
      * The buffer contains invalid
      *   characters.
      */
     INVALID_CHARS(GtkSourceFileSaverError.GTK_SOURCE_FILE_SAVER_ERROR_INVALID_CHARS),
-
     /**
      * The file is externally
      *   modified.

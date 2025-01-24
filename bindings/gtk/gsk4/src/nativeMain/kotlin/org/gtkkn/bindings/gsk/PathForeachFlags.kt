@@ -23,7 +23,9 @@ import org.gtkkn.native.gsk.gsk_path_foreach_flags_get_type
  * `GSK_PATH_CLOSE`.
  * @since 4.14
  */
-public class PathForeachFlags(public val mask: GskPathForeachFlags) : Bitfield<PathForeachFlags> {
+public class PathForeachFlags(
+    public val mask: GskPathForeachFlags,
+) : Bitfield<PathForeachFlags> {
     override infix fun or(other: PathForeachFlags): PathForeachFlags = PathForeachFlags(mask or other.mask)
 
     @GskVersion4_14
@@ -32,7 +34,7 @@ public class PathForeachFlags(public val mask: GskPathForeachFlags) : Bitfield<P
          * The default behavior, only allow lines.
          */
         public val ONLY_LINES: PathForeachFlags =
-            PathForeachFlags(GSK_PATH_FOREACH_ALLOW_ONLY_LINES)
+                PathForeachFlags(GSK_PATH_FOREACH_ALLOW_ONLY_LINES)
 
         /**
          * Allow emission of `GSK_PATH_QUAD` operations

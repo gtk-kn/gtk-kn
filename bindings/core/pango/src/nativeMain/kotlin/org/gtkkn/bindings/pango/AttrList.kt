@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -13,6 +17,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gint
@@ -34,10 +39,6 @@ import org.gtkkn.native.pango.pango_attr_list_splice
 import org.gtkkn.native.pango.pango_attr_list_to_string
 import org.gtkkn.native.pango.pango_attr_list_unref
 import org.gtkkn.native.pango.pango_attr_list_update
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Suppress
-import kotlin.Unit
 
 /**
  * A `PangoAttrList` represents a list of attributes that apply to a section
@@ -52,7 +53,21 @@ import kotlin.Unit
  * suitable for storing attributes for large amounts of text. In general, you
  * should not use a single `PangoAttrList` for more than one paragraph of text.
  */
-public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) : ProxyInstance(pangoAttrListPointer) {
+public class AttrList(
+    public val pangoAttrListPointer: CPointer<PangoAttrList>,
+) : ProxyInstance(pangoAttrListPointer) {
+    /**
+     * Create a new empty attribute list with a reference
+     * count of one.
+     *
+     * @return the newly allocated
+     *   `PangoAttrList`, which should be freed with
+     *   [method@Pango.AttrList.unref]
+     */
+    public constructor() : this(pango_attr_list_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Insert the given attribute into the `PangoAttrList`.
      *
@@ -80,8 +95,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      *   Returns null if @list was null.
      */
     public fun copy(): AttrList? = pango_attr_list_copy(pangoAttrListPointer)?.run {
-        AttrList(this)
-    }
+        AttrList(this)}
 
     /**
      * Checks whether @list and @other_list contain the same
@@ -97,8 +111,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      * @since 1.46
      */
     @PangoVersion1_46
-    public fun equal(otherList: AttrList): Boolean =
-        pango_attr_list_equal(pangoAttrListPointer, otherList.pangoAttrListPointer).asBoolean()
+    public fun equal(otherList: AttrList): Boolean = pango_attr_list_equal(pangoAttrListPointer, otherList.pangoAttrListPointer).asBoolean()
 
     /**
      * Given a `PangoAttrList` and callback function, removes
@@ -113,13 +126,8 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun filter(func: AttrFilterFunc): AttrList? = pango_attr_list_filter(
-        pangoAttrListPointer,
-        AttrFilterFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )?.run {
-        AttrList(this)
-    }
+    public fun filter(func: AttrFilterFunc): AttrList? = pango_attr_list_filter(pangoAttrListPointer, AttrFilterFuncFunc.reinterpret(), StableRef.create(func).asCPointer())?.run {
+        AttrList(this)}
 
     /**
      * Gets a list of all attributes in @list.
@@ -131,8 +139,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      */
     @PangoVersion1_44
     public fun getAttributes(): SList = pango_attr_list_get_attributes(pangoAttrListPointer)!!.run {
-        SList(this)
-    }
+        SList(this)}
 
     /**
      * Create a iterator initialized to the beginning of the list.
@@ -144,8 +151,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      *   [method@Pango.AttrIterator.destroy]
      */
     public fun getIterator(): AttrIterator = pango_attr_list_get_iterator(pangoAttrListPointer)!!.run {
-        AttrIterator(this)
-    }
+        AttrIterator(this)}
 
     /**
      * Insert the given attribute into the `PangoAttrList`.
@@ -165,8 +171,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      *
      * @param attr the attribute to insert
      */
-    public fun insertBefore(attr: Attribute): Unit =
-        pango_attr_list_insert_before(pangoAttrListPointer, attr.pangoAttributePointer)
+    public fun insertBefore(attr: Attribute): Unit = pango_attr_list_insert_before(pangoAttrListPointer, attr.pangoAttributePointer)
 
     /**
      * Increase the reference count of the given attribute
@@ -177,8 +182,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      */
     @PangoVersion1_10
     public fun ref(): AttrList = pango_attr_list_ref(pangoAttrListPointer)!!.run {
-        AttrList(this)
-    }
+        AttrList(this)}
 
     /**
      * This function opens up a hole in @list, fills it
@@ -206,8 +210,11 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      *   must be specified since the attributes in @other may only
      *   be present at some subsection of this range)
      */
-    public fun splice(other: AttrList, pos: gint, len: gint): Unit =
-        pango_attr_list_splice(pangoAttrListPointer, other.pangoAttrListPointer, pos, len)
+    public fun splice(
+        other: AttrList,
+        pos: gint,
+        len: gint,
+    ): Unit = pango_attr_list_splice(pangoAttrListPointer, other.pangoAttrListPointer, pos, len)
 
     /**
      * Serializes a `PangoAttrList` to a string.
@@ -250,8 +257,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_50
-    override fun toString(): String =
-        pango_attr_list_to_string(pangoAttrListPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_attr_list_to_string(pangoAttrListPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Decrease the reference count of the given attribute
@@ -284,20 +290,13 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun update(pos: gint, remove: gint, add: gint): Unit =
-        pango_attr_list_update(pangoAttrListPointer, pos, remove, add)
+    public fun update(
+        pos: gint,
+        remove: gint,
+        add: gint,
+    ): Unit = pango_attr_list_update(pangoAttrListPointer, pos, remove, add)
 
     public companion object {
-        /**
-         * Create a new empty attribute list with a reference
-         * count of one.
-         *
-         * @return the newly allocated
-         *   `PangoAttrList`, which should be freed with
-         *   [method@Pango.AttrList.unref]
-         */
-        public fun new(): AttrList = AttrList(pango_attr_list_new()!!)
-
         /**
          * Deserializes a `PangoAttrList` from a string.
          *
@@ -310,8 +309,7 @@ public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) 
          */
         @PangoVersion1_50
         public fun fromString(text: String): AttrList? = pango_attr_list_from_string(text)?.run {
-            AttrList(this)
-        }
+            AttrList(this)}
 
         /**
          * Get the GType of AttrList

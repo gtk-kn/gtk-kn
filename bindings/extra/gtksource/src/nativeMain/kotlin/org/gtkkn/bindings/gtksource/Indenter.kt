@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ModifierType
@@ -19,7 +20,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceIndenter
 import org.gtkkn.native.gtksource.gtk_source_indenter_get_type
 import org.gtkkn.native.gtksource.gtk_source_indenter_is_trigger
-import kotlin.Boolean
 
 /**
  * Auto-indentation interface.
@@ -55,9 +55,7 @@ import kotlin.Boolean
  *
  * - method `indent`: In/Out parameter is not supported
  */
-public interface Indenter :
-    Proxy,
-    KGTyped {
+public interface Indenter : Proxy, KGTyped {
     public val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>
 
     /**
@@ -77,33 +75,29 @@ public interface Indenter :
      * @return true if indentation should be automatically triggered;
      *   otherwise false and no indentation will be performed.
      */
-    public fun isTrigger(view: View, location: TextIter, state: ModifierType, keyval: guint): Boolean =
-        gtk_source_indenter_is_trigger(
-            gtksourceIndenterPointer,
-            view.gtksourceViewPointer,
-            location.gtkTextIterPointer,
-            state.mask,
-            keyval
-        ).asBoolean()
+    public fun isTrigger(
+        view: View,
+        location: TextIter,
+        state: ModifierType,
+        keyval: guint,
+    ): Boolean = gtk_source_indenter_is_trigger(gtksourceIndenterPointer, view.gtksourceViewPointer, location.gtkTextIterPointer, state.mask, keyval).asBoolean()
 
     /**
      * The IndenterImpl type represents a native instance of the Indenter interface.
      *
      * @constructor Creates a new instance of Indenter for the provided [CPointer].
      */
-    public data class IndenterImpl(override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>) :
-        Object(gtksourceIndenterPointer.reinterpret()),
+    public data class IndenterImpl(
+        override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>,
+    ) : Object(gtksourceIndenterPointer.reinterpret()),
         Indenter
 
     public companion object : TypeCompanion<Indenter> {
         override val type: GeneratedInterfaceKGType<Indenter> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_indenter_get_type")!!) {
-                IndenterImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_source_indenter_get_type")!!) { IndenterImpl(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of Indenter

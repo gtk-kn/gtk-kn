@@ -11,7 +11,9 @@ import org.gtkkn.native.cairo.cairo_pdf_metadata_t
  * @since 1.16
  */
 @CairoVersion1_16
-public enum class PdfMetadata(public val nativeValue: cairo_pdf_metadata_t) {
+public enum class PdfMetadata(
+    public val nativeValue: cairo_pdf_metadata_t,
+) {
     TITLE(cairo_pdf_metadata_t.CAIRO_PDF_METADATA_TITLE),
     AUTHOR(cairo_pdf_metadata_t.CAIRO_PDF_METADATA_AUTHOR),
     SUBJECT(cairo_pdf_metadata_t.CAIRO_PDF_METADATA_SUBJECT),

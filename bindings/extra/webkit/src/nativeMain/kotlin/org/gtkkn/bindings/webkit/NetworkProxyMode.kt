@@ -13,17 +13,17 @@ import org.gtkkn.native.webkit.webkit_network_proxy_mode_get_type
  * @since 2.16
  */
 @WebKitVersion2_16
-public enum class NetworkProxyMode(public val nativeValue: WebKitNetworkProxyMode) {
+public enum class NetworkProxyMode(
+    public val nativeValue: WebKitNetworkProxyMode,
+) {
     /**
      * Use the default proxy of the system.
      */
     DEFAULT(WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_DEFAULT),
-
     /**
      * Do not use any proxy.
      */
     NO_PROXY(WebKitNetworkProxyMode.WEBKIT_NETWORK_PROXY_MODE_NO_PROXY),
-
     /**
      * Use custom proxy settings.
      */

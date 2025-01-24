@@ -21,9 +21,7 @@ import org.gtkkn.native.gtk.gtk_constraint_target_get_type
  *
  * Besides `GtkWidget`, it is also implemented by `GtkConstraintGuide`.
  */
-public interface ConstraintTarget :
-    Proxy,
-    KGTyped {
+public interface ConstraintTarget : Proxy, KGTyped {
     public val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
 
     /**
@@ -31,19 +29,17 @@ public interface ConstraintTarget :
      *
      * @constructor Creates a new instance of ConstraintTarget for the provided [CPointer].
      */
-    public data class ConstraintTargetImpl(override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>) :
-        Object(gtkConstraintTargetPointer.reinterpret()),
+    public data class ConstraintTargetImpl(
+        override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>,
+    ) : Object(gtkConstraintTargetPointer.reinterpret()),
         ConstraintTarget
 
     public companion object : TypeCompanion<ConstraintTarget> {
         override val type: GeneratedInterfaceKGType<ConstraintTarget> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_constraint_target_get_type")!!) {
-                ConstraintTargetImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_constraint_target_get_type")!!) { ConstraintTargetImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ConstraintTarget

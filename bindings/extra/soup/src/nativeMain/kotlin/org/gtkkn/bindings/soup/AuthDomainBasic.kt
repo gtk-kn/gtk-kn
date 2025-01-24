@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -15,7 +16,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomainBasic
 import org.gtkkn.native.soup.soup_auth_domain_basic_get_type
 import org.gtkkn.native.soup.soup_auth_domain_basic_set_auth_callback
-import kotlin.Unit
 
 /**
  * Server-side "Basic" authentication.
@@ -29,8 +29,9 @@ import kotlin.Unit
  * - method `auth-data`: Property has no getter nor setter
  * - constructor `new`: Varargs parameter is not supported
  */
-public class AuthDomainBasic(public val soupAuthDomainBasicPointer: CPointer<SoupAuthDomainBasic>) :
-    AuthDomain(soupAuthDomainBasicPointer.reinterpret()),
+public class AuthDomainBasic(
+    public val soupAuthDomainBasicPointer: CPointer<SoupAuthDomainBasic>,
+) : AuthDomain(soupAuthDomainBasicPointer.reinterpret()),
     KGTyped {
     /**
      * Sets the callback that @domain will use to authenticate incoming
@@ -47,22 +48,14 @@ public class AuthDomainBasic(public val soupAuthDomainBasicPointer: CPointer<Sou
      *
      * @param callback the callback
      */
-    public fun setAuthCallback(callback: AuthDomainBasicAuthCallback): Unit = soup_auth_domain_basic_set_auth_callback(
-        soupAuthDomainBasicPointer.reinterpret(),
-        AuthDomainBasicAuthCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setAuthCallback(callback: AuthDomainBasicAuthCallback): Unit = soup_auth_domain_basic_set_auth_callback(soupAuthDomainBasicPointer.reinterpret(), AuthDomainBasicAuthCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     public companion object : TypeCompanion<AuthDomainBasic> {
         override val type: GeneratedClassKGType<AuthDomainBasic> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_domain_basic_get_type")!!) {
-                AuthDomainBasic(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_domain_basic_get_type")!!) { AuthDomainBasic(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of AuthDomainBasic

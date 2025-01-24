@@ -11,13 +11,14 @@ import org.gtkkn.native.gtk.gtk_propagation_limit_get_type
  * Describes limits of a [class@EventController] for handling events
  * targeting other widgets.
  */
-public enum class PropagationLimit(public val nativeValue: GtkPropagationLimit) {
+public enum class PropagationLimit(
+    public val nativeValue: GtkPropagationLimit,
+) {
     /**
      * Events are handled regardless of what their
      *   target is.
      */
     NONE(GtkPropagationLimit.GTK_LIMIT_NONE),
-
     /**
      * Events are only handled if their target
      *   is in the same [iface@Native] as the event controllers widget. Note

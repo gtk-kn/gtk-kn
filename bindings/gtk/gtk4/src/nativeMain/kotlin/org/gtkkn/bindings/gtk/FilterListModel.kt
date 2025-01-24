@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -27,7 +28,6 @@ import org.gtkkn.native.gtk.gtk_filter_list_model_new
 import org.gtkkn.native.gtk.gtk_filter_list_model_set_filter
 import org.gtkkn.native.gtk.gtk_filter_list_model_set_incremental
 import org.gtkkn.native.gtk.gtk_filter_list_model_set_model
-import kotlin.Boolean
 
 /**
  * `GtkFilterListModel` is a list model that filters the elements of
@@ -47,8 +47,9 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FilterListModel(public val gtkFilterListModelPointer: CPointer<GtkFilterListModel>) :
-    Object(gtkFilterListModelPointer.reinterpret()),
+public open class FilterListModel(
+    public val gtkFilterListModelPointer: CPointer<GtkFilterListModel>,
+) : Object(gtkFilterListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
@@ -68,9 +69,7 @@ public open class FilterListModel(public val gtkFilterListModelPointer: CPointer
          * @return The filter currently in use
          */
         get() = gtk_filter_list_model_get_filter(gtkFilterListModelPointer)?.run {
-            Filter(this)
-        }
-
+            Filter(this)}
         /**
          * Sets the filter used to filter items.
          *
@@ -90,7 +89,6 @@ public open class FilterListModel(public val gtkFilterListModelPointer: CPointer
          * @return true if incremental filtering is enabled
          */
         get() = gtk_filter_list_model_get_incremental(gtkFilterListModelPointer).asBoolean()
-
         /**
          * Sets the filter model to do an incremental sort.
          *
@@ -123,9 +121,7 @@ public open class FilterListModel(public val gtkFilterListModelPointer: CPointer
          * @return The model that gets filtered
          */
         get() = gtk_filter_list_model_get_model(gtkFilterListModelPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the model to be filtered.
          *
@@ -172,20 +168,14 @@ public open class FilterListModel(public val gtkFilterListModelPointer: CPointer
      * @param filter filter
      * @return a new `GtkFilterListModel`
      */
-    public constructor(
-        model: ListModel? = null,
-        filter: Filter? = null,
-    ) : this(gtk_filter_list_model_new(model?.gioListModelPointer, filter?.gtkFilterPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null, filter: Filter? = null) : this(gtk_filter_list_model_new(model?.gioListModelPointer, filter?.gtkFilterPointer)!!)
 
     public companion object : TypeCompanion<FilterListModel> {
         override val type: GeneratedClassKGType<FilterListModel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_filter_list_model_get_type")!!) {
-                FilterListModel(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_filter_list_model_get_type")!!) { FilterListModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FilterListModel

@@ -3,12 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantIter
 import org.gtkkn.native.glib.g_variant_iter_copy
@@ -17,10 +19,6 @@ import org.gtkkn.native.glib.g_variant_iter_init
 import org.gtkkn.native.glib.g_variant_iter_n_children
 import org.gtkkn.native.glib.g_variant_iter_next_value
 import org.gtkkn.native.glib.gsize
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * #GVariantIter is an opaque data structure and can only be accessed
@@ -31,29 +29,18 @@ import kotlin.native.ref.createCleaner
  * - method `loop`: Varargs parameter is not supported
  * - method `next`: Varargs parameter is not supported
  */
-public class VariantIter(public val glibVariantIterPointer: CPointer<GVariantIter>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibVariantIterPointer) {
+public class VariantIter(
+    public val glibVariantIterPointer: CPointer<GVariantIter>,
+) : ProxyInstance(glibVariantIterPointer) {
     /**
      * Allocate a new VariantIter.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GVariantIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to VariantIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GVariantIter>, Cleaner>,
-    ) : this(glibVariantIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GVariantIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new VariantIter using the provided [AutofreeScope].
@@ -81,8 +68,7 @@ public class VariantIter(public val glibVariantIterPointer: CPointer<GVariantIte
      */
     @GLibVersion2_24
     public fun copy(): VariantIter = g_variant_iter_copy(glibVariantIterPointer)!!.run {
-        VariantIter(this)
-    }
+        VariantIter(this)}
 
     /**
      * Frees a heap-allocated #GVariantIter.  Only call this function on
@@ -156,6 +142,5 @@ public class VariantIter(public val glibVariantIterPointer: CPointer<GVariantIte
      */
     @GLibVersion2_24
     public fun nextValue(): Variant? = g_variant_iter_next_value(glibVariantIterPointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 }

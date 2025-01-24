@@ -14,23 +14,22 @@ import org.gtkkn.native.gtk.gtk_file_chooser_error_quark
  * These identify the various errors that can occur while calling
  * `GtkFileChooser` functions.
  */
-public enum class FileChooserError(public val nativeValue: GtkFileChooserError) {
+public enum class FileChooserError(
+    public val nativeValue: GtkFileChooserError,
+) {
     /**
      * Indicates that a file does not exist.
      */
     NONEXISTENT(GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_NONEXISTENT),
-
     /**
      * Indicates a malformed filename.
      */
     BAD_FILENAME(GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_BAD_FILENAME),
-
     /**
      * Indicates a duplicate path (e.g. when
      *  adding a bookmark).
      */
     ALREADY_EXISTS(GtkFileChooserError.GTK_FILE_CHOOSER_ERROR_ALREADY_EXISTS),
-
     /**
      * Indicates an incomplete hostname
      *  (e.g. "http://foo" without a slash after that).

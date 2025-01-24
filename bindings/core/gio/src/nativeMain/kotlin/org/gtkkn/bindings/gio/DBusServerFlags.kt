@@ -17,7 +17,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used when creating a #GDBusServer.
  * @since 2.26
  */
-public class DBusServerFlags(public val mask: GDBusServerFlags) : Bitfield<DBusServerFlags> {
+public class DBusServerFlags(
+    public val mask: GDBusServerFlags,
+) : Bitfield<DBusServerFlags> {
     override infix fun or(other: DBusServerFlags): DBusServerFlags = DBusServerFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -33,21 +35,21 @@ public class DBusServerFlags(public val mask: GDBusServerFlags) : Bitfield<DBusS
          * details).
          */
         public val RUN_IN_THREAD: DBusServerFlags =
-            DBusServerFlags(G_DBUS_SERVER_FLAGS_RUN_IN_THREAD)
+                DBusServerFlags(G_DBUS_SERVER_FLAGS_RUN_IN_THREAD)
 
         /**
          * Allow the anonymous
          * authentication method.
          */
         public val AUTHENTICATION_ALLOW_ANONYMOUS: DBusServerFlags =
-            DBusServerFlags(G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS)
+                DBusServerFlags(G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS)
 
         /**
          * Require the UID of the
          * peer to be the same as the UID of the server when authenticating. (Since: 2.68)
          */
         public val AUTHENTICATION_REQUIRE_SAME_USER: DBusServerFlags =
-            DBusServerFlags(G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER)
+                DBusServerFlags(G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER)
 
         /**
          * Get the GType of DBusServerFlags

@@ -5,4 +5,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class OptionErrorException(error: Error, public val code: OptionError) : GLibException(error)
+public class OptionErrorException(
+    error: Error,
+    public val code: OptionError,
+) : GLibException(error)

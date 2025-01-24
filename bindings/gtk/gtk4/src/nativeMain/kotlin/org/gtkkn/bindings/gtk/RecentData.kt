@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.collections.List
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,6 +14,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -18,26 +22,20 @@ import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gtk.GtkRecentData
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.collections.List
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Meta-data to be passed to gtk_recent_manager_add_full() when
  * registering a recently used resource.
  */
-public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>, cleaner: Cleaner? = null) :
-    ProxyInstance(gtkRecentDataPointer) {
+public class RecentData(
+    public val gtkRecentDataPointer: CPointer<GtkRecentData>,
+) : ProxyInstance(gtkRecentDataPointer) {
     /**
      * a UTF-8 encoded string, containing the name of the recently
      *   used resource to be displayed, or null;
      */
     public var displayName: String?
         get() = gtkRecentDataPointer.pointed.display_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.display_name?.let { g_free(it) }
@@ -50,7 +48,6 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      */
     public var description: String?
         get() = gtkRecentDataPointer.pointed.description?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.description?.let { g_free(it) }
@@ -62,7 +59,6 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      */
     public var mimeType: String?
         get() = gtkRecentDataPointer.pointed.mime_type?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.mime_type?.let { g_free(it) }
@@ -75,7 +71,6 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      */
     public var appName: String?
         get() = gtkRecentDataPointer.pointed.app_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.app_name?.let { g_free(it) }
@@ -90,7 +85,6 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      */
     public var appExec: String?
         get() = gtkRecentDataPointer.pointed.app_exec?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.app_exec?.let { g_free(it) }
@@ -112,7 +106,6 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      */
     public var isPrivate: Boolean
         get() = gtkRecentDataPointer.pointed.is_private.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRecentDataPointer.pointed.is_private = value.asGBoolean()
@@ -124,21 +117,9 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkRecentData>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to RecentData and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GtkRecentData>, Cleaner>,
-    ) : this(gtkRecentDataPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GtkRecentData>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new RecentData using the provided [AutofreeScope].
@@ -222,6 +203,5 @@ public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>
         this.isPrivate = isPrivate
     }
 
-    override fun toString(): String =
-        "RecentData(displayName=$displayName, description=$description, mimeType=$mimeType, appName=$appName, appExec=$appExec, groups=$groups, isPrivate=$isPrivate)"
+    override fun toString(): String = "RecentData(displayName=$displayName, description=$description, mimeType=$mimeType, appName=$appName, appExec=$appExec, groups=$groups, isPrivate=$isPrivate)"
 }

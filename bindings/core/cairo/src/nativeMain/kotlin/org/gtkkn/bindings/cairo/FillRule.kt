@@ -7,7 +7,9 @@ import org.gtkkn.native.cairo.cairo_fill_rule_t
 import org.gtkkn.native.cairo.cairo_gobject_fill_rule_get_type
 import org.gtkkn.native.gobject.GType
 
-public enum class FillRule(public val nativeValue: cairo_fill_rule_t) {
+public enum class FillRule(
+    public val nativeValue: cairo_fill_rule_t,
+) {
     WINDING(cairo_fill_rule_t.CAIRO_FILL_RULE_WINDING),
     EVEN_ODD(cairo_fill_rule_t.CAIRO_FILL_RULE_EVEN_ODD),
     ;

@@ -16,23 +16,22 @@ import org.gtkkn.native.gobject.GType
  * @since 2.46
  */
 @GioVersion2_46
-public enum class SocketListenerEvent(public val nativeValue: GSocketListenerEvent) {
+public enum class SocketListenerEvent(
+    public val nativeValue: GSocketListenerEvent,
+) {
     /**
      * The listener is about to bind a socket.
      */
     BINDING(GSocketListenerEvent.G_SOCKET_LISTENER_BINDING),
-
     /**
      * The listener has bound a socket.
      */
     BOUND(GSocketListenerEvent.G_SOCKET_LISTENER_BOUND),
-
     /**
      * The listener is about to start
      *    listening on this socket.
      */
     LISTENING(GSocketListenerEvent.G_SOCKET_LISTENER_LISTENING),
-
     /**
      * The listener is now listening on
      *   this socket.

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,9 +36,6 @@ import org.gtkkn.native.gtk.gtk_password_entry_get_type
 import org.gtkkn.native.gtk.gtk_password_entry_new
 import org.gtkkn.native.gtk.gtk_password_entry_set_extra_menu
 import org.gtkkn.native.gtk.gtk_password_entry_set_show_peek_icon
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkPasswordEntry` is an entry that has been tailored for entering secrets.
@@ -76,8 +76,9 @@ import kotlin.Unit
  * - method `activates-default`: Property has no getter nor setter
  * - method `placeholder-text`: Property has no getter nor setter
  */
-public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>) :
-    Widget(gtkPasswordEntryPointer.reinterpret()),
+public open class PasswordEntry(
+    public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>,
+) : Widget(gtkPasswordEntryPointer.reinterpret()),
     Editable,
     KGTyped {
     override val gtkEditablePointer: CPointer<GtkEditable>
@@ -103,9 +104,7 @@ public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<Gtk
          * @return the menu model
          */
         get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer)?.run {
-            MenuModel.MenuModelImpl(this)
-        }
-
+            MenuModel.MenuModelImpl(this)}
         /**
          * Sets a menu model to add when constructing
          * the context menu for @entry.
@@ -125,7 +124,6 @@ public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<Gtk
          * @return true if an icon is shown
          */
         get() = gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer).asBoolean()
-
         /**
          * Sets whether the entry should have a clickable icon
          * to reveal the contents.
@@ -151,15 +149,7 @@ public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<Gtk
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkPasswordEntryPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkPasswordEntryPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -170,11 +160,10 @@ public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<PasswordEntry> {
         override val type: GeneratedClassKGType<PasswordEntry> =
-            GeneratedClassKGType(getTypeOrNull("gtk_password_entry_get_type")!!) { PasswordEntry(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_password_entry_get_type")!!) { PasswordEntry(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PasswordEntry
@@ -186,9 +175,8 @@ public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<Gtk
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

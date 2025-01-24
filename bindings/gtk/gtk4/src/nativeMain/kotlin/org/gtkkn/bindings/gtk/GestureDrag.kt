@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -23,8 +25,6 @@ import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkGestureDrag
 import org.gtkkn.native.gtk.gtk_gesture_drag_get_type
 import org.gtkkn.native.gtk.gtk_gesture_drag_new
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGestureDrag` is a `GtkGesture` implementation for drags.
@@ -42,8 +42,9 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `x`: x: Out parameter is not supported
  */
-public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGestureDrag>) :
-    GestureSingle(gtkGestureDragPointer.reinterpret()),
+public open class GestureDrag(
+    public val gtkGestureDragPointer: CPointer<GtkGestureDrag>,
+) : GestureSingle(gtkGestureDragPointer.reinterpret()),
     KGTyped {
     /**
      * Returns a newly created `GtkGesture` that recognizes drags.
@@ -58,17 +59,7 @@ public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGest
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `startX` X coordinate, relative to the widget allocation; `startY` Y coordinate, relative to the widget allocation
      */
-    public fun onDragBegin(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (startX: gdouble, startY: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkGestureDragPointer,
-        "drag-begin",
-        onDragBeginFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDragBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (startX: gdouble, startY: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureDragPointer, "drag-begin", onDragBeginFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "drag-begin" signal. See [onDragBegin].
@@ -86,17 +77,7 @@ public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGest
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start point; `offsetY` Y offset, relative to the start point
      */
-    public fun onDragEnd(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkGestureDragPointer,
-        "drag-end",
-        onDragEndFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDragEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (offsetX: gdouble, offsetY: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureDragPointer, "drag-end", onDragEndFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "drag-end" signal. See [onDragEnd].
@@ -114,17 +95,7 @@ public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGest
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start point; `offsetY` Y offset, relative to the start point
      */
-    public fun onDragUpdate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkGestureDragPointer,
-        "drag-update",
-        onDragUpdateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onDragUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (offsetX: gdouble, offsetY: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureDragPointer, "drag-update", onDragUpdateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "drag-update" signal. See [onDragUpdate].
@@ -138,11 +109,10 @@ public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGest
 
     public companion object : TypeCompanion<GestureDrag> {
         override val type: GeneratedClassKGType<GestureDrag> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gesture_drag_get_type")!!) { GestureDrag(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_gesture_drag_get_type")!!) { GestureDrag(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GestureDrag
@@ -154,31 +124,28 @@ public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGest
 }
 
 private val onDragBeginFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        startX: gdouble,
-        startY: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    startX: gdouble,
+    startY: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(startX: gdouble, startY: gdouble) -> Unit>().get().invoke(startX, startY)
-}
-    .reinterpret()
+    userData.asStableRef<(startX: gdouble, startY: gdouble) -> Unit>().get().invoke(startX, startY)}
+.reinterpret()
 
 private val onDragEndFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        offsetX: gdouble,
-        offsetY: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    offsetX: gdouble,
+    offsetY: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)
-}
-    .reinterpret()
+    userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)}
+.reinterpret()
 
 private val onDragUpdateFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        offsetX: gdouble,
-        offsetY: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    offsetX: gdouble,
+    offsetY: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)
-}
-    .reinterpret()
+    userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)}
+.reinterpret()

@@ -35,13 +35,10 @@ public class WebsocketExtensionManager(
 
     public companion object : TypeCompanion<WebsocketExtensionManager> {
         override val type: GeneratedClassKGType<WebsocketExtensionManager> =
-            GeneratedClassKGType(getTypeOrNull("soup_websocket_extension_manager_get_type")!!) {
-                WebsocketExtensionManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("soup_websocket_extension_manager_get_type")!!) { WebsocketExtensionManager(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of WebsocketExtensionManager

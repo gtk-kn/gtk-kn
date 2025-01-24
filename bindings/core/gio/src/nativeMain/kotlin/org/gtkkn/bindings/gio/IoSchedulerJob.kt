@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -14,14 +16,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GIOSchedulerJob
 import org.gtkkn.native.gio.g_io_scheduler_job_send_to_mainloop
 import org.gtkkn.native.gio.g_io_scheduler_job_send_to_mainloop_async
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * Opaque class for defining and scheduling IO jobs.
  */
-public class IoSchedulerJob(public val gioIoSchedulerJobPointer: CPointer<GIOSchedulerJob>) :
-    ProxyInstance(gioIoSchedulerJobPointer) {
+public class IoSchedulerJob(
+    public val gioIoSchedulerJobPointer: CPointer<GIOSchedulerJob>,
+) : ProxyInstance(gioIoSchedulerJobPointer) {
     /**
      * Used from an I/O job to send a callback to be run in the thread
      * that the job was started from, waiting for the result (and thus
@@ -30,12 +31,7 @@ public class IoSchedulerJob(public val gioIoSchedulerJobPointer: CPointer<GIOSch
      * @param func a #GSourceFunc callback that will be called in the original thread
      * @return The return value of @func
      */
-    public fun sendToMainloop(func: SourceFunc): Boolean = g_io_scheduler_job_send_to_mainloop(
-        gioIoSchedulerJobPointer,
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    ).asBoolean()
+    public fun sendToMainloop(func: SourceFunc): Boolean = g_io_scheduler_job_send_to_mainloop(gioIoSchedulerJobPointer, SourceFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret()).asBoolean()
 
     /**
      * Used from an I/O job to send a callback to be run asynchronously in
@@ -50,10 +46,5 @@ public class IoSchedulerJob(public val gioIoSchedulerJobPointer: CPointer<GIOSch
      *
      * @param func a #GSourceFunc callback that will be called in the original thread
      */
-    public fun sendToMainloopAsync(func: SourceFunc): Unit = g_io_scheduler_job_send_to_mainloop_async(
-        gioIoSchedulerJobPointer,
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun sendToMainloopAsync(func: SourceFunc): Unit = g_io_scheduler_job_send_to_mainloop_async(gioIoSchedulerJobPointer, SourceFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
 }

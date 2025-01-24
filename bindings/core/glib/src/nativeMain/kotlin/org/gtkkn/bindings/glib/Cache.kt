@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -14,7 +15,6 @@ import org.gtkkn.native.glib.g_cache_key_foreach
 import org.gtkkn.native.glib.g_cache_remove
 import org.gtkkn.native.glib.g_cache_value_foreach
 import org.gtkkn.native.glib.gpointer
-import kotlin.Unit
 
 /**
  * A `GCache` allows sharing of complex data structures, in order to
@@ -30,7 +30,9 @@ import kotlin.Unit
  *
  * - parameter `value_new_func`: CacheNewFunc
  */
-public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstance(glibCachePointer) {
+public class Cache(
+    public val glibCachePointer: CPointer<GCache>,
+) : ProxyInstance(glibCachePointer) {
     /**
      * Frees the memory allocated for the #GCache.
      *
@@ -64,8 +66,7 @@ public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstanc
      *
      * @param func the function to call with each #GCache key
      */
-    public fun keyForeach(func: HFunc): Unit =
-        g_cache_key_foreach(glibCachePointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun keyForeach(func: HFunc): Unit = g_cache_key_foreach(glibCachePointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Decreases the reference count of the given value. If it drops to 0
@@ -81,6 +82,5 @@ public class Cache(public val glibCachePointer: CPointer<GCache>) : ProxyInstanc
      *
      * @param func the function to call with each #GCache value
      */
-    public fun valueForeach(func: HFunc): Unit =
-        g_cache_value_foreach(glibCachePointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun valueForeach(func: HFunc): Unit = g_cache_value_foreach(glibCachePointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 }

@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -24,10 +28,6 @@ import org.gtkkn.native.webkit.webkit_file_chooser_request_get_select_multiple
 import org.gtkkn.native.webkit.webkit_file_chooser_request_get_selected_files
 import org.gtkkn.native.webkit.webkit_file_chooser_request_get_type
 import org.gtkkn.native.webkit.webkit_file_chooser_request_select_files
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A request to open a file chooser.
@@ -53,8 +53,9 @@ import kotlin.collections.List
  *
  * - method `filter`: Property has no getter nor setter
  */
-public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPointer<WebKitFileChooserRequest>) :
-    Object(webkitFileChooserRequestPointer.reinterpret()),
+public class FileChooserRequest(
+    public val webkitFileChooserRequestPointer: CPointer<WebKitFileChooserRequest>,
+) : Object(webkitFileChooserRequestPointer.reinterpret()),
     KGTyped {
     /**
      * A null-terminated array of strings containing the list of MIME
@@ -78,8 +79,7 @@ public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPoi
          * accepted. This array and its contents are owned by WebKit and
          * should not be modified or freed.
          */
-        get() = webkit_file_chooser_request_get_mime_types(webkitFileChooserRequestPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+        get() = webkit_file_chooser_request_get_mime_types(webkitFileChooserRequestPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Whether the file chooser should allow selecting multiple
@@ -125,8 +125,7 @@ public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPoi
          * contents are owned by WebKit and should not be modified or
          * freed.
          */
-        get() = webkit_file_chooser_request_get_selected_files(webkitFileChooserRequestPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+        get() = webkit_file_chooser_request_get_selected_files(webkitFileChooserRequestPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Ask WebKit to cancel the request.
@@ -154,10 +153,8 @@ public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPoi
      * MIME types is defined or null otherwise. The returned object is
      * owned by WebKit should not be modified or freed.
      */
-    public fun getMimeTypesFilter(): FileFilter =
-        webkit_file_chooser_request_get_mime_types_filter(webkitFileChooserRequestPointer)!!.run {
-            FileFilter(this)
-        }
+    public fun getMimeTypesFilter(): FileFilter = webkit_file_chooser_request_get_mime_types_filter(webkitFileChooserRequestPointer)!!.run {
+        FileFilter(this)}
 
     /**
      * Ask WebKit to select local files for upload and complete the
@@ -167,18 +164,14 @@ public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPoi
      * null-terminated array of strings, containing paths to local files.
      */
     public fun selectFiles(files: List<String>): Unit = memScoped {
-        return webkit_file_chooser_request_select_files(webkitFileChooserRequestPointer, files.toCStringList(this))
-    }
+        return webkit_file_chooser_request_select_files(webkitFileChooserRequestPointer, files.toCStringList(this))}
 
     public companion object : TypeCompanion<FileChooserRequest> {
         override val type: GeneratedClassKGType<FileChooserRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_file_chooser_request_get_type")!!) {
-                FileChooserRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_file_chooser_request_get_type")!!) { FileChooserRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of FileChooserRequest

@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -45,10 +49,6 @@ import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GSocketListener` is an object that keeps track of a set
@@ -79,8 +79,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketListener(public val gioSocketListenerPointer: CPointer<GSocketListener>) :
-    Object(gioSocketListenerPointer.reinterpret()),
+public open class SocketListener(
+    public val gioSocketListenerPointer: CPointer<GSocketListener>,
+) : Object(gioSocketListenerPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GSocketListener with no sockets to listen for.
@@ -90,7 +91,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      * @return a new #GSocketListener.
      * @since 2.22
      */
-    public constructor() : this(g_socket_listener_new()!!.reinterpret())
+    public constructor() : this(g_socket_listener_new()!!)
 
     /**
      * This is the asynchronous version of g_socket_listener_accept().
@@ -104,15 +105,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun acceptAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_socket_listener_accept_async(
-            gioSocketListenerPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun acceptAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_socket_listener_accept_async(gioSocketListenerPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * This is the asynchronous version of g_socket_listener_accept_socket().
@@ -126,15 +119,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun acceptSocketAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_socket_listener_accept_socket_async(
-            gioSocketListenerPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun acceptSocketAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_socket_listener_accept_socket_async(gioSocketListenerPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Listens for TCP connections on any available port number for both
@@ -155,12 +140,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
     @GioVersion2_24
     public open fun addAnyInetPort(sourceObject: Object? = null): Result<guint16> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_socket_listener_add_any_inet_port(
-                gioSocketListenerPointer,
-                sourceObject?.gobjectObjectPointer,
-                gError.ptr
-            )
+        val gResult = g_socket_listener_add_any_inet_port(gioSocketListenerPointer, sourceObject?.gobjectObjectPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -190,12 +170,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
     @GioVersion2_22
     public open fun addInetPort(port: guint16, sourceObject: Object? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_listener_add_inet_port(
-            gioSocketListenerPointer,
-            port,
-            sourceObject?.gobjectObjectPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_listener_add_inet_port(gioSocketListenerPointer, port, sourceObject?.gobjectObjectPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -226,12 +201,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
     @GioVersion2_22
     public open fun addSocket(socket: Socket, sourceObject: Object? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_listener_add_socket(
-            gioSocketListenerPointer,
-            socket.gioSocketPointer,
-            sourceObject?.gobjectObjectPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_listener_add_socket(gioSocketListenerPointer, socket.gioSocketPointer, sourceObject?.gobjectObjectPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -258,8 +228,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun setBacklog(listenBacklog: gint): Unit =
-        g_socket_listener_set_backlog(gioSocketListenerPointer, listenBacklog)
+    public open fun setBacklog(listenBacklog: gint): Unit = g_socket_listener_set_backlog(gioSocketListenerPointer, listenBacklog)
 
     /**
      * Emitted when @listener's activity on @socket changes state.
@@ -272,17 +241,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      * @since 2.46
      */
     @GioVersion2_46
-    public fun onEvent(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (event: SocketListenerEvent, socket: Socket) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioSocketListenerPointer,
-        "event",
-        onEventFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: SocketListenerEvent, socket: Socket) -> Unit): ULong = g_signal_connect_data(gioSocketListenerPointer, "event", onEventFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "event" signal. See [onEvent].
@@ -293,21 +252,15 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
      */
     @GioVersion2_46
     public fun emitEvent(event: SocketListenerEvent, socket: Socket) {
-        g_signal_emit_by_name(
-            gioSocketListenerPointer.reinterpret(),
-            "event",
-            event.nativeValue,
-            socket.gioSocketPointer
-        )
+        g_signal_emit_by_name(gioSocketListenerPointer.reinterpret(), "event", event.nativeValue, socket.gioSocketPointer)
     }
 
     public companion object : TypeCompanion<SocketListener> {
         override val type: GeneratedClassKGType<SocketListener> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_listener_get_type")!!) { SocketListener(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_socket_listener_get_type")!!) { SocketListener(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketListener
@@ -319,19 +272,15 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
 }
 
 private val onEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer<GSocket>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            event: GSocketListenerEvent,
-            socket: CPointer<GSocket>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(event: SocketListenerEvent, socket: Socket) -> Unit>().get().invoke(
-            event.run {
-                SocketListenerEvent.fromNativeValue(this)
-            },
-            socket!!.run {
-                Socket(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    event: GSocketListenerEvent,
+    socket: CPointer<GSocket>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(event: SocketListenerEvent, socket: Socket) -> Unit>().get().invoke(event.run {
+        SocketListenerEvent.fromNativeValue(this)}
+    , socket!!.run {
+        Socket(this)}
+    )}
+.reinterpret()

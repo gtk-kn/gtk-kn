@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -18,7 +19,6 @@ import org.gtkkn.native.webkit.webkit_policy_decision_get_type
 import org.gtkkn.native.webkit.webkit_policy_decision_ignore
 import org.gtkkn.native.webkit.webkit_policy_decision_use
 import org.gtkkn.native.webkit.webkit_policy_decision_use_with_policies
-import kotlin.Unit
 
 /**
  * A pending policy decision.
@@ -33,8 +33,9 @@ import kotlin.Unit
  * completes. To make a policy decision asynchronously, simply increment
  * the reference count of the #WebKitPolicyDecision object.
  */
-public abstract class PolicyDecision(public val webkitPolicyDecisionPointer: CPointer<WebKitPolicyDecision>) :
-    Object(webkitPolicyDecisionPointer.reinterpret()),
+public abstract class PolicyDecision(
+    public val webkitPolicyDecisionPointer: CPointer<WebKitPolicyDecision>,
+) : Object(webkitPolicyDecisionPointer.reinterpret()),
     KGTyped {
     /**
      * Spawn a download from this decision.
@@ -69,25 +70,23 @@ public abstract class PolicyDecision(public val webkitPolicyDecisionPointer: CPo
      * @since 2.30
      */
     @WebKitVersion2_30
-    public open fun useWithPolicies(policies: WebsitePolicies): Unit =
-        webkit_policy_decision_use_with_policies(webkitPolicyDecisionPointer, policies.webkitWebsitePoliciesPointer)
+    public open fun useWithPolicies(policies: WebsitePolicies): Unit = webkit_policy_decision_use_with_policies(webkitPolicyDecisionPointer, policies.webkitWebsitePoliciesPointer)
 
     /**
      * The PolicyDecisionImpl type represents a native instance of the abstract PolicyDecision class.
      *
      * @constructor Creates a new instance of PolicyDecision for the provided [CPointer].
      */
-    public class PolicyDecisionImpl(pointer: CPointer<WebKitPolicyDecision>) : PolicyDecision(pointer)
+    public class PolicyDecisionImpl(
+        pointer: CPointer<WebKitPolicyDecision>,
+    ) : PolicyDecision(pointer)
 
     public companion object : TypeCompanion<PolicyDecision> {
         override val type: GeneratedClassKGType<PolicyDecision> =
-            GeneratedClassKGType(getTypeOrNull("webkit_policy_decision_get_type")!!) {
-                PolicyDecisionImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_policy_decision_get_type")!!) { PolicyDecisionImpl(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of PolicyDecision

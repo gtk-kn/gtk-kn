@@ -55,8 +55,9 @@ import org.gtkkn.native.gtk.gtk_stack_switcher_set_stack
  * the stack switcher to be made vertical with
  * `gtk_orientable_set_orientation()`.
  */
-public open class StackSwitcher(public val gtkStackSwitcherPointer: CPointer<GtkStackSwitcher>) :
-    Widget(gtkStackSwitcherPointer.reinterpret()),
+public open class StackSwitcher(
+    public val gtkStackSwitcherPointer: CPointer<GtkStackSwitcher>,
+) : Widget(gtkStackSwitcherPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -81,9 +82,7 @@ public open class StackSwitcher(public val gtkStackSwitcherPointer: CPointer<Gtk
          * @return the stack
          */
         get() = gtk_stack_switcher_get_stack(gtkStackSwitcherPointer)?.run {
-            Stack(this)
-        }
-
+            Stack(this)}
         /**
          * Sets the stack to control.
          *
@@ -100,11 +99,10 @@ public open class StackSwitcher(public val gtkStackSwitcherPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<StackSwitcher> {
         override val type: GeneratedClassKGType<StackSwitcher> =
-            GeneratedClassKGType(getTypeOrNull("gtk_stack_switcher_get_type")!!) { StackSwitcher(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_stack_switcher_get_type")!!) { StackSwitcher(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StackSwitcher

@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
  * As of GLib 2.34, `GConverterInputStream` implements
  * [iface@Gio.PollableInputStream].
  */
-public open class ConverterInputStream(public val gioConverterInputStreamPointer: CPointer<GConverterInputStream>) :
-    FilterInputStream(gioConverterInputStreamPointer.reinterpret()),
+public open class ConverterInputStream(
+    public val gioConverterInputStreamPointer: CPointer<GConverterInputStream>,
+) : FilterInputStream(gioConverterInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
@@ -41,8 +42,7 @@ public open class ConverterInputStream(public val gioConverterInputStreamPointer
          * @since 2.24
          */
         get() = g_converter_input_stream_get_converter(gioConverterInputStreamPointer)!!.run {
-            Converter.ConverterImpl(reinterpret())
-        }
+            Converter.ConverterImpl(reinterpret())}
 
     /**
      * Creates a new converter input stream for the @base_stream.
@@ -51,22 +51,14 @@ public open class ConverterInputStream(public val gioConverterInputStreamPointer
      * @param converter a #GConverter
      * @return a new #GInputStream.
      */
-    public constructor(
-        baseStream: InputStream,
-        converter: Converter,
-    ) : this(
-        g_converter_input_stream_new(baseStream.gioInputStreamPointer, converter.gioConverterPointer)!!.reinterpret()
-    )
+    public constructor(baseStream: InputStream, converter: Converter) : this(g_converter_input_stream_new(baseStream.gioInputStreamPointer, converter.gioConverterPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<ConverterInputStream> {
         override val type: GeneratedClassKGType<ConverterInputStream> =
-            GeneratedClassKGType(getTypeOrNull("g_converter_input_stream_get_type")!!) {
-                ConverterInputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_converter_input_stream_get_type")!!) { ConverterInputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ConverterInputStream

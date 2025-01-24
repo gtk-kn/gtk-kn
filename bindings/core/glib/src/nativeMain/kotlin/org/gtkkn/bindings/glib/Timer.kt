@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
@@ -16,8 +18,6 @@ import org.gtkkn.native.glib.g_timer_new
 import org.gtkkn.native.glib.g_timer_reset
 import org.gtkkn.native.glib.g_timer_start
 import org.gtkkn.native.glib.g_timer_stop
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GTimer` records a start time, and counts microseconds elapsed since
@@ -30,7 +30,9 @@ import kotlin.Unit
  *
  * - parameter `microseconds`: Unsupported pointer to primitive type
  */
-public class Timer(public val glibTimerPointer: CPointer<GTimer>) : ProxyInstance(glibTimerPointer) {
+public class Timer(
+    public val glibTimerPointer: CPointer<GTimer>,
+) : ProxyInstance(glibTimerPointer) {
     /**
      * Resumes a timer that has previously been stopped with
      * g_timer_stop(). g_timer_stop() must be called before using this
@@ -84,7 +86,6 @@ public class Timer(public val glibTimerPointer: CPointer<GTimer>) : ProxyInstanc
          * @return a new #GTimer.
          */
         public fun new(): Timer = g_timer_new()!!.run {
-            Timer(this)
-        }
+            Timer(this)}
     }
 }

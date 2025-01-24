@@ -20,8 +20,9 @@ import org.gtkkn.native.gsk.gsk_cairo_renderer_new
  * Since it is using cairo, this renderer cannot support
  * 3D transformations.
  */
-public open class CairoRenderer(public val gskCairoRendererPointer: CPointer<GskCairoRenderer>) :
-    Renderer(gskCairoRendererPointer.reinterpret()),
+public open class CairoRenderer(
+    public val gskCairoRendererPointer: CPointer<GskCairoRenderer>,
+) : Renderer(gskCairoRendererPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new Cairo renderer.
@@ -39,11 +40,10 @@ public open class CairoRenderer(public val gskCairoRendererPointer: CPointer<Gsk
 
     public companion object : TypeCompanion<CairoRenderer> {
         override val type: GeneratedClassKGType<CairoRenderer> =
-            GeneratedClassKGType(getTypeOrNull("gsk_cairo_renderer_get_type")!!) { CairoRenderer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_cairo_renderer_get_type")!!) { CairoRenderer(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of CairoRenderer

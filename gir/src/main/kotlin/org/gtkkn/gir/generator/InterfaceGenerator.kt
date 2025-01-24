@@ -41,7 +41,7 @@ interface InterfaceGenerator :
     SignalGenerator,
     FunctionGenerator {
     fun buildInterface(iface: InterfaceBlueprint, repository: RepositoryBlueprint): TypeSpec =
-        TypeSpec.interfaceBuilder(iface.typeName).apply {
+        TypeSpec.interfaceBuilder(iface.kotlinTypeName).apply {
             addKdocAndOptInAnnotations(iface)
             addAbstractPointerProperty(iface)
             addProxyObjectMarker()
@@ -139,7 +139,7 @@ interface InterfaceGenerator :
         val implClassSpec = TypeSpec.classBuilder(iface.instanceTypeName).apply {
             addModifiers(KModifier.DATA)
             superclass(iface.implClassSuperclassTypeName)
-            addSuperinterface(iface.typeName)
+            addSuperinterface(iface.kotlinTypeName)
             primaryConstructor(
                 FunSpec.constructorBuilder()
                     .addParameter(ParameterSpec.builder(iface.objectPointerName, iface.objectPointerTypeName).build())
@@ -157,9 +157,9 @@ interface InterfaceGenerator :
 
                     @constructor Creates a new instance of %T for the provided [CPointer].
                 """.trimIndent(),
-                iface.typeName,
-                iface.typeName,
-                iface.typeName,
+                iface.kotlinTypeName,
+                iface.kotlinTypeName,
+                iface.kotlinTypeName,
             )
         }.build()
 
@@ -180,7 +180,7 @@ interface InterfaceGenerator :
 
         // Add KGType property if available
         buildInterfaceKGTypeProperty(iface)?.let { property ->
-            companionBuilder.addKGTypeInit(iface.typeName, property, repository)
+            companionBuilder.addKGTypeInit(iface.kotlinTypeName, property, repository)
         }
 
         // Add top-level functions

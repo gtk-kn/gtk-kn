@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.InputStream
@@ -22,8 +24,6 @@ import org.gtkkn.native.webkit.webkit_uri_scheme_response_new
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_set_content_type
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_set_http_headers
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_set_status
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Represents a URI scheme response.
@@ -44,8 +44,9 @@ import kotlin.Unit
  * - method `stream`: Property has no getter nor setter
  * - method `stream-length`: Property has no getter nor setter
  */
-public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPointer<WebKitURISchemeResponse>) :
-    Object(webkitUriSchemeResponsePointer.reinterpret()),
+public class UriSchemeResponse(
+    public val webkitUriSchemeResponsePointer: CPointer<WebKitURISchemeResponse>,
+) : Object(webkitUriSchemeResponsePointer.reinterpret()),
     KGTyped {
     /**
      * Create a new #WebKitURISchemeResponse
@@ -55,10 +56,7 @@ public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPoint
      * @return the newly created #WebKitURISchemeResponse.
      * @since 2.36
      */
-    public constructor(
-        inputStream: InputStream,
-        streamLength: gint64,
-    ) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer, streamLength)!!.reinterpret())
+    public constructor(inputStream: InputStream, streamLength: gint64) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer, streamLength)!!)
 
     /**
      * Sets the content type for the @response
@@ -67,8 +65,7 @@ public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPoint
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setContentType(contentType: String): Unit =
-        webkit_uri_scheme_response_set_content_type(webkitUriSchemeResponsePointer, contentType)
+    public fun setContentType(contentType: String): Unit = webkit_uri_scheme_response_set_content_type(webkitUriSchemeResponsePointer, contentType)
 
     /**
      * Assign the provided #SoupMessageHeaders to the response.
@@ -80,8 +77,7 @@ public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPoint
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setHttpHeaders(headers: MessageHeaders): Unit =
-        webkit_uri_scheme_response_set_http_headers(webkitUriSchemeResponsePointer, headers.soupMessageHeadersPointer)
+    public fun setHttpHeaders(headers: MessageHeaders): Unit = webkit_uri_scheme_response_set_http_headers(webkitUriSchemeResponsePointer, headers.soupMessageHeadersPointer)
 
     /**
      * Sets the status code and reason phrase for the @response.
@@ -93,18 +89,14 @@ public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPoint
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit =
-        webkit_uri_scheme_response_set_status(webkitUriSchemeResponsePointer, statusCode, reasonPhrase)
+    public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit = webkit_uri_scheme_response_set_status(webkitUriSchemeResponsePointer, statusCode, reasonPhrase)
 
     public companion object : TypeCompanion<UriSchemeResponse> {
         override val type: GeneratedClassKGType<UriSchemeResponse> =
-            GeneratedClassKGType(getTypeOrNull("webkit_uri_scheme_response_get_type")!!) {
-                UriSchemeResponse(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_uri_scheme_response_get_type")!!) { UriSchemeResponse(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of URISchemeResponse

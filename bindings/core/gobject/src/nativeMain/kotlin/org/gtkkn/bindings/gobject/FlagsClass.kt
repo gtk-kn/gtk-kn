@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,13 +11,10 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GFlagsClass
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class of a flags type holds information about its
@@ -26,14 +24,14 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
-public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectFlagsClassPointer) {
+public class FlagsClass(
+    public val gobjectFlagsClassPointer: CPointer<GFlagsClass>,
+) : ProxyInstance(gobjectFlagsClassPointer) {
     /**
      * a mask covering all possible values.
      */
     public var mask: guint
         get() = gobjectFlagsClassPointer.pointed.mask
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.mask = value
@@ -44,7 +42,6 @@ public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClas
      */
     public var nValues: guint
         get() = gobjectFlagsClassPointer.pointed.n_values
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.n_values = value
@@ -56,9 +53,7 @@ public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClas
      */
     public var values: FlagsValue?
         get() = gobjectFlagsClassPointer.pointed.values?.run {
-            FlagsValue(this)
-        }
-
+            FlagsValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.values = value?.gobjectFlagsValuePointer
@@ -70,21 +65,9 @@ public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClas
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFlagsClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FlagsClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GFlagsClass>, Cleaner>,
-    ) : this(gobjectFlagsClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GFlagsClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FlagsClass using the provided [AutofreeScope].

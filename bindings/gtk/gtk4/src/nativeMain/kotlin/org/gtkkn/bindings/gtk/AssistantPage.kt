@@ -24,8 +24,9 @@ import org.gtkkn.native.gtk.gtk_assistant_page_get_type
  * - method `page-type`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class AssistantPage(public val gtkAssistantPagePointer: CPointer<GtkAssistantPage>) :
-    Object(gtkAssistantPagePointer.reinterpret()),
+public open class AssistantPage(
+    public val gtkAssistantPagePointer: CPointer<GtkAssistantPage>,
+) : Object(gtkAssistantPagePointer.reinterpret()),
     KGTyped {
     /**
      * The child widget.
@@ -37,16 +38,14 @@ public open class AssistantPage(public val gtkAssistantPagePointer: CPointer<Gtk
          * @return the child to which @page belongs
          */
         get() = gtk_assistant_page_get_child(gtkAssistantPagePointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     public companion object : TypeCompanion<AssistantPage> {
         override val type: GeneratedClassKGType<AssistantPage> =
-            GeneratedClassKGType(getTypeOrNull("gtk_assistant_page_get_type")!!) { AssistantPage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_assistant_page_get_type")!!) { AssistantPage(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AssistantPage

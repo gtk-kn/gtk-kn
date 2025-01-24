@@ -3,10 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -19,8 +22,6 @@ import org.gtkkn.native.pango.pango_glyph_string_get_type
 import org.gtkkn.native.pango.pango_glyph_string_get_width
 import org.gtkkn.native.pango.pango_glyph_string_new
 import org.gtkkn.native.pango.pango_glyph_string_set_size
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `PangoGlyphString` is used to store strings of glyphs with geometry
@@ -38,18 +39,28 @@ import kotlin.Unit
  * - field `glyphs`: Array parameter of type GlyphInfo is not supported
  * - field `log_clusters`: Unsupported pointer to primitive type
  */
-public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyphString>) :
-    ProxyInstance(pangoGlyphStringPointer) {
+public class GlyphString(
+    public val pangoGlyphStringPointer: CPointer<PangoGlyphString>,
+) : ProxyInstance(pangoGlyphStringPointer) {
     /**
      * number of glyphs in this glyph string
      */
     public var numGlyphs: gint
         get() = pangoGlyphStringPointer.pointed.num_glyphs
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphStringPointer.pointed.num_glyphs = value
         }
+
+    /**
+     * Create a new `PangoGlyphString`.
+     *
+     * @return the newly allocated `PangoGlyphString`, which
+     *   should be freed with [method@Pango.GlyphString.free].
+     */
+    public constructor() : this(pango_glyph_string_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Copy a glyph string and associated storage.
@@ -57,8 +68,7 @@ public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyph
      * @return the newly allocated `PangoGlyphString`
      */
     public fun copy(): GlyphString? = pango_glyph_string_copy(pangoGlyphStringPointer)?.run {
-        GlyphString(this)
-    }
+        GlyphString(this)}
 
     /**
      * Compute the logical and ink extents of a glyph string.
@@ -74,12 +84,11 @@ public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyph
      * @param inkRect rectangle used to store the extents of the glyph string as drawn
      * @param logicalRect rectangle used to store the logical extents of the glyph string
      */
-    public fun extents(font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_glyph_string_extents(
-        pangoGlyphStringPointer,
-        font.pangoFontPointer,
-        inkRect?.pangoRectanglePointer,
-        logicalRect?.pangoRectanglePointer
-    )
+    public fun extents(
+        font: Font,
+        inkRect: Rectangle?,
+        logicalRect: Rectangle?,
+    ): Unit = pango_glyph_string_extents(pangoGlyphStringPointer, font.pangoFontPointer, inkRect?.pangoRectanglePointer, logicalRect?.pangoRectanglePointer)
 
     /**
      * Computes the extents of a sub-portion of a glyph string.
@@ -97,15 +106,13 @@ public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyph
      * @param logicalRect rectangle used to
      *   store the logical extents of the glyph string range
      */
-    public fun extentsRange(start: gint, end: gint, font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_glyph_string_extents_range(
-            pangoGlyphStringPointer,
-            start,
-            end,
-            font.pangoFontPointer,
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
-        )
+    public fun extentsRange(
+        start: gint,
+        end: gint,
+        font: Font,
+        inkRect: Rectangle?,
+        logicalRect: Rectangle?,
+    ): Unit = pango_glyph_string_extents_range(pangoGlyphStringPointer, start, end, font.pangoFontPointer, inkRect?.pangoRectanglePointer, logicalRect?.pangoRectanglePointer)
 
     /**
      * Free a glyph string and associated storage.
@@ -136,14 +143,6 @@ public class GlyphString(public val pangoGlyphStringPointer: CPointer<PangoGlyph
     override fun toString(): String = "GlyphString(numGlyphs=$numGlyphs)"
 
     public companion object {
-        /**
-         * Create a new `PangoGlyphString`.
-         *
-         * @return the newly allocated `PangoGlyphString`, which
-         *   should be freed with [method@Pango.GlyphString.free].
-         */
-        public fun new(): GlyphString = GlyphString(pango_glyph_string_new()!!)
-
         /**
          * Get the GType of GlyphString
          *

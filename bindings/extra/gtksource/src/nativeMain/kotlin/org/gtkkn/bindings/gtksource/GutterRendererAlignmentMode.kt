@@ -11,17 +11,17 @@ import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_alignment_mode_get_
  * The alignment mode of the renderer, when a cell spans multiple lines (due to
  * text wrapping).
  */
-public enum class GutterRendererAlignmentMode(public val nativeValue: GtkSourceGutterRendererAlignmentMode) {
+public enum class GutterRendererAlignmentMode(
+    public val nativeValue: GtkSourceGutterRendererAlignmentMode,
+) {
     /**
      * The full cell.
      */
     CELL(GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_CELL),
-
     /**
      * The first line.
      */
     FIRST(GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_FIRST),
-
     /**
      * The last line.
      */
@@ -29,13 +29,12 @@ public enum class GutterRendererAlignmentMode(public val nativeValue: GtkSourceG
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSourceGutterRendererAlignmentMode): GutterRendererAlignmentMode =
-            when (nativeValue) {
-                GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_CELL -> CELL
-                GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_FIRST -> FIRST
-                GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_LAST -> LAST
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSourceGutterRendererAlignmentMode): GutterRendererAlignmentMode = when (nativeValue) {
+            GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_CELL -> CELL
+            GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_FIRST -> FIRST
+            GtkSourceGutterRendererAlignmentMode.GTK_SOURCE_GUTTER_RENDERER_ALIGNMENT_MODE_LAST -> LAST
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of GutterRendererAlignmentMode

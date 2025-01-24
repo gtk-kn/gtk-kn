@@ -12,23 +12,22 @@ import org.gtkkn.native.gtk.gtk_print_operation_action_get_type
  *
  * A parameter of this typs is passed to [method@Gtk.PrintOperation.run].
  */
-public enum class PrintOperationAction(public val nativeValue: GtkPrintOperationAction) {
+public enum class PrintOperationAction(
+    public val nativeValue: GtkPrintOperationAction,
+) {
     /**
      * Show the print dialog.
      */
     PRINT_DIALOG(GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG),
-
     /**
      * Start to print without showing
      *   the print dialog, based on the current print settings.
      */
     PRINT(GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PRINT),
-
     /**
      * Show the print preview.
      */
     PREVIEW(GtkPrintOperationAction.GTK_PRINT_OPERATION_ACTION_PREVIEW),
-
     /**
      * Export to a file. This requires
      *   the export-filename property to be set.

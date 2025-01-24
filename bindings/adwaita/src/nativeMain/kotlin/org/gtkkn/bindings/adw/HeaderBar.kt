@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -38,9 +41,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A title bar widget.
@@ -131,8 +131,9 @@ import kotlin.Unit
  *
  * `AdwHeaderBar` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
-    Widget(adwHeaderBarPointer.reinterpret()),
+public class HeaderBar(
+    public val adwHeaderBarPointer: CPointer<AdwHeaderBar>,
+) : Widget(adwHeaderBarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -153,9 +154,7 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @return the centering policy
          */
         get() = adw_header_bar_get_centering_policy(adwHeaderBarPointer).run {
-            CenteringPolicy.fromNativeValue(this)
-        }
-
+            CenteringPolicy.fromNativeValue(this)}
         /**
          * Sets the policy for aligning the center widget.
          *
@@ -184,7 +183,6 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @return the decoration layout
          */
         get() = adw_header_bar_get_decoration_layout(adwHeaderBarPointer)?.toKString()
-
         /**
          * Sets the decoration layout for @self.
          *
@@ -220,7 +218,6 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @since 1.4
          */
         get() = adw_header_bar_get_show_back_button(adwHeaderBarPointer).asBoolean()
-
         /**
          * Sets whether @self can show the back button.
          *
@@ -250,7 +247,6 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @return `TRUE` if title buttons at the end are shown
          */
         get() = adw_header_bar_get_show_end_title_buttons(adwHeaderBarPointer).asBoolean()
-
         /**
          * Sets whether to show title buttons at the end of @self.
          *
@@ -281,7 +277,6 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @return `TRUE` if title buttons at the start are shown
          */
         get() = adw_header_bar_get_show_start_title_buttons(adwHeaderBarPointer).asBoolean()
-
         /**
          * Sets whether to show title buttons at the start of @self.
          *
@@ -309,7 +304,6 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @since 1.4
          */
         get() = adw_header_bar_get_show_title(adwHeaderBarPointer).asBoolean()
-
         /**
          * Sets whether the title widget should be shown.
          *
@@ -344,9 +338,7 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
          * @return the title widget
          */
         get() = adw_header_bar_get_title_widget(adwHeaderBarPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the title widget for @self.
          *
@@ -402,11 +394,10 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-            GeneratedClassKGType(getTypeOrNull("adw_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of HeaderBar

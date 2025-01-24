@@ -41,8 +41,9 @@ import org.gtkkn.native.gtk.GtkOrientable
  * `AdwCarouselIndicatorLines` has a single CSS node with name
  * `carouselindicatorlines`.
  */
-public class CarouselIndicatorLines(public val adwCarouselIndicatorLinesPointer: CPointer<AdwCarouselIndicatorLines>) :
-    Widget(adwCarouselIndicatorLinesPointer.reinterpret()),
+public class CarouselIndicatorLines(
+    public val adwCarouselIndicatorLinesPointer: CPointer<AdwCarouselIndicatorLines>,
+) : Widget(adwCarouselIndicatorLinesPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -67,17 +68,13 @@ public class CarouselIndicatorLines(public val adwCarouselIndicatorLinesPointer:
          * @return the displayed carousel
          */
         get() = adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer)?.run {
-            Carousel(this)
-        }
-
+            Carousel(this)}
         /**
          * Sets the displayed carousel.
          *
          * @param carousel a carousel
          */
-        set(
-            carousel
-        ) = adw_carousel_indicator_lines_set_carousel(adwCarouselIndicatorLinesPointer, carousel?.adwCarouselPointer)
+        set(carousel) = adw_carousel_indicator_lines_set_carousel(adwCarouselIndicatorLinesPointer, carousel?.adwCarouselPointer)
 
     /**
      * Creates a new `AdwCarouselIndicatorLines`.
@@ -88,13 +85,10 @@ public class CarouselIndicatorLines(public val adwCarouselIndicatorLinesPointer:
 
     public companion object : TypeCompanion<CarouselIndicatorLines> {
         override val type: GeneratedClassKGType<CarouselIndicatorLines> =
-            GeneratedClassKGType(getTypeOrNull("adw_carousel_indicator_lines_get_type")!!) {
-                CarouselIndicatorLines(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_carousel_indicator_lines_get_type")!!) { CarouselIndicatorLines(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of CarouselIndicatorLines

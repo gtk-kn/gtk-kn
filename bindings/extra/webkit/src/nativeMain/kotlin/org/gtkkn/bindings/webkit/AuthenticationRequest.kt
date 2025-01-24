@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -45,10 +49,6 @@ import org.gtkkn.native.webkit.webkit_authentication_request_is_for_proxy
 import org.gtkkn.native.webkit.webkit_authentication_request_is_retry
 import org.gtkkn.native.webkit.webkit_authentication_request_set_can_save_credentials
 import org.gtkkn.native.webkit.webkit_authentication_request_set_proposed_credential
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Represents an authentication request.
@@ -80,10 +80,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun authenticate(credential: Credential? = null): Unit = webkit_authentication_request_authenticate(
-        webkitAuthenticationRequestPointer,
-        credential?.webkitCredentialPointer
-    )
+    public fun authenticate(credential: Credential? = null): Unit = webkit_authentication_request_authenticate(webkitAuthenticationRequestPointer, credential?.webkitCredentialPointer)
 
     /**
      * Determine whether this #WebKitAuthenticationRequest should allow the storage of credentials.
@@ -99,8 +96,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun canSaveCredentials(): Boolean =
-        webkit_authentication_request_can_save_credentials(webkitAuthenticationRequestPointer).asBoolean()
+    public fun canSaveCredentials(): Boolean = webkit_authentication_request_can_save_credentials(webkitAuthenticationRequestPointer).asBoolean()
 
     /**
      * Cancel the authentication challenge.
@@ -120,10 +116,8 @@ public class AuthenticationRequest(
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getCertificatePinFlags(): TlsPasswordFlags =
-        webkit_authentication_request_get_certificate_pin_flags(webkitAuthenticationRequestPointer).run {
-            TlsPasswordFlags(this)
-        }
+    public fun getCertificatePinFlags(): TlsPasswordFlags = webkit_authentication_request_get_certificate_pin_flags(webkitAuthenticationRequestPointer).run {
+        TlsPasswordFlags(this)}
 
     /**
      * Get the host that this authentication challenge is applicable to.
@@ -132,9 +126,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getHost(): String =
-        webkit_authentication_request_get_host(webkitAuthenticationRequestPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun getHost(): String = webkit_authentication_request_get_host(webkitAuthenticationRequestPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the port that this authentication challenge is applicable to.
@@ -157,10 +149,8 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getProposedCredential(): Credential =
-        webkit_authentication_request_get_proposed_credential(webkitAuthenticationRequestPointer)!!.run {
-            Credential(this)
-        }
+    public fun getProposedCredential(): Credential = webkit_authentication_request_get_proposed_credential(webkitAuthenticationRequestPointer)!!.run {
+        Credential(this)}
 
     /**
      * Get the realm that this authentication challenge is applicable to.
@@ -169,9 +159,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getRealm(): String =
-        webkit_authentication_request_get_realm(webkitAuthenticationRequestPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun getRealm(): String = webkit_authentication_request_get_realm(webkitAuthenticationRequestPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the authentication scheme of the authentication challenge.
@@ -180,10 +168,8 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getScheme(): AuthenticationScheme =
-        webkit_authentication_request_get_scheme(webkitAuthenticationRequestPointer).run {
-            AuthenticationScheme.fromNativeValue(this)
-        }
+    public fun getScheme(): AuthenticationScheme = webkit_authentication_request_get_scheme(webkitAuthenticationRequestPointer).run {
+        AuthenticationScheme.fromNativeValue(this)}
 
     /**
      * Get the #WebKitSecurityOrigin that this authentication challenge is applicable to.
@@ -192,10 +178,8 @@ public class AuthenticationRequest(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getSecurityOrigin(): SecurityOrigin =
-        webkit_authentication_request_get_security_origin(webkitAuthenticationRequestPointer)!!.run {
-            SecurityOrigin(this)
-        }
+    public fun getSecurityOrigin(): SecurityOrigin = webkit_authentication_request_get_security_origin(webkitAuthenticationRequestPointer)!!.run {
+        SecurityOrigin(this)}
 
     /**
      * Determine whether the authentication challenge is associated with a proxy server.
@@ -206,8 +190,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun isForProxy(): Boolean =
-        webkit_authentication_request_is_for_proxy(webkitAuthenticationRequestPointer).asBoolean()
+    public fun isForProxy(): Boolean = webkit_authentication_request_is_for_proxy(webkitAuthenticationRequestPointer).asBoolean()
 
     /**
      * Determine whether this this is a first attempt or a retry for this authentication challenge.
@@ -216,8 +199,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun isRetry(): Boolean =
-        webkit_authentication_request_is_retry(webkitAuthenticationRequestPointer).asBoolean()
+    public fun isRetry(): Boolean = webkit_authentication_request_is_retry(webkitAuthenticationRequestPointer).asBoolean()
 
     /**
      * Set whether the authentication method associated with @request
@@ -235,8 +217,7 @@ public class AuthenticationRequest(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun setCanSaveCredentials(enabled: Boolean): Unit =
-        webkit_authentication_request_set_can_save_credentials(webkitAuthenticationRequestPointer, enabled.asGBoolean())
+    public fun setCanSaveCredentials(enabled: Boolean): Unit = webkit_authentication_request_set_can_save_credentials(webkitAuthenticationRequestPointer, enabled.asGBoolean())
 
     /**
      * Set the #WebKitCredential of the proposed authentication challenge.
@@ -252,11 +233,7 @@ public class AuthenticationRequest(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun setProposedCredential(credential: Credential): Unit =
-        webkit_authentication_request_set_proposed_credential(
-            webkitAuthenticationRequestPointer,
-            credential.webkitCredentialPointer
-        )
+    public fun setProposedCredential(credential: Credential): Unit = webkit_authentication_request_set_proposed_credential(webkitAuthenticationRequestPointer, credential.webkitCredentialPointer)
 
     /**
      * This signal is emitted when the user authentication request succeeded.
@@ -268,17 +245,7 @@ public class AuthenticationRequest(
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun onAuthenticated(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (credential: Credential) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitAuthenticationRequestPointer,
-        "authenticated",
-        onAuthenticatedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAuthenticated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (credential: Credential) -> Unit): ULong = g_signal_connect_data(webkitAuthenticationRequestPointer, "authenticated", onAuthenticatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "authenticated" signal. See [onAuthenticated].
@@ -288,11 +255,7 @@ public class AuthenticationRequest(
      */
     @WebKitVersion2_30
     public fun emitAuthenticated(credential: Credential) {
-        g_signal_emit_by_name(
-            webkitAuthenticationRequestPointer.reinterpret(),
-            "authenticated",
-            credential.webkitCredentialPointer
-        )
+        g_signal_emit_by_name(webkitAuthenticationRequestPointer.reinterpret(), "authenticated", credential.webkitCredentialPointer)
     }
 
     /**
@@ -305,15 +268,7 @@ public class AuthenticationRequest(
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitAuthenticationRequestPointer,
-            "cancelled",
-            onCancelledFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitAuthenticationRequestPointer, "cancelled", onCancelledFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "cancelled" signal. See [onCancelled].
@@ -327,13 +282,10 @@ public class AuthenticationRequest(
 
     public companion object : TypeCompanion<AuthenticationRequest> {
         override val type: GeneratedClassKGType<AuthenticationRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_authentication_request_get_type")!!) {
-                AuthenticationRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_authentication_request_get_type")!!) { AuthenticationRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of AuthenticationRequest
@@ -345,23 +297,19 @@ public class AuthenticationRequest(
 }
 
 private val onAuthenticatedFunc: CPointer<CFunction<(CPointer<WebKitCredential>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            credential: CPointer<WebKitCredential>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(credential: Credential) -> Unit>().get().invoke(
-            credential!!.run {
-                Credential(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    credential: CPointer<WebKitCredential>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(credential: Credential) -> Unit>().get().invoke(credential!!.run {
+        Credential(this)}
+    )}
+.reinterpret()
 
 private val onCancelledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

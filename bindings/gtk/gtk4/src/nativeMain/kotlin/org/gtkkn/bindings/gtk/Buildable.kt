@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -16,7 +17,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.gtk_buildable_get_buildable_id
 import org.gtkkn.native.gtk.gtk_buildable_get_type
-import kotlin.String
 
 /**
  * `GtkBuildable` allows objects to extend and customize their deserialization
@@ -33,9 +33,7 @@ import kotlin.String
  * An object only needs to implement this interface if it needs to extend the
  * `GtkBuilder` XML format or run any extra routines at deserialization time.
  */
-public interface Buildable :
-    Proxy,
-    KGTyped {
+public interface Buildable : Proxy, KGTyped {
     public val gtkBuildablePointer: CPointer<GtkBuildable>
 
     /**
@@ -53,17 +51,17 @@ public interface Buildable :
      *
      * @constructor Creates a new instance of Buildable for the provided [CPointer].
      */
-    public data class BuildableImpl(override val gtkBuildablePointer: CPointer<GtkBuildable>) :
-        Object(gtkBuildablePointer.reinterpret()),
+    public data class BuildableImpl(
+        override val gtkBuildablePointer: CPointer<GtkBuildable>,
+    ) : Object(gtkBuildablePointer.reinterpret()),
         Buildable
 
     public companion object : TypeCompanion<Buildable> {
         override val type: GeneratedInterfaceKGType<Buildable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_buildable_get_type")!!) { BuildableImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_buildable_get_type")!!) { BuildableImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Buildable

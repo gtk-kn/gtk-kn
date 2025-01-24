@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -29,9 +32,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
 
 /**
  * `GSocketAddress` is the equivalent of
@@ -39,8 +39,9 @@ import kotlin.Result
  * API. This is an abstract class; use [class@Gio.InetSocketAddress] for
  * internet sockets, or [class@Gio.UnixSocketAddress] for UNIX domain sockets.
  */
-public abstract class SocketAddress(public val gioSocketAddressPointer: CPointer<GSocketAddress>) :
-    Object(gioSocketAddressPointer.reinterpret()),
+public abstract class SocketAddress(
+    public val gioSocketAddressPointer: CPointer<GSocketAddress>,
+) : Object(gioSocketAddressPointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
@@ -60,8 +61,7 @@ public abstract class SocketAddress(public val gioSocketAddressPointer: CPointer
          * @since 2.22
          */
         get() = g_socket_address_get_family(gioSocketAddressPointer).run {
-            SocketFamily.fromNativeValue(this)
-        }
+            SocketFamily.fromNativeValue(this)}
 
     /**
      * Creates a #GSocketAddress subclass corresponding to the native
@@ -73,10 +73,7 @@ public abstract class SocketAddress(public val gioSocketAddressPointer: CPointer
      *     be converted, otherwise null
      * @since 2.22
      */
-    public constructor(
-        native: gpointer,
-        len: gsize,
-    ) : this(g_socket_address_new_from_native(native, len)!!.reinterpret())
+    public constructor(native: gpointer, len: gsize) : this(g_socket_address_new_from_native(native, len)!!)
 
     /**
      * Gets the size of @address's native struct sockaddr.
@@ -121,17 +118,16 @@ public abstract class SocketAddress(public val gioSocketAddressPointer: CPointer
      *
      * @constructor Creates a new instance of SocketAddress for the provided [CPointer].
      */
-    public class SocketAddressImpl(pointer: CPointer<GSocketAddress>) : SocketAddress(pointer)
+    public class SocketAddressImpl(
+        pointer: CPointer<GSocketAddress>,
+    ) : SocketAddress(pointer)
 
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_address_get_type")!!) {
-                SocketAddressImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_socket_address_get_type")!!) { SocketAddressImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketAddress

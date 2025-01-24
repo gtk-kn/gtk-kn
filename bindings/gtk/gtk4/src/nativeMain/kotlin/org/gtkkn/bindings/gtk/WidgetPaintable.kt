@@ -41,8 +41,9 @@ import org.gtkkn.native.gtk.gtk_widget_paintable_set_widget
  * [property@Gtk.Picture:can-shrink] property is set to true or you might
  * end up with an infinitely growing widget.
  */
-public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>) :
-    Object(gtkWidgetPaintablePointer.reinterpret()),
+public open class WidgetPaintable(
+    public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>,
+) : Object(gtkWidgetPaintablePointer.reinterpret()),
     Paintable,
     KGTyped {
     override val gdkPaintablePointer: CPointer<GdkPaintable>
@@ -58,9 +59,7 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
          * @return the observed widget.
          */
         get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the widget that should be observed.
          *
@@ -74,19 +73,14 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
      * @param widget a `GtkWidget`
      * @return a new `GtkWidgetPaintable`
      */
-    public constructor(
-        widget: Widget? = null,
-    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer)!!.reinterpret())
+    public constructor(widget: Widget? = null) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =
-            GeneratedClassKGType(getTypeOrNull("gtk_widget_paintable_get_type")!!) {
-                WidgetPaintable(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_widget_paintable_get_type")!!) { WidgetPaintable(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of WidgetPaintable

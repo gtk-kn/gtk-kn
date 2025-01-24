@@ -3,9 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRand
 import org.gtkkn.native.glib.g_rand_copy
@@ -22,7 +23,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_rand_get_type
-import kotlin.Unit
 
 /**
  * The GRand struct is an opaque data structure. It should only be
@@ -33,7 +33,32 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  * - parameter `seed`: Unsupported pointer to primitive type
  */
-public class Rand(public val glibRandPointer: CPointer<GRand>) : ProxyInstance(glibRandPointer) {
+public class Rand(
+    public val glibRandPointer: CPointer<GRand>,
+) : ProxyInstance(glibRandPointer) {
+    /**
+     * Creates a new random number generator initialized with a seed taken
+     * either from `/dev/urandom` (if existing) or from the current time
+     * (as a fallback).
+     *
+     * On Windows, the seed is taken from rand_s().
+     *
+     * @return the new #GRand
+     */
+    public constructor() : this(g_rand_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new random number generator initialized with @seed.
+     *
+     * @param seed a value to initialize the random number generator
+     * @return the new #GRand
+     */
+    public constructor(seed: guint) : this(g_rand_new_with_seed(seed)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies a #GRand into a new one with the same exact state as before.
      * This way you can take a snapshot of the random number generator for
@@ -44,8 +69,7 @@ public class Rand(public val glibRandPointer: CPointer<GRand>) : ProxyInstance(g
      */
     @GLibVersion2_4
     public fun copy(): Rand = g_rand_copy(glibRandPointer)!!.run {
-        Rand(this)
-    }
+        Rand(this)}
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -96,25 +120,6 @@ public class Rand(public val glibRandPointer: CPointer<GRand>) : ProxyInstance(g
     public fun setSeed(seed: guint): Unit = g_rand_set_seed(glibRandPointer, seed)
 
     public companion object {
-        /**
-         * Creates a new random number generator initialized with a seed taken
-         * either from `/dev/urandom` (if existing) or from the current time
-         * (as a fallback).
-         *
-         * On Windows, the seed is taken from rand_s().
-         *
-         * @return the new #GRand
-         */
-        public fun new(): Rand = Rand(g_rand_new()!!)
-
-        /**
-         * Creates a new random number generator initialized with @seed.
-         *
-         * @param seed a value to initialize the random number generator
-         * @return the new #GRand
-         */
-        public fun newWithSeed(seed: guint): Rand = Rand(g_rand_new_with_seed(seed)!!.reinterpret())
-
         /**
          * Get the GType of Rand
          *

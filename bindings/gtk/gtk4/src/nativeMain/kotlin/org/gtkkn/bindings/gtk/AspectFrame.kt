@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -29,7 +30,6 @@ import org.gtkkn.native.gtk.gtk_aspect_frame_set_obey_child
 import org.gtkkn.native.gtk.gtk_aspect_frame_set_ratio
 import org.gtkkn.native.gtk.gtk_aspect_frame_set_xalign
 import org.gtkkn.native.gtk.gtk_aspect_frame_set_yalign
-import kotlin.Boolean
 
 /**
  * `GtkAspectFrame` preserves the aspect ratio of its child.
@@ -47,8 +47,9 @@ import kotlin.Boolean
  *
  * Starting from GTK 4.12, `GtkAspectFrame` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspectFrame>) :
-    Widget(gtkAspectFramePointer.reinterpret()),
+public open class AspectFrame(
+    public val gtkAspectFramePointer: CPointer<GtkAspectFrame>,
+) : Widget(gtkAspectFramePointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -69,9 +70,7 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
          * @return the child widget of @self
          */
         get() = gtk_aspect_frame_get_child(gtkAspectFramePointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -90,7 +89,6 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
          * @return whether to obey the child's size request
          */
         get() = gtk_aspect_frame_get_obey_child(gtkAspectFramePointer).asBoolean()
-
         /**
          * Sets whether the aspect ratio of the child's size
          * request should override the set aspect ratio of
@@ -114,7 +112,6 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
          * @return the desired aspect ratio
          */
         get() = gtk_aspect_frame_get_ratio(gtkAspectFramePointer)
-
         /**
          * Sets the desired aspect ratio of the child.
          *
@@ -133,7 +130,6 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
          * @return the horizontal alignment
          */
         get() = gtk_aspect_frame_get_xalign(gtkAspectFramePointer)
-
         /**
          * Sets the horizontal alignment of the child within the allocation
          * of the `GtkAspectFrame`.
@@ -153,7 +149,6 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
          * @return the vertical alignment
          */
         get() = gtk_aspect_frame_get_yalign(gtkAspectFramePointer)
-
         /**
          * Sets the vertical alignment of the child within the allocation
          * of the `GtkAspectFrame`.
@@ -183,11 +178,10 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
 
     public companion object : TypeCompanion<AspectFrame> {
         override val type: GeneratedClassKGType<AspectFrame> =
-            GeneratedClassKGType(getTypeOrNull("gtk_aspect_frame_get_type")!!) { AspectFrame(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_aspect_frame_get_type")!!) { AspectFrame(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AspectFrame

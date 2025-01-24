@@ -30,8 +30,9 @@ import org.gtkkn.native.gtk.gtk_notebook_page_get_type
  * - method `tab-fill`: Property has no getter nor setter
  * - method `tab-label`: Property has no getter nor setter
  */
-public open class NotebookPage(public val gtkNotebookPagePointer: CPointer<GtkNotebookPage>) :
-    Object(gtkNotebookPagePointer.reinterpret()),
+public open class NotebookPage(
+    public val gtkNotebookPagePointer: CPointer<GtkNotebookPage>,
+) : Object(gtkNotebookPagePointer.reinterpret()),
     KGTyped {
     /**
      * The child for this page.
@@ -43,16 +44,14 @@ public open class NotebookPage(public val gtkNotebookPagePointer: CPointer<GtkNo
          * @return the child to which @page belongs
          */
         get() = gtk_notebook_page_get_child(gtkNotebookPagePointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     public companion object : TypeCompanion<NotebookPage> {
         override val type: GeneratedClassKGType<NotebookPage> =
-            GeneratedClassKGType(getTypeOrNull("gtk_notebook_page_get_type")!!) { NotebookPage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_notebook_page_get_type")!!) { NotebookPage(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of NotebookPage

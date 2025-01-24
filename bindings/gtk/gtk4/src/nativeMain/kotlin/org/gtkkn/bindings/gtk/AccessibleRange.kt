@@ -42,10 +42,7 @@ import org.gtkkn.native.gtk.gtk_accessible_range_get_type
  * @since 4.10
  */
 @GtkVersion4_10
-public interface AccessibleRange :
-    Proxy,
-    Accessible,
-    KGTyped {
+public interface AccessibleRange : Proxy, Accessible, KGTyped {
     public val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -56,19 +53,17 @@ public interface AccessibleRange :
      *
      * @constructor Creates a new instance of AccessibleRange for the provided [CPointer].
      */
-    public data class AccessibleRangeImpl(override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>) :
-        Object(gtkAccessibleRangePointer.reinterpret()),
+    public data class AccessibleRangeImpl(
+        override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>,
+    ) : Object(gtkAccessibleRangePointer.reinterpret()),
         AccessibleRange
 
     public companion object : TypeCompanion<AccessibleRange> {
         override val type: GeneratedInterfaceKGType<AccessibleRange> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_range_get_type")!!) {
-                AccessibleRangeImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_range_get_type")!!) { AccessibleRangeImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AccessibleRange

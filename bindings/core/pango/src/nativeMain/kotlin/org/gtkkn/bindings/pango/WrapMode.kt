@@ -16,17 +16,17 @@ import org.gtkkn.native.pango.pango_wrap_mode_get_type
  * breaking at grapheme boundaries that are determined by the Unicode text
  * segmentation algorithm.
  */
-public enum class WrapMode(public val nativeValue: PangoWrapMode) {
+public enum class WrapMode(
+    public val nativeValue: PangoWrapMode,
+) {
     /**
      * wrap lines at word boundaries.
      */
     WORD(PangoWrapMode.PANGO_WRAP_WORD),
-
     /**
      * wrap lines at character boundaries.
      */
     CHAR(PangoWrapMode.PANGO_WRAP_CHAR),
-
     /**
      * wrap lines at word boundaries, but fall back to
      *   character boundaries if there is not enough space for a full word.

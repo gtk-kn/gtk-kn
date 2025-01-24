@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -46,9 +49,6 @@ import org.gtkkn.native.gtk.gtk_grid_view_set_min_columns
 import org.gtkkn.native.gtk.gtk_grid_view_set_model
 import org.gtkkn.native.gtk.gtk_grid_view_set_single_click_activate
 import org.gtkkn.native.gtk.gtk_grid_view_set_tab_behavior
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGridView` presents a large dynamic grid of items.
@@ -87,8 +87,9 @@ import kotlin.Unit
  * `GtkGridView` uses the %GTK_ACCESSIBLE_ROLE_GRID role, and the items
  * use the %GTK_ACCESSIBLE_ROLE_GRID_CELL role.
  */
-public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>) :
-    ListBase(gtkGridViewPointer.reinterpret()),
+public open class GridView(
+    public val gtkGridViewPointer: CPointer<GtkGridView>,
+) : ListBase(gtkGridViewPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -115,7 +116,6 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @return true if rubberband selection is enabled
          */
         get() = gtk_grid_view_get_enable_rubberband(gtkGridViewPointer).asBoolean()
-
         /**
          * Sets whether selections can be changed by dragging with the mouse.
          *
@@ -133,9 +133,7 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @return The factory in use
          */
         get() = gtk_grid_view_get_factory(gtkGridViewPointer)?.run {
-            ListItemFactory(this)
-        }
-
+            ListItemFactory(this)}
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.
          *
@@ -156,7 +154,6 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @return The maximum number of columns
          */
         get() = gtk_grid_view_get_max_columns(gtkGridViewPointer)
-
         /**
          * Sets the maximum number of columns to use.
          *
@@ -179,7 +176,6 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @return The minimum number of columns
          */
         get() = gtk_grid_view_get_min_columns(gtkGridViewPointer)
-
         /**
          * Sets the minimum number of columns to use.
          *
@@ -202,9 +198,7 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @return The model in use
          */
         get() = gtk_grid_view_get_model(gtkGridViewPointer)?.run {
-            SelectionModel.SelectionModelImpl(reinterpret())
-        }
-
+            SelectionModel.SelectionModelImpl(reinterpret())}
         /**
          * Sets the model to use.
          *
@@ -225,16 +219,13 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @return true if items are activated on single click
          */
         get() = gtk_grid_view_get_single_click_activate(gtkGridViewPointer).asBoolean()
-
         /**
          * Sets whether items should be activated on single click and
          * selected on hover.
          *
          * @param singleClickActivate true to activate items on single click
          */
-        set(
-            singleClickActivate
-        ) = gtk_grid_view_set_single_click_activate(gtkGridViewPointer, singleClickActivate.asGBoolean())
+        set(singleClickActivate) = gtk_grid_view_set_single_click_activate(gtkGridViewPointer, singleClickActivate.asGBoolean())
 
     /**
      * Behavior of the <kbd>Tab</kbd> key
@@ -250,9 +241,7 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
          * @since 4.12
          */
         get() = gtk_grid_view_get_tab_behavior(gtkGridViewPointer).run {
-            ListTabBehavior.fromNativeValue(this)
-        }
-
+            ListTabBehavior.fromNativeValue(this)}
         /**
          * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
          *
@@ -277,10 +266,7 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
      * @param factory The factory to populate items with
      * @return a new `GtkGridView` using the given @model and @factory
      */
-    public constructor(
-        model: SelectionModel? = null,
-        factory: ListItemFactory? = null,
-    ) : this(gtk_grid_view_new(model?.gtkSelectionModelPointer, factory?.gtkListItemFactoryPointer)!!.reinterpret())
+    public constructor(model: SelectionModel? = null, factory: ListItemFactory? = null) : this(gtk_grid_view_new(model?.gtkSelectionModelPointer, factory?.gtkListItemFactoryPointer)!!.reinterpret())
 
     /**
      * Scrolls to the item at the given position and performs the actions
@@ -296,8 +282,11 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
      * @since 4.12
      */
     @GtkVersion4_12
-    public open fun scrollTo(pos: guint, flags: ListScrollFlags, scroll: ScrollInfo? = null): Unit =
-        gtk_grid_view_scroll_to(gtkGridViewPointer, pos, flags.mask, scroll?.gtkScrollInfoPointer)
+    public open fun scrollTo(
+        pos: guint,
+        flags: ListScrollFlags,
+        scroll: ScrollInfo? = null,
+    ): Unit = gtk_grid_view_scroll_to(gtkGridViewPointer, pos, flags.mask, scroll?.gtkScrollInfoPointer)
 
     /**
      * Emitted when a cell has been activated by the user,
@@ -310,15 +299,7 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` position of item to activate
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkGridViewPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong = g_signal_connect_data(gtkGridViewPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -331,11 +312,10 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
 
     public companion object : TypeCompanion<GridView> {
         override val type: GeneratedClassKGType<GridView> =
-            GeneratedClassKGType(getTypeOrNull("gtk_grid_view_get_type")!!) { GridView(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_grid_view_get_type")!!) { GridView(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GridView
@@ -347,10 +327,9 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
 }
 
 private val onActivateFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        position: guint,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    position: guint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(position: guint) -> Unit>().get().invoke(position)
-}
-    .reinterpret()
+    userData.asStableRef<(position: guint) -> Unit>().get().invoke(position)}
+.reinterpret()

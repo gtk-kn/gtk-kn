@@ -3,17 +3,24 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
+import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -51,13 +58,6 @@ import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_io_channel_get_type
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `GIOChannel` data type aims to provide a portable method for
@@ -109,29 +109,75 @@ import kotlin.native.ref.createCleaner
  * - parameter `bytes_written`: Unsupported pointer to primitive type
  * - parameter `buf`: Array parameter of type guint8 is not supported
  */
-public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibIoChannelPointer) {
+public class IoChannel(
+    public val glibIoChannelPointer: CPointer<GIOChannel>,
+) : ProxyInstance(glibIoChannelPointer) {
+    /**
+     * Open a file @filename as a #GIOChannel using mode @mode. This
+     * channel will be closed when the last reference to it is dropped,
+     * so there is no need to call g_io_channel_close() (though doing
+     * so will not cause problems, as long as no attempt is made to
+     * access the channel after it is closed).
+     *
+     * @param filename A string containing the name of a file
+     * @param mode One of "r", "w", "a", "r+", "w+", "a+". These have
+     *        the same meaning as in fopen()
+     * @return A #GIOChannel on success, null on failure.
+     */
+    @Throws(GLibException::class)
+    public constructor(filename: String, mode: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = g_io_channel_new_file(filename, mode, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
+        }
+        gResult!!
+    }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GIOChannel given a file descriptor. On UNIX systems
+     * this works for plain files, pipes, and sockets.
+     *
+     * The returned #GIOChannel has a reference count of 1.
+     *
+     * The default encoding for #GIOChannel is UTF-8. If your application
+     * is reading output from a command using via pipe, you may need to set
+     * the encoding to the encoding of the current locale (see
+     * g_get_charset()) with the g_io_channel_set_encoding() function.
+     * By default, the fd passed will not be closed when the final reference
+     * to the #GIOChannel data structure is dropped.
+     *
+     * If you want to read raw binary data without interpretation, then
+     * call the g_io_channel_set_encoding() function with null for the
+     * encoding argument.
+     *
+     * This function is available in GLib on Windows, too, but you should
+     * avoid using it on Windows. The domain of file descriptors and
+     * sockets overlap. There is no way for GLib to know which one you mean
+     * in case the argument you pass to this function happens to be both a
+     * valid file descriptor and socket. If that happens a warning is
+     * issued, and GLib assumes that it is the file descriptor you mean.
+     *
+     * @param fd a file descriptor.
+     * @return a new #GIOChannel.
+     */
+    public constructor(fd: gint) : this(g_io_channel_unix_new(fd)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Allocate a new IoChannel.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GIOChannel>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to IoChannel and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GIOChannel>, Cleaner>,
-    ) : this(glibIoChannelPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GIOChannel>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new IoChannel using the provided [AutofreeScope].
@@ -159,8 +205,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
     public fun flush(): Result<IoStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_flush(glibIoChannelPointer, gError.ptr).run {
-            IoStatus.fromNativeValue(this)
-        }
+            IoStatus.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -177,8 +222,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      * @return A #GIOCondition
      */
     public fun getBufferCondition(): IoCondition = g_io_channel_get_buffer_condition(glibIoChannelPointer).run {
-        IoCondition(this)
-    }
+        IoCondition(this)}
 
     /**
      * Gets the buffer size.
@@ -212,8 +256,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      * @return A string containing the encoding, this string is
      *   owned by GLib and must not be freed.
      */
-    public fun getEncoding(): String =
-        g_io_channel_get_encoding(glibIoChannelPointer)?.toKString() ?: error("Expected not null string")
+    public fun getEncoding(): String = g_io_channel_get_encoding(glibIoChannelPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the current flags for a #GIOChannel, including read-only
@@ -229,8 +272,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      * @return the flags which are set on the channel
      */
     public fun getFlags(): IoFlags = g_io_channel_get_flags(glibIoChannelPointer).run {
-        IoFlags(this)
-    }
+        IoFlags(this)}
 
     /**
      * Initializes a #GIOChannel struct.
@@ -247,8 +289,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      * @return the @channel that was passed in (since 2.6)
      */
     public fun ref(): IoChannel = g_io_channel_ref(glibIoChannelPointer)!!.run {
-        IoChannel(this)
-    }
+        IoChannel(this)}
 
     /**
      * Sets the current position in the #GIOChannel, similar to the standard
@@ -261,10 +302,8 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      *        (the end of the file)
      * @return %G_IO_ERROR_NONE if the operation was successful.
      */
-    public fun seek(offset: gint64, type: SeekType): IoError =
-        g_io_channel_seek(glibIoChannelPointer, offset, type.nativeValue).run {
-            IoError.fromNativeValue(this)
-        }
+    public fun seek(offset: gint64, type: SeekType): IoError = g_io_channel_seek(glibIoChannelPointer, offset, type.nativeValue).run {
+        IoError.fromNativeValue(this)}
 
     /**
      * Replacement for g_io_channel_seek() with the new API.
@@ -279,8 +318,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
     public fun seekPosition(offset: gint64, type: SeekType): Result<IoStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_seek_position(glibIoChannelPointer, offset, type.nativeValue, gError.ptr).run {
-            IoStatus.fromNativeValue(this)
-        }
+            IoStatus.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -319,8 +357,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      *
      * @param buffered whether to set the channel buffered or unbuffered
      */
-    public fun setBuffered(buffered: Boolean): Unit =
-        g_io_channel_set_buffered(glibIoChannelPointer, buffered.asGBoolean())
+    public fun setBuffered(buffered: Boolean): Unit = g_io_channel_set_buffered(glibIoChannelPointer, buffered.asGBoolean())
 
     /**
      * Whether to close the channel on the final unref of the #GIOChannel
@@ -333,8 +370,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      * @param doClose Whether to close the channel on the final unref of
      *            the GIOChannel data structure.
      */
-    public fun setCloseOnUnref(doClose: Boolean): Unit =
-        g_io_channel_set_close_on_unref(glibIoChannelPointer, doClose.asGBoolean())
+    public fun setCloseOnUnref(doClose: Boolean): Unit = g_io_channel_set_close_on_unref(glibIoChannelPointer, doClose.asGBoolean())
 
     /**
      * Sets the encoding for the input/output of the channel.
@@ -378,8 +414,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
     public fun setEncoding(encoding: String? = null): Result<IoStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_set_encoding(glibIoChannelPointer, encoding, gError.ptr).run {
-            IoStatus.fromNativeValue(this)
-        }
+            IoStatus.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -397,8 +432,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
     public fun setFlags(flags: IoFlags): Result<IoStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_set_flags(glibIoChannelPointer, flags.mask, gError.ptr).run {
-            IoStatus.fromNativeValue(this)
-        }
+            IoStatus.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -419,8 +453,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
      *          string is assumed to be nul-terminated. This option allows
      *          termination strings with embedded nuls.
      */
-    public fun setLineTerm(lineTerm: String? = null, length: gint): Unit =
-        g_io_channel_set_line_term(glibIoChannelPointer, lineTerm, length)
+    public fun setLineTerm(lineTerm: String? = null, length: gint): Unit = g_io_channel_set_line_term(glibIoChannelPointer, lineTerm, length)
 
     /**
      * Close an IO channel. Any pending data to be written will be
@@ -433,8 +466,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
     public fun shutdown(flush: Boolean): Result<IoStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_shutdown(glibIoChannelPointer, flush.asGBoolean(), gError.ptr).run {
-            IoStatus.fromNativeValue(this)
-        }
+            IoStatus.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -468,8 +500,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
     public fun writeUnichar(thechar: gunichar): Result<IoStatus> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_channel_write_unichar(glibIoChannelPointer, thechar, gError.ptr).run {
-            IoStatus.fromNativeValue(this)
-        }
+            IoStatus.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -480,59 +511,6 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
 
     public companion object {
         /**
-         * Open a file @filename as a #GIOChannel using mode @mode. This
-         * channel will be closed when the last reference to it is dropped,
-         * so there is no need to call g_io_channel_close() (though doing
-         * so will not cause problems, as long as no attempt is made to
-         * access the channel after it is closed).
-         *
-         * @param filename A string containing the name of a file
-         * @param mode One of "r", "w", "a", "r+", "w+", "a+". These have
-         *        the same meaning as in fopen()
-         * @return A #GIOChannel on success, null on failure.
-         */
-        public fun newFile(filename: String, mode: String): Result<IoChannel> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_io_channel_new_file(filename, mode, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(IoChannel(checkNotNull(gResult)))
-                }
-            }
-        }
-
-        /**
-         * Creates a new #GIOChannel given a file descriptor. On UNIX systems
-         * this works for plain files, pipes, and sockets.
-         *
-         * The returned #GIOChannel has a reference count of 1.
-         *
-         * The default encoding for #GIOChannel is UTF-8. If your application
-         * is reading output from a command using via pipe, you may need to set
-         * the encoding to the encoding of the current locale (see
-         * g_get_charset()) with the g_io_channel_set_encoding() function.
-         * By default, the fd passed will not be closed when the final reference
-         * to the #GIOChannel data structure is dropped.
-         *
-         * If you want to read raw binary data without interpretation, then
-         * call the g_io_channel_set_encoding() function with null for the
-         * encoding argument.
-         *
-         * This function is available in GLib on Windows, too, but you should
-         * avoid using it on Windows. The domain of file descriptors and
-         * sockets overlap. There is no way for GLib to know which one you mean
-         * in case the argument you pass to this function happens to be both a
-         * valid file descriptor and socket. If that happens a warning is
-         * issued, and GLib assumes that it is the file descriptor you mean.
-         *
-         * @param fd a file descriptor.
-         * @return a new #GIOChannel.
-         */
-        public fun unixNew(fd: gint): IoChannel = IoChannel(g_io_channel_unix_new(fd)!!.reinterpret())
-
-        /**
          * Converts an `errno` error number to a #GIOChannelError.
          *
          * @param en an `errno` error number, e.g. `EINVAL`
@@ -540,8 +518,7 @@ public class IoChannel(public val glibIoChannelPointer: CPointer<GIOChannel>, cl
          *      %G_IO_CHANNEL_ERROR_INVAL.
          */
         public fun errorFromErrno(en: gint): IoChannelError = g_io_channel_error_from_errno(en).run {
-            IoChannelError.fromNativeValue(this)
-        }
+            IoChannelError.fromNativeValue(this)}
 
         public fun errorQuark(): Quark = g_io_channel_error_quark()
 

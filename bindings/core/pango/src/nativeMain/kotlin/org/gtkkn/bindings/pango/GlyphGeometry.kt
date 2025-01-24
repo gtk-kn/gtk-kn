@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,12 +11,9 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoGlyphGeometry
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoGlyphGeometry` structure contains width and positioning
@@ -36,14 +34,12 @@ import kotlin.native.ref.createCleaner
  */
 public class GlyphGeometry(
     public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry>,
-    cleaner: Cleaner? = null,
 ) : ProxyInstance(pangoGlyphGeometryPointer) {
     /**
      * the logical width to use for the the character.
      */
     public var width: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.width
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.width = value
@@ -54,7 +50,6 @@ public class GlyphGeometry(
      */
     public var xOffset: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.x_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.x_offset = value
@@ -65,7 +60,6 @@ public class GlyphGeometry(
      */
     public var yOffset: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.y_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.y_offset = value
@@ -77,21 +71,9 @@ public class GlyphGeometry(
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoGlyphGeometry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to GlyphGeometry and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoGlyphGeometry>, Cleaner>,
-    ) : this(pangoGlyphGeometryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoGlyphGeometry>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new GlyphGeometry using the provided [AutofreeScope].

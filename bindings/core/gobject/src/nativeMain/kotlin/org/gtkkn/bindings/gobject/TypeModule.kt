@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_6
@@ -22,9 +25,6 @@ import org.gtkkn.native.gobject.g_type_module_register_type
 import org.gtkkn.native.gobject.g_type_module_set_name
 import org.gtkkn.native.gobject.g_type_module_unuse
 import org.gtkkn.native.gobject.g_type_module_use
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GTypeModule` provides a simple implementation of the `GTypePlugin`
@@ -59,8 +59,9 @@ import kotlin.Unit
  * derive from `GTypeModule` and implement the load and unload functions
  * in `GTypeModuleClass`.
  */
-public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<GTypeModule>) :
-    Object(gobjectTypeModulePointer.reinterpret()),
+public abstract class TypeModule(
+    public val gobjectTypeModulePointer: CPointer<GTypeModule>,
+) : Object(gobjectTypeModulePointer.reinterpret()),
     TypePlugin,
     KGTyped {
     override val gobjectTypePluginPointer: CPointer<GTypePlugin>
@@ -81,13 +82,11 @@ public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<G
      * @param interfaceType interface type to add
      * @param interfaceInfo type information structure
      */
-    public open fun addInterface(instanceType: GType, interfaceType: GType, interfaceInfo: InterfaceInfo): Unit =
-        g_type_module_add_interface(
-            gobjectTypeModulePointer,
-            instanceType,
-            interfaceType,
-            interfaceInfo.gobjectInterfaceInfoPointer
-        )
+    public open fun addInterface(
+        instanceType: GType,
+        interfaceType: GType,
+        interfaceInfo: InterfaceInfo,
+    ): Unit = g_type_module_add_interface(gobjectTypeModulePointer, instanceType, interfaceType, interfaceInfo.gobjectInterfaceInfoPointer)
 
     /**
      * Looks up or registers an enumeration that is implemented with a particular
@@ -110,8 +109,7 @@ public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<G
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerEnum(name: String, constStaticValues: EnumValue): GType =
-        g_type_module_register_enum(gobjectTypeModulePointer, name, constStaticValues.gobjectEnumValuePointer)
+    public open fun registerEnum(name: String, constStaticValues: EnumValue): GType = g_type_module_register_enum(gobjectTypeModulePointer, name, constStaticValues.gobjectEnumValuePointer)
 
     /**
      * Looks up or registers a flags type that is implemented with a particular
@@ -134,8 +132,7 @@ public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<G
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerFlags(name: String, constStaticValues: FlagsValue): GType =
-        g_type_module_register_flags(gobjectTypeModulePointer, name, constStaticValues.gobjectFlagsValuePointer)
+    public open fun registerFlags(name: String, constStaticValues: FlagsValue): GType = g_type_module_register_flags(gobjectTypeModulePointer, name, constStaticValues.gobjectFlagsValuePointer)
 
     /**
      * Looks up or registers a type that is implemented with a particular
@@ -159,14 +156,12 @@ public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<G
      * @param flags flags field providing details about the type
      * @return the new or existing type ID
      */
-    public open fun registerType(parentType: GType, typeName: String, typeInfo: TypeInfo, flags: TypeFlags): GType =
-        g_type_module_register_type(
-            gobjectTypeModulePointer,
-            parentType,
-            typeName,
-            typeInfo.gobjectTypeInfoPointer,
-            flags.mask
-        )
+    public open fun registerType(
+        parentType: GType,
+        typeName: String,
+        typeInfo: TypeInfo,
+        flags: TypeFlags,
+    ): GType = g_type_module_register_type(gobjectTypeModulePointer, parentType, typeName, typeInfo.gobjectTypeInfoPointer, flags.mask)
 
     /**
      * Sets the name for a #GTypeModule
@@ -200,15 +195,16 @@ public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<G
      *
      * @constructor Creates a new instance of TypeModule for the provided [CPointer].
      */
-    public class TypeModuleImpl(pointer: CPointer<GTypeModule>) : TypeModule(pointer)
+    public class TypeModuleImpl(
+        pointer: CPointer<GTypeModule>,
+    ) : TypeModule(pointer)
 
     public companion object : TypeCompanion<TypeModule> {
         override val type: GeneratedClassKGType<TypeModule> =
-            GeneratedClassKGType(getTypeOrNull("g_type_module_get_type")!!) { TypeModuleImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_type_module_get_type")!!) { TypeModuleImpl(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GObjectTypeProvider.register()}
 
         /**
          * Get the GType of TypeModule

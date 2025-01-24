@@ -10,17 +10,17 @@ import org.gtkkn.native.gobject.GType
 /**
  * Used by g_file_set_attributes_from_info() when setting file attributes.
  */
-public enum class FileAttributeStatus(public val nativeValue: GFileAttributeStatus) {
+public enum class FileAttributeStatus(
+    public val nativeValue: GFileAttributeStatus,
+) {
     /**
      * Attribute value is unset (empty).
      */
     UNSET(GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_UNSET),
-
     /**
      * Attribute value is set.
      */
     SET(GFileAttributeStatus.G_FILE_ATTRIBUTE_STATUS_SET),
-
     /**
      * Indicates an error in setting the value.
      */

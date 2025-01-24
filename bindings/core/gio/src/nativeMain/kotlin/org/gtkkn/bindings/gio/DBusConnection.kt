@@ -3,10 +3,17 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.memScoped
@@ -15,7 +22,6 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
@@ -87,12 +93,6 @@ import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GDBusConnection` type is used for D-Bus connections to remote
@@ -163,8 +163,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<GDBusConnection>) :
-    Object(gioDBusConnectionPointer.reinterpret()),
+public open class DBusConnection(
+    public val gioDBusConnectionPointer: CPointer<GDBusConnection>,
+) : Object(gioDBusConnectionPointer.reinterpret()),
     AsyncInitable,
     Initable,
     KGTyped {
@@ -189,8 +190,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          * @since 2.26
          */
         get() = g_dbus_connection_get_capabilities(gioDBusConnectionPointer).run {
-            DBusCapabilityFlags(this)
-        }
+            DBusCapabilityFlags(this)}
 
     /**
      * A boolean specifying whether the process will be terminated (by
@@ -214,7 +214,6 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          * @since 2.26
          */
         get() = g_dbus_connection_get_exit_on_close(gioDBusConnectionPointer).asBoolean()
-
         /**
          * Sets whether the process should be terminated when @connection is
          * closed by the remote peer. See #GDBusConnection:exit-on-close for
@@ -248,8 +247,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          * @since 2.60
          */
         get() = g_dbus_connection_get_flags(gioDBusConnectionPointer).run {
-            DBusConnectionFlags(this)
-        }
+            DBusConnectionFlags(this)}
 
     /**
      * The GUID of the peer performing the role of server when
@@ -314,8 +312,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          * @since 2.26
          */
         get() = g_dbus_connection_get_stream(gioDBusConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)
-        }
+            IoStream.IoStreamImpl(this)}
 
     /**
      * The unique name as assigned by the message bus or null if the
@@ -347,15 +344,15 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @Throws(GLibException::class)
-    public constructor(res: AsyncResult) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_dbus_connection_new_finish(res.gioAsyncResultPointer, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(res: AsyncResult) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = g_dbus_connection_new_finish(res.gioAsyncResultPointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -391,22 +388,15 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         flags: DBusConnectionFlags,
         observer: DBusAuthObserver? = null,
         cancellable: Cancellable? = null,
-    ) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_connection_new_for_address_sync(
-                    address,
-                    flags.mask,
-                    observer?.gioDBusAuthObserverPointer,
-                    cancellable?.gioCancellablePointer,
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = g_dbus_connection_new_for_address_sync(address, flags.mask, observer?.gioDBusAuthObserverPointer, cancellable?.gioCancellablePointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -442,23 +432,15 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         flags: DBusConnectionFlags,
         observer: DBusAuthObserver? = null,
         cancellable: Cancellable? = null,
-    ) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_connection_new_sync(
-                    stream.gioIoStreamPointer,
-                    guid,
-                    flags.mask,
-                    observer?.gioDBusAuthObserverPointer,
-                    cancellable?.gioCancellablePointer,
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = g_dbus_connection_new_sync(stream.gioIoStreamPointer, guid, flags.mask, observer?.gioDBusAuthObserverPointer, cancellable?.gioCancellablePointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -496,12 +478,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun addFilter(filterFunction: DBusMessageFilterFunction): guint = g_dbus_connection_add_filter(
-        gioDBusConnectionPointer,
-        DBusMessageFilterFunctionFunc.reinterpret(),
-        StableRef.create(filterFunction).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun addFilter(filterFunction: DBusMessageFilterFunction): guint = g_dbus_connection_add_filter(gioDBusConnectionPointer, DBusMessageFilterFunctionFunc.reinterpret(), StableRef.create(filterFunction).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Asynchronously invokes the @method_name method on the
@@ -580,13 +557,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         timeoutMsec: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_dbus_connection_call(
-        gioDBusConnectionPointer, busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer, replyType?.glibVariantTypePointer, flags.mask, timeoutMsec, cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_dbus_connection_call(gioDBusConnectionPointer, busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer, replyType?.glibVariantTypePointer, flags.mask, timeoutMsec, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an operation started with g_dbus_connection_call().
@@ -599,13 +570,8 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun callFinish(res: AsyncResult): Result<Variant> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_call_finish(
-            gioDBusConnectionPointer,
-            res.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Variant(this)
-        }
+        val gResult = g_dbus_connection_call_finish(gioDBusConnectionPointer, res.gioAsyncResultPointer, gError.ptr)?.run {
+            Variant(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -682,8 +648,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     ): Result<Variant> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_connection_call_sync(gioDBusConnectionPointer, busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer, replyType?.glibVariantTypePointer, flags.mask, timeoutMsec, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            Variant(this)
-        }
+            Variant(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -740,13 +705,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         fdList: UnixFdList? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_dbus_connection_call_with_unix_fd_list(
-        gioDBusConnectionPointer, busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer, replyType?.glibVariantTypePointer, flags.mask, timeoutMsec, fdList?.gioUnixFdListPointer, cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_dbus_connection_call_with_unix_fd_list(gioDBusConnectionPointer, busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer, replyType?.glibVariantTypePointer, flags.mask, timeoutMsec, fdList?.gioUnixFdListPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Closes @connection. Note that this never causes the process to
@@ -780,15 +739,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun close(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_dbus_connection_close(
-            gioDBusConnectionPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun close(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_dbus_connection_close(gioDBusConnectionPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an operation started with g_dbus_connection_close().
@@ -801,11 +752,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun closeFinish(res: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_close_finish(
-            gioDBusConnectionPointer,
-            res.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_dbus_connection_close_finish(gioDBusConnectionPointer, res.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -826,11 +773,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun closeSync(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_close_sync(
-            gioDBusConnectionPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_dbus_connection_close_sync(gioDBusConnectionPointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -866,15 +809,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         parameters: Variant? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_emit_signal(
-            gioDBusConnectionPointer,
-            destinationBusName,
-            objectPath,
-            interfaceName,
-            signalName,
-            parameters?.glibVariantPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_dbus_connection_emit_signal(gioDBusConnectionPointer, destinationBusName, objectPath, interfaceName, signalName, parameters?.glibVariantPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -913,13 +848,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_32
     public open fun exportActionGroup(objectPath: String, actionGroup: ActionGroup): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_dbus_connection_export_action_group(
-                gioDBusConnectionPointer,
-                objectPath,
-                actionGroup.gioActionGroupPointer,
-                gError.ptr
-            )
+        val gResult = g_dbus_connection_export_action_group(gioDBusConnectionPointer, objectPath, actionGroup.gioActionGroupPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -953,13 +882,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_32
     public open fun exportMenuModel(objectPath: String, menu: MenuModel): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_dbus_connection_export_menu_model(
-                gioDBusConnectionPointer,
-                objectPath,
-                menu.gioMenuModelPointer,
-                gError.ptr
-            )
+        val gResult = g_dbus_connection_export_menu_model(gioDBusConnectionPointer, objectPath, menu.gioMenuModelPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -989,15 +912,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun flush(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_dbus_connection_flush(
-            gioDBusConnectionPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun flush(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_dbus_connection_flush(gioDBusConnectionPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an operation started with g_dbus_connection_flush().
@@ -1010,11 +925,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun flushFinish(res: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_flush_finish(
-            gioDBusConnectionPointer,
-            res.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_dbus_connection_flush_finish(gioDBusConnectionPointer, res.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1035,11 +946,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun flushSync(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_flush_sync(
-            gioDBusConnectionPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_dbus_connection_flush_sync(gioDBusConnectionPointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1077,10 +984,8 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getPeerCredentials(): Credentials? =
-        g_dbus_connection_get_peer_credentials(gioDBusConnectionPointer)?.run {
-            Credentials(this)
-        }
+    public open fun getPeerCredentials(): Credentials? = g_dbus_connection_get_peer_credentials(gioDBusConnectionPointer)?.run {
+        Credentials(this)}
 
     /**
      * Gets whether @connection is closed.
@@ -1113,16 +1018,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         setPropertyClosure: Closure? = null,
     ): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            g_dbus_connection_register_object_with_closures(
-                gioDBusConnectionPointer,
-                objectPath,
-                interfaceInfo.gioDBusInterfaceInfoPointer,
-                methodCallClosure?.gobjectClosurePointer,
-                getPropertyClosure?.gobjectClosurePointer,
-                setPropertyClosure?.gobjectClosurePointer,
-                gError.ptr
-            )
+        val gResult = g_dbus_connection_register_object_with_closures(gioDBusConnectionPointer, objectPath, interfaceInfo.gioDBusInterfaceInfoPointer, methodCallClosure?.gobjectClosurePointer, getPropertyClosure?.gobjectClosurePointer, setPropertyClosure?.gobjectClosurePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1144,8 +1040,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun removeFilter(filterId: guint): Unit =
-        g_dbus_connection_remove_filter(gioDBusConnectionPointer, filterId)
+    public open fun removeFilter(filterId: guint): Unit = g_dbus_connection_remove_filter(gioDBusConnectionPointer, filterId)
 
     /**
      * Finishes an operation started with g_dbus_connection_send_message_with_reply().
@@ -1167,13 +1062,8 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
     @GioVersion2_26
     public open fun sendMessageWithReplyFinish(res: AsyncResult): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_dbus_connection_send_message_with_reply_finish(
-            gioDBusConnectionPointer,
-            res.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            DBusMessage(this)
-        }
+        val gResult = g_dbus_connection_send_message_with_reply_finish(gioDBusConnectionPointer, res.gioAsyncResultPointer, gError.ptr)?.run {
+            DBusMessage(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1258,13 +1148,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
         arg0: String? = null,
         flags: DBusSignalFlags,
         callback: DBusSignalCallback,
-    ): guint = g_dbus_connection_signal_subscribe(
-        gioDBusConnectionPointer, sender, interfaceName, member, objectPath, arg0, flags.mask, DBusSignalCallbackFunc.reinterpret(),
-        StableRef.create(
-            callback
-        ).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    ): guint = g_dbus_connection_signal_subscribe(gioDBusConnectionPointer, sender, interfaceName, member, objectPath, arg0, flags.mask, DBusSignalCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Unsubscribes from signals.
@@ -1285,8 +1169,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun signalUnsubscribe(subscriptionId: guint): Unit =
-        g_dbus_connection_signal_unsubscribe(gioDBusConnectionPointer, subscriptionId)
+    public open fun signalUnsubscribe(subscriptionId: guint): Unit = g_dbus_connection_signal_unsubscribe(gioDBusConnectionPointer, subscriptionId)
 
     /**
      * If @connection was created with
@@ -1297,8 +1180,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun startMessageProcessing(): Unit =
-        g_dbus_connection_start_message_processing(gioDBusConnectionPointer)
+    public open fun startMessageProcessing(): Unit = g_dbus_connection_start_message_processing(gioDBusConnectionPointer)
 
     /**
      * Reverses the effect of a previous call to
@@ -1312,8 +1194,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun unexportActionGroup(exportId: guint): Unit =
-        g_dbus_connection_unexport_action_group(gioDBusConnectionPointer, exportId)
+    public open fun unexportActionGroup(exportId: guint): Unit = g_dbus_connection_unexport_action_group(gioDBusConnectionPointer, exportId)
 
     /**
      * Reverses the effect of a previous call to
@@ -1327,8 +1208,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun unexportMenuModel(exportId: guint): Unit =
-        g_dbus_connection_unexport_menu_model(gioDBusConnectionPointer, exportId)
+    public open fun unexportMenuModel(exportId: guint): Unit = g_dbus_connection_unexport_menu_model(gioDBusConnectionPointer, exportId)
 
     /**
      * Unregisters an object.
@@ -1339,8 +1219,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun unregisterObject(registrationId: guint): Boolean =
-        g_dbus_connection_unregister_object(gioDBusConnectionPointer, registrationId).asBoolean()
+    public open fun unregisterObject(registrationId: guint): Boolean = g_dbus_connection_unregister_object(gioDBusConnectionPointer, registrationId).asBoolean()
 
     /**
      * Unregisters a subtree.
@@ -1351,8 +1230,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun unregisterSubtree(registrationId: guint): Boolean =
-        g_dbus_connection_unregister_subtree(gioDBusConnectionPointer, registrationId).asBoolean()
+    public open fun unregisterSubtree(registrationId: guint): Boolean = g_dbus_connection_unregister_subtree(gioDBusConnectionPointer, registrationId).asBoolean()
 
     /**
      * Emitted when the connection is closed.
@@ -1378,17 +1256,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      * @since 2.26
      */
     @GioVersion2_26
-    public fun onClosed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (remotePeerVanished: Boolean, error: Error?) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusConnectionPointer,
-        "closed",
-        onClosedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (remotePeerVanished: Boolean, error: Error?) -> Unit): ULong = g_signal_connect_data(gioDBusConnectionPointer, "closed", onClosedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "closed" signal. See [onClosed].
@@ -1400,41 +1268,15 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
      */
     @GioVersion2_26
     public fun emitClosed(remotePeerVanished: Boolean, error: Error?) {
-        g_signal_emit_by_name(
-            gioDBusConnectionPointer.reinterpret(),
-            "closed",
-            remotePeerVanished.asGBoolean(),
-            error?.glibErrorPointer
-        )
+        g_signal_emit_by_name(gioDBusConnectionPointer.reinterpret(), "closed", remotePeerVanished.asGBoolean(), error?.glibErrorPointer)
     }
 
     public companion object : TypeCompanion<DBusConnection> {
         override val type: GeneratedClassKGType<DBusConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_connection_get_type")!!) { DBusConnection(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_dbus_connection_get_type")!!) { DBusConnection(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
-
-        /**
-         * Finishes an operation started with g_dbus_connection_new().
-         *
-         * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback
-         *     passed to g_dbus_connection_new().
-         * @return a #GDBusConnection or null if @error is set. Free
-         *     with g_object_unref().
-         * @since 2.26
-         */
-        public fun newFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_dbus_connection_new_finish(res.gioAsyncResultPointer, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(DBusConnection(checkNotNull(gResult).reinterpret()))
-            }
-        }
+            GioTypeProvider.register()}
 
         /**
          * Finishes an operation started with g_dbus_connection_new_for_address().
@@ -1445,14 +1287,18 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
          *     Free with g_object_unref().
          * @since 2.26
          */
-        public fun newForAddressFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(DBusConnection(checkNotNull(gResult).reinterpret()))
+        public fun forAddressFinish(res: AsyncResult): Result<DBusConnection> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = DBusConnection(checkNotNull(gResult))
+                    Result.success(instance)
+                }
+
             }
         }
 
@@ -1494,17 +1340,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
             observer: DBusAuthObserver? = null,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = g_dbus_connection_new(
-            stream.gioIoStreamPointer,
-            guid,
-            flags.mask,
-            observer?.gioDBusAuthObserverPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = g_dbus_connection_new(stream.gioIoStreamPointer, guid, flags.mask, observer?.gioDBusAuthObserverPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Asynchronously connects and sets up a D-Bus client connection for
@@ -1544,16 +1380,7 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
             observer: DBusAuthObserver? = null,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = g_dbus_connection_new_for_address(
-            address,
-            flags.mask,
-            observer?.gioDBusAuthObserverPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = g_dbus_connection_new_for_address(address, flags.mask, observer?.gioDBusAuthObserverPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Get the GType of DBusConnection
@@ -1565,23 +1392,14 @@ public open class DBusConnection(public val gioDBusConnectionPointer: CPointer<G
 }
 
 private val onClosedFunc:
-    CPointer<CFunction<(gboolean, CPointer<org.gtkkn.native.glib.GError>?) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            remotePeerVanished: gboolean,
-            error: CPointer<org.gtkkn.native.glib.GError>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                remotePeerVanished: Boolean,
-                error: Error?,
-            ) -> Unit
-            >().get().invoke(
-            remotePeerVanished.asBoolean(),
-            error?.run {
-                Error(this)
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(gboolean, CPointer<org.gtkkn.native.glib.GError>?) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    remotePeerVanished: gboolean,
+    error: CPointer<org.gtkkn.native.glib.GError>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(remotePeerVanished: Boolean, error: Error?) -> Unit>().get().invoke(remotePeerVanished.asBoolean(), error?.run {
+        Error(this)}
+    )}
+.reinterpret()

@@ -44,13 +44,10 @@ public class UserMediaPermissionRequest(
 
     public companion object : TypeCompanion<UserMediaPermissionRequest> {
         override val type: GeneratedClassKGType<UserMediaPermissionRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_user_media_permission_request_get_type")!!) {
-                UserMediaPermissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_user_media_permission_request_get_type")!!) { UserMediaPermissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of UserMediaPermissionRequest

@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gmodule
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -26,10 +30,6 @@ import org.gtkkn.native.gmodule.g_module_name
 import org.gtkkn.native.gmodule.g_module_open
 import org.gtkkn.native.gmodule.g_module_open_full
 import org.gtkkn.native.gmodule.g_module_supported
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The #GModule struct is an opaque data structure to represent a
@@ -40,7 +40,9 @@ import kotlin.Unit
  *
  * - parameter `symbol`: symbol: Out parameter is not supported
  */
-public class Module(public val gmoduleModulePointer: CPointer<GModule>) : ProxyInstance(gmoduleModulePointer) {
+public class Module(
+    public val gmoduleModulePointer: CPointer<GModule>,
+) : ProxyInstance(gmoduleModulePointer) {
     /**
      * Closes a module.
      *
@@ -86,8 +88,7 @@ public class Module(public val gmoduleModulePointer: CPointer<GModule>) : ProxyI
          * @return the complete path of the module, including the standard library
          *     prefix and suffix. This should be freed when no longer needed
          */
-        public fun buildPath(directory: String? = null, moduleName: String): String =
-            g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
+        public fun buildPath(directory: String? = null, moduleName: String): String = g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
 
         /**
          * Gets a string describing the last module error.
@@ -107,10 +108,8 @@ public class Module(public val gmoduleModulePointer: CPointer<GModule>) : ProxyI
          *     logical OR of any of the #GModuleFlags.
          * @return a #GModule on success, or null on failure
          */
-        public fun `open`(fileName: String? = null, flags: ModuleFlags): Module =
-            g_module_open(fileName, flags.mask)!!.run {
-                Module(this)
-            }
+        public fun `open`(fileName: String? = null, flags: ModuleFlags): Module = g_module_open(fileName, flags.mask)!!.run {
+            Module(this)}
 
         /**
          * Opens a module. If the module has already been opened, its reference count
@@ -148,8 +147,7 @@ public class Module(public val gmoduleModulePointer: CPointer<GModule>) : ProxyI
         public fun openFull(fileName: String? = null, flags: ModuleFlags): Result<Module> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_module_open_full(fileName, flags.mask, gError.ptr)?.run {
-                Module(this)
-            }
+                Module(this)}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

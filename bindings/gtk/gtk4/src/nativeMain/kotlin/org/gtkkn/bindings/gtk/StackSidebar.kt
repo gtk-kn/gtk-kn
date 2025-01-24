@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -18,7 +19,6 @@ import org.gtkkn.native.gtk.gtk_stack_sidebar_get_stack
 import org.gtkkn.native.gtk.gtk_stack_sidebar_get_type
 import org.gtkkn.native.gtk.gtk_stack_sidebar_new
 import org.gtkkn.native.gtk.gtk_stack_sidebar_set_stack
-import kotlin.Unit
 
 /**
  * A `GtkStackSidebar` uses a sidebar to switch between `GtkStack` pages.
@@ -41,8 +41,9 @@ import kotlin.Unit
  *
  * - method `stack`: Property TypeInfo of getter and setter do not match
  */
-public open class StackSidebar(public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>) :
-    Widget(gtkStackSidebarPointer.reinterpret()),
+public open class StackSidebar(
+    public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>,
+) : Widget(gtkStackSidebarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -67,8 +68,7 @@ public open class StackSidebar(public val gtkStackSidebarPointer: CPointer<GtkSt
      *   null if none has been set explicitly
      */
     public open fun getStack(): Stack? = gtk_stack_sidebar_get_stack(gtkStackSidebarPointer)?.run {
-        Stack(this)
-    }
+        Stack(this)}
 
     /**
      * Set the `GtkStack` associated with this `GtkStackSidebar`.
@@ -78,16 +78,14 @@ public open class StackSidebar(public val gtkStackSidebarPointer: CPointer<GtkSt
      *
      * @param stack a `GtkStack`
      */
-    public open fun setStack(stack: Stack): Unit =
-        gtk_stack_sidebar_set_stack(gtkStackSidebarPointer, stack.gtkStackPointer)
+    public open fun setStack(stack: Stack): Unit = gtk_stack_sidebar_set_stack(gtkStackSidebarPointer, stack.gtkStackPointer)
 
     public companion object : TypeCompanion<StackSidebar> {
         override val type: GeneratedClassKGType<StackSidebar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_stack_sidebar_get_type")!!) { StackSidebar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_stack_sidebar_get_type")!!) { StackSidebar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StackSidebar

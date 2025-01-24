@@ -16,18 +16,18 @@ import org.gtkkn.native.gobject.GType
  * @since 4.14
  */
 @GdkVersion4_14
-public enum class DmabufError(public val nativeValue: GdkDmabufError) {
+public enum class DmabufError(
+    public val nativeValue: GdkDmabufError,
+) {
     /**
      * Dmabuf support is not available, because the OS
      *   is not Linux, or it was explicitly disabled at compile- or runtime
      */
     NOT_AVAILABLE(GdkDmabufError.GDK_DMABUF_ERROR_NOT_AVAILABLE),
-
     /**
      * The requested format is not supported
      */
     UNSUPPORTED_FORMAT(GdkDmabufError.GDK_DMABUF_ERROR_UNSUPPORTED_FORMAT),
-
     /**
      * GTK failed to create the resource for other
      *   reasons

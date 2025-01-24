@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -29,9 +32,6 @@ import org.gtkkn.native.gio.g_unix_mount_point_is_readonly
 import org.gtkkn.native.gio.g_unix_mount_point_is_user_mountable
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Defines a Unix mount point (e.g. <filename>/dev</filename>).
@@ -41,8 +41,9 @@ import kotlin.Unit
  *
  * - parameter `time_read`: time_read: Out parameter is not supported
  */
-public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixMountPoint>) :
-    ProxyInstance(gioUnixMountPointPointer) {
+public class UnixMountPoint(
+    public val gioUnixMountPointPointer: CPointer<GUnixMountPoint>,
+) : ProxyInstance(gioUnixMountPointPointer) {
     /**
      * Compares two unix mount points.
      *
@@ -50,8 +51,7 @@ public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixM
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun compare(mount2: UnixMountPoint): gint =
-        g_unix_mount_point_compare(gioUnixMountPointPointer, mount2.gioUnixMountPointPointer)
+    public fun compare(mount2: UnixMountPoint): gint = g_unix_mount_point_compare(gioUnixMountPointPointer, mount2.gioUnixMountPointPointer)
 
     /**
      * Makes a copy of @mount_point.
@@ -61,8 +61,7 @@ public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixM
      */
     @GioVersion2_54
     public fun copy(): UnixMountPoint = g_unix_mount_point_copy(gioUnixMountPointPointer)!!.run {
-        UnixMountPoint(this)
-    }
+        UnixMountPoint(this)}
 
     /**
      * Frees a unix mount point.
@@ -74,24 +73,21 @@ public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixM
      *
      * @return a string containing the device path.
      */
-    public fun getDevicePath(): String =
-        g_unix_mount_point_get_device_path(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
+    public fun getDevicePath(): String = g_unix_mount_point_get_device_path(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the file system type for the mount point.
      *
      * @return a string containing the file system type.
      */
-    public fun getFsType(): String =
-        g_unix_mount_point_get_fs_type(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
+    public fun getFsType(): String = g_unix_mount_point_get_fs_type(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount point.
      *
      * @return a string containing the mount path.
      */
-    public fun getMountPath(): String =
-        g_unix_mount_point_get_mount_path(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
+    public fun getMountPath(): String = g_unix_mount_point_get_mount_path(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the options for the mount point.
@@ -115,8 +111,7 @@ public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixM
      * @return a #GIcon
      */
     public fun guessIcon(): Icon = g_unix_mount_point_guess_icon(gioUnixMountPointPointer)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Guesses the name of a Unix mount point.
@@ -125,8 +120,7 @@ public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixM
      * @return A newly allocated string that must
      *     be freed with g_free()
      */
-    public fun guessName(): String =
-        g_unix_mount_point_guess_name(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
+    public fun guessName(): String = g_unix_mount_point_guess_name(gioUnixMountPointPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Guesses the symbolic icon of a Unix mount point.
@@ -136,8 +130,7 @@ public class UnixMountPoint(public val gioUnixMountPointPointer: CPointer<GUnixM
      */
     @GioVersion2_34
     public fun guessSymbolicIcon(): Icon = g_unix_mount_point_guess_symbolic_icon(gioUnixMountPointPointer)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Checks if a unix mount point is a loopback device.

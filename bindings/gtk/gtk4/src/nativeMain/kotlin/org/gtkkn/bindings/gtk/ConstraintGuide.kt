@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,8 +26,6 @@ import org.gtkkn.native.gtk.gtk_constraint_guide_set_min_size
 import org.gtkkn.native.gtk.gtk_constraint_guide_set_name
 import org.gtkkn.native.gtk.gtk_constraint_guide_set_nat_size
 import org.gtkkn.native.gtk.gtk_constraint_guide_set_strength
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkConstraintGuide` is an invisible layout element in a
@@ -53,8 +53,9 @@ import kotlin.Unit
  * - method `nat-height`: Property has no getter nor setter
  * - method `nat-width`: Property has no getter nor setter
  */
-public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer<GtkConstraintGuide>) :
-    Object(gtkConstraintGuidePointer.reinterpret()),
+public open class ConstraintGuide(
+    public val gtkConstraintGuidePointer: CPointer<GtkConstraintGuide>,
+) : Object(gtkConstraintGuidePointer.reinterpret()),
     ConstraintTarget,
     KGTyped {
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
@@ -70,7 +71,6 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
          * @return the name of the guide
          */
         get() = gtk_constraint_guide_get_name(gtkConstraintGuidePointer)?.toKString()
-
         /**
          * Sets a name for the given `GtkConstraintGuide`.
          *
@@ -91,9 +91,7 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
          * @return the strength of the constraint on the natural size
          */
         get() = gtk_constraint_guide_get_strength(gtkConstraintGuidePointer).run {
-            ConstraintStrength.fromNativeValue(this)
-        }
-
+            ConstraintStrength.fromNativeValue(this)}
         /**
          * Sets the strength of the constraint on the natural size of the
          * given `GtkConstraintGuide`.
@@ -107,7 +105,7 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
      *
      * @return a new `GtkConstraintGuide` object.
      */
-    public constructor() : this(gtk_constraint_guide_new()!!.reinterpret())
+    public constructor() : this(gtk_constraint_guide_new()!!)
 
     /**
      * Sets the maximum size of @guide.
@@ -118,8 +116,7 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
      * @param width the new maximum width, or -1 to not change it
      * @param height the new maximum height, or -1 to not change it
      */
-    public open fun setMaxSize(width: gint, height: gint): Unit =
-        gtk_constraint_guide_set_max_size(gtkConstraintGuidePointer, width, height)
+    public open fun setMaxSize(width: gint, height: gint): Unit = gtk_constraint_guide_set_max_size(gtkConstraintGuidePointer, width, height)
 
     /**
      * Sets the minimum size of @guide.
@@ -130,8 +127,7 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
      * @param width the new minimum width, or -1 to not change it
      * @param height the new minimum height, or -1 to not change it
      */
-    public open fun setMinSize(width: gint, height: gint): Unit =
-        gtk_constraint_guide_set_min_size(gtkConstraintGuidePointer, width, height)
+    public open fun setMinSize(width: gint, height: gint): Unit = gtk_constraint_guide_set_min_size(gtkConstraintGuidePointer, width, height)
 
     /**
      * Sets the natural size of @guide.
@@ -142,18 +138,14 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
      * @param width the new natural width, or -1 to not change it
      * @param height the new natural height, or -1 to not change it
      */
-    public open fun setNatSize(width: gint, height: gint): Unit =
-        gtk_constraint_guide_set_nat_size(gtkConstraintGuidePointer, width, height)
+    public open fun setNatSize(width: gint, height: gint): Unit = gtk_constraint_guide_set_nat_size(gtkConstraintGuidePointer, width, height)
 
     public companion object : TypeCompanion<ConstraintGuide> {
         override val type: GeneratedClassKGType<ConstraintGuide> =
-            GeneratedClassKGType(getTypeOrNull("gtk_constraint_guide_get_type")!!) {
-                ConstraintGuide(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_constraint_guide_get_type")!!) { ConstraintGuide(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ConstraintGuide

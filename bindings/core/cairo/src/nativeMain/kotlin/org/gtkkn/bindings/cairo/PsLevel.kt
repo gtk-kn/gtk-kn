@@ -11,7 +11,9 @@ import org.gtkkn.native.cairo.cairo_ps_level_t
  * @since 1.6
  */
 @CairoVersion1_6
-public enum class PsLevel(public val nativeValue: cairo_ps_level_t) {
+public enum class PsLevel(
+    public val nativeValue: cairo_ps_level_t,
+) {
     LEVEL_2(cairo_ps_level_t.CAIRO_PS_LEVEL_2),
     LEVEL_3(cairo_ps_level_t.CAIRO_PS_LEVEL_3),
     ;

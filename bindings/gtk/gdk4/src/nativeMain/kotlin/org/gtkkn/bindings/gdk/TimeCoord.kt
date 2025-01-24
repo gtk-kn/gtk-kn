@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,13 +11,10 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTimeCoord
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkTimeCoord` stores a single event in a motion history.
@@ -30,14 +28,14 @@ import kotlin.native.ref.createCleaner
  *
  * - field `axes`: Array parameter of type gdouble is not supported
  */
-public class TimeCoord(public val gdkTimeCoordPointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null) :
-    ProxyInstance(gdkTimeCoordPointer) {
+public class TimeCoord(
+    public val gdkTimeCoordPointer: CPointer<GdkTimeCoord>,
+) : ProxyInstance(gdkTimeCoordPointer) {
     /**
      * The timestamp for this event
      */
     public var time: guint
         get() = gdkTimeCoordPointer.pointed.time
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkTimeCoordPointer.pointed.time = value
@@ -48,9 +46,7 @@ public class TimeCoord(public val gdkTimeCoordPointer: CPointer<GdkTimeCoord>, c
      */
     public var flags: AxisFlags
         get() = gdkTimeCoordPointer.pointed.flags.run {
-            AxisFlags(this)
-        }
-
+            AxisFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gdkTimeCoordPointer.pointed.flags = value.mask
@@ -62,21 +58,9 @@ public class TimeCoord(public val gdkTimeCoordPointer: CPointer<GdkTimeCoord>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkTimeCoord>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TimeCoord and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkTimeCoord>, Cleaner>,
-    ) : this(gdkTimeCoordPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkTimeCoord>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TimeCoord using the provided [AutofreeScope].

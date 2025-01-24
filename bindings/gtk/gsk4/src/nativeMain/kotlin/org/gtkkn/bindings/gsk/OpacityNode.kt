@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -16,12 +17,14 @@ import org.gtkkn.native.gsk.gsk_opacity_node_get_child
 import org.gtkkn.native.gsk.gsk_opacity_node_get_opacity
 import org.gtkkn.native.gsk.gsk_opacity_node_get_type
 import org.gtkkn.native.gsk.gsk_opacity_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node controlling the opacity of its single child node.
  */
-public open class OpacityNode(public val gskOpacityNodePointer: CPointer<GskOpacityNode>) :
-    RenderNode(gskOpacityNodePointer.reinterpret()),
+public open class OpacityNode(
+    public val gskOpacityNodePointer: CPointer<GskOpacityNode>,
+) : RenderNode(gskOpacityNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will drawn the @child with reduced
@@ -31,10 +34,9 @@ public open class OpacityNode(public val gskOpacityNodePointer: CPointer<GskOpac
      * @param opacity The opacity to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        opacity: gfloat,
-    ) : this(gsk_opacity_node_new(child.gskRenderNodePointer, opacity)!!.reinterpret())
+    public constructor(child: RenderNode, opacity: gfloat) : this(gsk_opacity_node_new(child.gskRenderNodePointer, opacity)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting opacityed by the given @node.
@@ -42,8 +44,7 @@ public open class OpacityNode(public val gskOpacityNodePointer: CPointer<GskOpac
      * @return The child that is getting opacityed
      */
     public open fun getChild(): RenderNode = gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Gets the transparency factor for an opacity node.
@@ -54,11 +55,10 @@ public open class OpacityNode(public val gskOpacityNodePointer: CPointer<GskOpac
 
     public companion object : TypeCompanion<OpacityNode> {
         override val type: GeneratedClassKGType<OpacityNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_opacity_node_get_type")!!) { OpacityNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_opacity_node_get_type")!!) { OpacityNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of OpacityNode

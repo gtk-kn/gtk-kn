@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,16 +12,13 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GSignalQuery
 import org.gtkkn.native.gobject.GType
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure holding in-depth information for a specific signal.
@@ -31,15 +29,15 @@ import kotlin.native.ref.createCleaner
  *
  * - field `param_types`: Array parameter of type GType is not supported
  */
-public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQuery>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectSignalQueryPointer) {
+public class SignalQuery(
+    public val gobjectSignalQueryPointer: CPointer<GSignalQuery>,
+) : ProxyInstance(gobjectSignalQueryPointer) {
     /**
      * The signal id of the signal being queried, or 0 if the
      *  signal to be queried was unknown.
      */
     public var signalId: guint
         get() = gobjectSignalQueryPointer.pointed.signal_id
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_id = value
@@ -50,7 +48,6 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      */
     public var signalName: String?
         get() = gobjectSignalQueryPointer.pointed.signal_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_name?.let { g_free(it) }
@@ -62,7 +59,6 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      */
     public var itype: GType
         get() = gobjectSignalQueryPointer.pointed.itype
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.itype = value
@@ -73,9 +69,7 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      */
     public var signalFlags: SignalFlags
         get() = gobjectSignalQueryPointer.pointed.signal_flags.run {
-            SignalFlags(this)
-        }
-
+            SignalFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_flags = value.mask
@@ -86,7 +80,6 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      */
     public var returnType: GType
         get() = gobjectSignalQueryPointer.pointed.return_type
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.return_type = value
@@ -97,7 +90,6 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      */
     public var nParams: guint
         get() = gobjectSignalQueryPointer.pointed.n_params
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.n_params = value
@@ -109,21 +101,9 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GSignalQuery>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to SignalQuery and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GSignalQuery>, Cleaner>,
-    ) : this(gobjectSignalQueryPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GSignalQuery>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new SignalQuery using the provided [AutofreeScope].
@@ -195,6 +175,5 @@ public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQ
         this.nParams = nParams
     }
 
-    override fun toString(): String =
-        "SignalQuery(signalId=$signalId, signalName=$signalName, itype=$itype, signalFlags=$signalFlags, returnType=$returnType, nParams=$nParams)"
+    override fun toString(): String = "SignalQuery(signalId=$signalId, signalName=$signalName, itype=$itype, signalFlags=$signalFlags, returnType=$returnType, nParams=$nParams)"
 }

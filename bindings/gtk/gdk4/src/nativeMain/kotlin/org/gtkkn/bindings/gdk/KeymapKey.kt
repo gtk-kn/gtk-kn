@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,27 +11,24 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkKeymapKey
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
-public class KeymapKey(public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null) :
-    ProxyInstance(gdkKeymapKeyPointer) {
+public class KeymapKey(
+    public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey>,
+) : ProxyInstance(gdkKeymapKeyPointer) {
     /**
      * the hardware keycode. This is an identifying number for a
      *   physical key.
      */
     public var keycode: guint
         get() = gdkKeymapKeyPointer.pointed.keycode
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.keycode = value
@@ -44,7 +42,6 @@ public class KeymapKey(public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey>, c
      */
     public var group: gint
         get() = gdkKeymapKeyPointer.pointed.group
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.group = value
@@ -60,7 +57,6 @@ public class KeymapKey(public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey>, c
      */
     public var level: gint
         get() = gdkKeymapKeyPointer.pointed.level
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.level = value
@@ -72,21 +68,9 @@ public class KeymapKey(public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkKeymapKey>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to KeymapKey and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkKeymapKey>, Cleaner>,
-    ) : this(gdkKeymapKeyPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkKeymapKey>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new KeymapKey using the provided [AutofreeScope].

@@ -13,27 +13,25 @@ import org.gtkkn.native.gobject.GType
 /**
  * Error enumeration for `GdkGLContext`.
  */
-public enum class GlError(public val nativeValue: GdkGLError) {
+public enum class GlError(
+    public val nativeValue: GdkGLError,
+) {
     /**
      * OpenGL support is not available
      */
     NOT_AVAILABLE(GdkGLError.GDK_GL_ERROR_NOT_AVAILABLE),
-
     /**
      * The requested visual format is not supported
      */
     UNSUPPORTED_FORMAT(GdkGLError.GDK_GL_ERROR_UNSUPPORTED_FORMAT),
-
     /**
      * The requested profile is not supported
      */
     UNSUPPORTED_PROFILE(GdkGLError.GDK_GL_ERROR_UNSUPPORTED_PROFILE),
-
     /**
      * The shader compilation failed
      */
     COMPILATION_FAILED(GdkGLError.GDK_GL_ERROR_COMPILATION_FAILED),
-
     /**
      * The shader linking failed
      */

@@ -11,5 +11,6 @@ import org.gtkkn.native.gobject.GParamSpecEnum
  * A #GParamSpec derived structure that contains the meta data for enum
  * properties.
  */
-public open class ParamSpecEnum(public val gobjectParamSpecEnumPointer: CPointer<GParamSpecEnum>) :
-    ParamSpec(gobjectParamSpecEnumPointer.reinterpret())
+public open class ParamSpecEnum(
+    public val gobjectParamSpecEnumPointer: CPointer<GParamSpecEnum>,
+) : ParamSpec(gobjectParamSpecEnumPointer.reinterpret())

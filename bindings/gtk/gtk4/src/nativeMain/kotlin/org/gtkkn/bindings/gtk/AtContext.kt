@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,8 +28,6 @@ import org.gtkkn.native.gtk.gtk_at_context_create
 import org.gtkkn.native.gtk.gtk_at_context_get_accessible
 import org.gtkkn.native.gtk.gtk_at_context_get_accessible_role
 import org.gtkkn.native.gtk.gtk_at_context_get_type
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkATContext` is an abstract class provided by GTK to communicate to
@@ -41,8 +41,9 @@ import kotlin.Unit
  *
  * - method `display`: Property has no getter nor setter
  */
-public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATContext>) :
-    Object(gtkAtContextPointer.reinterpret()),
+public abstract class AtContext(
+    public val gtkAtContextPointer: CPointer<GtkATContext>,
+) : Object(gtkAtContextPointer.reinterpret()),
     KGTyped {
     /**
      * The `GtkAccessible` that created the `GtkATContext` instance.
@@ -54,8 +55,7 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
          * @return a `GtkAccessible`
          */
         get() = gtk_at_context_get_accessible(gtkAtContextPointer)!!.run {
-            Accessible.AccessibleImpl(reinterpret())
-        }
+            Accessible.AccessibleImpl(reinterpret())}
 
     /**
      * The accessible role used by the AT context.
@@ -70,8 +70,7 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
          * @return a `GtkAccessibleRole`
          */
         get() = gtk_at_context_get_accessible_role(gtkAtContextPointer).run {
-            AccessibleRole.fromNativeValue(this)
-        }
+            AccessibleRole.fromNativeValue(this)}
 
     /**
      * Creates a new `GtkATContext` instance for the given accessible role,
@@ -89,13 +88,7 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
         accessibleRole: AccessibleRole,
         accessible: Accessible,
         display: Display,
-    ) : this(
-        gtk_at_context_create(
-            accessibleRole.nativeValue,
-            accessible.gtkAccessiblePointer,
-            display.gdkDisplayPointer
-        )!!.reinterpret()
-    )
+    ) : this(gtk_at_context_create(accessibleRole.nativeValue, accessible.gtkAccessiblePointer, display.gdkDisplayPointer)!!.reinterpret())
 
     /**
      * Emitted when the attributes of the accessible for the
@@ -104,15 +97,7 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkAtContextPointer,
-            "state-change",
-            onStateChangeFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkAtContextPointer, "state-change", onStateChangeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "state-change" signal. See [onStateChange].
@@ -126,15 +111,16 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
      *
      * @constructor Creates a new instance of AtContext for the provided [CPointer].
      */
-    public class AtContextImpl(pointer: CPointer<GtkATContext>) : AtContext(pointer)
+    public class AtContextImpl(
+        pointer: CPointer<GtkATContext>,
+    ) : AtContext(pointer)
 
     public companion object : TypeCompanion<AtContext> {
         override val type: GeneratedClassKGType<AtContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_at_context_get_type")!!) { AtContextImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_at_context_get_type")!!) { AtContextImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ATContext
@@ -146,9 +132,8 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
 }
 
 private val onStateChangeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

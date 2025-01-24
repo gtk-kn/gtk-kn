@@ -3,6 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -93,13 +100,6 @@ import org.gtkkn.native.soup.soup_session_set_tls_interaction
 import org.gtkkn.native.soup.soup_session_set_user_agent
 import org.gtkkn.native.soup.soup_session_websocket_connect_async
 import org.gtkkn.native.soup.soup_session_websocket_connect_finish
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * Soup session state object.
@@ -143,8 +143,9 @@ import kotlin.collections.List
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
  * - constructor `new_with_options`: Varargs parameter is not supported
  */
-public open class Session(public val soupSessionPointer: CPointer<SoupSession>) :
-    Object(soupSessionPointer.reinterpret()),
+public open class Session(
+    public val soupSessionPointer: CPointer<SoupSession>,
+) : Object(soupSessionPointer.reinterpret()),
     KGTyped {
     /**
      * If true, #SoupSession will automatically set the string
@@ -163,7 +164,6 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          *   false otherwise.
          */
         get() = soup_session_get_accept_language_auto(soupSessionPointer).asBoolean()
-
         /**
          * Set whether @session will automatically set the "Accept-Language" header on
          * requests using a value generated from system languages based on
@@ -173,9 +173,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          *
          * @param acceptLanguageAuto the value to set
          */
-        set(
-            acceptLanguageAuto
-        ) = soup_session_set_accept_language_auto(soupSessionPointer, acceptLanguageAuto.asGBoolean())
+        set(acceptLanguageAuto) = soup_session_set_accept_language_auto(soupSessionPointer, acceptLanguageAuto.asGBoolean())
 
     /**
      * Connection lifetime (in seconds) when idle. Any connection
@@ -195,7 +193,6 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return the timeout in seconds
          */
         get() = soup_session_get_idle_timeout(soupSessionPointer)
-
         /**
          * Set a timeout in seconds for idle connection lifetime to be used by @session
          * on new connections.
@@ -221,8 +218,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return a #GInetSocketAddress
          */
         get() = soup_session_get_local_address(soupSessionPointer)?.run {
-            InetSocketAddress(this)
-        }
+            InetSocketAddress(this)}
 
     /**
      * The maximum number of connections that the session can open at once.
@@ -265,9 +261,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          *   are disabled in @session
          */
         get() = soup_session_get_proxy_resolver(soupSessionPointer)?.run {
-            ProxyResolver.ProxyResolverImpl(reinterpret())
-        }
-
+            ProxyResolver.ProxyResolverImpl(reinterpret())}
         /**
          * Set a [iface@Gio.ProxyResolver] to be used by @session on new connections.
          *
@@ -294,8 +288,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return the #GSocketConnectable
          */
         get() = soup_session_get_remote_connectable(soupSessionPointer)?.run {
-            SocketConnectable.SocketConnectableImpl(reinterpret())
-        }
+            SocketConnectable.SocketConnectableImpl(reinterpret())}
 
     /**
      * The timeout (in seconds) for socket I/O operations
@@ -320,7 +313,6 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return the timeout in seconds
          */
         get() = soup_session_get_timeout(soupSessionPointer)
-
         /**
          * Set a timeout in seconds for socket I/O operations to be used by @session
          * on new connections.
@@ -345,9 +337,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return a #GTlsDatabase
          */
         get() = soup_session_get_tls_database(soupSessionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)
-        }
-
+            TlsDatabase.TlsDatabaseImpl(this)}
         /**
          * Set a [class@GIo.TlsDatabase] to be used by @session on new connections.
          *
@@ -371,9 +361,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          * @return a #GTlsInteraction
          */
         get() = soup_session_get_tls_interaction(soupSessionPointer)?.run {
-            TlsInteraction(this)
-        }
-
+            TlsInteraction(this)}
         /**
          * Set a [class@Gio.TlsInteraction] to be used by @session on new connections.
          *
@@ -384,16 +372,14 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
          *
          * @param tlsInteraction a #GTlsInteraction
          */
-        set(
-            tlsInteraction
-        ) = soup_session_set_tls_interaction(soupSessionPointer, tlsInteraction?.gioTlsInteractionPointer)
+        set(tlsInteraction) = soup_session_set_tls_interaction(soupSessionPointer, tlsInteraction?.gioTlsInteractionPointer)
 
     /**
      * Creates a #SoupSession with the default options.
      *
      * @return the new session.
      */
-    public constructor() : this(soup_session_new()!!.reinterpret())
+    public constructor() : this(soup_session_new()!!)
 
     /**
      * Cancels all pending requests in @session and closes all idle
@@ -410,8 +396,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      *
      * @param feature an object that implements #SoupSessionFeature
      */
-    public open fun addFeature(feature: SessionFeature): Unit =
-        soup_session_add_feature(soupSessionPointer, feature.soupSessionFeaturePointer)
+    public open fun addFeature(feature: SessionFeature): Unit = soup_session_add_feature(soupSessionPointer, feature.soupSessionFeaturePointer)
 
     /**
      * If @feature_type is the type of a class that implements
@@ -429,8 +414,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      *
      * @param featureType a #GType
      */
-    public open fun addFeatureByType(featureType: GType): Unit =
-        soup_session_add_feature_by_type(soupSessionPointer, featureType)
+    public open fun addFeatureByType(featureType: GType): Unit = soup_session_add_feature_by_type(soupSessionPointer, featureType)
 
     /**
      * Get the value used by @session for the "Accept-Language" header on new
@@ -449,10 +433,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      * @return a #SoupMessage or
      *   null if @result is not a valid @session async operation result.
      */
-    public open fun getAsyncResultMessage(result: AsyncResult): Message? =
-        soup_session_get_async_result_message(soupSessionPointer, result.gioAsyncResultPointer)?.run {
-            Message(this)
-        }
+    public open fun getAsyncResultMessage(result: AsyncResult): Message? = soup_session_get_async_result_message(soupSessionPointer, result.gioAsyncResultPointer)?.run {
+        Message(this)}
 
     /**
      * Gets the feature in @session of type @feature_type.
@@ -461,10 +443,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      * @return a #SoupSessionFeature, or null. The
      *   feature is owned by @session.
      */
-    public open fun getFeature(featureType: GType): SessionFeature? =
-        soup_session_get_feature(soupSessionPointer, featureType)?.run {
-            SessionFeature.SessionFeatureImpl(reinterpret())
-        }
+    public open fun getFeature(featureType: GType): SessionFeature? = soup_session_get_feature(soupSessionPointer, featureType)?.run {
+        SessionFeature.SessionFeatureImpl(reinterpret())}
 
     /**
      * Gets the feature in @session of type @feature_type, provided
@@ -475,10 +455,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      * @return a #SoupSessionFeature. The feature is
      *   owned by @session.
      */
-    public open fun getFeatureForMessage(featureType: GType, msg: Message): SessionFeature? =
-        soup_session_get_feature_for_message(soupSessionPointer, featureType, msg.soupMessagePointer)?.run {
-            SessionFeature.SessionFeatureImpl(reinterpret())
-        }
+    public open fun getFeatureForMessage(featureType: GType, msg: Message): SessionFeature? = soup_session_get_feature_for_message(soupSessionPointer, featureType, msg.soupMessagePointer)?.run {
+        SessionFeature.SessionFeatureImpl(reinterpret())}
 
     /**
      * Get the value used by @session for the "User-Agent" header on new requests.
@@ -495,8 +473,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      * @param featureType the #GType of the class of features to check for
      * @return true or false
      */
-    public open fun hasFeature(featureType: GType): Boolean =
-        soup_session_has_feature(soupSessionPointer, featureType).asBoolean()
+    public open fun hasFeature(featureType: GType): Boolean = soup_session_has_feature(soupSessionPointer, featureType).asBoolean()
 
     /**
      * Start a preconnection to @msg.
@@ -521,16 +498,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = soup_session_preconnect_async(
-        soupSessionPointer,
-        msg.soupMessagePointer,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = soup_session_preconnect_async(soupSessionPointer, msg.soupMessagePointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Complete a preconnect async operation started with [method@Session.preconnect_async].
@@ -540,11 +508,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      */
     public open fun preconnectFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_session_preconnect_finish(
-            soupSessionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = soup_session_preconnect_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -557,8 +521,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      *
      * @param feature a feature that has previously been added to @session
      */
-    public open fun removeFeature(feature: SessionFeature): Unit =
-        soup_session_remove_feature(soupSessionPointer, feature.soupSessionFeaturePointer)
+    public open fun removeFeature(feature: SessionFeature): Unit = soup_session_remove_feature(soupSessionPointer, feature.soupSessionFeaturePointer)
 
     /**
      * Removes all features of type @feature_type (or any subclass of
@@ -566,8 +529,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      *
      * @param featureType a #GType
      */
-    public open fun removeFeatureByType(featureType: GType): Unit =
-        soup_session_remove_feature_by_type(soupSessionPointer, featureType)
+    public open fun removeFeatureByType(featureType: GType): Unit = soup_session_remove_feature_by_type(soupSessionPointer, featureType)
 
     /**
      * Synchronously sends @msg and waits for the beginning of a response.
@@ -596,14 +558,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      */
     public open fun send(msg: Message, cancellable: Cancellable? = null): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_session_send(
-            soupSessionPointer,
-            msg.soupMessagePointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            InputStream.InputStreamImpl(this)
-        }
+        val gResult = soup_session_send(soupSessionPointer, msg.soupMessagePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            InputStream.InputStreamImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -627,14 +583,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      */
     public open fun sendAndRead(msg: Message, cancellable: Cancellable? = null): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_session_send_and_read(
-            soupSessionPointer,
-            msg.soupMessagePointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            Bytes(this)
-        }
+        val gResult = soup_session_send_and_read(soupSessionPointer, msg.soupMessagePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            Bytes(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -664,16 +614,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = soup_session_send_and_read_async(
-        soupSessionPointer,
-        msg.soupMessagePointer,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = soup_session_send_and_read_async(soupSessionPointer, msg.soupMessagePointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Gets the response to a [method@Session.send_and_read_async].
@@ -685,13 +626,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      */
     public open fun sendAndReadFinish(result: AsyncResult): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_session_send_and_read_finish(
-            soupSessionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Bytes(this)
-        }
+        val gResult = soup_session_send_and_read_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            Bytes(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -720,15 +656,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
         cancellable: Cancellable? = null,
     ): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            soup_session_send_and_splice(
-                soupSessionPointer,
-                msg.soupMessagePointer,
-                outStream.gioOutputStreamPointer,
-                flags.mask,
-                cancellable?.gioCancellablePointer,
-                gError.ptr
-            )
+        val gResult = soup_session_send_and_splice(soupSessionPointer, msg.soupMessagePointer, outStream.gioOutputStreamPointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -759,18 +687,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = soup_session_send_and_splice_async(
-        soupSessionPointer,
-        msg.soupMessagePointer,
-        outStream.gioOutputStreamPointer,
-        flags.mask,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = soup_session_send_and_splice_async(soupSessionPointer, msg.soupMessagePointer, outStream.gioOutputStreamPointer, flags.mask, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Gets the response to a [method@Session.send_and_splice_async].
@@ -810,16 +727,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = soup_session_send_async(
-        soupSessionPointer,
-        msg.soupMessagePointer,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = soup_session_send_async(soupSessionPointer, msg.soupMessagePointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Gets the response to a [method@Session.send_async] call.
@@ -834,8 +742,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
     public open fun sendFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)
-        }
+            InputStream.InputStreamImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -853,8 +760,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      *
      * @param acceptLanguage the languages string
      */
-    public open fun setAcceptLanguage(acceptLanguage: String): Unit =
-        soup_session_set_accept_language(soupSessionPointer, acceptLanguage)
+    public open fun setAcceptLanguage(acceptLanguage: String): Unit = soup_session_set_accept_language(soupSessionPointer, acceptLanguage)
 
     /**
      * Set the value to use for the "User-Agent" header on [class@Message]s sent
@@ -904,19 +810,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = memScoped {
-        return soup_session_websocket_connect_async(
-            soupSessionPointer,
-            msg.soupMessagePointer,
-            origin,
-            protocols?.toCStringList(this),
-            ioPriority,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
-    }
+        return soup_session_websocket_connect_async(soupSessionPointer, msg.soupMessagePointer, origin, protocols?.toCStringList(this), ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })}
 
     /**
      * Gets the [class@WebsocketConnection] response to a
@@ -931,13 +825,8 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      */
     public open fun websocketConnectFinish(result: AsyncResult): Result<WebsocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_session_websocket_connect_finish(
-            soupSessionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            WebsocketConnection(this)
-        }
+        val gResult = soup_session_websocket_connect_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            WebsocketConnection(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -979,15 +868,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `msg` the request that was queued
      */
-    public fun onRequestQueued(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (msg: Message) -> Unit): ULong =
-        g_signal_connect_data(
-            soupSessionPointer,
-            "request-queued",
-            onRequestQueuedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onRequestQueued(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (msg: Message) -> Unit): ULong = g_signal_connect_data(soupSessionPointer, "request-queued", onRequestQueuedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "request-queued" signal. See [onRequestQueued].
@@ -1008,17 +889,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `msg` the request that was unqueued
      */
-    public fun onRequestUnqueued(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (msg: Message) -> Unit,
-    ): ULong = g_signal_connect_data(
-        soupSessionPointer,
-        "request-unqueued",
-        onRequestUnqueuedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onRequestUnqueued(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (msg: Message) -> Unit): ULong = g_signal_connect_data(soupSessionPointer, "request-unqueued", onRequestUnqueuedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "request-unqueued" signal. See [onRequestUnqueued].
@@ -1031,11 +902,10 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
 
     public companion object : TypeCompanion<Session> {
         override val type: GeneratedClassKGType<Session> =
-            GeneratedClassKGType(getTypeOrNull("soup_session_get_type")!!) { Session(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_session_get_type")!!) { Session(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of Session
@@ -1047,29 +917,23 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
 }
 
 private val onRequestQueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            msg: CPointer<SoupMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(msg: Message) -> Unit>().get().invoke(
-            msg!!.run {
-                Message(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    msg: CPointer<SoupMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(msg: Message) -> Unit>().get().invoke(msg!!.run {
+        Message(this)}
+    )}
+.reinterpret()
 
 private val onRequestUnqueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            msg: CPointer<SoupMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(msg: Message) -> Unit>().get().invoke(
-            msg!!.run {
-                Message(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    msg: CPointer<SoupMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(msg: Message) -> Unit>().get().invoke(msg!!.run {
+        Message(this)}
+    )}
+.reinterpret()

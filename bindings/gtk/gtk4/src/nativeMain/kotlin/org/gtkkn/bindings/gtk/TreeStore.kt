@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -35,8 +37,6 @@ import org.gtkkn.native.gtk.gtk_tree_store_prepend
 import org.gtkkn.native.gtk.gtk_tree_store_remove
 import org.gtkkn.native.gtk.gtk_tree_store_set_value
 import org.gtkkn.native.gtk.gtk_tree_store_swap
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A tree-like data structure that can be used with the [class@Gtk.TreeView].
@@ -80,8 +80,9 @@ import kotlin.Unit
  * - parameter `columns`: Array parameter of type gint is not supported
  * - parameter `types`: Array parameter of type GType is not supported
  */
-public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStore>) :
-    Object(gtkTreeStorePointer.reinterpret()),
+public open class TreeStore(
+    public val gtkTreeStorePointer: CPointer<GtkTreeStore>,
+) : Object(gtkTreeStorePointer.reinterpret()),
     Buildable,
     TreeDragDest,
     TreeDragSource,
@@ -116,8 +117,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter An unset `GtkTreeIter` to set to the appended row
      * @param parent A valid `GtkTreeIter`
      */
-    public open fun append(iter: TreeIter, parent: TreeIter? = null): Unit =
-        gtk_tree_store_append(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
+    public open fun append(iter: TreeIter, parent: TreeIter? = null): Unit = gtk_tree_store_append(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
      * Removes all rows from @tree_store
@@ -141,8 +141,11 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param parent A valid `GtkTreeIter`
      * @param position position to insert the new row, or -1 for last
      */
-    public open fun insert(iter: TreeIter, parent: TreeIter? = null, position: gint): Unit =
-        gtk_tree_store_insert(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, position)
+    public open fun insert(
+        iter: TreeIter,
+        parent: TreeIter? = null,
+        position: gint,
+    ): Unit = gtk_tree_store_insert(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, position)
 
     /**
      * Inserts a new row after @sibling.
@@ -163,13 +166,11 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param parent A valid `GtkTreeIter`
      * @param sibling A valid `GtkTreeIter`
      */
-    public open fun insertAfter(iter: TreeIter, parent: TreeIter? = null, sibling: TreeIter? = null): Unit =
-        gtk_tree_store_insert_after(
-            gtkTreeStorePointer,
-            iter.gtkTreeIterPointer,
-            parent?.gtkTreeIterPointer,
-            sibling?.gtkTreeIterPointer
-        )
+    public open fun insertAfter(
+        iter: TreeIter,
+        parent: TreeIter? = null,
+        sibling: TreeIter? = null,
+    ): Unit = gtk_tree_store_insert_after(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, sibling?.gtkTreeIterPointer)
 
     /**
      * Inserts a new row before @sibling.
@@ -190,13 +191,11 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param parent A valid `GtkTreeIter`
      * @param sibling A valid `GtkTreeIter`
      */
-    public open fun insertBefore(iter: TreeIter, parent: TreeIter? = null, sibling: TreeIter? = null): Unit =
-        gtk_tree_store_insert_before(
-            gtkTreeStorePointer,
-            iter.gtkTreeIterPointer,
-            parent?.gtkTreeIterPointer,
-            sibling?.gtkTreeIterPointer
-        )
+    public open fun insertBefore(
+        iter: TreeIter,
+        parent: TreeIter? = null,
+        sibling: TreeIter? = null,
+    ): Unit = gtk_tree_store_insert_before(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, sibling?.gtkTreeIterPointer)
 
     /**
      * Checks if @iter is an ancestor of @descendant.
@@ -205,11 +204,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param descendant A valid `GtkTreeIter`
      * @return true if @iter is an ancestor of @descendant, and false otherwise
      */
-    public open fun isAncestor(iter: TreeIter, descendant: TreeIter): Boolean = gtk_tree_store_is_ancestor(
-        gtkTreeStorePointer,
-        iter.gtkTreeIterPointer,
-        descendant.gtkTreeIterPointer
-    ).asBoolean()
+    public open fun isAncestor(iter: TreeIter, descendant: TreeIter): Boolean = gtk_tree_store_is_ancestor(gtkTreeStorePointer, iter.gtkTreeIterPointer, descendant.gtkTreeIterPointer).asBoolean()
 
     /**
      * Returns the depth of the position pointed by the iterator
@@ -220,8 +215,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter A valid `GtkTreeIter`
      * @return The depth of the position pointed by the iterator
      */
-    public open fun iterDepth(iter: TreeIter): gint =
-        gtk_tree_store_iter_depth(gtkTreeStorePointer, iter.gtkTreeIterPointer)
+    public open fun iterDepth(iter: TreeIter): gint = gtk_tree_store_iter_depth(gtkTreeStorePointer, iter.gtkTreeIterPointer)
 
     /**
      * Checks if the given iter is a valid iter for this `GtkTreeStore`.
@@ -232,8 +226,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter the iterator to check
      * @return true if the iter is valid, and false otherwise
      */
-    public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_tree_store_iter_is_valid(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
+    public open fun iterIsValid(iter: TreeIter): Boolean = gtk_tree_store_iter_is_valid(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Moves @iter in @tree_store to the position after @position.
@@ -247,8 +240,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter A `GtkTreeIter`.
      * @param position A `GtkTreeIter`.
      */
-    public open fun moveAfter(iter: TreeIter, position: TreeIter? = null): Unit =
-        gtk_tree_store_move_after(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
+    public open fun moveAfter(iter: TreeIter, position: TreeIter? = null): Unit = gtk_tree_store_move_after(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
      * Moves @iter in @tree_store to the position before @position.
@@ -262,8 +254,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter A `GtkTreeIter`
      * @param position A `GtkTreeIter`
      */
-    public open fun moveBefore(iter: TreeIter, position: TreeIter? = null): Unit =
-        gtk_tree_store_move_before(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
+    public open fun moveBefore(iter: TreeIter, position: TreeIter? = null): Unit = gtk_tree_store_move_before(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
      * Prepends a new row to @tree_store.
@@ -277,8 +268,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter An unset `GtkTreeIter` to set to the prepended row
      * @param parent A valid `GtkTreeIter`
      */
-    public open fun prepend(iter: TreeIter, parent: TreeIter? = null): Unit =
-        gtk_tree_store_prepend(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
+    public open fun prepend(iter: TreeIter, parent: TreeIter? = null): Unit = gtk_tree_store_prepend(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
      * Removes @iter from @tree_store.
@@ -289,8 +279,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param iter A valid `GtkTreeIter`
      * @return true if @iter is still valid, and false otherwise
      */
-    public open fun remove(iter: TreeIter): Boolean =
-        gtk_tree_store_remove(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
+    public open fun remove(iter: TreeIter): Boolean = gtk_tree_store_remove(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Sets the data in the cell specified by @iter and @column.
@@ -302,8 +291,11 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param column column number to modify
      * @param value new value for the cell
      */
-    public open fun setValue(iter: TreeIter, column: gint, `value`: Value): Unit =
-        gtk_tree_store_set_value(gtkTreeStorePointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
+    public open fun setValue(
+        iter: TreeIter,
+        column: gint,
+        `value`: Value,
+    ): Unit = gtk_tree_store_set_value(gtkTreeStorePointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
 
     /**
      * Swaps @a and @b in the same level of @tree_store.
@@ -313,16 +305,14 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
      * @param a A `GtkTreeIter`.
      * @param b Another `GtkTreeIter`.
      */
-    public open fun swap(a: TreeIter, b: TreeIter): Unit =
-        gtk_tree_store_swap(gtkTreeStorePointer, a.gtkTreeIterPointer, b.gtkTreeIterPointer)
+    public open fun swap(a: TreeIter, b: TreeIter): Unit = gtk_tree_store_swap(gtkTreeStorePointer, a.gtkTreeIterPointer, b.gtkTreeIterPointer)
 
     public companion object : TypeCompanion<TreeStore> {
         override val type: GeneratedClassKGType<TreeStore> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_store_get_type")!!) { TreeStore(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_tree_store_get_type")!!) { TreeStore(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeStore

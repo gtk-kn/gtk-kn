@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
@@ -19,7 +20,6 @@ import org.gtkkn.native.gio.g_pollable_input_stream_create_source
 import org.gtkkn.native.gio.g_pollable_input_stream_get_type
 import org.gtkkn.native.gio.g_pollable_input_stream_is_readable
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * `GPollableInputStream` is implemented by [class@Gio.InputStream]s that
@@ -39,9 +39,7 @@ import kotlin.Boolean
  * @since 2.28
  */
 @GioVersion2_28
-public interface PollableInputStream :
-    Proxy,
-    KGTyped {
+public interface PollableInputStream : Proxy, KGTyped {
     public val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
 
     /**
@@ -77,10 +75,8 @@ public interface PollableInputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun createSource(cancellable: Cancellable? = null): Source =
-        g_pollable_input_stream_create_source(gioPollableInputStreamPointer, cancellable?.gioCancellablePointer)!!.run {
-            Source(this)
-        }
+    public fun createSource(cancellable: Cancellable? = null): Source = g_pollable_input_stream_create_source(gioPollableInputStreamPointer, cancellable?.gioCancellablePointer)!!.run {
+        Source(this)}
 
     /**
      * Checks if @stream can be read.
@@ -116,13 +112,10 @@ public interface PollableInputStream :
 
     public companion object : TypeCompanion<PollableInputStream> {
         override val type: GeneratedInterfaceKGType<PollableInputStream> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_pollable_input_stream_get_type")!!) {
-                PollableInputStreamImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_pollable_input_stream_get_type")!!) { PollableInputStreamImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of PollableInputStream

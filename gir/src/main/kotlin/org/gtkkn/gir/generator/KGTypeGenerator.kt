@@ -81,7 +81,7 @@ interface KGTypeGenerator {
         if (iface.glibGetTypeFunc == null) {
             null
         } else {
-            val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
+            val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.kotlinTypeName)
             PropertySpec.builder("type", propertyType)
                 .initializer(
                     "%T(%M(%S)!!) { %T(it.%M()) }",

@@ -10,5 +10,6 @@ import org.gtkkn.native.gobject.GParamSpecUnichar
 /**
  * A #GParamSpec derived structure that contains the meta data for unichar (unsigned integer) properties.
  */
-public open class ParamSpecUnichar(public val gobjectParamSpecUnicharPointer: CPointer<GParamSpecUnichar>) :
-    ParamSpec(gobjectParamSpecUnicharPointer.reinterpret())
+public open class ParamSpecUnichar(
+    public val gobjectParamSpecUnicharPointer: CPointer<GParamSpecUnichar>,
+) : ParamSpec(gobjectParamSpecUnicharPointer.reinterpret())

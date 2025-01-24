@@ -3,9 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
@@ -17,8 +20,6 @@ import org.gtkkn.native.webkit.webkit_application_info_ref
 import org.gtkkn.native.webkit.webkit_application_info_set_name
 import org.gtkkn.native.webkit.webkit_application_info_set_version
 import org.gtkkn.native.webkit.webkit_application_info_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Information about an application running in automation mode.
@@ -27,8 +28,19 @@ import kotlin.Unit
  *
  * - parameter `major`: major: Out parameter is not supported
  */
-public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo>) :
-    ProxyInstance(webkitApplicationInfoPointer) {
+public class ApplicationInfo(
+    public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo>,
+) : ProxyInstance(webkitApplicationInfoPointer) {
+    /**
+     * Creates a new #WebKitApplicationInfo
+     *
+     * @return the newly created #WebKitApplicationInfo.
+     * @since 2.18
+     */
+    public constructor() : this(webkit_application_info_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Get the name of the application.
      *
@@ -39,8 +51,7 @@ public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<W
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getName(): String =
-        webkit_application_info_get_name(webkitApplicationInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = webkit_application_info_get_name(webkitApplicationInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @info by one.
@@ -53,8 +64,7 @@ public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<W
      */
     @WebKitVersion2_18
     public fun ref(): ApplicationInfo = webkit_application_info_ref(webkitApplicationInfoPointer)!!.run {
-        ApplicationInfo(this)
-    }
+        ApplicationInfo(this)}
 
     /**
      * Set the name of the application.
@@ -82,8 +92,11 @@ public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<W
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setVersion(major: guint64, minor: guint64, micro: guint64): Unit =
-        webkit_application_info_set_version(webkitApplicationInfoPointer, major, minor, micro)
+    public fun setVersion(
+        major: guint64,
+        minor: guint64,
+        micro: guint64,
+    ): Unit = webkit_application_info_set_version(webkitApplicationInfoPointer, major, minor, micro)
 
     /**
      * Atomically decrements the reference count of @info by one.
@@ -99,14 +112,6 @@ public class ApplicationInfo(public val webkitApplicationInfoPointer: CPointer<W
     public fun unref(): Unit = webkit_application_info_unref(webkitApplicationInfoPointer)
 
     public companion object {
-        /**
-         * Creates a new #WebKitApplicationInfo
-         *
-         * @return the newly created #WebKitApplicationInfo.
-         * @since 2.18
-         */
-        public fun new(): ApplicationInfo = ApplicationInfo(webkit_application_info_new()!!)
-
         /**
          * Get the GType of ApplicationInfo
          *

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -15,7 +16,6 @@ import org.gtkkn.native.gtksource.GtkSourceHover
 import org.gtkkn.native.gtksource.gtk_source_hover_add_provider
 import org.gtkkn.native.gtksource.gtk_source_hover_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_remove_provider
-import kotlin.Unit
 
 /**
  * Interactive tooltips.
@@ -36,22 +36,20 @@ import kotlin.Unit
  *
  * - method `hover-delay`: Property has no getter nor setter
  */
-public open class Hover(public val gtksourceHoverPointer: CPointer<GtkSourceHover>) :
-    Object(gtksourceHoverPointer.reinterpret()),
+public open class Hover(
+    public val gtksourceHoverPointer: CPointer<GtkSourceHover>,
+) : Object(gtksourceHoverPointer.reinterpret()),
     KGTyped {
-    public open fun addProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_add_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
+    public open fun addProvider(provider: HoverProvider): Unit = gtk_source_hover_add_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 
-    public open fun removeProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_remove_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
+    public open fun removeProvider(provider: HoverProvider): Unit = gtk_source_hover_remove_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 
     public companion object : TypeCompanion<Hover> {
         override val type: GeneratedClassKGType<Hover> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_hover_get_type")!!) { Hover(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_hover_get_type")!!) { Hover(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of Hover

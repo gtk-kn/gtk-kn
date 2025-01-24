@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -162,10 +166,6 @@ import org.gtkkn.native.webkit.webkit_settings_set_serif_font_family
 import org.gtkkn.native.webkit.webkit_settings_set_user_agent
 import org.gtkkn.native.webkit.webkit_settings_set_user_agent_with_application_details
 import org.gtkkn.native.webkit.webkit_settings_set_zoom_text_only
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Control the behaviour of a #WebKitWebView.
@@ -187,8 +187,9 @@ import kotlin.Unit
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
  * - constructor `new_with_settings`: Varargs parameter is not supported
  */
-public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>) :
-    Object(webkitSettingsPointer.reinterpret()),
+public class Settings(
+    public val webkitSettingsPointer: CPointer<WebKitSettings>,
+) : Object(webkitSettingsPointer.reinterpret()),
     KGTyped {
     /**
      * Whether file access is allowed from file URLs. By default, when
@@ -208,7 +209,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.10
          */
         get() = webkit_settings_get_allow_file_access_from_file_urls(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:allow-file-access-from-file-urls property.
          *
@@ -233,7 +233,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true if it's allowed to create and run modal dialogs or false otherwise.
          */
         get() = webkit_settings_get_allow_modal_dialogs(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:allow-modal-dialogs property.
          *
@@ -259,7 +258,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.28
          */
         get() = webkit_settings_get_allow_top_navigation_to_data_urls(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:allow-top-navigation-to-data-urls property.
          *
@@ -267,9 +265,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.28
          */
         @WebKitVersion2_28
-        set(
-            allowed
-        ) = webkit_settings_set_allow_top_navigation_to_data_urls(webkitSettingsPointer, allowed.asGBoolean())
+        set(allowed) = webkit_settings_set_allow_top_navigation_to_data_urls(webkitSettingsPointer, allowed.asGBoolean())
 
     /**
      * Whether or not JavaScript running in the context of a file scheme URL
@@ -290,7 +286,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.14
          */
         get() = webkit_settings_get_allow_universal_access_from_file_urls(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:allow-universal-access-from-file-urls property.
          *
@@ -298,9 +293,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.14
          */
         @WebKitVersion2_14
-        set(
-            allowed
-        ) = webkit_settings_set_allow_universal_access_from_file_urls(webkitSettingsPointer, allowed.asGBoolean())
+        set(allowed) = webkit_settings_set_allow_universal_access_from_file_urls(webkitSettingsPointer, allowed.asGBoolean())
 
     /**
      * Determines whether images should be automatically loaded or not.
@@ -314,7 +307,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If auto loading of images is enabled or false otherwise.
          */
         get() = webkit_settings_get_auto_load_images(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:auto-load-images property.
          *
@@ -331,9 +323,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return The default font family used to display content marked with cursive font.
          */
-        get() = webkit_settings_get_cursive_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_cursive_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:cursive-font-family property.
          *
@@ -350,9 +340,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return Default charset.
          */
-        get() = webkit_settings_get_default_charset(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_default_charset(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:default-charset property.
          *
@@ -369,9 +357,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return The default font family used to display content that does not specify a font.
          */
-        get() = webkit_settings_get_default_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_default_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:default-font-family property.
          *
@@ -390,7 +376,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return The default font size, in pixels.
          */
         get() = webkit_settings_get_default_font_size(webkitSettingsPointer)
-
         /**
          * Set the #WebKitSettings:default-font-size property.
          *
@@ -409,7 +394,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return Default monospace font size, in pixels.
          */
         get() = webkit_settings_get_default_monospace_font_size(webkitSettingsPointer)
-
         /**
          * Set the #WebKitSettings:default-monospace-font-size property.
          *
@@ -436,7 +420,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.40
          */
         get() = webkit_settings_get_disable_web_security(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:disable-web-security property.
          *
@@ -458,7 +441,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If compositing borders are drawn or false otherwise.
          */
         get() = webkit_settings_get_draw_compositing_indicators(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:draw-compositing-indicators property.
          *
@@ -483,7 +465,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.46
          */
         get() = webkit_settings_get_enable_2d_canvas_acceleration(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-2d-canvas-acceleration property.
          *
@@ -507,7 +488,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.24
          */
         get() = webkit_settings_get_enable_back_forward_navigation_gestures(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-back-forward-navigation-gestures property.
          *
@@ -515,9 +495,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.24
          */
         @WebKitVersion2_24
-        set(
-            enabled
-        ) = webkit_settings_set_enable_back_forward_navigation_gestures(webkitSettingsPointer, enabled.asGBoolean())
+        set(enabled) = webkit_settings_set_enable_back_forward_navigation_gestures(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
      * Whether to enable accessibility enhanced keyboard navigation.
@@ -529,7 +507,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If caret browsing is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_caret_browsing(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-caret-browsing property.
          *
@@ -547,7 +524,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If developer extras is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_developer_extras(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-developer-extras property.
          *
@@ -566,7 +542,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If DNS prefetching is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_dns_prefetching(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-dns-prefetching property.
          *
@@ -593,7 +568,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.20
          */
         get() = webkit_settings_get_enable_encrypted_media(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-encrypted-media property.
          *
@@ -616,7 +590,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If fullscreen support is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_fullscreen(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-fullscreen property.
          *
@@ -634,7 +607,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true if IndexedDB support is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_html5_database(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-html5-database property.
          *
@@ -656,7 +628,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If HTML5 local storage support is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_html5_local_storage(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-html5-local-storage property.
          *
@@ -677,7 +648,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If hyper link auditing is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_hyperlink_auditing(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-hyperlink-auditing property.
          *
@@ -695,7 +665,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If JavaScript is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_javascript(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-javascript property.
          *
@@ -719,7 +688,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.24
          */
         get() = webkit_settings_get_enable_javascript_markup(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-javascript-markup property.
          *
@@ -745,7 +713,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.26
          */
         get() = webkit_settings_get_enable_media(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-media property.
          *
@@ -776,7 +743,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.22
          */
         get() = webkit_settings_get_enable_media_capabilities(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-media-capabilities property.
          *
@@ -804,7 +770,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.4
          */
         get() = webkit_settings_get_enable_media_stream(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-media-stream property.
          *
@@ -832,7 +797,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.4
          */
         get() = webkit_settings_get_enable_mediasource(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-mediasource property.
          *
@@ -858,7 +822,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.24
          */
         get() = webkit_settings_get_enable_mock_capture_devices(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-mock-capture-devices property.
          *
@@ -878,15 +841,12 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return false.
          */
         get() = webkit_settings_get_enable_offline_web_application_cache(webkitSettingsPointer).asBoolean()
-
         /**
          * Setting no longer supported. This function does nothing.
          *
          * @param enabled Value to be set
          */
-        set(
-            enabled
-        ) = webkit_settings_set_enable_offline_web_application_cache(webkitSettingsPointer, enabled.asGBoolean())
+        set(enabled) = webkit_settings_set_enable_offline_web_application_cache(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
      * Enable or disable the page cache. Disabling the page cache is
@@ -906,7 +866,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true if page cache enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_page_cache(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-page-cache property.
          *
@@ -924,7 +883,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If text areas can be resized or false otherwise.
          */
         get() = webkit_settings_get_enable_resizable_text_areas(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-resizable-text-areas property.
          *
@@ -947,7 +905,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true if site specific quirks are enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_site_specific_quirks(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-site-specific-quirks property.
          *
@@ -965,7 +922,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true if smooth scrolling is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_smooth_scrolling(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-smooth-scrolling property.
          *
@@ -992,7 +948,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.2
          */
         get() = webkit_settings_get_enable_spatial_navigation(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-spatial-navigation property.
          *
@@ -1015,7 +970,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If tabs to link is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_tabs_to_links(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-tabs-to-links property.
          *
@@ -1036,7 +990,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If webaudio support is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_webaudio(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-webaudio property.
          *
@@ -1055,7 +1008,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If WebGL support is enabled or false otherwise.
          */
         get() = webkit_settings_get_enable_webgl(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-webgl property.
          *
@@ -1082,7 +1034,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.38
          */
         get() = webkit_settings_get_enable_webrtc(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the [property@Settings:enable-webrtc] property.
          *
@@ -1110,7 +1061,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.2
          */
         get() = webkit_settings_get_enable_write_console_messages_to_stdout(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:enable-write-console-messages-to-stdout property.
          *
@@ -1118,9 +1068,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.2
          */
         @WebKitVersion2_2
-        set(
-            enabled
-        ) = webkit_settings_set_enable_write_console_messages_to_stdout(webkitSettingsPointer, enabled.asGBoolean())
+        set(enabled) = webkit_settings_set_enable_write_console_messages_to_stdout(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
      * The font family used as the default for content using a fantasy font.
@@ -1131,9 +1079,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return The default font family used to display content marked with fantasy font.
          */
-        get() = webkit_settings_get_fantasy_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_fantasy_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:fantasy-font-family property.
          *
@@ -1161,9 +1107,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @since 2.16
          */
         get() = webkit_settings_get_hardware_acceleration_policy(webkitSettingsPointer).run {
-            HardwareAccelerationPolicy.fromNativeValue(this)
-        }
-
+            HardwareAccelerationPolicy.fromNativeValue(this)}
         /**
          * Set the #WebKitSettings:hardware-acceleration-policy property.
          *
@@ -1184,7 +1128,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If javascript-can-access-clipboard is enabled or false otherwise.
          */
         get() = webkit_settings_get_javascript_can_access_clipboard(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:javascript-can-access-clipboard property.
          *
@@ -1203,15 +1146,12 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If JavaScript can open window automatically or false otherwise.
          */
         get() = webkit_settings_get_javascript_can_open_windows_automatically(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:javascript-can-open-windows-automatically property.
          *
          * @param enabled Value to be set
          */
-        set(
-            enabled
-        ) = webkit_settings_set_javascript_can_open_windows_automatically(webkitSettingsPointer, enabled.asGBoolean())
+        set(enabled) = webkit_settings_set_javascript_can_open_windows_automatically(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
      * Unsupported setting. This property does nothing.
@@ -1223,15 +1163,12 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return false
          */
         get() = webkit_settings_get_load_icons_ignoring_image_load_setting(webkitSettingsPointer).asBoolean()
-
         /**
          * Setting no longer supported. This function does nothing.
          *
          * @param enabled Value to be set
          */
-        set(
-            enabled
-        ) = webkit_settings_set_load_icons_ignoring_image_load_setting(webkitSettingsPointer, enabled.asGBoolean())
+        set(enabled) = webkit_settings_set_load_icons_ignoring_image_load_setting(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
      * Whether media playback is full-screen only or inline playback is allowed.
@@ -1246,7 +1183,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *    or false if only fullscreen playback is allowed.
          */
         get() = webkit_settings_get_media_playback_allows_inline(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:media-playback-allows-inline property.
          *
@@ -1269,15 +1205,12 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *    or false if no user gesture is needed.
          */
         get() = webkit_settings_get_media_playback_requires_user_gesture(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:media-playback-requires-user-gesture property.
          *
          * @param enabled Value to be set
          */
-        set(
-            enabled
-        ) = webkit_settings_set_media_playback_requires_user_gesture(webkitSettingsPointer, enabled.asGBoolean())
+        set(enabled) = webkit_settings_set_media_playback_requires_user_gesture(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
      * The minimum font size in pixels used to display text. This setting
@@ -1291,7 +1224,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return Minimum font size, in pixels.
          */
         get() = webkit_settings_get_minimum_font_size(webkitSettingsPointer)
-
         /**
          * Set the #WebKitSettings:minimum-font-size property.
          *
@@ -1308,9 +1240,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return Default font family used to display content marked with monospace font.
          */
-        get() = webkit_settings_get_monospace_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_monospace_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:monospace-font-family property.
          *
@@ -1327,17 +1257,13 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return The default font family used to display content marked with pictograph font.
          */
-        get() = webkit_settings_get_pictograph_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_pictograph_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:pictograph-font-family property.
          *
          * @param pictographFontFamily the new default pictograph font family
          */
-        set(
-            pictographFontFamily
-        ) = webkit_settings_set_pictograph_font_family(webkitSettingsPointer, pictographFontFamily)
+        set(pictographFontFamily) = webkit_settings_set_pictograph_font_family(webkitSettingsPointer, pictographFontFamily)
 
     /**
      * Whether background images should be drawn during printing.
@@ -1349,15 +1275,12 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          * @return true If background images should be printed or false otherwise.
          */
         get() = webkit_settings_get_print_backgrounds(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:print-backgrounds property.
          *
          * @param printBackgrounds Value to be set
          */
-        set(
-            printBackgrounds
-        ) = webkit_settings_set_print_backgrounds(webkitSettingsPointer, printBackgrounds.asGBoolean())
+        set(printBackgrounds) = webkit_settings_set_print_backgrounds(webkitSettingsPointer, printBackgrounds.asGBoolean())
 
     /**
      * The font family used as the default for content using a sans-serif font.
@@ -1368,17 +1291,13 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return The default font family used to display content marked with sans-serif font.
          */
-        get() = webkit_settings_get_sans_serif_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_sans_serif_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:sans-serif-font-family property.
          *
          * @param sansSerifFontFamily the new default sans-serif font family
          */
-        set(
-            sansSerifFontFamily
-        ) = webkit_settings_set_sans_serif_font_family(webkitSettingsPointer, sansSerifFontFamily)
+        set(sansSerifFontFamily) = webkit_settings_set_sans_serif_font_family(webkitSettingsPointer, sansSerifFontFamily)
 
     /**
      * The font family used as the default for content using a serif font.
@@ -1389,9 +1308,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *
          * @return The default font family used to display content marked with serif font.
          */
-        get() = webkit_settings_get_serif_font_family(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = webkit_settings_get_serif_font_family(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Set the #WebKitSettings:serif-font-family property.
          *
@@ -1413,7 +1330,6 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          *    or false if all view contents should be scaled.
          */
         get() = webkit_settings_get_zoom_text_only(webkitSettingsPointer).asBoolean()
-
         /**
          * Set the #WebKitSettings:zoom-text-only property.
          *
@@ -1429,7 +1345,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      *
      * @return a new #WebKitSettings instance.
      */
-    public constructor() : this(webkit_settings_new()!!.reinterpret())
+    public constructor() : this(webkit_settings_new()!!)
 
     /**
      * Reads the contents of the given @group_name from the given @key_file and apply the value of
@@ -1449,12 +1365,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
     @WebKitVersion2_46
     public fun applyFromKeyFile(keyFile: KeyFile, groupName: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_settings_apply_from_key_file(
-            webkitSettingsPointer,
-            keyFile.glibKeyFilePointer,
-            groupName,
-            gError.ptr
-        ).asBoolean()
+        val gResult = webkit_settings_apply_from_key_file(webkitSettingsPointer, keyFile.glibKeyFilePointer, groupName, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1470,8 +1381,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getFeatureEnabled(feature: Feature): Boolean =
-        webkit_settings_get_feature_enabled(webkitSettingsPointer, feature.webkitFeaturePointer).asBoolean()
+    public fun getFeatureEnabled(feature: Feature): Boolean = webkit_settings_get_feature_enabled(webkitSettingsPointer, feature.webkitFeaturePointer).asBoolean()
 
     /**
      * Gets the #WebKitSettings:media-content-types-requiring-hardware-support property.
@@ -1480,17 +1390,14 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getMediaContentTypesRequiringHardwareSupport(): String =
-        webkit_settings_get_media_content_types_requiring_hardware_support(webkitSettingsPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun getMediaContentTypesRequiringHardwareSupport(): String = webkit_settings_get_media_content_types_requiring_hardware_support(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the #WebKitSettings:user-agent property.
      *
      * @return The current value of the user-agent property.
      */
-    public fun getUserAgent(): String =
-        webkit_settings_get_user_agent(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
+    public fun getUserAgent(): String = webkit_settings_get_user_agent(webkitSettingsPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Enables or disables a feature.
@@ -1505,8 +1412,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun setFeatureEnabled(feature: Feature, enabled: Boolean): Unit =
-        webkit_settings_set_feature_enabled(webkitSettingsPointer, feature.webkitFeaturePointer, enabled.asGBoolean())
+    public fun setFeatureEnabled(feature: Feature, enabled: Boolean): Unit = webkit_settings_set_feature_enabled(webkitSettingsPointer, feature.webkitFeaturePointer, enabled.asGBoolean())
 
     /**
      * Set the #WebKitSettings:media-content-types-requiring-hardware-support property.
@@ -1515,16 +1421,14 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun setMediaContentTypesRequiringHardwareSupport(contentTypes: String? = null): Unit =
-        webkit_settings_set_media_content_types_requiring_hardware_support(webkitSettingsPointer, contentTypes)
+    public fun setMediaContentTypesRequiringHardwareSupport(contentTypes: String? = null): Unit = webkit_settings_set_media_content_types_requiring_hardware_support(webkitSettingsPointer, contentTypes)
 
     /**
      * Set the #WebKitSettings:user-agent property.
      *
      * @param userAgent The new custom user agent string or null to use the default user agent
      */
-    public fun setUserAgent(userAgent: String? = null): Unit =
-        webkit_settings_set_user_agent(webkitSettingsPointer, userAgent)
+    public fun setUserAgent(userAgent: String? = null): Unit = webkit_settings_set_user_agent(webkitSettingsPointer, userAgent)
 
     /**
      * Set the #WebKitSettings:user-agent property by appending the application details.
@@ -1536,22 +1440,14 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
      * @param applicationName The application name used for the user agent or null to use the default user agent.
      * @param applicationVersion The application version for the user agent or null to user the default version.
      */
-    public fun setUserAgentWithApplicationDetails(
-        applicationName: String? = null,
-        applicationVersion: String? = null,
-    ): Unit = webkit_settings_set_user_agent_with_application_details(
-        webkitSettingsPointer,
-        applicationName,
-        applicationVersion
-    )
+    public fun setUserAgentWithApplicationDetails(applicationName: String? = null, applicationVersion: String? = null): Unit = webkit_settings_set_user_agent_with_application_details(webkitSettingsPointer, applicationName, applicationVersion)
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(getTypeOrNull("webkit_settings_get_type")!!) { Settings(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("webkit_settings_get_type")!!) { Settings(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Convert @points to the equivalent value in pixels.
@@ -1599,8 +1495,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          */
         @WebKitVersion2_42
         public fun getAllFeatures(): FeatureList = webkit_settings_get_all_features()!!.run {
-            FeatureList(this)
-        }
+            FeatureList(this)}
 
         /**
          * Gets the list of available development WebKit features.
@@ -1616,8 +1511,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          */
         @WebKitVersion2_42
         public fun getDevelopmentFeatures(): FeatureList = webkit_settings_get_development_features()!!.run {
-            FeatureList(this)
-        }
+            FeatureList(this)}
 
         /**
          * Gets the list of available experimental WebKit features.
@@ -1632,8 +1526,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
          */
         @WebKitVersion2_42
         public fun getExperimentalFeatures(): FeatureList = webkit_settings_get_experimental_features()!!.run {
-            FeatureList(this)
-        }
+            FeatureList(this)}
 
         /**
          * Get the GType of Settings

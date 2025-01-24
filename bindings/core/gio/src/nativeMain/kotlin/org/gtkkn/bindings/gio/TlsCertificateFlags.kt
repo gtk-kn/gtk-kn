@@ -32,7 +32,9 @@ import org.gtkkn.native.gobject.GType
  * other problems exist with the certificate.
  * @since 2.28
  */
-public class TlsCertificateFlags(public val mask: GTlsCertificateFlags) : Bitfield<TlsCertificateFlags> {
+public class TlsCertificateFlags(
+    public val mask: GTlsCertificateFlags,
+) : Bitfield<TlsCertificateFlags> {
     override infix fun or(other: TlsCertificateFlags): TlsCertificateFlags = TlsCertificateFlags(mask or other.mask)
 
     @GioVersion2_28
@@ -47,21 +49,21 @@ public class TlsCertificateFlags(public val mask: GTlsCertificateFlags) : Bitfie
          *   not known.
          */
         public val UNKNOWN_CA: TlsCertificateFlags =
-            TlsCertificateFlags(G_TLS_CERTIFICATE_UNKNOWN_CA)
+                TlsCertificateFlags(G_TLS_CERTIFICATE_UNKNOWN_CA)
 
         /**
          * The certificate does not match the
          *   expected identity of the site that it was retrieved from.
          */
         public val BAD_IDENTITY: TlsCertificateFlags =
-            TlsCertificateFlags(G_TLS_CERTIFICATE_BAD_IDENTITY)
+                TlsCertificateFlags(G_TLS_CERTIFICATE_BAD_IDENTITY)
 
         /**
          * The certificate's activation time
          *   is still in the future
          */
         public val NOT_ACTIVATED: TlsCertificateFlags =
-            TlsCertificateFlags(G_TLS_CERTIFICATE_NOT_ACTIVATED)
+                TlsCertificateFlags(G_TLS_CERTIFICATE_NOT_ACTIVATED)
 
         /**
          * The certificate has expired
@@ -85,14 +87,14 @@ public class TlsCertificateFlags(public val mask: GTlsCertificateFlags) : Bitfie
          *   the certificate
          */
         public val GENERIC_ERROR: TlsCertificateFlags =
-            TlsCertificateFlags(G_TLS_CERTIFICATE_GENERIC_ERROR)
+                TlsCertificateFlags(G_TLS_CERTIFICATE_GENERIC_ERROR)
 
         /**
          * the combination of all of the above
          *   flags
          */
         public val VALIDATE_ALL: TlsCertificateFlags =
-            TlsCertificateFlags(G_TLS_CERTIFICATE_VALIDATE_ALL)
+                TlsCertificateFlags(G_TLS_CERTIFICATE_VALIDATE_ALL)
 
         /**
          * Get the GType of TlsCertificateFlags

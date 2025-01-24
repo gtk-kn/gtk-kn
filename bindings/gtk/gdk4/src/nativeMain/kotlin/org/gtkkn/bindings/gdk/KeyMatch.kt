@@ -12,18 +12,18 @@ import org.gtkkn.native.gobject.GType
  *
  * `GdkKeyMatch` values are returned by [method@Gdk.KeyEvent.matches].
  */
-public enum class KeyMatch(public val nativeValue: GdkKeyMatch) {
+public enum class KeyMatch(
+    public val nativeValue: GdkKeyMatch,
+) {
     /**
      * The key event does not match
      */
     NONE(GdkKeyMatch.GDK_KEY_MATCH_NONE),
-
     /**
      * The key event matches if keyboard state
      *   (specifically, the currently active group) is ignored
      */
     PARTIAL(GdkKeyMatch.GDK_KEY_MATCH_PARTIAL),
-
     /**
      * The key event matches
      */

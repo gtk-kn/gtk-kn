@@ -15,7 +15,9 @@ import org.gtkkn.native.gobject.GType
  * The list of the different APIs that GdkGLContext can potentially support.
  * @since 4.6
  */
-public class Glapi(public val mask: GdkGLAPI) : Bitfield<Glapi> {
+public class Glapi(
+    public val mask: GdkGLAPI,
+) : Bitfield<Glapi> {
     override infix fun or(other: Glapi): Glapi = Glapi(mask or other.mask)
 
     @GdkVersion4_6

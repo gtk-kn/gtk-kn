@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -66,11 +71,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GTask` represents and manages a cancellable ‘task’.
@@ -607,8 +607,9 @@ import kotlin.Unit
  * - parameter `task_data_destroy`: GLib.DestroyNotify
  * - function `report_new_error`: Varargs parameter is not supported
  */
-public open class Task(public val gioTaskPointer: CPointer<GTask>) :
-    Object(gioTaskPointer.reinterpret()),
+public open class Task(
+    public val gioTaskPointer: CPointer<GTask>,
+) : Object(gioTaskPointer.reinterpret()),
     AsyncResult,
     KGTyped {
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
@@ -677,16 +678,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
         sourceObject: Object? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ) : this(
-        g_task_new(
-            sourceObject?.gobjectObjectPointer?.reinterpret(),
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )!!.reinterpret()
-    )
+    ) : this(g_task_new(sourceObject?.gobjectObjectPointer?.reinterpret(), cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })!!)
 
     /**
      * Gets @task's #GCancellable
@@ -696,8 +688,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      */
     @GioVersion2_36
     public open fun getCancellable(): Cancellable? = g_task_get_cancellable(gioTaskPointer)?.run {
-        Cancellable(this)
-    }
+        Cancellable(this)}
 
     /**
      * Gets @task's check-cancellable flag. See
@@ -722,8 +713,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      */
     @GioVersion2_36
     public open fun getContext(): MainContext = g_task_get_context(gioTaskPointer)!!.run {
-        MainContext(this)
-    }
+        MainContext(this)}
 
     /**
      * Gets @task’s name. See g_task_set_name().
@@ -761,8 +751,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      */
     @GioVersion2_36
     override fun getSourceObject(): Object? = g_task_get_source_object(gioTaskPointer)?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Gets @task's source tag. See g_task_set_source_tag().
@@ -957,8 +946,11 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      * @since 2.80
      */
     @GioVersion2_80
-    public open fun returnNewErrorLiteral(domain: Quark, code: gint, message: String): Unit =
-        g_task_return_new_error_literal(gioTaskPointer, domain, code, message)
+    public open fun returnNewErrorLiteral(
+        domain: Quark,
+        code: gint,
+        message: String,
+    ): Unit = g_task_return_new_error_literal(gioTaskPointer, domain, code, message)
 
     /**
      * Sets @task's result to @result (by copying it) and completes the task.
@@ -975,8 +967,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      * @since 2.64
      */
     @GioVersion2_64
-    public open fun returnValue(result: Value? = null): Unit =
-        g_task_return_value(gioTaskPointer, result?.gobjectValuePointer)
+    public open fun returnValue(result: Value? = null): Unit = g_task_return_value(gioTaskPointer, result?.gobjectValuePointer)
 
     /**
      * Sets or clears @task's check-cancellable flag. If this is true
@@ -999,8 +990,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setCheckCancellable(checkCancellable: Boolean): Unit =
-        g_task_set_check_cancellable(gioTaskPointer, checkCancellable.asGBoolean())
+    public open fun setCheckCancellable(checkCancellable: Boolean): Unit = g_task_set_check_cancellable(gioTaskPointer, checkCancellable.asGBoolean())
 
     /**
      * Sets @task’s name, used in debugging and profiling. The name defaults to
@@ -1073,8 +1063,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun setReturnOnCancel(returnOnCancel: Boolean): Boolean =
-        g_task_set_return_on_cancel(gioTaskPointer, returnOnCancel.asGBoolean()).asBoolean()
+    public open fun setReturnOnCancel(returnOnCancel: Boolean): Boolean = g_task_set_return_on_cancel(gioTaskPointer, returnOnCancel.asGBoolean()).asBoolean()
 
     /**
      * Sets @task's source tag.
@@ -1109,11 +1098,10 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
 
     public companion object : TypeCompanion<Task> {
         override val type: GeneratedClassKGType<Task> =
-            GeneratedClassKGType(getTypeOrNull("g_task_get_type")!!) { Task(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_task_get_type")!!) { Task(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Checks that @result is a #GTask, and that @source_object is its
@@ -1128,8 +1116,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
          * @since 2.36
          */
         @GioVersion2_36
-        public fun isValid(result: AsyncResult, sourceObject: Object? = null): Boolean =
-            g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gobjectObjectPointer?.reinterpret()).asBoolean()
+        public fun isValid(result: AsyncResult, sourceObject: Object? = null): Boolean = g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gobjectObjectPointer?.reinterpret()).asBoolean()
 
         /**
          * Creates a #GTask and then immediately calls g_task_return_error()
@@ -1154,15 +1141,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
             callback: AsyncReadyCallback?,
             sourceTag: gpointer? = null,
             error: Error,
-        ): Unit = g_task_report_error(
-            sourceObject?.gobjectObjectPointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() },
-            sourceTag,
-            error.glibErrorPointer
-        )
+        ): Unit = g_task_report_error(sourceObject?.gobjectObjectPointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, sourceTag, error.glibErrorPointer)
 
         /**
          * Get the GType of Task

@@ -11,94 +11,79 @@ import org.gtkkn.native.glib.GVariantClass
  * @since 2.24
  */
 @GLibVersion2_24
-public enum class VariantClass(public val nativeValue: GVariantClass) {
+public enum class VariantClass(
+    public val nativeValue: GVariantClass,
+) {
     /**
      * The #GVariant is a boolean.
      */
     BOOLEAN(GVariantClass.G_VARIANT_CLASS_BOOLEAN),
-
     /**
      * The #GVariant is a byte.
      */
     BYTE(GVariantClass.G_VARIANT_CLASS_BYTE),
-
     /**
      * The #GVariant is a signed 16 bit integer.
      */
     INT16(GVariantClass.G_VARIANT_CLASS_INT16),
-
     /**
      * The #GVariant is an unsigned 16 bit integer.
      */
     UINT16(GVariantClass.G_VARIANT_CLASS_UINT16),
-
     /**
      * The #GVariant is a signed 32 bit integer.
      */
     INT32(GVariantClass.G_VARIANT_CLASS_INT32),
-
     /**
      * The #GVariant is an unsigned 32 bit integer.
      */
     UINT32(GVariantClass.G_VARIANT_CLASS_UINT32),
-
     /**
      * The #GVariant is a signed 64 bit integer.
      */
     INT64(GVariantClass.G_VARIANT_CLASS_INT64),
-
     /**
      * The #GVariant is an unsigned 64 bit integer.
      */
     UINT64(GVariantClass.G_VARIANT_CLASS_UINT64),
-
     /**
      * The #GVariant is a file handle index.
      */
     HANDLE(GVariantClass.G_VARIANT_CLASS_HANDLE),
-
     /**
      * The #GVariant is a double precision floating
      *                          point value.
      */
     DOUBLE(GVariantClass.G_VARIANT_CLASS_DOUBLE),
-
     /**
      * The #GVariant is a normal string.
      */
     STRING(GVariantClass.G_VARIANT_CLASS_STRING),
-
     /**
      * The #GVariant is a D-Bus object path
      *                               string.
      */
     OBJECT_PATH(GVariantClass.G_VARIANT_CLASS_OBJECT_PATH),
-
     /**
      * The #GVariant is a D-Bus signature string.
      */
     SIGNATURE(GVariantClass.G_VARIANT_CLASS_SIGNATURE),
-
     /**
      * The #GVariant is a variant.
      */
     VARIANT(GVariantClass.G_VARIANT_CLASS_VARIANT),
-
     /**
      * The #GVariant is a maybe-typed value.
      */
     MAYBE(GVariantClass.G_VARIANT_CLASS_MAYBE),
-
     /**
      * The #GVariant is an array.
      */
     ARRAY(GVariantClass.G_VARIANT_CLASS_ARRAY),
-
     /**
      * The #GVariant is a tuple.
      */
     TUPLE(GVariantClass.G_VARIANT_CLASS_TUPLE),
-
     /**
      * The #GVariant is a dictionary entry.
      */

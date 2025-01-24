@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -36,9 +39,6 @@ import org.gtkkn.native.gtk.gtk_progress_bar_set_inverted
 import org.gtkkn.native.gtk.gtk_progress_bar_set_pulse_step
 import org.gtkkn.native.gtk.gtk_progress_bar_set_show_text
 import org.gtkkn.native.gtk.gtk_progress_bar_set_text
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkProgressBar` is typically used to display the progress of a long
@@ -88,8 +88,9 @@ import kotlin.Unit
  *
  * `GtkProgressBar` uses the %GTK_ACCESSIBLE_ROLE_PROGRESS_BAR role.
  */
-public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProgressBar>) :
-    Widget(gtkProgressBarPointer.reinterpret()),
+public open class ProgressBar(
+    public val gtkProgressBarPointer: CPointer<GtkProgressBar>,
+) : Widget(gtkProgressBarPointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
@@ -128,9 +129,7 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
          * @return `PangoEllipsizeMode`
          */
         get() = gtk_progress_bar_get_ellipsize(gtkProgressBarPointer).run {
-            EllipsizeMode.fromNativeValue(this)
-        }
-
+            EllipsizeMode.fromNativeValue(this)}
         /**
          * Sets the mode used to ellipsize the text.
          *
@@ -151,7 +150,6 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
          * @return a fraction from 0.0 to 1.0
          */
         get() = gtk_progress_bar_get_fraction(gtkProgressBarPointer)
-
         /**
          * Causes the progress bar to “fill in” the given fraction
          * of the bar.
@@ -172,7 +170,6 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
          * @return true if the progress bar is inverted
          */
         get() = gtk_progress_bar_get_inverted(gtkProgressBarPointer).asBoolean()
-
         /**
          * Sets whether the progress bar is inverted.
          *
@@ -195,7 +192,6 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
          * @return a fraction from 0.0 to 1.0
          */
         get() = gtk_progress_bar_get_pulse_step(gtkProgressBarPointer)
-
         /**
          * Sets the fraction of total progress bar length to move the
          * bouncing block.
@@ -228,7 +224,6 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
          * @return true if text is shown in the progress bar
          */
         get() = gtk_progress_bar_get_show_text(gtkProgressBarPointer).asBoolean()
-
         /**
          * Sets whether the progress bar will show text next to the bar.
          *
@@ -257,7 +252,6 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
          * @return the text
          */
         get() = gtk_progress_bar_get_text(gtkProgressBarPointer)?.toKString()
-
         /**
          * Causes the given @text to appear next to the progress bar.
          *
@@ -294,11 +288,10 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
 
     public companion object : TypeCompanion<ProgressBar> {
         override val type: GeneratedClassKGType<ProgressBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_progress_bar_get_type")!!) { ProgressBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_progress_bar_get_type")!!) { ProgressBar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ProgressBar

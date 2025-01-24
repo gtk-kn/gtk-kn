@@ -31,25 +31,14 @@ public class CallbackAnimationTarget(
      * @param callback the callback to call
      * @return the newly created callback target
      */
-    public constructor(
-        callback: AnimationTargetFunc,
-    ) : this(
-        adw_callback_animation_target_new(
-            AnimationTargetFuncFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(callback: AnimationTargetFunc) : this(adw_callback_animation_target_new(AnimationTargetFuncFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<CallbackAnimationTarget> {
         override val type: GeneratedClassKGType<CallbackAnimationTarget> =
-            GeneratedClassKGType(getTypeOrNull("adw_callback_animation_target_get_type")!!) {
-                CallbackAnimationTarget(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_callback_animation_target_get_type")!!) { CallbackAnimationTarget(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of CallbackAnimationTarget

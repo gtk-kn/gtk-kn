@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,10 +37,6 @@ import org.gtkkn.native.gio.g_dbus_object_skeleton_set_object_path
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GDBusObjectSkeleton` instance is essentially a group of D-Bus
@@ -52,8 +52,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CPointer<GDBusObjectSkeleton>) :
-    Object(gioDBusObjectSkeletonPointer.reinterpret()),
+public open class DBusObjectSkeleton(
+    public val gioDBusObjectSkeletonPointer: CPointer<GDBusObjectSkeleton>,
+) : Object(gioDBusObjectSkeletonPointer.reinterpret()),
     DBusObject,
     KGTyped {
     override val gioDBusObjectPointer: CPointer<GDBusObject>
@@ -66,7 +67,7 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
      * @return A #GDBusObjectSkeleton. Free with g_object_unref().
      * @since 2.30
      */
-    public constructor(objectPath: String) : this(g_dbus_object_skeleton_new(objectPath)!!.reinterpret())
+    public constructor(objectPath: String) : this(g_dbus_object_skeleton_new(objectPath)!!)
 
     /**
      * Adds @interface_ to @object.
@@ -81,8 +82,7 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun addInterface(`interface`: DBusInterfaceSkeleton): Unit =
-        g_dbus_object_skeleton_add_interface(gioDBusObjectSkeletonPointer, `interface`.gioDBusInterfaceSkeletonPointer)
+    public open fun addInterface(`interface`: DBusInterfaceSkeleton): Unit = g_dbus_object_skeleton_add_interface(gioDBusObjectSkeletonPointer, `interface`.gioDBusInterfaceSkeletonPointer)
 
     /**
      * This method simply calls g_dbus_interface_skeleton_flush() on all
@@ -101,10 +101,7 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun removeInterface(`interface`: DBusInterfaceSkeleton): Unit = g_dbus_object_skeleton_remove_interface(
-        gioDBusObjectSkeletonPointer,
-        `interface`.gioDBusInterfaceSkeletonPointer
-    )
+    public open fun removeInterface(`interface`: DBusInterfaceSkeleton): Unit = g_dbus_object_skeleton_remove_interface(gioDBusObjectSkeletonPointer, `interface`.gioDBusInterfaceSkeletonPointer)
 
     /**
      * Removes the #GDBusInterface with @interface_name from @object.
@@ -116,8 +113,7 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun removeInterfaceByName(interfaceName: String): Unit =
-        g_dbus_object_skeleton_remove_interface_by_name(gioDBusObjectSkeletonPointer, interfaceName)
+    public open fun removeInterfaceByName(interfaceName: String): Unit = g_dbus_object_skeleton_remove_interface_by_name(gioDBusObjectSkeletonPointer, interfaceName)
 
     /**
      * Sets the object path for @object.
@@ -126,8 +122,7 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun setObjectPath(objectPath: String): Unit =
-        g_dbus_object_skeleton_set_object_path(gioDBusObjectSkeletonPointer, objectPath)
+    public open fun setObjectPath(objectPath: String): Unit = g_dbus_object_skeleton_set_object_path(gioDBusObjectSkeletonPointer, objectPath)
 
     /**
      * Emitted when a method is invoked by a remote caller and used to
@@ -144,27 +139,14 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onAuthorizeMethod(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectSkeletonPointer,
-        "authorize-method",
-        onAuthorizeMethodFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAuthorizeMethod(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean): ULong = g_signal_connect_data(gioDBusObjectSkeletonPointer, "authorize-method", onAuthorizeMethodFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DBusObjectSkeleton> {
         override val type: GeneratedClassKGType<DBusObjectSkeleton> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_object_skeleton_get_type")!!) {
-                DBusObjectSkeleton(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_dbus_object_skeleton_get_type")!!) { DBusObjectSkeleton(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusObjectSkeleton
@@ -176,25 +158,16 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
 }
 
 private val onAuthorizeMethodFunc:
-    CPointer<CFunction<(CPointer<GDBusInterfaceSkeleton>, CPointer<GDBusMethodInvocation>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `interface`: CPointer<GDBusInterfaceSkeleton>?,
-            invocation: CPointer<GDBusMethodInvocation>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                `interface`: DBusInterfaceSkeleton,
-                invocation: DBusMethodInvocation,
-            ) -> Boolean
-            >().get().invoke(
-            `interface`!!.run {
-                DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(this)
-            },
-            invocation!!.run {
-                DBusMethodInvocation(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusInterfaceSkeleton>, CPointer<GDBusMethodInvocation>) -> gboolean>>
+        = staticCFunction {
+    _: COpaquePointer,
+    `interface`: CPointer<GDBusInterfaceSkeleton>?,
+    invocation: CPointer<GDBusMethodInvocation>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean>().get().invoke(`interface`!!.run {
+        DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(this)}
+    , invocation!!.run {
+        DBusMethodInvocation(this)}
+    ).asGBoolean()}
+.reinterpret()

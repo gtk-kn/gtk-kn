@@ -13,62 +13,53 @@ import org.gtkkn.native.pango.pango_weight_get_type
  * Weight is specified as a numeric value ranging from 100 to 1000.
  * This enumeration simply provides some common, predefined values.
  */
-public enum class Weight(public val nativeValue: PangoWeight) {
+public enum class Weight(
+    public val nativeValue: PangoWeight,
+) {
     /**
      * the thin weight (= 100) Since: 1.24
      */
     THIN(PangoWeight.PANGO_WEIGHT_THIN),
-
     /**
      * the ultralight weight (= 200)
      */
     ULTRALIGHT(PangoWeight.PANGO_WEIGHT_ULTRALIGHT),
-
     /**
      * the light weight (= 300)
      */
     LIGHT(PangoWeight.PANGO_WEIGHT_LIGHT),
-
     /**
      * the semilight weight (= 350) Since: 1.36.7
      */
     SEMILIGHT(PangoWeight.PANGO_WEIGHT_SEMILIGHT),
-
     /**
      * the book weight (= 380) Since: 1.24)
      */
     BOOK(PangoWeight.PANGO_WEIGHT_BOOK),
-
     /**
      * the default weight (= 400)
      */
     NORMAL(PangoWeight.PANGO_WEIGHT_NORMAL),
-
     /**
      * the medium weight (= 500) Since: 1.24
      */
     MEDIUM(PangoWeight.PANGO_WEIGHT_MEDIUM),
-
     /**
      * the semibold weight (= 600)
      */
     SEMIBOLD(PangoWeight.PANGO_WEIGHT_SEMIBOLD),
-
     /**
      * the bold weight (= 700)
      */
     BOLD(PangoWeight.PANGO_WEIGHT_BOLD),
-
     /**
      * the ultrabold weight (= 800)
      */
     ULTRABOLD(PangoWeight.PANGO_WEIGHT_ULTRABOLD),
-
     /**
      * the heavy weight (= 900)
      */
     HEAVY(PangoWeight.PANGO_WEIGHT_HEAVY),
-
     /**
      * the ultraheavy weight (= 1000) Since: 1.24
      */

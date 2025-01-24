@@ -17,18 +17,16 @@ import org.gtkkn.native.gtk.gtk_param_expression_get_type
 /**
  * A `GParamSpec` for properties holding a `GtkExpression`.
  */
-public open class ParamSpecExpression(public val gtkParamSpecExpressionPointer: CPointer<GtkParamSpecExpression>) :
-    ParamSpec(gtkParamSpecExpressionPointer.reinterpret()),
+public open class ParamSpecExpression(
+    public val gtkParamSpecExpressionPointer: CPointer<GtkParamSpecExpression>,
+) : ParamSpec(gtkParamSpecExpressionPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<ParamSpecExpression> {
         override val type: GeneratedClassKGType<ParamSpecExpression> =
-            GeneratedClassKGType(getTypeOrNull("gtk_param_expression_get_type")!!) {
-                ParamSpecExpression(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_param_expression_get_type")!!) { ParamSpecExpression(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ParamSpecExpression

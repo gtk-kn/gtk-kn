@@ -21,42 +21,37 @@ import org.gtkkn.native.gobject.GType
  * @since 2.70
  */
 @GioVersion2_70
-public enum class TlsProtocolVersion(public val nativeValue: GTlsProtocolVersion) {
+public enum class TlsProtocolVersion(
+    public val nativeValue: GTlsProtocolVersion,
+) {
     /**
      * No protocol version or unknown protocol version
      */
     UNKNOWN(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_UNKNOWN),
-
     /**
      * SSL 3.0, which is insecure and should not be used
      */
     SSL_3_0(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_SSL_3_0),
-
     /**
      * TLS 1.0, which is insecure and should not be used
      */
     TLS_1_0(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_0),
-
     /**
      * TLS 1.1, which is insecure and should not be used
      */
     TLS_1_1(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_1),
-
     /**
      * TLS 1.2, defined by [RFC 5246](https://datatracker.ietf.org/doc/html/rfc5246)
      */
     TLS_1_2(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_2),
-
     /**
      * TLS 1.3, defined by [RFC 8446](https://datatracker.ietf.org/doc/html/rfc8446)
      */
     TLS_1_3(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_TLS_1_3),
-
     /**
      * DTLS 1.0, which is insecure and should not be used
      */
     DTLS_1_0(GTlsProtocolVersion.G_TLS_PROTOCOL_VERSION_DTLS_1_0),
-
     /**
      * DTLS 1.2, defined by [RFC 6347](https://datatracker.ietf.org/doc/html/rfc6347)
      */

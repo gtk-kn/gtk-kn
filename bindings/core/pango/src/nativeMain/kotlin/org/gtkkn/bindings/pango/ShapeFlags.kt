@@ -17,7 +17,9 @@ import org.gtkkn.native.pango.pango_shape_flags_get_type
  * `PangoShapeFlags` can be passed to [func@Pango.shape_with_flags].
  * @since 1.44
  */
-public class ShapeFlags(public val mask: PangoShapeFlags) : Bitfield<ShapeFlags> {
+public class ShapeFlags(
+    public val mask: PangoShapeFlags,
+) : Bitfield<ShapeFlags> {
     override infix fun or(other: ShapeFlags): ShapeFlags = ShapeFlags(mask or other.mask)
 
     @PangoVersion1_44

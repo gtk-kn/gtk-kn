@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,8 +32,6 @@ import org.gtkkn.native.gtksource.gtk_source_search_settings_set_regex_enabled
 import org.gtkkn.native.gtksource.gtk_source_search_settings_set_search_text
 import org.gtkkn.native.gtksource.gtk_source_search_settings_set_visible_only
 import org.gtkkn.native.gtksource.gtk_source_search_settings_set_wrap_around
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * Search settings.
@@ -40,8 +40,9 @@ import kotlin.String
  * search settings can be associated with one or several
  * [class@SearchContext]s.
  */
-public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPointer<GtkSourceSearchSettings>) :
-    Object(gtksourceSearchSettingsPointer.reinterpret()),
+public open class SearchSettings(
+    public val gtksourceSearchSettingsPointer: CPointer<GtkSourceSearchSettings>,
+) : Object(gtksourceSearchSettingsPointer.reinterpret()),
     KGTyped {
     /**
      * If true, a search match must start and end a word. The match can
@@ -54,7 +55,6 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @return whether to search at word boundaries.
          */
         get() = gtk_source_search_settings_get_at_word_boundaries(gtksourceSearchSettingsPointer).asBoolean()
-
         /**
          * Change whether the search is done at word boundaries.
          *
@@ -64,12 +64,7 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          *
          * @param atWordBoundaries the setting.
          */
-        set(
-            atWordBoundaries
-        ) = gtk_source_search_settings_set_at_word_boundaries(
-            gtksourceSearchSettingsPointer,
-            atWordBoundaries.asGBoolean()
-        )
+        set(atWordBoundaries) = gtk_source_search_settings_set_at_word_boundaries(gtksourceSearchSettingsPointer, atWordBoundaries.asGBoolean())
 
     /**
      * Whether the search is case sensitive.
@@ -81,15 +76,12 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @return whether the search is case sensitive.
          */
         get() = gtk_source_search_settings_get_case_sensitive(gtksourceSearchSettingsPointer).asBoolean()
-
         /**
          * Enables or disables the case sensitivity for the search.
          *
          * @param caseSensitive the setting.
          */
-        set(
-            caseSensitive
-        ) = gtk_source_search_settings_set_case_sensitive(gtksourceSearchSettingsPointer, caseSensitive.asGBoolean())
+        set(caseSensitive) = gtk_source_search_settings_set_case_sensitive(gtksourceSearchSettingsPointer, caseSensitive.asGBoolean())
 
     /**
      * Search by regular expressions with
@@ -102,7 +94,6 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @return whether to search by regular expressions.
          */
         get() = gtk_source_search_settings_get_regex_enabled(gtksourceSearchSettingsPointer).asBoolean()
-
         /**
          * Enables or disables whether to search by regular expressions.
          *
@@ -115,9 +106,7 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          *
          * @param regexEnabled the setting.
          */
-        set(
-            regexEnabled
-        ) = gtk_source_search_settings_set_regex_enabled(gtksourceSearchSettingsPointer, regexEnabled.asGBoolean())
+        set(regexEnabled) = gtk_source_search_settings_set_regex_enabled(gtksourceSearchSettingsPointer, regexEnabled.asGBoolean())
 
     /**
      * A search string, or null if the search is disabled.
@@ -137,7 +126,6 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @return the text to search, or null if the search is disabled.
          */
         get() = gtk_source_search_settings_get_search_text(gtksourceSearchSettingsPointer)?.toKString()
-
         /**
          * Sets the text to search.
          *
@@ -166,7 +154,6 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @since 5.12
          */
         get() = gtk_source_search_settings_get_visible_only(gtksourceSearchSettingsPointer).asBoolean()
-
         /**
          * Enables or disables whether to exclude invisible text from the search.
          *
@@ -177,9 +164,7 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @since 5.12
          */
         @GtkSourceVersion5_12
-        set(
-            visibleOnly
-        ) = gtk_source_search_settings_set_visible_only(gtksourceSearchSettingsPointer, visibleOnly.asGBoolean())
+        set(visibleOnly) = gtk_source_search_settings_set_visible_only(gtksourceSearchSettingsPointer, visibleOnly.asGBoolean())
 
     /**
      * For a forward search, continue at the beginning of the buffer if no
@@ -193,7 +178,6 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          * @return whether to wrap around the search.
          */
         get() = gtk_source_search_settings_get_wrap_around(gtksourceSearchSettingsPointer).asBoolean()
-
         /**
          * Enables or disables the wrap around search.
          *
@@ -203,26 +187,21 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
          *
          * @param wrapAround the setting.
          */
-        set(
-            wrapAround
-        ) = gtk_source_search_settings_set_wrap_around(gtksourceSearchSettingsPointer, wrapAround.asGBoolean())
+        set(wrapAround) = gtk_source_search_settings_set_wrap_around(gtksourceSearchSettingsPointer, wrapAround.asGBoolean())
 
     /**
      * Creates a new search settings object.
      *
      * @return a new search settings object.
      */
-    public constructor() : this(gtk_source_search_settings_new()!!.reinterpret())
+    public constructor() : this(gtk_source_search_settings_new()!!)
 
     public companion object : TypeCompanion<SearchSettings> {
         override val type: GeneratedClassKGType<SearchSettings> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_search_settings_get_type")!!) {
-                SearchSettings(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_search_settings_get_type")!!) { SearchSettings(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of SearchSettings

@@ -3,13 +3,16 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Throws
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
@@ -45,10 +48,6 @@ import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
 
 /**
  * `GdkTexture` is the basic element used to refer to pixel data.
@@ -71,8 +70,9 @@ import kotlin.Throws
  *
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>) :
-    Object(gdkTexturePointer.reinterpret()),
+public abstract class Texture(
+    public val gdkTexturePointer: CPointer<GdkTexture>,
+) : Object(gdkTexturePointer.reinterpret()),
     Paintable,
     Icon,
     LoadableIcon,
@@ -118,7 +118,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GdkTexture`
      */
-    public constructor(pixbuf: Pixbuf) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer)!!.reinterpret())
+    public constructor(pixbuf: Pixbuf) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer)!!)
 
     /**
      * Creates a new texture by loading an image from memory,
@@ -137,15 +137,15 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      * @since 4.6
      */
     @Throws(GLibException::class)
-    public constructor(bytes: Bytes) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_bytes(bytes.glibBytesPointer, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(bytes: Bytes) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = gdk_texture_new_from_bytes(bytes.glibBytesPointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -164,15 +164,15 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      * @return A newly-created `GdkTexture`
      */
     @Throws(GLibException::class)
-    public constructor(`file`: File) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_file(`file`.gioFilePointer, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(`file`: File) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = gdk_texture_new_from_file(`file`.gioFilePointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -192,15 +192,15 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      * @since 4.6
      */
     @Throws(GLibException::class)
-    public constructor(path: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_filename(path, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(path: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = gdk_texture_new_from_filename(path, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!
+    }
     )
 
     /**
@@ -219,8 +219,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      */
     @GdkVersion4_10
     public open fun getFormat(): MemoryFormat = gdk_texture_get_format(gdkTexturePointer).run {
-        MemoryFormat.fromNativeValue(this)
-    }
+        MemoryFormat.fromNativeValue(this)}
 
     /**
      * Store the given @texture to the @filename as a PNG file.
@@ -234,8 +233,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      * @param filename the filename to store to
      * @return true if saving succeeded, false on failure.
      */
-    public open fun saveToPng(filename: String): Boolean =
-        gdk_texture_save_to_png(gdkTexturePointer, filename).asBoolean()
+    public open fun saveToPng(filename: String): Boolean = gdk_texture_save_to_png(gdkTexturePointer, filename).asBoolean()
 
     /**
      * Store the given @texture in memory as a PNG file.
@@ -258,8 +256,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      */
     @GdkVersion4_6
     public open fun saveToPngBytes(): Bytes = gdk_texture_save_to_png_bytes(gdkTexturePointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Store the given @texture to the @filename as a TIFF file.
@@ -271,8 +268,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      * @since 4.6
      */
     @GdkVersion4_6
-    public open fun saveToTiff(filename: String): Boolean =
-        gdk_texture_save_to_tiff(gdkTexturePointer, filename).asBoolean()
+    public open fun saveToTiff(filename: String): Boolean = gdk_texture_save_to_tiff(gdkTexturePointer, filename).asBoolean()
 
     /**
      * Store the given @texture in memory as a TIFF file.
@@ -293,50 +289,23 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
      */
     @GdkVersion4_6
     public open fun saveToTiffBytes(): Bytes = gdk_texture_save_to_tiff_bytes(gdkTexturePointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * The TextureImpl type represents a native instance of the abstract Texture class.
      *
      * @constructor Creates a new instance of Texture for the provided [CPointer].
      */
-    public class TextureImpl(pointer: CPointer<GdkTexture>) : Texture(pointer)
+    public class TextureImpl(
+        pointer: CPointer<GdkTexture>,
+    ) : Texture(pointer)
 
     public companion object : TypeCompanion<Texture> {
         override val type: GeneratedClassKGType<Texture> =
-            GeneratedClassKGType(getTypeOrNull("gdk_texture_get_type")!!) { TextureImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_texture_get_type")!!) { TextureImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
-
-        /**
-         * Creates a new texture by loading an image from a file.
-         *
-         * The file format is detected automatically. The supported formats
-         * are PNG, JPEG and TIFF, though more formats might be available.
-         *
-         * If null is returned, then @error will be set.
-         *
-         * This function is threadsafe, so that you can e.g. use GTask
-         * and [method@Gio.Task.run_in_thread] to avoid blocking the main thread
-         * while loading a big image.
-         *
-         * @param path the filename to load
-         * @return A newly-created `GdkTexture`
-         * @since 4.6
-         */
-        public fun newFromFilename(path: String): Result<TextureImpl> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_texture_new_from_filename(path, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(TextureImpl(checkNotNull(gResult).reinterpret()))
-            }
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Creates a new texture by loading an image from a resource.
@@ -356,8 +325,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
          * @param resourcePath the path of the resource file
          * @return A newly-created `GdkTexture`
          */
-        public fun newFromResource(resourcePath: String): TextureImpl =
-            TextureImpl(gdk_texture_new_from_resource(resourcePath)!!.reinterpret())
+        public fun fromResource(resourcePath: String): TextureImpl = TextureImpl(gdk_texture_new_from_resource(resourcePath)!!)
 
         /**
          * Get the GType of Texture

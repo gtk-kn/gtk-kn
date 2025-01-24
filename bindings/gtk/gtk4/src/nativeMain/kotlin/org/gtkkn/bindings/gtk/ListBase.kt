@@ -25,8 +25,9 @@ import org.gtkkn.native.gtk.gtk_list_base_get_type
  *
  * - method `orientation`: Property has no getter nor setter
  */
-public abstract class ListBase(public val gtkListBasePointer: CPointer<GtkListBase>) :
-    Widget(gtkListBasePointer.reinterpret()),
+public abstract class ListBase(
+    public val gtkListBasePointer: CPointer<GtkListBase>,
+) : Widget(gtkListBasePointer.reinterpret()),
     Orientable,
     Scrollable,
     KGTyped {
@@ -50,15 +51,16 @@ public abstract class ListBase(public val gtkListBasePointer: CPointer<GtkListBa
      *
      * @constructor Creates a new instance of ListBase for the provided [CPointer].
      */
-    public class ListBaseImpl(pointer: CPointer<GtkListBase>) : ListBase(pointer)
+    public class ListBaseImpl(
+        pointer: CPointer<GtkListBase>,
+    ) : ListBase(pointer)
 
     public companion object : TypeCompanion<ListBase> {
         override val type: GeneratedClassKGType<ListBase> =
-            GeneratedClassKGType(getTypeOrNull("gtk_list_base_get_type")!!) { ListBaseImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_list_base_get_type")!!) { ListBaseImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ListBase

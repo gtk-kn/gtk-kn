@@ -20,18 +20,16 @@ import org.gtkkn.native.gtk.gtk_cclosure_expression_get_type
  *
  * - parameter `marshal`: GObject.ClosureMarshal
  */
-public open class CClosureExpression(public val gtkCClosureExpressionPointer: CPointer<GtkCClosureExpression>) :
-    Expression(gtkCClosureExpressionPointer.reinterpret()),
+public open class CClosureExpression(
+    public val gtkCClosureExpressionPointer: CPointer<GtkCClosureExpression>,
+) : Expression(gtkCClosureExpressionPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<CClosureExpression> {
         override val type: GeneratedClassKGType<CClosureExpression> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cclosure_expression_get_type")!!) {
-                CClosureExpression(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_cclosure_expression_get_type")!!) { CClosureExpression(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CClosureExpression

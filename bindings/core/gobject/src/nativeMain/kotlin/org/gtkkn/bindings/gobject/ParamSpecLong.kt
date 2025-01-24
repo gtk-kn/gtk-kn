@@ -10,5 +10,6 @@ import org.gtkkn.native.gobject.GParamSpecLong
 /**
  * A #GParamSpec derived structure that contains the meta data for long integer properties.
  */
-public open class ParamSpecLong(public val gobjectParamSpecLongPointer: CPointer<GParamSpecLong>) :
-    ParamSpec(gobjectParamSpecLongPointer.reinterpret())
+public open class ParamSpecLong(
+    public val gobjectParamSpecLongPointer: CPointer<GParamSpecLong>,
+) : ParamSpec(gobjectParamSpecLongPointer.reinterpret())

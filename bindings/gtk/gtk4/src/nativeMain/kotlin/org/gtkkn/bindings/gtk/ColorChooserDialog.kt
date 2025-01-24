@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -20,7 +21,6 @@ import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_color_chooser_dialog_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_dialog_new
-import kotlin.String
 
 /**
  * A dialog for choosing a color.
@@ -47,8 +47,9 @@ import kotlin.String
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorChooserDialog(public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>) :
-    Dialog(gtkColorChooserDialogPointer.reinterpret()),
+public open class ColorChooserDialog(
+    public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>,
+) : Dialog(gtkColorChooserDialogPointer.reinterpret()),
     ColorChooser,
     KGTyped {
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
@@ -79,20 +80,14 @@ public open class ColorChooserDialog(public val gtkColorChooserDialogPointer: CP
      * @param parent Transient parent of the dialog
      * @return a new `GtkColorChooserDialog`
      */
-    public constructor(
-        title: String? = null,
-        parent: Window? = null,
-    ) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
+    public constructor(title: String? = null, parent: Window? = null) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<ColorChooserDialog> {
         override val type: GeneratedClassKGType<ColorChooserDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_dialog_get_type")!!) {
-                ColorChooserDialog(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_dialog_get_type")!!) { ColorChooserDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ColorChooserDialog

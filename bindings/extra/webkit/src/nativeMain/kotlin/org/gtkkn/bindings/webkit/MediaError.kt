@@ -16,7 +16,9 @@ import org.gtkkn.native.webkit.webkit_media_error_quark
  * @since 2.40
  */
 @WebKitVersion2_40
-public enum class MediaError(public val nativeValue: WebKitMediaError) {
+public enum class MediaError(
+    public val nativeValue: WebKitMediaError,
+) {
     /**
      * Preliminary load failure for media content types. A new load will be started to perform the media load. Since: 2.40
      */

@@ -14,7 +14,9 @@ import org.gtkkn.native.glib.G_MARKUP_TREAT_CDATA_AS_TEXT
 /**
  * Flags that affect the behaviour of the parser.
  */
-public class MarkupParseFlags(public val mask: GMarkupParseFlags) : Bitfield<MarkupParseFlags> {
+public class MarkupParseFlags(
+    public val mask: GMarkupParseFlags,
+) : Bitfield<MarkupParseFlags> {
     override infix fun or(other: MarkupParseFlags): MarkupParseFlags = MarkupParseFlags(mask or other.mask)
 
     public companion object {
@@ -27,7 +29,7 @@ public class MarkupParseFlags(public val mask: GMarkupParseFlags) : Bitfield<Mar
          * flag you should not use
          */
         public val DO_NOT_USE_THIS_UNSUPPORTED_FLAG: MarkupParseFlags =
-            MarkupParseFlags(G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG)
+                MarkupParseFlags(G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG)
 
         /**
          * When this flag is set, CDATA marked
@@ -37,7 +39,7 @@ public class MarkupParseFlags(public val mask: GMarkupParseFlags) : Bitfield<Mar
          *     passed to the @text function. This flag was added in GLib 2.12
          */
         public val TREAT_CDATA_AS_TEXT: MarkupParseFlags =
-            MarkupParseFlags(G_MARKUP_TREAT_CDATA_AS_TEXT)
+                MarkupParseFlags(G_MARKUP_TREAT_CDATA_AS_TEXT)
 
         /**
          * Normally errors caught by GMarkup
@@ -47,7 +49,7 @@ public class MarkupParseFlags(public val mask: GMarkupParseFlags) : Bitfield<Mar
          *     #GMarkupParser implementation functions
          */
         public val PREFIX_ERROR_POSITION: MarkupParseFlags =
-            MarkupParseFlags(G_MARKUP_PREFIX_ERROR_POSITION)
+                MarkupParseFlags(G_MARKUP_PREFIX_ERROR_POSITION)
 
         /**
          * Ignore (don't report) qualified

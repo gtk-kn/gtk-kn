@@ -3,10 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -20,9 +24,6 @@ import org.gtkkn.native.glib.g_strv_builder_take
 import org.gtkkn.native.glib.g_strv_builder_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_builder_get_type
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GStrvBuilder` is a helper object to build a null-terminated string arrays.
@@ -43,8 +44,20 @@ import kotlin.collections.List
  * @since 2.68
  */
 @GLibVersion2_68
-public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilder>) :
-    ProxyInstance(glibStrvBuilderPointer) {
+public class StrvBuilder(
+    public val glibStrvBuilderPointer: CPointer<GStrvBuilder>,
+) : ProxyInstance(glibStrvBuilderPointer) {
+    /**
+     * Creates a new #GStrvBuilder with a reference count of 1.
+     * Use g_strv_builder_unref() on the returned value when no longer needed.
+     *
+     * @return the new #GStrvBuilder
+     * @since 2.68
+     */
+    public constructor() : this(g_strv_builder_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Add a string to the end of the array.
      *
@@ -62,8 +75,7 @@ public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilde
      * @param value the vector of strings to add
      */
     public fun addv(`value`: List<String>): Unit = memScoped {
-        return g_strv_builder_addv(glibStrvBuilderPointer, `value`.toCStringList(this))
-    }
+        return g_strv_builder_addv(glibStrvBuilderPointer, `value`.toCStringList(this))}
 
     /**
      * Ends the builder process and returns the constructed NULL-terminated string
@@ -74,8 +86,7 @@ public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilde
      *
      * Since 2.68
      */
-    public fun end(): List<String> =
-        g_strv_builder_end(glibStrvBuilderPointer)?.toKStringList() ?: error("Expected not null string array")
+    public fun end(): List<String> = g_strv_builder_end(glibStrvBuilderPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Atomically increments the reference count of @builder by one.
@@ -86,8 +97,7 @@ public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilde
      */
     @GLibVersion2_68
     public fun ref(): StrvBuilder = g_strv_builder_ref(glibStrvBuilderPointer)!!.run {
-        StrvBuilder(this)
-    }
+        StrvBuilder(this)}
 
     /**
      * Add a string to the end of the array. After @value belongs to the
@@ -112,15 +122,6 @@ public class StrvBuilder(public val glibStrvBuilderPointer: CPointer<GStrvBuilde
     public fun unref(): Unit = g_strv_builder_unref(glibStrvBuilderPointer)
 
     public companion object {
-        /**
-         * Creates a new #GStrvBuilder with a reference count of 1.
-         * Use g_strv_builder_unref() on the returned value when no longer needed.
-         *
-         * @return the new #GStrvBuilder
-         * @since 2.68
-         */
-        public fun new(): StrvBuilder = StrvBuilder(g_strv_builder_new()!!)
-
         /**
          * Get the GType of StrvBuilder
          *

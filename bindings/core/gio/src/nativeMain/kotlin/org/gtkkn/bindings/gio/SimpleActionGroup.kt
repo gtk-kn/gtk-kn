@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
@@ -20,8 +22,6 @@ import org.gtkkn.native.gio.g_simple_action_group_lookup
 import org.gtkkn.native.gio.g_simple_action_group_new
 import org.gtkkn.native.gio.g_simple_action_group_remove
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GSimpleActionGroup` is a hash table filled with [iface@Gio.Action] objects,
@@ -35,8 +35,9 @@ import kotlin.Unit
  * @since 2.28
  */
 @GioVersion2_28
-public open class SimpleActionGroup(public val gioSimpleActionGroupPointer: CPointer<GSimpleActionGroup>) :
-    Object(gioSimpleActionGroupPointer.reinterpret()),
+public open class SimpleActionGroup(
+    public val gioSimpleActionGroupPointer: CPointer<GSimpleActionGroup>,
+) : Object(gioSimpleActionGroupPointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
@@ -52,7 +53,7 @@ public open class SimpleActionGroup(public val gioSimpleActionGroupPointer: CPoi
      * @return a new #GSimpleActionGroup
      * @since 2.28
      */
-    public constructor() : this(g_simple_action_group_new()!!.reinterpret())
+    public constructor() : this(g_simple_action_group_new()!!)
 
     /**
      * Adds an action to the action group.
@@ -66,8 +67,7 @@ public open class SimpleActionGroup(public val gioSimpleActionGroupPointer: CPoi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun insert(action: Action): Unit =
-        g_simple_action_group_insert(gioSimpleActionGroupPointer, action.gioActionPointer)
+    public open fun insert(action: Action): Unit = g_simple_action_group_insert(gioSimpleActionGroupPointer, action.gioActionPointer)
 
     /**
      * Looks up the action with the name @action_name in the group.
@@ -79,10 +79,8 @@ public open class SimpleActionGroup(public val gioSimpleActionGroupPointer: CPoi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun lookup(actionName: String): Action =
-        g_simple_action_group_lookup(gioSimpleActionGroupPointer, actionName)!!.run {
-            Action.ActionImpl(reinterpret())
-        }
+    public open fun lookup(actionName: String): Action = g_simple_action_group_lookup(gioSimpleActionGroupPointer, actionName)!!.run {
+        Action.ActionImpl(reinterpret())}
 
     /**
      * Removes the named action from the action group.
@@ -93,18 +91,14 @@ public open class SimpleActionGroup(public val gioSimpleActionGroupPointer: CPoi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun remove(actionName: String): Unit =
-        g_simple_action_group_remove(gioSimpleActionGroupPointer, actionName)
+    public open fun remove(actionName: String): Unit = g_simple_action_group_remove(gioSimpleActionGroupPointer, actionName)
 
     public companion object : TypeCompanion<SimpleActionGroup> {
         override val type: GeneratedClassKGType<SimpleActionGroup> =
-            GeneratedClassKGType(getTypeOrNull("g_simple_action_group_get_type")!!) {
-                SimpleActionGroup(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_simple_action_group_get_type")!!) { SimpleActionGroup(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SimpleActionGroup

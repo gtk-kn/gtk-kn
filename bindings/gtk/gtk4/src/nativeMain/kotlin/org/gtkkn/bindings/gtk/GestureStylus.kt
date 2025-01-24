@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -30,9 +33,6 @@ import org.gtkkn.native.gtk.gtk_gesture_stylus_get_stylus_only
 import org.gtkkn.native.gtk.gtk_gesture_stylus_get_type
 import org.gtkkn.native.gtk.gtk_gesture_stylus_new
 import org.gtkkn.native.gtk.gtk_gesture_stylus_set_stylus_only
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGestureStylus` is a `GtkGesture` specific to stylus input.
@@ -46,8 +46,9 @@ import kotlin.Unit
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `backlog`: backlog: Out parameter is not supported
  */
-public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<GtkGestureStylus>) :
-    GestureSingle(gtkGestureStylusPointer.reinterpret()),
+public open class GestureStylus(
+    public val gtkGestureStylusPointer: CPointer<GtkGestureStylus>,
+) : GestureSingle(gtkGestureStylusPointer.reinterpret()),
     KGTyped {
     /**
      * If this gesture should exclusively react to stylus input devices.
@@ -66,7 +67,6 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
          * @since 4.10
          */
         get() = gtk_gesture_stylus_get_stylus_only(gtkGestureStylusPointer).asBoolean()
-
         /**
          * Sets the state of stylus-only
          *
@@ -97,8 +97,7 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
      * @return The current stylus tool
      */
     public open fun getDeviceTool(): DeviceTool? = gtk_gesture_stylus_get_device_tool(gtkGestureStylusPointer)?.run {
-        DeviceTool(this)
-    }
+        DeviceTool(this)}
 
     /**
      * Emitted when the stylus touches the device.
@@ -106,15 +105,7 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the stylus event; `y` the Y coordinate of the stylus event
      */
-    public fun onDown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkGestureStylusPointer,
-            "down",
-            onDownFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onDown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureStylusPointer, "down", onDownFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "down" signal. See [onDown].
@@ -132,17 +123,7 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the stylus event; `y` the Y coordinate of the stylus event
      */
-    public fun onMotion(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: gdouble, y: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkGestureStylusPointer,
-        "motion",
-        onMotionFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMotion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureStylusPointer, "motion", onMotionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "motion" signal. See [onMotion].
@@ -160,17 +141,7 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the stylus event; `y` the Y coordinate of the stylus event
      */
-    public fun onProximity(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: gdouble, y: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkGestureStylusPointer,
-        "proximity",
-        onProximityFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onProximity(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureStylusPointer, "proximity", onProximityFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "proximity" signal. See [onProximity].
@@ -188,15 +159,7 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the stylus event; `y` the Y coordinate of the stylus event
      */
-    public fun onUp(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkGestureStylusPointer,
-            "up",
-            onUpFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onUp(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureStylusPointer, "up", onUpFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "up" signal. See [onUp].
@@ -210,11 +173,10 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<GestureStylus> {
         override val type: GeneratedClassKGType<GestureStylus> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gesture_stylus_get_type")!!) { GestureStylus(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_gesture_stylus_get_type")!!) { GestureStylus(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GestureStylus
@@ -226,41 +188,37 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
 }
 
 private val onDownFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        x: gdouble,
-        y: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
-}
-    .reinterpret()
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
+.reinterpret()
 
 private val onMotionFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        x: gdouble,
-        y: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
-}
-    .reinterpret()
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
+.reinterpret()
 
 private val onProximityFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        x: gdouble,
-        y: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
-}
-    .reinterpret()
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
+.reinterpret()
 
 private val onUpFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        x: gdouble,
-        y: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
-}
-    .reinterpret()
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
+.reinterpret()

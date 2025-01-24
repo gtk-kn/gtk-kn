@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -32,7 +33,6 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
-import kotlin.Unit
 
 /**
  * A freeform application window.
@@ -67,8 +67,9 @@ import kotlin.Unit
  * Using [property@Gtk.Application:menubar] is not supported and may result in
  * visual glitches.
  */
-public open class ApplicationWindow(public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>) :
-    org.gtkkn.bindings.gtk.ApplicationWindow(adwApplicationWindowPointer.reinterpret()),
+public open class ApplicationWindow(
+    public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>,
+) : org.gtkkn.bindings.gtk.ApplicationWindow(adwApplicationWindowPointer.reinterpret()),
     KGTyped {
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
@@ -108,9 +109,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @return the content widget of @self
          */
         get() = adw_application_window_get_content(adwApplicationWindowPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the content widget of @self.
          *
@@ -134,8 +133,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @since 1.4
          */
         get() = adw_application_window_get_current_breakpoint(adwApplicationWindowPointer)?.run {
-            Breakpoint(this)
-        }
+            Breakpoint(this)}
 
     /**
      * The open dialogs.
@@ -153,8 +151,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @since 1.5
          */
         get() = adw_application_window_get_dialogs(adwApplicationWindowPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+            ListModel.ListModelImpl(reinterpret())}
 
     /**
      * The currently visible dialog
@@ -170,8 +167,7 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
          * @since 1.5
          */
         get() = adw_application_window_get_visible_dialog(adwApplicationWindowPointer)?.run {
-            Dialog(this)
-        }
+            Dialog(this)}
 
     /**
      * Creates a new `AdwApplicationWindow` for @app.
@@ -188,18 +184,14 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_application_window_add_breakpoint(adwApplicationWindowPointer, breakpoint.adwBreakpointPointer)
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_application_window_add_breakpoint(adwApplicationWindowPointer, breakpoint.adwBreakpointPointer)
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(getTypeOrNull("adw_application_window_get_type")!!) {
-                ApplicationWindow(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_application_window_get_type")!!) { ApplicationWindow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ApplicationWindow

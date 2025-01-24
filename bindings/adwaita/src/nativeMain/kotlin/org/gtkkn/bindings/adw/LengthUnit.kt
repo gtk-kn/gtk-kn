@@ -25,17 +25,17 @@ import org.gtkkn.native.gobject.GType
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
+public enum class LengthUnit(
+    public val nativeValue: AdwLengthUnit,
+) {
     /**
      * pixels
      */
     PX(AdwLengthUnit.ADW_LENGTH_UNIT_PX),
-
     /**
      * points, changes with text scale factor
      */
     PT(AdwLengthUnit.ADW_LENGTH_UNIT_PT),
-
     /**
      * scale independent pixels, changes with text scale factor
      */
@@ -60,8 +60,11 @@ public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun fromPx(unit: LengthUnit, `value`: gdouble, settings: Settings? = null): gdouble =
-            adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer)
+        public fun fromPx(
+            unit: LengthUnit,
+            `value`: gdouble,
+            settings: Settings? = null,
+        ): gdouble = adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer)
 
         /**
          * Converts @value from @unit to pixels.
@@ -73,8 +76,11 @@ public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
          * @since 1.4
          */
         @AdwVersion1_4
-        public fun toPx(unit: LengthUnit, `value`: gdouble, settings: Settings? = null): gdouble =
-            adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer)
+        public fun toPx(
+            unit: LengthUnit,
+            `value`: gdouble,
+            settings: Settings? = null,
+        ): gdouble = adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer)
 
         /**
          * Get the GType of LengthUnit

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -22,8 +24,6 @@ import org.gtkkn.native.gio.g_tls_file_database_get_type
 import org.gtkkn.native.gio.g_tls_file_database_new
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.String
 
 /**
  * `GTlsFileDatabase` is implemented by [class@Gio.TlsDatabase] objects which
@@ -37,9 +37,7 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public interface TlsFileDatabase :
-    Proxy,
-    KGTyped {
+public interface TlsFileDatabase : Proxy, KGTyped {
     public val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>
 
     /**
@@ -47,19 +45,17 @@ public interface TlsFileDatabase :
      *
      * @constructor Creates a new instance of TlsFileDatabase for the provided [CPointer].
      */
-    public data class TlsFileDatabaseImpl(override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>) :
-        TlsDatabase(gioTlsFileDatabasePointer.reinterpret()),
+    public data class TlsFileDatabaseImpl(
+        override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>,
+    ) : TlsDatabase(gioTlsFileDatabasePointer.reinterpret()),
         TlsFileDatabase
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_tls_file_database_get_type")!!) {
-                TlsFileDatabaseImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_tls_file_database_get_type")!!) { TlsFileDatabaseImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Creates a new #GTlsFileDatabase which uses anchor certificate authorities
@@ -76,8 +72,7 @@ public interface TlsFileDatabase :
         public fun new(anchors: String): Result<TlsFileDatabase> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_tls_file_database_new(anchors, gError.ptr)?.run {
-                TlsFileDatabaseImpl(reinterpret())
-            }
+                TlsFileDatabaseImpl(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

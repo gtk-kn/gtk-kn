@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -35,9 +38,6 @@ import org.gtkkn.native.gio.g_inet_address_new_loopback
 import org.gtkkn.native.gio.g_inet_address_to_string
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Suppress
 
 /**
  * `GInetAddress` represents an IPv4 or IPv6 internet address. Use
@@ -57,8 +57,9 @@ import kotlin.Suppress
  * - method `bytes`: Property has no getter nor setter
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
-public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAddress>) :
-    Object(gioInetAddressPointer.reinterpret()),
+public open class InetAddress(
+    public val gioInetAddressPointer: CPointer<GInetAddress>,
+) : Object(gioInetAddressPointer.reinterpret()),
     KGTyped {
     /**
      * The address family (IPv4 or IPv6).
@@ -74,8 +75,7 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
          * @since 2.22
          */
         get() = g_inet_address_get_family(gioInetAddressPointer).run {
-            SocketFamily.fromNativeValue(this)
-        }
+            SocketFamily.fromNativeValue(this)}
 
     /**
      * Whether this is the "any" address for its family.
@@ -252,7 +252,7 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
      *     Free the returned object with g_object_unref().
      * @since 2.22
      */
-    public constructor(family: SocketFamily) : this(g_inet_address_new_any(family.nativeValue)!!.reinterpret())
+    public constructor(family: SocketFamily) : this(g_inet_address_new_any(family.nativeValue)!!)
 
     /**
      * Parses @string as an IP address and creates a new #GInetAddress.
@@ -273,8 +273,7 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun equal(otherAddress: InetAddress): Boolean =
-        g_inet_address_equal(gioInetAddressPointer, otherAddress.gioInetAddressPointer).asBoolean()
+    public open fun equal(otherAddress: InetAddress): Boolean = g_inet_address_equal(gioInetAddressPointer, otherAddress.gioInetAddressPointer).asBoolean()
 
     /**
      * Gets the size of the native raw binary address for @address. This
@@ -295,29 +294,14 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GioVersion2_22
-    override fun toString(): String =
-        g_inet_address_to_string(gioInetAddressPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = g_inet_address_to_string(gioInetAddressPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<InetAddress> {
         override val type: GeneratedClassKGType<InetAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_inet_address_get_type")!!) { InetAddress(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_inet_address_get_type")!!) { InetAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
-
-        /**
-         * Creates a #GInetAddress for the "any" address (unassigned/"don't
-         * care") for @family.
-         *
-         * @param family the address family
-         * @return a new #GInetAddress corresponding to the "any" address
-         * for @family.
-         *     Free the returned object with g_object_unref().
-         * @since 2.22
-         */
-        public fun newAny(family: SocketFamily): InetAddress =
-            InetAddress(g_inet_address_new_any(family.nativeValue)!!.reinterpret())
+            GioTypeProvider.register()}
 
         /**
          * Creates a #GInetAddress for the loopback address for @family.
@@ -328,8 +312,7 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
          *     Free the returned object with g_object_unref().
          * @since 2.22
          */
-        public fun newLoopback(family: SocketFamily): InetAddress =
-            InetAddress(g_inet_address_new_loopback(family.nativeValue)!!.reinterpret())
+        public fun loopback(family: SocketFamily): InetAddress = InetAddress(g_inet_address_new_loopback(family.nativeValue)!!)
 
         /**
          * Get the GType of InetAddress

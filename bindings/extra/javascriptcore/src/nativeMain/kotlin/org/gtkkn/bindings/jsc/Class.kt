@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.jsc
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -22,8 +24,6 @@ import org.gtkkn.native.jsc.jsc_class_add_method_variadic
 import org.gtkkn.native.jsc.jsc_class_get_name
 import org.gtkkn.native.jsc.jsc_class_get_parent
 import org.gtkkn.native.jsc.jsc_class_get_type
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A JSSClass represents a custom JavaScript class registered by the user in a #JSCContext.
@@ -39,8 +39,9 @@ import kotlin.Unit
  * - parameter `getter`: GObject.Callback
  * - method `context`: Property has no getter nor setter
  */
-public class Class(public val jscClassPointer: CPointer<JSCClass>) :
-    Object(jscClassPointer.reinterpret()),
+public class Class(
+    public val jscClassPointer: CPointer<JSCClass>,
+) : Object(jscClassPointer.reinterpret()),
     KGTyped {
     /**
      * The name of the class.
@@ -63,8 +64,7 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
          * @return the parent class of @jsc_class
          */
         get() = jsc_class_get_parent(jscClassPointer)!!.run {
-            Class(this)
-        }
+            Class(this)}
 
     /**
      * Add a constructor to @jsc_class. If @name is null, the class name will be used. When <function>new</function>
@@ -83,17 +83,12 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
      * @param returnType the #GType of the constructor return value
      * @return a #JSCValue representing the class constructor.
      */
-    public fun addConstructorVariadic(name: String? = null, callback: Callback, returnType: GType): Value =
-        jsc_class_add_constructor_variadic(
-            jscClassPointer,
-            name,
-            CallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            returnType
-        )!!.run {
-            Value(this)
-        }
+    public fun addConstructorVariadic(
+        name: String? = null,
+        callback: Callback,
+        returnType: GType,
+    ): Value = jsc_class_add_constructor_variadic(jscClassPointer, name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)!!.run {
+        Value(this)}
 
     /**
      * Add method with @name to @jsc_class. When the method is called by JavaScript or jsc_value_object_invoke_method(),
@@ -110,23 +105,18 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
      * @param callback a #GCallback to be called to invoke method @name of @jsc_class
      * @param returnType the #GType of the method return value, or %G_TYPE_NONE if the method is void.
      */
-    public fun addMethodVariadic(name: String, callback: Callback, returnType: GType): Unit =
-        jsc_class_add_method_variadic(
-            jscClassPointer,
-            name,
-            CallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            returnType
-        )
+    public fun addMethodVariadic(
+        name: String,
+        callback: Callback,
+        returnType: GType,
+    ): Unit = jsc_class_add_method_variadic(jscClassPointer, name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)
 
     public companion object : TypeCompanion<Class> {
         override val type: GeneratedClassKGType<Class> =
-            GeneratedClassKGType(getTypeOrNull("jsc_class_get_type")!!) { Class(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("jsc_class_get_type")!!) { Class(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
-        }
+            JavaScriptCoreTypeProvider.register()}
 
         /**
          * Get the GType of Class

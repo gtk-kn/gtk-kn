@@ -40,18 +40,14 @@ public class NavigationPolicyDecision(
          * @since 2.6
          */
         get() = webkit_navigation_policy_decision_get_navigation_action(webkitNavigationPolicyDecisionPointer)!!.run {
-            NavigationAction(this)
-        }
+            NavigationAction(this)}
 
     public companion object : TypeCompanion<NavigationPolicyDecision> {
         override val type: GeneratedClassKGType<NavigationPolicyDecision> =
-            GeneratedClassKGType(getTypeOrNull("webkit_navigation_policy_decision_get_type")!!) {
-                NavigationPolicyDecision(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_navigation_policy_decision_get_type")!!) { NavigationPolicyDecision(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of NavigationPolicyDecision

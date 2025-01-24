@@ -3,9 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTextureDownloader
 import org.gtkkn.native.gdk.gdk_texture_downloader_copy
@@ -17,7 +18,6 @@ import org.gtkkn.native.gdk.gdk_texture_downloader_new
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_format
 import org.gtkkn.native.gdk.gdk_texture_downloader_set_texture
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * The `GdkTextureDownloader` is used to download the contents of a
@@ -39,8 +39,20 @@ import kotlin.Unit
  * @since 4.10
  */
 @GdkVersion4_10
-public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader>) :
-    ProxyInstance(gdkTextureDownloaderPointer) {
+public class TextureDownloader(
+    public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader>,
+) : ProxyInstance(gdkTextureDownloaderPointer) {
+    /**
+     * Creates a new texture downloader for @texture.
+     *
+     * @param texture texture to download
+     * @return A new texture downloader
+     * @since 4.10
+     */
+    public constructor(texture: Texture) : this(gdk_texture_downloader_new(texture.gdkTexturePointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Creates a copy of the downloader.
      *
@@ -51,8 +63,7 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
      */
     @GdkVersion4_10
     public fun copy(): TextureDownloader = gdk_texture_downloader_copy(gdkTextureDownloaderPointer)!!.run {
-        TextureDownloader(this)
-    }
+        TextureDownloader(this)}
 
     /**
      * Frees the given downloader and all its associated resources.
@@ -70,8 +81,7 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
      */
     @GdkVersion4_10
     public fun getFormat(): MemoryFormat = gdk_texture_downloader_get_format(gdkTextureDownloaderPointer).run {
-        MemoryFormat.fromNativeValue(this)
-    }
+        MemoryFormat.fromNativeValue(this)}
 
     /**
      * Gets the texture that the downloader will download.
@@ -81,8 +91,7 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
      */
     @GdkVersion4_10
     public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer)!!.run {
-        Texture.TextureImpl(this)
-    }
+        Texture.TextureImpl(this)}
 
     /**
      * Sets the format the downloader will download.
@@ -93,8 +102,7 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setFormat(format: MemoryFormat): Unit =
-        gdk_texture_downloader_set_format(gdkTextureDownloaderPointer, format.nativeValue)
+    public fun setFormat(format: MemoryFormat): Unit = gdk_texture_downloader_set_format(gdkTextureDownloaderPointer, format.nativeValue)
 
     /**
      * Changes the texture the downloader will download.
@@ -103,20 +111,9 @@ public class TextureDownloader(public val gdkTextureDownloaderPointer: CPointer<
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setTexture(texture: Texture): Unit =
-        gdk_texture_downloader_set_texture(gdkTextureDownloaderPointer, texture.gdkTexturePointer)
+    public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(gdkTextureDownloaderPointer, texture.gdkTexturePointer)
 
     public companion object {
-        /**
-         * Creates a new texture downloader for @texture.
-         *
-         * @param texture texture to download
-         * @return A new texture downloader
-         * @since 4.10
-         */
-        public fun new(texture: Texture): TextureDownloader =
-            TextureDownloader(gdk_texture_downloader_new(texture.gdkTexturePointer)!!.reinterpret())
-
         /**
          * Get the GType of TextureDownloader
          *

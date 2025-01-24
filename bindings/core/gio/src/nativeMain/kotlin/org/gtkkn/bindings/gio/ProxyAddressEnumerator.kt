@@ -38,13 +38,10 @@ public open class ProxyAddressEnumerator(
     KGTyped {
     public companion object : TypeCompanion<ProxyAddressEnumerator> {
         override val type: GeneratedClassKGType<ProxyAddressEnumerator> =
-            GeneratedClassKGType(getTypeOrNull("g_proxy_address_enumerator_get_type")!!) {
-                ProxyAddressEnumerator(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_proxy_address_enumerator_get_type")!!) { ProxyAddressEnumerator(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ProxyAddressEnumerator

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -20,7 +21,6 @@ import org.gtkkn.native.gtk.gtk_accessible_text_get_type
 import org.gtkkn.native.gtk.gtk_accessible_text_update_caret_position
 import org.gtkkn.native.gtk.gtk_accessible_text_update_contents
 import org.gtkkn.native.gtk.gtk_accessible_text_update_selection_bound
-import kotlin.Unit
 
 /**
  * An interface for accessible objects containing formatted text.
@@ -34,10 +34,7 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public interface AccessibleText :
-    Proxy,
-    Accessible,
-    KGTyped {
+public interface AccessibleText : Proxy, Accessible, KGTyped {
     public val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
@@ -72,8 +69,11 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateContents(change: AccessibleTextContentChange, start: guint, end: guint): Unit =
-        gtk_accessible_text_update_contents(gtkAccessibleTextPointer, change.nativeValue, start, end)
+    public fun updateContents(
+        change: AccessibleTextContentChange,
+        start: guint,
+        end: guint,
+    ): Unit = gtk_accessible_text_update_contents(gtkAccessibleTextPointer, change.nativeValue, start, end)
 
     /**
      * Updates the boundary of the selection.
@@ -92,19 +92,17 @@ public interface AccessibleText :
      *
      * @constructor Creates a new instance of AccessibleText for the provided [CPointer].
      */
-    public data class AccessibleTextImpl(override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>) :
-        Object(gtkAccessibleTextPointer.reinterpret()),
+    public data class AccessibleTextImpl(
+        override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>,
+    ) : Object(gtkAccessibleTextPointer.reinterpret()),
         AccessibleText
 
     public companion object : TypeCompanion<AccessibleText> {
         override val type: GeneratedInterfaceKGType<AccessibleText> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_text_get_type")!!) {
-                AccessibleTextImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_text_get_type")!!) { AccessibleTextImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AccessibleText

@@ -26,8 +26,9 @@ import org.gtkkn.native.gobject.GType
  * @since 2.46
  */
 @GioVersion2_46
-public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>) :
-    SocketAddress(gioNativeSocketAddressPointer.reinterpret()),
+public open class NativeSocketAddress(
+    public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>,
+) : SocketAddress(gioNativeSocketAddressPointer.reinterpret()),
     KGTyped {
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
@@ -40,20 +41,14 @@ public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: 
      * @return a new #GNativeSocketAddress
      * @since 2.46
      */
-    public constructor(
-        native: gpointer? = null,
-        len: gsize,
-    ) : this(g_native_socket_address_new(native, len)!!.reinterpret())
+    public constructor(native: gpointer? = null, len: gsize) : this(g_native_socket_address_new(native, len)!!.reinterpret())
 
     public companion object : TypeCompanion<NativeSocketAddress> {
         override val type: GeneratedClassKGType<NativeSocketAddress> =
-            GeneratedClassKGType(getTypeOrNull("g_native_socket_address_get_type")!!) {
-                NativeSocketAddress(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_native_socket_address_get_type")!!) { NativeSocketAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of NativeSocketAddress

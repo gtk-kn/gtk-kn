@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,8 +26,6 @@ import org.gtkkn.native.gobject.g_binding_get_target
 import org.gtkkn.native.gobject.g_binding_get_target_property
 import org.gtkkn.native.gobject.g_binding_get_type
 import org.gtkkn.native.gobject.g_binding_unbind
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GObject` instance (or source) and another property on another `GObject`
@@ -106,8 +106,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GObjectVersion2_26
-public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) :
-    Object(gobjectBindingPointer.reinterpret()),
+public open class Binding(
+    public val gobjectBindingPointer: CPointer<GBinding>,
+) : Object(gobjectBindingPointer.reinterpret()),
     KGTyped {
     /**
      * Flags to be used to control the #GBinding
@@ -123,8 +124,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
          * @since 2.26
          */
         get() = g_binding_get_flags(gobjectBindingPointer).run {
-            BindingFlags(this)
-        }
+            BindingFlags(this)}
 
     /**
      * The #GObject that should be used as the source of the binding
@@ -149,8 +149,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
          * @since 2.26
          */
         get() = g_binding_get_source(gobjectBindingPointer)?.run {
-            Object(this)
-        }
+            Object(this)}
 
     /**
      * The name of the property of #GBinding:source that should be used
@@ -195,8 +194,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
          * @since 2.26
          */
         get() = g_binding_get_target(gobjectBindingPointer)?.run {
-            Object(this)
-        }
+            Object(this)}
 
     /**
      * The name of the property of #GBinding:target that should be used
@@ -231,8 +229,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
      */
     @GObjectVersion2_68
     public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer)?.run {
-        Object(this)
-    }
+        Object(this)}
 
     /**
      * Retrieves the #GObject instance used as the target of the binding.
@@ -247,8 +244,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
      */
     @GObjectVersion2_68
     public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer)?.run {
-        Object(this)
-    }
+        Object(this)}
 
     /**
      * Explicitly releases the binding between the source and the target
@@ -270,11 +266,10 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
 
     public companion object : TypeCompanion<Binding> {
         override val type: GeneratedClassKGType<Binding> =
-            GeneratedClassKGType(getTypeOrNull("g_binding_get_type")!!) { Binding(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_binding_get_type")!!) { Binding(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GObjectTypeProvider.register()}
 
         /**
          * Get the GType of Binding

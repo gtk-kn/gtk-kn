@@ -7,7 +7,9 @@ import org.gtkkn.native.cairo.cairo_gobject_subpixel_order_get_type
 import org.gtkkn.native.cairo.cairo_subpixel_order_t
 import org.gtkkn.native.gobject.GType
 
-public enum class SubpixelOrder(public val nativeValue: cairo_subpixel_order_t) {
+public enum class SubpixelOrder(
+    public val nativeValue: cairo_subpixel_order_t,
+) {
     DEFAULT(cairo_subpixel_order_t.CAIRO_SUBPIXEL_ORDER_DEFAULT),
     RGB(cairo_subpixel_order_t.CAIRO_SUBPIXEL_ORDER_RGB),
     BGR(cairo_subpixel_order_t.CAIRO_SUBPIXEL_ORDER_BGR),

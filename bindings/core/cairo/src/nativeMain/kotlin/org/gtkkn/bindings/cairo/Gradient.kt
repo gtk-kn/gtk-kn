@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.cairo
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -15,7 +16,6 @@ import org.gtkkn.native.cairo.cairo_pattern_add_color_stop_rgba
 import org.gtkkn.native.cairo.cairo_pattern_t
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -23,11 +23,16 @@ import kotlin.Unit
  * - parameter `count`: count: Out parameter is not supported
  * - parameter `offset`: offset: Out parameter is not supported
  */
-public abstract class Gradient(public val cairoGradientPointer: CPointer<cairo_pattern_t>) :
-    Pattern(cairoGradientPointer.reinterpret()),
+public abstract class Gradient(
+    public val cairoGradientPointer: CPointer<cairo_pattern_t>,
+) : Pattern(cairoGradientPointer.reinterpret()),
     KGTyped {
-    public open fun addColorStopRgb(offset: gdouble, red: gdouble, green: gdouble, blue: gdouble): Unit =
-        cairo_pattern_add_color_stop_rgb(cairoGradientPointer, offset, red, green, blue)
+    public open fun addColorStopRgb(
+        offset: gdouble,
+        red: gdouble,
+        green: gdouble,
+        blue: gdouble,
+    ): Unit = cairo_pattern_add_color_stop_rgb(cairoGradientPointer, offset, red, green, blue)
 
     public open fun addColorStopRgba(
         offset: gdouble,
@@ -42,17 +47,16 @@ public abstract class Gradient(public val cairoGradientPointer: CPointer<cairo_p
      *
      * @constructor Creates a new instance of Gradient for the provided [CPointer].
      */
-    public class GradientImpl(pointer: CPointer<cairo_pattern_t>) : Gradient(pointer)
+    public class GradientImpl(
+        pointer: CPointer<cairo_pattern_t>,
+    ) : Gradient(pointer)
 
     public companion object : TypeCompanion<Gradient> {
         override val type: GeneratedClassKGType<Gradient> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) {
-                GradientImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) { GradientImpl(it.reinterpret()) }
 
         init {
-            CairoTypeProvider.register()
-        }
+            CairoTypeProvider.register()}
 
         /**
          * Get the GType of Gradient

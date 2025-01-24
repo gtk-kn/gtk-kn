@@ -26,8 +26,9 @@ import org.gtkkn.native.gobject.GType
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
  */
-public class EnumListModel(public val adwEnumListModelPointer: CPointer<AdwEnumListModel>) :
-    Object(adwEnumListModelPointer.reinterpret()),
+public class EnumListModel(
+    public val adwEnumListModelPointer: CPointer<AdwEnumListModel>,
+) : Object(adwEnumListModelPointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -50,7 +51,7 @@ public class EnumListModel(public val adwEnumListModelPointer: CPointer<AdwEnumL
      * @param enumType the type of the enum to construct the model from
      * @return the newly created `AdwEnumListModel`
      */
-    public constructor(enumType: GType) : this(adw_enum_list_model_new(enumType)!!.reinterpret())
+    public constructor(enumType: GType) : this(adw_enum_list_model_new(enumType)!!)
 
     /**
      * Finds the position of a given enum value in @self.
@@ -63,13 +64,10 @@ public class EnumListModel(public val adwEnumListModelPointer: CPointer<AdwEnumL
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =
-            GeneratedClassKGType(getTypeOrNull("adw_enum_list_model_get_type")!!) {
-                EnumListModel(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_enum_list_model_get_type")!!) { EnumListModel(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of EnumListModel

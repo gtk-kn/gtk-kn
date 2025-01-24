@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rectangle
@@ -21,8 +23,6 @@ import org.gtkkn.native.adw.adw_swipeable_get_swipe_area
 import org.gtkkn.native.adw.adw_swipeable_get_type
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * An interface for swipeable widgets.
@@ -35,9 +35,7 @@ import kotlin.Unit
  *
  * - parameter `n_snap_points`: n_snap_points: Out parameter is not supported
  */
-public interface Swipeable :
-    Proxy,
-    KGTyped {
+public interface Swipeable : Proxy, KGTyped {
     public val adwSwipeablePointer: CPointer<AdwSwipeable>
 
     /**
@@ -78,30 +76,28 @@ public interface Swipeable :
      * @param isDrag whether the swipe is caused by a dragging gesture
      * @param rect a pointer to a rectangle to store the swipe area
      */
-    public fun getSwipeArea(navigationDirection: NavigationDirection, isDrag: Boolean, rect: Rectangle): Unit =
-        adw_swipeable_get_swipe_area(
-            adwSwipeablePointer,
-            navigationDirection.nativeValue,
-            isDrag.asGBoolean(),
-            rect.gdkRectanglePointer
-        )
+    public fun getSwipeArea(
+        navigationDirection: NavigationDirection,
+        isDrag: Boolean,
+        rect: Rectangle,
+    ): Unit = adw_swipeable_get_swipe_area(adwSwipeablePointer, navigationDirection.nativeValue, isDrag.asGBoolean(), rect.gdkRectanglePointer)
 
     /**
      * The SwipeableImpl type represents a native instance of the Swipeable interface.
      *
      * @constructor Creates a new instance of Swipeable for the provided [CPointer].
      */
-    public data class SwipeableImpl(override val adwSwipeablePointer: CPointer<AdwSwipeable>) :
-        Widget(adwSwipeablePointer.reinterpret()),
+    public data class SwipeableImpl(
+        override val adwSwipeablePointer: CPointer<AdwSwipeable>,
+    ) : Widget(adwSwipeablePointer.reinterpret()),
         Swipeable
 
     public companion object : TypeCompanion<Swipeable> {
         override val type: GeneratedInterfaceKGType<Swipeable> =
-            GeneratedInterfaceKGType(getTypeOrNull("adw_swipeable_get_type")!!) { SwipeableImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("adw_swipeable_get_type")!!) { SwipeableImpl(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Swipeable

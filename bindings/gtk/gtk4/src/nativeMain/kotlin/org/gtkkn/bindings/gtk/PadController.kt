@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Device
@@ -17,8 +19,6 @@ import org.gtkkn.native.gtk.GtkPadController
 import org.gtkkn.native.gtk.gtk_pad_controller_get_type
 import org.gtkkn.native.gtk.gtk_pad_controller_new
 import org.gtkkn.native.gtk.gtk_pad_controller_set_action
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkPadController` is an event controller for the pads found in drawing
@@ -75,8 +75,9 @@ import kotlin.Unit
  * - method `action-group`: Property has no getter nor setter
  * - method `pad`: Property has no getter nor setter
  */
-public open class PadController(public val gtkPadControllerPointer: CPointer<GtkPadController>) :
-    EventController(gtkPadControllerPointer.reinterpret()),
+public open class PadController(
+    public val gtkPadControllerPointer: CPointer<GtkPadController>,
+) : EventController(gtkPadControllerPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkPadController` that will associate events from @pad to
@@ -98,10 +99,7 @@ public open class PadController(public val gtkPadControllerPointer: CPointer<Gtk
      * @param pad A %GDK_SOURCE_TABLET_PAD device, or null to handle all pads
      * @return A newly created `GtkPadController`
      */
-    public constructor(
-        group: ActionGroup,
-        pad: Device? = null,
-    ) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer)!!.reinterpret())
+    public constructor(group: ActionGroup, pad: Device? = null) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer)!!)
 
     /**
      * Adds an individual action to @controller.
@@ -121,16 +119,20 @@ public open class PadController(public val gtkPadControllerPointer: CPointer<Gtk
      *   be deemed user-visible.
      * @param actionName action name that will be activated in the `GActionGroup`
      */
-    public open fun setAction(type: PadActionType, index: gint, mode: gint, label: String, actionName: String): Unit =
-        gtk_pad_controller_set_action(gtkPadControllerPointer, type.nativeValue, index, mode, label, actionName)
+    public open fun setAction(
+        type: PadActionType,
+        index: gint,
+        mode: gint,
+        label: String,
+        actionName: String,
+    ): Unit = gtk_pad_controller_set_action(gtkPadControllerPointer, type.nativeValue, index, mode, label, actionName)
 
     public companion object : TypeCompanion<PadController> {
         override val type: GeneratedClassKGType<PadController> =
-            GeneratedClassKGType(getTypeOrNull("gtk_pad_controller_get_type")!!) { PadController(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_pad_controller_get_type")!!) { PadController(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PadController

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -25,8 +27,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkEventControllerLegacy
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_legacy_new
-import kotlin.Boolean
-import kotlin.ULong
 
 /**
  * `GtkEventControllerLegacy` is an event controller that provides raw
@@ -53,25 +53,14 @@ public open class EventControllerLegacy(
      * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this signal. Returns true to stop other handlers from being invoked for the event
      *   and the emission of this signal. false to propagate the event further.
      */
-    public fun onEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
-        g_signal_connect_data(
-            gtkEventControllerLegacyPointer,
-            "event",
-            onEventFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong = g_signal_connect_data(gtkEventControllerLegacyPointer, "event", onEventFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<EventControllerLegacy> {
         override val type: GeneratedClassKGType<EventControllerLegacy> =
-            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_legacy_get_type")!!) {
-                EventControllerLegacy(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_event_controller_legacy_get_type")!!) { EventControllerLegacy(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EventControllerLegacy
@@ -83,14 +72,11 @@ public open class EventControllerLegacy(
 }
 
 private val onEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        event: CPointer<GdkEvent>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    event: CPointer<GdkEvent>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
-        event!!.run {
-            Event.EventImpl(this)
-        }
-    ).asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<(event: Event) -> Boolean>().get().invoke(event!!.run {
+        Event.EventImpl(this)}
+    ).asGBoolean()}
+.reinterpret()

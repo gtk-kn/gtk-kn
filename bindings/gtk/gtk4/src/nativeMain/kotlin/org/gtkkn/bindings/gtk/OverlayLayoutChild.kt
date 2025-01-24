@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -18,13 +19,13 @@ import org.gtkkn.native.gtk.gtk_overlay_layout_child_get_measure
 import org.gtkkn.native.gtk.gtk_overlay_layout_child_get_type
 import org.gtkkn.native.gtk.gtk_overlay_layout_child_set_clip_overlay
 import org.gtkkn.native.gtk.gtk_overlay_layout_child_set_measure
-import kotlin.Boolean
 
 /**
  * `GtkLayoutChild` subclass for children in a `GtkOverlayLayout`.
  */
-public open class OverlayLayoutChild(public val gtkOverlayLayoutChildPointer: CPointer<GtkOverlayLayoutChild>) :
-    LayoutChild(gtkOverlayLayoutChildPointer.reinterpret()),
+public open class OverlayLayoutChild(
+    public val gtkOverlayLayoutChildPointer: CPointer<GtkOverlayLayoutChild>,
+) : LayoutChild(gtkOverlayLayoutChildPointer.reinterpret()),
     KGTyped {
     /**
      * Whether the child should be clipped to fit the parent's size.
@@ -36,15 +37,12 @@ public open class OverlayLayoutChild(public val gtkOverlayLayoutChildPointer: CP
          * @return whether the child is clipped
          */
         get() = gtk_overlay_layout_child_get_clip_overlay(gtkOverlayLayoutChildPointer).asBoolean()
-
         /**
          * Sets whether to clip this child.
          *
          * @param clipOverlay whether to clip this child
          */
-        set(
-            clipOverlay
-        ) = gtk_overlay_layout_child_set_clip_overlay(gtkOverlayLayoutChildPointer, clipOverlay.asGBoolean())
+        set(clipOverlay) = gtk_overlay_layout_child_set_clip_overlay(gtkOverlayLayoutChildPointer, clipOverlay.asGBoolean())
 
     /**
      * Whether the child size should contribute to the `GtkOverlayLayout`'s
@@ -57,7 +55,6 @@ public open class OverlayLayoutChild(public val gtkOverlayLayoutChildPointer: CP
          * @return whether the child is measured
          */
         get() = gtk_overlay_layout_child_get_measure(gtkOverlayLayoutChildPointer).asBoolean()
-
         /**
          * Sets whether to measure this child.
          *
@@ -67,13 +64,10 @@ public open class OverlayLayoutChild(public val gtkOverlayLayoutChildPointer: CP
 
     public companion object : TypeCompanion<OverlayLayoutChild> {
         override val type: GeneratedClassKGType<OverlayLayoutChild> =
-            GeneratedClassKGType(getTypeOrNull("gtk_overlay_layout_child_get_type")!!) {
-                OverlayLayoutChild(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_overlay_layout_child_get_type")!!) { OverlayLayoutChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of OverlayLayoutChild

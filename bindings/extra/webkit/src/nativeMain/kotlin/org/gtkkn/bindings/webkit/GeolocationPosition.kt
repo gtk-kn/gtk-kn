@@ -3,9 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint64
@@ -20,7 +21,6 @@ import org.gtkkn.native.webkit.webkit_geolocation_position_set_altitude_accuracy
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_heading
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_speed
 import org.gtkkn.native.webkit.webkit_geolocation_position_set_timestamp
-import kotlin.Unit
 
 /**
  * An opaque struct to provide position updates to a #WebKitGeolocationManager.
@@ -30,8 +30,26 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationPosition(public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition>) :
-    ProxyInstance(webkitGeolocationPositionPointer) {
+public class GeolocationPosition(
+    public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition>,
+) : ProxyInstance(webkitGeolocationPositionPointer) {
+    /**
+     * Create a new #WebKitGeolocationPosition.
+     *
+     * @param latitude a valid latitude in degrees
+     * @param longitude a valid longitude in degrees
+     * @param accuracy accuracy of location in meters
+     * @return a newly created #WebKitGeolocationPosition
+     * @since 2.26
+     */
+    public constructor(
+        latitude: gdouble,
+        longitude: gdouble,
+        accuracy: gdouble,
+    ) : this(webkit_geolocation_position_new(latitude, longitude, accuracy)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Make a copy of the #WebKitGeolocationPosition.
      *
@@ -40,8 +58,7 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
      */
     @WebKitVersion2_26
     public fun copy(): GeolocationPosition = webkit_geolocation_position_copy(webkitGeolocationPositionPointer)!!.run {
-        GeolocationPosition(this)
-    }
+        GeolocationPosition(this)}
 
     /**
      * Free the #WebKitGeolocationPosition
@@ -58,8 +75,7 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitude(altitude: gdouble): Unit =
-        webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer, altitude)
+    public fun setAltitude(altitude: gdouble): Unit = webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer, altitude)
 
     /**
      * Set the accuracy of @position altitude.
@@ -68,8 +84,7 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitudeAccuracy(altitudeAccuracy: gdouble): Unit =
-        webkit_geolocation_position_set_altitude_accuracy(webkitGeolocationPositionPointer, altitudeAccuracy)
+    public fun setAltitudeAccuracy(altitudeAccuracy: gdouble): Unit = webkit_geolocation_position_set_altitude_accuracy(webkitGeolocationPositionPointer, altitudeAccuracy)
 
     /**
      * Set the @position heading.
@@ -81,8 +96,7 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setHeading(heading: gdouble): Unit =
-        webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer, heading)
+    public fun setHeading(heading: gdouble): Unit = webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer, heading)
 
     /**
      * Set the @position speed.
@@ -91,8 +105,7 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setSpeed(speed: gdouble): Unit =
-        webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer, speed)
+    public fun setSpeed(speed: gdouble): Unit = webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer, speed)
 
     /**
      * Set the @position timestamp.
@@ -103,22 +116,9 @@ public class GeolocationPosition(public val webkitGeolocationPositionPointer: CP
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setTimestamp(timestamp: guint64): Unit =
-        webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer, timestamp)
+    public fun setTimestamp(timestamp: guint64): Unit = webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer, timestamp)
 
     public companion object {
-        /**
-         * Create a new #WebKitGeolocationPosition.
-         *
-         * @param latitude a valid latitude in degrees
-         * @param longitude a valid longitude in degrees
-         * @param accuracy accuracy of location in meters
-         * @return a newly created #WebKitGeolocationPosition
-         * @since 2.26
-         */
-        public fun new(latitude: gdouble, longitude: gdouble, accuracy: gdouble): GeolocationPosition =
-            GeolocationPosition(webkit_geolocation_position_new(latitude, longitude, accuracy)!!.reinterpret())
-
         /**
          * Get the GType of GeolocationPosition
          *

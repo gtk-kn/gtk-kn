@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -29,8 +31,6 @@ import org.gtkkn.native.gio.g_seekable_truncate
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * `GSeekable` is implemented by streams (implementations of
@@ -48,9 +48,7 @@ import kotlin.Result
  * [`lseek()`](man:lseek(2)) on a normal file.  Seeking past the end and writing
  * data will usually cause the stream to resize by introducing zero bytes.
  */
-public interface Seekable :
-    Proxy,
-    KGTyped {
+public interface Seekable : Proxy, KGTyped {
     public val gioSeekablePointer: CPointer<GSeekable>
 
     /**
@@ -91,15 +89,13 @@ public interface Seekable :
      *     has occurred, this function will return false and set @error
      *     appropriately if present.
      */
-    public fun seek(offset: gint64, type: SeekType, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
+    public fun seek(
+        offset: gint64,
+        type: SeekType,
+        cancellable: Cancellable? = null,
+    ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_seekable_seek(
-            gioSeekablePointer,
-            offset,
-            type.nativeValue,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_seekable_seek(gioSeekablePointer, offset, type.nativeValue, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -134,12 +130,7 @@ public interface Seekable :
      */
     public fun truncate(offset: gint64, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_seekable_truncate(
-            gioSeekablePointer,
-            offset,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_seekable_truncate(gioSeekablePointer, offset, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -152,17 +143,17 @@ public interface Seekable :
      *
      * @constructor Creates a new instance of Seekable for the provided [CPointer].
      */
-    public data class SeekableImpl(override val gioSeekablePointer: CPointer<GSeekable>) :
-        Object(gioSeekablePointer.reinterpret()),
+    public data class SeekableImpl(
+        override val gioSeekablePointer: CPointer<GSeekable>,
+    ) : Object(gioSeekablePointer.reinterpret()),
         Seekable
 
     public companion object : TypeCompanion<Seekable> {
         override val type: GeneratedInterfaceKGType<Seekable> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_seekable_get_type")!!) { SeekableImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_seekable_get_type")!!) { SeekableImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Seekable

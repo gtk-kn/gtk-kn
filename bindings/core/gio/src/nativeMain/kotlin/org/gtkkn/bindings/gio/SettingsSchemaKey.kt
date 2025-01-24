@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
@@ -24,16 +27,14 @@ import org.gtkkn.native.gio.g_settings_schema_key_range_check
 import org.gtkkn.native.gio.g_settings_schema_key_ref
 import org.gtkkn.native.gio.g_settings_schema_key_unref
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * #GSettingsSchemaKey is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<GSettingsSchemaKey>) :
-    ProxyInstance(gioSettingsSchemaKeyPointer) {
+public class SettingsSchemaKey(
+    public val gioSettingsSchemaKeyPointer: CPointer<GSettingsSchemaKey>,
+) : ProxyInstance(gioSettingsSchemaKeyPointer) {
     /**
      * Gets the default value for @key.
      *
@@ -45,8 +46,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      */
     @GioVersion2_40
     public fun getDefaultValue(): Variant = g_settings_schema_key_get_default_value(gioSettingsSchemaKeyPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Gets the description for @key.
@@ -68,8 +68,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getDescription(): String? =
-        g_settings_schema_key_get_description(gioSettingsSchemaKeyPointer)?.toKString()
+    public fun getDescription(): String? = g_settings_schema_key_get_description(gioSettingsSchemaKeyPointer)?.toKString()
 
     /**
      * Gets the name of @key.
@@ -78,8 +77,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getName(): String =
-        g_settings_schema_key_get_name(gioSettingsSchemaKeyPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_settings_schema_key_get_name(gioSettingsSchemaKeyPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries the range of a key.
@@ -124,8 +122,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      */
     @GioVersion2_40
     public fun getRange(): Variant = g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Gets the summary for @key.
@@ -156,8 +153,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      */
     @GioVersion2_40
     public fun getValueType(): VariantType = g_settings_schema_key_get_value_type(gioSettingsSchemaKeyPointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Checks if the given @value is within the
@@ -171,8 +167,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      * @since 2.40
      */
     @GioVersion2_40
-    public fun rangeCheck(`value`: Variant): Boolean =
-        g_settings_schema_key_range_check(gioSettingsSchemaKeyPointer, `value`.glibVariantPointer).asBoolean()
+    public fun rangeCheck(`value`: Variant): Boolean = g_settings_schema_key_range_check(gioSettingsSchemaKeyPointer, `value`.glibVariantPointer).asBoolean()
 
     /**
      * Increase the reference count of @key, returning a new reference.
@@ -182,8 +177,7 @@ public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<
      */
     @GioVersion2_40
     public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gioSettingsSchemaKeyPointer)!!.run {
-        SettingsSchemaKey(this)
-    }
+        SettingsSchemaKey(this)}
 
     /**
      * Decrease the reference count of @key, possibly freeing it.

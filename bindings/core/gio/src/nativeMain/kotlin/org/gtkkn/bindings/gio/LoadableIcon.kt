@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -18,7 +19,6 @@ import org.gtkkn.native.gio.g_loadable_icon_get_type
 import org.gtkkn.native.gio.g_loadable_icon_load_async
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * `GLoadableIcon` extends the [iface@Gio.Icon] interface and adds the ability
@@ -29,10 +29,7 @@ import kotlin.Unit
  * - parameter `type`: type: Out parameter is not supported
  * - parameter `type`: type: Out parameter is not supported
  */
-public interface LoadableIcon :
-    Proxy,
-    Icon,
-    KGTyped {
+public interface LoadableIcon : Proxy, Icon, KGTyped {
     public val gioLoadableIconPointer: CPointer<GLoadableIcon>
 
     override val gioIconPointer: CPointer<GIcon>
@@ -48,35 +45,28 @@ public interface LoadableIcon :
      * @param callback a #GAsyncReadyCallback
      *   to call when the request is satisfied
      */
-    public fun loadAsync(size: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_loadable_icon_load_async(
-            gioLoadableIconPointer,
-            size,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun loadAsync(
+        size: gint,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_loadable_icon_load_async(gioLoadableIconPointer, size, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * The LoadableIconImpl type represents a native instance of the LoadableIcon interface.
      *
      * @constructor Creates a new instance of LoadableIcon for the provided [CPointer].
      */
-    public data class LoadableIconImpl(override val gioLoadableIconPointer: CPointer<GLoadableIcon>) :
-        Object(gioLoadableIconPointer.reinterpret()),
+    public data class LoadableIconImpl(
+        override val gioLoadableIconPointer: CPointer<GLoadableIcon>,
+    ) : Object(gioLoadableIconPointer.reinterpret()),
         LoadableIcon
 
     public companion object : TypeCompanion<LoadableIcon> {
         override val type: GeneratedInterfaceKGType<LoadableIcon> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_loadable_icon_get_type")!!) {
-                LoadableIconImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_loadable_icon_get_type")!!) { LoadableIconImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of LoadableIcon

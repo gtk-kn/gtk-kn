@@ -40,8 +40,9 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
  * - method `pixbuf-expander-open`: Property has no getter nor setter
  * - method `texture`: Property has no getter nor setter
  */
-public open class CellRendererPixbuf(public val gtkCellRendererPixbufPointer: CPointer<GtkCellRendererPixbuf>) :
-    CellRenderer(gtkCellRendererPixbufPointer.reinterpret()),
+public open class CellRendererPixbuf(
+    public val gtkCellRendererPixbufPointer: CPointer<GtkCellRendererPixbuf>,
+) : CellRenderer(gtkCellRendererPixbufPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkCellRendererPixbuf`. Adjust rendering
@@ -58,13 +59,10 @@ public open class CellRendererPixbuf(public val gtkCellRendererPixbufPointer: CP
 
     public companion object : TypeCompanion<CellRendererPixbuf> {
         override val type: GeneratedClassKGType<CellRendererPixbuf> =
-            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_pixbuf_get_type")!!) {
-                CellRendererPixbuf(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_pixbuf_get_type")!!) { CellRendererPixbuf(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CellRendererPixbuf

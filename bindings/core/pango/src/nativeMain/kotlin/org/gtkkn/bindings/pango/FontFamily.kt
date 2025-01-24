@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -25,8 +27,6 @@ import org.gtkkn.native.pango.pango_font_family_get_name
 import org.gtkkn.native.pango.pango_font_family_get_type
 import org.gtkkn.native.pango.pango_font_family_is_monospace
 import org.gtkkn.native.pango.pango_font_family_is_variable
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A `PangoFontFamily` is used to represent a family of related
@@ -43,8 +43,9 @@ import kotlin.String
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public abstract class FontFamily(public val pangoFontFamilyPointer: CPointer<PangoFontFamily>) :
-    Object(pangoFontFamilyPointer.reinterpret()),
+public abstract class FontFamily(
+    public val pangoFontFamilyPointer: CPointer<PangoFontFamily>,
+) : Object(pangoFontFamilyPointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -80,10 +81,8 @@ public abstract class FontFamily(public val pangoFontFamilyPointer: CPointer<Pan
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFace(name: String? = null): FontFace? =
-        pango_font_family_get_face(pangoFontFamilyPointer, name)?.run {
-            FontFace.FontFaceImpl(this)
-        }
+    public open fun getFace(name: String? = null): FontFace? = pango_font_family_get_face(pangoFontFamilyPointer, name)?.run {
+        FontFace.FontFaceImpl(this)}
 
     /**
      * A monospace font is a font designed for text display where the the
@@ -125,15 +124,16 @@ public abstract class FontFamily(public val pangoFontFamilyPointer: CPointer<Pan
      *
      * @constructor Creates a new instance of FontFamily for the provided [CPointer].
      */
-    public class FontFamilyImpl(pointer: CPointer<PangoFontFamily>) : FontFamily(pointer)
+    public class FontFamilyImpl(
+        pointer: CPointer<PangoFontFamily>,
+    ) : FontFamily(pointer)
 
     public companion object : TypeCompanion<FontFamily> {
         override val type: GeneratedClassKGType<FontFamily> =
-            GeneratedClassKGType(getTypeOrNull("pango_font_family_get_type")!!) { FontFamilyImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("pango_font_family_get_type")!!) { FontFamilyImpl(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of FontFamily

@@ -3,23 +3,21 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GObjectClass
 import org.gtkkn.native.gobject.g_object_class_find_property
 import org.gtkkn.native.gobject.g_object_class_install_property
 import org.gtkkn.native.gobject.g_object_class_override_property
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class structure for the GObject type.
@@ -34,7 +32,7 @@ import kotlin.native.ref.createCleaner
  *                           GObjectConstructParam *construct_params)
  * {
  *   GObject *object;
- *
+ *   
  *   if (!the_singleton)
  *     {
  *       object = G_OBJECT_CLASS (parent_class)->constructor (type,
@@ -63,29 +61,18 @@ import kotlin.native.ref.createCleaner
  * - field `notify`: Fields with callbacks are not supported
  * - field `constructed`: Fields with callbacks are not supported
  */
-public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectObjectClassPointer) {
+public class ObjectClass(
+    public val gobjectObjectClassPointer: CPointer<GObjectClass>,
+) : ProxyInstance(gobjectObjectClassPointer) {
     /**
      * Allocate a new ObjectClass.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GObjectClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to ObjectClass and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GObjectClass>, Cleaner>,
-    ) : this(gobjectObjectClassPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GObjectClass>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new ObjectClass using the provided [AutofreeScope].
@@ -103,10 +90,8 @@ public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectC
      * @return the #GParamSpec for the property, or
      *          null if the class doesn't have a property of that name
      */
-    public fun findProperty(propertyName: String): ParamSpec =
-        g_object_class_find_property(gobjectObjectClassPointer, propertyName)!!.run {
-            ParamSpec.ParamSpecImpl(this)
-        }
+    public fun findProperty(propertyName: String): ParamSpec = g_object_class_find_property(gobjectObjectClassPointer, propertyName)!!.run {
+        ParamSpec.ParamSpecImpl(this)}
 
     /**
      * Installs a new property.
@@ -123,8 +108,7 @@ public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectC
      * @param propertyId the id for the new property
      * @param pspec the #GParamSpec for the new property
      */
-    public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit =
-        g_object_class_install_property(gobjectObjectClassPointer, propertyId, pspec.gobjectParamSpecPointer)
+    public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit = g_object_class_install_property(gobjectObjectClassPointer, propertyId, pspec.gobjectParamSpecPointer)
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -150,6 +134,5 @@ public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectC
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun overrideProperty(propertyId: guint, name: String): Unit =
-        g_object_class_override_property(gobjectObjectClassPointer, propertyId, name)
+    public fun overrideProperty(propertyId: guint, name: String): Unit = g_object_class_override_property(gobjectObjectClassPointer, propertyId, name)
 }

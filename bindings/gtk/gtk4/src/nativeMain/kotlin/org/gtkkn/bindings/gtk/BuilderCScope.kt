@@ -40,8 +40,9 @@ import org.gtkkn.native.gtk.gtk_builder_cscope_new
  * - method `add_callback_symbols`: Varargs parameter is not supported
  * - method `lookup_callback_symbol`: Return type GObject.Callback is not supported
  */
-public open class BuilderCScope(public val gtkBuilderCScopePointer: CPointer<GtkBuilderCScope>) :
-    Object(gtkBuilderCScopePointer.reinterpret()),
+public open class BuilderCScope(
+    public val gtkBuilderCScopePointer: CPointer<GtkBuilderCScope>,
+) : Object(gtkBuilderCScopePointer.reinterpret()),
     BuilderScope,
     KGTyped {
     override val gtkBuilderScopePointer: CPointer<GtkBuilderScope>
@@ -60,11 +61,10 @@ public open class BuilderCScope(public val gtkBuilderCScopePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<BuilderCScope> {
         override val type: GeneratedClassKGType<BuilderCScope> =
-            GeneratedClassKGType(getTypeOrNull("gtk_builder_cscope_get_type")!!) { BuilderCScope(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_builder_cscope_get_type")!!) { BuilderCScope(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of BuilderCScope

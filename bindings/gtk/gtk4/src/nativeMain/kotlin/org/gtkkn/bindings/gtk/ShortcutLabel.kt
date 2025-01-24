@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,8 +23,6 @@ import org.gtkkn.native.gtk.gtk_shortcut_label_get_type
 import org.gtkkn.native.gtk.gtk_shortcut_label_new
 import org.gtkkn.native.gtk.gtk_shortcut_label_set_accelerator
 import org.gtkkn.native.gtk.gtk_shortcut_label_set_disabled_text
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkShortcutLabel` displays a single keyboard shortcut or gesture.
@@ -34,8 +34,9 @@ import kotlin.Unit
  * - method `accelerator`: Property TypeInfo of getter and setter do not match
  * - method `disabled-text`: Property TypeInfo of getter and setter do not match
  */
-public open class ShortcutLabel(public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>) :
-    Widget(gtkShortcutLabelPointer.reinterpret()),
+public open class ShortcutLabel(
+    public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>,
+) : Widget(gtkShortcutLabelPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -67,32 +68,28 @@ public open class ShortcutLabel(public val gtkShortcutLabelPointer: CPointer<Gtk
      * @return the current text displayed when no
      * accelerator is set.
      */
-    public open fun getDisabledText(): String? =
-        gtk_shortcut_label_get_disabled_text(gtkShortcutLabelPointer)?.toKString()
+    public open fun getDisabledText(): String? = gtk_shortcut_label_get_disabled_text(gtkShortcutLabelPointer)?.toKString()
 
     /**
      * Sets the accelerator to be displayed by @self.
      *
      * @param accelerator the new accelerator
      */
-    public open fun setAccelerator(accelerator: String): Unit =
-        gtk_shortcut_label_set_accelerator(gtkShortcutLabelPointer, accelerator)
+    public open fun setAccelerator(accelerator: String): Unit = gtk_shortcut_label_set_accelerator(gtkShortcutLabelPointer, accelerator)
 
     /**
      * Sets the text to be displayed by @self when no accelerator is set.
      *
      * @param disabledText the text to be displayed when no accelerator is set
      */
-    public open fun setDisabledText(disabledText: String): Unit =
-        gtk_shortcut_label_set_disabled_text(gtkShortcutLabelPointer, disabledText)
+    public open fun setDisabledText(disabledText: String): Unit = gtk_shortcut_label_set_disabled_text(gtkShortcutLabelPointer, disabledText)
 
     public companion object : TypeCompanion<ShortcutLabel> {
         override val type: GeneratedClassKGType<ShortcutLabel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_shortcut_label_get_type")!!) { ShortcutLabel(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_shortcut_label_get_type")!!) { ShortcutLabel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ShortcutLabel

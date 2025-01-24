@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -39,9 +42,6 @@ import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A base class for animations.
@@ -90,8 +90,9 @@ import kotlin.Unit
  * finished, the previous animation should be stopped first, or the existing
  * `AdwAnimation` object can be reused.
  */
-public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnimation>) :
-    Object(adwAnimationPointer.reinterpret()),
+public abstract class Animation(
+    public val adwAnimationPointer: CPointer<AdwAnimation>,
+) : Object(adwAnimationPointer.reinterpret()),
     KGTyped {
     /**
      * Whether to skip the animation when animations are globally disabled.
@@ -115,7 +116,6 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @since 1.3
          */
         get() = adw_animation_get_follow_enable_animations_setting(adwAnimationPointer).asBoolean()
-
         /**
          * Sets whether to skip @self when animations are globally disabled.
          *
@@ -149,8 +149,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @return the animation value
          */
         get() = adw_animation_get_state(adwAnimationPointer).run {
-            AnimationState.fromNativeValue(this)
-        }
+            AnimationState.fromNativeValue(this)}
 
     /**
      * The target to animate.
@@ -162,9 +161,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @return the animation target
          */
         get() = adw_animation_get_target(adwAnimationPointer)!!.run {
-            AnimationTarget.AnimationTargetImpl(this)
-        }
-
+            AnimationTarget.AnimationTargetImpl(this)}
         /**
          * Sets the target @self animates to @target.
          *
@@ -207,8 +204,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
          * @return the animation widget
          */
         get() = adw_animation_get_widget(adwAnimationPointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * Pauses a playing animation for @self.
@@ -273,15 +269,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwAnimationPointer,
-            "done",
-            onDoneFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwAnimationPointer, "done", onDoneFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "done" signal. See [onDone].
@@ -295,15 +283,16 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
      *
      * @constructor Creates a new instance of Animation for the provided [CPointer].
      */
-    public class AnimationImpl(pointer: CPointer<AdwAnimation>) : Animation(pointer)
+    public class AnimationImpl(
+        pointer: CPointer<AdwAnimation>,
+    ) : Animation(pointer)
 
     public companion object : TypeCompanion<Animation> {
         override val type: GeneratedClassKGType<Animation> =
-            GeneratedClassKGType(getTypeOrNull("adw_animation_get_type")!!) { AnimationImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_animation_get_type")!!) { AnimationImpl(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Animation
@@ -315,9 +304,8 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
 }
 
 private val onDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

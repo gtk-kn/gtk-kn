@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRelation
@@ -14,7 +15,6 @@ import org.gtkkn.native.glib.g_relation_print
 import org.gtkkn.native.glib.g_relation_select
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import kotlin.Unit
 
 /**
  * A `GRelation` is a table of data which can be indexed on any number
@@ -63,7 +63,9 @@ import kotlin.Unit
  * - parameter `hash_func`: HashFunc
  * - method `insert`: Varargs parameter is not supported
  */
-public class Relation(public val glibRelationPointer: CPointer<GRelation>) : ProxyInstance(glibRelationPointer) {
+public class Relation(
+    public val glibRelationPointer: CPointer<GRelation>,
+) : ProxyInstance(glibRelationPointer) {
     /**
      * Returns the number of tuples in a #GRelation that have the given
      * value in the given field.
@@ -106,10 +108,8 @@ public class Relation(public val glibRelationPointer: CPointer<GRelation>) : Pro
      * @param field the field of each record to match.
      * @return the records (tuples) that matched.
      */
-    public fun select(key: gpointer? = null, `field`: gint): Tuples =
-        g_relation_select(glibRelationPointer, key, `field`)!!.run {
-            Tuples(this)
-        }
+    public fun select(key: gpointer? = null, `field`: gint): Tuples = g_relation_select(glibRelationPointer, key, `field`)!!.run {
+        Tuples(this)}
 
     public companion object {
         /**
@@ -120,7 +120,6 @@ public class Relation(public val glibRelationPointer: CPointer<GRelation>) : Pro
          * @return a new #GRelation.
          */
         public fun new(fields: gint): Relation = g_relation_new(fields)!!.run {
-            Relation(this)
-        }
+            Relation(this)}
     }
 }

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMemChunk
@@ -18,10 +20,10 @@ import org.gtkkn.native.glib.g_mem_chunk_reset
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
-import kotlin.String
-import kotlin.Unit
 
-public class MemChunk(public val glibMemChunkPointer: CPointer<GMemChunk>) : ProxyInstance(glibMemChunkPointer) {
+public class MemChunk(
+    public val glibMemChunkPointer: CPointer<GMemChunk>,
+) : ProxyInstance(glibMemChunkPointer) {
     public fun alloc(): gpointer? = g_mem_chunk_alloc(glibMemChunkPointer)
 
     public fun alloc0(): gpointer? = g_mem_chunk_alloc0(glibMemChunkPointer)
@@ -39,9 +41,12 @@ public class MemChunk(public val glibMemChunkPointer: CPointer<GMemChunk>) : Pro
     public companion object {
         public fun info(): Unit = g_mem_chunk_info()
 
-        public fun new(name: String, atomSize: gint, areaSize: gsize, type: gint): MemChunk =
-            g_mem_chunk_new(name, atomSize, areaSize, type)!!.run {
-                MemChunk(this)
-            }
+        public fun new(
+            name: String,
+            atomSize: gint,
+            areaSize: gsize,
+            type: gint,
+        ): MemChunk = g_mem_chunk_new(name, atomSize, areaSize, type)!!.run {
+            MemChunk(this)}
     }
 }

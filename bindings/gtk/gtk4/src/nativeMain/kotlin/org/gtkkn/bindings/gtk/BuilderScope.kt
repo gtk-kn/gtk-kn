@@ -35,9 +35,7 @@ import org.gtkkn.native.gtk.gtk_builder_scope_get_type
  * may want to (partially) derive from or fall back to a [class@Gtk.BuilderCScope],
  * as that class implements support for automatic lookups from C symbols.
  */
-public interface BuilderScope :
-    Proxy,
-    KGTyped {
+public interface BuilderScope : Proxy, KGTyped {
     public val gtkBuilderScopePointer: CPointer<GtkBuilderScope>
 
     /**
@@ -45,19 +43,17 @@ public interface BuilderScope :
      *
      * @constructor Creates a new instance of BuilderScope for the provided [CPointer].
      */
-    public data class BuilderScopeImpl(override val gtkBuilderScopePointer: CPointer<GtkBuilderScope>) :
-        Object(gtkBuilderScopePointer.reinterpret()),
+    public data class BuilderScopeImpl(
+        override val gtkBuilderScopePointer: CPointer<GtkBuilderScope>,
+    ) : Object(gtkBuilderScopePointer.reinterpret()),
         BuilderScope
 
     public companion object : TypeCompanion<BuilderScope> {
         override val type: GeneratedInterfaceKGType<BuilderScope> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_builder_scope_get_type")!!) {
-                BuilderScopeImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_builder_scope_get_type")!!) { BuilderScopeImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of BuilderScope

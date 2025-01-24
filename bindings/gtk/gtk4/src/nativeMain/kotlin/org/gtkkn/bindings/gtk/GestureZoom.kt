@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -24,8 +26,6 @@ import org.gtkkn.native.gtk.GtkGestureZoom
 import org.gtkkn.native.gtk.gtk_gesture_zoom_get_scale_delta
 import org.gtkkn.native.gtk.gtk_gesture_zoom_get_type
 import org.gtkkn.native.gtk.gtk_gesture_zoom_new
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGestureZoom` is a `GtkGesture` for 2-finger pinch/zoom gestures.
@@ -34,8 +34,9 @@ import kotlin.Unit
  * [signal@Gtk.GestureZoom::scale-changed] signal is emitted to report
  * the scale factor.
  */
-public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>) :
-    Gesture(gtkGestureZoomPointer.reinterpret()),
+public open class GestureZoom(
+    public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>,
+) : Gesture(gtkGestureZoomPointer.reinterpret()),
     KGTyped {
     /**
      * Returns a newly created `GtkGesture` that recognizes
@@ -63,15 +64,7 @@ public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGest
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `scale` Scale delta, taking the initial state as 1:1
      */
-    public fun onScaleChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (scale: gdouble) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkGestureZoomPointer,
-            "scale-changed",
-            onScaleChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onScaleChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (scale: gdouble) -> Unit): ULong = g_signal_connect_data(gtkGestureZoomPointer, "scale-changed", onScaleChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "scale-changed" signal. See [onScaleChanged].
@@ -84,11 +77,10 @@ public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGest
 
     public companion object : TypeCompanion<GestureZoom> {
         override val type: GeneratedClassKGType<GestureZoom> =
-            GeneratedClassKGType(getTypeOrNull("gtk_gesture_zoom_get_type")!!) { GestureZoom(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_gesture_zoom_get_type")!!) { GestureZoom(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GestureZoom
@@ -100,10 +92,9 @@ public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGest
 }
 
 private val onScaleChangedFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        scale: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    scale: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(scale: gdouble) -> Unit>().get().invoke(scale)
-}
-    .reinterpret()
+    userData.asStableRef<(scale: gdouble) -> Unit>().get().invoke(scale)}
+.reinterpret()

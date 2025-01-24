@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -24,8 +26,6 @@ import org.gtkkn.native.gio.g_socket_address_enumerator_next_async
 import org.gtkkn.native.gio.g_socket_address_enumerator_next_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GSocketAddressEnumerator` is an enumerator type for
@@ -70,13 +70,8 @@ public abstract class SocketAddressEnumerator(
      */
     public open fun next(cancellable: Cancellable? = null): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_address_enumerator_next(
-            gioSocketAddressEnumeratorPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            SocketAddress.SocketAddressImpl(this)
-        }
+        val gResult = g_socket_address_enumerator_next(gioSocketAddressEnumeratorPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            SocketAddress.SocketAddressImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -96,15 +91,7 @@ public abstract class SocketAddressEnumerator(
      * @param callback a #GAsyncReadyCallback to call
      *   when the request is satisfied
      */
-    public open fun nextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_socket_address_enumerator_next_async(
-            gioSocketAddressEnumeratorPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun nextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_socket_address_enumerator_next_async(gioSocketAddressEnumeratorPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Retrieves the result of a completed call to
@@ -119,13 +106,8 @@ public abstract class SocketAddressEnumerator(
      */
     public open fun nextFinish(result: AsyncResult): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_address_enumerator_next_finish(
-            gioSocketAddressEnumeratorPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            SocketAddress.SocketAddressImpl(this)
-        }
+        val gResult = g_socket_address_enumerator_next_finish(gioSocketAddressEnumeratorPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            SocketAddress.SocketAddressImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -139,18 +121,16 @@ public abstract class SocketAddressEnumerator(
      *
      * @constructor Creates a new instance of SocketAddressEnumerator for the provided [CPointer].
      */
-    public class SocketAddressEnumeratorImpl(pointer: CPointer<GSocketAddressEnumerator>) :
-        SocketAddressEnumerator(pointer)
+    public class SocketAddressEnumeratorImpl(
+        pointer: CPointer<GSocketAddressEnumerator>,
+    ) : SocketAddressEnumerator(pointer)
 
     public companion object : TypeCompanion<SocketAddressEnumerator> {
         override val type: GeneratedClassKGType<SocketAddressEnumerator> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_address_enumerator_get_type")!!) {
-                SocketAddressEnumeratorImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_socket_address_enumerator_get_type")!!) { SocketAddressEnumeratorImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketAddressEnumerator

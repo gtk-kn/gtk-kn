@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -20,7 +21,6 @@ import org.gtkkn.native.gtksource.gtk_source_hover_display_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_display_insert_after
 import org.gtkkn.native.gtksource.gtk_source_hover_display_prepend
 import org.gtkkn.native.gtksource.gtk_source_hover_display_remove
-import kotlin.Unit
 
 /**
  * Display for interactive tooltips.
@@ -32,8 +32,9 @@ import kotlin.Unit
  * Implement the [iface@HoverProvider] interface to be notified of when
  * to populate a `GtkSourceHoverDisplay` on behalf of the user.
  */
-public open class HoverDisplay(public val gtksourceHoverDisplayPointer: CPointer<GtkSourceHoverDisplay>) :
-    Widget(gtksourceHoverDisplayPointer.reinterpret()),
+public open class HoverDisplay(
+    public val gtksourceHoverDisplayPointer: CPointer<GtkSourceHoverDisplay>,
+) : Widget(gtksourceHoverDisplayPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -44,30 +45,20 @@ public open class HoverDisplay(public val gtksourceHoverDisplayPointer: CPointer
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = handle.reinterpret()
 
-    public open fun append(child: Widget): Unit =
-        gtk_source_hover_display_append(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
+    public open fun append(child: Widget): Unit = gtk_source_hover_display_append(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
 
-    public open fun insertAfter(child: Widget, sibling: Widget): Unit = gtk_source_hover_display_insert_after(
-        gtksourceHoverDisplayPointer,
-        child.gtkWidgetPointer,
-        sibling.gtkWidgetPointer
-    )
+    public open fun insertAfter(child: Widget, sibling: Widget): Unit = gtk_source_hover_display_insert_after(gtksourceHoverDisplayPointer, child.gtkWidgetPointer, sibling.gtkWidgetPointer)
 
-    public open fun prepend(child: Widget): Unit =
-        gtk_source_hover_display_prepend(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
+    public open fun prepend(child: Widget): Unit = gtk_source_hover_display_prepend(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
 
-    public open fun remove(child: Widget): Unit =
-        gtk_source_hover_display_remove(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
+    public open fun remove(child: Widget): Unit = gtk_source_hover_display_remove(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<HoverDisplay> {
         override val type: GeneratedClassKGType<HoverDisplay> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_hover_display_get_type")!!) {
-                HoverDisplay(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_hover_display_get_type")!!) { HoverDisplay(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of HoverDisplay

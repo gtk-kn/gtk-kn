@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
@@ -22,9 +25,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint32
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -142,8 +142,7 @@ public object Adw {
      * @param widget a `GtkWidget`
      * @return whether animations are enabled for @widget
      */
-    public fun getEnableAnimations(widget: Widget): Boolean =
-        adw_get_enable_animations(widget.gtkWidgetPointer).asBoolean()
+    public fun getEnableAnimations(widget: Widget): Boolean = adw_get_enable_animations(widget.gtkWidgetPointer).asBoolean()
 
     /**
      * Returns the major version number of the Adwaita library.
@@ -218,16 +217,19 @@ public object Adw {
      * @param t the interpolation rate
      * @return the computed value
      */
-    public fun lerp(a: gdouble, b: gdouble, t: gdouble): gdouble = adw_lerp(a, b, t)
+    public fun lerp(
+        a: gdouble,
+        b: gdouble,
+        t: gdouble,
+    ): gdouble = adw_lerp(a, b, t)
 }
 
 public val AnimationTargetFuncFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
-        `value`: gdouble,
-        userData: gpointer?,
+    `value`: gdouble,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)
-}
-    .reinterpret()
+    userData!!.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)}
+.reinterpret()
 
 /**
  * Prototype for animation targets based on user callbacks.

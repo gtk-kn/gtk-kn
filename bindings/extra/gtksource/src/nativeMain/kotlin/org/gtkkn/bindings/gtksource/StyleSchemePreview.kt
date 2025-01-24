@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -34,9 +37,6 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_preview_get_selected
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_preview_get_type
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_preview_new
 import org.gtkkn.native.gtksource.gtk_source_style_scheme_preview_set_selected
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A preview widget for [class@StyleScheme].
@@ -73,14 +73,11 @@ public open class StyleSchemePreview(
          * @since 5.4
          */
         get() = gtk_source_style_scheme_preview_get_scheme(gtksourceStyleSchemePreviewPointer)!!.run {
-            StyleScheme(this)
-        }
+            StyleScheme(this)}
 
     public open var selected: Boolean
         get() = gtk_source_style_scheme_preview_get_selected(gtksourceStyleSchemePreviewPointer).asBoolean()
-        set(
-            selected
-        ) = gtk_source_style_scheme_preview_set_selected(gtksourceStyleSchemePreviewPointer, selected.asGBoolean())
+        set(selected) = gtk_source_style_scheme_preview_set_selected(gtksourceStyleSchemePreviewPointer, selected.asGBoolean())
 
     /**
      * Creates a new #GtkSourceStyleSchemePreview to preview the style scheme
@@ -90,9 +87,7 @@ public open class StyleSchemePreview(
      * @return a #GtkWidget
      * @since 5.4
      */
-    public constructor(
-        scheme: StyleScheme,
-    ) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer)!!.reinterpret())
+    public constructor(scheme: StyleScheme) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer)!!.reinterpret())
 
     /**
      *
@@ -100,15 +95,7 @@ public open class StyleSchemePreview(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtksourceStyleSchemePreviewPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtksourceStyleSchemePreviewPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -119,13 +106,10 @@ public open class StyleSchemePreview(
 
     public companion object : TypeCompanion<StyleSchemePreview> {
         override val type: GeneratedClassKGType<StyleSchemePreview> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_preview_get_type")!!) {
-                StyleSchemePreview(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_preview_get_type")!!) { StyleSchemePreview(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of StyleSchemePreview
@@ -137,9 +121,8 @@ public open class StyleSchemePreview(
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

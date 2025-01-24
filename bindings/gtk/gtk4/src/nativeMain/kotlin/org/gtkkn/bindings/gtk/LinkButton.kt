@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -34,9 +37,6 @@ import org.gtkkn.native.gtk.gtk_link_button_new
 import org.gtkkn.native.gtk.gtk_link_button_new_with_label
 import org.gtkkn.native.gtk.gtk_link_button_set_uri
 import org.gtkkn.native.gtk.gtk_link_button_set_visited
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
 
 /**
  * A `GtkLinkButton` is a button with a hyperlink.
@@ -66,8 +66,9 @@ import kotlin.ULong
  *
  * `GtkLinkButton` uses the %GTK_ACCESSIBLE_ROLE_LINK role.
  */
-public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkButton>) :
-    Button(gtkLinkButtonPointer.reinterpret()),
+public open class LinkButton(
+    public val gtkLinkButtonPointer: CPointer<GtkLinkButton>,
+) : Button(gtkLinkButtonPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -92,7 +93,6 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
          *   and should not be modified or freed.
          */
         get() = gtk_link_button_get_uri(gtkLinkButtonPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets @uri as the URI where the `GtkLinkButton` points.
          *
@@ -119,7 +119,6 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
          * @return true if the link has been visited, false otherwise
          */
         get() = gtk_link_button_get_visited(gtkLinkButtonPointer).asBoolean()
-
         /**
          * Sets the “visited” state of the `GtkLinkButton`.
          *
@@ -144,10 +143,7 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
      * @param label the text of the button
      * @return a new link button widget.
      */
-    public constructor(
-        uri: String,
-        label: String? = null,
-    ) : this(gtk_link_button_new_with_label(uri, label)!!.reinterpret())
+    public constructor(uri: String, label: String? = null) : this(gtk_link_button_new_with_label(uri, label)!!.reinterpret())
 
     /**
      * Emitted each time the `GtkLinkButton` is clicked.
@@ -162,23 +158,14 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true if the signal has been handled
      */
-    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            gtkLinkButtonPointer,
-            "activate-link",
-            onActivateLinkFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(gtkLinkButtonPointer, "activate-link", onActivateLinkFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<LinkButton> {
         override val type: GeneratedClassKGType<LinkButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_link_button_get_type")!!) { LinkButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_link_button_get_type")!!) { LinkButton(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of LinkButton
@@ -190,9 +177,8 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
 }
 
 private val onActivateLinkFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()

@@ -17,7 +17,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used in g_bus_own_name().
  * @since 2.26
  */
-public class BusNameOwnerFlags(public val mask: GBusNameOwnerFlags) : Bitfield<BusNameOwnerFlags> {
+public class BusNameOwnerFlags(
+    public val mask: GBusNameOwnerFlags,
+) : Bitfield<BusNameOwnerFlags> {
     override infix fun or(other: BusNameOwnerFlags): BusNameOwnerFlags = BusNameOwnerFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -31,7 +33,7 @@ public class BusNameOwnerFlags(public val mask: GBusNameOwnerFlags) : Bitfield<B
          * Allow another message bus connection to claim the name.
          */
         public val ALLOW_REPLACEMENT: BusNameOwnerFlags =
-            BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT)
+                BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT)
 
         /**
          * If another message bus connection owns the name and have
@@ -44,7 +46,7 @@ public class BusNameOwnerFlags(public val mask: GBusNameOwnerFlags) : Bitfield<B
          * return an error from g_bus_own_name() rather than entering the waiting queue for that name. (Since 2.54)
          */
         public val DO_NOT_QUEUE: BusNameOwnerFlags =
-            BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE)
+                BusNameOwnerFlags(G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE)
 
         /**
          * Get the GType of BusNameOwnerFlags

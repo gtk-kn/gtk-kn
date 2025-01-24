@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,8 +26,6 @@ import org.gtkkn.native.gtk.gtk_icon_paintable_get_icon_name
 import org.gtkkn.native.gtk.gtk_icon_paintable_get_type
 import org.gtkkn.native.gtk.gtk_icon_paintable_is_symbolic
 import org.gtkkn.native.gtk.gtk_icon_paintable_new_for_file
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * Contains information found when looking up an icon in `GtkIconTheme`.
@@ -36,8 +36,9 @@ import kotlin.String
  *
  * - method `is-symbolic`: Property has no getter nor setter
  */
-public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<GtkIconPaintable>) :
-    Object(gtkIconPaintablePointer.reinterpret()),
+public open class IconPaintable(
+    public val gtkIconPaintablePointer: CPointer<GtkIconPaintable>,
+) : Object(gtkIconPaintablePointer.reinterpret()),
     Paintable,
     SymbolicPaintable,
     KGTyped {
@@ -59,8 +60,7 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
          * @return the `GFile` for the icon
          */
         get() = gtk_icon_paintable_get_file(gtkIconPaintablePointer)?.run {
-            File.FileImpl(reinterpret())
-        }
+            File.FileImpl(reinterpret())}
 
     /**
      * The icon name that was chosen during lookup.
@@ -97,7 +97,7 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
         `file`: File,
         size: gint,
         scale: gint,
-    ) : this(gtk_icon_paintable_new_for_file(`file`.gioFilePointer, size, scale)!!.reinterpret())
+    ) : this(gtk_icon_paintable_new_for_file(`file`.gioFilePointer, size, scale)!!)
 
     /**
      * Checks if the icon is symbolic or not.
@@ -114,11 +114,10 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<IconPaintable> {
         override val type: GeneratedClassKGType<IconPaintable> =
-            GeneratedClassKGType(getTypeOrNull("gtk_icon_paintable_get_type")!!) { IconPaintable(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_icon_paintable_get_type")!!) { IconPaintable(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of IconPaintable

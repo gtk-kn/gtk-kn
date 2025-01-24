@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -25,7 +26,6 @@ import org.gtkkn.native.gio.g_dtls_server_connection_get_type
 import org.gtkkn.native.gio.g_dtls_server_connection_new
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
 
 /**
  * `GDtlsServerConnection` is the server-side subclass of
@@ -38,11 +38,7 @@ import kotlin.Result
  * @since 2.48
  */
 @GioVersion2_48
-public interface DtlsServerConnection :
-    Proxy,
-    DatagramBased,
-    DtlsConnection,
-    KGTyped {
+public interface DtlsServerConnection : Proxy, DatagramBased, DtlsConnection, KGTyped {
     public val gioDtlsServerConnectionPointer: CPointer<GDtlsServerConnection>
 
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
@@ -63,13 +59,10 @@ public interface DtlsServerConnection :
 
     public companion object : TypeCompanion<DtlsServerConnection> {
         override val type: GeneratedInterfaceKGType<DtlsServerConnection> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_dtls_server_connection_get_type")!!) {
-                DtlsServerConnectionImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_dtls_server_connection_get_type")!!) { DtlsServerConnectionImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Creates a new #GDtlsServerConnection wrapping @base_socket.
@@ -81,23 +74,17 @@ public interface DtlsServerConnection :
          * @since 2.48
          */
         @GioVersion2_48
-        public fun new(baseSocket: DatagramBased, certificate: TlsCertificate? = null): Result<DtlsServerConnection> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_dtls_server_connection_new(
-                    baseSocket.gioDatagramBasedPointer,
-                    certificate?.gioTlsCertificatePointer,
-                    gError.ptr
-                )?.run {
-                    DtlsServerConnectionImpl(reinterpret())
-                }
+        public fun new(baseSocket: DatagramBased, certificate: TlsCertificate? = null): Result<DtlsServerConnection> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_dtls_server_connection_new(baseSocket.gioDatagramBasedPointer, certificate?.gioTlsCertificatePointer, gError.ptr)?.run {
+                DtlsServerConnectionImpl(reinterpret())}
 
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+            } else {
+                Result.success(checkNotNull(gResult))
             }
+        }
 
         /**
          * Get the GType of DtlsServerConnection

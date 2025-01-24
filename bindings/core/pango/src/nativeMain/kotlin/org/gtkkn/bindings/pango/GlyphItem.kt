@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,6 +16,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -23,11 +26,6 @@ import org.gtkkn.native.pango.pango_glyph_item_copy
 import org.gtkkn.native.pango.pango_glyph_item_free
 import org.gtkkn.native.pango.pango_glyph_item_get_type
 import org.gtkkn.native.pango.pango_glyph_item_split
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoGlyphItem` is a pair of a `PangoItem` and the glyphs
@@ -42,16 +40,15 @@ import kotlin.native.ref.createCleaner
  * - parameter `logical_widths`: Array parameter of type gint is not supported
  * - parameter `log_attrs`: Array parameter of type LogAttr is not supported
  */
-public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoGlyphItemPointer) {
+public class GlyphItem(
+    public val pangoGlyphItemPointer: CPointer<PangoGlyphItem>,
+) : ProxyInstance(pangoGlyphItemPointer) {
     /**
      * corresponding `PangoItem`
      */
     public var item: Item?
         get() = pangoGlyphItemPointer.pointed.item?.run {
-            Item(this)
-        }
-
+            Item(this)}
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.item = value?.pangoItemPointer
@@ -62,9 +59,7 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      */
     public var glyphs: GlyphString?
         get() = pangoGlyphItemPointer.pointed.glyphs?.run {
-            GlyphString(this)
-        }
-
+            GlyphString(this)}
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.glyphs = value?.pangoGlyphStringPointer
@@ -76,7 +71,6 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      */
     public var yOffset: gint
         get() = pangoGlyphItemPointer.pointed.y_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.y_offset = value
@@ -88,7 +82,6 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      */
     public var startXOffset: gint
         get() = pangoGlyphItemPointer.pointed.start_x_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.start_x_offset = value
@@ -100,7 +93,6 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      */
     public var endXOffset: gint
         get() = pangoGlyphItemPointer.pointed.end_x_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphItemPointer.pointed.end_x_offset = value
@@ -112,21 +104,9 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoGlyphItem>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to GlyphItem and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoGlyphItem>, Cleaner>,
-    ) : this(pangoGlyphItemPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoGlyphItem>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new GlyphItem using the provided [AutofreeScope].
@@ -224,10 +204,8 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun applyAttrs(text: String, list: AttrList): SList =
-        pango_glyph_item_apply_attrs(pangoGlyphItemPointer, text, list.pangoAttrListPointer)!!.run {
-            SList(this)
-        }
+    public fun applyAttrs(text: String, list: AttrList): SList = pango_glyph_item_apply_attrs(pangoGlyphItemPointer, text, list.pangoAttrListPointer)!!.run {
+        SList(this)}
 
     /**
      * Make a deep copy of an existing `PangoGlyphItem` structure.
@@ -237,8 +215,7 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      */
     @PangoVersion1_20
     public fun copy(): GlyphItem? = pango_glyph_item_copy(pangoGlyphItemPointer)?.run {
-        GlyphItem(this)
-    }
+        GlyphItem(this)}
 
     /**
      * Frees a `PangoGlyphItem` and resources to which it points.
@@ -270,13 +247,10 @@ public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun split(text: String, splitIndex: gint): GlyphItem? =
-        pango_glyph_item_split(pangoGlyphItemPointer, text, splitIndex)?.run {
-            GlyphItem(this)
-        }
+    public fun split(text: String, splitIndex: gint): GlyphItem? = pango_glyph_item_split(pangoGlyphItemPointer, text, splitIndex)?.run {
+        GlyphItem(this)}
 
-    override fun toString(): String =
-        "GlyphItem(item=$item, glyphs=$glyphs, yOffset=$yOffset, startXOffset=$startXOffset, endXOffset=$endXOffset)"
+    override fun toString(): String = "GlyphItem(item=$item, glyphs=$glyphs, yOffset=$yOffset, startXOffset=$startXOffset, endXOffset=$endXOffset)"
 
     public companion object {
         /**

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.GtkIMContextSimple
 import org.gtkkn.native.gtk.gtk_im_context_simple_add_compose_file
 import org.gtkkn.native.gtk.gtk_im_context_simple_get_type
 import org.gtkkn.native.gtk.gtk_im_context_simple_new
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkIMContextSimple` is an input method supporting table-based input methods.
@@ -61,8 +61,9 @@ import kotlin.Unit
  *
  * - parameter `data`: Array parameter of type guint16 is not supported
  */
-public open class ImContextSimple(public val gtkImContextSimplePointer: CPointer<GtkIMContextSimple>) :
-    ImContext(gtkImContextSimplePointer.reinterpret()),
+public open class ImContextSimple(
+    public val gtkImContextSimplePointer: CPointer<GtkIMContextSimple>,
+) : ImContext(gtkImContextSimplePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkIMContextSimple`.
@@ -76,18 +77,14 @@ public open class ImContextSimple(public val gtkImContextSimplePointer: CPointer
      *
      * @param composeFile The path of compose file
      */
-    public open fun addComposeFile(composeFile: String): Unit =
-        gtk_im_context_simple_add_compose_file(gtkImContextSimplePointer, composeFile)
+    public open fun addComposeFile(composeFile: String): Unit = gtk_im_context_simple_add_compose_file(gtkImContextSimplePointer, composeFile)
 
     public companion object : TypeCompanion<ImContextSimple> {
         override val type: GeneratedClassKGType<ImContextSimple> =
-            GeneratedClassKGType(getTypeOrNull("gtk_im_context_simple_get_type")!!) {
-                ImContextSimple(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_im_context_simple_get_type")!!) { ImContextSimple(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of IMContextSimple

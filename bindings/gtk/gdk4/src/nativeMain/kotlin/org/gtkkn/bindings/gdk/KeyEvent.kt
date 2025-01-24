@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -21,7 +22,6 @@ import org.gtkkn.native.gdk.gdk_key_event_is_modifier
 import org.gtkkn.native.gdk.gdk_key_event_matches
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * An event related to a key-based device.
@@ -30,18 +30,17 @@ import kotlin.Boolean
  *
  * - parameter `keyval`: keyval: Out parameter is not supported
  */
-public open class KeyEvent(public val gdkKeyEventPointer: CPointer<GdkKeyEvent>) :
-    Event(gdkKeyEventPointer.reinterpret()),
+public open class KeyEvent(
+    public val gdkKeyEventPointer: CPointer<GdkKeyEvent>,
+) : Event(gdkKeyEventPointer.reinterpret()),
     KGTyped {
     /**
      * Extracts the consumed modifiers from a key event.
      *
      * @return the consumed modifiers or @event
      */
-    public open fun getConsumedModifiers(): ModifierType =
-        gdk_key_event_get_consumed_modifiers(gdkKeyEventPointer.reinterpret()).run {
-            ModifierType(this)
-        }
+    public open fun getConsumedModifiers(): ModifierType = gdk_key_event_get_consumed_modifiers(gdkKeyEventPointer.reinterpret()).run {
+        ModifierType(this)}
 
     /**
      * Extracts the keycode from a key event.
@@ -92,18 +91,15 @@ public open class KeyEvent(public val gdkKeyEventPointer: CPointer<GdkKeyEvent>)
      * @param modifiers the modifiers to match
      * @return a `GdkKeyMatch` value describing whether @event matches
      */
-    public open fun matches(keyval: guint, modifiers: ModifierType): KeyMatch =
-        gdk_key_event_matches(gdkKeyEventPointer.reinterpret(), keyval, modifiers.mask).run {
-            KeyMatch.fromNativeValue(this)
-        }
+    public open fun matches(keyval: guint, modifiers: ModifierType): KeyMatch = gdk_key_event_matches(gdkKeyEventPointer.reinterpret(), keyval, modifiers.mask).run {
+        KeyMatch.fromNativeValue(this)}
 
     public companion object : TypeCompanion<KeyEvent> {
         override val type: GeneratedClassKGType<KeyEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_key_event_get_type")!!) { KeyEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_key_event_get_type")!!) { KeyEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of KeyEvent

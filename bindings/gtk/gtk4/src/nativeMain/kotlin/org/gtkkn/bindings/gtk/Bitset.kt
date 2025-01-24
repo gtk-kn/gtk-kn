@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint
@@ -41,8 +43,6 @@ import org.gtkkn.native.gtk.gtk_bitset_splice
 import org.gtkkn.native.gtk.gtk_bitset_subtract
 import org.gtkkn.native.gtk.gtk_bitset_union
 import org.gtkkn.native.gtk.gtk_bitset_unref
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `GtkBitset` represents a set of unsigned integers.
@@ -61,7 +61,29 @@ import kotlin.Unit
  * The main use case for `GtkBitset` is implementing complex selections for
  * [iface@Gtk.SelectionModel].
  */
-public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyInstance(gtkBitsetPointer) {
+public class Bitset(
+    public val gtkBitsetPointer: CPointer<GtkBitset>,
+) : ProxyInstance(gtkBitsetPointer) {
+    /**
+     * Creates a new empty bitset.
+     *
+     * @return A new empty bitset
+     */
+    public constructor() : this(gtk_bitset_new_empty()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a bitset with the given range set.
+     *
+     * @param start first value to add
+     * @param nItems number of consecutive values to add
+     * @return A new bitset
+     */
+    public constructor(start: guint, nItems: guint) : this(gtk_bitset_new_range(start, nItems)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Adds @value to @self if it wasn't part of it before.
      *
@@ -87,8 +109,7 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @param first first value to add
      * @param last last value to add
      */
-    public fun addRangeClosed(first: guint, last: guint): Unit =
-        gtk_bitset_add_range_closed(gtkBitsetPointer, first, last)
+    public fun addRangeClosed(first: guint, last: guint): Unit = gtk_bitset_add_range_closed(gtkBitsetPointer, first, last)
 
     /**
      * Interprets the values as a 2-dimensional boolean grid with the given @stride
@@ -99,8 +120,12 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @param height height of the rectangle
      * @param stride row stride of the grid
      */
-    public fun addRectangle(start: guint, width: guint, height: guint, stride: guint): Unit =
-        gtk_bitset_add_rectangle(gtkBitsetPointer, start, width, height, stride)
+    public fun addRectangle(
+        start: guint,
+        width: guint,
+        height: guint,
+        stride: guint,
+    ): Unit = gtk_bitset_add_rectangle(gtkBitsetPointer, start, width, height, stride)
 
     /**
      * Checks if the given @value has been added to @self
@@ -117,8 +142,7 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      *   values as @self
      */
     public fun copy(): Bitset = gtk_bitset_copy(gtkBitsetPointer)!!.run {
-        Bitset(this)
-    }
+        Bitset(this)}
 
     /**
      * Sets @self to be the symmetric difference of @self and @other.
@@ -196,8 +220,7 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @param last the last element to include
      * @return The number of values in the set from @first to @last.
      */
-    public fun getSizeInRange(first: guint, last: guint): guint64 =
-        gtk_bitset_get_size_in_range(gtkBitsetPointer, first, last)
+    public fun getSizeInRange(first: guint, last: guint): guint64 = gtk_bitset_get_size_in_range(gtkBitsetPointer, first, last)
 
     /**
      * Sets @self to be the intersection of @self and @other.
@@ -224,8 +247,7 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @return the `GtkBitset` with an additional reference
      */
     public fun ref(): Bitset = gtk_bitset_ref(gtkBitsetPointer)!!.run {
-        Bitset(this)
-    }
+        Bitset(this)}
 
     /**
      * Removes @value from @self if it was part of it before.
@@ -257,8 +279,7 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @param first first value to remove
      * @param last last value to remove
      */
-    public fun removeRangeClosed(first: guint, last: guint): Unit =
-        gtk_bitset_remove_range_closed(gtkBitsetPointer, first, last)
+    public fun removeRangeClosed(first: guint, last: guint): Unit = gtk_bitset_remove_range_closed(gtkBitsetPointer, first, last)
 
     /**
      * Interprets the values as a 2-dimensional boolean grid with the given @stride
@@ -269,8 +290,12 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @param height height of the rectangle
      * @param stride row stride of the grid
      */
-    public fun removeRectangle(start: guint, width: guint, height: guint, stride: guint): Unit =
-        gtk_bitset_remove_rectangle(gtkBitsetPointer, start, width, height, stride)
+    public fun removeRectangle(
+        start: guint,
+        width: guint,
+        height: guint,
+        stride: guint,
+    ): Unit = gtk_bitset_remove_rectangle(gtkBitsetPointer, start, width, height, stride)
 
     /**
      * Shifts all values in @self to the left by @amount.
@@ -306,8 +331,11 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
      * @param removed number of values to remove
      * @param added number of values to add
      */
-    public fun splice(position: guint, removed: guint, added: guint): Unit =
-        gtk_bitset_splice(gtkBitsetPointer, position, removed, added)
+    public fun splice(
+        position: guint,
+        removed: guint,
+        added: guint,
+    ): Unit = gtk_bitset_splice(gtkBitsetPointer, position, removed, added)
 
     /**
      * Sets @self to be the subtraction of @other from @self.
@@ -342,23 +370,6 @@ public class Bitset(public val gtkBitsetPointer: CPointer<GtkBitset>) : ProxyIns
     public fun unref(): Unit = gtk_bitset_unref(gtkBitsetPointer)
 
     public companion object {
-        /**
-         * Creates a new empty bitset.
-         *
-         * @return A new empty bitset
-         */
-        public fun newEmpty(): Bitset = Bitset(gtk_bitset_new_empty()!!)
-
-        /**
-         * Creates a bitset with the given range set.
-         *
-         * @param start first value to add
-         * @param nItems number of consecutive values to add
-         * @return A new bitset
-         */
-        public fun newRange(start: guint, nItems: guint): Bitset =
-            Bitset(gtk_bitset_new_range(start, nItems)!!.reinterpret())
-
         /**
          * Get the GType of Bitset
          *

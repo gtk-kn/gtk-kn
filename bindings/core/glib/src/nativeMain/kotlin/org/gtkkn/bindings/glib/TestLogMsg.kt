@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,15 +12,11 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogMsg
 import org.gtkkn.native.glib.g_test_log_msg_free
 import org.gtkkn.native.glib.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * ## Skipped during bindings generation
@@ -26,13 +24,12 @@ import kotlin.native.ref.createCleaner
  * - field `strings`: Unsupported string with cType gchar**
  * - field `nums`: Unsupported pointer to primitive type
  */
-public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibTestLogMsgPointer) {
+public class TestLogMsg(
+    public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
+) : ProxyInstance(glibTestLogMsgPointer) {
     public var logType: TestLogType
         get() = glibTestLogMsgPointer.pointed.log_type.run {
-            TestLogType.fromNativeValue(this)
-        }
-
+            TestLogType.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.log_type = value.nativeValue
@@ -40,7 +37,6 @@ public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
 
     public var nStrings: guint
         get() = glibTestLogMsgPointer.pointed.n_strings
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_strings = value
@@ -48,7 +44,6 @@ public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
 
     public var nNums: guint
         get() = glibTestLogMsgPointer.pointed.n_nums
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_nums = value
@@ -60,21 +55,9 @@ public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTestLogMsg>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TestLogMsg and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTestLogMsg>, Cleaner>,
-    ) : this(glibTestLogMsgPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTestLogMsg>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TestLogMsg using the provided [AutofreeScope].
@@ -91,9 +74,9 @@ public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param logType
-     * @param nStrings
-     * @param nNums
+     * @param logType 
+     * @param nStrings 
+     * @param nNums 
      */
     public constructor(
         logType: TestLogType,
@@ -110,9 +93,9 @@ public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>,
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param logType
-     * @param nStrings
-     * @param nNums
+     * @param logType 
+     * @param nStrings 
+     * @param nNums 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(

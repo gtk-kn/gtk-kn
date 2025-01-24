@@ -17,18 +17,16 @@ import org.gtkkn.native.gtk.gtk_mnemonic_action_get_type
 /**
  * A `GtkShortcutAction` that calls gtk_widget_mnemonic_activate().
  */
-public open class MnemonicAction(public val gtkMnemonicActionPointer: CPointer<GtkMnemonicAction>) :
-    ShortcutAction(gtkMnemonicActionPointer.reinterpret()),
+public open class MnemonicAction(
+    public val gtkMnemonicActionPointer: CPointer<GtkMnemonicAction>,
+) : ShortcutAction(gtkMnemonicActionPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<MnemonicAction> {
         override val type: GeneratedClassKGType<MnemonicAction> =
-            GeneratedClassKGType(getTypeOrNull("gtk_mnemonic_action_get_type")!!) {
-                MnemonicAction(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_mnemonic_action_get_type")!!) { MnemonicAction(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Gets the mnemonic action.
@@ -39,8 +37,7 @@ public open class MnemonicAction(public val gtkMnemonicActionPointer: CPointer<G
          * @return The mnemonic action
          */
         public fun `get`(): MnemonicAction = gtk_mnemonic_action_get()!!.run {
-            MnemonicAction(reinterpret())
-        }
+            MnemonicAction(reinterpret())}
 
         /**
          * Get the GType of MnemonicAction

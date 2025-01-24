@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -48,10 +52,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A [class@Gtk.ListBoxRow] used to present actions.
@@ -93,8 +93,9 @@ import kotlin.Unit
  *
  * - method `subtitle`: Property TypeInfo of getter and setter do not match
  */
-public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRow>) :
-    PreferencesRow(adwActionRowPointer.reinterpret()),
+public open class ActionRow(
+    public val adwActionRowPointer: CPointer<AdwActionRow>,
+) : PreferencesRow(adwActionRowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -126,9 +127,7 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          * @return the activatable widget for @self
          */
         get() = adw_action_row_get_activatable_widget(adwActionRowPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the widget to activate when @self is activated.
          *
@@ -153,7 +152,6 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          * @return the icon name for @self
          */
         get() = adw_action_row_get_icon_name(adwActionRowPointer)?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -176,7 +174,6 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          *   ellipsized
          */
         get() = adw_action_row_get_subtitle_lines(adwActionRowPointer)
-
         /**
          * Sets the number of lines at the end of which the subtitle label will be
          * ellipsized.
@@ -203,7 +200,6 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          * @since 1.3
          */
         get() = adw_action_row_get_subtitle_selectable(adwActionRowPointer).asBoolean()
-
         /**
          * Sets whether the user can copy the subtitle from the label
          *
@@ -213,9 +209,7 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          * @since 1.3
          */
         @AdwVersion1_3
-        set(
-            subtitleSelectable
-        ) = adw_action_row_set_subtitle_selectable(adwActionRowPointer, subtitleSelectable.asGBoolean())
+        set(subtitleSelectable) = adw_action_row_set_subtitle_selectable(adwActionRowPointer, subtitleSelectable.asGBoolean())
 
     /**
      * The number of lines at the end of which the title label will be ellipsized.
@@ -231,7 +225,6 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
          *   ellipsized
          */
         get() = adw_action_row_get_title_lines(adwActionRowPointer)
-
         /**
          * Sets the number of lines at the end of which the title label will be
          * ellipsized.
@@ -259,16 +252,14 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
      *
      * @param widget a widget
      */
-    public open fun addPrefix(widget: Widget): Unit =
-        adw_action_row_add_prefix(adwActionRowPointer, widget.gtkWidgetPointer)
+    public open fun addPrefix(widget: Widget): Unit = adw_action_row_add_prefix(adwActionRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a suffix widget to @self.
      *
      * @param widget a widget
      */
-    public open fun addSuffix(widget: Widget): Unit =
-        adw_action_row_add_suffix(adwActionRowPointer, widget.gtkWidgetPointer)
+    public open fun addSuffix(widget: Widget): Unit = adw_action_row_add_suffix(adwActionRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Gets the subtitle for @self.
@@ -300,15 +291,7 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwActionRowPointer,
-            "activated",
-            onActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwActionRowPointer, "activated", onActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activated" signal. See [onActivated].
@@ -319,11 +302,10 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
 
     public companion object : TypeCompanion<ActionRow> {
         override val type: GeneratedClassKGType<ActionRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_action_row_get_type")!!) { ActionRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_action_row_get_type")!!) { ActionRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ActionRow
@@ -335,9 +317,8 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
 }
 
 private val onActivatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

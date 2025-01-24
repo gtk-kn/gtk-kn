@@ -21,7 +21,9 @@ import org.gtkkn.native.gobject.GType
  * it will be possible to do full alpha compositing onto arbitrary drawables.
  * For now both cases fall back to a bilevel clipping mask.
  */
-public enum class PixbufAlphaMode(public val nativeValue: GdkPixbufAlphaMode) {
+public enum class PixbufAlphaMode(
+    public val nativeValue: GdkPixbufAlphaMode,
+) {
     /**
      * A bilevel clipping mask (black and white)
      *  will be created and used to draw the image.  Pixels below 0.5 opacity
@@ -29,7 +31,6 @@ public enum class PixbufAlphaMode(public val nativeValue: GdkPixbufAlphaMode) {
      *  considered fully opaque.
      */
     BILEVEL(GdkPixbufAlphaMode.GDK_PIXBUF_ALPHA_BILEVEL),
-
     /**
      * For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
      *  In the future it will do full alpha compositing.

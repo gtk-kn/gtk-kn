@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -42,10 +46,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GNetworkMonitor` provides an easy-to-use cross-platform API
@@ -57,10 +57,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public interface NetworkMonitor :
-    Proxy,
-    Initable,
-    KGTyped {
+public interface NetworkMonitor : Proxy, Initable, KGTyped {
     public val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -100,8 +97,7 @@ public interface NetworkMonitor :
          * @since 2.44
          */
         get() = g_network_monitor_get_connectivity(gioNetworkMonitorPointer).run {
-            NetworkConnectivity.fromNativeValue(this)
-        }
+            NetworkConnectivity.fromNativeValue(this)}
 
     /**
      * Whether the network is considered available. That is, whether the
@@ -200,12 +196,7 @@ public interface NetworkMonitor :
     @GioVersion2_32
     public fun canReach(connectable: SocketConnectable, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_network_monitor_can_reach(
-            gioNetworkMonitorPointer,
-            connectable.gioSocketConnectablePointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_network_monitor_can_reach(gioNetworkMonitorPointer, connectable.gioSocketConnectablePointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -233,15 +224,7 @@ public interface NetworkMonitor :
         connectable: SocketConnectable,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_network_monitor_can_reach_async(
-        gioNetworkMonitorPointer,
-        connectable.gioSocketConnectablePointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_network_monitor_can_reach_async(gioNetworkMonitorPointer, connectable.gioSocketConnectablePointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an async network connectivity test.
@@ -252,11 +235,7 @@ public interface NetworkMonitor :
      */
     public fun canReachFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_network_monitor_can_reach_finish(
-            gioNetworkMonitorPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_network_monitor_can_reach_finish(gioNetworkMonitorPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -289,10 +268,8 @@ public interface NetworkMonitor :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getConnectivity(): NetworkConnectivity =
-        g_network_monitor_get_connectivity(gioNetworkMonitorPointer).run {
-            NetworkConnectivity.fromNativeValue(this)
-        }
+    public fun getConnectivity(): NetworkConnectivity = g_network_monitor_get_connectivity(gioNetworkMonitorPointer).run {
+        NetworkConnectivity.fromNativeValue(this)}
 
     /**
      * Checks if the network is available. "Available" here means that the
@@ -304,8 +281,7 @@ public interface NetworkMonitor :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getNetworkAvailable(): Boolean =
-        g_network_monitor_get_network_available(gioNetworkMonitorPointer).asBoolean()
+    public fun getNetworkAvailable(): Boolean = g_network_monitor_get_network_available(gioNetworkMonitorPointer).asBoolean()
 
     /**
      * Checks if the network is metered.
@@ -315,8 +291,7 @@ public interface NetworkMonitor :
      * @since 2.46
      */
     @GioVersion2_46
-    public fun getNetworkMetered(): Boolean =
-        g_network_monitor_get_network_metered(gioNetworkMonitorPointer).asBoolean()
+    public fun getNetworkMetered(): Boolean = g_network_monitor_get_network_metered(gioNetworkMonitorPointer).asBoolean()
 
     /**
      * Emitted when the network configuration changes.
@@ -326,36 +301,24 @@ public interface NetworkMonitor :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun onNetworkChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (networkAvailable: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioNetworkMonitorPointer,
-        "network-changed",
-        onNetworkChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onNetworkChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (networkAvailable: Boolean) -> Unit): ULong = g_signal_connect_data(gioNetworkMonitorPointer, "network-changed", onNetworkChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The NetworkMonitorImpl type represents a native instance of the NetworkMonitor interface.
      *
      * @constructor Creates a new instance of NetworkMonitor for the provided [CPointer].
      */
-    public data class NetworkMonitorImpl(override val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>) :
-        Object(gioNetworkMonitorPointer.reinterpret()),
+    public data class NetworkMonitorImpl(
+        override val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>,
+    ) : Object(gioNetworkMonitorPointer.reinterpret()),
         NetworkMonitor
 
     public companion object : TypeCompanion<NetworkMonitor> {
         override val type: GeneratedInterfaceKGType<NetworkMonitor> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_network_monitor_get_type")!!) {
-                NetworkMonitorImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_network_monitor_get_type")!!) { NetworkMonitorImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Gets the default #GNetworkMonitor for the system.
@@ -366,8 +329,7 @@ public interface NetworkMonitor :
          */
         @GioVersion2_32
         public fun getDefault(): NetworkMonitor = g_network_monitor_get_default()!!.run {
-            NetworkMonitorImpl(reinterpret())
-        }
+            NetworkMonitorImpl(reinterpret())}
 
         /**
          * Get the GType of NetworkMonitor
@@ -379,10 +341,9 @@ public interface NetworkMonitor :
 }
 
 private val onNetworkChangedFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        networkAvailable: gboolean,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    networkAvailable: gboolean,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(networkAvailable: Boolean) -> Unit>().get().invoke(networkAvailable.asBoolean())
-}
-    .reinterpret()
+    userData.asStableRef<(networkAvailable: Boolean) -> Unit>().get().invoke(networkAvailable.asBoolean())}
+.reinterpret()

@@ -9,17 +9,17 @@ import org.gtkkn.native.glib.GDateDMY
  * This enumeration isn't used in the API, but may be useful if you need
  * to mark a number as a day, month, or year.
  */
-public enum class DateDmy(public val nativeValue: GDateDMY) {
+public enum class DateDmy(
+    public val nativeValue: GDateDMY,
+) {
     /**
      * a day
      */
     DAY(GDateDMY.G_DATE_DAY),
-
     /**
      * a month
      */
     MONTH(GDateDMY.G_DATE_MONTH),
-
     /**
      * a year
      */

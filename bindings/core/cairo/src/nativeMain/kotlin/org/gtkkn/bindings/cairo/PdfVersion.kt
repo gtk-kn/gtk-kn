@@ -11,7 +11,9 @@ import org.gtkkn.native.cairo.cairo_pdf_version_t
  * @since 1.10
  */
 @CairoVersion1_10
-public enum class PdfVersion(public val nativeValue: cairo_pdf_version_t) {
+public enum class PdfVersion(
+    public val nativeValue: cairo_pdf_version_t,
+) {
     VERSION_1_4(cairo_pdf_version_t.CAIRO_PDF_VERSION_1_4),
     VERSION_1_5(cairo_pdf_version_t.CAIRO_PDF_VERSION_1_5),
     VERSION_1_6(cairo_pdf_version_t.CAIRO_PDF_VERSION_1_6),

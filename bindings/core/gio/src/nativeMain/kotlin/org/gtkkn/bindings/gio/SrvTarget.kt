@@ -3,11 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GSrvTarget
 import org.gtkkn.native.gio.g_srv_target_copy
@@ -21,8 +23,6 @@ import org.gtkkn.native.gio.g_srv_target_list_sort
 import org.gtkkn.native.gio.g_srv_target_new
 import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A single target host/port that a network service is running on.
@@ -42,7 +42,31 @@ import kotlin.Unit
  * [iface@Gio.SocketConnectable] interface and not need to worry about
  * `GSrvTarget` at all.
  */
-public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : ProxyInstance(gioSrvTargetPointer) {
+public class SrvTarget(
+    public val gioSrvTargetPointer: CPointer<GSrvTarget>,
+) : ProxyInstance(gioSrvTargetPointer) {
+    /**
+     * Creates a new #GSrvTarget with the given parameters.
+     *
+     * You should not need to use this; normally #GSrvTargets are
+     * created by #GResolver.
+     *
+     * @param hostname the host that the service is running on
+     * @param port the port that the service is running on
+     * @param priority the target's priority
+     * @param weight the target's weight
+     * @return a new #GSrvTarget.
+     * @since 2.22
+     */
+    public constructor(
+        hostname: String,
+        port: guint16,
+        priority: guint16,
+        weight: guint16,
+    ) : this(g_srv_target_new(hostname, port, priority, weight)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies @target
      *
@@ -51,8 +75,7 @@ public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : P
      */
     @GioVersion2_22
     public fun copy(): SrvTarget = g_srv_target_copy(gioSrvTargetPointer)!!.run {
-        SrvTarget(this)
-    }
+        SrvTarget(this)}
 
     /**
      * Frees @target
@@ -72,8 +95,7 @@ public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : P
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getHostname(): String =
-        g_srv_target_get_hostname(gioSrvTargetPointer)?.toKString() ?: error("Expected not null string")
+    public fun getHostname(): String = g_srv_target_get_hostname(gioSrvTargetPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @target's port
@@ -108,22 +130,6 @@ public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : P
 
     public companion object {
         /**
-         * Creates a new #GSrvTarget with the given parameters.
-         *
-         * You should not need to use this; normally #GSrvTargets are
-         * created by #GResolver.
-         *
-         * @param hostname the host that the service is running on
-         * @param port the port that the service is running on
-         * @param priority the target's priority
-         * @param weight the target's weight
-         * @return a new #GSrvTarget.
-         * @since 2.22
-         */
-        public fun new(hostname: String, port: guint16, priority: guint16, weight: guint16): SrvTarget =
-            SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
-
-        /**
          * Sorts @targets in place according to the algorithm in RFC 2782.
          *
          * @param targets a #GList of #GSrvTarget
@@ -132,8 +138,7 @@ public class SrvTarget(public val gioSrvTargetPointer: CPointer<GSrvTarget>) : P
          */
         @GioVersion2_22
         public fun listSort(targets: List): List = g_srv_target_list_sort(targets.glibListPointer)!!.run {
-            List(this)
-        }
+            List(this)}
 
         /**
          * Get the GType of SrvTarget

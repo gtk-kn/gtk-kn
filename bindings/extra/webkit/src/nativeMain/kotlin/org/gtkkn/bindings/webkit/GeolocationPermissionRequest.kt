@@ -42,7 +42,8 @@ import org.gtkkn.native.webkit.webkit_geolocation_permission_request_get_type
  * does not match the name of a valid `.desktop` file.
  */
 public class GeolocationPermissionRequest(
-    public val webkitGeolocationPermissionRequestPointer: CPointer<WebKitGeolocationPermissionRequest>,
+    public val webkitGeolocationPermissionRequestPointer:
+            CPointer<WebKitGeolocationPermissionRequest>,
 ) : Object(webkitGeolocationPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
@@ -51,13 +52,10 @@ public class GeolocationPermissionRequest(
 
     public companion object : TypeCompanion<GeolocationPermissionRequest> {
         override val type: GeneratedClassKGType<GeolocationPermissionRequest> =
-            GeneratedClassKGType(getTypeOrNull("webkit_geolocation_permission_request_get_type")!!) {
-                GeolocationPermissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_geolocation_permission_request_get_type")!!) { GeolocationPermissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of GeolocationPermissionRequest

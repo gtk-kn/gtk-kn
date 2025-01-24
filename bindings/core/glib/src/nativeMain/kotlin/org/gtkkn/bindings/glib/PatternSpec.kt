@@ -3,9 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GPatternSpec
@@ -18,9 +21,6 @@ import org.gtkkn.native.glib.g_pattern_spec_new
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_pattern_spec_get_type
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GPatternSpec` struct is the 'compiled' form of a glob-style pattern.
@@ -40,8 +40,19 @@ import kotlin.Unit
  * instead of [func@GLib.pattern_match_simple]. This avoids the overhead of repeated
  * pattern compilation.
  */
-public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpec>) :
-    ProxyInstance(glibPatternSpecPointer) {
+public class PatternSpec(
+    public val glibPatternSpecPointer: CPointer<GPatternSpec>,
+) : ProxyInstance(glibPatternSpecPointer) {
+    /**
+     * Compiles a pattern to a #GPatternSpec.
+     *
+     * @param pattern a zero-terminated UTF-8 encoded string
+     * @return a newly-allocated #GPatternSpec
+     */
+    public constructor(pattern: String) : this(g_pattern_spec_new(pattern)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies @pspec in a new #GPatternSpec.
      *
@@ -50,8 +61,7 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
      */
     @GLibVersion2_70
     public fun copy(): PatternSpec = g_pattern_spec_copy(glibPatternSpecPointer)!!.run {
-        PatternSpec(this)
-    }
+        PatternSpec(this)}
 
     /**
      * Compares two compiled pattern specs and returns whether they will
@@ -60,8 +70,7 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
      * @param pspec2 another #GPatternSpec
      * @return Whether the compiled patterns are equal
      */
-    public fun equal(pspec2: PatternSpec): Boolean =
-        g_pattern_spec_equal(glibPatternSpecPointer, pspec2.glibPatternSpecPointer).asBoolean()
+    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(glibPatternSpecPointer, pspec2.glibPatternSpecPointer).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
@@ -95,8 +104,11 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun match(stringLength: gsize, string: String, stringReversed: String? = null): Boolean =
-        g_pattern_spec_match(glibPatternSpecPointer, stringLength, string, stringReversed).asBoolean()
+    public fun match(
+        stringLength: gsize,
+        string: String,
+        stringReversed: String? = null,
+    ): Boolean = g_pattern_spec_match(glibPatternSpecPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a compiled pattern. If the string is to be
@@ -108,18 +120,9 @@ public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun matchString(string: String): Boolean =
-        g_pattern_spec_match_string(glibPatternSpecPointer, string).asBoolean()
+    public fun matchString(string: String): Boolean = g_pattern_spec_match_string(glibPatternSpecPointer, string).asBoolean()
 
     public companion object {
-        /**
-         * Compiles a pattern to a #GPatternSpec.
-         *
-         * @param pattern a zero-terminated UTF-8 encoded string
-         * @return a newly-allocated #GPatternSpec
-         */
-        public fun new(pattern: String): PatternSpec = PatternSpec(g_pattern_spec_new(pattern)!!.reinterpret())
-
         /**
          * Get the GType of PatternSpec
          *

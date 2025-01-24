@@ -3,15 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -83,11 +82,6 @@ import org.gtkkn.native.graphene.graphene_matrix_transpose
 import org.gtkkn.native.graphene.graphene_matrix_unproject_point3d
 import org.gtkkn.native.graphene.graphene_matrix_untransform_bounds
 import org.gtkkn.native.graphene.graphene_matrix_untransform_point
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure capable of holding a 4x4 matrix.
@@ -101,38 +95,18 @@ import kotlin.native.ref.createCleaner
  * - parameter `xx`: xx: Out parameter is not supported
  * - parameter `v`: v: Out parameter is not supported
  */
-public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(grapheneMatrixPointer) {
+public class Matrix(
+    public val grapheneMatrixPointer: CPointer<graphene_matrix_t>,
+) : ProxyInstance(grapheneMatrixPointer) {
     /**
-     * Allocate a new Matrix.
+     * Allocates a new #graphene_matrix_t.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * @return the newly allocated matrix
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_matrix_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_matrix_t>, Cleaner>,
-    ) : this(grapheneMatrixPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Matrix using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_matrix_t>().ptr)
+    public constructor() : this(graphene_matrix_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Decomposes a transformation matrix into its component transformations.
@@ -150,15 +124,13 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @param perspective the perspective vector
      * @return `true` if the matrix could be decomposed
      */
-    public fun decompose(translate: Vec3, scale: Vec3, rotate: Quaternion, shear: Vec3, perspective: Vec4): Boolean =
-        graphene_matrix_decompose(
-            grapheneMatrixPointer,
-            translate.grapheneVec3Pointer,
-            scale.grapheneVec3Pointer,
-            rotate.grapheneQuaternionPointer,
-            shear.grapheneVec3Pointer,
-            perspective.grapheneVec4Pointer
-        )
+    public fun decompose(
+        translate: Vec3,
+        scale: Vec3,
+        rotate: Quaternion,
+        shear: Vec3,
+        perspective: Vec4,
+    ): Boolean = graphene_matrix_decompose(grapheneMatrixPointer, translate.grapheneVec3Pointer, scale.grapheneVec3Pointer, rotate.grapheneQuaternionPointer, shear.grapheneVec3Pointer, perspective.grapheneVec4Pointer)
 
     /**
      * Computes the determinant of the given matrix.
@@ -209,8 +181,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun equalFast(b: Matrix): Boolean =
-        graphene_matrix_equal_fast(grapheneMatrixPointer, b.grapheneMatrixPointer)
+    public fun equalFast(b: Matrix): Boolean = graphene_matrix_equal_fast(grapheneMatrixPointer, b.grapheneMatrixPointer)
 
     /**
      * Frees the resources allocated by graphene_matrix_alloc().
@@ -229,8 +200,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getRow(index: guint, res: Vec4): Unit =
-        graphene_matrix_get_row(grapheneMatrixPointer, index, res.grapheneVec4Pointer)
+    public fun getRow(index: guint, res: Vec4): Unit = graphene_matrix_get_row(grapheneMatrixPointer, index, res.grapheneVec4Pointer)
 
     /**
      * Retrieves the value at the given @row and @col index.
@@ -322,10 +292,15 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFrom2d(xx: gdouble, yx: gdouble, xy: gdouble, yy: gdouble, x0: gdouble, y0: gdouble): Matrix =
-        graphene_matrix_init_from_2d(grapheneMatrixPointer, xx, yx, xy, yy, x0, y0)!!.run {
-            Matrix(this)
-        }
+    public fun initFrom2d(
+        xx: gdouble,
+        yx: gdouble,
+        xy: gdouble,
+        yy: gdouble,
+        x0: gdouble,
+        y0: gdouble,
+    ): Matrix = graphene_matrix_init_from_2d(grapheneMatrixPointer, xx, yx, xy, yy, x0, y0)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t using the values of the
@@ -336,10 +311,8 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromMatrix(src: Matrix): Matrix =
-        graphene_matrix_init_from_matrix(grapheneMatrixPointer, src.grapheneMatrixPointer)!!.run {
-            Matrix(this)
-        }
+    public fun initFromMatrix(src: Matrix): Matrix = graphene_matrix_init_from_matrix(grapheneMatrixPointer, src.grapheneMatrixPointer)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with the given four row
@@ -353,15 +326,13 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromVec4(v0: Vec4, v1: Vec4, v2: Vec4, v3: Vec4): Matrix = graphene_matrix_init_from_vec4(
-        grapheneMatrixPointer,
-        v0.grapheneVec4Pointer,
-        v1.grapheneVec4Pointer,
-        v2.grapheneVec4Pointer,
-        v3.grapheneVec4Pointer
-    )!!.run {
-        Matrix(this)
-    }
+    public fun initFromVec4(
+        v0: Vec4,
+        v1: Vec4,
+        v2: Vec4,
+        v3: Vec4,
+    ): Matrix = graphene_matrix_init_from_vec4(grapheneMatrixPointer, v0.grapheneVec4Pointer, v1.grapheneVec4Pointer, v2.grapheneVec4Pointer, v3.grapheneVec4Pointer)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t compatible with #graphene_frustum_t.
@@ -386,8 +357,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
         zNear: gfloat,
         zFar: gfloat,
     ): Matrix = graphene_matrix_init_frustum(grapheneMatrixPointer, left, right, bottom, top, zNear, zFar)!!.run {
-        Matrix(this)
-    }
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with the identity matrix.
@@ -397,8 +367,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      */
     @GrapheneVersion1_0
     public fun initIdentity(): Matrix = graphene_matrix_init_identity(grapheneMatrixPointer)!!.run {
-        Matrix(this)
-    }
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t so that it positions the "camera"
@@ -426,14 +395,12 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initLookAt(eye: Vec3, center: Vec3, up: Vec3): Matrix = graphene_matrix_init_look_at(
-        grapheneMatrixPointer,
-        eye.grapheneVec3Pointer,
-        center.grapheneVec3Pointer,
-        up.grapheneVec3Pointer
-    )!!.run {
-        Matrix(this)
-    }
+    public fun initLookAt(
+        eye: Vec3,
+        center: Vec3,
+        up: Vec3,
+    ): Matrix = graphene_matrix_init_look_at(grapheneMatrixPointer, eye.grapheneVec3Pointer, center.grapheneVec3Pointer, up.grapheneVec3Pointer)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with an orthographic projection.
@@ -456,8 +423,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
         zNear: gfloat,
         zFar: gfloat,
     ): Matrix = graphene_matrix_init_ortho(grapheneMatrixPointer, left, right, top, bottom, zNear, zFar)!!.run {
-        Matrix(this)
-    }
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with a perspective projection.
@@ -470,10 +436,13 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initPerspective(fovy: gfloat, aspect: gfloat, zNear: gfloat, zFar: gfloat): Matrix =
-        graphene_matrix_init_perspective(grapheneMatrixPointer, fovy, aspect, zNear, zFar)!!.run {
-            Matrix(this)
-        }
+    public fun initPerspective(
+        fovy: gfloat,
+        aspect: gfloat,
+        zNear: gfloat,
+        zFar: gfloat,
+    ): Matrix = graphene_matrix_init_perspective(grapheneMatrixPointer, fovy, aspect, zNear, zFar)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes @m to represent a rotation of @angle degrees on
@@ -485,10 +454,8 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initRotate(angle: gfloat, axis: Vec3): Matrix =
-        graphene_matrix_init_rotate(grapheneMatrixPointer, angle, axis.grapheneVec3Pointer)!!.run {
-            Matrix(this)
-        }
+    public fun initRotate(angle: gfloat, axis: Vec3): Matrix = graphene_matrix_init_rotate(grapheneMatrixPointer, angle, axis.grapheneVec3Pointer)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with the given scaling factors.
@@ -500,10 +467,12 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initScale(x: gfloat, y: gfloat, z: gfloat): Matrix =
-        graphene_matrix_init_scale(grapheneMatrixPointer, x, y, z)!!.run {
-            Matrix(this)
-        }
+    public fun initScale(
+        x: gfloat,
+        y: gfloat,
+        z: gfloat,
+    ): Matrix = graphene_matrix_init_scale(grapheneMatrixPointer, x, y, z)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with a skew transformation
@@ -515,10 +484,8 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initSkew(xSkew: gfloat, ySkew: gfloat): Matrix =
-        graphene_matrix_init_skew(grapheneMatrixPointer, xSkew, ySkew)!!.run {
-            Matrix(this)
-        }
+    public fun initSkew(xSkew: gfloat, ySkew: gfloat): Matrix = graphene_matrix_init_skew(grapheneMatrixPointer, xSkew, ySkew)!!.run {
+        Matrix(this)}
 
     /**
      * Initializes a #graphene_matrix_t with a translation to the
@@ -529,10 +496,8 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initTranslate(p: Point3d): Matrix =
-        graphene_matrix_init_translate(grapheneMatrixPointer, p.graphenePoint3dPointer)!!.run {
-            Matrix(this)
-        }
+    public fun initTranslate(p: Point3d): Matrix = graphene_matrix_init_translate(grapheneMatrixPointer, p.graphenePoint3dPointer)!!.run {
+        Matrix(this)}
 
     /**
      * Linearly interpolates the two given #graphene_matrix_t by
@@ -549,8 +514,11 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(b: Matrix, factor: gdouble, res: Matrix): Unit =
-        graphene_matrix_interpolate(grapheneMatrixPointer, b.grapheneMatrixPointer, factor, res.grapheneMatrixPointer)
+    public fun interpolate(
+        b: Matrix,
+        factor: gdouble,
+        res: Matrix,
+    ): Unit = graphene_matrix_interpolate(grapheneMatrixPointer, b.grapheneMatrixPointer, factor, res.grapheneMatrixPointer)
 
     /**
      * Inverts the given matrix.
@@ -613,8 +581,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun multiply(b: Matrix, res: Matrix): Unit =
-        graphene_matrix_multiply(grapheneMatrixPointer, b.grapheneMatrixPointer, res.grapheneMatrixPointer)
+    public fun multiply(b: Matrix, res: Matrix): Unit = graphene_matrix_multiply(grapheneMatrixPointer, b.grapheneMatrixPointer, res.grapheneMatrixPointer)
 
     /**
      * Compares the two given #graphene_matrix_t matrices and checks
@@ -628,8 +595,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun near(b: Matrix, epsilon: gfloat): Boolean =
-        graphene_matrix_near(grapheneMatrixPointer, b.grapheneMatrixPointer, epsilon)
+    public fun near(b: Matrix, epsilon: gfloat): Boolean = graphene_matrix_near(grapheneMatrixPointer, b.grapheneMatrixPointer, epsilon)
 
     /**
      * Normalizes the given #graphene_matrix_t.
@@ -638,8 +604,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun normalize(res: Matrix): Unit =
-        graphene_matrix_normalize(grapheneMatrixPointer, res.grapheneMatrixPointer)
+    public fun normalize(res: Matrix): Unit = graphene_matrix_normalize(grapheneMatrixPointer, res.grapheneMatrixPointer)
 
     /**
      * Applies a perspective of @depth to the matrix.
@@ -650,8 +615,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun perspective(depth: gfloat, res: Matrix): Unit =
-        graphene_matrix_perspective(grapheneMatrixPointer, depth, res.grapheneMatrixPointer)
+    public fun perspective(depth: gfloat, res: Matrix): Unit = graphene_matrix_perspective(grapheneMatrixPointer, depth, res.grapheneMatrixPointer)
 
     /**
      * Prints the contents of a matrix to the standard error stream.
@@ -673,8 +637,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun projectPoint(p: Point, res: Point): Unit =
-        graphene_matrix_project_point(grapheneMatrixPointer, p.graphenePointPointer, res.graphenePointPointer)
+    public fun projectPoint(p: Point, res: Point): Unit = graphene_matrix_project_point(grapheneMatrixPointer, p.graphenePointPointer, res.graphenePointPointer)
 
     /**
      * Projects all corners of a #graphene_rect_t using the given matrix.
@@ -687,8 +650,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun projectRect(r: Rect, res: Quad): Unit =
-        graphene_matrix_project_rect(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneQuadPointer)
+    public fun projectRect(r: Rect, res: Quad): Unit = graphene_matrix_project_rect(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneQuadPointer)
 
     /**
      * Projects a #graphene_rect_t using the given matrix.
@@ -702,8 +664,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun projectRectBounds(r: Rect, res: Rect): Unit =
-        graphene_matrix_project_rect_bounds(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneRectPointer)
+    public fun projectRectBounds(r: Rect, res: Rect): Unit = graphene_matrix_project_rect_bounds(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneRectPointer)
 
     /**
      * Adds a rotation transformation to @m, using the given @angle
@@ -717,8 +678,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun rotate(angle: gfloat, axis: Vec3): Unit =
-        graphene_matrix_rotate(grapheneMatrixPointer, angle, axis.grapheneVec3Pointer)
+    public fun rotate(angle: gfloat, axis: Vec3): Unit = graphene_matrix_rotate(grapheneMatrixPointer, angle, axis.grapheneVec3Pointer)
 
     /**
      * Adds a rotation transformation to @m, using the given
@@ -741,8 +701,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun rotateQuaternion(q: Quaternion): Unit =
-        graphene_matrix_rotate_quaternion(grapheneMatrixPointer, q.grapheneQuaternionPointer)
+    public fun rotateQuaternion(q: Quaternion): Unit = graphene_matrix_rotate_quaternion(grapheneMatrixPointer, q.grapheneQuaternionPointer)
 
     /**
      * Adds a rotation transformation around the X axis to @m, using
@@ -793,8 +752,11 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(factorX: gfloat, factorY: gfloat, factorZ: gfloat): Unit =
-        graphene_matrix_scale(grapheneMatrixPointer, factorX, factorY, factorZ)
+    public fun scale(
+        factorX: gfloat,
+        factorY: gfloat,
+        factorZ: gfloat,
+    ): Unit = graphene_matrix_scale(grapheneMatrixPointer, factorX, factorY, factorZ)
 
     /**
      * Adds a skew of @factor on the X and Y axis to the given matrix.
@@ -837,8 +799,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun transformBounds(r: Rect, res: Rect): Unit =
-        graphene_matrix_transform_bounds(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneRectPointer)
+    public fun transformBounds(r: Rect, res: Rect): Unit = graphene_matrix_transform_bounds(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneRectPointer)
 
     /**
      * Transforms the vertices of a #graphene_box_t using the given matrix @m.
@@ -852,8 +813,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun transformBox(b: Box, res: Box): Unit =
-        graphene_matrix_transform_box(grapheneMatrixPointer, b.grapheneBoxPointer, res.grapheneBoxPointer)
+    public fun transformBox(b: Box, res: Box): Unit = graphene_matrix_transform_box(grapheneMatrixPointer, b.grapheneBoxPointer, res.grapheneBoxPointer)
 
     /**
      * Transforms the given #graphene_point_t using the matrix @m.
@@ -870,8 +830,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun transformPoint(p: Point, res: Point): Unit =
-        graphene_matrix_transform_point(grapheneMatrixPointer, p.graphenePointPointer, res.graphenePointPointer)
+    public fun transformPoint(p: Point, res: Point): Unit = graphene_matrix_transform_point(grapheneMatrixPointer, p.graphenePointPointer, res.graphenePointPointer)
 
     /**
      * Transforms the given #graphene_point3d_t using the matrix @m.
@@ -887,8 +846,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun transformPoint3d(p: Point3d, res: Point3d): Unit =
-        graphene_matrix_transform_point3d(grapheneMatrixPointer, p.graphenePoint3dPointer, res.graphenePoint3dPointer)
+    public fun transformPoint3d(p: Point3d, res: Point3d): Unit = graphene_matrix_transform_point3d(grapheneMatrixPointer, p.graphenePoint3dPointer, res.graphenePoint3dPointer)
 
     /**
      * Transform a #graphene_ray_t using the given matrix @m.
@@ -899,8 +857,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun transformRay(r: Ray, res: Ray): Unit =
-        graphene_matrix_transform_ray(grapheneMatrixPointer, r.grapheneRayPointer, res.grapheneRayPointer)
+    public fun transformRay(r: Ray, res: Ray): Unit = graphene_matrix_transform_ray(grapheneMatrixPointer, r.grapheneRayPointer, res.grapheneRayPointer)
 
     /**
      * Transforms each corner of a #graphene_rect_t using the given matrix @m.
@@ -915,8 +872,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun transformRect(r: Rect, res: Quad): Unit =
-        graphene_matrix_transform_rect(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneQuadPointer)
+    public fun transformRect(r: Rect, res: Quad): Unit = graphene_matrix_transform_rect(grapheneMatrixPointer, r.grapheneRectPointer, res.grapheneQuadPointer)
 
     /**
      * Transforms a #graphene_sphere_t using the given matrix @m. The
@@ -928,8 +884,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun transformSphere(s: Sphere, res: Sphere): Unit =
-        graphene_matrix_transform_sphere(grapheneMatrixPointer, s.grapheneSpherePointer, res.grapheneSpherePointer)
+    public fun transformSphere(s: Sphere, res: Sphere): Unit = graphene_matrix_transform_sphere(grapheneMatrixPointer, s.grapheneSpherePointer, res.grapheneSpherePointer)
 
     /**
      * Transforms the given #graphene_vec3_t using the matrix @m.
@@ -945,8 +900,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun transformVec3(v: Vec3, res: Vec3): Unit =
-        graphene_matrix_transform_vec3(grapheneMatrixPointer, v.grapheneVec3Pointer, res.grapheneVec3Pointer)
+    public fun transformVec3(v: Vec3, res: Vec3): Unit = graphene_matrix_transform_vec3(grapheneMatrixPointer, v.grapheneVec3Pointer, res.grapheneVec3Pointer)
 
     /**
      * Transforms the given #graphene_vec4_t using the matrix @m.
@@ -958,8 +912,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun transformVec4(v: Vec4, res: Vec4): Unit =
-        graphene_matrix_transform_vec4(grapheneMatrixPointer, v.grapheneVec4Pointer, res.grapheneVec4Pointer)
+    public fun transformVec4(v: Vec4, res: Vec4): Unit = graphene_matrix_transform_vec4(grapheneMatrixPointer, v.grapheneVec4Pointer, res.grapheneVec4Pointer)
 
     /**
      * Adds a translation transformation to @m using the coordinates
@@ -972,8 +925,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun translate(pos: Point3d): Unit =
-        graphene_matrix_translate(grapheneMatrixPointer, pos.graphenePoint3dPointer)
+    public fun translate(pos: Point3d): Unit = graphene_matrix_translate(grapheneMatrixPointer, pos.graphenePoint3dPointer)
 
     /**
      * Transposes the given matrix.
@@ -983,8 +935,7 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun transpose(res: Matrix): Unit =
-        graphene_matrix_transpose(grapheneMatrixPointer, res.grapheneMatrixPointer)
+    public fun transpose(res: Matrix): Unit = graphene_matrix_transpose(grapheneMatrixPointer, res.grapheneMatrixPointer)
 
     /**
      * Unprojects the given @point using the @projection matrix and
@@ -998,13 +949,11 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun unprojectPoint3d(modelview: Matrix, point: Point3d, res: Point3d): Unit =
-        graphene_matrix_unproject_point3d(
-            grapheneMatrixPointer,
-            modelview.grapheneMatrixPointer,
-            point.graphenePoint3dPointer,
-            res.graphenePoint3dPointer
-        )
+    public fun unprojectPoint3d(
+        modelview: Matrix,
+        point: Point3d,
+        res: Point3d,
+    ): Unit = graphene_matrix_unproject_point3d(grapheneMatrixPointer, modelview.grapheneMatrixPointer, point.graphenePoint3dPointer, res.graphenePoint3dPointer)
 
     /**
      * Undoes the transformation on the corners of a #graphene_rect_t using the
@@ -1017,12 +966,11 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun untransformBounds(r: Rect, bounds: Rect, res: Rect): Unit = graphene_matrix_untransform_bounds(
-        grapheneMatrixPointer,
-        r.grapheneRectPointer,
-        bounds.grapheneRectPointer,
-        res.grapheneRectPointer
-    )
+    public fun untransformBounds(
+        r: Rect,
+        bounds: Rect,
+        res: Rect,
+    ): Unit = graphene_matrix_untransform_bounds(grapheneMatrixPointer, r.grapheneRectPointer, bounds.grapheneRectPointer, res.grapheneRectPointer)
 
     /**
      * Undoes the transformation of a #graphene_point_t using the
@@ -1036,22 +984,13 @@ public class Matrix(public val grapheneMatrixPointer: CPointer<graphene_matrix_t
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun untransformPoint(p: Point, bounds: Rect, res: Point): Boolean = graphene_matrix_untransform_point(
-        grapheneMatrixPointer,
-        p.graphenePointPointer,
-        bounds.grapheneRectPointer,
-        res.graphenePointPointer
-    )
+    public fun untransformPoint(
+        p: Point,
+        bounds: Rect,
+        res: Point,
+    ): Boolean = graphene_matrix_untransform_point(grapheneMatrixPointer, p.graphenePointPointer, bounds.grapheneRectPointer, res.graphenePointPointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_matrix_t.
-         *
-         * @return the newly allocated matrix
-         * @since 1.0
-         */
-        public fun alloc(): Matrix = Matrix(graphene_matrix_alloc()!!)
-
         /**
          * Get the GType of Matrix
          *

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,7 +23,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.String
 
 /**
  * A helper widget for setting a window's title and subtitle.
@@ -39,8 +39,9 @@ import kotlin.String
  *
  * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
  */
-public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTitle>) :
-    Widget(adwWindowTitlePointer.reinterpret()),
+public class WindowTitle(
+    public val adwWindowTitlePointer: CPointer<AdwWindowTitle>,
+) : Widget(adwWindowTitlePointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -63,7 +64,6 @@ public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTit
          * @return the subtitle
          */
         get() = adw_window_title_get_subtitle(adwWindowTitlePointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the subtitle of @self.
          *
@@ -86,7 +86,6 @@ public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTit
          * @return the title
          */
         get() = adw_window_title_get_title(adwWindowTitlePointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the title of @self.
          *
@@ -108,11 +107,10 @@ public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTit
 
     public companion object : TypeCompanion<WindowTitle> {
         override val type: GeneratedClassKGType<WindowTitle> =
-            GeneratedClassKGType(getTypeOrNull("adw_window_title_get_type")!!) { WindowTitle(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_window_title_get_type")!!) { WindowTitle(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of WindowTitle

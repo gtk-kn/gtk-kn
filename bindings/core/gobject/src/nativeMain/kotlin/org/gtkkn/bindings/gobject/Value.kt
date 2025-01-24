@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.Char
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -18,6 +22,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -104,13 +109,6 @@ import org.gtkkn.native.gobject.g_value_transform
 import org.gtkkn.native.gobject.g_value_type_compatible
 import org.gtkkn.native.gobject.g_value_type_transformable
 import org.gtkkn.native.gobject.g_value_unset
-import kotlin.Boolean
-import kotlin.Char
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used to hold different types of values.
@@ -129,29 +127,18 @@ import kotlin.native.ref.createCleaner
  * - parameter `transform_func`: ValueTransform
  * - field `data`: missing cType for GirUnion _Value__data__union
  */
-public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectValuePointer) {
+public class Value(
+    public val gobjectValuePointer: CPointer<GValue>,
+) : ProxyInstance(gobjectValuePointer) {
     /**
      * Allocate a new Value.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Value and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GValue>, Cleaner>,
-    ) : this(gobjectValuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GValue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Value using the provided [AutofreeScope].
@@ -188,8 +175,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      *          should be unreferenced when no longer needed.
      */
     public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer)?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Get the contents of a %G_TYPE_PARAM #GValue, increasing its
@@ -199,8 +185,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      *     unreferenced when no longer needed.
      */
     public fun dupParam(): ParamSpec = g_value_dup_param(gobjectValuePointer)!!.run {
-        ParamSpec.ParamSpecImpl(this)
-    }
+        ParamSpec.ParamSpecImpl(this)}
 
     /**
      * Get a copy the contents of a %G_TYPE_STRING #GValue.
@@ -219,8 +204,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      */
     @GObjectVersion2_26
     public fun dupVariant(): Variant? = g_value_dup_variant(gobjectValuePointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Determines if @value will fit inside the size of a pointer value.
@@ -318,8 +302,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @return object contents of @value
      */
     public fun getObject(): Object? = g_value_get_object(gobjectValuePointer)?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Get the contents of a %G_TYPE_PARAM #GValue.
@@ -327,8 +310,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @return #GParamSpec content of @value
      */
     public fun getParam(): ParamSpec = g_value_get_param(gobjectValuePointer)!!.run {
-        ParamSpec.ParamSpecImpl(this)
-    }
+        ParamSpec.ParamSpecImpl(this)}
 
     /**
      * Get the contents of a pointer #GValue.
@@ -389,8 +371,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      */
     @GObjectVersion2_26
     public fun getVariant(): Variant? = g_value_get_variant(gobjectValuePointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Initializes @value with the default value of @type.
@@ -399,8 +380,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @return the #GValue structure that has been passed in
      */
     public fun `init`(gType: GType): Value = g_value_init(gobjectValuePointer, gType)!!.run {
-        Value(this)
-    }
+        Value(this)}
 
     /**
      * Initializes and sets @value from an instantiatable type via the
@@ -415,8 +395,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @since 2.42
      */
     @GObjectVersion2_42
-    public fun initFromInstance(instance: TypeInstance): Unit =
-        g_value_init_from_instance(gobjectValuePointer, instance.gobjectTypeInstancePointer)
+    public fun initFromInstance(instance: TypeInstance): Unit = g_value_init_from_instance(gobjectValuePointer, instance.gobjectTypeInstancePointer)
 
     /**
      * Returns the value contents as pointer. This function asserts that
@@ -434,8 +413,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @return the #GValue structure that has been passed in
      */
     public fun reset(): Value = g_value_reset(gobjectValuePointer)!!.run {
-        Value(this)
-    }
+        Value(this)}
 
     /**
      * Set the contents of a %G_TYPE_BOOLEAN #GValue to @v_boolean.
@@ -456,8 +434,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      *
      * @param vBoxed duplicated unowned boxed value to be set
      */
-    public fun setBoxedTakeOwnership(vBoxed: gpointer? = null): Unit =
-        g_value_set_boxed_take_ownership(gobjectValuePointer, vBoxed)
+    public fun setBoxedTakeOwnership(vBoxed: gpointer? = null): Unit = g_value_set_boxed_take_ownership(gobjectValuePointer, vBoxed)
 
     /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
@@ -534,8 +511,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @since 2.66
      */
     @GObjectVersion2_66
-    public fun setInternedString(vString: String? = null): Unit =
-        g_value_set_interned_string(gobjectValuePointer, vString)
+    public fun setInternedString(vString: String? = null): Unit = g_value_set_interned_string(gobjectValuePointer, vString)
 
     /**
      * Set the contents of a %G_TYPE_LONG #GValue to @v_long.
@@ -559,32 +535,28 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      *
      * @param vObject object value to be set
      */
-    public fun setObject(vObject: Object? = null): Unit =
-        g_value_set_object(gobjectValuePointer, vObject?.gobjectObjectPointer?.reinterpret())
+    public fun setObject(vObject: Object? = null): Unit = g_value_set_object(gobjectValuePointer, vObject?.gobjectObjectPointer?.reinterpret())
 
     /**
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param vObject object value to be set
      */
-    public fun setObjectTakeOwnership(vObject: gpointer? = null): Unit =
-        g_value_set_object_take_ownership(gobjectValuePointer, vObject)
+    public fun setObjectTakeOwnership(vObject: gpointer? = null): Unit = g_value_set_object_take_ownership(gobjectValuePointer, vObject)
 
     /**
      * Set the contents of a %G_TYPE_PARAM #GValue to @param.
      *
      * @param param the #GParamSpec to be set
      */
-    public fun setParam(`param`: ParamSpec? = null): Unit =
-        g_value_set_param(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
+    public fun setParam(`param`: ParamSpec? = null): Unit = g_value_set_param(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
 
     /**
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param param the #GParamSpec to be set
      */
-    public fun setParamTakeOwnership(`param`: ParamSpec? = null): Unit =
-        g_value_set_param_take_ownership(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
+    public fun setParamTakeOwnership(`param`: ParamSpec? = null): Unit = g_value_set_param_take_ownership(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
 
     /**
      * Set the contents of a pointer #GValue to @v_pointer.
@@ -667,8 +639,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun setVariant(variant: Variant? = null): Unit =
-        g_value_set_variant(gobjectValuePointer, variant?.glibVariantPointer)
+    public fun setVariant(variant: Variant? = null): Unit = g_value_set_variant(gobjectValuePointer, variant?.glibVariantPointer)
 
     /**
      * Steal ownership on contents of a %G_TYPE_STRING #GValue.
@@ -723,8 +694,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun takeParam(`param`: ParamSpec? = null): Unit =
-        g_value_take_param(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
+    public fun takeParam(`param`: ParamSpec? = null): Unit = g_value_take_param(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
 
     /**
      * Set the contents of a variant #GValue to @variant, and takes over
@@ -744,8 +714,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun takeVariant(variant: Variant? = null): Unit =
-        g_value_take_variant(gobjectValuePointer, variant?.glibVariantPointer)
+    public fun takeVariant(variant: Variant? = null): Unit = g_value_take_variant(gobjectValuePointer, variant?.glibVariantPointer)
 
     /**
      * Tries to cast the contents of @src_value into a type appropriate
@@ -760,8 +729,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
      * @return Whether a transformation rule was found and could be applied.
      *  Upon failing transformations, @dest_value is left untouched.
      */
-    public fun transform(destValue: Value): Boolean =
-        g_value_transform(gobjectValuePointer, destValue.gobjectValuePointer).asBoolean()
+    public fun transform(destValue: Value): Boolean = g_value_transform(gobjectValuePointer, destValue.gobjectValuePointer).asBoolean()
 
     /**
      * Clears the current value in @value (if any) and "unsets" the type,
@@ -782,8 +750,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
          * @param destType destination type for copying.
          * @return true if g_value_copy() is possible with @src_type and @dest_type.
          */
-        public fun typeCompatible(srcType: GType, destType: GType): Boolean =
-            g_value_type_compatible(srcType, destType).asBoolean()
+        public fun typeCompatible(srcType: GType, destType: GType): Boolean = g_value_type_compatible(srcType, destType).asBoolean()
 
         /**
          * Check whether g_value_transform() is able to transform values
@@ -795,8 +762,7 @@ public class Value(public val gobjectValuePointer: CPointer<GValue>, cleaner: Cl
          * @param destType Target type.
          * @return true if the transformation is possible, false otherwise.
          */
-        public fun typeTransformable(srcType: GType, destType: GType): Boolean =
-            g_value_type_transformable(srcType, destType).asBoolean()
+        public fun typeTransformable(srcType: GType, destType: GType): Boolean = g_value_type_transformable(srcType, destType).asBoolean()
 
         /**
          * Get the GType of Value

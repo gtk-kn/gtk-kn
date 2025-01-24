@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,6 +16,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gint
@@ -28,12 +32,6 @@ import org.gtkkn.native.pango.pango_layout_line_get_type
 import org.gtkkn.native.pango.pango_layout_line_is_paragraph_start
 import org.gtkkn.native.pango.pango_layout_line_ref
 import org.gtkkn.native.pango.pango_layout_line_unref
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoLayoutLine` represents one of the lines resulting from laying
@@ -50,16 +48,15 @@ import kotlin.native.ref.createCleaner
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
  */
-public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoLayoutLinePointer) {
+public class LayoutLine(
+    public val pangoLayoutLinePointer: CPointer<PangoLayoutLine>,
+) : ProxyInstance(pangoLayoutLinePointer) {
     /**
      * the layout this line belongs to, might be null
      */
     public var layout: Layout?
         get() = pangoLayoutLinePointer.pointed.layout?.run {
-            Layout(this)
-        }
-
+            Layout(this)}
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.layout = value?.pangoLayoutPointer
@@ -70,7 +67,6 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     public var startIndex: gint
         get() = pangoLayoutLinePointer.pointed.start_index
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.start_index = value
@@ -81,7 +77,6 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     public var length: gint
         get() = pangoLayoutLinePointer.pointed.length
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.length = value
@@ -93,9 +88,7 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     public var runs: SList?
         get() = pangoLayoutLinePointer.pointed.runs?.run {
-            SList(this)
-        }
-
+            SList(this)}
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.runs = value?.glibSListPointer
@@ -106,7 +99,6 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     public var isParagraphStart: guint
         get() = pangoLayoutLinePointer.pointed.is_paragraph_start
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.is_paragraph_start = value
@@ -117,7 +109,6 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     public var resolvedDir: guint
         get() = pangoLayoutLinePointer.pointed.resolved_dir
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.resolved_dir = value
@@ -129,21 +120,9 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoLayoutLine>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to LayoutLine and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoLayoutLine>, Cleaner>,
-    ) : this(pangoLayoutLinePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoLayoutLine>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new LayoutLine using the provided [AutofreeScope].
@@ -226,11 +205,7 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(
-        pangoLayoutLinePointer,
-        inkRect?.pangoRectanglePointer,
-        logicalRect?.pangoRectanglePointer
-    )
+    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(pangoLayoutLinePointer, inkRect?.pangoRectanglePointer, logicalRect?.pangoRectanglePointer)
 
     /**
      * Returns the length of the line, in bytes.
@@ -254,12 +229,7 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_line_get_pixel_extents(
-            pangoLayoutLinePointer,
-            inkRect?.pangoRectanglePointer,
-            logicalRect?.pangoRectanglePointer
-        )
+    public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_pixel_extents(pangoLayoutLinePointer, inkRect?.pangoRectanglePointer, logicalRect?.pangoRectanglePointer)
 
     /**
      * Returns the resolved direction of the line.
@@ -268,10 +238,8 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getResolvedDirection(): Direction =
-        pango_layout_line_get_resolved_direction(pangoLayoutLinePointer).run {
-            Direction.fromNativeValue(this)
-        }
+    public fun getResolvedDirection(): Direction = pango_layout_line_get_resolved_direction(pangoLayoutLinePointer).run {
+        Direction.fromNativeValue(this)}
 
     /**
      * Returns the start index of the line, as byte index
@@ -300,8 +268,7 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     @PangoVersion1_10
     public fun ref(): LayoutLine? = pango_layout_line_ref(pangoLayoutLinePointer)?.run {
-        LayoutLine(this)
-    }
+        LayoutLine(this)}
 
     /**
      * Decrease the reference count of a `PangoLayoutLine` by one.
@@ -311,8 +278,7 @@ public class LayoutLine(public val pangoLayoutLinePointer: CPointer<PangoLayoutL
      */
     public fun unref(): Unit = pango_layout_line_unref(pangoLayoutLinePointer)
 
-    override fun toString(): String =
-        "LayoutLine(layout=$layout, startIndex=$startIndex, length=$length, runs=$runs, isParagraphStart=$isParagraphStart, resolvedDir=$resolvedDir)"
+    override fun toString(): String = "LayoutLine(layout=$layout, startIndex=$startIndex, length=$length, runs=$runs, isParagraphStart=$isParagraphStart, resolvedDir=$resolvedDir)"
 
     public companion object {
         /**

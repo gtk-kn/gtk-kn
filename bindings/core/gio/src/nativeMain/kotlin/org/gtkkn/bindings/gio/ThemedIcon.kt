@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -25,9 +28,6 @@ import org.gtkkn.native.gio.g_themed_icon_new_with_default_fallbacks
 import org.gtkkn.native.gio.g_themed_icon_prepend_name
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GThemedIcon` is an implementation of [iface@Gio.Icon] that supports icon
@@ -45,8 +45,9 @@ import kotlin.collections.List
  * - method `name`: Property has no getter nor setter
  * - method `use-default-fallbacks`: Property has no getter nor setter
  */
-public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIcon>) :
-    Object(gioThemedIconPointer.reinterpret()),
+public open class ThemedIcon(
+    public val gioThemedIconPointer: CPointer<GThemedIcon>,
+) : Object(gioThemedIconPointer.reinterpret()),
     Icon,
     KGTyped {
     override val gioIconPointer: CPointer<GIcon>
@@ -61,8 +62,7 @@ public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIc
          *
          * @return a list of icon names.
          */
-        get() = g_themed_icon_get_names(gioThemedIconPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+        get() = g_themed_icon_get_names(gioThemedIconPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Creates a new themed icon for @iconname.
@@ -80,10 +80,9 @@ public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIc
      *     null-terminated
      * @return a new #GThemedIcon
      */
-    public constructor(iconnames: List<String>, len: gint) : this(
-        memScoped {
-            g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()
-        }
+    public constructor(iconnames: List<String>, len: gint) : this(memScoped {
+        g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()
+    }
     )
 
     /**
@@ -110,19 +109,10 @@ public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIc
 
     public companion object : TypeCompanion<ThemedIcon> {
         override val type: GeneratedClassKGType<ThemedIcon> =
-            GeneratedClassKGType(getTypeOrNull("g_themed_icon_get_type")!!) { ThemedIcon(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_themed_icon_get_type")!!) { ThemedIcon(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
-
-        /**
-         * Creates a new themed icon for @iconname.
-         *
-         * @param iconname a string containing an icon name.
-         * @return a new #GThemedIcon.
-         */
-        public fun new(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new(iconname)!!.reinterpret())
+            GioTypeProvider.register()}
 
         /**
          * Creates a new themed icon for @iconname, and all the names
@@ -144,8 +134,7 @@ public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIc
          * @param iconname a string containing an icon name
          * @return a new #GThemedIcon.
          */
-        public fun newWithDefaultFallbacks(iconname: String): ThemedIcon =
-            ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
+        public fun withDefaultFallbacks(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
 
         /**
          * Get the GType of ThemedIcon

@@ -18,7 +18,9 @@ import org.gtkkn.native.gobject.g_io_condition_get_type
  * A bitwise combination representing a condition to watch for on an
  * event source.
  */
-public class IoCondition(public val mask: GIOCondition) : Bitfield<IoCondition> {
+public class IoCondition(
+    public val mask: GIOCondition,
+) : Bitfield<IoCondition> {
     override infix fun or(other: IoCondition): IoCondition = IoCondition(mask or other.mask)
 
     public companion object {

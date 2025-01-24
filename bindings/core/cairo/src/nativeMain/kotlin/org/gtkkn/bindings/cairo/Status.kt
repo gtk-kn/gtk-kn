@@ -53,7 +53,9 @@ import org.gtkkn.native.cairo.cairo_gobject_status_get_type
 import org.gtkkn.native.cairo.cairo_status_t
 import org.gtkkn.native.gobject.GType
 
-public enum class Status(public val nativeValue: cairo_status_t) {
+public enum class Status(
+    public val nativeValue: cairo_status_t,
+) {
     SUCCESS(CAIRO_STATUS_SUCCESS),
     NO_MEMORY(CAIRO_STATUS_NO_MEMORY),
     INVALID_RESTORE(CAIRO_STATUS_INVALID_RESTORE),
@@ -74,157 +76,131 @@ public enum class Status(public val nativeValue: cairo_status_t) {
     INVALID_VISUAL(CAIRO_STATUS_INVALID_VISUAL),
     FILE_NOT_FOUND(CAIRO_STATUS_FILE_NOT_FOUND),
     INVALID_DASH(CAIRO_STATUS_INVALID_DASH),
-
     /**
      *
      * @since 1.2
      */
     INVALID_DSC_COMMENT(CAIRO_STATUS_INVALID_DSC_COMMENT),
-
     /**
      *
      * @since 1.4
      */
     INVALID_INDEX(CAIRO_STATUS_INVALID_INDEX),
-
     /**
      *
      * @since 1.4
      */
     CLIP_NOT_REPRESENTABLE(CAIRO_STATUS_CLIP_NOT_REPRESENTABLE),
-
     /**
      *
      * @since 1.6
      */
     TEMP_FILE_ERROR(CAIRO_STATUS_TEMP_FILE_ERROR),
-
     /**
      *
      * @since 1.6
      */
     INVALID_STRIDE(CAIRO_STATUS_INVALID_STRIDE),
-
     /**
      *
      * @since 1.8
      */
     FONT_TYPE_MISMATCH(CAIRO_STATUS_FONT_TYPE_MISMATCH),
-
     /**
      *
      * @since 1.8
      */
     USER_FONT_IMMUTABLE(CAIRO_STATUS_USER_FONT_IMMUTABLE),
-
     /**
      *
      * @since 1.8
      */
     USER_FONT_ERROR(CAIRO_STATUS_USER_FONT_ERROR),
-
     /**
      *
      * @since 1.8
      */
     NEGATIVE_COUNT(CAIRO_STATUS_NEGATIVE_COUNT),
-
     /**
      *
      * @since 1.8
      */
     INVALID_CLUSTERS(CAIRO_STATUS_INVALID_CLUSTERS),
-
     /**
      *
      * @since 1.8
      */
     INVALID_SLANT(CAIRO_STATUS_INVALID_SLANT),
-
     /**
      *
      * @since 1.8
      */
     INVALID_WEIGHT(CAIRO_STATUS_INVALID_WEIGHT),
-
     /**
      *
      * @since 1.10
      */
     INVALID_SIZE(CAIRO_STATUS_INVALID_SIZE),
-
     /**
      *
      * @since 1.10
      */
     USER_FONT_NOT_IMPLEMENTED(CAIRO_STATUS_USER_FONT_NOT_IMPLEMENTED),
-
     /**
      *
      * @since 1.10
      */
     DEVICE_TYPE_MISMATCH(CAIRO_STATUS_DEVICE_TYPE_MISMATCH),
-
     /**
      *
      * @since 1.10
      */
     DEVICE_ERROR(CAIRO_STATUS_DEVICE_ERROR),
-
     /**
      *
      * @since 1.12
      */
     INVALID_MESH_CONSTRUCTION(CAIRO_STATUS_INVALID_MESH_CONSTRUCTION),
-
     /**
      *
      * @since 1.12
      */
     DEVICE_FINISHED(CAIRO_STATUS_DEVICE_FINISHED),
-
     /**
      *
      * @since 1.14
      */
     JBIG2_GLOBAL_MISSING(CAIRO_STATUS_JBIG2_GLOBAL_MISSING),
-
     /**
      *
      * @since 1.16
      */
     PNG_ERROR(CAIRO_STATUS_PNG_ERROR),
-
     /**
      *
      * @since 1.16
      */
     FREETYPE_ERROR(CAIRO_STATUS_FREETYPE_ERROR),
-
     /**
      *
      * @since 1.16
      */
     WIN32_GDI_ERROR(CAIRO_STATUS_WIN32_GDI_ERROR),
-
     /**
      *
      * @since 1.16
      */
     TAG_ERROR(CAIRO_STATUS_TAG_ERROR),
-
     /**
      *
      * @since 1.18
      */
     DWRITE_ERROR(CAIRO_STATUS_DWRITE_ERROR),
-
     /**
      *
      * @since 1.18
      */
     SVG_FONT_ERROR(CAIRO_STATUS_SVG_FONT_ERROR),
-
     /**
      *
      * @since 1.10

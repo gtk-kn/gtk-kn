@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -14,7 +15,6 @@ import org.gtkkn.native.gio.GSimplePermission
 import org.gtkkn.native.gio.g_simple_permission_get_type
 import org.gtkkn.native.gio.g_simple_permission_new
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * `GSimplePermission` is a trivial implementation of [class@Gio.Permission]
@@ -24,8 +24,9 @@ import kotlin.Boolean
  * Calling [method@Gio.Permission.acquire] or [method@Gio.Permission.release]
  * on a `GSimplePermission` will result in errors.
  */
-public open class SimplePermission(public val gioSimplePermissionPointer: CPointer<GSimplePermission>) :
-    Permission(gioSimplePermissionPointer.reinterpret()),
+public open class SimplePermission(
+    public val gioSimplePermissionPointer: CPointer<GSimplePermission>,
+) : Permission(gioSimplePermissionPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GPermission instance that represents an action that is
@@ -39,13 +40,10 @@ public open class SimplePermission(public val gioSimplePermissionPointer: CPoint
 
     public companion object : TypeCompanion<SimplePermission> {
         override val type: GeneratedClassKGType<SimplePermission> =
-            GeneratedClassKGType(getTypeOrNull("g_simple_permission_get_type")!!) {
-                SimplePermission(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_simple_permission_get_type")!!) { SimplePermission(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SimplePermission

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,6 +15,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_12
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
@@ -26,11 +29,6 @@ import org.gtkkn.native.pango.pango_matrix_get_type
 import org.gtkkn.native.pango.pango_matrix_rotate
 import org.gtkkn.native.pango.pango_matrix_scale
 import org.gtkkn.native.pango.pango_matrix_translate
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoMatrix` specifies a transformation between user-space
@@ -54,14 +52,14 @@ import kotlin.native.ref.createCleaner
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoMatrixPointer) {
+public class Matrix(
+    public val pangoMatrixPointer: CPointer<PangoMatrix>,
+) : ProxyInstance(pangoMatrixPointer) {
     /**
      * 1st component of the transformation matrix
      */
     public var xx: gdouble
         get() = pangoMatrixPointer.pointed.xx
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xx = value
@@ -72,7 +70,6 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      */
     public var xy: gdouble
         get() = pangoMatrixPointer.pointed.xy
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xy = value
@@ -83,7 +80,6 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      */
     public var yx: gdouble
         get() = pangoMatrixPointer.pointed.yx
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yx = value
@@ -94,7 +90,6 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      */
     public var yy: gdouble
         get() = pangoMatrixPointer.pointed.yy
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yy = value
@@ -105,7 +100,6 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      */
     public var x0: gdouble
         get() = pangoMatrixPointer.pointed.x0
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.x0 = value
@@ -116,7 +110,6 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      */
     public var y0: gdouble
         get() = pangoMatrixPointer.pointed.y0
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.y0 = value
@@ -128,21 +121,9 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoMatrix>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoMatrix>, Cleaner>,
-    ) : this(pangoMatrixPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoMatrix>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Matrix using the provided [AutofreeScope].
@@ -231,8 +212,7 @@ public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleane
      */
     @PangoVersion1_6
     public fun copy(): Matrix? = pango_matrix_copy(pangoMatrixPointer)?.run {
-        Matrix(this)
-    }
+        Matrix(this)}
 
     /**
      * Free a `PangoMatrix`.

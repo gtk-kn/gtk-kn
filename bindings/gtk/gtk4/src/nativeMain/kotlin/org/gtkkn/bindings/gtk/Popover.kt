@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -50,9 +53,6 @@ import org.gtkkn.native.gtk.gtk_popover_set_mnemonics_visible
 import org.gtkkn.native.gtk.gtk_popover_set_offset
 import org.gtkkn.native.gtk.gtk_popover_set_pointing_to
 import org.gtkkn.native.gtk.gtk_popover_set_position
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkPopover` is a bubble-like context popup.
@@ -139,8 +139,9 @@ import kotlin.Unit
  * - method `default-widget`: Property has no getter
  * - method `pointing-to`: Property has no getter
  */
-public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
-    Widget(gtkPopoverPointer.reinterpret()),
+public open class Popover(
+    public val gtkPopoverPointer: CPointer<GtkPopover>,
+) : Widget(gtkPopoverPointer.reinterpret()),
     Native,
     ShortcutManager,
     KGTyped {
@@ -172,7 +173,6 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return true if @popover is modal
          */
         get() = gtk_popover_get_autohide(gtkPopoverPointer).asBoolean()
-
         /**
          * Sets whether @popover is modal.
          *
@@ -200,7 +200,6 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return true if @popover will close after a modal child.
          */
         get() = gtk_popover_get_cascade_popdown(gtkPopoverPointer).asBoolean()
-
         /**
          * If @cascade_popdown is true, the popover will be
          * closed when a child modal popover is closed.
@@ -221,9 +220,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return the child widget of @popover
          */
         get() = gtk_popover_get_child(gtkPopoverPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @popover.
          *
@@ -242,7 +239,6 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return whether the popover has an arrow
          */
         get() = gtk_popover_get_has_arrow(gtkPopoverPointer).asBoolean()
-
         /**
          * Sets whether this popover should draw an arrow
          * pointing at the widget it is relative to.
@@ -262,7 +258,6 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          *   in this popover
          */
         get() = gtk_popover_get_mnemonics_visible(gtkPopoverPointer).asBoolean()
-
         /**
          * Sets whether mnemonics should be visible.
          *
@@ -280,9 +275,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
          * @return The preferred position.
          */
         get() = gtk_popover_get_position(gtkPopoverPointer).run {
-            PositionType.fromNativeValue(this)
-        }
-
+            PositionType.fromNativeValue(this)}
         /**
          * Sets the preferred position for @popover to appear.
          *
@@ -315,8 +308,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      * @param rect location to store the rectangle
      * @return true if a rectangle to point to was set.
      */
-    public open fun getPointingTo(rect: Rectangle): Boolean =
-        gtk_popover_get_pointing_to(gtkPopoverPointer, rect.gdkRectanglePointer).asBoolean()
+    public open fun getPointingTo(rect: Rectangle): Boolean = gtk_popover_get_pointing_to(gtkPopoverPointer, rect.gdkRectanglePointer).asBoolean()
 
     /**
      * Pops @popover down.
@@ -352,8 +344,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      * @param widget a child widget of @popover to set as
      *   the default, or null to unset the default widget for the popover
      */
-    public open fun setDefaultWidget(widget: Widget? = null): Unit =
-        gtk_popover_set_default_widget(gtkPopoverPointer, widget?.gtkWidgetPointer)
+    public open fun setDefaultWidget(widget: Widget? = null): Unit = gtk_popover_set_default_widget(gtkPopoverPointer, widget?.gtkWidgetPointer)
 
     /**
      * Sets the offset to use when calculating the position
@@ -365,8 +356,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      * @param xOffset the x offset to adjust the position by
      * @param yOffset the y offset to adjust the position by
      */
-    public open fun setOffset(xOffset: gint, yOffset: gint): Unit =
-        gtk_popover_set_offset(gtkPopoverPointer, xOffset, yOffset)
+    public open fun setOffset(xOffset: gint, yOffset: gint): Unit = gtk_popover_set_offset(gtkPopoverPointer, xOffset, yOffset)
 
     /**
      * Sets the rectangle that @popover points to.
@@ -375,8 +365,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      *
      * @param rect rectangle to point to
      */
-    public open fun setPointingTo(rect: Rectangle? = null): Unit =
-        gtk_popover_set_pointing_to(gtkPopoverPointer, rect?.gdkRectanglePointer)
+    public open fun setPointingTo(rect: Rectangle? = null): Unit = gtk_popover_set_pointing_to(gtkPopoverPointer, rect?.gdkRectanglePointer)
 
     /**
      * Emitted whend the user activates the default widget.
@@ -386,15 +375,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivateDefault(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkPopoverPointer,
-            "activate-default",
-            onActivateDefaultFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivateDefault(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkPopoverPointer, "activate-default", onActivateDefaultFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate-default" signal. See [onActivateDefault].
@@ -409,15 +390,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkPopoverPointer,
-            "closed",
-            onClosedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkPopoverPointer, "closed", onClosedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "closed" signal. See [onClosed].
@@ -428,11 +401,10 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
 
     public companion object : TypeCompanion<Popover> {
         override val type: GeneratedClassKGType<Popover> =
-            GeneratedClassKGType(getTypeOrNull("gtk_popover_get_type")!!) { Popover(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_popover_get_type")!!) { Popover(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Popover
@@ -444,17 +416,15 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
 }
 
 private val onActivateDefaultFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

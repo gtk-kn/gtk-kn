@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -42,9 +45,6 @@ import org.gtkkn.native.gtk.gtk_file_launcher_open_containing_folder_finish
 import org.gtkkn.native.gtk.gtk_file_launcher_set_always_ask
 import org.gtkkn.native.gtk.gtk_file_launcher_set_file
 import org.gtkkn.native.gtk.gtk_file_launcher_set_writable
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * A `GtkFileLauncher` object collects the arguments that are needed to open a
@@ -62,8 +62,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>) :
-    Object(gtkFileLauncherPointer.reinterpret()),
+public open class FileLauncher(
+    public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>,
+) : Object(gtkFileLauncherPointer.reinterpret()),
     KGTyped {
     /**
      * Whether to ask the user to choose an app for opening the file. If `FALSE`,
@@ -80,7 +81,6 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
          * @since 4.12
          */
         get() = gtk_file_launcher_get_always_ask(gtkFileLauncherPointer).asBoolean()
-
         /**
          * Sets whether to awlays ask the user to choose an app for opening the file.
          * If `FALSE`, the file might be opened with a default app or the previous choice.
@@ -105,9 +105,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
          * @since 4.10
          */
         get() = gtk_file_launcher_get_file(gtkFileLauncherPointer)?.run {
-            File.FileImpl(reinterpret())
-        }
-
+            File.FileImpl(reinterpret())}
         /**
          * Sets the file that will be opened.
          *
@@ -131,7 +129,6 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
          * @since 4.14
          */
         get() = gtk_file_launcher_get_writable(gtkFileLauncherPointer).asBoolean()
-
         /**
          * Sets whether to make the file writable for the handler.
          *
@@ -148,7 +145,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
      * @return the new `GtkFileLauncher`
      * @since 4.10
      */
-    public constructor(`file`: File? = null) : this(gtk_file_launcher_new(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_file_launcher_new(`file`?.gioFilePointer)!!)
 
     /**
      * Launch an application to open the file.
@@ -169,15 +166,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_launcher_launch(
-        gtkFileLauncherPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_launcher_launch(gtkFileLauncherPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileLauncher.launch] call and
@@ -191,11 +180,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
     @GtkVersion4_10
     public open fun launchFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_launcher_launch_finish(
-            gtkFileLauncherPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_file_launcher_launch_finish(gtkFileLauncherPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -223,15 +208,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_file_launcher_open_containing_folder(
-        gtkFileLauncherPointer,
-        parent?.gtkWindowPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_file_launcher_open_containing_folder(gtkFileLauncherPointer, parent?.gtkWindowPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FileLauncher.open_containing_folder]
@@ -245,11 +222,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
     @GtkVersion4_10
     public open fun openContainingFolderFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_launcher_open_containing_folder_finish(
-            gtkFileLauncherPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_file_launcher_open_containing_folder_finish(gtkFileLauncherPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -259,11 +232,10 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
 
     public companion object : TypeCompanion<FileLauncher> {
         override val type: GeneratedClassKGType<FileLauncher> =
-            GeneratedClassKGType(getTypeOrNull("gtk_file_launcher_get_type")!!) { FileLauncher(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_file_launcher_get_type")!!) { FileLauncher(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FileLauncher

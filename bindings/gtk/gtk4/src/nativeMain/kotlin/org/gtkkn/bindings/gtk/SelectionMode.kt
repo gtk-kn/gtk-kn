@@ -10,17 +10,17 @@ import org.gtkkn.native.gtk.gtk_selection_mode_get_type
 /**
  * Used to control what selections users are allowed to make.
  */
-public enum class SelectionMode(public val nativeValue: GtkSelectionMode) {
+public enum class SelectionMode(
+    public val nativeValue: GtkSelectionMode,
+) {
     /**
      * No selection is possible.
      */
     NONE(GtkSelectionMode.GTK_SELECTION_NONE),
-
     /**
      * Zero or one element may be selected.
      */
     SINGLE(GtkSelectionMode.GTK_SELECTION_SINGLE),
-
     /**
      * Exactly one element is selected.
      *   In some circumstances, such as initially or during a search
@@ -30,7 +30,6 @@ public enum class SelectionMode(public val nativeValue: GtkSelectionMode) {
      *   another element.
      */
     BROWSE(GtkSelectionMode.GTK_SELECTION_BROWSE),
-
     /**
      * Any number of elements may be selected.
      *   The Ctrl key may be used to enlarge the selection, and Shift

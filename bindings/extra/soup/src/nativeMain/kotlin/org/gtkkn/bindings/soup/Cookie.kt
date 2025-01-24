@@ -3,11 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Uri
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -41,9 +44,6 @@ import org.gtkkn.native.soup.soup_cookie_set_secure
 import org.gtkkn.native.soup.soup_cookie_set_value
 import org.gtkkn.native.soup.soup_cookie_to_cookie_header
 import org.gtkkn.native.soup.soup_cookie_to_set_cookie_header
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Implements HTTP cookies, as described by
@@ -71,7 +71,49 @@ import kotlin.Unit
  * code (eg, javascript), so as to minimize the danger posed by
  * cross-site scripting attacks.
  */
-public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyInstance(soupCookiePointer) {
+public class Cookie(
+    public val soupCookiePointer: CPointer<SoupCookie>,
+) : ProxyInstance(soupCookiePointer) {
+    /**
+     * Creates a new #SoupCookie with the given attributes.
+     *
+     * Use [method@Cookie.set_secure] and [method@Cookie.set_http_only] if you
+     * need to set those attributes on the returned cookie.
+     *
+     * If @domain starts with ".", that indicates a domain (which matches
+     * the string after the ".", or any hostname that has @domain as a
+     * suffix). Otherwise, it is a hostname and must match exactly.
+     *
+     * @max_age is used to set the "expires" attribute on the cookie; pass
+     * -1 to not include the attribute (indicating that the cookie expires
+     * with the current session), 0 for an already-expired cookie, or a
+     * lifetime in seconds. You can use the constants
+     * %SOUP_COOKIE_MAX_AGE_ONE_HOUR, %SOUP_COOKIE_MAX_AGE_ONE_DAY,
+     * %SOUP_COOKIE_MAX_AGE_ONE_WEEK and %SOUP_COOKIE_MAX_AGE_ONE_YEAR (or
+     * multiples thereof) to calculate this value. (If you really care
+     * about setting the exact time that the cookie will expire, use
+     * [method@Cookie.set_expires].)
+     *
+     * As of version 3.4.0 the default value of a cookie's same-site-policy
+     * is %SOUP_SAME_SITE_POLICY_LAX.
+     *
+     * @param name cookie name
+     * @param value cookie value
+     * @param domain cookie domain or hostname
+     * @param path cookie path, or null
+     * @param maxAge max age of the cookie, or -1 for a session cookie
+     * @return a new #SoupCookie.
+     */
+    public constructor(
+        name: String,
+        `value`: String,
+        domain: String,
+        path: String,
+        maxAge: gint,
+    ) : this(soup_cookie_new(name, `value`, domain, path, maxAge)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Tests if @cookie should be sent to @uri.
      *
@@ -82,8 +124,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      * @param uri a #GUri
      * @return true if @cookie should be sent to @uri, false if not
      */
-    public fun appliesToUri(uri: Uri): Boolean =
-        soup_cookie_applies_to_uri(soupCookiePointer, uri.glibUriPointer).asBoolean()
+    public fun appliesToUri(uri: Uri): Boolean = soup_cookie_applies_to_uri(soupCookiePointer, uri.glibUriPointer).asBoolean()
 
     /**
      * Copies @cookie.
@@ -91,8 +132,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      * @return a copy of @cookie
      */
     public fun copy(): Cookie = soup_cookie_copy(soupCookiePointer)!!.run {
-        Cookie(this)
-    }
+        Cookie(this)}
 
     /**
      * Checks if the @cookie's domain and @host match.
@@ -114,8 +154,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      * @param cookie2 a #SoupCookie
      * @return whether the cookies are equal.
      */
-    public fun equal(cookie2: Cookie): Boolean =
-        soup_cookie_equal(soupCookiePointer, cookie2.soupCookiePointer).asBoolean()
+    public fun equal(cookie2: Cookie): Boolean = soup_cookie_equal(soupCookiePointer, cookie2.soupCookiePointer).asBoolean()
 
     /**
      * Frees @cookie.
@@ -127,8 +166,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @return @cookie's domain
      */
-    public fun getDomain(): String =
-        soup_cookie_get_domain(soupCookiePointer)?.toKString() ?: error("Expected not null string")
+    public fun getDomain(): String = soup_cookie_get_domain(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @cookie's expiration time.
@@ -137,8 +175,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *   owned by @cookie and should not be modified or freed.
      */
     public fun getExpires(): DateTime? = soup_cookie_get_expires(soupCookiePointer)?.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Gets @cookie's HttpOnly attribute.
@@ -152,16 +189,14 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @return @cookie's name
      */
-    public fun getName(): String =
-        soup_cookie_get_name(soupCookiePointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = soup_cookie_get_name(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @cookie's path.
      *
      * @return @cookie's path
      */
-    public fun getPath(): String =
-        soup_cookie_get_path(soupCookiePointer)?.toKString() ?: error("Expected not null string")
+    public fun getPath(): String = soup_cookie_get_path(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the same-site policy for this cookie.
@@ -169,8 +204,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      * @return a #SoupSameSitePolicy
      */
     public fun getSameSitePolicy(): SameSitePolicy = soup_cookie_get_same_site_policy(soupCookiePointer).run {
-        SameSitePolicy.fromNativeValue(this)
-    }
+        SameSitePolicy.fromNativeValue(this)}
 
     /**
      * Gets @cookie's secure attribute.
@@ -184,8 +218,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @return @cookie's value
      */
-    public fun getValue(): String =
-        soup_cookie_get_value(soupCookiePointer)?.toKString() ?: error("Expected not null string")
+    public fun getValue(): String = soup_cookie_get_value(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Sets @cookie's domain to @domain.
@@ -204,8 +237,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @param expires the new expiration time, or null
      */
-    public fun setExpires(expires: DateTime): Unit =
-        soup_cookie_set_expires(soupCookiePointer, expires.glibDateTimePointer)
+    public fun setExpires(expires: DateTime): Unit = soup_cookie_set_expires(soupCookiePointer, expires.glibDateTimePointer)
 
     /**
      * Sets @cookie's HttpOnly attribute to @http_only.
@@ -215,8 +247,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @param httpOnly the new value for the HttpOnly attribute
      */
-    public fun setHttpOnly(httpOnly: Boolean): Unit =
-        soup_cookie_set_http_only(soupCookiePointer, httpOnly.asGBoolean())
+    public fun setHttpOnly(httpOnly: Boolean): Unit = soup_cookie_set_http_only(soupCookiePointer, httpOnly.asGBoolean())
 
     /**
      * Sets @cookie's max age to @max_age.
@@ -256,8 +287,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @param policy a #SoupSameSitePolicy
      */
-    public fun setSameSitePolicy(policy: SameSitePolicy): Unit =
-        soup_cookie_set_same_site_policy(soupCookiePointer, policy.nativeValue)
+    public fun setSameSitePolicy(policy: SameSitePolicy): Unit = soup_cookie_set_same_site_policy(soupCookiePointer, policy.nativeValue)
 
     /**
      * Sets @cookie's secure attribute to @secure.
@@ -282,8 +312,7 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @return the header
      */
-    public fun toCookieHeader(): String =
-        soup_cookie_to_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
+    public fun toCookieHeader(): String = soup_cookie_to_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Serializes @cookie in the format used by the Set-Cookie header.
@@ -292,43 +321,9 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
      *
      * @return the header
      */
-    public fun toSetCookieHeader(): String =
-        soup_cookie_to_set_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
+    public fun toSetCookieHeader(): String = soup_cookie_to_set_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
-        /**
-         * Creates a new #SoupCookie with the given attributes.
-         *
-         * Use [method@Cookie.set_secure] and [method@Cookie.set_http_only] if you
-         * need to set those attributes on the returned cookie.
-         *
-         * If @domain starts with ".", that indicates a domain (which matches
-         * the string after the ".", or any hostname that has @domain as a
-         * suffix). Otherwise, it is a hostname and must match exactly.
-         *
-         * @max_age is used to set the "expires" attribute on the cookie; pass
-         * -1 to not include the attribute (indicating that the cookie expires
-         * with the current session), 0 for an already-expired cookie, or a
-         * lifetime in seconds. You can use the constants
-         * %SOUP_COOKIE_MAX_AGE_ONE_HOUR, %SOUP_COOKIE_MAX_AGE_ONE_DAY,
-         * %SOUP_COOKIE_MAX_AGE_ONE_WEEK and %SOUP_COOKIE_MAX_AGE_ONE_YEAR (or
-         * multiples thereof) to calculate this value. (If you really care
-         * about setting the exact time that the cookie will expire, use
-         * [method@Cookie.set_expires].)
-         *
-         * As of version 3.4.0 the default value of a cookie's same-site-policy
-         * is %SOUP_SAME_SITE_POLICY_LAX.
-         *
-         * @param name cookie name
-         * @param value cookie value
-         * @param domain cookie domain or hostname
-         * @param path cookie path, or null
-         * @param maxAge max age of the cookie, or -1 for a session cookie
-         * @return a new #SoupCookie.
-         */
-        public fun new(name: String, `value`: String, domain: String, path: String, maxAge: gint): Cookie =
-            Cookie(soup_cookie_new(name, `value`, domain, path, maxAge)!!.reinterpret())
-
         /**
          * Parses @header and returns a #SoupCookie.
          *
@@ -350,10 +345,8 @@ public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyI
          *   not be parsed, or contained an illegal "domain" attribute for a
          *   cookie originating from @origin.
          */
-        public fun parse(`header`: String, origin: Uri? = null): Cookie? =
-            soup_cookie_parse(`header`, origin?.glibUriPointer)?.run {
-                Cookie(this)
-            }
+        public fun parse(`header`: String, origin: Uri? = null): Cookie? = soup_cookie_parse(`header`, origin?.glibUriPointer)?.run {
+            Cookie(this)}
 
         /**
          * Get the GType of Cookie

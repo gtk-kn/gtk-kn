@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,6 +16,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -30,12 +34,6 @@ import org.gtkkn.native.gsk.gsk_path_point_get_position
 import org.gtkkn.native.gsk.gsk_path_point_get_rotation
 import org.gtkkn.native.gsk.gsk_path_point_get_tangent
 import org.gtkkn.native.gsk.gsk_path_point_get_type
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GskPathPoint` is an opaque type representing a point on a path.
@@ -60,11 +58,11 @@ import kotlin.native.ref.createCleaner
  * @since 4.14
  */
 @GskVersion4_14
-public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null) :
-    ProxyInstance(gskPathPointPointer) {
+public class PathPoint(
+    public val gskPathPointPointer: CPointer<GskPathPoint>,
+) : ProxyInstance(gskPathPointPointer) {
     public var contour: gsize
         get() = gskPathPointPointer.pointed.contour
-
         @UnsafeFieldSetter
         set(`value`) {
             gskPathPointPointer.pointed.contour = value
@@ -72,7 +70,6 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
 
     public var idx: gsize
         get() = gskPathPointPointer.pointed.idx
-
         @UnsafeFieldSetter
         set(`value`) {
             gskPathPointPointer.pointed.idx = value
@@ -80,7 +77,6 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
 
     public var t: gfloat
         get() = gskPathPointPointer.pointed.t
-
         @UnsafeFieldSetter
         set(`value`) {
             gskPathPointPointer.pointed.t = value
@@ -92,21 +88,9 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskPathPoint>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to PathPoint and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GskPathPoint>, Cleaner>,
-    ) : this(gskPathPointPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GskPathPoint>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new PathPoint using the provided [AutofreeScope].
@@ -123,9 +107,9 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param contour
-     * @param idx
-     * @param t
+     * @param contour 
+     * @param idx 
+     * @param t 
      */
     public constructor(
         contour: gsize,
@@ -142,9 +126,9 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param contour
-     * @param idx
-     * @param t
+     * @param contour 
+     * @param idx 
+     * @param t 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
@@ -168,12 +152,10 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun compare(point2: PathPoint): gint =
-        gsk_path_point_compare(gskPathPointPointer, point2.gskPathPointPointer)
+    public fun compare(point2: PathPoint): gint = gsk_path_point_compare(gskPathPointPointer, point2.gskPathPointPointer)
 
     public fun copy(): PathPoint = gsk_path_point_copy(gskPathPointPointer)!!.run {
-        PathPoint(this)
-    }
+        PathPoint(this)}
 
     /**
      * Returns whether the two path points refer to the same
@@ -190,8 +172,7 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun equal(point2: PathPoint): Boolean =
-        gsk_path_point_equal(gskPathPointPointer, point2.gskPathPointPointer).asBoolean()
+    public fun equal(point2: PathPoint): Boolean = gsk_path_point_equal(gskPathPointPointer, point2.gskPathPointPointer).asBoolean()
 
     public fun free(): Unit = gsk_path_point_free(gskPathPointPointer)
 
@@ -225,13 +206,11 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getCurvature(path: Path, direction: PathDirection, center: Point?): gfloat =
-        gsk_path_point_get_curvature(
-            gskPathPointPointer,
-            path.gskPathPointer,
-            direction.nativeValue,
-            center?.graphenePointPointer
-        )
+    public fun getCurvature(
+        path: Path,
+        direction: PathDirection,
+        center: Point?,
+    ): gfloat = gsk_path_point_get_curvature(gskPathPointPointer, path.gskPathPointer, direction.nativeValue, center?.graphenePointPointer)
 
     /**
      * Returns the distance from the beginning of the path
@@ -242,8 +221,7 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getDistance(measure: PathMeasure): gfloat =
-        gsk_path_point_get_distance(gskPathPointPointer, measure.gskPathMeasurePointer)
+    public fun getDistance(measure: PathMeasure): gfloat = gsk_path_point_get_distance(gskPathPointPointer, measure.gskPathMeasurePointer)
 
     /**
      * Gets the position of the point.
@@ -254,8 +232,7 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPosition(path: Path, position: Point): Unit =
-        gsk_path_point_get_position(gskPathPointPointer, path.gskPathPointer, position.graphenePointPointer)
+    public fun getPosition(path: Path, position: Point): Unit = gsk_path_point_get_position(gskPathPointPointer, path.gskPathPointer, position.graphenePointPointer)
 
     /**
      * Gets the direction of the tangent at a given point.
@@ -271,8 +248,7 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getRotation(path: Path, direction: PathDirection): gfloat =
-        gsk_path_point_get_rotation(gskPathPointPointer, path.gskPathPointer, direction.nativeValue)
+    public fun getRotation(path: Path, direction: PathDirection): gfloat = gsk_path_point_get_rotation(gskPathPointPointer, path.gskPathPointer, direction.nativeValue)
 
     /**
      * Gets the tangent of the path at the point.
@@ -297,12 +273,11 @@ public class PathPoint(public val gskPathPointPointer: CPointer<GskPathPoint>, c
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getTangent(path: Path, direction: PathDirection, tangent: Vec2): Unit = gsk_path_point_get_tangent(
-        gskPathPointPointer,
-        path.gskPathPointer,
-        direction.nativeValue,
-        tangent.grapheneVec2Pointer
-    )
+    public fun getTangent(
+        path: Path,
+        direction: PathDirection,
+        tangent: Vec2,
+    ): Unit = gsk_path_point_get_tangent(gskPathPointPointer, path.gskPathPointer, direction.nativeValue, tangent.grapheneVec2Pointer)
 
     override fun toString(): String = "PathPoint(contour=$contour, idx=$idx, t=$t)"
 

@@ -10,17 +10,17 @@ import org.gtkkn.native.soup.soup_http_version_get_type
 /**
  * Indicates the HTTP protocol version being used.
  */
-public enum class HttpVersion(public val nativeValue: SoupHTTPVersion) {
+public enum class HttpVersion(
+    public val nativeValue: SoupHTTPVersion,
+) {
     /**
      * HTTP 1.0 (RFC 1945)
      */
     HTTP_1_0(SoupHTTPVersion.SOUP_HTTP_1_0),
-
     /**
      * HTTP 1.1 (RFC 2616)
      */
     HTTP_1_1(SoupHTTPVersion.SOUP_HTTP_1_1),
-
     /**
      * HTTP 2.0 (RFC 7540)
      */

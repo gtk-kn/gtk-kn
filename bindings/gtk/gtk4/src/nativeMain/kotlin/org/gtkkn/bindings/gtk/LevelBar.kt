@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -46,10 +50,6 @@ import org.gtkkn.native.gtk.gtk_level_bar_set_max_value
 import org.gtkkn.native.gtk.gtk_level_bar_set_min_value
 import org.gtkkn.native.gtk.gtk_level_bar_set_mode
 import org.gtkkn.native.gtk.gtk_level_bar_set_value
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkLevelBar` is a widget that can be used as a level indicator.
@@ -154,8 +154,9 @@ import kotlin.Unit
  *
  * - parameter `value`: value: Out parameter is not supported
  */
-public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>) :
-    Widget(gtkLevelBarPointer.reinterpret()),
+public open class LevelBar(
+    public val gtkLevelBarPointer: CPointer<GtkLevelBar>,
+) : Widget(gtkLevelBarPointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
@@ -187,7 +188,6 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
          * @return true if the level bar is inverted
          */
         get() = gtk_level_bar_get_inverted(gtkLevelBarPointer).asBoolean()
-
         /**
          * Sets whether the `GtkLevelBar` is inverted.
          *
@@ -205,7 +205,6 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
          * @return a positive value
          */
         get() = gtk_level_bar_get_max_value(gtkLevelBarPointer)
-
         /**
          * Sets the `max-value` of the `GtkLevelBar`.
          *
@@ -226,7 +225,6 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
          * @return a positive value
          */
         get() = gtk_level_bar_get_min_value(gtkLevelBarPointer)
-
         /**
          * Sets the `min-value` of the `GtkLevelBar`.
          *
@@ -256,9 +254,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
          * @return a `GtkLevelBarMode`
          */
         get() = gtk_level_bar_get_mode(gtkLevelBarPointer).run {
-            LevelBarMode.fromNativeValue(this)
-        }
-
+            LevelBarMode.fromNativeValue(this)}
         /**
          * Sets the `mode` of the `GtkLevelBar`.
          *
@@ -277,7 +273,6 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
          *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
          */
         get() = gtk_level_bar_get_value(gtkLevelBarPointer)
-
         /**
          * Sets the value of the `GtkLevelBar`.
          *
@@ -300,10 +295,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
      * @param maxValue a positive value
      * @return a `GtkLevelBar`
      */
-    public constructor(
-        minValue: gdouble,
-        maxValue: gdouble,
-    ) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
+    public constructor(minValue: gdouble, maxValue: gdouble) : this(gtk_level_bar_new_for_interval(minValue, maxValue)!!.reinterpret())
 
     /**
      * Adds a new offset marker on @self at the position specified by @value.
@@ -319,8 +311,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
      * @param name the name of the new offset
      * @param value the value for the new offset
      */
-    public open fun addOffsetValue(name: String, `value`: gdouble): Unit =
-        gtk_level_bar_add_offset_value(gtkLevelBarPointer, name, `value`)
+    public open fun addOffsetValue(name: String, `value`: gdouble): Unit = gtk_level_bar_add_offset_value(gtkLevelBarPointer, name, `value`)
 
     /**
      * Removes an offset marker from a `GtkLevelBar`.
@@ -330,8 +321,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
      *
      * @param name the name of an offset in the bar
      */
-    public open fun removeOffsetValue(name: String? = null): Unit =
-        gtk_level_bar_remove_offset_value(gtkLevelBarPointer, name)
+    public open fun removeOffsetValue(name: String? = null): Unit = gtk_level_bar_remove_offset_value(gtkLevelBarPointer, name)
 
     /**
      * Emitted when an offset specified on the bar changes value.
@@ -351,18 +341,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
         connectFlags: ConnectFlags = ConnectFlags(0u),
         detail: String? = null,
         handler: (name: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkLevelBarPointer,
-        "offset-changed" + (
-            detail?.let {
-                "::$it"
-            } ?: ""
-            ),
-        onOffsetChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    ): ULong = g_signal_connect_data(gtkLevelBarPointer, "offset-changed" + (detail?.let { "::$it" } ?: ""), onOffsetChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "offset-changed" signal. See [onOffsetChanged].
@@ -371,24 +350,15 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
      * @param name the name of the offset that changed value
      */
     public fun emitOffsetChanged(detail: String? = null, name: String) {
-        g_signal_emit_by_name(
-            gtkLevelBarPointer.reinterpret(),
-            "offset-changed" + (
-                detail?.let {
-                    "::$it"
-                } ?: ""
-                ),
-            name.cstr
-        )
+        g_signal_emit_by_name(gtkLevelBarPointer.reinterpret(), "offset-changed" + (detail?.let { "::$it" } ?: ""), name.cstr)
     }
 
     public companion object : TypeCompanion<LevelBar> {
         override val type: GeneratedClassKGType<LevelBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_level_bar_get_type")!!) { LevelBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_level_bar_get_type")!!) { LevelBar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of LevelBar
@@ -400,15 +370,10 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
 }
 
 private val onOffsetChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                name: String,
-            ) -> Unit
-            >().get().invoke(name?.toKString() ?: error("Expected not null string"))
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    name: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(name: String) -> Unit>().get().invoke(name?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

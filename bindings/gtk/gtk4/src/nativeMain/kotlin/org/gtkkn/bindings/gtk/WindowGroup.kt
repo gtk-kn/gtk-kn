@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
@@ -18,7 +19,6 @@ import org.gtkkn.native.gtk.gtk_window_group_get_type
 import org.gtkkn.native.gtk.gtk_window_group_list_windows
 import org.gtkkn.native.gtk.gtk_window_group_new
 import org.gtkkn.native.gtk.gtk_window_group_remove_window
-import kotlin.Unit
 
 /**
  * `GtkWindowGroup` makes group of windows behave like separate applications.
@@ -38,8 +38,9 @@ import kotlin.Unit
  * group; when all window have been removed, the window group will be
  * freed.
  */
-public open class WindowGroup(public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>) :
-    Object(gtkWindowGroupPointer.reinterpret()),
+public open class WindowGroup(
+    public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>,
+) : Object(gtkWindowGroupPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkWindowGroup` object.
@@ -49,15 +50,14 @@ public open class WindowGroup(public val gtkWindowGroupPointer: CPointer<GtkWind
      *
      * @return a new `GtkWindowGroup`.
      */
-    public constructor() : this(gtk_window_group_new()!!.reinterpret())
+    public constructor() : this(gtk_window_group_new()!!)
 
     /**
      * Adds a window to a `GtkWindowGroup`.
      *
      * @param window the `GtkWindow` to add
      */
-    public open fun addWindow(window: Window): Unit =
-        gtk_window_group_add_window(gtkWindowGroupPointer, window.gtkWindowPointer)
+    public open fun addWindow(window: Window): Unit = gtk_window_group_add_window(gtkWindowGroupPointer, window.gtkWindowPointer)
 
     /**
      * Returns a list of the `GtkWindows` that belong to @window_group.
@@ -66,24 +66,21 @@ public open class WindowGroup(public val gtkWindowGroupPointer: CPointer<GtkWind
      *   newly-allocated list of windows inside the group.
      */
     public open fun listWindows(): List = gtk_window_group_list_windows(gtkWindowGroupPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Removes a window from a `GtkWindowGroup`.
      *
      * @param window the `GtkWindow` to remove
      */
-    public open fun removeWindow(window: Window): Unit =
-        gtk_window_group_remove_window(gtkWindowGroupPointer, window.gtkWindowPointer)
+    public open fun removeWindow(window: Window): Unit = gtk_window_group_remove_window(gtkWindowGroupPointer, window.gtkWindowPointer)
 
     public companion object : TypeCompanion<WindowGroup> {
         override val type: GeneratedClassKGType<WindowGroup> =
-            GeneratedClassKGType(getTypeOrNull("gtk_window_group_get_type")!!) { WindowGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_window_group_get_type")!!) { WindowGroup(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of WindowGroup

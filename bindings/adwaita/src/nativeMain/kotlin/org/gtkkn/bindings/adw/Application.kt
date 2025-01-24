@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ApplicationFlags
@@ -17,7 +18,6 @@ import org.gtkkn.native.adw.adw_application_new
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * A base class for Adwaita applications.
@@ -47,8 +47,9 @@ import kotlin.String
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
  */
-public open class Application(public val adwApplicationPointer: CPointer<AdwApplication>) :
-    org.gtkkn.bindings.gtk.Application(adwApplicationPointer.reinterpret()),
+public open class Application(
+    public val adwApplicationPointer: CPointer<AdwApplication>,
+) : org.gtkkn.bindings.gtk.Application(adwApplicationPointer.reinterpret()),
     KGTyped {
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
@@ -72,8 +73,7 @@ public open class Application(public val adwApplicationPointer: CPointer<AdwAppl
          * @return the style manager
          */
         get() = adw_application_get_style_manager(adwApplicationPointer)!!.run {
-            StyleManager(this)
-        }
+            StyleManager(this)}
 
     /**
      * Creates a new `AdwApplication`.
@@ -88,18 +88,14 @@ public open class Application(public val adwApplicationPointer: CPointer<AdwAppl
      * @param flags The application flags
      * @return the newly created `AdwApplication`
      */
-    public constructor(
-        applicationId: String? = null,
-        flags: ApplicationFlags,
-    ) : this(adw_application_new(applicationId, flags.mask)!!.reinterpret())
+    public constructor(applicationId: String? = null, flags: ApplicationFlags) : this(adw_application_new(applicationId, flags.mask)!!)
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(getTypeOrNull("adw_application_get_type")!!) { Application(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_application_get_type")!!) { Application(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Application

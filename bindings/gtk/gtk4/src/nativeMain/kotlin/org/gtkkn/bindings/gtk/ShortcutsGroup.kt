@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
@@ -18,7 +19,6 @@ import org.gtkkn.native.gtk.GtkOrientable
 import org.gtkkn.native.gtk.GtkShortcutsGroup
 import org.gtkkn.native.gtk.gtk_shortcuts_group_add_shortcut
 import org.gtkkn.native.gtk.gtk_shortcuts_group_get_type
-import kotlin.Unit
 
 /**
  * A `GtkShortcutsGroup` represents a group of related keyboard shortcuts
@@ -46,8 +46,9 @@ import kotlin.Unit
  * - method `title-size-group`: Property has no getter nor setter
  * - method `view`: Property has no getter nor setter
  */
-public open class ShortcutsGroup(public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>) :
-    Box(gtkShortcutsGroupPointer.reinterpret()),
+public open class ShortcutsGroup(
+    public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>,
+) : Box(gtkShortcutsGroupPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -72,18 +73,14 @@ public open class ShortcutsGroup(public val gtkShortcutsGroupPointer: CPointer<G
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit =
-        gtk_shortcuts_group_add_shortcut(gtkShortcutsGroupPointer, shortcut.gtkShortcutsShortcutPointer)
+    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit = gtk_shortcuts_group_add_shortcut(gtkShortcutsGroupPointer, shortcut.gtkShortcutsShortcutPointer)
 
     public companion object : TypeCompanion<ShortcutsGroup> {
         override val type: GeneratedClassKGType<ShortcutsGroup> =
-            GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_group_get_type")!!) {
-                ShortcutsGroup(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_group_get_type")!!) { ShortcutsGroup(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ShortcutsGroup

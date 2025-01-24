@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -17,6 +18,7 @@ import org.gtkkn.native.gsk.gsk_fill_node_get_fill_rule
 import org.gtkkn.native.gsk.gsk_fill_node_get_path
 import org.gtkkn.native.gsk.gsk_fill_node_get_type
 import org.gtkkn.native.gsk.gsk_fill_node_new
+import org.gtkkn.native.gsk.gsk_render_node_unref
 
 /**
  * A render node filling the area given by [struct@Gsk.Path]
@@ -24,8 +26,9 @@ import org.gtkkn.native.gsk.gsk_fill_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class FillNode(public val gskFillNodePointer: CPointer<GskFillNode>) :
-    RenderNode(gskFillNodePointer.reinterpret()),
+public open class FillNode(
+    public val gskFillNodePointer: CPointer<GskFillNode>,
+) : RenderNode(gskFillNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will fill the @child in the area
@@ -41,7 +44,9 @@ public open class FillNode(public val gskFillNodePointer: CPointer<GskFillNode>)
         child: RenderNode,
         path: Path,
         fillRule: FillRule,
-    ) : this(gsk_fill_node_new(child.gskRenderNodePointer, path.gskPathPointer, fillRule.nativeValue)!!.reinterpret())
+    ) : this(gsk_fill_node_new(child.gskRenderNodePointer, path.gskPathPointer, fillRule.nativeValue)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -51,8 +56,7 @@ public open class FillNode(public val gskFillNodePointer: CPointer<GskFillNode>)
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_fill_node_get_child(gskFillNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the fill rule used to determine how the path is filled.
@@ -62,8 +66,7 @@ public open class FillNode(public val gskFillNodePointer: CPointer<GskFillNode>)
      */
     @GskVersion4_14
     public open fun getFillRule(): FillRule = gsk_fill_node_get_fill_rule(gskFillNodePointer.reinterpret()).run {
-        FillRule.fromNativeValue(this)
-    }
+        FillRule.fromNativeValue(this)}
 
     /**
      * Retrieves the path used to describe the area filled with the contents of
@@ -74,16 +77,14 @@ public open class FillNode(public val gskFillNodePointer: CPointer<GskFillNode>)
      */
     @GskVersion4_14
     public open fun getPath(): Path = gsk_fill_node_get_path(gskFillNodePointer.reinterpret())!!.run {
-        Path(this)
-    }
+        Path(this)}
 
     public companion object : TypeCompanion<FillNode> {
         override val type: GeneratedClassKGType<FillNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_fill_node_get_type")!!) { FillNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_fill_node_get_type")!!) { FillNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of FillNode

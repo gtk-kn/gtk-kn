@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
@@ -18,8 +20,6 @@ import org.gtkkn.native.gio.g_action_map_get_type
 import org.gtkkn.native.gio.g_action_map_lookup_action
 import org.gtkkn.native.gio.g_action_map_remove_action
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GActionMap` is an interface for action containers.
@@ -42,9 +42,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public interface ActionMap :
-    Proxy,
-    KGTyped {
+public interface ActionMap : Proxy, KGTyped {
     public val gioActionMapPointer: CPointer<GActionMap>
 
     /**
@@ -71,10 +69,8 @@ public interface ActionMap :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookupAction(actionName: String): Action? =
-        g_action_map_lookup_action(gioActionMapPointer, actionName)?.run {
-            Action.ActionImpl(reinterpret())
-        }
+    public fun lookupAction(actionName: String): Action? = g_action_map_lookup_action(gioActionMapPointer, actionName)?.run {
+        Action.ActionImpl(reinterpret())}
 
     /**
      * Removes the named action from the action map.
@@ -92,17 +88,17 @@ public interface ActionMap :
      *
      * @constructor Creates a new instance of ActionMap for the provided [CPointer].
      */
-    public data class ActionMapImpl(override val gioActionMapPointer: CPointer<GActionMap>) :
-        Object(gioActionMapPointer.reinterpret()),
+    public data class ActionMapImpl(
+        override val gioActionMapPointer: CPointer<GActionMap>,
+    ) : Object(gioActionMapPointer.reinterpret()),
         ActionMap
 
     public companion object : TypeCompanion<ActionMap> {
         override val type: GeneratedInterfaceKGType<ActionMap> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_action_map_get_type")!!) { ActionMapImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_action_map_get_type")!!) { ActionMapImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ActionMap

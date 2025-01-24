@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,6 +15,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GTimeVal
@@ -19,12 +23,6 @@ import org.gtkkn.native.glib.g_time_val_add
 import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_time_val_to_iso8601
 import org.gtkkn.native.glib.glong
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a precise time, with seconds and microseconds.
@@ -38,14 +36,14 @@ import kotlin.native.ref.createCleaner
  * `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
  * problem.
  */
-public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibTimeValPointer) {
+public class TimeVal(
+    public val glibTimeValPointer: CPointer<GTimeVal>,
+) : ProxyInstance(glibTimeValPointer) {
     /**
      * seconds
      */
     public var tvSec: glong
         get() = glibTimeValPointer.pointed.tv_sec
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_sec = value
@@ -56,7 +54,6 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
      */
     public var tvUsec: glong
         get() = glibTimeValPointer.pointed.tv_usec
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_usec = value
@@ -68,21 +65,9 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTimeVal>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to TimeVal and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GTimeVal>, Cleaner>,
-    ) : this(glibTimeValPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GTimeVal>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new TimeVal using the provided [AutofreeScope].
@@ -204,7 +189,6 @@ public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner:
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
-            g_time_val_from_iso8601(isoDate, time.glibTimeValPointer).asBoolean()
+        public fun fromIso8601(isoDate: String, time: TimeVal): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer).asBoolean()
     }
 }

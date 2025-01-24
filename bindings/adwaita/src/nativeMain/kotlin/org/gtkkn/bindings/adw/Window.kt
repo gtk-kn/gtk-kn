@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -29,7 +30,6 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkNative
 import org.gtkkn.native.gtk.GtkRoot
 import org.gtkkn.native.gtk.GtkShortcutManager
-import kotlin.Unit
 
 /**
  * A freeform window.
@@ -107,8 +107,9 @@ import kotlin.Unit
  * minimum size, and [property@Gtk.Widget:width-request] and
  * [property@Gtk.Widget:height-request] properties must be set manually.
  */
-public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
-    org.gtkkn.bindings.gtk.Window(adwWindowPointer.reinterpret()),
+public open class Window(
+    public val adwWindowPointer: CPointer<AdwWindow>,
+) : org.gtkkn.bindings.gtk.Window(adwWindowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -142,9 +143,7 @@ public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
          * @return the content widget of @self
          */
         get() = adw_window_get_content(adwWindowPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the content widget of @self.
          *
@@ -168,8 +167,7 @@ public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
          * @since 1.4
          */
         get() = adw_window_get_current_breakpoint(adwWindowPointer)?.run {
-            Breakpoint(this)
-        }
+            Breakpoint(this)}
 
     /**
      * The open dialogs.
@@ -187,8 +185,7 @@ public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
          * @since 1.5
          */
         get() = adw_window_get_dialogs(adwWindowPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+            ListModel.ListModelImpl(reinterpret())}
 
     /**
      * The currently visible dialog
@@ -204,8 +201,7 @@ public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
          * @since 1.5
          */
         get() = adw_window_get_visible_dialog(adwWindowPointer)?.run {
-            Dialog(this)
-        }
+            Dialog(this)}
 
     /**
      * Creates a new `AdwWindow`.
@@ -221,16 +217,14 @@ public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_window_add_breakpoint(adwWindowPointer, breakpoint.adwBreakpointPointer)
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_window_add_breakpoint(adwWindowPointer, breakpoint.adwBreakpointPointer)
 
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =
-            GeneratedClassKGType(getTypeOrNull("adw_window_get_type")!!) { Window(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_window_get_type")!!) { Window(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Window

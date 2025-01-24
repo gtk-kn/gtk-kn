@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -19,7 +20,6 @@ import org.gtkkn.native.gtksource.gtk_source_hover_context_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_hover_context_get_iter
 import org.gtkkn.native.gtksource.gtk_source_hover_context_get_type
 import org.gtkkn.native.gtksource.gtk_source_hover_context_get_view
-import kotlin.Boolean
 
 /**
  * Context for populating [class@HoverDisplay] contents.
@@ -34,8 +34,9 @@ import kotlin.Boolean
  * requested. [method@HoverContext.get_iter] will get you the location
  * of the pointer when the request was made.
  */
-public open class HoverContext(public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>) :
-    Object(gtksourceHoverContextPointer.reinterpret()),
+public open class HoverContext(
+    public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>,
+) : Object(gtksourceHoverContextPointer.reinterpret()),
     KGTyped {
     /**
      * Gets the current word bounds of the hover.
@@ -50,11 +51,7 @@ public open class HoverContext(public val gtksourceHoverContextPointer: CPointer
      * @param end a #GtkTextIter
      * @return true if the marks are still valid and @begin or @end was set.
      */
-    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_hover_context_get_bounds(
-        gtksourceHoverContextPointer,
-        begin?.gtkTextIterPointer,
-        end?.gtkTextIterPointer
-    ).asBoolean()
+    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_hover_context_get_bounds(gtksourceHoverContextPointer, begin?.gtkTextIterPointer, end?.gtkTextIterPointer).asBoolean()
 
     /**
      * A convenience function to get the buffer.
@@ -62,11 +59,9 @@ public open class HoverContext(public val gtksourceHoverContextPointer: CPointer
      * @return The #GtkSourceBuffer for the view
      */
     public open fun getBuffer(): Buffer = gtk_source_hover_context_get_buffer(gtksourceHoverContextPointer)!!.run {
-        Buffer(this)
-    }
+        Buffer(this)}
 
-    public open fun getIter(iter: TextIter): Boolean =
-        gtk_source_hover_context_get_iter(gtksourceHoverContextPointer, iter.gtkTextIterPointer).asBoolean()
+    public open fun getIter(iter: TextIter): Boolean = gtk_source_hover_context_get_iter(gtksourceHoverContextPointer, iter.gtkTextIterPointer).asBoolean()
 
     /**
      *
@@ -74,18 +69,14 @@ public open class HoverContext(public val gtksourceHoverContextPointer: CPointer
      * @return the #GtkSourceView that owns the context
      */
     public open fun getView(): View = gtk_source_hover_context_get_view(gtksourceHoverContextPointer)!!.run {
-        View(this)
-    }
+        View(this)}
 
     public companion object : TypeCompanion<HoverContext> {
         override val type: GeneratedClassKGType<HoverContext> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_hover_context_get_type")!!) {
-                HoverContext(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_hover_context_get_type")!!) { HoverContext(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Get the GType of HoverContext

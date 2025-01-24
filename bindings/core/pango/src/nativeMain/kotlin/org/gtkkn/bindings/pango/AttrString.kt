@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,14 +12,11 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.pango.PangoAttrString
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrString` structure is used to represent attributes with
@@ -28,14 +26,14 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrString(public val pangoAttrStringPointer: CPointer<PangoAttrString>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoAttrStringPointer) {
+public class AttrString(
+    public val pangoAttrStringPointer: CPointer<PangoAttrString>,
+) : ProxyInstance(pangoAttrStringPointer) {
     /**
      * the string which is the value of the attribute
      */
     public var `value`: String?
         get() = pangoAttrStringPointer.pointed.value?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrStringPointer.pointed.value?.let { g_free(it) }
@@ -48,21 +46,9 @@ public class AttrString(public val pangoAttrStringPointer: CPointer<PangoAttrStr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrString>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to AttrString and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrString>, Cleaner>,
-    ) : this(pangoAttrStringPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoAttrString>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new AttrString using the provided [AutofreeScope].

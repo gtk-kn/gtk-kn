@@ -13,17 +13,17 @@ import org.gtkkn.native.webkit.webkit_favicon_database_error_quark
 /**
  * Enum values used to denote the various errors related to the #WebKitFaviconDatabase.
  */
-public enum class FaviconDatabaseError(public val nativeValue: WebKitFaviconDatabaseError) {
+public enum class FaviconDatabaseError(
+    public val nativeValue: WebKitFaviconDatabaseError,
+) {
     /**
      * The #WebKitFaviconDatabase is closed
      */
     NOT_INITIALIZED(WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_NOT_INITIALIZED),
-
     /**
      * There is not an icon available for the requested URL
      */
     FAVICON_NOT_FOUND(WebKitFaviconDatabaseError.WEBKIT_FAVICON_DATABASE_ERROR_FAVICON_NOT_FOUND),
-
     /**
      * There might be an icon for the requested URL, but its data is unknown at the moment
      */

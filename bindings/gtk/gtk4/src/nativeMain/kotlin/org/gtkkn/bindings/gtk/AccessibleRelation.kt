@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessibleRelation
 import org.gtkkn.native.gtk.gtk_accessible_relation_get_type
 import org.gtkkn.native.gtk.gtk_accessible_relation_init_value
-import kotlin.Unit
 
 /**
  * The possible accessible relations of a [iface@Accessible].
@@ -16,63 +16,56 @@ import kotlin.Unit
  * Accessible relations can be references to other widgets,
  * integers or strings.
  */
-public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelation) {
+public enum class AccessibleRelation(
+    public val nativeValue: GtkAccessibleRelation,
+) {
     /**
      * Identifies the currently active
      *    element when focus is on a composite widget, combobox, textbox, group,
      *    or application. Value type: reference
      */
     ACTIVE_DESCENDANT(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ACTIVE_DESCENDANT),
-
     /**
      * Defines the total number of columns
      *    in a table, grid, or treegrid. Value type: integer
      */
     COL_COUNT(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_COUNT),
-
     /**
      * Defines an element's column index or
      *    position with respect to the total number of columns within a table,
      *    grid, or treegrid. Value type: integer
      */
     COL_INDEX(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_INDEX),
-
     /**
      * Defines a human readable text
      *   alternative of %GTK_ACCESSIBLE_RELATION_COL_INDEX. Value type: string
      */
     COL_INDEX_TEXT(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_INDEX_TEXT),
-
     /**
      * Defines the number of columns spanned
      *   by a cell or gridcell within a table, grid, or treegrid. Value type: integer
      */
     COL_SPAN(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_COL_SPAN),
-
     /**
      * Identifies the element (or elements) whose
      *    contents or presence are controlled by the current element. Value type: reference
      */
     CONTROLS(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_CONTROLS),
-
     /**
      * Identifies the element (or elements)
      *    that describes the object. Value type: reference
      */
     DESCRIBED_BY(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DESCRIBED_BY),
-
     /**
      * Identifies the element (or elements) that
      *    provide additional information related to the object. Value type: reference
      */
     DETAILS(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_DETAILS),
-
     /**
      * Identifies the element that provides
      *    an error message for an object. Value type: reference
      */
     ERROR_MESSAGE(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ERROR_MESSAGE),
-
     /**
      * Identifies the next element (or elements)
      *    in an alternate reading order of content which, at the user's discretion,
@@ -80,13 +73,11 @@ public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelati
      *    document source order. Value type: reference
      */
     FLOW_TO(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_FLOW_TO),
-
     /**
      * Identifies the element (or elements)
      *    that labels the current element. Value type: reference
      */
     LABELLED_BY(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_LABELLED_BY),
-
     /**
      * Identifies an element (or elements) in order
      *    to define a visual, functional, or contextual parent/child relationship
@@ -94,38 +85,32 @@ public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelati
      *    the relationship. Value type: reference
      */
     OWNS(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_OWNS),
-
     /**
      * Defines an element's number or position
      *    in the current set of listitems or treeitems. Value type: integer
      */
     POS_IN_SET(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_POS_IN_SET),
-
     /**
      * Defines the total number of rows in a table,
      *    grid, or treegrid. Value type: integer
      */
     ROW_COUNT(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_COUNT),
-
     /**
      * Defines an element's row index or position
      *    with respect to the total number of rows within a table, grid, or treegrid.
      *    Value type: integer
      */
     ROW_INDEX(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_INDEX),
-
     /**
      * Defines a human readable text
      *    alternative of aria-rowindex. Value type: string
      */
     ROW_INDEX_TEXT(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_INDEX_TEXT),
-
     /**
      * Defines the number of rows spanned by a
      *    cell or gridcell within a table, grid, or treegrid. Value type: integer
      */
     ROW_SPAN(GtkAccessibleRelation.GTK_ACCESSIBLE_RELATION_ROW_SPAN),
-
     /**
      * Defines the number of items in the current
      *    set of listitems or treeitems. Value type: integer
@@ -156,8 +141,7 @@ public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelati
             else -> error("invalid nativeValue")
         }
 
-        public fun initValue(relation: AccessibleRelation, `value`: Value): Unit =
-            gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer)
+        public fun initValue(relation: AccessibleRelation, `value`: Value): Unit = gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer)
 
         /**
          * Get the GType of AccessibleRelation

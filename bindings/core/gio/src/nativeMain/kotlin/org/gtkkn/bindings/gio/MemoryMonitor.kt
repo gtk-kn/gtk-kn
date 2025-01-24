@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,8 +28,6 @@ import org.gtkkn.native.gio.g_memory_monitor_dup_default
 import org.gtkkn.native.gio.g_memory_monitor_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GMemoryMonitor` will monitor system memory and suggest to the application
@@ -81,10 +81,7 @@ import kotlin.Unit
  * @since 2.64
  */
 @GioVersion2_64
-public interface MemoryMonitor :
-    Proxy,
-    Initable,
-    KGTyped {
+public interface MemoryMonitor : Proxy, Initable, KGTyped {
     public val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -101,36 +98,24 @@ public interface MemoryMonitor :
      * @since 2.64
      */
     @GioVersion2_64
-    public fun onLowMemoryWarning(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (level: MemoryMonitorWarningLevel) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioMemoryMonitorPointer,
-        "low-memory-warning",
-        onLowMemoryWarningFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onLowMemoryWarning(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (level: MemoryMonitorWarningLevel) -> Unit): ULong = g_signal_connect_data(gioMemoryMonitorPointer, "low-memory-warning", onLowMemoryWarningFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The MemoryMonitorImpl type represents a native instance of the MemoryMonitor interface.
      *
      * @constructor Creates a new instance of MemoryMonitor for the provided [CPointer].
      */
-    public data class MemoryMonitorImpl(override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>) :
-        Object(gioMemoryMonitorPointer.reinterpret()),
+    public data class MemoryMonitorImpl(
+        override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>,
+    ) : Object(gioMemoryMonitorPointer.reinterpret()),
         MemoryMonitor
 
     public companion object : TypeCompanion<MemoryMonitor> {
         override val type: GeneratedInterfaceKGType<MemoryMonitor> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_memory_monitor_get_type")!!) {
-                MemoryMonitorImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_memory_monitor_get_type")!!) { MemoryMonitorImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Gets a reference to the default #GMemoryMonitor for the system.
@@ -140,8 +125,7 @@ public interface MemoryMonitor :
          */
         @GioVersion2_64
         public fun dupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
-            MemoryMonitorImpl(reinterpret())
-        }
+            MemoryMonitorImpl(reinterpret())}
 
         /**
          * Get the GType of MemoryMonitor
@@ -153,15 +137,12 @@ public interface MemoryMonitor :
 }
 
 private val onLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarningLevel) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            level: GMemoryMonitorWarningLevel,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(level: MemoryMonitorWarningLevel) -> Unit>().get().invoke(
-            level.run {
-                MemoryMonitorWarningLevel.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    level: GMemoryMonitorWarningLevel,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(level: MemoryMonitorWarningLevel) -> Unit>().get().invoke(level.run {
+        MemoryMonitorWarningLevel.fromNativeValue(this)}
+    )}
+.reinterpret()

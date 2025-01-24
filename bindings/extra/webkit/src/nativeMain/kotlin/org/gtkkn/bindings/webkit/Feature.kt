@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
@@ -19,9 +22,6 @@ import org.gtkkn.native.webkit.webkit_feature_get_status
 import org.gtkkn.native.webkit.webkit_feature_get_type
 import org.gtkkn.native.webkit.webkit_feature_ref
 import org.gtkkn.native.webkit.webkit_feature_unref
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Describes a web engine feature that may be toggled at runtime.
@@ -60,7 +60,9 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class Feature(public val webkitFeaturePointer: CPointer<WebKitFeature>) : ProxyInstance(webkitFeaturePointer) {
+public class Feature(
+    public val webkitFeaturePointer: CPointer<WebKitFeature>,
+) : ProxyInstance(webkitFeaturePointer) {
     /**
      * Gets the category of the feature.
      *
@@ -71,8 +73,7 @@ public class Feature(public val webkitFeaturePointer: CPointer<WebKitFeature>) :
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getCategory(): String =
-        webkit_feature_get_category(webkitFeaturePointer)?.toKString() ?: error("Expected not null string")
+    public fun getCategory(): String = webkit_feature_get_category(webkitFeaturePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether the feature is enabled by default.
@@ -113,8 +114,7 @@ public class Feature(public val webkitFeaturePointer: CPointer<WebKitFeature>) :
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getIdentifier(): String =
-        webkit_feature_get_identifier(webkitFeaturePointer)?.toKString() ?: error("Expected not null string")
+    public fun getIdentifier(): String = webkit_feature_get_identifier(webkitFeaturePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a short name for the @feature.
@@ -139,8 +139,7 @@ public class Feature(public val webkitFeaturePointer: CPointer<WebKitFeature>) :
      */
     @WebKitVersion2_42
     public fun getStatus(): FeatureStatus = webkit_feature_get_status(webkitFeaturePointer).run {
-        FeatureStatus.fromNativeValue(this)
-    }
+        FeatureStatus.fromNativeValue(this)}
 
     /**
      * Atomically acquires a reference on the given @feature.
@@ -152,8 +151,7 @@ public class Feature(public val webkitFeaturePointer: CPointer<WebKitFeature>) :
      */
     @WebKitVersion2_42
     public fun ref(): Feature = webkit_feature_ref(webkitFeaturePointer)!!.run {
-        Feature(this)
-    }
+        Feature(this)}
 
     /**
      * Atomically releases a reference on the given @feature.

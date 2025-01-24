@@ -24,8 +24,9 @@ import org.gtkkn.native.gtk.gtk_numeric_sorter_set_sort_order
  * To obtain the numbers to compare, this sorter evaluates a
  * [class@Gtk.Expression].
  */
-public open class NumericSorter(public val gtkNumericSorterPointer: CPointer<GtkNumericSorter>) :
-    Sorter(gtkNumericSorterPointer.reinterpret()),
+public open class NumericSorter(
+    public val gtkNumericSorterPointer: CPointer<GtkNumericSorter>,
+) : Sorter(gtkNumericSorterPointer.reinterpret()),
     KGTyped {
     /**
      * The expression to evaluate on items to get a number to compare with.
@@ -37,9 +38,7 @@ public open class NumericSorter(public val gtkNumericSorterPointer: CPointer<Gtk
          * @return a `GtkExpression`
          */
         get() = gtk_numeric_sorter_get_expression(gtkNumericSorterPointer)?.run {
-            Expression.ExpressionImpl(this)
-        }
-
+            Expression.ExpressionImpl(this)}
         /**
          * Sets the expression that is evaluated to obtain numbers from items.
          *
@@ -63,9 +62,7 @@ public open class NumericSorter(public val gtkNumericSorterPointer: CPointer<Gtk
          * @return the order of the numbers
          */
         get() = gtk_numeric_sorter_get_sort_order(gtkNumericSorterPointer).run {
-            SortType.fromNativeValue(this)
-        }
-
+            SortType.fromNativeValue(this)}
         /**
          * Sets whether to sort smaller numbers before larger ones.
          *
@@ -82,17 +79,14 @@ public open class NumericSorter(public val gtkNumericSorterPointer: CPointer<Gtk
      * @param expression The expression to evaluate
      * @return a new `GtkNumericSorter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_numeric_sorter_new(expression?.gtkExpressionPointer)!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_numeric_sorter_new(expression?.gtkExpressionPointer)!!)
 
     public companion object : TypeCompanion<NumericSorter> {
         override val type: GeneratedClassKGType<NumericSorter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_numeric_sorter_get_type")!!) { NumericSorter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_numeric_sorter_get_type")!!) { NumericSorter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of NumericSorter

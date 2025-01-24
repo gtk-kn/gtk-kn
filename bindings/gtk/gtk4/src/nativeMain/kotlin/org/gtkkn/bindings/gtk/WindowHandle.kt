@@ -35,8 +35,9 @@ import org.gtkkn.native.gtk.gtk_window_handle_set_child
  *
  * Starting from GTK 4.12, `GtkWindowHandle` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWindowHandle>) :
-    Widget(gtkWindowHandlePointer.reinterpret()),
+public open class WindowHandle(
+    public val gtkWindowHandlePointer: CPointer<GtkWindowHandle>,
+) : Widget(gtkWindowHandlePointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -57,9 +58,7 @@ public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWi
          * @return the child widget of @self
          */
         get() = gtk_window_handle_get_child(gtkWindowHandlePointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -76,11 +75,10 @@ public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWi
 
     public companion object : TypeCompanion<WindowHandle> {
         override val type: GeneratedClassKGType<WindowHandle> =
-            GeneratedClassKGType(getTypeOrNull("gtk_window_handle_get_type")!!) { WindowHandle(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_window_handle_get_type")!!) { WindowHandle(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of WindowHandle

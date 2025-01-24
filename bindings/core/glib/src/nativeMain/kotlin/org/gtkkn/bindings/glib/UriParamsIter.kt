@@ -3,21 +3,19 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Long
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GUriParamsIter
 import org.gtkkn.native.glib.g_uri_params_iter_init
-import kotlin.Long
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Many URI schemes include one or more attribute/value pairs as part of the URI
@@ -37,29 +35,18 @@ import kotlin.native.ref.createCleaner
  * @since 2.66
  */
 @GLibVersion2_66
-public class UriParamsIter(public val glibUriParamsIterPointer: CPointer<GUriParamsIter>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibUriParamsIterPointer) {
+public class UriParamsIter(
+    public val glibUriParamsIterPointer: CPointer<GUriParamsIter>,
+) : ProxyInstance(glibUriParamsIterPointer) {
     /**
      * Allocate a new UriParamsIter.
      *
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GUriParamsIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to UriParamsIter and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GUriParamsIter>, Cleaner>,
-    ) : this(glibUriParamsIterPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GUriParamsIter>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new UriParamsIter using the provided [AutofreeScope].
@@ -117,6 +104,10 @@ public class UriParamsIter(public val glibUriParamsIterPointer: CPointer<GUriPar
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun `init`(params: String, length: Long, separators: String, flags: UriParamsFlags): Unit =
-        g_uri_params_iter_init(glibUriParamsIterPointer, params, length, separators, flags.mask)
+    public fun `init`(
+        params: String,
+        length: Long,
+        separators: String,
+        flags: UriParamsFlags,
+    ): Unit = g_uri_params_iter_init(glibUriParamsIterPointer, params, length, separators, flags.mask)
 }

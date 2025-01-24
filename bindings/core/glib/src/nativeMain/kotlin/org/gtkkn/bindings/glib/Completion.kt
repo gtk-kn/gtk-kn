@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,6 +13,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GCompletion
 import org.gtkkn.native.glib.g_completion_add_items
@@ -19,11 +22,6 @@ import org.gtkkn.native.glib.g_completion_free
 import org.gtkkn.native.glib.g_completion_remove_items
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GCompletion` provides support for automatic completion of a string
@@ -57,16 +55,15 @@ import kotlin.native.ref.createCleaner
  * - field `func`: CompletionFunc
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
-public class Completion(public val glibCompletionPointer: CPointer<GCompletion>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibCompletionPointer) {
+public class Completion(
+    public val glibCompletionPointer: CPointer<GCompletion>,
+) : ProxyInstance(glibCompletionPointer) {
     /**
      * list of target items (strings or data structures).
      */
     public var items: List?
         get() = glibCompletionPointer.pointed.items?.run {
-            List(this)
-        }
-
+            List(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.items = value?.glibListPointer
@@ -78,7 +75,6 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
      */
     public var prefix: String?
         get() = glibCompletionPointer.pointed.prefix?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.prefix?.let { g_free(it) }
@@ -90,9 +86,7 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
      */
     public var cache: List?
         get() = glibCompletionPointer.pointed.cache?.run {
-            List(this)
-        }
-
+            List(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.cache = value?.glibListPointer
@@ -104,21 +98,9 @@ public class Completion(public val glibCompletionPointer: CPointer<GCompletion>,
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCompletion>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Completion and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GCompletion>, Cleaner>,
-    ) : this(glibCompletionPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GCompletion>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Completion using the provided [AutofreeScope].

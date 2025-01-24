@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -34,8 +36,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A widget displaying an image, with a generated fallback.
@@ -62,8 +62,9 @@ import kotlin.String
  *
  * `AdwAvatar` has a single CSS node with name `avatar`.
  */
-public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
-    Widget(adwAvatarPointer.reinterpret()),
+public class Avatar(
+    public val adwAvatarPointer: CPointer<AdwAvatar>,
+) : Widget(adwAvatarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -86,9 +87,7 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
          * @return the custom image
          */
         get() = adw_avatar_get_custom_image(adwAvatarPointer)?.run {
-            Paintable.PaintableImpl(reinterpret())
-        }
-
+            Paintable.PaintableImpl(reinterpret())}
         /**
          * Sets the custom image paintable.
          *
@@ -110,7 +109,6 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
          * @return the icon name
          */
         get() = adw_avatar_get_icon_name(adwAvatarPointer)?.toKString()
-
         /**
          * Sets the name of an icon to use as a fallback.
          *
@@ -132,7 +130,6 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
          * @return whether initials are used instead of an icon as fallback
          */
         get() = adw_avatar_get_show_initials(adwAvatarPointer).asBoolean()
-
         /**
          * Sets whether to use initials instead of an icon on the fallback avatar.
          *
@@ -152,7 +149,6 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
          * @return the size of the avatar
          */
         get() = adw_avatar_get_size(adwAvatarPointer)
-
         /**
          * Sets the size of the avatar.
          *
@@ -174,7 +170,6 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
          *   color
          */
         get() = adw_avatar_get_text(adwAvatarPointer)?.toKString()
-
         /**
          * Sets the text used to generate the fallback initials and color.
          *
@@ -207,18 +202,15 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
      * @param scaleFactor The scale factor
      * @return the texture
      */
-    public fun drawToTexture(scaleFactor: gint): Texture =
-        adw_avatar_draw_to_texture(adwAvatarPointer, scaleFactor)!!.run {
-            Texture.TextureImpl(this)
-        }
+    public fun drawToTexture(scaleFactor: gint): Texture = adw_avatar_draw_to_texture(adwAvatarPointer, scaleFactor)!!.run {
+        Texture.TextureImpl(this)}
 
     public companion object : TypeCompanion<Avatar> {
         override val type: GeneratedClassKGType<Avatar> =
-            GeneratedClassKGType(getTypeOrNull("adw_avatar_get_type")!!) { Avatar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_avatar_get_type")!!) { Avatar(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Avatar

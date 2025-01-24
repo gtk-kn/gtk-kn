@@ -3,14 +3,19 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdk.GdkPixbuf.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_28
 import org.gtkkn.bindings.gio.AsyncReadyCallback
@@ -44,11 +49,6 @@ import org.gtkkn.native.gdk.gdk_pixbuf_animation_unref
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
-import kotlin.Unit
 
 /**
  * An opaque object representing an animation.
@@ -65,8 +65,9 @@ import kotlin.Unit
  * representation, however; you just ask `GdkPixbuf` what should
  * be displayed at a given point in time.
  */
-public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer<GdkPixbufAnimation>) :
-    Object(gdkPixbufAnimationPointer.reinterpret()),
+public open class PixbufAnimation(
+    public val gdkPixbufAnimationPointer: CPointer<GdkPixbufAnimation>,
+) : Object(gdkPixbufAnimationPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new animation by loading it from a file.
@@ -83,15 +84,15 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      * @return A newly-created animation
      */
     @Throws(GLibException::class)
-    public constructor(filename: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_pixbuf_animation_new_from_file(filename, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(filename: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = gdk_pixbuf_animation_new_from_file(filename, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -114,20 +115,15 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      * @since 2.28
      */
     @Throws(GLibException::class)
-    public constructor(stream: InputStream, cancellable: Cancellable? = null) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_animation_new_from_stream(
-                    stream.gioInputStreamPointer,
-                    cancellable?.gioCancellablePointer,
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(stream: InputStream, cancellable: Cancellable? = null) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = gdk_pixbuf_animation_new_from_stream(stream.gioInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -139,15 +135,15 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      * @since 2.28
      */
     @Throws(GLibException::class)
-    public constructor(asyncResult: AsyncResult) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_pixbuf_animation_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(asyncResult: AsyncResult) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        gError.`value` = null
+        val gResult = gdk_pixbuf_animation_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -196,10 +192,8 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      * @param startTime time when the animation starts playing
      * @return an iterator to move over the animation
      */
-    public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter =
-        gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.glibTimeValPointer)!!.run {
-            PixbufAnimationIter(this)
-        }
+    public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter = gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.glibTimeValPointer)!!.run {
+        PixbufAnimationIter(this)}
 
     /**
      * Retrieves a static image for the animation.
@@ -217,8 +211,7 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      * @return unanimated image representing the animation
      */
     public open fun getStaticImage(): Pixbuf = gdk_pixbuf_animation_get_static_image(gdkPixbufAnimationPointer)!!.run {
-        Pixbuf(this)
-    }
+        Pixbuf(this)}
 
     /**
      * Queries the width of the bounding box of a pixbuf animation.
@@ -237,8 +230,7 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      *
      * @return `TRUE` if the "animation" was really just an image
      */
-    public open fun isStaticImage(): Boolean =
-        gdk_pixbuf_animation_is_static_image(gdkPixbufAnimationPointer).asBoolean()
+    public open fun isStaticImage(): Boolean = gdk_pixbuf_animation_is_static_image(gdkPixbufAnimationPointer).asBoolean()
 
     /**
      * Adds a reference to an animation.
@@ -246,8 +238,7 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
      * @return The same as the @animation argument.
      */
     override fun ref(): PixbufAnimation = gdk_pixbuf_animation_ref(gdkPixbufAnimationPointer)!!.run {
-        PixbufAnimation(this)
-    }
+        PixbufAnimation(this)}
 
     /**
      * Removes a reference from an animation.
@@ -256,38 +247,10 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
 
     public companion object : TypeCompanion<PixbufAnimation> {
         override val type: GeneratedClassKGType<PixbufAnimation> =
-            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_animation_get_type")!!) {
-                PixbufAnimation(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_animation_get_type")!!) { PixbufAnimation(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
-
-        /**
-         * Creates a new animation by loading it from a file.
-         *
-         * The file format is detected automatically.
-         *
-         * If the file's format does not support multi-frame images, then an animation
-         * with a single frame will be created.
-         *
-         * Possible errors are in the `GDK_PIXBUF_ERROR` and `G_FILE_ERROR` domains.
-         *
-         * @param filename Name of file to load, in the GLib file
-         *   name encoding
-         * @return A newly-created animation
-         */
-        public fun newFromFile(filename: String): Result<PixbufAnimation> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_pixbuf_animation_new_from_file(filename, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(PixbufAnimation(checkNotNull(gResult).reinterpret()))
-            }
-        }
+            GdkPixbufTypeProvider.register()}
 
         /**
          * Creates a new pixbuf animation by loading an image from an resource.
@@ -299,14 +262,18 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
          * @return A newly-created animation
          * @since 2.28
          */
-        public fun newFromResource(resourcePath: String): Result<PixbufAnimation> = memScoped {
-            val gError = allocPointerTo<GError>()
-            gError.`value` = null
-            val gResult = gdk_pixbuf_animation_new_from_resource(resourcePath, gError.ptr)
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(PixbufAnimation(checkNotNull(gResult).reinterpret()))
+        public fun fromResource(resourcePath: String): Result<PixbufAnimation> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = gdk_pixbuf_animation_new_from_resource(resourcePath, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = PixbufAnimation(checkNotNull(gResult).reinterpret())
+                    Result.success(instance)
+                }
+
             }
         }
 
@@ -330,14 +297,7 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
             stream: InputStream,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = gdk_pixbuf_animation_new_from_stream_async(
-            stream.gioInputStreamPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = gdk_pixbuf_animation_new_from_stream_async(stream.gioInputStreamPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Get the GType of PixbufAnimation

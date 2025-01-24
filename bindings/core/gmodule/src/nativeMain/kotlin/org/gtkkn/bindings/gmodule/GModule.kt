@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gmodule
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -15,8 +17,6 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gmodule.GModule
-import kotlin.String
-import kotlin.Unit
 
 public object GModule {
     public const val MODULE_IMPL_AR: gint = 7
@@ -30,9 +30,9 @@ public object GModule {
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             ModuleError.quark() -> ModuleError.fromErrorOrNull(error)
-                ?.let {
-                    ModuleErrorException(error, it)
-                }
+            ?.let {
+                ModuleErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
@@ -40,29 +40,23 @@ public object GModule {
 }
 
 public val ModuleCheckInitFunc: CPointer<CFunction<(CPointer<GModule>) -> CPointer<ByteVar>>> =
-    staticCFunction {
-            module: CPointer<GModule>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(module: Module) -> String>().get().invoke(
-            module!!.run {
-                Module(this)
-            }
-        ).let { g_strdup(it) }
-    }
-        .reinterpret()
+        staticCFunction {
+    module: CPointer<GModule>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(module: Module) -> String>().get().invoke(module!!.run {
+        Module(this)}
+    ).let { g_strdup(it) }}
+.reinterpret()
 
 public val ModuleUnloadFunc: CPointer<CFunction<(CPointer<GModule>) -> Unit>> = staticCFunction {
-        module: CPointer<GModule>?,
-        userData: COpaquePointer,
+    module: CPointer<GModule>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(module: Module) -> Unit>().get().invoke(
-        module!!.run {
-            Module(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(module: Module) -> Unit>().get().invoke(module!!.run {
+        Module(this)}
+    )}
+.reinterpret()
 
 /**
  * Specifies the type of the module initialization function.

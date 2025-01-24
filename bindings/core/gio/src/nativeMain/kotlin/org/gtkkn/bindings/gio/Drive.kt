@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -64,11 +69,6 @@ import org.gtkkn.native.gio.g_drive_stop_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -100,9 +100,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * For [porting from GnomeVFS](migrating-gnome-vfs.html) note that there is no
  * equivalent of `GDrive` in that API.
  */
-public interface Drive :
-    Proxy,
-    KGTyped {
+public interface Drive : Proxy, KGTyped {
     public val gioDrivePointer: CPointer<GDrive>
 
     /**
@@ -158,16 +156,11 @@ public interface Drive :
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback, or null.
      */
-    public fun eject(flags: MountUnmountFlags, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_drive_eject(
-            gioDrivePointer,
-            flags.mask,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun eject(
+        flags: MountUnmountFlags,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_drive_eject(gioDrivePointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes ejecting a drive.
@@ -204,16 +197,7 @@ public interface Drive :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_drive_eject_with_operation(
-        gioDrivePointer,
-        flags.mask,
-        mountOperation?.gioMountOperationPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_drive_eject_with_operation(gioDrivePointer, flags.mask, mountOperation?.gioMountOperationPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes ejecting a drive. If any errors occurred during the operation,
@@ -226,11 +210,7 @@ public interface Drive :
     @GioVersion2_22
     public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_drive_eject_with_operation_finish(
-            gioDrivePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_drive_eject_with_operation_finish(gioDrivePointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -247,8 +227,7 @@ public interface Drive :
      *     array of strings containing kinds of identifiers. Use g_strfreev()
      *     to free.
      */
-    public fun enumerateIdentifiers(): CollectionsList<String> =
-        g_drive_enumerate_identifiers(gioDrivePointer)?.toKStringList() ?: error("Expected not null string array")
+    public fun enumerateIdentifiers(): CollectionsList<String> = g_drive_enumerate_identifiers(gioDrivePointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Gets the icon for @drive.
@@ -257,8 +236,7 @@ public interface Drive :
      *    Free the returned object with g_object_unref().
      */
     public fun getIcon(): Icon = g_drive_get_icon(gioDrivePointer)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Gets the identifier of the given kind for @drive. The only
@@ -297,8 +275,7 @@ public interface Drive :
      */
     @GioVersion2_22
     public fun getStartStopType(): DriveStartStopType = g_drive_get_start_stop_type(gioDrivePointer).run {
-        DriveStartStopType.fromNativeValue(this)
-    }
+        DriveStartStopType.fromNativeValue(this)}
 
     /**
      * Gets the icon for @drive.
@@ -309,8 +286,7 @@ public interface Drive :
      */
     @GioVersion2_34
     public fun getSymbolicIcon(): Icon = g_drive_get_symbolic_icon(gioDrivePointer)!!.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Get a list of mountable volumes for @drive.
@@ -321,8 +297,7 @@ public interface Drive :
      * @return #GList containing any #GVolume objects on the given @drive.
      */
     public fun getVolumes(): GlibList = g_drive_get_volumes(gioDrivePointer)!!.run {
-        GlibList(this)
-    }
+        GlibList(this)}
 
     /**
      * Checks if the @drive has media. Note that the OS may not be polling
@@ -375,15 +350,7 @@ public interface Drive :
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback, or null.
      */
-    public fun pollForMedia(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_drive_poll_for_media(
-            gioDrivePointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun pollForMedia(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = g_drive_poll_for_media(gioDrivePointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an operation started with g_drive_poll_for_media() on a drive.
@@ -394,11 +361,7 @@ public interface Drive :
      */
     public fun pollForMediaFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_drive_poll_for_media_finish(
-            gioDrivePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_drive_poll_for_media_finish(gioDrivePointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -426,16 +389,7 @@ public interface Drive :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_drive_start(
-        gioDrivePointer,
-        flags.mask,
-        mountOperation?.gioMountOperationPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_drive_start(gioDrivePointer, flags.mask, mountOperation?.gioMountOperationPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes starting a drive.
@@ -476,16 +430,7 @@ public interface Drive :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_drive_stop(
-        gioDrivePointer,
-        flags.mask,
-        mountOperation?.gioMountOperationPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_drive_stop(gioDrivePointer, flags.mask, mountOperation?.gioMountOperationPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes stopping a drive.
@@ -512,15 +457,7 @@ public interface Drive :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioDrivePointer,
-            "changed",
-            onChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioDrivePointer, "changed", onChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the #GDrive have been
@@ -531,15 +468,7 @@ public interface Drive :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onDisconnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioDrivePointer,
-            "disconnected",
-            onDisconnectedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onDisconnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioDrivePointer, "disconnected", onDisconnectedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the physical eject button (if any) of a drive has
@@ -548,15 +477,7 @@ public interface Drive :
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onEjectButton(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioDrivePointer,
-            "eject-button",
-            onEjectButtonFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onEjectButton(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioDrivePointer, "eject-button", onEjectButtonFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the physical stop button (if any) of a drive has
@@ -567,32 +488,24 @@ public interface Drive :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun onStopButton(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioDrivePointer,
-            "stop-button",
-            onStopButtonFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onStopButton(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioDrivePointer, "stop-button", onStopButtonFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The DriveImpl type represents a native instance of the Drive interface.
      *
      * @constructor Creates a new instance of Drive for the provided [CPointer].
      */
-    public data class DriveImpl(override val gioDrivePointer: CPointer<GDrive>) :
-        Object(gioDrivePointer.reinterpret()),
+    public data class DriveImpl(
+        override val gioDrivePointer: CPointer<GDrive>,
+    ) : Object(gioDrivePointer.reinterpret()),
         Drive
 
     public companion object : TypeCompanion<Drive> {
         override val type: GeneratedInterfaceKGType<Drive> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_drive_get_type")!!) { DriveImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("g_drive_get_type")!!) { DriveImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Drive
@@ -604,33 +517,29 @@ public interface Drive :
 }
 
 private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onDisconnectedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onEjectButtonFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onStopButtonFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

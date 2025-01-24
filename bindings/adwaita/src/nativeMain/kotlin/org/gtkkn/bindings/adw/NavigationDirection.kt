@@ -10,12 +10,13 @@ import org.gtkkn.native.gobject.GType
 /**
  * Describes the direction of a swipe navigation gesture.
  */
-public enum class NavigationDirection(public val nativeValue: AdwNavigationDirection) {
+public enum class NavigationDirection(
+    public val nativeValue: AdwNavigationDirection,
+) {
     /**
      * Corresponds to start or top, depending on orientation and text direction
      */
     BACK(AdwNavigationDirection.ADW_NAVIGATION_DIRECTION_BACK),
-
     /**
      * Corresponds to end or bottom, depending on orientation and text direction
      */

@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -40,10 +44,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A bar with contextual information.
@@ -71,8 +71,9 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
-    Widget(adwBannerPointer.reinterpret()),
+public class Banner(
+    public val adwBannerPointer: CPointer<AdwBanner>,
+) : Widget(adwBannerPointer.reinterpret()),
     Actionable,
     KGTyped {
     override val gtkActionablePointer: CPointer<GtkActionable>
@@ -106,7 +107,6 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_button_label(adwBannerPointer)?.toKString()
-
         /**
          * Sets the button label for @self.
          *
@@ -135,7 +135,6 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_revealed(adwBannerPointer).asBoolean()
-
         /**
          * Sets whether a banner should be revealed
          *
@@ -161,7 +160,6 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_title(adwBannerPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the title for this banner.
          *
@@ -189,7 +187,6 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_use_markup(adwBannerPointer).asBoolean()
-
         /**
          * Sets whether to use Pango markup for the banner title.
          *
@@ -220,15 +217,7 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun onButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwBannerPointer,
-            "button-clicked",
-            onButtonClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwBannerPointer, "button-clicked", onButtonClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "button-clicked" signal. See [onButtonClicked].
@@ -242,11 +231,10 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
 
     public companion object : TypeCompanion<Banner> {
         override val type: GeneratedClassKGType<Banner> =
-            GeneratedClassKGType(getTypeOrNull("adw_banner_get_type")!!) { Banner(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_banner_get_type")!!) { Banner(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Banner
@@ -258,9 +246,8 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
 }
 
 private val onButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

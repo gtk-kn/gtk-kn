@@ -23,8 +23,9 @@ import org.gtkkn.native.gsk.gsk_container_node_get_type
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class ContainerNode(public val gskContainerNodePointer: CPointer<GskContainerNode>) :
-    RenderNode(gskContainerNodePointer.reinterpret()),
+public open class ContainerNode(
+    public val gskContainerNodePointer: CPointer<GskContainerNode>,
+) : RenderNode(gskContainerNodePointer.reinterpret()),
     KGTyped {
     /**
      * Gets one of the children of @container.
@@ -32,10 +33,8 @@ public open class ContainerNode(public val gskContainerNodePointer: CPointer<Gsk
      * @param idx the position of the child to get
      * @return the @idx'th child of @container
      */
-    public open fun getChild(idx: guint): RenderNode =
-        gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public open fun getChild(idx: guint): RenderNode = gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the number of direct children of @node.
@@ -46,11 +45,10 @@ public open class ContainerNode(public val gskContainerNodePointer: CPointer<Gsk
 
     public companion object : TypeCompanion<ContainerNode> {
         override val type: GeneratedClassKGType<ContainerNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_container_node_get_type")!!) { ContainerNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_container_node_get_type")!!) { ContainerNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of ContainerNode

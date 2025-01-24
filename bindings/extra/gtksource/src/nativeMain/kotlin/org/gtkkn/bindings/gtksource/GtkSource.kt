@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -37,9 +40,6 @@ import org.gtkkn.native.gtksource.gtk_source_scheduler_add_full
 import org.gtkkn.native.gtksource.gtk_source_scheduler_remove
 import org.gtkkn.native.gtksource.gtk_source_utils_escape_search_text
 import org.gtkkn.native.gtksource.gtk_source_utils_unescape_search_text
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -124,8 +124,11 @@ public object GtkSource {
      * @return true if the version of the GtkSourceView currently loaded
      * is the same as or newer than the passed-in version.
      */
-    public fun checkVersion(major: guint, minor: guint, micro: guint): Boolean =
-        gtk_source_check_version(major, minor, micro).asBoolean()
+    public fun checkVersion(
+        major: guint,
+        minor: guint,
+        micro: guint,
+    ): Boolean = gtk_source_check_version(major, minor, micro).asBoolean()
 
     /**
      * Free the resources allocated by GtkSourceView. For example it unrefs the
@@ -191,8 +194,7 @@ public object GtkSource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerAdd(callback: SchedulerCallback): gsize =
-        gtk_source_scheduler_add(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
+    public fun schedulerAdd(callback: SchedulerCallback): gsize = gtk_source_scheduler_add(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
      * Adds a new callback that will be executed as time permits on the main thread.
@@ -209,11 +211,7 @@ public object GtkSource {
      * @since 5.2
      */
     @GtkSourceVersion5_2
-    public fun schedulerAddFull(callback: SchedulerCallback): gsize = gtk_source_scheduler_add_full(
-        SchedulerCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun schedulerAddFull(callback: SchedulerCallback): gsize = gtk_source_scheduler_add_full(SchedulerCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Removes a scheduler callback previously registered with
@@ -246,8 +244,7 @@ public object GtkSource {
      * @param text the text to escape.
      * @return the escaped @text.
      */
-    public fun utilsEscapeSearchText(text: String): String =
-        gtk_source_utils_escape_search_text(text)?.toKString() ?: error("Expected not null string")
+    public fun utilsEscapeSearchText(text: String): String = gtk_source_utils_escape_search_text(text)?.toKString() ?: error("Expected not null string")
 
     /**
      * Use this function before [method@SearchSettings.set_search_text], to
@@ -262,19 +259,18 @@ public object GtkSource {
      * @param text the text to unescape.
      * @return the unescaped @text.
      */
-    public fun utilsUnescapeSearchText(text: String): String =
-        gtk_source_utils_unescape_search_text(text)?.toKString() ?: error("Expected not null string")
+    public fun utilsUnescapeSearchText(text: String): String = gtk_source_utils_unescape_search_text(text)?.toKString() ?: error("Expected not null string")
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             FileLoaderError.quark() -> FileLoaderError.fromErrorOrNull(error)
-                ?.let {
-                    FileLoaderErrorException(error, it)
-                }
+            ?.let {
+                FileLoaderErrorException(error, it)
+            }
             FileSaverError.quark() -> FileSaverError.fromErrorOrNull(error)
-                ?.let {
-                    FileSaverErrorException(error, it)
-                }
+            ?.let {
+                FileSaverErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
@@ -282,28 +278,23 @@ public object GtkSource {
 }
 
 public val MountOperationFactoryFunc:
-    CPointer<CFunction<(CPointer<GtkSourceFile>, gpointer?) -> CPointer<GMountOperation>>> =
-    staticCFunction {
-            `file`: CPointer<GtkSourceFile>?,
-            userdata: gpointer?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`file`: File, userdata: gpointer?) -> MountOperation>().get().invoke(
-            `file`!!.run {
-                File(this)
-            },
-            userdata
-        ).gioMountOperationPointer
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkSourceFile>, gpointer?) -> CPointer<GMountOperation>>> =
+        staticCFunction {
+    `file`: CPointer<GtkSourceFile>?,
+    userdata: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`file`: File, userdata: gpointer?) -> MountOperation>().get().invoke(`file`!!.run {
+        File(this)}
+    , userdata).gioMountOperationPointer}
+.reinterpret()
 
 public val SchedulerCallbackFunc: CPointer<CFunction<(gint64) -> gboolean>> = staticCFunction {
-        deadline: gint64,
-        userData: gpointer?,
+    deadline: gint64,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<(deadline: gint64) -> Boolean>().get().invoke(deadline).asGBoolean()
-}
-    .reinterpret()
+    userData!!.asStableRef<(deadline: gint64) -> Boolean>().get().invoke(deadline).asGBoolean()}
+.reinterpret()
 
 /**
  * Type definition for a function that will be called to create a

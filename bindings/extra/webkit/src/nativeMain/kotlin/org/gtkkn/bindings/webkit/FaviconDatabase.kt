@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -41,10 +45,6 @@ import org.gtkkn.native.webkit.webkit_favicon_database_get_favicon
 import org.gtkkn.native.webkit.webkit_favicon_database_get_favicon_finish
 import org.gtkkn.native.webkit.webkit_favicon_database_get_favicon_uri
 import org.gtkkn.native.webkit.webkit_favicon_database_get_type
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Provides access to the icons associated with web sites.
@@ -59,8 +59,9 @@ import kotlin.Unit
  * be deleted from it. Nevertheless, WebKit will still store them in
  * the in-memory cache during the current execution.
  */
-public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<WebKitFaviconDatabase>) :
-    Object(webkitFaviconDatabasePointer.reinterpret()),
+public class FaviconDatabase(
+    public val webkitFaviconDatabasePointer: CPointer<WebKitFaviconDatabase>,
+) : Object(webkitFaviconDatabasePointer.reinterpret()),
     KGTyped {
     /**
      * Clears all icons from the database.
@@ -83,16 +84,11 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
      * @param callback A #GAsyncReadyCallback to call when the request is
      *            satisfied or null if you don't care about the result.
      */
-    public fun getFavicon(pageUri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_favicon_database_get_favicon(
-            webkitFaviconDatabasePointer,
-            pageUri,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun getFavicon(
+        pageUri: String,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = webkit_favicon_database_get_favicon(webkitFaviconDatabasePointer, pageUri, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an operation started with webkit_favicon_database_get_favicon().
@@ -102,13 +98,8 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
      */
     public fun getFaviconFinish(result: AsyncResult): Result<Texture> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_favicon_database_get_favicon_finish(
-            webkitFaviconDatabasePointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Texture.TextureImpl(this)
-        }
+        val gResult = webkit_favicon_database_get_favicon_finish(webkitFaviconDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            Texture.TextureImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -124,9 +115,7 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
      * @return a newly allocated URI for the favicon, or null if the
      * database doesn't have a favicon for @page_uri.
      */
-    public fun getFaviconUri(pageUri: String): String =
-        webkit_favicon_database_get_favicon_uri(webkitFaviconDatabasePointer, pageUri)?.toKString()
-            ?: error("Expected not null string")
+    public fun getFaviconUri(pageUri: String): String = webkit_favicon_database_get_favicon_uri(webkitFaviconDatabasePointer, pageUri)?.toKString() ?: error("Expected not null string")
 
     /**
      * This signal is emitted when the favicon URI of @page_uri has
@@ -139,17 +128,7 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `pageUri` the URI of the Web page containing the icon; `faviconUri` the URI of the favicon
      */
-    public fun onFaviconChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (pageUri: String, faviconUri: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitFaviconDatabasePointer,
-        "favicon-changed",
-        onFaviconChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onFaviconChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (pageUri: String, faviconUri: String) -> Unit): ULong = g_signal_connect_data(webkitFaviconDatabasePointer, "favicon-changed", onFaviconChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "favicon-changed" signal. See [onFaviconChanged].
@@ -158,23 +137,15 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
      * @param faviconUri the URI of the favicon
      */
     public fun emitFaviconChanged(pageUri: String, faviconUri: String) {
-        g_signal_emit_by_name(
-            webkitFaviconDatabasePointer.reinterpret(),
-            "favicon-changed",
-            pageUri.cstr,
-            faviconUri.cstr
-        )
+        g_signal_emit_by_name(webkitFaviconDatabasePointer.reinterpret(), "favicon-changed", pageUri.cstr, faviconUri.cstr)
     }
 
     public companion object : TypeCompanion<FaviconDatabase> {
         override val type: GeneratedClassKGType<FaviconDatabase> =
-            GeneratedClassKGType(getTypeOrNull("webkit_favicon_database_get_type")!!) {
-                FaviconDatabase(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_favicon_database_get_type")!!) { FaviconDatabase(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of FaviconDatabase
@@ -186,15 +157,11 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
 }
 
 private val onFaviconChangedFunc:
-    CPointer<CFunction<(CPointer<ByteVar>, CPointer<ByteVar>) -> Unit>> = staticCFunction {
-            _: COpaquePointer,
-            pageUri: CPointer<ByteVar>?,
-            faviconUri: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(pageUri: String, faviconUri: String) -> Unit>().get().invoke(
-            pageUri?.toKString() ?: error("Expected not null string"),
-            faviconUri?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<ByteVar>, CPointer<ByteVar>) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    pageUri: CPointer<ByteVar>?,
+    faviconUri: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(pageUri: String, faviconUri: String) -> Unit>().get().invoke(pageUri?.toKString() ?: error("Expected not null string"), faviconUri?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

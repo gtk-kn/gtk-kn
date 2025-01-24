@@ -3,14 +3,16 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GThreadError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Possible errors of thread related functions.
  */
-public enum class ThreadError(public val nativeValue: GThreadError) {
+public enum class ThreadError(
+    public val nativeValue: GThreadError,
+) {
     /**
      * a thread couldn't be created due to resource
      *                        shortage. Try again later.

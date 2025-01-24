@@ -5,7 +5,9 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GTestLogType
 
-public enum class TestLogType(public val nativeValue: GTestLogType) {
+public enum class TestLogType(
+    public val nativeValue: GTestLogType,
+) {
     NONE(GTestLogType.G_TEST_LOG_NONE),
     ERROR(GTestLogType.G_TEST_LOG_ERROR),
     START_BINARY(GTestLogType.G_TEST_LOG_START_BINARY),

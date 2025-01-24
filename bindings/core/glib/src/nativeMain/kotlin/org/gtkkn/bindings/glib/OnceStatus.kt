@@ -12,17 +12,17 @@ import org.gtkkn.native.glib.GOnceStatus
  * @since 2.4
  */
 @GLibVersion2_4
-public enum class OnceStatus(public val nativeValue: GOnceStatus) {
+public enum class OnceStatus(
+    public val nativeValue: GOnceStatus,
+) {
     /**
      * the function has not been called yet.
      */
     NOTCALLED(GOnceStatus.G_ONCE_STATUS_NOTCALLED),
-
     /**
      * the function call is currently in progress.
      */
     PROGRESS(GOnceStatus.G_ONCE_STATUS_PROGRESS),
-
     /**
      * the function has been called.
      */

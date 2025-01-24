@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
@@ -19,9 +22,6 @@ import org.gtkkn.native.webkit.webkit_option_menu_item_is_enabled
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_child
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_group_label
 import org.gtkkn.native.webkit.webkit_option_menu_item_is_selected
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * One item of a #WebKitOptionMenu.
@@ -33,8 +33,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenuItem(public val webkitOptionMenuItemPointer: CPointer<WebKitOptionMenuItem>) :
-    ProxyInstance(webkitOptionMenuItemPointer) {
+public class OptionMenuItem(
+    public val webkitOptionMenuItemPointer: CPointer<WebKitOptionMenuItem>,
+) : ProxyInstance(webkitOptionMenuItemPointer) {
     /**
      * Make a copy of the #WebKitOptionMenuItem.
      *
@@ -43,8 +44,7 @@ public class OptionMenuItem(public val webkitOptionMenuItemPointer: CPointer<Web
      */
     @WebKitVersion2_18
     public fun copy(): OptionMenuItem = webkit_option_menu_item_copy(webkitOptionMenuItemPointer)!!.run {
-        OptionMenuItem(this)
-    }
+        OptionMenuItem(this)}
 
     /**
      * Free the #WebKitOptionMenuItem.
@@ -61,8 +61,7 @@ public class OptionMenuItem(public val webkitOptionMenuItemPointer: CPointer<Web
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getLabel(): String =
-        webkit_option_menu_item_get_label(webkitOptionMenuItemPointer)?.toKString() ?: error("Expected not null string")
+    public fun getLabel(): String = webkit_option_menu_item_get_label(webkitOptionMenuItemPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the tooltip of a #WebKitOptionMenuItem.
@@ -71,8 +70,7 @@ public class OptionMenuItem(public val webkitOptionMenuItemPointer: CPointer<Web
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getTooltip(): String = webkit_option_menu_item_get_tooltip(webkitOptionMenuItemPointer)?.toKString()
-        ?: error("Expected not null string")
+    public fun getTooltip(): String = webkit_option_menu_item_get_tooltip(webkitOptionMenuItemPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Whether a #WebKitOptionMenuItem is enabled.

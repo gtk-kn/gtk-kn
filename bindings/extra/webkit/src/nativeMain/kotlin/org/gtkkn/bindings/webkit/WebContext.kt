@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -60,10 +64,6 @@ import org.gtkkn.native.webkit.webkit_web_context_set_spell_checking_enabled
 import org.gtkkn.native.webkit.webkit_web_context_set_spell_checking_languages
 import org.gtkkn.native.webkit.webkit_web_context_set_web_process_extensions_directory
 import org.gtkkn.native.webkit.webkit_web_context_set_web_process_extensions_initialization_user_data
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 import kotlin.collections.List as CollectionsList
 import org.gtkkn.bindings.glib.List as GlibList
 
@@ -98,8 +98,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * - method `memory-pressure-settings`: Property has no getter nor setter
  */
-public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebContext>) :
-    Object(webkitWebContextPointer.reinterpret()),
+public class WebContext(
+    public val webkitWebContextPointer: CPointer<WebKitWebContext>,
+) : Object(webkitWebContextPointer.reinterpret()),
     KGTyped {
     /**
      * The timezone override for this web context. Setting this property provides a better
@@ -120,8 +121,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
          *
          * @since 2.38
          */
-        get() = webkit_web_context_get_time_zone_override(webkitWebContextPointer)?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_web_context_get_time_zone_override(webkitWebContextPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Create a new #WebKitWebContext.
@@ -129,7 +129,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @return a newly created #WebKitWebContext
      * @since 2.8
      */
-    public constructor() : this(webkit_web_context_new()!!.reinterpret())
+    public constructor() : this(webkit_web_context_new()!!)
 
     /**
      * Adds a path to be mounted in the sandbox.
@@ -149,8 +149,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun addPathToSandbox(path: String, readOnly: Boolean): Unit =
-        webkit_web_context_add_path_to_sandbox(webkitWebContextPointer, path, readOnly.asGBoolean())
+    public fun addPathToSandbox(path: String, readOnly: Boolean): Unit = webkit_web_context_add_path_to_sandbox(webkitWebContextPointer, path, readOnly.asGBoolean())
 
     /**
      * Returns the current cache model.
@@ -162,8 +161,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @return the current #WebKitCacheModel
      */
     public fun getCacheModel(): CacheModel = webkit_web_context_get_cache_model(webkitWebContextPointer).run {
-        CacheModel.fromNativeValue(this)
-    }
+        CacheModel.fromNativeValue(this)}
 
     /**
      * Get the #WebKitGeolocationManager of @context.
@@ -172,10 +170,8 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun getGeolocationManager(): GeolocationManager =
-        webkit_web_context_get_geolocation_manager(webkitWebContextPointer)!!.run {
-            GeolocationManager(this)
-        }
+    public fun getGeolocationManager(): GeolocationManager = webkit_web_context_get_geolocation_manager(webkitWebContextPointer)!!.run {
+        GeolocationManager(this)}
 
     /**
      * Get the #WebKitNetworkSession used for automation sessions started in @context.
@@ -184,28 +180,23 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getNetworkSessionForAutomation(): NetworkSession? =
-        webkit_web_context_get_network_session_for_automation(webkitWebContextPointer)?.run {
-            NetworkSession(this)
-        }
+    public fun getNetworkSessionForAutomation(): NetworkSession? = webkit_web_context_get_network_session_for_automation(webkitWebContextPointer)?.run {
+        NetworkSession(this)}
 
     /**
      * Get the #WebKitSecurityManager of @context.
      *
      * @return the #WebKitSecurityManager of @context.
      */
-    public fun getSecurityManager(): SecurityManager =
-        webkit_web_context_get_security_manager(webkitWebContextPointer)!!.run {
-            SecurityManager(this)
-        }
+    public fun getSecurityManager(): SecurityManager = webkit_web_context_get_security_manager(webkitWebContextPointer)!!.run {
+        SecurityManager(this)}
 
     /**
      * Get whether spell checking feature is currently enabled.
      *
      * @return true If spell checking is enabled, or false otherwise.
      */
-    public fun getSpellCheckingEnabled(): Boolean =
-        webkit_web_context_get_spell_checking_enabled(webkitWebContextPointer).asBoolean()
+    public fun getSpellCheckingEnabled(): Boolean = webkit_web_context_get_spell_checking_enabled(webkitWebContextPointer).asBoolean()
 
     /**
      * Get the the list of spell checking languages.
@@ -219,9 +210,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @return A null-terminated
      *    array of languages if available, or null otherwise.
      */
-    public fun getSpellCheckingLanguages(): CollectionsList<String> =
-        webkit_web_context_get_spell_checking_languages(webkitWebContextPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun getSpellCheckingLanguages(): CollectionsList<String> = webkit_web_context_get_spell_checking_languages(webkitWebContextPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Sets initial desktop notification permissions for the @context.
@@ -246,12 +235,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun initializeNotificationPermissions(allowedOrigins: GlibList, disallowedOrigins: GlibList): Unit =
-        webkit_web_context_initialize_notification_permissions(
-            webkitWebContextPointer,
-            allowedOrigins.glibListPointer,
-            disallowedOrigins.glibListPointer
-        )
+    public fun initializeNotificationPermissions(allowedOrigins: GlibList, disallowedOrigins: GlibList): Unit = webkit_web_context_initialize_notification_permissions(webkitWebContextPointer, allowedOrigins.glibListPointer, disallowedOrigins.glibListPointer)
 
     /**
      * Get whether automation is allowed in @context.
@@ -262,8 +246,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isAutomationAllowed(): Boolean =
-        webkit_web_context_is_automation_allowed(webkitWebContextPointer).asBoolean()
+    public fun isAutomationAllowed(): Boolean = webkit_web_context_is_automation_allowed(webkitWebContextPointer).asBoolean()
 
     /**
      * Register @scheme in @context.
@@ -307,14 +290,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @param scheme the network scheme to register
      * @param callback a #WebKitURISchemeRequestCallback
      */
-    public fun registerUriScheme(scheme: String, callback: UriSchemeRequestCallback): Unit =
-        webkit_web_context_register_uri_scheme(
-            webkitWebContextPointer,
-            scheme,
-            UriSchemeRequestCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun registerUriScheme(scheme: String, callback: UriSchemeRequestCallback): Unit = webkit_web_context_register_uri_scheme(webkitWebContextPointer, scheme, UriSchemeRequestCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Send @message to all web process extensions associated to @context.
@@ -325,8 +301,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun sendMessageToAllExtensions(message: UserMessage): Unit =
-        webkit_web_context_send_message_to_all_extensions(webkitWebContextPointer, message.webkitUserMessagePointer)
+    public fun sendMessageToAllExtensions(message: UserMessage): Unit = webkit_web_context_send_message_to_all_extensions(webkitWebContextPointer, message.webkitUserMessagePointer)
 
     /**
      * Set whether automation is allowed in @context.
@@ -344,8 +319,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setAutomationAllowed(allowed: Boolean): Unit =
-        webkit_web_context_set_automation_allowed(webkitWebContextPointer, allowed.asGBoolean())
+    public fun setAutomationAllowed(allowed: Boolean): Unit = webkit_web_context_set_automation_allowed(webkitWebContextPointer, allowed.asGBoolean())
 
     /**
      * Specifies a usage model for WebViews.
@@ -371,8 +345,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      *
      * @param cacheModel a #WebKitCacheModel
      */
-    public fun setCacheModel(cacheModel: CacheModel): Unit =
-        webkit_web_context_set_cache_model(webkitWebContextPointer, cacheModel.nativeValue)
+    public fun setCacheModel(cacheModel: CacheModel): Unit = webkit_web_context_set_cache_model(webkitWebContextPointer, cacheModel.nativeValue)
 
     /**
      * Set the list of preferred languages.
@@ -389,16 +362,14 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @param languages a null-terminated list of language identifiers
      */
     public fun setPreferredLanguages(languages: CollectionsList<String>? = null): Unit = memScoped {
-        return webkit_web_context_set_preferred_languages(webkitWebContextPointer, languages?.toCStringList(this))
-    }
+        return webkit_web_context_set_preferred_languages(webkitWebContextPointer, languages?.toCStringList(this))}
 
     /**
      * Enable or disable the spell checking feature.
      *
      * @param enabled Value to be set
      */
-    public fun setSpellCheckingEnabled(enabled: Boolean): Unit =
-        webkit_web_context_set_spell_checking_enabled(webkitWebContextPointer, enabled.asGBoolean())
+    public fun setSpellCheckingEnabled(enabled: Boolean): Unit = webkit_web_context_set_spell_checking_enabled(webkitWebContextPointer, enabled.asGBoolean())
 
     /**
      * Set the list of spell checking languages to be used for spell
@@ -416,8 +387,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @param languages a null-terminated list of spell checking languages
      */
     public fun setSpellCheckingLanguages(languages: CollectionsList<String>): Unit = memScoped {
-        return webkit_web_context_set_spell_checking_languages(webkitWebContextPointer, languages.toCStringList(this))
-    }
+        return webkit_web_context_set_spell_checking_languages(webkitWebContextPointer, languages.toCStringList(this))}
 
     /**
      * Set the directory where WebKit will look for web process extensions.
@@ -429,8 +399,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      *
      * @param directory the directory to add
      */
-    public fun setWebProcessExtensionsDirectory(directory: String): Unit =
-        webkit_web_context_set_web_process_extensions_directory(webkitWebContextPointer, directory)
+    public fun setWebProcessExtensionsDirectory(directory: String): Unit = webkit_web_context_set_web_process_extensions_directory(webkitWebContextPointer, directory)
 
     /**
      * Set user data to be passed to Web Extensions on initialization.
@@ -446,11 +415,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.4
      */
     @WebKitVersion2_4
-    public fun setWebProcessExtensionsInitializationUserData(userData: Variant): Unit =
-        webkit_web_context_set_web_process_extensions_initialization_user_data(
-            webkitWebContextPointer,
-            userData.glibVariantPointer
-        )
+    public fun setWebProcessExtensionsInitializationUserData(userData: Variant): Unit = webkit_web_context_set_web_process_extensions_initialization_user_data(webkitWebContextPointer, userData.glibVariantPointer)
 
     /**
      * This signal is emitted when a new automation request is made.
@@ -462,17 +427,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun onAutomationStarted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (session: AutomationSession) -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitWebContextPointer,
-        "automation-started",
-        onAutomationStartedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAutomationStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (session: AutomationSession) -> Unit): ULong = g_signal_connect_data(webkitWebContextPointer, "automation-started", onAutomationStartedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "automation-started" signal. See [onAutomationStarted].
@@ -482,11 +437,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      */
     @WebKitVersion2_18
     public fun emitAutomationStarted(session: AutomationSession) {
-        g_signal_emit_by_name(
-            webkitWebContextPointer.reinterpret(),
-            "automation-started",
-            session.webkitAutomationSessionPointer
-        )
+        g_signal_emit_by_name(webkitWebContextPointer.reinterpret(), "automation-started", session.webkitAutomationSessionPointer)
     }
 
     /**
@@ -504,17 +455,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun onInitializeNotificationPermissions(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitWebContextPointer,
-        "initialize-notification-permissions",
-        onInitializeNotificationPermissionsFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onInitializeNotificationPermissions(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitWebContextPointer, "initialize-notification-permissions", onInitializeNotificationPermissionsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "initialize-notification-permissions" signal. See [onInitializeNotificationPermissions].
@@ -537,17 +478,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.4
      */
     @WebKitVersion2_4
-    public fun onInitializeWebProcessExtensions(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> Unit,
-    ): ULong = g_signal_connect_data(
-        webkitWebContextPointer,
-        "initialize-web-process-extensions",
-        onInitializeWebProcessExtensionsFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onInitializeWebProcessExtensions(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitWebContextPointer, "initialize-web-process-extensions", onInitializeWebProcessExtensionsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "initialize-web-process-extensions" signal. See [onInitializeWebProcessExtensions].
@@ -572,25 +503,14 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun onUserMessageReceived(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (message: UserMessage) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        webkitWebContextPointer,
-        "user-message-received",
-        onUserMessageReceivedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onUserMessageReceived(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: UserMessage) -> Boolean): ULong = g_signal_connect_data(webkitWebContextPointer, "user-message-received", onUserMessageReceivedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<WebContext> {
         override val type: GeneratedClassKGType<WebContext> =
-            GeneratedClassKGType(getTypeOrNull("webkit_web_context_get_type")!!) { WebContext(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("webkit_web_context_get_type")!!) { WebContext(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Gets the default web context.
@@ -598,8 +518,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
          * @return a #WebKitWebContext
          */
         public fun getDefault(): WebContext = webkit_web_context_get_default()!!.run {
-            WebContext(this)
-        }
+            WebContext(this)}
 
         /**
          * Get the GType of WebContext
@@ -611,47 +530,39 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
 }
 
 private val onAutomationStartedFunc:
-    CPointer<CFunction<(CPointer<WebKitAutomationSession>) -> Unit>> = staticCFunction {
-            _: COpaquePointer,
-            session: CPointer<WebKitAutomationSession>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(session: AutomationSession) -> Unit>().get().invoke(
-            session!!.run {
-                AutomationSession(this)
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<WebKitAutomationSession>) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    session: CPointer<WebKitAutomationSession>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(session: AutomationSession) -> Unit>().get().invoke(session!!.run {
+        AutomationSession(this)}
+    )}
+.reinterpret()
 
 private val onInitializeNotificationPermissionsFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onInitializeWebProcessExtensionsFunc: CPointer<CFunction<() -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<() -> Unit>().get().invoke()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onUserMessageReceivedFunc:
-    CPointer<CFunction<(CPointer<WebKitUserMessage>) -> gboolean>> = staticCFunction {
-            _: COpaquePointer,
-            message: CPointer<WebKitUserMessage>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(message: UserMessage) -> Boolean>().get().invoke(
-            message!!.run {
-                UserMessage(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<WebKitUserMessage>) -> gboolean>> = staticCFunction {
+    _: COpaquePointer,
+    message: CPointer<WebKitUserMessage>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(message: UserMessage) -> Boolean>().get().invoke(message!!.run {
+        UserMessage(this)}
+    ).asGBoolean()}
+.reinterpret()

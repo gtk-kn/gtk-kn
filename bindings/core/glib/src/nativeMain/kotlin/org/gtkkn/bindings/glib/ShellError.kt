@@ -3,24 +3,24 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GShellError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Error codes returned by shell functions.
  */
-public enum class ShellError(public val nativeValue: GShellError) {
+public enum class ShellError(
+    public val nativeValue: GShellError,
+) {
     /**
      * Mismatched or otherwise mangled quoting.
      */
     BAD_QUOTING(GShellError.G_SHELL_ERROR_BAD_QUOTING),
-
     /**
      * String to be parsed was empty.
      */
     EMPTY_STRING(GShellError.G_SHELL_ERROR_EMPTY_STRING),
-
     /**
      * Some other error.
      */

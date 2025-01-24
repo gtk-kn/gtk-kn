@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -52,11 +57,6 @@ import org.gtkkn.native.gtk.gtk_file_chooser_set_current_name
 import org.gtkkn.native.gtk.gtk_file_chooser_set_file
 import org.gtkkn.native.gtk.gtk_file_chooser_set_filter
 import org.gtkkn.native.gtk.gtk_file_chooser_set_select_multiple
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GtkFileChooser` is an interface that can be implemented by file
@@ -104,9 +104,7 @@ import kotlin.collections.List
  *
  * - method `filter`: Property TypeInfo of getter and setter do not match
  */
-public interface FileChooser :
-    Proxy,
-    KGTyped {
+public interface FileChooser : Proxy, KGTyped {
     public val gtkFileChooserPointer: CPointer<GtkFileChooser>
 
     /**
@@ -119,9 +117,7 @@ public interface FileChooser :
          * @return the action that the file selector is performing
          */
         get() = gtk_file_chooser_get_action(gtkFileChooserPointer).run {
-            FileChooserAction.fromNativeValue(this)
-        }
-
+            FileChooserAction.fromNativeValue(this)}
         /**
          * Sets the type of operation that the chooser is performing.
          *
@@ -146,7 +142,6 @@ public interface FileChooser :
          * @return true if the Create Folder button should be displayed.
          */
         get() = gtk_file_chooser_get_create_folders(gtkFileChooserPointer).asBoolean()
-
         /**
          * Sets whether file chooser will offer to create new folders.
          *
@@ -178,8 +173,7 @@ public interface FileChooser :
          *   of user-selectable filters.
          */
         get() = gtk_file_chooser_get_filters(gtkFileChooserPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+            ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Whether to allow multiple files to be selected.
@@ -192,7 +186,6 @@ public interface FileChooser :
          * @return true if multiple files can be selected.
          */
         get() = gtk_file_chooser_get_select_multiple(gtkFileChooserPointer).asBoolean()
-
         /**
          * Sets whether multiple files can be selected in the file chooser.
          *
@@ -221,8 +214,7 @@ public interface FileChooser :
          * @return A list model of `GFile`s
          */
         get() = gtk_file_chooser_get_shortcut_folders(gtkFileChooserPointer)!!.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+            ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Adds a 'choice' to the file chooser.
@@ -245,14 +237,7 @@ public interface FileChooser :
         options: List<String>? = null,
         optionLabels: List<String>? = null,
     ): Unit = memScoped {
-        return gtk_file_chooser_add_choice(
-            gtkFileChooserPointer,
-            id,
-            label,
-            options?.toCStringList(this),
-            optionLabels?.toCStringList(this)
-        )
-    }
+        return gtk_file_chooser_add_choice(gtkFileChooserPointer, id, label, options?.toCStringList(this), optionLabels?.toCStringList(this))}
 
     /**
      * Adds @filter to the list of filters that the user can select between.
@@ -265,8 +250,7 @@ public interface FileChooser :
      *
      * @param filter a `GtkFileFilter`
      */
-    public fun addFilter(filter: FileFilter): Unit =
-        gtk_file_chooser_add_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
+    public fun addFilter(filter: FileFilter): Unit = gtk_file_chooser_add_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
 
     /**
      * Adds a folder to be displayed with the shortcut folders
@@ -278,11 +262,7 @@ public interface FileChooser :
      */
     public fun addShortcutFolder(folder: File): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_chooser_add_shortcut_folder(
-            gtkFileChooserPointer,
-            folder.gioFilePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_file_chooser_add_shortcut_folder(gtkFileChooserPointer, folder.gioFilePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -296,8 +276,7 @@ public interface FileChooser :
      * @return the action that the file selector is performing
      */
     public fun getAction(): FileChooserAction = gtk_file_chooser_get_action(gtkFileChooserPointer).run {
-        FileChooserAction.fromNativeValue(this)
-    }
+        FileChooserAction.fromNativeValue(this)}
 
     /**
      * Gets the currently selected option in the 'choice' with the given ID.
@@ -320,8 +299,7 @@ public interface FileChooser :
      * @return the `GFile` for the current folder.
      */
     public fun getCurrentFolder(): File? = gtk_file_chooser_get_current_folder(gtkFileChooserPointer)?.run {
-        File.FileImpl(reinterpret())
-    }
+        File.FileImpl(reinterpret())}
 
     /**
      * Gets the current name in the file selector, as entered by the user.
@@ -351,8 +329,7 @@ public interface FileChooser :
      *   returned file; use g_object_unref() to release it.
      */
     public fun getFile(): File? = gtk_file_chooser_get_file(gtkFileChooserPointer)?.run {
-        File.FileImpl(reinterpret())
-    }
+        File.FileImpl(reinterpret())}
 
     /**
      * Lists all the selected files and subfolders in the current folder
@@ -363,8 +340,7 @@ public interface FileChooser :
      *   list with g_object_unref().
      */
     public fun getFiles(): ListModel = gtk_file_chooser_get_files(gtkFileChooserPointer)!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Gets the current filter.
@@ -372,8 +348,7 @@ public interface FileChooser :
      * @return the current filter
      */
     public fun getFilter(): FileFilter? = gtk_file_chooser_get_filter(gtkFileChooserPointer)?.run {
-        FileFilter(this)
-    }
+        FileFilter(this)}
 
     /**
      * Gets the current set of user-selectable filters, as a list model.
@@ -388,8 +363,7 @@ public interface FileChooser :
      *   of user-selectable filters.
      */
     public fun getFilters(): ListModel = gtk_file_chooser_get_filters(gtkFileChooserPointer)!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Gets whether multiple files can be selected in the file
@@ -408,8 +382,7 @@ public interface FileChooser :
      * @return A list model of `GFile`s
      */
     public fun getShortcutFolders(): ListModel = gtk_file_chooser_get_shortcut_folders(gtkFileChooserPointer)!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Removes a 'choice' that has been added with gtk_file_chooser_add_choice().
@@ -423,8 +396,7 @@ public interface FileChooser :
      *
      * @param filter a `GtkFileFilter`
      */
-    public fun removeFilter(filter: FileFilter): Unit =
-        gtk_file_chooser_remove_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
+    public fun removeFilter(filter: FileFilter): Unit = gtk_file_chooser_remove_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
 
     /**
      * Removes a folder from the shortcut folders in a file chooser.
@@ -435,11 +407,7 @@ public interface FileChooser :
      */
     public fun removeShortcutFolder(folder: File): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_chooser_remove_shortcut_folder(
-            gtkFileChooserPointer,
-            folder.gioFilePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_file_chooser_remove_shortcut_folder(gtkFileChooserPointer, folder.gioFilePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -458,8 +426,7 @@ public interface FileChooser :
      *
      * @param action the action that the file selector is performing
      */
-    public fun setAction(action: FileChooserAction): Unit =
-        gtk_file_chooser_set_action(gtkFileChooserPointer, action.nativeValue)
+    public fun setAction(action: FileChooserAction): Unit = gtk_file_chooser_set_action(gtkFileChooserPointer, action.nativeValue)
 
     /**
      * Selects an option in a 'choice' that has been added with
@@ -470,8 +437,7 @@ public interface FileChooser :
      * @param id the ID of the choice to set
      * @param option the ID of the option to select
      */
-    public fun setChoice(id: String, option: String): Unit =
-        gtk_file_chooser_set_choice(gtkFileChooserPointer, id, option)
+    public fun setChoice(id: String, option: String): Unit = gtk_file_chooser_set_choice(gtkFileChooserPointer, id, option)
 
     /**
      * Sets whether file chooser will offer to create new folders.
@@ -481,8 +447,7 @@ public interface FileChooser :
      *
      * @param createFolders true if the Create Folder button should be displayed
      */
-    public fun setCreateFolders(createFolders: Boolean): Unit =
-        gtk_file_chooser_set_create_folders(gtkFileChooserPointer, createFolders.asGBoolean())
+    public fun setCreateFolders(createFolders: Boolean): Unit = gtk_file_chooser_set_create_folders(gtkFileChooserPointer, createFolders.asGBoolean())
 
     /**
      * Sets the current folder for @chooser from a `GFile`.
@@ -493,11 +458,7 @@ public interface FileChooser :
      */
     public fun setCurrentFolder(`file`: File? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_file_chooser_set_current_folder(
-            gtkFileChooserPointer,
-            `file`?.gioFilePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_file_chooser_set_current_folder(gtkFileChooserPointer, `file`?.gioFilePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -594,8 +555,7 @@ public interface FileChooser :
      *
      * @param filter a `GtkFileFilter`
      */
-    public fun setFilter(filter: FileFilter): Unit =
-        gtk_file_chooser_set_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
+    public fun setFilter(filter: FileFilter): Unit = gtk_file_chooser_set_filter(gtkFileChooserPointer, filter.gtkFileFilterPointer)
 
     /**
      * Sets whether multiple files can be selected in the file chooser.
@@ -606,27 +566,24 @@ public interface FileChooser :
      *
      * @param selectMultiple true if multiple files can be selected.
      */
-    public fun setSelectMultiple(selectMultiple: Boolean): Unit =
-        gtk_file_chooser_set_select_multiple(gtkFileChooserPointer, selectMultiple.asGBoolean())
+    public fun setSelectMultiple(selectMultiple: Boolean): Unit = gtk_file_chooser_set_select_multiple(gtkFileChooserPointer, selectMultiple.asGBoolean())
 
     /**
      * The FileChooserImpl type represents a native instance of the FileChooser interface.
      *
      * @constructor Creates a new instance of FileChooser for the provided [CPointer].
      */
-    public data class FileChooserImpl(override val gtkFileChooserPointer: CPointer<GtkFileChooser>) :
-        Object(gtkFileChooserPointer.reinterpret()),
+    public data class FileChooserImpl(
+        override val gtkFileChooserPointer: CPointer<GtkFileChooser>,
+    ) : Object(gtkFileChooserPointer.reinterpret()),
         FileChooser
 
     public companion object : TypeCompanion<FileChooser> {
         override val type: GeneratedInterfaceKGType<FileChooser> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_file_chooser_get_type")!!) {
-                FileChooserImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_file_chooser_get_type")!!) { FileChooserImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FileChooser

@@ -39,10 +39,7 @@ import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
  * @since 4.6
  */
 @GtkVersion4_6
-public interface SymbolicPaintable :
-    Proxy,
-    Paintable,
-    KGTyped {
+public interface SymbolicPaintable : Proxy, Paintable, KGTyped {
     public val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>
 
     override val gdkPaintablePointer: CPointer<GdkPaintable>
@@ -53,19 +50,17 @@ public interface SymbolicPaintable :
      *
      * @constructor Creates a new instance of SymbolicPaintable for the provided [CPointer].
      */
-    public data class SymbolicPaintableImpl(override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>) :
-        Object(gtkSymbolicPaintablePointer.reinterpret()),
+    public data class SymbolicPaintableImpl(
+        override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>,
+    ) : Object(gtkSymbolicPaintablePointer.reinterpret()),
         SymbolicPaintable
 
     public companion object : TypeCompanion<SymbolicPaintable> {
         override val type: GeneratedInterfaceKGType<SymbolicPaintable> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_symbolic_paintable_get_type")!!) {
-                SymbolicPaintableImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_symbolic_paintable_get_type")!!) { SymbolicPaintableImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SymbolicPaintable

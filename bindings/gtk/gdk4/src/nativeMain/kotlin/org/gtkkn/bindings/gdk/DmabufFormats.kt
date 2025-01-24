@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -18,8 +20,6 @@ import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GdkDmabufFormats` struct provides information about
@@ -50,8 +50,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GdkVersion4_14
-public class DmabufFormats(public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats>) :
-    ProxyInstance(gdkDmabufFormatsPointer) {
+public class DmabufFormats(
+    public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats>,
+) : ProxyInstance(gdkDmabufFormatsPointer) {
     /**
      * Returns whether a given format is contained in @formats.
      *
@@ -62,8 +63,7 @@ public class DmabufFormats(public val gdkDmabufFormatsPointer: CPointer<GdkDmabu
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun contains(fourcc: guint, modifier: guint64): Boolean =
-        gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer, fourcc, modifier).asBoolean()
+    public fun contains(fourcc: guint, modifier: guint64): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer, fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -74,8 +74,7 @@ public class DmabufFormats(public val gdkDmabufFormatsPointer: CPointer<GdkDmabu
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun equal(formats2: DmabufFormats? = null): Boolean =
-        gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer, formats2?.gdkDmabufFormatsPointer).asBoolean()
+    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer, formats2?.gdkDmabufFormatsPointer).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object
@@ -99,8 +98,7 @@ public class DmabufFormats(public val gdkDmabufFormatsPointer: CPointer<GdkDmabu
      */
     @GdkVersion4_14
     public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer)!!.run {
-        DmabufFormats(this)
-    }
+        DmabufFormats(this)}
 
     /**
      * Decreases the reference count of @formats.

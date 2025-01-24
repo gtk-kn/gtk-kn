@@ -16,23 +16,22 @@ import org.gtkkn.native.gobject.GType
  * @since 4.6
  */
 @GdkVersion4_6
-public enum class TextureError(public val nativeValue: GdkTextureError) {
+public enum class TextureError(
+    public val nativeValue: GdkTextureError,
+) {
     /**
      * Not enough memory to handle this image
      */
     TOO_LARGE(GdkTextureError.GDK_TEXTURE_ERROR_TOO_LARGE),
-
     /**
      * The image data appears corrupted
      */
     CORRUPT_IMAGE(GdkTextureError.GDK_TEXTURE_ERROR_CORRUPT_IMAGE),
-
     /**
      * The image contains features
      *   that cannot be loaded
      */
     UNSUPPORTED_CONTENT(GdkTextureError.GDK_TEXTURE_ERROR_UNSUPPORTED_CONTENT),
-
     /**
      * The image format is not supported
      */

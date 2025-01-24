@@ -48,8 +48,9 @@ import org.gtkkn.native.gtk.gtk_color_chooser_widget_new
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorChooserWidget(public val gtkColorChooserWidgetPointer: CPointer<GtkColorChooserWidget>) :
-    Widget(gtkColorChooserWidgetPointer.reinterpret()),
+public open class ColorChooserWidget(
+    public val gtkColorChooserWidgetPointer: CPointer<GtkColorChooserWidget>,
+) : Widget(gtkColorChooserWidgetPointer.reinterpret()),
     ColorChooser,
     KGTyped {
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
@@ -73,13 +74,10 @@ public open class ColorChooserWidget(public val gtkColorChooserWidgetPointer: CP
 
     public companion object : TypeCompanion<ColorChooserWidget> {
         override val type: GeneratedClassKGType<ColorChooserWidget> =
-            GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_widget_get_type")!!) {
-                ColorChooserWidget(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_widget_get_type")!!) { ColorChooserWidget(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ColorChooserWidget

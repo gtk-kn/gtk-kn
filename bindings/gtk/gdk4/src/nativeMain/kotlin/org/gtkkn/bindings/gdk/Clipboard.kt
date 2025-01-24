@@ -3,6 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -55,12 +61,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * The `GdkClipboard` object represents data shared between applications or
@@ -87,8 +87,9 @@ import kotlin.collections.List
  * - parameter `args`: va_list type is not supported
  * - method `local`: Property has no getter nor setter
  */
-public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboard>) :
-    Object(gdkClipboardPointer.reinterpret()),
+public open class Clipboard(
+    public val gdkClipboardPointer: CPointer<GdkClipboard>,
+) : Object(gdkClipboardPointer.reinterpret()),
     KGTyped {
     /**
      * The `GdkContentProvider` or null if the clipboard is empty or contents are
@@ -105,8 +106,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
          *   if the clipboard does not maintain any content
          */
         get() = gdk_clipboard_get_content(gdkClipboardPointer)?.run {
-            ContentProvider(this)
-        }
+            ContentProvider(this)}
 
     /**
      * The `GdkDisplay` that the clipboard belongs to.
@@ -118,8 +118,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
          * @return a `GdkDisplay`
          */
         get() = gdk_clipboard_get_display(gdkClipboardPointer)!!.run {
-            Display(this)
-        }
+            Display(this)}
 
     /**
      * The possible formats that the clipboard can provide its data in.
@@ -131,8 +130,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
          * @return The formats of the clipboard
          */
         get() = gdk_clipboard_get_formats(gdkClipboardPointer)!!.run {
-            ContentFormats(this)
-        }
+            ContentFormats(this)}
 
     /**
      * Returns if the clipboard is local.
@@ -168,17 +166,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = memScoped {
-        return gdk_clipboard_read_async(
-            gdkClipboardPointer,
-            mimeTypes.toCStringList(this),
-            ioPriority,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
-    }
+        return gdk_clipboard_read_async(gdkClipboardPointer, mimeTypes.toCStringList(this), ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })}
 
     /**
      * Asynchronously request the @clipboard contents converted to a string.
@@ -193,15 +181,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      * @param cancellable optional `GCancellable` object
      * @param callback callback to call when the request is satisfied
      */
-    public open fun readTextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        gdk_clipboard_read_text_async(
-            gdkClipboardPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun readTextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = gdk_clipboard_read_text_async(gdkClipboardPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous clipboard read.
@@ -213,11 +193,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      */
     public open fun readTextFinish(result: AsyncResult): Result<String?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_clipboard_read_text_finish(
-            gdkClipboardPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.toKString()
+        val gResult = gdk_clipboard_read_text_finish(gdkClipboardPointer, result.gioAsyncResultPointer, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -238,15 +214,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      * @param cancellable optional `GCancellable` object, null to ignore.
      * @param callback callback to call when the request is satisfied
      */
-    public open fun readTextureAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        gdk_clipboard_read_texture_async(
-            gdkClipboardPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public open fun readTextureAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = gdk_clipboard_read_texture_async(gdkClipboardPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous clipboard read.
@@ -258,13 +226,8 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      */
     public open fun readTextureFinish(result: AsyncResult): Result<Texture?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_clipboard_read_texture_finish(
-            gdkClipboardPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Texture.TextureImpl(this)
-        }
+        val gResult = gdk_clipboard_read_texture_finish(gdkClipboardPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            Texture.TextureImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -294,16 +257,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gdk_clipboard_read_value_async(
-        gdkClipboardPointer,
-        type,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gdk_clipboard_read_value_async(gdkClipboardPointer, type, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous clipboard read.
@@ -315,13 +269,8 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      */
     public open fun readValueFinish(result: AsyncResult): Result<Value> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_clipboard_read_value_finish(
-            gdkClipboardPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Value(this)
-        }
+        val gResult = gdk_clipboard_read_value_finish(gdkClipboardPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            Value(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -348,8 +297,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      *   or null to clear the clipboard
      * @return true if setting the clipboard succeeded
      */
-    public open fun setContent(provider: ContentProvider? = null): Boolean =
-        gdk_clipboard_set_content(gdkClipboardPointer, provider?.gdkContentProviderPointer).asBoolean()
+    public open fun setContent(provider: ContentProvider? = null): Boolean = gdk_clipboard_set_content(gdkClipboardPointer, provider?.gdkContentProviderPointer).asBoolean()
 
     /**
      * Puts the given @text into the clipboard.
@@ -363,16 +311,14 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      *
      * @param texture a `GdkTexture` to put into the clipboard
      */
-    public open fun setTexture(texture: Texture): Unit =
-        gdk_clipboard_set_texture(gdkClipboardPointer, texture.gdkTexturePointer)
+    public open fun setTexture(texture: Texture): Unit = gdk_clipboard_set_texture(gdkClipboardPointer, texture.gdkTexturePointer)
 
     /**
      * Sets the @clipboard to contain the given @value.
      *
      * @param value a `GValue` to set
      */
-    public open fun `set`(`value`: Value): Unit =
-        gdk_clipboard_set_value(gdkClipboardPointer, `value`.gobjectValuePointer)
+    public open fun `set`(`value`: Value): Unit = gdk_clipboard_set_value(gdkClipboardPointer, `value`.gobjectValuePointer)
 
     /**
      * Asynchronously instructs the @clipboard to store its contents remotely.
@@ -398,15 +344,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gdk_clipboard_store_async(
-        gdkClipboardPointer,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gdk_clipboard_store_async(gdkClipboardPointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous clipboard store.
@@ -418,11 +356,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      */
     public open fun storeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_clipboard_store_finish(
-            gdkClipboardPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gdk_clipboard_store_finish(gdkClipboardPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -436,15 +370,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gdkClipboardPointer,
-            "changed",
-            onChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gdkClipboardPointer, "changed", onChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "changed" signal. See [onChanged].
@@ -455,11 +381,10 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
 
     public companion object : TypeCompanion<Clipboard> {
         override val type: GeneratedClassKGType<Clipboard> =
-            GeneratedClassKGType(getTypeOrNull("gdk_clipboard_get_type")!!) { Clipboard(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_clipboard_get_type")!!) { Clipboard(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of Clipboard
@@ -471,9 +396,8 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
 }
 
 private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

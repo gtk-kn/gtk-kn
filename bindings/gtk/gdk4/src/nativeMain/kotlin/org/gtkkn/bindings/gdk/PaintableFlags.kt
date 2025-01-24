@@ -15,7 +15,9 @@ import org.gtkkn.native.gobject.GType
  *
  * Implementations use these for optimizations such as caching.
  */
-public class PaintableFlags(public val mask: GdkPaintableFlags) : Bitfield<PaintableFlags> {
+public class PaintableFlags(
+    public val mask: GdkPaintableFlags,
+) : Bitfield<PaintableFlags> {
     override infix fun or(other: PaintableFlags): PaintableFlags = PaintableFlags(mask or other.mask)
 
     public companion object {

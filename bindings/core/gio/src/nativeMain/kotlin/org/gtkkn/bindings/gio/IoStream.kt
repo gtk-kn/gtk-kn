@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -36,9 +39,6 @@ import org.gtkkn.native.gio.g_io_stream_splice_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GIOStream` represents an object that has both read and write streams.
@@ -97,8 +97,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream>) :
-    Object(gioIoStreamPointer.reinterpret()),
+public abstract class IoStream(
+    public val gioIoStreamPointer: CPointer<GIOStream>,
+) : Object(gioIoStreamPointer.reinterpret()),
     KGTyped {
     /**
      * The [class@Gio.InputStream] to read from.
@@ -116,8 +117,7 @@ public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream
          * @since 2.22
          */
         get() = g_io_stream_get_input_stream(gioIoStreamPointer)!!.run {
-            InputStream.InputStreamImpl(this)
-        }
+            InputStream.InputStreamImpl(this)}
 
     /**
      * The [class@Gio.OutputStream] to write to.
@@ -135,8 +135,7 @@ public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream
          * @since 2.22
          */
         get() = g_io_stream_get_output_stream(gioIoStreamPointer)!!.run {
-            OutputStream.OutputStreamImpl(this)
-        }
+            OutputStream.OutputStreamImpl(this)}
 
     /**
      * Clears the pending flag on @stream.
@@ -219,15 +218,7 @@ public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_io_stream_close_async(
-        gioIoStreamPointer,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_io_stream_close_async(gioIoStreamPointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Closes a stream.
@@ -308,32 +299,23 @@ public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_io_stream_splice_async(
-        gioIoStreamPointer,
-        stream2.gioIoStreamPointer,
-        flags.mask,
-        ioPriority,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_io_stream_splice_async(gioIoStreamPointer, stream2.gioIoStreamPointer, flags.mask, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * The IoStreamImpl type represents a native instance of the abstract IoStream class.
      *
      * @constructor Creates a new instance of IoStream for the provided [CPointer].
      */
-    public class IoStreamImpl(pointer: CPointer<GIOStream>) : IoStream(pointer)
+    public class IoStreamImpl(
+        pointer: CPointer<GIOStream>,
+    ) : IoStream(pointer)
 
     public companion object : TypeCompanion<IoStream> {
         override val type: GeneratedClassKGType<IoStream> =
-            GeneratedClassKGType(getTypeOrNull("g_io_stream_get_type")!!) { IoStreamImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_io_stream_get_type")!!) { IoStreamImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Finishes an asynchronous io stream splice operation.

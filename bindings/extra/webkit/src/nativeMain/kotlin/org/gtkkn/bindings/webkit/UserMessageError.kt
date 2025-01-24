@@ -16,7 +16,9 @@ import org.gtkkn.native.webkit.webkit_user_message_error_quark
  * @since 2.28
  */
 @WebKitVersion2_28
-public enum class UserMessageError(public val nativeValue: WebKitUserMessageError) {
+public enum class UserMessageError(
+    public val nativeValue: WebKitUserMessageError,
+) {
     /**
      * The message was not handled by the receiver.
      */

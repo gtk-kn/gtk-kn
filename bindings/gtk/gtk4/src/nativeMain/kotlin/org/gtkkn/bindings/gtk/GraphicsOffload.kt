@@ -62,8 +62,9 @@ import org.gtkkn.native.gtk.gtk_graphics_offload_set_enabled
  * @since 4.14
  */
 @GtkVersion4_14
-public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>) :
-    Widget(gtkGraphicsOffloadPointer.reinterpret()),
+public open class GraphicsOffload(
+    public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>,
+) : Widget(gtkGraphicsOffloadPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -88,9 +89,7 @@ public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer
          * @since 4.14
          */
         get() = gtk_graphics_offload_get_child(gtkGraphicsOffloadPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child of @self.
          *
@@ -114,9 +113,7 @@ public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer
          * @since 4.14
          */
         get() = gtk_graphics_offload_get_enabled(gtkGraphicsOffloadPointer).run {
-            GraphicsOffloadEnabled.fromNativeValue(this)
-        }
-
+            GraphicsOffloadEnabled.fromNativeValue(this)}
         /**
          * Sets whether this GtkGraphicsOffload widget will attempt
          * to offload the content of its child widget.
@@ -138,13 +135,10 @@ public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer
 
     public companion object : TypeCompanion<GraphicsOffload> {
         override val type: GeneratedClassKGType<GraphicsOffload> =
-            GeneratedClassKGType(getTypeOrNull("gtk_graphics_offload_get_type")!!) {
-                GraphicsOffload(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_graphics_offload_get_type")!!) { GraphicsOffload(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GraphicsOffload

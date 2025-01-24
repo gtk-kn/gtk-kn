@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -40,15 +43,13 @@ import org.gtkkn.native.gtk.gtk_list_box_row_set_activatable
 import org.gtkkn.native.gtk.gtk_list_box_row_set_child
 import org.gtkkn.native.gtk.gtk_list_box_row_set_header
 import org.gtkkn.native.gtk.gtk_list_box_row_set_selectable
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkListBoxRow` is the kind of widget that can be added to a `GtkListBox`.
  */
-public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBoxRow>) :
-    Widget(gtkListBoxRowPointer.reinterpret()),
+public open class ListBoxRow(
+    public val gtkListBoxRowPointer: CPointer<GtkListBoxRow>,
+) : Widget(gtkListBoxRowPointer.reinterpret()),
     Actionable,
     KGTyped {
     override val gtkActionablePointer: CPointer<GtkActionable>
@@ -74,7 +75,6 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
          * @return true if the row is activatable
          */
         get() = gtk_list_box_row_get_activatable(gtkListBoxRowPointer).asBoolean()
-
         /**
          * Set whether the row is activatable.
          *
@@ -92,9 +92,7 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
          * @return the child widget of @row
          */
         get() = gtk_list_box_row_get_child(gtkListBoxRowPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -112,7 +110,6 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
          * @return true if the row is selectable
          */
         get() = gtk_list_box_row_get_selectable(gtkListBoxRowPointer).asBoolean()
-
         /**
          * Set whether the row can be selected.
          *
@@ -160,8 +157,7 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
      * @return the current header
      */
     public open fun getHeader(): Widget? = gtk_list_box_row_get_header(gtkListBoxRowPointer)?.run {
-        Widget.WidgetImpl(this)
-    }
+        Widget.WidgetImpl(this)}
 
     /**
      * Gets the current index of the @row in its `GtkListBox` container.
@@ -188,8 +184,7 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
      *
      * @param header the header
      */
-    public open fun setHeader(`header`: Widget? = null): Unit =
-        gtk_list_box_row_set_header(gtkListBoxRowPointer, `header`?.gtkWidgetPointer)
+    public open fun setHeader(`header`: Widget? = null): Unit = gtk_list_box_row_set_header(gtkListBoxRowPointer, `header`?.gtkWidgetPointer)
 
     /**
      * This is a keybinding signal, which will cause this row to be activated.
@@ -201,15 +196,7 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkListBoxRowPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkListBoxRowPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -220,11 +207,10 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
 
     public companion object : TypeCompanion<ListBoxRow> {
         override val type: GeneratedClassKGType<ListBoxRow> =
-            GeneratedClassKGType(getTypeOrNull("gtk_list_box_row_get_type")!!) { ListBoxRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_list_box_row_get_type")!!) { ListBoxRow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ListBoxRow
@@ -236,9 +222,8 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

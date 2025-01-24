@@ -97,7 +97,7 @@ class InterfaceBlueprintBuilder(
         return InterfaceBlueprint(
             kotlinName = kotlinClassName.simpleName,
             nativeName = girNode.name,
-            typeName = kotlinClassName,
+            kotlinTypeName = kotlinClassName,
             methods = methodBluePrints,
             properties = propertyBluePrints,
             skippedObjects = skippedObjects,

@@ -13,18 +13,18 @@ import org.gtkkn.native.gsk.gsk_serialization_error_quark
 /**
  * Errors that can happen during (de)serialization.
  */
-public enum class SerializationError(public val nativeValue: GskSerializationError) {
+public enum class SerializationError(
+    public val nativeValue: GskSerializationError,
+) {
     /**
      * The format can not be identified
      */
     UNSUPPORTED_FORMAT(GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_FORMAT),
-
     /**
      * The version of the data is not
      *   understood
      */
     UNSUPPORTED_VERSION(GskSerializationError.GSK_SERIALIZATION_UNSUPPORTED_VERSION),
-
     /**
      * The given data may not exist in
      *   a proper serialization

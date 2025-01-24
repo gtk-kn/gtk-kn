@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -13,6 +16,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GNode
@@ -47,24 +51,18 @@ import org.gtkkn.native.glib.g_node_unlink
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GNode struct represents one node in a [n-ary tree][glib-N-ary-Trees].
  */
-public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner? = null) :
-    ProxyInstance(glibNodePointer) {
+public class Node(
+    public val glibNodePointer: CPointer<GNode>,
+) : ProxyInstance(glibNodePointer) {
     /**
      * contains the actual data of the node.
      */
     public var `data`: gpointer
         get() = glibNodePointer.pointed.data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.data = value
@@ -76,9 +74,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      */
     public var next: Node?
         get() = glibNodePointer.pointed.next?.run {
-            Node(this)
-        }
-
+            Node(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.next = value?.glibNodePointer
@@ -89,9 +85,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      */
     public var prev: Node?
         get() = glibNodePointer.pointed.prev?.run {
-            Node(this)
-        }
-
+            Node(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.prev = value?.glibNodePointer
@@ -103,9 +97,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      */
     public var parent: Node?
         get() = glibNodePointer.pointed.parent?.run {
-            Node(this)
-        }
-
+            Node(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.parent = value?.glibNodePointer
@@ -118,9 +110,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      */
     public var children: Node?
         get() = glibNodePointer.pointed.children?.run {
-            Node(this)
-        }
-
+            Node(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.children = value?.glibNodePointer
@@ -132,21 +122,9 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GNode>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Node and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GNode>, Cleaner>,
-    ) : this(glibNodePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GNode>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Node using the provided [AutofreeScope].
@@ -247,12 +225,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
      * @param func the function to call for each visited node
      */
-    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(
-        glibNodePointer,
-        flags.mask,
-        NodeForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(glibNodePointer, flags.mask, NodeForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Recursively copies a #GNode (but does not deep-copy the data inside the
@@ -261,8 +234,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return a new #GNode containing the same data pointers
      */
     public fun copy(): Node = g_node_copy(glibNodePointer)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Recursively copies a #GNode and its data.
@@ -273,10 +245,8 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun copyDeep(copyFunc: CopyFunc): Node =
-        g_node_copy_deep(glibNodePointer, CopyFuncFunc.reinterpret(), StableRef.create(copyFunc).asCPointer())!!.run {
-            Node(this)
-        }
+    public fun copyDeep(copyFunc: CopyFunc): Node = g_node_copy_deep(glibNodePointer, CopyFuncFunc.reinterpret(), StableRef.create(copyFunc).asCPointer())!!.run {
+        Node(this)}
 
     /**
      * Gets the depth of a #GNode.
@@ -304,10 +274,12 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @param data the data to find
      * @return the found #GNode, or null if the data is not found
      */
-    public fun find(order: TraverseType, flags: TraverseFlags, `data`: gpointer? = null): Node =
-        g_node_find(glibNodePointer, order.nativeValue, flags.mask, `data`)!!.run {
-            Node(this)
-        }
+    public fun find(
+        order: TraverseType,
+        flags: TraverseFlags,
+        `data`: gpointer? = null,
+    ): Node = g_node_find(glibNodePointer, order.nativeValue, flags.mask, `data`)!!.run {
+        Node(this)}
 
     /**
      * Finds the first child of a #GNode with the given data.
@@ -317,10 +289,8 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @param data the data to find
      * @return the found child #GNode, or null if the data is not found
      */
-    public fun findChild(flags: TraverseFlags, `data`: gpointer? = null): Node =
-        g_node_find_child(glibNodePointer, flags.mask, `data`)!!.run {
-            Node(this)
-        }
+    public fun findChild(flags: TraverseFlags, `data`: gpointer? = null): Node = g_node_find_child(glibNodePointer, flags.mask, `data`)!!.run {
+        Node(this)}
 
     /**
      * Gets the first sibling of a #GNode.
@@ -329,8 +299,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return the first sibling of @node
      */
     public fun firstSibling(): Node = g_node_first_sibling(glibNodePointer)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Gets the root of a tree.
@@ -338,8 +307,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return the root of the tree
      */
     public fun getRoot(): Node = g_node_get_root(glibNodePointer)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Inserts a #GNode beneath the parent at the given position.
@@ -349,10 +317,8 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun insert(position: gint, node: Node): Node =
-        g_node_insert(glibNodePointer, position, node.glibNodePointer)!!.run {
-            Node(this)
-        }
+    public fun insert(position: gint, node: Node): Node = g_node_insert(glibNodePointer, position, node.glibNodePointer)!!.run {
+        Node(this)}
 
     /**
      * Inserts a #GNode beneath the parent after the given sibling.
@@ -362,10 +328,8 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun insertAfter(sibling: Node, node: Node): Node =
-        g_node_insert_after(glibNodePointer, sibling.glibNodePointer, node.glibNodePointer)!!.run {
-            Node(this)
-        }
+    public fun insertAfter(sibling: Node, node: Node): Node = g_node_insert_after(glibNodePointer, sibling.glibNodePointer, node.glibNodePointer)!!.run {
+        Node(this)}
 
     /**
      * Inserts a #GNode beneath the parent before the given sibling.
@@ -375,10 +339,8 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun insertBefore(sibling: Node, node: Node): Node =
-        g_node_insert_before(glibNodePointer, sibling.glibNodePointer, node.glibNodePointer)!!.run {
-            Node(this)
-        }
+    public fun insertBefore(sibling: Node, node: Node): Node = g_node_insert_before(glibNodePointer, sibling.glibNodePointer, node.glibNodePointer)!!.run {
+        Node(this)}
 
     /**
      * Returns true if @node is an ancestor of @descendant.
@@ -388,8 +350,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @param descendant a #GNode
      * @return true if @node is an ancestor of @descendant
      */
-    public fun isAncestor(descendant: Node): Boolean =
-        g_node_is_ancestor(glibNodePointer, descendant.glibNodePointer).asBoolean()
+    public fun isAncestor(descendant: Node): Boolean = g_node_is_ancestor(glibNodePointer, descendant.glibNodePointer).asBoolean()
 
     /**
      * Gets the last child of a #GNode.
@@ -397,8 +358,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return the last child of @node, or null if @node has no children
      */
     public fun lastChild(): Node = g_node_last_child(glibNodePointer)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Gets the last sibling of a #GNode.
@@ -407,8 +367,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return the last sibling of @node
      */
     public fun lastSibling(): Node = g_node_last_sibling(glibNodePointer)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Gets the maximum height of all branches beneath a #GNode.
@@ -446,8 +405,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return the child of @node at index @n
      */
     public fun nthChild(n: guint): Node = g_node_nth_child(glibNodePointer, n)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Inserts a #GNode as the first child of the given parent.
@@ -456,8 +414,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      * @return the inserted #GNode
      */
     public fun prepend(node: Node): Node = g_node_prepend(glibNodePointer, node.glibNodePointer)!!.run {
-        Node(this)
-    }
+        Node(this)}
 
     /**
      * Reverses the order of the children of a #GNode.
@@ -481,15 +438,12 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
      *     If depth is 2, the root and its children are visited. And so on.
      * @param func the function to call for each visited #GNode
      */
-    public fun traverse(order: TraverseType, flags: TraverseFlags, maxDepth: gint, func: NodeTraverseFunc): Unit =
-        g_node_traverse(
-            glibNodePointer,
-            order.nativeValue,
-            flags.mask,
-            maxDepth,
-            NodeTraverseFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun traverse(
+        order: TraverseType,
+        flags: TraverseFlags,
+        maxDepth: gint,
+        func: NodeTraverseFunc,
+    ): Unit = g_node_traverse(glibNodePointer, order.nativeValue, flags.mask, maxDepth, NodeTraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Unlinks a #GNode from a tree, resulting in two separate trees.
@@ -507,8 +461,7 @@ public class Node(public val glibNodePointer: CPointer<GNode>, cleaner: Cleaner?
          * @return a new #GNode
          */
         public fun new(`data`: gpointer? = null): Node = g_node_new(`data`)!!.run {
-            Node(this)
-        }
+            Node(this)}
 
         public fun popAllocator(): Unit = g_node_pop_allocator()
 

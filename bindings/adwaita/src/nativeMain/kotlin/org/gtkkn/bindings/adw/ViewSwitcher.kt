@@ -94,8 +94,9 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
  */
-public class ViewSwitcher(public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>) :
-    Widget(adwViewSwitcherPointer.reinterpret()),
+public class ViewSwitcher(
+    public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>,
+) : Widget(adwViewSwitcherPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -116,9 +117,7 @@ public class ViewSwitcher(public val adwViewSwitcherPointer: CPointer<AdwViewSwi
          * @return the policy of @self
          */
         get() = adw_view_switcher_get_policy(adwViewSwitcherPointer).run {
-            ViewSwitcherPolicy.fromNativeValue(this)
-        }
-
+            ViewSwitcherPolicy.fromNativeValue(this)}
         /**
          * Sets the policy of @self.
          *
@@ -136,9 +135,7 @@ public class ViewSwitcher(public val adwViewSwitcherPointer: CPointer<AdwViewSwi
          * @return the stack
          */
         get() = adw_view_switcher_get_stack(adwViewSwitcherPointer)?.run {
-            ViewStack(this)
-        }
-
+            ViewStack(this)}
         /**
          * Sets the stack controlled by @self.
          *
@@ -155,11 +152,10 @@ public class ViewSwitcher(public val adwViewSwitcherPointer: CPointer<AdwViewSwi
 
     public companion object : TypeCompanion<ViewSwitcher> {
         override val type: GeneratedClassKGType<ViewSwitcher> =
-            GeneratedClassKGType(getTypeOrNull("adw_view_switcher_get_type")!!) { ViewSwitcher(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_view_switcher_get_type")!!) { ViewSwitcher(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ViewSwitcher

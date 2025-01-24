@@ -6,12 +6,14 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRepeatNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_repeat_node_get_child
 import org.gtkkn.native.gsk.gsk_repeat_node_get_child_bounds
 import org.gtkkn.native.gsk.gsk_repeat_node_get_type
@@ -20,8 +22,9 @@ import org.gtkkn.native.gsk.gsk_repeat_node_new
 /**
  * A render node repeating its single child node.
  */
-public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeatNode>) :
-    RenderNode(gskRepeatNodePointer.reinterpret()),
+public open class RepeatNode(
+    public val gskRepeatNodePointer: CPointer<GskRepeatNode>,
+) : RenderNode(gskRepeatNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a `GskRenderNode` that will repeat the drawing of @child across
@@ -37,13 +40,9 @@ public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeat
         bounds: Rect,
         child: RenderNode,
         childBounds: Rect? = null,
-    ) : this(
-        gsk_repeat_node_new(
-            bounds.grapheneRectPointer,
-            child.gskRenderNodePointer,
-            childBounds?.grapheneRectPointer
-        )!!.reinterpret()
-    )
+    ) : this(gsk_repeat_node_new(bounds.grapheneRectPointer, child.gskRenderNodePointer, childBounds?.grapheneRectPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the child of @node.
@@ -51,26 +50,22 @@ public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeat
      * @return a `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the bounding rectangle of the child of @node.
      *
      * @return a bounding rectangle
      */
-    public open fun getChildBounds(): Rect =
-        gsk_repeat_node_get_child_bounds(gskRepeatNodePointer.reinterpret())!!.run {
-            Rect(this)
-        }
+    public open fun getChildBounds(): Rect = gsk_repeat_node_get_child_bounds(gskRepeatNodePointer.reinterpret())!!.run {
+        Rect(this)}
 
     public companion object : TypeCompanion<RepeatNode> {
         override val type: GeneratedClassKGType<RepeatNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_repeat_node_get_type")!!) { RepeatNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_repeat_node_get_type")!!) { RepeatNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of RepeatNode

@@ -21,7 +21,9 @@ import org.gtkkn.native.gobject.GType
  *
  * The elements of the enumeration correspond to the signals of `GdkFrameClock`.
  */
-public class FrameClockPhase(public val mask: GdkFrameClockPhase) : Bitfield<FrameClockPhase> {
+public class FrameClockPhase(
+    public val mask: GdkFrameClockPhase,
+) : Bitfield<FrameClockPhase> {
     override infix fun or(other: FrameClockPhase): FrameClockPhase = FrameClockPhase(mask or other.mask)
 
     public companion object {
@@ -34,13 +36,13 @@ public class FrameClockPhase(public val mask: GdkFrameClockPhase) : Bitfield<Fra
          * corresponds to GdkFrameClock::flush-events. Should not be handled by applications.
          */
         public val FLUSH_EVENTS: FrameClockPhase =
-            FrameClockPhase(GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS)
+                FrameClockPhase(GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS)
 
         /**
          * corresponds to GdkFrameClock::before-paint. Should not be handled by applications.
          */
         public val BEFORE_PAINT: FrameClockPhase =
-            FrameClockPhase(GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT)
+                FrameClockPhase(GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT)
 
         /**
          * corresponds to GdkFrameClock::update.
@@ -61,7 +63,7 @@ public class FrameClockPhase(public val mask: GdkFrameClockPhase) : Bitfield<Fra
          * corresponds to GdkFrameClock::resume-events. Should not be handled by applications.
          */
         public val RESUME_EVENTS: FrameClockPhase =
-            FrameClockPhase(GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS)
+                FrameClockPhase(GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS)
 
         /**
          * corresponds to GdkFrameClock::after-paint. Should not be handled by applications.

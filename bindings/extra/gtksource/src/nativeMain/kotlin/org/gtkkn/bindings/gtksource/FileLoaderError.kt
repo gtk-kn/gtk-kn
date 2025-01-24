@@ -13,20 +13,18 @@ import org.gtkkn.native.gtksource.gtk_source_file_loader_error_quark
 /**
  * An error code used with the %GTK_SOURCE_FILE_LOADER_ERROR domain.
  */
-public enum class FileLoaderError(public val nativeValue: GtkSourceFileLoaderError) {
+public enum class FileLoaderError(
+    public val nativeValue: GtkSourceFileLoaderError,
+) {
     /**
      * The file is too big.
      */
     TOO_BIG(GtkSourceFileLoaderError.GTK_SOURCE_FILE_LOADER_ERROR_TOO_BIG),
-
     /**
      * It is not
      * possible to detect the encoding automatically.
      */
-    ENCODING_AUTO_DETECTION_FAILED(
-        GtkSourceFileLoaderError.GTK_SOURCE_FILE_LOADER_ERROR_ENCODING_AUTO_DETECTION_FAILED
-    ),
-
+    ENCODING_AUTO_DETECTION_FAILED(GtkSourceFileLoaderError.GTK_SOURCE_FILE_LOADER_ERROR_ENCODING_AUTO_DETECTION_FAILED),
     /**
      * There was an encoding
      * conversion error and it was needed to use a fallback character.

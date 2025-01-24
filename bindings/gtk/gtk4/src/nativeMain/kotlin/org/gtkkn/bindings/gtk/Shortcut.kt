@@ -43,8 +43,9 @@ import org.gtkkn.native.gtk.gtk_shortcut_set_trigger
  *
  * - constructor `new_with_arguments`: Varargs parameter is not supported
  */
-public open class Shortcut(public val gtkShortcutPointer: CPointer<GtkShortcut>) :
-    Object(gtkShortcutPointer.reinterpret()),
+public open class Shortcut(
+    public val gtkShortcutPointer: CPointer<GtkShortcut>,
+) : Object(gtkShortcutPointer.reinterpret()),
     KGTyped {
     /**
      * The action that gets activated by this shortcut.
@@ -56,9 +57,7 @@ public open class Shortcut(public val gtkShortcutPointer: CPointer<GtkShortcut>)
          * @return the action
          */
         get() = gtk_shortcut_get_action(gtkShortcutPointer)?.run {
-            ShortcutAction.ShortcutActionImpl(this)
-        }
-
+            ShortcutAction.ShortcutActionImpl(this)}
         /**
          * Sets the new action for @self to be @action.
          *
@@ -77,9 +76,7 @@ public open class Shortcut(public val gtkShortcutPointer: CPointer<GtkShortcut>)
          * @return the arguments
          */
         get() = gtk_shortcut_get_arguments(gtkShortcutPointer)?.run {
-            Variant(this)
-        }
-
+            Variant(this)}
         /**
          * Sets the arguments to pass when activating the shortcut.
          *
@@ -97,9 +94,7 @@ public open class Shortcut(public val gtkShortcutPointer: CPointer<GtkShortcut>)
          * @return the trigger used
          */
         get() = gtk_shortcut_get_trigger(gtkShortcutPointer)?.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)
-        }
-
+            ShortcutTrigger.ShortcutTriggerImpl(this)}
         /**
          * Sets the new trigger for @self to be @trigger.
          *
@@ -117,18 +112,14 @@ public open class Shortcut(public val gtkShortcutPointer: CPointer<GtkShortcut>)
      *    triggering
      * @return a new `GtkShortcut`
      */
-    public constructor(
-        trigger: ShortcutTrigger? = null,
-        action: ShortcutAction? = null,
-    ) : this(gtk_shortcut_new(trigger?.gtkShortcutTriggerPointer, action?.gtkShortcutActionPointer)!!.reinterpret())
+    public constructor(trigger: ShortcutTrigger? = null, action: ShortcutAction? = null) : this(gtk_shortcut_new(trigger?.gtkShortcutTriggerPointer, action?.gtkShortcutActionPointer)!!)
 
     public companion object : TypeCompanion<Shortcut> {
         override val type: GeneratedClassKGType<Shortcut> =
-            GeneratedClassKGType(getTypeOrNull("gtk_shortcut_get_type")!!) { Shortcut(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_shortcut_get_type")!!) { Shortcut(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Shortcut

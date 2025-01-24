@@ -21,8 +21,9 @@ import org.gtkkn.native.gtk.gtk_every_filter_new
  *
  * To add filters to a `GtkEveryFilter`, use [method@Gtk.MultiFilter.append].
  */
-public open class EveryFilter(public val gtkEveryFilterPointer: CPointer<GtkEveryFilter>) :
-    MultiFilter(gtkEveryFilterPointer.reinterpret()),
+public open class EveryFilter(
+    public val gtkEveryFilterPointer: CPointer<GtkEveryFilter>,
+) : MultiFilter(gtkEveryFilterPointer.reinterpret()),
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
@@ -41,15 +42,14 @@ public open class EveryFilter(public val gtkEveryFilterPointer: CPointer<GtkEver
      *
      * @return a new `GtkEveryFilter`
      */
-    public constructor() : this(gtk_every_filter_new()!!.reinterpret())
+    public constructor() : this(gtk_every_filter_new()!!)
 
     public companion object : TypeCompanion<EveryFilter> {
         override val type: GeneratedClassKGType<EveryFilter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_every_filter_get_type")!!) { EveryFilter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_every_filter_get_type")!!) { EveryFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EveryFilter

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -35,9 +38,6 @@ import org.gtkkn.native.gsk.gsk_renderer_realize_for_display
 import org.gtkkn.native.gsk.gsk_renderer_render
 import org.gtkkn.native.gsk.gsk_renderer_render_texture
 import org.gtkkn.native.gsk.gsk_renderer_unrealize
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GskRenderer` is a class that renders a scene graph defined via a
@@ -56,8 +56,9 @@ import kotlin.Unit
  *
  * - method `realized`: Property has no getter nor setter
  */
-public abstract class Renderer(public val gskRendererPointer: CPointer<GskRenderer>) :
-    Object(gskRendererPointer.reinterpret()),
+public abstract class Renderer(
+    public val gskRendererPointer: CPointer<GskRenderer>,
+) : Object(gskRendererPointer.reinterpret()),
     KGTyped {
     /**
      * The surface associated with renderer.
@@ -71,8 +72,7 @@ public abstract class Renderer(public val gskRendererPointer: CPointer<GskRender
          * @return a `GdkSurface`
          */
         get() = gsk_renderer_get_surface(gskRendererPointer)?.run {
-            Surface.SurfaceImpl(this)
-        }
+            Surface.SurfaceImpl(this)}
 
     /**
      * Creates an appropriate `GskRenderer` instance for the given @surface.
@@ -134,11 +134,7 @@ public abstract class Renderer(public val gskRendererPointer: CPointer<GskRender
     @GskVersion4_14
     public open fun realizeForDisplay(display: Display): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gsk_renderer_realize_for_display(
-            gskRendererPointer,
-            display.gdkDisplayPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gsk_renderer_realize_for_display(gskRendererPointer, display.gdkDisplayPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -164,8 +160,7 @@ public abstract class Renderer(public val gskRendererPointer: CPointer<GskRender
      * @param region the `cairo_region_t` that must be redrawn or null
      *   for the whole window
      */
-    public open fun render(root: RenderNode, region: Region? = null): Unit =
-        gsk_renderer_render(gskRendererPointer, root.gskRenderNodePointer, region?.cairoRegionPointer)
+    public open fun render(root: RenderNode, region: Region? = null): Unit = gsk_renderer_render(gskRendererPointer, root.gskRenderNodePointer, region?.cairoRegionPointer)
 
     /**
      * Renders the scene graph, described by a tree of `GskRenderNode` instances,
@@ -181,13 +176,8 @@ public abstract class Renderer(public val gskRendererPointer: CPointer<GskRender
      * @param viewport the section to draw or null to use @root's bounds
      * @return a `GdkTexture` with the rendered contents of @root.
      */
-    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(
-        gskRendererPointer,
-        root.gskRenderNodePointer,
-        viewport?.grapheneRectPointer
-    )!!.run {
-        Texture.TextureImpl(this)
-    }
+    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(gskRendererPointer, root.gskRenderNodePointer, viewport?.grapheneRectPointer)!!.run {
+        Texture.TextureImpl(this)}
 
     /**
      * Releases all the resources created by gsk_renderer_realize().
@@ -199,15 +189,16 @@ public abstract class Renderer(public val gskRendererPointer: CPointer<GskRender
      *
      * @constructor Creates a new instance of Renderer for the provided [CPointer].
      */
-    public class RendererImpl(pointer: CPointer<GskRenderer>) : Renderer(pointer)
+    public class RendererImpl(
+        pointer: CPointer<GskRenderer>,
+    ) : Renderer(pointer)
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-            GeneratedClassKGType(getTypeOrNull("gsk_renderer_get_type")!!) { RendererImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_renderer_get_type")!!) { RendererImpl(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of Renderer

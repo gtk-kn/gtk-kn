@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -29,9 +32,6 @@ import org.gtkkn.native.gtk.gtk_accessible_reset_relation
 import org.gtkkn.native.gtk.gtk_accessible_reset_state
 import org.gtkkn.native.gtk.gtk_accessible_set_accessible_parent
 import org.gtkkn.native.gtk.gtk_accessible_update_next_accessible_sibling
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkAccessible` is an interface for describing UI elements for
@@ -71,9 +71,7 @@ import kotlin.Unit
  * - parameter `relations`: Array parameter of type AccessibleRelation is not supported
  * - parameter `states`: Array parameter of type AccessibleState is not supported
  */
-public interface Accessible :
-    Proxy,
-    KGTyped {
+public interface Accessible : Proxy, KGTyped {
     public val gtkAccessiblePointer: CPointer<GtkAccessible>
 
     /**
@@ -88,8 +86,7 @@ public interface Accessible :
          * @return the accessible role
          */
         get() = gtk_accessible_get_accessible_role(gtkAccessiblePointer).run {
-            AccessibleRole.fromNativeValue(this)
-        }
+            AccessibleRole.fromNativeValue(this)}
 
     /**
      * Requests the user's screen reader to announce the given message.
@@ -107,8 +104,7 @@ public interface Accessible :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun announce(message: String, priority: AccessibleAnnouncementPriority): Unit =
-        gtk_accessible_announce(gtkAccessiblePointer, message, priority.nativeValue)
+    public fun announce(message: String, priority: AccessibleAnnouncementPriority): Unit = gtk_accessible_announce(gtkAccessiblePointer, message, priority.nativeValue)
 
     /**
      * Retrieves the accessible parent for an accessible object.
@@ -120,8 +116,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getAccessibleParent(): Accessible? = gtk_accessible_get_accessible_parent(gtkAccessiblePointer)?.run {
-        AccessibleImpl(reinterpret())
-    }
+        AccessibleImpl(reinterpret())}
 
     /**
      * Retrieves the accessible role of an accessible object.
@@ -129,8 +124,7 @@ public interface Accessible :
      * @return the accessible role
      */
     public fun getAccessibleRole(): AccessibleRole = gtk_accessible_get_accessible_role(gtkAccessiblePointer).run {
-        AccessibleRole.fromNativeValue(this)
-    }
+        AccessibleRole.fromNativeValue(this)}
 
     /**
      * Retrieves the accessible implementation for the given `GtkAccessible`.
@@ -140,8 +134,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer)!!.run {
-        AtContext.AtContextImpl(this)
-    }
+        AtContext.AtContextImpl(this)}
 
     /**
      * Retrieves the first accessible child of an accessible object.
@@ -150,10 +143,8 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getFirstAccessibleChild(): Accessible? =
-        gtk_accessible_get_first_accessible_child(gtkAccessiblePointer)?.run {
-            AccessibleImpl(reinterpret())
-        }
+    public fun getFirstAccessibleChild(): Accessible? = gtk_accessible_get_first_accessible_child(gtkAccessiblePointer)?.run {
+        AccessibleImpl(reinterpret())}
 
     /**
      * Retrieves the next accessible sibling of an accessible object
@@ -162,10 +153,8 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getNextAccessibleSibling(): Accessible? =
-        gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer)?.run {
-            AccessibleImpl(reinterpret())
-        }
+    public fun getNextAccessibleSibling(): Accessible? = gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer)?.run {
+        AccessibleImpl(reinterpret())}
 
     /**
      * Query a platform state, such as focus.
@@ -181,32 +170,28 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getPlatformState(state: AccessiblePlatformState): Boolean =
-        gtk_accessible_get_platform_state(gtkAccessiblePointer, state.nativeValue).asBoolean()
+    public fun getPlatformState(state: AccessiblePlatformState): Boolean = gtk_accessible_get_platform_state(gtkAccessiblePointer, state.nativeValue).asBoolean()
 
     /**
      * Resets the accessible @property to its default value.
      *
      * @param property a `GtkAccessibleProperty`
      */
-    public fun resetProperty(`property`: AccessibleProperty): Unit =
-        gtk_accessible_reset_property(gtkAccessiblePointer, `property`.nativeValue)
+    public fun resetProperty(`property`: AccessibleProperty): Unit = gtk_accessible_reset_property(gtkAccessiblePointer, `property`.nativeValue)
 
     /**
      * Resets the accessible @relation to its default value.
      *
      * @param relation a `GtkAccessibleRelation`
      */
-    public fun resetRelation(relation: AccessibleRelation): Unit =
-        gtk_accessible_reset_relation(gtkAccessiblePointer, relation.nativeValue)
+    public fun resetRelation(relation: AccessibleRelation): Unit = gtk_accessible_reset_relation(gtkAccessiblePointer, relation.nativeValue)
 
     /**
      * Resets the accessible @state to its default value.
      *
      * @param state a `GtkAccessibleState`
      */
-    public fun resetState(state: AccessibleState): Unit =
-        gtk_accessible_reset_state(gtkAccessiblePointer, state.nativeValue)
+    public fun resetState(state: AccessibleState): Unit = gtk_accessible_reset_state(gtkAccessiblePointer, state.nativeValue)
 
     /**
      * Sets the parent and sibling of an accessible object.
@@ -224,12 +209,7 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun setAccessibleParent(parent: Accessible? = null, nextSibling: Accessible? = null): Unit =
-        gtk_accessible_set_accessible_parent(
-            gtkAccessiblePointer,
-            parent?.gtkAccessiblePointer,
-            nextSibling?.gtkAccessiblePointer
-        )
+    public fun setAccessibleParent(parent: Accessible? = null, nextSibling: Accessible? = null): Unit = gtk_accessible_set_accessible_parent(gtkAccessiblePointer, parent?.gtkAccessiblePointer, nextSibling?.gtkAccessiblePointer)
 
     /**
      * Updates the next accessible sibling of @self.
@@ -241,27 +221,24 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun updateNextAccessibleSibling(newSibling: Accessible? = null): Unit =
-        gtk_accessible_update_next_accessible_sibling(gtkAccessiblePointer, newSibling?.gtkAccessiblePointer)
+    public fun updateNextAccessibleSibling(newSibling: Accessible? = null): Unit = gtk_accessible_update_next_accessible_sibling(gtkAccessiblePointer, newSibling?.gtkAccessiblePointer)
 
     /**
      * The AccessibleImpl type represents a native instance of the Accessible interface.
      *
      * @constructor Creates a new instance of Accessible for the provided [CPointer].
      */
-    public data class AccessibleImpl(override val gtkAccessiblePointer: CPointer<GtkAccessible>) :
-        Object(gtkAccessiblePointer.reinterpret()),
+    public data class AccessibleImpl(
+        override val gtkAccessiblePointer: CPointer<GtkAccessible>,
+    ) : Object(gtkAccessiblePointer.reinterpret()),
         Accessible
 
     public companion object : TypeCompanion<Accessible> {
         override val type: GeneratedInterfaceKGType<Accessible> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_get_type")!!) {
-                AccessibleImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_get_type")!!) { AccessibleImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Accessible

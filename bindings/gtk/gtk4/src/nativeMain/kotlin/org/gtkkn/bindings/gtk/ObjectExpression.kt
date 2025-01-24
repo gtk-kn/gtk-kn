@@ -6,12 +6,14 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkObjectExpression
+import org.gtkkn.native.gtk.gtk_expression_unref
 import org.gtkkn.native.gtk.gtk_object_expression_get_object
 import org.gtkkn.native.gtk.gtk_object_expression_get_type
 import org.gtkkn.native.gtk.gtk_object_expression_new
@@ -19,8 +21,9 @@ import org.gtkkn.native.gtk.gtk_object_expression_new
 /**
  * A `GObject` value in a `GtkExpression`.
  */
-public open class ObjectExpression(public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>) :
-    Expression(gtkObjectExpressionPointer.reinterpret()),
+public open class ObjectExpression(
+    public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>,
+) : Expression(gtkObjectExpressionPointer.reinterpret()),
     KGTyped {
     /**
      * Creates an expression evaluating to the given `object` with a weak reference.
@@ -34,29 +37,24 @@ public open class ObjectExpression(public val gtkObjectExpressionPointer: CPoint
      * @param object object to watch
      * @return a new `GtkExpression`
      */
-    public constructor(
-        `object`: Object,
-    ) : this(gtk_object_expression_new(`object`.gobjectObjectPointer)!!.reinterpret())
+    public constructor(`object`: Object) : this(gtk_object_expression_new(`object`.gobjectObjectPointer)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gtk_expression_unref(it.reinterpret()) }
+    }
 
     /**
      * Gets the object that the expression evaluates to.
      *
      * @return the object, or `NULL`
      */
-    public open fun getObject(): Object? =
-        gtk_object_expression_get_object(gtkObjectExpressionPointer.reinterpret())?.run {
-            Object(this)
-        }
+    public open fun getObject(): Object? = gtk_object_expression_get_object(gtkObjectExpressionPointer.reinterpret())?.run {
+        Object(this)}
 
     public companion object : TypeCompanion<ObjectExpression> {
         override val type: GeneratedClassKGType<ObjectExpression> =
-            GeneratedClassKGType(getTypeOrNull("gtk_object_expression_get_type")!!) {
-                ObjectExpression(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_object_expression_get_type")!!) { ObjectExpression(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ObjectExpression

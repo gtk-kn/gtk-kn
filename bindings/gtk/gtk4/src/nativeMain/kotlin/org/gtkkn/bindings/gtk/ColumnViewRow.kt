@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -31,8 +33,6 @@ import org.gtkkn.native.gtk.gtk_column_view_row_set_accessible_label
 import org.gtkkn.native.gtk.gtk_column_view_row_set_activatable
 import org.gtkkn.native.gtk.gtk_column_view_row_set_focusable
 import org.gtkkn.native.gtk.gtk_column_view_row_set_selectable
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkColumnViewRow` is used by [class@Gtk.ColumnView] to allow configuring
@@ -43,8 +43,9 @@ import kotlin.String
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<GtkColumnViewRow>) :
-    Object(gtkColumnViewRowPointer.reinterpret()),
+public open class ColumnViewRow(
+    public val gtkColumnViewRowPointer: CPointer<GtkColumnViewRow>,
+) : Object(gtkColumnViewRowPointer.reinterpret()),
     KGTyped {
     /**
      * The accessible description to set on the row.
@@ -59,9 +60,7 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
          * @return the accessible description
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_accessible_description(gtkColumnViewRowPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_column_view_row_get_accessible_description(gtkColumnViewRowPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the accessible description for the row,
          * which may be used by e.g. screen readers.
@@ -85,9 +84,7 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
          * @return the accessible label
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_accessible_label(gtkColumnViewRowPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_column_view_row_get_accessible_label(gtkColumnViewRowPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the accessible label for the row,
          * which may be used by e.g. screen readers.
@@ -113,7 +110,6 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
          * @since 4.12
          */
         get() = gtk_column_view_row_get_activatable(gtkColumnViewRowPointer).asBoolean()
-
         /**
          * Sets @self to be activatable.
          *
@@ -145,7 +141,6 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
          * @since 4.12
          */
         get() = gtk_column_view_row_get_focusable(gtkColumnViewRowPointer).asBoolean()
-
         /**
          * Sets @self to be focusable.
          *
@@ -179,8 +174,7 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
          * @since 4.12
          */
         get() = gtk_column_view_row_get_item(gtkColumnViewRowPointer)?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Position of the row.
@@ -216,7 +210,6 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
          * @since 4.12
          */
         get() = gtk_column_view_row_get_selectable(gtkColumnViewRowPointer).asBoolean()
-
         /**
          * Sets @self to be selectable.
          *
@@ -256,13 +249,10 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<ColumnViewRow> {
         override val type: GeneratedClassKGType<ColumnViewRow> =
-            GeneratedClassKGType(getTypeOrNull("gtk_column_view_row_get_type")!!) {
-                ColumnViewRow(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_column_view_row_get_type")!!) { ColumnViewRow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ColumnViewRow

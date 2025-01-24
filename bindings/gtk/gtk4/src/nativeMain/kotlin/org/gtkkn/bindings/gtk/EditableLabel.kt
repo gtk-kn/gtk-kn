@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -22,9 +25,6 @@ import org.gtkkn.native.gtk.gtk_editable_label_get_type
 import org.gtkkn.native.gtk.gtk_editable_label_new
 import org.gtkkn.native.gtk.gtk_editable_label_start_editing
 import org.gtkkn.native.gtk.gtk_editable_label_stop_editing
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkEditableLabel` is a label that allows users to
@@ -56,8 +56,9 @@ import kotlin.Unit
  * For all the subnodes added to the text node in various situations,
  * see [class@Gtk.Text].
  */
-public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>) :
-    Widget(gtkEditableLabelPointer.reinterpret()),
+public open class EditableLabel(
+    public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>,
+) : Widget(gtkEditableLabelPointer.reinterpret()),
     Editable,
     KGTyped {
     override val gtkEditablePointer: CPointer<GtkEditable>
@@ -106,16 +107,14 @@ public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<Gtk
      *
      * @param commit whether to set the edited text on the label
      */
-    public open fun stopEditing(commit: Boolean): Unit =
-        gtk_editable_label_stop_editing(gtkEditableLabelPointer, commit.asGBoolean())
+    public open fun stopEditing(commit: Boolean): Unit = gtk_editable_label_stop_editing(gtkEditableLabelPointer, commit.asGBoolean())
 
     public companion object : TypeCompanion<EditableLabel> {
         override val type: GeneratedClassKGType<EditableLabel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_editable_label_get_type")!!) { EditableLabel(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_editable_label_get_type")!!) { EditableLabel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EditableLabel

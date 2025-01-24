@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.TypeClass
@@ -14,14 +15,14 @@ import org.gtkkn.native.gio.g_io_extension_get_type
 import org.gtkkn.native.gio.g_io_extension_ref_class
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * #GIOExtension is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class IoExtension(public val gioIoExtensionPointer: CPointer<GIOExtension>) :
-    ProxyInstance(gioIoExtensionPointer) {
+public class IoExtension(
+    public val gioIoExtensionPointer: CPointer<GIOExtension>,
+) : ProxyInstance(gioIoExtensionPointer) {
     /**
      * Gets the name under which @extension was registered.
      *
@@ -30,8 +31,7 @@ public class IoExtension(public val gioIoExtensionPointer: CPointer<GIOExtension
      *
      * @return the name of @extension.
      */
-    public fun getName(): String =
-        g_io_extension_get_name(gioIoExtensionPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_io_extension_get_name(gioIoExtensionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the priority with which @extension was registered.
@@ -54,6 +54,5 @@ public class IoExtension(public val gioIoExtensionPointer: CPointer<GIOExtension
      * @return the #GTypeClass for the type of @extension
      */
     public fun refClass(): TypeClass = g_io_extension_ref_class(gioIoExtensionPointer)!!.run {
-        TypeClass(this)
-    }
+        TypeClass(this)}
 }

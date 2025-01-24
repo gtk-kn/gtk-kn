@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -25,9 +28,6 @@ import org.gtkkn.native.gtksource.gtk_source_snippet_manager_list_all
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_list_groups
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_list_matching
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_set_search_path
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * Provides access to [class@Snippet].
@@ -45,8 +45,9 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>) :
-    Object(gtksourceSnippetManagerPointer.reinterpret()),
+public open class SnippetManager(
+    public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>,
+) : Object(gtksourceSnippetManagerPointer.reinterpret()),
     KGTyped {
     /**
      * Gets the list directories where @self looks for snippet files.
@@ -55,9 +56,7 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
      *   containing a list of snippet files directories.
      *   The array is owned by @lm and must not be modified.
      */
-    public open fun getSearchPath(): List<String> =
-        gtk_source_snippet_manager_get_search_path(gtksourceSnippetManagerPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getSearchPath(): List<String> = gtk_source_snippet_manager_get_search_path(gtksourceSnippetManagerPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Queries the known snippets for the first matching @group, @language_id,
@@ -71,10 +70,12 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
      * @return a #GtkSourceSnippet or null if no
      *   matching snippet was found.
      */
-    public open fun getSnippet(group: String? = null, languageId: String? = null, trigger: String): Snippet? =
-        gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer, group, languageId, trigger)?.run {
-            Snippet(this)
-        }
+    public open fun getSnippet(
+        group: String? = null,
+        languageId: String? = null,
+        trigger: String,
+    ): Snippet? = gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer, group, languageId, trigger)?.run {
+        Snippet(this)}
 
     /**
      * Gets a [iface@Gio.ListModel] of all snippets.
@@ -87,8 +88,7 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
      */
     @GtkSourceVersion5_6
     public open fun listAll(): ListModel = gtk_source_snippet_manager_list_all(gtksourceSnippetManagerPointer)!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * List all the known groups within the snippet manager.
@@ -98,9 +98,7 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
      *
      * @return An array of strings which should be freed with g_free().
      */
-    public open fun listGroups(): List<String> =
-        gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer)?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun listGroups(): List<String> = gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Queries the known snippets for those matching @group, @language_id, and/or
@@ -122,14 +120,8 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
         group: String? = null,
         languageId: String? = null,
         triggerPrefix: String? = null,
-    ): ListModel = gtk_source_snippet_manager_list_matching(
-        gtksourceSnippetManagerPointer,
-        group,
-        languageId,
-        triggerPrefix
-    )!!.run {
-        ListModel.ListModelImpl(reinterpret())
-    }
+    ): ListModel = gtk_source_snippet_manager_list_matching(gtksourceSnippetManagerPointer, group, languageId, triggerPrefix)!!.run {
+        ListModel.ListModelImpl(reinterpret())}
 
     /**
      * Sets the list of directories in which the `GtkSourceSnippetManager` looks for
@@ -146,18 +138,14 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
      *   strings or null.
      */
     public open fun setSearchPath(dirs: List<String>? = null): Unit = memScoped {
-        return gtk_source_snippet_manager_set_search_path(gtksourceSnippetManagerPointer, dirs?.toCStringList(this))
-    }
+        return gtk_source_snippet_manager_set_search_path(gtksourceSnippetManagerPointer, dirs?.toCStringList(this))}
 
     public companion object : TypeCompanion<SnippetManager> {
         override val type: GeneratedClassKGType<SnippetManager> =
-            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_manager_get_type")!!) {
-                SnippetManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_manager_get_type")!!) { SnippetManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtkSourceTypeProvider.register()}
 
         /**
          * Returns the default #GtkSourceSnippetManager instance.
@@ -166,8 +154,7 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
          *   is owned by GtkSourceView library and must not be unref'd.
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
-            SnippetManager(this)
-        }
+            SnippetManager(this)}
 
         /**
          * Get the GType of SnippetManager

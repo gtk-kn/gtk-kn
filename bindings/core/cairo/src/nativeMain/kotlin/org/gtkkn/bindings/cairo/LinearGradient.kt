@@ -5,12 +5,14 @@ package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.cairo.cairo_gobject_pattern_get_type
 import org.gtkkn.native.cairo.cairo_pattern_create_linear
+import org.gtkkn.native.cairo.cairo_pattern_destroy
 import org.gtkkn.native.cairo.cairo_pattern_t
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
@@ -20,25 +22,25 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `x0`: x0: Out parameter is not supported
  */
-public open class LinearGradient(public val cairoLinearGradientPointer: CPointer<cairo_pattern_t>) :
-    Gradient(cairoLinearGradientPointer.reinterpret()),
+public open class LinearGradient(
+    public val cairoLinearGradientPointer: CPointer<cairo_pattern_t>,
+) : Gradient(cairoLinearGradientPointer.reinterpret()),
     KGTyped {
     public constructor(
         x0: gdouble,
         y0: gdouble,
         x1: gdouble,
         y1: gdouble,
-    ) : this(cairo_pattern_create_linear(x0, y0, x1, y1)!!.reinterpret())
+    ) : this(cairo_pattern_create_linear(x0, y0, x1, y1)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_pattern_destroy(it.reinterpret()) }
+    }
 
     public companion object : TypeCompanion<LinearGradient> {
         override val type: GeneratedClassKGType<LinearGradient> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) {
-                LinearGradient(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) { LinearGradient(it.reinterpret()) }
 
         init {
-            CairoTypeProvider.register()
-        }
+            CairoTypeProvider.register()}
 
         /**
          * Get the GType of LinearGradient

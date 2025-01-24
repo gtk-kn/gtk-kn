@@ -3,15 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
@@ -28,12 +28,6 @@ import org.gtkkn.native.graphene.graphene_point_near
 import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.graphene.graphene_point_to_vec2
 import org.gtkkn.native.graphene.graphene_point_zero
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A point with two coordinates.
@@ -45,14 +39,14 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(graphenePointPointer) {
+public class Point(
+    public val graphenePointPointer: CPointer<graphene_point_t>,
+) : ProxyInstance(graphenePointPointer) {
     /**
      * the X coordinate of the point
      */
     public var x: gfloat
         get() = graphenePointPointer.pointed.x
-
         @UnsafeFieldSetter
         set(`value`) {
             graphenePointPointer.pointed.x = value
@@ -63,73 +57,40 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
      */
     public var y: gfloat
         get() = graphenePointPointer.pointed.y
-
         @UnsafeFieldSetter
         set(`value`) {
             graphenePointPointer.pointed.y = value
         }
 
     /**
-     * Allocate a new Point.
+     * Allocates a new #graphene_point_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The coordinates of the returned point are (0, 0).
+     *
+     * It's possible to chain this function with graphene_point_init()
+     * or graphene_point_init_from_point(), e.g.:
+     *
+     * |[<!-- language="C" -->
+     *   graphene_point_t *
+     *   point_new (float x, float y)
+     *   {
+     *     return graphene_point_init (graphene_point_alloc (), x, y);
+     *   }
+     *
+     *   graphene_point_t *
+     *   point_copy (const graphene_point_t *p)
+     *   {
+     *     return graphene_point_init_from_point (graphene_point_alloc (), p);
+     *   }
+     * ]|
+     *
+     * @return the newly allocated #graphene_point_t.
+     *   Use graphene_point_free() to free the resources allocated by
+     *   this function.
+     * @since 1.0
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_point_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Point and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_point_t>, Cleaner>,
-    ) : this(graphenePointPointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Point using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_point_t>().ptr)
-
-    /**
-     * Allocate a new Point.
-     *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
-     *
-     * @param x the X coordinate of the point
-     * @param y the Y coordinate of the point
-     */
-    public constructor(x: gfloat, y: gfloat) : this() {
-        this.x = x
-        this.y = y
-    }
-
-    /**
-     * Allocate a new Point using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param x the X coordinate of the point
-     * @param y the Y coordinate of the point
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(
-        x: gfloat,
-        y: gfloat,
-        scope: AutofreeScope,
-    ) : this(scope) {
-        this.x = x
-        this.y = y
+    public constructor() : this(graphene_point_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
     }
 
     /**
@@ -167,8 +128,7 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
      */
     @GrapheneVersion1_0
     public fun `init`(x: gfloat, y: gfloat): Point = graphene_point_init(graphenePointPointer, x, y)!!.run {
-        Point(this)
-    }
+        Point(this)}
 
     /**
      * Initializes @p with the same coordinates of @src.
@@ -178,10 +138,8 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromPoint(src: Point): Point =
-        graphene_point_init_from_point(graphenePointPointer, src.graphenePointPointer)!!.run {
-            Point(this)
-        }
+    public fun initFromPoint(src: Point): Point = graphene_point_init_from_point(graphenePointPointer, src.graphenePointPointer)!!.run {
+        Point(this)}
 
     /**
      * Initializes @p with the coordinates inside the given #graphene_vec2_t.
@@ -191,10 +149,8 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun initFromVec2(src: Vec2): Point =
-        graphene_point_init_from_vec2(graphenePointPointer, src.grapheneVec2Pointer)!!.run {
-            Point(this)
-        }
+    public fun initFromVec2(src: Vec2): Point = graphene_point_init_from_vec2(graphenePointPointer, src.grapheneVec2Pointer)!!.run {
+        Point(this)}
 
     /**
      * Linearly interpolates the coordinates of @a and @b using the
@@ -207,8 +163,11 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(b: Point, factor: gdouble, res: Point): Unit =
-        graphene_point_interpolate(graphenePointPointer, b.graphenePointPointer, factor, res.graphenePointPointer)
+    public fun interpolate(
+        b: Point,
+        factor: gdouble,
+        res: Point,
+    ): Unit = graphene_point_interpolate(graphenePointPointer, b.graphenePointPointer, factor, res.graphenePointPointer)
 
     /**
      * Checks whether the two points @a and @b are within
@@ -220,8 +179,7 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun near(b: Point, epsilon: gfloat): Boolean =
-        graphene_point_near(graphenePointPointer, b.graphenePointPointer, epsilon)
+    public fun near(b: Point, epsilon: gfloat): Boolean = graphene_point_near(graphenePointPointer, b.graphenePointPointer, epsilon)
 
     /**
      * Stores the coordinates of the given #graphene_point_t into a
@@ -237,35 +195,6 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
 
     public companion object {
         /**
-         * Allocates a new #graphene_point_t structure.
-         *
-         * The coordinates of the returned point are (0, 0).
-         *
-         * It's possible to chain this function with graphene_point_init()
-         * or graphene_point_init_from_point(), e.g.:
-         *
-         * |[<!-- language="C" -->
-         *   graphene_point_t *
-         *   point_new (float x, float y)
-         *   {
-         *     return graphene_point_init (graphene_point_alloc (), x, y);
-         *   }
-         *
-         *   graphene_point_t *
-         *   point_copy (const graphene_point_t *p)
-         *   {
-         *     return graphene_point_init_from_point (graphene_point_alloc (), p);
-         *   }
-         * ]|
-         *
-         * @return the newly allocated #graphene_point_t.
-         *   Use graphene_point_free() to free the resources allocated by
-         *   this function.
-         * @since 1.0
-         */
-        public fun alloc(): Point = Point(graphene_point_alloc()!!)
-
-        /**
          * Returns a point fixed at (0, 0).
          *
          * @return a fixed point
@@ -273,8 +202,7 @@ public class Point(public val graphenePointPointer: CPointer<graphene_point_t>, 
          */
         @GrapheneVersion1_0
         public fun zero(): Point = graphene_point_zero()!!.run {
-            Point(this)
-        }
+            Point(this)}
 
         /**
          * Get the GType of Point

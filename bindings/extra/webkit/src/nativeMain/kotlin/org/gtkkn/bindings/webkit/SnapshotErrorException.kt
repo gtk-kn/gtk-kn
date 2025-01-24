@@ -6,4 +6,7 @@ package org.gtkkn.bindings.webkit
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 
-public class SnapshotErrorException(error: Error, public val code: SnapshotError) : GLibException(error)
+public class SnapshotErrorException(
+    error: Error,
+    public val code: SnapshotError,
+) : GLibException(error)

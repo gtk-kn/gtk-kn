@@ -3,10 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -26,9 +30,6 @@ import org.gtkkn.native.soup.soup_message_body_set_accumulate
 import org.gtkkn.native.soup.soup_message_body_truncate
 import org.gtkkn.native.soup.soup_message_body_unref
 import org.gtkkn.native.soup.soup_message_body_wrote_chunk
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * #SoupMessageBody represents the request or response body of a
@@ -50,26 +51,37 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - field `data`: Array parameter of type guint8 is not supported
  */
-public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessageBody>) :
-    ProxyInstance(soupMessageBodyPointer) {
+public class MessageBody(
+    public val soupMessageBodyPointer: CPointer<SoupMessageBody>,
+) : ProxyInstance(soupMessageBodyPointer) {
     /**
      * length of @data
      */
     public var length: gint64
         get() = soupMessageBodyPointer.pointed.length
-
         @UnsafeFieldSetter
         set(`value`) {
             soupMessageBodyPointer.pointed.length = value
         }
 
     /**
+     * Creates a new #SoupMessageBody.
+     *
+     * [class@Message] uses this internally; you
+     * will not normally need to call it yourself.
+     *
+     * @return a new #SoupMessageBody.
+     */
+    public constructor() : this(soup_message_body_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
      * Appends the data from @buffer to @body.
      *
      * @param buffer a #GBytes
      */
-    public fun appendBytes(buffer: Bytes): Unit =
-        soup_message_body_append_bytes(soupMessageBodyPointer, buffer.glibBytesPointer)
+    public fun appendBytes(buffer: Bytes): Unit = soup_message_body_append_bytes(soupMessageBodyPointer, buffer.glibBytesPointer)
 
     /**
      * Tags @body as being complete.
@@ -89,8 +101,7 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
      *   (You must [method@GLib.Bytes.unref] this if you do not want it.)
      */
     public fun flatten(): Bytes = soup_message_body_flatten(soupMessageBodyPointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Gets the accumulate flag on @body.
@@ -123,8 +134,7 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
      * @return a #GBytes
      */
     public fun getChunk(offset: gint64): Bytes? = soup_message_body_get_chunk(soupMessageBodyPointer, offset)?.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Handles the #SoupMessageBody part of receiving a chunk of data from
@@ -139,8 +149,7 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
      *
      * @param chunk a #GBytes received from the network
      */
-    public fun gotChunk(chunk: Bytes): Unit =
-        soup_message_body_got_chunk(soupMessageBodyPointer, chunk.glibBytesPointer)
+    public fun gotChunk(chunk: Bytes): Unit = soup_message_body_got_chunk(soupMessageBodyPointer, chunk.glibBytesPointer)
 
     /**
      * Atomically increments the reference count of @body by one.
@@ -148,8 +157,7 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
      * @return the passed in #SoupMessageBody
      */
     public fun ref(): MessageBody = soup_message_body_ref(soupMessageBodyPointer)!!.run {
-        MessageBody(this)
-    }
+        MessageBody(this)}
 
     /**
      * Sets or clears the accumulate flag on @body.
@@ -168,8 +176,7 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
      *
      * @param accumulate whether or not to accumulate body chunks in @body
      */
-    public fun setAccumulate(accumulate: Boolean): Unit =
-        soup_message_body_set_accumulate(soupMessageBodyPointer, accumulate.asGBoolean())
+    public fun setAccumulate(accumulate: Boolean): Unit = soup_message_body_set_accumulate(soupMessageBodyPointer, accumulate.asGBoolean())
 
     /**
      * Deletes all of the data in @body.
@@ -197,22 +204,11 @@ public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessage
      *
      * @param chunk a #GBytes returned from [method@MessageBody.get_chunk]
      */
-    public fun wroteChunk(chunk: Bytes): Unit =
-        soup_message_body_wrote_chunk(soupMessageBodyPointer, chunk.glibBytesPointer)
+    public fun wroteChunk(chunk: Bytes): Unit = soup_message_body_wrote_chunk(soupMessageBodyPointer, chunk.glibBytesPointer)
 
     override fun toString(): String = "MessageBody(length=$length)"
 
     public companion object {
-        /**
-         * Creates a new #SoupMessageBody.
-         *
-         * [class@Message] uses this internally; you
-         * will not normally need to call it yourself.
-         *
-         * @return a new #SoupMessageBody.
-         */
-        public fun new(): MessageBody = MessageBody(soup_message_body_new()!!)
-
         /**
          * Get the GType of MessageBody
          *

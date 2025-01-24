@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -102,10 +106,6 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * Stores information about a file system object referenced by a [iface@Gio.File].
@@ -149,15 +149,16 @@ import kotlin.collections.List
  *
  * - parameter `type`: type: Out parameter is not supported
  */
-public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
-    Object(gioFileInfoPointer.reinterpret()),
+public open class FileInfo(
+    public val gioFileInfoPointer: CPointer<GFileInfo>,
+) : Object(gioFileInfoPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new file info structure.
      *
      * @return a #GFileInfo.
      */
-    public constructor() : this(g_file_info_new()!!.reinterpret())
+    public constructor() : this(g_file_info_new()!!)
 
     /**
      * Clears the status information from @info.
@@ -170,8 +171,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param destInfo destination to copy attributes to.
      */
-    public open fun copyInto(destInfo: FileInfo): Unit =
-        g_file_info_copy_into(gioFileInfoPointer, destInfo.gioFileInfoPointer)
+    public open fun copyInto(destInfo: FileInfo): Unit = g_file_info_copy_into(gioFileInfoPointer, destInfo.gioFileInfoPointer)
 
     /**
      * Duplicates a file info structure.
@@ -179,8 +179,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return a duplicate #GFileInfo of @other.
      */
     public open fun dup(): FileInfo = g_file_info_dup(gioFileInfoPointer)!!.run {
-        FileInfo(this)
-    }
+        FileInfo(this)}
 
     /**
      * Gets the access time of the current @info and returns it as a
@@ -199,8 +198,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_70
     public open fun getAccessDateTime(): DateTime? = g_file_info_get_access_date_time(gioFileInfoPointer)?.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Gets the value of an attribute, formatted as a string.
@@ -212,8 +210,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *    null if the attribute wasn’t set.
      *    When you're done with the string it must be freed with g_free().
      */
-    public open fun getAttributeAsString(attribute: String): String? =
-        g_file_info_get_attribute_as_string(gioFileInfoPointer, attribute)?.toKString()
+    public open fun getAttributeAsString(attribute: String): String? = g_file_info_get_attribute_as_string(gioFileInfoPointer, attribute)?.toKString()
 
     /**
      * Gets the value of a boolean attribute. If the attribute does not
@@ -222,8 +219,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @return the boolean value contained within the attribute.
      */
-    public open fun getAttributeBoolean(attribute: String): Boolean =
-        g_file_info_get_attribute_boolean(gioFileInfoPointer, attribute).asBoolean()
+    public open fun getAttributeBoolean(attribute: String): Boolean = g_file_info_get_attribute_boolean(gioFileInfoPointer, attribute).asBoolean()
 
     /**
      * Gets the value of a byte string attribute. If the attribute does
@@ -233,8 +229,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return the contents of the @attribute value as a byte string, or
      * null otherwise.
      */
-    public open fun getAttributeByteString(attribute: String): String? =
-        g_file_info_get_attribute_byte_string(gioFileInfoPointer, attribute)?.toKString()
+    public open fun getAttributeByteString(attribute: String): String? = g_file_info_get_attribute_byte_string(gioFileInfoPointer, attribute)?.toKString()
 
     /**
      * Gets the value of a byte string attribute as a file path.
@@ -250,8 +245,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.78
      */
     @GioVersion2_78
-    public open fun getAttributeFilePath(attribute: String): String? =
-        g_file_info_get_attribute_file_path(gioFileInfoPointer, attribute)?.toKString()
+    public open fun getAttributeFilePath(attribute: String): String? = g_file_info_get_attribute_file_path(gioFileInfoPointer, attribute)?.toKString()
 
     /**
      * Gets a signed 32-bit integer contained within the attribute. If the
@@ -261,8 +255,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @return a signed 32-bit integer from the attribute.
      */
-    public open fun getAttributeInt32(attribute: String): gint =
-        g_file_info_get_attribute_int32(gioFileInfoPointer, attribute)
+    public open fun getAttributeInt32(attribute: String): gint = g_file_info_get_attribute_int32(gioFileInfoPointer, attribute)
 
     /**
      * Gets a signed 64-bit integer contained within the attribute. If the
@@ -272,8 +265,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @return a signed 64-bit integer from the attribute.
      */
-    public open fun getAttributeInt64(attribute: String): gint64 =
-        g_file_info_get_attribute_int64(gioFileInfoPointer, attribute)
+    public open fun getAttributeInt64(attribute: String): gint64 = g_file_info_get_attribute_int64(gioFileInfoPointer, attribute)
 
     /**
      * Gets the value of a #GObject attribute. If the attribute does
@@ -283,10 +275,8 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return a #GObject associated with the given @attribute,
      * or null otherwise.
      */
-    public open fun getAttributeObject(attribute: String): Object? =
-        g_file_info_get_attribute_object(gioFileInfoPointer, attribute)?.run {
-            Object(this)
-        }
+    public open fun getAttributeObject(attribute: String): Object? = g_file_info_get_attribute_object(gioFileInfoPointer, attribute)?.run {
+        Object(this)}
 
     /**
      * Gets the attribute status for an attribute key.
@@ -295,10 +285,8 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return a #GFileAttributeStatus for the given @attribute, or
      *    %G_FILE_ATTRIBUTE_STATUS_UNSET if the key is invalid.
      */
-    public open fun getAttributeStatus(attribute: String): FileAttributeStatus =
-        g_file_info_get_attribute_status(gioFileInfoPointer, attribute).run {
-            FileAttributeStatus.fromNativeValue(this)
-        }
+    public open fun getAttributeStatus(attribute: String): FileAttributeStatus = g_file_info_get_attribute_status(gioFileInfoPointer, attribute).run {
+        FileAttributeStatus.fromNativeValue(this)}
 
     /**
      * Gets the value of a string attribute. If the attribute does
@@ -308,8 +296,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return the contents of the @attribute value as a UTF-8 string,
      * or null otherwise.
      */
-    public open fun getAttributeString(attribute: String): String? =
-        g_file_info_get_attribute_string(gioFileInfoPointer, attribute)?.toKString()
+    public open fun getAttributeString(attribute: String): String? = g_file_info_get_attribute_string(gioFileInfoPointer, attribute)?.toKString()
 
     /**
      * Gets the value of a stringv attribute. If the attribute does
@@ -321,8 +308,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getAttributeStringv(attribute: String): List<String>? =
-        g_file_info_get_attribute_stringv(gioFileInfoPointer, attribute)?.toKStringList()
+    public open fun getAttributeStringv(attribute: String): List<String>? = g_file_info_get_attribute_stringv(gioFileInfoPointer, attribute)?.toKStringList()
 
     /**
      * Gets the attribute type for an attribute key.
@@ -331,10 +317,8 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return a #GFileAttributeType for the given @attribute, or
      * %G_FILE_ATTRIBUTE_TYPE_INVALID if the key is not set.
      */
-    public open fun getAttributeType(attribute: String): FileAttributeType =
-        g_file_info_get_attribute_type(gioFileInfoPointer, attribute).run {
-            FileAttributeType.fromNativeValue(this)
-        }
+    public open fun getAttributeType(attribute: String): FileAttributeType = g_file_info_get_attribute_type(gioFileInfoPointer, attribute).run {
+        FileAttributeType.fromNativeValue(this)}
 
     /**
      * Gets an unsigned 32-bit integer contained within the attribute. If the
@@ -344,8 +328,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @return an unsigned 32-bit integer from the attribute.
      */
-    public open fun getAttributeUint32(attribute: String): guint =
-        g_file_info_get_attribute_uint32(gioFileInfoPointer, attribute)
+    public open fun getAttributeUint32(attribute: String): guint = g_file_info_get_attribute_uint32(gioFileInfoPointer, attribute)
 
     /**
      * Gets a unsigned 64-bit integer contained within the attribute. If the
@@ -355,8 +338,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @return a unsigned 64-bit integer from the attribute.
      */
-    public open fun getAttributeUint64(attribute: String): guint64 =
-        g_file_info_get_attribute_uint64(gioFileInfoPointer, attribute)
+    public open fun getAttributeUint64(attribute: String): guint64 = g_file_info_get_attribute_uint64(gioFileInfoPointer, attribute)
 
     /**
      * Gets the file's content type.
@@ -386,8 +368,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_70
     public open fun getCreationDateTime(): DateTime? = g_file_info_get_creation_date_time(gioFileInfoPointer)?.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Returns the #GDateTime representing the deletion date of the file, as
@@ -399,8 +380,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_36
     public open fun getDeletionDate(): DateTime? = g_file_info_get_deletion_date(gioFileInfoPointer)?.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Gets a display name for a file. This is guaranteed to always be set.
@@ -410,8 +390,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @return a string containing the display name.
      */
-    public open fun getDisplayName(): String =
-        g_file_info_get_display_name(gioFileInfoPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getDisplayName(): String = g_file_info_get_display_name(gioFileInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the edit name for a file.
@@ -421,8 +400,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @return a string containing the edit name.
      */
-    public open fun getEditName(): String =
-        g_file_info_get_edit_name(gioFileInfoPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getEditName(): String = g_file_info_get_edit_name(gioFileInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the [entity tag](iface.File.html#entity-tags) for a given
@@ -445,8 +423,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return a #GFileType for the given file.
      */
     public open fun getFileType(): FileType = g_file_info_get_file_type(gioFileInfoPointer).run {
-        FileType.fromNativeValue(this)
-    }
+        FileType.fromNativeValue(this)}
 
     /**
      * Gets the icon for a file.
@@ -457,8 +434,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return #GIcon for the given @info.
      */
     public open fun getIcon(): Icon? = g_file_info_get_icon(gioFileInfoPointer)?.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Checks if a file is a backup file.
@@ -506,10 +482,8 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.62
      */
     @GioVersion2_62
-    public open fun getModificationDateTime(): DateTime? =
-        g_file_info_get_modification_date_time(gioFileInfoPointer)?.run {
-            DateTime(this)
-        }
+    public open fun getModificationDateTime(): DateTime? = g_file_info_get_modification_date_time(gioFileInfoPointer)?.run {
+        DateTime(this)}
 
     /**
      * Gets the modification time of the current @info and sets it
@@ -521,8 +495,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param result a #GTimeVal.
      */
-    public open fun getModificationTime(result: TimeVal): Unit =
-        g_file_info_get_modification_time(gioFileInfoPointer, result.glibTimeValPointer)
+    public open fun getModificationTime(result: TimeVal): Unit = g_file_info_get_modification_time(gioFileInfoPointer, result.glibTimeValPointer)
 
     /**
      * Gets the name for a file. This is guaranteed to always be set.
@@ -532,8 +505,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @return a string containing the file name.
      */
-    public open fun getName(): String =
-        g_file_info_get_name(gioFileInfoPointer)?.toKString() ?: error("Expected not null string")
+    public open fun getName(): String = g_file_info_get_name(gioFileInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the file's size (in bytes). The size is retrieved through the value of
@@ -569,8 +541,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_34
     public open fun getSymbolicIcon(): Icon? = g_file_info_get_symbolic_icon(gioFileInfoPointer)?.run {
-        Icon.IconImpl(reinterpret())
-    }
+        Icon.IconImpl(reinterpret())}
 
     /**
      * Gets the symlink target for a given #GFileInfo.
@@ -589,8 +560,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @return true if @info has an attribute named @attribute,
      *     false otherwise.
      */
-    public open fun hasAttribute(attribute: String): Boolean =
-        g_file_info_has_attribute(gioFileInfoPointer, attribute).asBoolean()
+    public open fun hasAttribute(attribute: String): Boolean = g_file_info_has_attribute(gioFileInfoPointer, attribute).asBoolean()
 
     /**
      * Checks if a file info structure has an attribute in the
@@ -602,8 +572,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun hasNamespace(nameSpace: String): Boolean =
-        g_file_info_has_namespace(gioFileInfoPointer, nameSpace).asBoolean()
+    public open fun hasNamespace(nameSpace: String): Boolean = g_file_info_has_namespace(gioFileInfoPointer, nameSpace).asBoolean()
 
     /**
      * Lists the file info structure's attributes.
@@ -614,16 +583,14 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * null-terminated array of strings of all of the possible attribute
      * types for the given @name_space, or null on error.
      */
-    public open fun listAttributes(nameSpace: String? = null): List<String>? =
-        g_file_info_list_attributes(gioFileInfoPointer, nameSpace)?.toKStringList()
+    public open fun listAttributes(nameSpace: String? = null): List<String>? = g_file_info_list_attributes(gioFileInfoPointer, nameSpace)?.toKStringList()
 
     /**
      * Removes all cases of @attribute from @info if it exists.
      *
      * @param attribute a file attribute key.
      */
-    public open fun removeAttribute(attribute: String): Unit =
-        g_file_info_remove_attribute(gioFileInfoPointer, attribute)
+    public open fun removeAttribute(attribute: String): Unit = g_file_info_remove_attribute(gioFileInfoPointer, attribute)
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_ACCESS and
@@ -636,8 +603,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun setAccessDateTime(atime: DateTime): Unit =
-        g_file_info_set_access_date_time(gioFileInfoPointer, atime.glibDateTimePointer)
+    public open fun setAccessDateTime(atime: DateTime): Unit = g_file_info_set_access_date_time(gioFileInfoPointer, atime.glibDateTimePointer)
 
     /**
      * Sets the @attribute to contain the given value, if possible. To unset the
@@ -647,8 +613,11 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param type a #GFileAttributeType
      * @param valueP pointer to the value
      */
-    public open fun setAttribute(attribute: String, type: FileAttributeType, valueP: gpointer): Unit =
-        g_file_info_set_attribute(gioFileInfoPointer, attribute, type.nativeValue, valueP)
+    public open fun setAttribute(
+        attribute: String,
+        type: FileAttributeType,
+        valueP: gpointer,
+    ): Unit = g_file_info_set_attribute(gioFileInfoPointer, attribute, type.nativeValue, valueP)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -657,8 +626,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue a boolean value.
      */
-    public open fun setAttributeBoolean(attribute: String, attrValue: Boolean): Unit =
-        g_file_info_set_attribute_boolean(gioFileInfoPointer, attribute, attrValue.asGBoolean())
+    public open fun setAttributeBoolean(attribute: String, attrValue: Boolean): Unit = g_file_info_set_attribute_boolean(gioFileInfoPointer, attribute, attrValue.asGBoolean())
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -667,8 +635,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue a byte string.
      */
-    public open fun setAttributeByteString(attribute: String, attrValue: String): Unit =
-        g_file_info_set_attribute_byte_string(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeByteString(attribute: String, attrValue: String): Unit = g_file_info_set_attribute_byte_string(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -682,8 +649,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.78
      */
     @GioVersion2_78
-    public open fun setAttributeFilePath(attribute: String, attrValue: String): Unit =
-        g_file_info_set_attribute_file_path(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeFilePath(attribute: String, attrValue: String): Unit = g_file_info_set_attribute_file_path(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -692,8 +658,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue a signed 32-bit integer
      */
-    public open fun setAttributeInt32(attribute: String, attrValue: gint): Unit =
-        g_file_info_set_attribute_int32(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeInt32(attribute: String, attrValue: gint): Unit = g_file_info_set_attribute_int32(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -702,16 +667,14 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute attribute name to set.
      * @param attrValue int64 value to set attribute to.
      */
-    public open fun setAttributeInt64(attribute: String, attrValue: gint64): Unit =
-        g_file_info_set_attribute_int64(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeInt64(attribute: String, attrValue: gint64): Unit = g_file_info_set_attribute_int64(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets @mask on @info to match specific attribute types.
      *
      * @param mask a #GFileAttributeMatcher.
      */
-    public open fun setAttributeMask(mask: FileAttributeMatcher): Unit =
-        g_file_info_set_attribute_mask(gioFileInfoPointer, mask.gioFileAttributeMatcherPointer)
+    public open fun setAttributeMask(mask: FileAttributeMatcher): Unit = g_file_info_set_attribute_mask(gioFileInfoPointer, mask.gioFileAttributeMatcherPointer)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -720,8 +683,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue a #GObject.
      */
-    public open fun setAttributeObject(attribute: String, attrValue: Object): Unit =
-        g_file_info_set_attribute_object(gioFileInfoPointer, attribute, attrValue.gobjectObjectPointer)
+    public open fun setAttributeObject(attribute: String, attrValue: Object): Unit = g_file_info_set_attribute_object(gioFileInfoPointer, attribute, attrValue.gobjectObjectPointer)
 
     /**
      * Sets the attribute status for an attribute key. This is only
@@ -737,8 +699,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun setAttributeStatus(attribute: String, status: FileAttributeStatus): Boolean =
-        g_file_info_set_attribute_status(gioFileInfoPointer, attribute, status.nativeValue).asBoolean()
+    public open fun setAttributeStatus(attribute: String, status: FileAttributeStatus): Boolean = g_file_info_set_attribute_status(gioFileInfoPointer, attribute, status.nativeValue).asBoolean()
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -747,8 +708,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue a UTF-8 string.
      */
-    public open fun setAttributeString(attribute: String, attrValue: String): Unit =
-        g_file_info_set_attribute_string(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeString(attribute: String, attrValue: String): Unit = g_file_info_set_attribute_string(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -761,8 +721,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *   terminated array of UTF-8 strings.
      */
     public open fun setAttributeStringv(attribute: String, attrValue: List<String>): Unit = memScoped {
-        return g_file_info_set_attribute_stringv(gioFileInfoPointer, attribute, attrValue.toCStringList(this))
-    }
+        return g_file_info_set_attribute_stringv(gioFileInfoPointer, attribute, attrValue.toCStringList(this))}
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -771,8 +730,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue an unsigned 32-bit integer.
      */
-    public open fun setAttributeUint32(attribute: String, attrValue: guint): Unit =
-        g_file_info_set_attribute_uint32(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeUint32(attribute: String, attrValue: guint): Unit = g_file_info_set_attribute_uint32(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -781,8 +739,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @param attribute a file attribute key.
      * @param attrValue an unsigned 64-bit integer.
      */
-    public open fun setAttributeUint64(attribute: String, attrValue: guint64): Unit =
-        g_file_info_set_attribute_uint64(gioFileInfoPointer, attribute, attrValue)
+    public open fun setAttributeUint64(attribute: String, attrValue: guint64): Unit = g_file_info_set_attribute_uint64(gioFileInfoPointer, attribute, attrValue)
 
     /**
      * Sets the content type attribute for a given #GFileInfo.
@@ -790,8 +747,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param contentType a content type. See [GContentType][gio-GContentType]
      */
-    public open fun setContentType(contentType: String): Unit =
-        g_file_info_set_content_type(gioFileInfoPointer, contentType)
+    public open fun setContentType(contentType: String): Unit = g_file_info_set_content_type(gioFileInfoPointer, contentType)
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_CREATED and
@@ -804,8 +760,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun setCreationDateTime(creationTime: DateTime): Unit =
-        g_file_info_set_creation_date_time(gioFileInfoPointer, creationTime.glibDateTimePointer)
+    public open fun setCreationDateTime(creationTime: DateTime): Unit = g_file_info_set_creation_date_time(gioFileInfoPointer, creationTime.glibDateTimePointer)
 
     /**
      * Sets the display name for the current #GFileInfo.
@@ -813,8 +768,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param displayName a string containing a display name.
      */
-    public open fun setDisplayName(displayName: String): Unit =
-        g_file_info_set_display_name(gioFileInfoPointer, displayName)
+    public open fun setDisplayName(displayName: String): Unit = g_file_info_set_display_name(gioFileInfoPointer, displayName)
 
     /**
      * Sets the edit name for the current file.
@@ -846,8 +800,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param isHidden a #gboolean.
      */
-    public open fun setIsHidden(isHidden: Boolean): Unit =
-        g_file_info_set_is_hidden(gioFileInfoPointer, isHidden.asGBoolean())
+    public open fun setIsHidden(isHidden: Boolean): Unit = g_file_info_set_is_hidden(gioFileInfoPointer, isHidden.asGBoolean())
 
     /**
      * Sets the "is_symlink" attribute in a #GFileInfo according to @is_symlink.
@@ -855,8 +808,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param isSymlink a #gboolean.
      */
-    public open fun setIsSymlink(isSymlink: Boolean): Unit =
-        g_file_info_set_is_symlink(gioFileInfoPointer, isSymlink.asGBoolean())
+    public open fun setIsSymlink(isSymlink: Boolean): Unit = g_file_info_set_is_symlink(gioFileInfoPointer, isSymlink.asGBoolean())
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
@@ -869,8 +821,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.62
      */
     @GioVersion2_62
-    public open fun setModificationDateTime(mtime: DateTime): Unit =
-        g_file_info_set_modification_date_time(gioFileInfoPointer, mtime.glibDateTimePointer)
+    public open fun setModificationDateTime(mtime: DateTime): Unit = g_file_info_set_modification_date_time(gioFileInfoPointer, mtime.glibDateTimePointer)
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
@@ -881,8 +832,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param mtime a #GTimeVal.
      */
-    public open fun setModificationTime(mtime: TimeVal): Unit =
-        g_file_info_set_modification_time(gioFileInfoPointer, mtime.glibTimeValPointer)
+    public open fun setModificationTime(mtime: TimeVal): Unit = g_file_info_set_modification_time(gioFileInfoPointer, mtime.glibTimeValPointer)
 
     /**
      * Sets the name attribute for the current #GFileInfo.
@@ -916,8 +866,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun setSymbolicIcon(icon: Icon): Unit =
-        g_file_info_set_symbolic_icon(gioFileInfoPointer, icon.gioIconPointer)
+    public open fun setSymbolicIcon(icon: Icon): Unit = g_file_info_set_symbolic_icon(gioFileInfoPointer, icon.gioIconPointer)
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET attribute in the file info
@@ -925,8 +874,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
      *
      * @param symlinkTarget a static string containing a path to a symlink target.
      */
-    public open fun setSymlinkTarget(symlinkTarget: String): Unit =
-        g_file_info_set_symlink_target(gioFileInfoPointer, symlinkTarget)
+    public open fun setSymlinkTarget(symlinkTarget: String): Unit = g_file_info_set_symlink_target(gioFileInfoPointer, symlinkTarget)
 
     /**
      * Unsets a mask set by g_file_info_set_attribute_mask(), if one
@@ -936,11 +884,10 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
 
     public companion object : TypeCompanion<FileInfo> {
         override val type: GeneratedClassKGType<FileInfo> =
-            GeneratedClassKGType(getTypeOrNull("g_file_info_get_type")!!) { FileInfo(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_file_info_get_type")!!) { FileInfo(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FileInfo

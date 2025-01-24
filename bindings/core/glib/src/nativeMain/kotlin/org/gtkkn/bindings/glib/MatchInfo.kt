@@ -3,6 +3,11 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -33,11 +38,6 @@ import org.gtkkn.native.glib.g_match_info_unref
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_match_info_get_type
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A GMatchInfo is an opaque struct used to return information about
@@ -48,7 +48,9 @@ import kotlin.collections.List
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  */
-public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : ProxyInstance(glibMatchInfoPointer) {
+public class MatchInfo(
+    public val glibMatchInfoPointer: CPointer<GMatchInfo>,
+) : ProxyInstance(glibMatchInfoPointer) {
     /**
      * Returns a new string containing the text in @string_to_expand with
      * references and escape sequences expanded. References refer to the last
@@ -133,8 +135,7 @@ public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : 
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetchAll(): List<String> =
-        g_match_info_fetch_all(glibMatchInfoPointer)?.toKStringList() ?: error("Expected not null string array")
+    public fun fetchAll(): List<String> = g_match_info_fetch_all(glibMatchInfoPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Retrieves the text matching the capturing parentheses named @name.
@@ -189,8 +190,7 @@ public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : 
      */
     @GLibVersion2_14
     public fun getRegex(): Regex = g_match_info_get_regex(glibMatchInfoPointer)!!.run {
-        Regex(this)
-    }
+        Regex(this)}
 
     /**
      * Returns the string searched with @match_info. This is the
@@ -201,8 +201,7 @@ public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : 
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getString(): String =
-        g_match_info_get_string(glibMatchInfoPointer)?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_match_info_get_string(glibMatchInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Usually if the string passed to g_regex_match*() matches as far as
@@ -285,8 +284,7 @@ public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : 
      */
     @GLibVersion2_30
     public fun ref(): MatchInfo = g_match_info_ref(glibMatchInfoPointer)!!.run {
-        MatchInfo(this)
-    }
+        MatchInfo(this)}
 
     /**
      * Decreases reference count of @match_info by 1. When reference count drops

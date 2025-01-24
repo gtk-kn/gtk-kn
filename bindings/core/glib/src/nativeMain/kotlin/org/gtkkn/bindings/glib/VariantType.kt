@@ -3,10 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GVariantType
@@ -43,9 +46,6 @@ import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_type_get_gtype
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A type in the [type@GLib.Variant] type system.
@@ -208,8 +208,56 @@ import kotlin.Unit
  * @since 2.24
  */
 @GLibVersion2_24
-public class VariantType(public val glibVariantTypePointer: CPointer<GVariantType>) :
-    ProxyInstance(glibVariantTypePointer) {
+public class VariantType(
+    public val glibVariantTypePointer: CPointer<GVariantType>,
+) : ProxyInstance(glibVariantTypePointer) {
+    /**
+     * Creates a new #GVariantType corresponding to the type string given
+     * by @type_string.  It is appropriate to call g_variant_type_free() on
+     * the return value.
+     *
+     * It is a programmer error to call this function with an invalid type
+     * string.  Use g_variant_type_string_is_valid() if you are unsure.
+     *
+     * @param typeString a valid GVariant type string
+     * @return a new #GVariantType
+     * @since 2.24
+     */
+    public constructor(typeString: String) : this(g_variant_type_new(typeString)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Constructs the type corresponding to an array of elements of the
+     * type @type.
+     *
+     * It is appropriate to call g_variant_type_free() on the return value.
+     *
+     * @param element a #GVariantType
+     * @return a new array #GVariantType
+     *
+     * Since 2.24
+     */
+    public constructor(element: VariantType) : this(g_variant_type_new_array(element.glibVariantTypePointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Constructs the type corresponding to a dictionary entry with a key
+     * of type @key and a value of type @value.
+     *
+     * It is appropriate to call g_variant_type_free() on the return value.
+     *
+     * @param key a basic #GVariantType
+     * @param value a #GVariantType
+     * @return a new dictionary entry #GVariantType
+     *
+     * Since 2.24
+     */
+    public constructor(key: VariantType, `value`: VariantType) : this(g_variant_type_new_dict_entry(key.glibVariantTypePointer, `value`.glibVariantTypePointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Makes a copy of a #GVariantType.  It is appropriate to call
      * g_variant_type_free() on the return value.  @type may not be null.
@@ -219,8 +267,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      * Since 2.24
      */
     public fun copy(): VariantType = g_variant_type_copy(glibVariantTypePointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Returns a newly-allocated copy of the type string corresponding to
@@ -231,8 +278,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      *
      * Since 2.24
      */
-    public fun dupString(): String =
-        g_variant_type_dup_string(glibVariantTypePointer)?.toKString() ?: error("Expected not null string")
+    public fun dupString(): String = g_variant_type_dup_string(glibVariantTypePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the element type of an array or maybe type.
@@ -244,8 +290,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      * Since 2.24
      */
     public fun element(): VariantType = g_variant_type_element(glibVariantTypePointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Compares @type1 and @type2 for equality.
@@ -264,8 +309,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      *
      * Since 2.24
      */
-    public fun equal(type2: VariantType): Boolean =
-        g_variant_type_equal(glibVariantTypePointer, type2.glibVariantTypePointer).asBoolean()
+    public fun equal(type2: VariantType): Boolean = g_variant_type_equal(glibVariantTypePointer, type2.glibVariantTypePointer).asBoolean()
 
     /**
      * Determines the first item type of a tuple or dictionary entry
@@ -288,8 +332,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      * Since 2.24
      */
     public fun first(): VariantType = g_variant_type_first(glibVariantTypePointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Frees a #GVariantType that was allocated with
@@ -431,8 +474,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      *
      * Since 2.24
      */
-    public fun isSubtypeOf(supertype: VariantType): Boolean =
-        g_variant_type_is_subtype_of(glibVariantTypePointer, supertype.glibVariantTypePointer).asBoolean()
+    public fun isSubtypeOf(supertype: VariantType): Boolean = g_variant_type_is_subtype_of(glibVariantTypePointer, supertype.glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is a tuple type.  This is true if the
@@ -470,8 +512,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      * Since 2.24
      */
     public fun key(): VariantType = g_variant_type_key(glibVariantTypePointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Determines the number of items contained in a tuple or
@@ -508,8 +549,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      * Since 2.24
      */
     public fun next(): VariantType = g_variant_type_next(glibVariantTypePointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     /**
      * Returns the type string corresponding to the given @type.  The
@@ -522,8 +562,7 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      *
      * Since 2.24
      */
-    public fun peekString(): String =
-        g_variant_type_peek_string(glibVariantTypePointer)?.toKString() ?: error("Expected not null string")
+    public fun peekString(): String = g_variant_type_peek_string(glibVariantTypePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the value type of a dictionary entry type.
@@ -535,57 +574,9 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
      * Since 2.24
      */
     public fun `value`(): VariantType = g_variant_type_value(glibVariantTypePointer)!!.run {
-        VariantType(this)
-    }
+        VariantType(this)}
 
     public companion object {
-        /**
-         * Creates a new #GVariantType corresponding to the type string given
-         * by @type_string.  It is appropriate to call g_variant_type_free() on
-         * the return value.
-         *
-         * It is a programmer error to call this function with an invalid type
-         * string.  Use g_variant_type_string_is_valid() if you are unsure.
-         *
-         * @param typeString a valid GVariant type string
-         * @return a new #GVariantType
-         * @since 2.24
-         */
-        public fun new(typeString: String): VariantType = VariantType(g_variant_type_new(typeString)!!.reinterpret())
-
-        /**
-         * Constructs the type corresponding to an array of elements of the
-         * type @type.
-         *
-         * It is appropriate to call g_variant_type_free() on the return value.
-         *
-         * @param element a #GVariantType
-         * @return a new array #GVariantType
-         *
-         * Since 2.24
-         */
-        public fun newArray(element: VariantType): VariantType =
-            VariantType(g_variant_type_new_array(element.glibVariantTypePointer)!!.reinterpret())
-
-        /**
-         * Constructs the type corresponding to a dictionary entry with a key
-         * of type @key and a value of type @value.
-         *
-         * It is appropriate to call g_variant_type_free() on the return value.
-         *
-         * @param key a basic #GVariantType
-         * @param value a #GVariantType
-         * @return a new dictionary entry #GVariantType
-         *
-         * Since 2.24
-         */
-        public fun newDictEntry(key: VariantType, `value`: VariantType): VariantType = VariantType(
-            g_variant_type_new_dict_entry(
-                key.glibVariantTypePointer,
-                `value`.glibVariantTypePointer
-            )!!.reinterpret()
-        )
-
         /**
          * Constructs the type corresponding to a maybe instance containing
          * type @type or Nothing.
@@ -597,12 +588,12 @@ public class VariantType(public val glibVariantTypePointer: CPointer<GVariantTyp
          *
          * Since 2.24
          */
-        public fun newMaybe(element: VariantType): VariantType =
-            VariantType(g_variant_type_new_maybe(element.glibVariantTypePointer)!!.reinterpret())
+        public fun maybe(element: VariantType): VariantType = VariantType(g_variant_type_new_maybe(element.glibVariantTypePointer)!!).apply  {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         public fun checked(typeString: String): VariantType = g_variant_type_checked_(typeString)!!.run {
-            VariantType(this)
-        }
+            VariantType(this)}
 
         public fun stringGetDepth(typeString: String): gsize = g_variant_type_string_get_depth_(typeString)
 

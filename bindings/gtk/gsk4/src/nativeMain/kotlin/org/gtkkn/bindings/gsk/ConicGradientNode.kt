@@ -29,8 +29,9 @@ import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_type
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
-public open class ConicGradientNode(public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>) :
-    RenderNode(gskConicGradientNodePointer.reinterpret()),
+public open class ConicGradientNode(
+    public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>,
+) : RenderNode(gskConicGradientNodePointer.reinterpret()),
     KGTyped {
     /**
      * Retrieves the angle for the gradient in radians, normalized in [0, 2 * PI].
@@ -51,36 +52,29 @@ public open class ConicGradientNode(public val gskConicGradientNodePointer: CPoi
      *
      * @return the center point for the gradient
      */
-    public open fun getCenter(): Point =
-        gsk_conic_gradient_node_get_center(gskConicGradientNodePointer.reinterpret())!!.run {
-            Point(this)
-        }
+    public open fun getCenter(): Point = gsk_conic_gradient_node_get_center(gskConicGradientNodePointer.reinterpret())!!.run {
+        Point(this)}
 
     /**
      * Retrieves the number of color stops in the gradient.
      *
      * @return the number of color stops
      */
-    public open fun getNColorStops(): gsize =
-        gsk_conic_gradient_node_get_n_color_stops(gskConicGradientNodePointer.reinterpret())
+    public open fun getNColorStops(): gsize = gsk_conic_gradient_node_get_n_color_stops(gskConicGradientNodePointer.reinterpret())
 
     /**
      * Retrieves the rotation for the gradient in degrees.
      *
      * @return the rotation for the gradient
      */
-    public open fun getRotation(): gfloat =
-        gsk_conic_gradient_node_get_rotation(gskConicGradientNodePointer.reinterpret())
+    public open fun getRotation(): gfloat = gsk_conic_gradient_node_get_rotation(gskConicGradientNodePointer.reinterpret())
 
     public companion object : TypeCompanion<ConicGradientNode> {
         override val type: GeneratedClassKGType<ConicGradientNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_conic_gradient_node_get_type")!!) {
-                ConicGradientNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_conic_gradient_node_get_type")!!) { ConicGradientNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of ConicGradientNode

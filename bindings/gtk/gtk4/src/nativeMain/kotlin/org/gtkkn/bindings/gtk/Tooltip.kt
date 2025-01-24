@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Paintable
@@ -23,8 +25,6 @@ import org.gtkkn.native.gtk.gtk_tooltip_set_icon_from_icon_name
 import org.gtkkn.native.gtk.gtk_tooltip_set_markup
 import org.gtkkn.native.gtk.gtk_tooltip_set_text
 import org.gtkkn.native.gtk.gtk_tooltip_set_tip_area
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkTooltip` is an object representing a widget tooltip.
@@ -55,8 +55,9 @@ import kotlin.Unit
  * - Return true from your ::query-tooltip handler. This causes the tooltip
  *   to be show. If you return false, it will not be shown.
  */
-public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
-    Object(gtkTooltipPointer.reinterpret()),
+public open class Tooltip(
+    public val gtkTooltipPointer: CPointer<GtkTooltip>,
+) : Object(gtkTooltipPointer.reinterpret()),
     KGTyped {
     /**
      * Replaces the widget packed into the tooltip with
@@ -68,8 +69,7 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
      *
      * @param customWidget a `GtkWidget`, or null to unset the old custom widget.
      */
-    public open fun setCustom(customWidget: Widget? = null): Unit =
-        gtk_tooltip_set_custom(gtkTooltipPointer, customWidget?.gtkWidgetPointer)
+    public open fun setCustom(customWidget: Widget? = null): Unit = gtk_tooltip_set_custom(gtkTooltipPointer, customWidget?.gtkWidgetPointer)
 
     /**
      * Sets the icon of the tooltip (which is in front of the text) to be
@@ -77,8 +77,7 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
      *
      * @param paintable a `GdkPaintable`
      */
-    public open fun setIcon(paintable: Paintable? = null): Unit =
-        gtk_tooltip_set_icon(gtkTooltipPointer, paintable?.gdkPaintablePointer)
+    public open fun setIcon(paintable: Paintable? = null): Unit = gtk_tooltip_set_icon(gtkTooltipPointer, paintable?.gdkPaintablePointer)
 
     /**
      * Sets the icon of the tooltip (which is in front of the text)
@@ -87,8 +86,7 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
      *
      * @param gicon a `GIcon` representing the icon
      */
-    public open fun setIconFromGicon(gicon: Icon? = null): Unit =
-        gtk_tooltip_set_icon_from_gicon(gtkTooltipPointer, gicon?.gioIconPointer)
+    public open fun setIconFromGicon(gicon: Icon? = null): Unit = gtk_tooltip_set_icon_from_gicon(gtkTooltipPointer, gicon?.gioIconPointer)
 
     /**
      * Sets the icon of the tooltip (which is in front of the text) to be
@@ -97,8 +95,7 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
      *
      * @param iconName an icon name
      */
-    public open fun setIconFromIconName(iconName: String? = null): Unit =
-        gtk_tooltip_set_icon_from_icon_name(gtkTooltipPointer, iconName)
+    public open fun setIconFromIconName(iconName: String? = null): Unit = gtk_tooltip_set_icon_from_icon_name(gtkTooltipPointer, iconName)
 
     /**
      * Sets the text of the tooltip to be @markup.
@@ -132,16 +129,14 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
      *
      * @param rect a `GdkRectangle`
      */
-    public open fun setTipArea(rect: Rectangle): Unit =
-        gtk_tooltip_set_tip_area(gtkTooltipPointer, rect.gdkRectanglePointer)
+    public open fun setTipArea(rect: Rectangle): Unit = gtk_tooltip_set_tip_area(gtkTooltipPointer, rect.gdkRectanglePointer)
 
     public companion object : TypeCompanion<Tooltip> {
         override val type: GeneratedClassKGType<Tooltip> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tooltip_get_type")!!) { Tooltip(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_tooltip_get_type")!!) { Tooltip(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Tooltip

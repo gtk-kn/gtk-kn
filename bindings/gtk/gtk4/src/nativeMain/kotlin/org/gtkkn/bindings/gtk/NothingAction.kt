@@ -17,16 +17,16 @@ import org.gtkkn.native.gtk.gtk_nothing_action_get_type
 /**
  * A `GtkShortcutAction` that does nothing.
  */
-public open class NothingAction(public val gtkNothingActionPointer: CPointer<GtkNothingAction>) :
-    ShortcutAction(gtkNothingActionPointer.reinterpret()),
+public open class NothingAction(
+    public val gtkNothingActionPointer: CPointer<GtkNothingAction>,
+) : ShortcutAction(gtkNothingActionPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<NothingAction> {
         override val type: GeneratedClassKGType<NothingAction> =
-            GeneratedClassKGType(getTypeOrNull("gtk_nothing_action_get_type")!!) { NothingAction(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_nothing_action_get_type")!!) { NothingAction(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Gets the nothing action.
@@ -37,8 +37,7 @@ public open class NothingAction(public val gtkNothingActionPointer: CPointer<Gtk
          * @return The nothing action
          */
         public fun `get`(): NothingAction = gtk_nothing_action_get()!!.run {
-            NothingAction(reinterpret())
-        }
+            NothingAction(reinterpret())}
 
         /**
          * Get the GType of NothingAction

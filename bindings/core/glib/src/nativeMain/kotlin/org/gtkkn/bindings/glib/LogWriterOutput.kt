@@ -16,12 +16,13 @@ import org.gtkkn.native.glib.GLogWriterOutput
  * @since 2.50
  */
 @GLibVersion2_50
-public enum class LogWriterOutput(public val nativeValue: GLogWriterOutput) {
+public enum class LogWriterOutput(
+    public val nativeValue: GLogWriterOutput,
+) {
     /**
      * Log writer has handled the log entry.
      */
     HANDLED(GLogWriterOutput.G_LOG_WRITER_HANDLED),
-
     /**
      * Log writer could not handle the log entry.
      */

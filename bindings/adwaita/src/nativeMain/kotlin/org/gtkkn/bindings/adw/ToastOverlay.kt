@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -20,7 +21,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Unit
 
 /**
  * A widget showing toasts above its content.
@@ -63,8 +63,9 @@ import kotlin.Unit
  *
  * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
  */
-public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOverlay>) :
-    Widget(adwToastOverlayPointer.reinterpret()),
+public class ToastOverlay(
+    public val adwToastOverlayPointer: CPointer<AdwToastOverlay>,
+) : Widget(adwToastOverlayPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -85,9 +86,7 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
          * @return the child widget of @self
          */
         get() = adw_toast_overlay_get_child(adwToastOverlayPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -120,11 +119,10 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =
-            GeneratedClassKGType(getTypeOrNull("adw_toast_overlay_get_type")!!) { ToastOverlay(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_toast_overlay_get_type")!!) { ToastOverlay(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ToastOverlay

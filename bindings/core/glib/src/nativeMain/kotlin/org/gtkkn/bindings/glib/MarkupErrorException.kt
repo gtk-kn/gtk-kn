@@ -5,4 +5,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class MarkupErrorException(error: Error, public val code: MarkupError) : GLibException(error)
+public class MarkupErrorException(
+    error: Error,
+    public val code: MarkupError,
+) : GLibException(error)

@@ -26,8 +26,9 @@ import org.gtkkn.native.gtk.gtk_media_controls_set_media_stream
  *
  * Usually, `GtkMediaControls` is used as part of [class@Gtk.Video].
  */
-public open class MediaControls(public val gtkMediaControlsPointer: CPointer<GtkMediaControls>) :
-    Widget(gtkMediaControlsPointer.reinterpret()),
+public open class MediaControls(
+    public val gtkMediaControlsPointer: CPointer<GtkMediaControls>,
+) : Widget(gtkMediaControlsPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -48,9 +49,7 @@ public open class MediaControls(public val gtkMediaControlsPointer: CPointer<Gtk
          * @return The media stream managed by @controls
          */
         get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer)?.run {
-            MediaStream.MediaStreamImpl(this)
-        }
-
+            MediaStream.MediaStreamImpl(this)}
         /**
          * Sets the stream that is controlled by @controls.
          *
@@ -64,17 +63,14 @@ public open class MediaControls(public val gtkMediaControlsPointer: CPointer<Gtk
      * @param stream a `GtkMediaStream` to manage
      * @return a new `GtkMediaControls`
      */
-    public constructor(
-        stream: MediaStream? = null,
-    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer)!!.reinterpret())
+    public constructor(stream: MediaStream? = null) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =
-            GeneratedClassKGType(getTypeOrNull("gtk_media_controls_get_type")!!) { MediaControls(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_media_controls_get_type")!!) { MediaControls(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of MediaControls

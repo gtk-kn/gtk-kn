@@ -24,8 +24,9 @@ import org.gtkkn.native.gsk.gsk_shadow_node_get_type
  *
  * - parameter `shadows`: Array parameter of type Shadow is not supported
  */
-public open class ShadowNode(public val gskShadowNodePointer: CPointer<GskShadowNode>) :
-    RenderNode(gskShadowNodePointer.reinterpret()),
+public open class ShadowNode(
+    public val gskShadowNodePointer: CPointer<GskShadowNode>,
+) : RenderNode(gskShadowNodePointer.reinterpret()),
     KGTyped {
     /**
      * Retrieves the child `GskRenderNode` of the shadow @node.
@@ -33,8 +34,7 @@ public open class ShadowNode(public val gskShadowNodePointer: CPointer<GskShadow
      * @return the child render node
      */
     public open fun getChild(): RenderNode = gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)
-    }
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the number of shadows in the @node.
@@ -49,18 +49,15 @@ public open class ShadowNode(public val gskShadowNodePointer: CPointer<GskShadow
      * @param i the given index
      * @return the shadow data
      */
-    public open fun getShadow(i: gsize): Shadow =
-        gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
-            Shadow(this)
-        }
+    public open fun getShadow(i: gsize): Shadow = gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
+        Shadow(this)}
 
     public companion object : TypeCompanion<ShadowNode> {
         override val type: GeneratedClassKGType<ShadowNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_shadow_node_get_type")!!) { ShadowNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gsk_shadow_node_get_type")!!) { ShadowNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of ShadowNode

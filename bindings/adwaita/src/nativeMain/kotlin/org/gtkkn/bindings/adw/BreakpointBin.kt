@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -24,7 +25,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Unit
 
 /**
  * A widget that changes layout based on available size.
@@ -141,8 +141,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>) :
-    Widget(adwBreakpointBinPointer.reinterpret()),
+public open class BreakpointBin(
+    public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>,
+) : Widget(adwBreakpointBinPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -167,9 +168,7 @@ public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<Adw
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_child(adwBreakpointBinPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @self.
          *
@@ -193,8 +192,7 @@ public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<Adw
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_current_breakpoint(adwBreakpointBinPointer)?.run {
-            Breakpoint(this)
-        }
+            Breakpoint(this)}
 
     /**
      * Creates a new `AdwBreakpointBin`.
@@ -211,8 +209,7 @@ public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<Adw
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_breakpoint_bin_add_breakpoint(adwBreakpointBinPointer, breakpoint.adwBreakpointPointer)
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_add_breakpoint(adwBreakpointBinPointer, breakpoint.adwBreakpointPointer)
 
     /**
      * Removes @breakpoint from @self.
@@ -221,16 +218,14 @@ public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<Adw
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun removeBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_breakpoint_bin_remove_breakpoint(adwBreakpointBinPointer, breakpoint.adwBreakpointPointer)
+    public open fun removeBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_remove_breakpoint(adwBreakpointBinPointer, breakpoint.adwBreakpointPointer)
 
     public companion object : TypeCompanion<BreakpointBin> {
         override val type: GeneratedClassKGType<BreakpointBin> =
-            GeneratedClassKGType(getTypeOrNull("adw_breakpoint_bin_get_type")!!) { BreakpointBin(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_breakpoint_bin_get_type")!!) { BreakpointBin(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of BreakpointBin

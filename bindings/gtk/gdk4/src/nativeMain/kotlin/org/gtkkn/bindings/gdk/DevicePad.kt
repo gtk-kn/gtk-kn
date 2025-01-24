@@ -38,9 +38,7 @@ import org.gtkkn.native.gobject.GType
  * out through [method@Gdk.DevicePad.get_group_n_modes], and the current mode
  * for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
  */
-public interface DevicePad :
-    Proxy,
-    KGTyped {
+public interface DevicePad : Proxy, KGTyped {
     public val gdkDevicePadPointer: CPointer<GdkDevicePad>
 
     /**
@@ -52,8 +50,7 @@ public interface DevicePad :
      * @param featureIdx the index of the feature to get the group from
      * @return The group number of the queried pad feature.
      */
-    public fun getFeatureGroup(feature: DevicePadFeature, featureIdx: gint): gint =
-        gdk_device_pad_get_feature_group(gdkDevicePadPointer, feature.nativeValue, featureIdx)
+    public fun getFeatureGroup(feature: DevicePadFeature, featureIdx: gint): gint = gdk_device_pad_get_feature_group(gdkDevicePadPointer, feature.nativeValue, featureIdx)
 
     /**
      * Returns the number of modes that @group may have.
@@ -69,8 +66,7 @@ public interface DevicePad :
      * @param feature a pad feature
      * @return The amount of elements of type @feature that this pad has.
      */
-    public fun getNFeatures(feature: DevicePadFeature): gint =
-        gdk_device_pad_get_n_features(gdkDevicePadPointer, feature.nativeValue)
+    public fun getNFeatures(feature: DevicePadFeature): gint = gdk_device_pad_get_n_features(gdkDevicePadPointer, feature.nativeValue)
 
     /**
      * Returns the number of groups this pad device has.
@@ -88,17 +84,17 @@ public interface DevicePad :
      *
      * @constructor Creates a new instance of DevicePad for the provided [CPointer].
      */
-    public data class DevicePadImpl(override val gdkDevicePadPointer: CPointer<GdkDevicePad>) :
-        Device(gdkDevicePadPointer.reinterpret()),
+    public data class DevicePadImpl(
+        override val gdkDevicePadPointer: CPointer<GdkDevicePad>,
+    ) : Device(gdkDevicePadPointer.reinterpret()),
         DevicePad
 
     public companion object : TypeCompanion<DevicePad> {
         override val type: GeneratedInterfaceKGType<DevicePad> =
-            GeneratedInterfaceKGType(getTypeOrNull("gdk_device_pad_get_type")!!) { DevicePadImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull("gdk_device_pad_get_type")!!) { DevicePadImpl(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of DevicePad

@@ -13,42 +13,38 @@ import org.gtkkn.native.gtk.gtk_recent_manager_error_quark
 /**
  * Error codes for `GtkRecentManager` operations
  */
-public enum class RecentManagerError(public val nativeValue: GtkRecentManagerError) {
+public enum class RecentManagerError(
+    public val nativeValue: GtkRecentManagerError,
+) {
     /**
      * the URI specified does not exists in
      *   the recently used resources list.
      */
     NOT_FOUND(GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_NOT_FOUND),
-
     /**
      * the URI specified is not valid.
      */
     INVALID_URI(GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_INVALID_URI),
-
     /**
      * the supplied string is not
      *   UTF-8 encoded.
      */
     INVALID_ENCODING(GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING),
-
     /**
      * no application has registered
      *   the specified item.
      */
     NOT_REGISTERED(GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED),
-
     /**
      * failure while reading the recently used
      *   resources file.
      */
     READ(GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_READ),
-
     /**
      * failure while writing the recently used
      *   resources file.
      */
     WRITE(GtkRecentManagerError.GTK_RECENT_MANAGER_ERROR_WRITE),
-
     /**
      * unspecified error.
      */

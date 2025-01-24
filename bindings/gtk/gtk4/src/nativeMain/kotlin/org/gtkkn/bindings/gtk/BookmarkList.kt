@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -25,8 +27,6 @@ import org.gtkkn.native.gtk.gtk_bookmark_list_is_loading
 import org.gtkkn.native.gtk.gtk_bookmark_list_new
 import org.gtkkn.native.gtk.gtk_bookmark_list_set_attributes
 import org.gtkkn.native.gtk.gtk_bookmark_list_set_io_priority
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkBookmarkList` is a list model that wraps `GBookmarkFile`.
@@ -44,8 +44,9 @@ import kotlin.String
  * - method `loading`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBookmarkList>) :
-    Object(gtkBookmarkListPointer.reinterpret()),
+public open class BookmarkList(
+    public val gtkBookmarkListPointer: CPointer<GtkBookmarkList>,
+) : Object(gtkBookmarkListPointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -61,7 +62,6 @@ public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBo
          * @return The queried attributes
          */
         get() = gtk_bookmark_list_get_attributes(gtkBookmarkListPointer)?.toKString()
-
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
          *
@@ -94,7 +94,6 @@ public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBo
          * @return The IO priority.
          */
         get() = gtk_bookmark_list_get_io_priority(gtkBookmarkListPointer)
-
         /**
          * Sets the IO priority to use while loading files.
          *
@@ -111,10 +110,7 @@ public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBo
      * @param attributes The attributes to query
      * @return a new `GtkBookmarkList`
      */
-    public constructor(
-        filename: String? = null,
-        attributes: String? = null,
-    ) : this(gtk_bookmark_list_new(filename, attributes)!!.reinterpret())
+    public constructor(filename: String? = null, attributes: String? = null) : this(gtk_bookmark_list_new(filename, attributes)!!)
 
     /**
      * Returns true if the files are currently being loaded.
@@ -129,11 +125,10 @@ public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBo
 
     public companion object : TypeCompanion<BookmarkList> {
         override val type: GeneratedClassKGType<BookmarkList> =
-            GeneratedClassKGType(getTypeOrNull("gtk_bookmark_list_get_type")!!) { BookmarkList(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_bookmark_list_get_type")!!) { BookmarkList(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of BookmarkList

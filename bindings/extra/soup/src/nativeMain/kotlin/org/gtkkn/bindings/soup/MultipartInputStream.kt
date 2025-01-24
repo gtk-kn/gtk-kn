@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -34,8 +36,6 @@ import org.gtkkn.native.soup.soup_multipart_input_stream_new
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part_async
 import org.gtkkn.native.soup.soup_multipart_input_stream_next_part_finish
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * Handles streams of multipart messages.
@@ -54,8 +54,9 @@ import kotlin.Unit
  *
  * - method `message`: Property has no getter nor setter
  */
-public class MultipartInputStream(public val soupMultipartInputStreamPointer: CPointer<SoupMultipartInputStream>) :
-    FilterInputStream(soupMultipartInputStreamPointer.reinterpret()),
+public class MultipartInputStream(
+    public val soupMultipartInputStreamPointer: CPointer<SoupMultipartInputStream>,
+) : FilterInputStream(soupMultipartInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
@@ -73,10 +74,7 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
      * @param baseStream the #GInputStream returned by sending the request.
      * @return a new #SoupMultipartInputStream
      */
-    public constructor(
-        msg: Message,
-        baseStream: InputStream,
-    ) : this(soup_multipart_input_stream_new(msg.soupMessagePointer, baseStream.gioInputStreamPointer)!!.reinterpret())
+    public constructor(msg: Message, baseStream: InputStream) : this(soup_multipart_input_stream_new(msg.soupMessagePointer, baseStream.gioInputStreamPointer)!!)
 
     /**
      * Obtains the headers for the part currently being processed.
@@ -93,10 +91,8 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
      *   containing the headers for the part currently being processed or
      *   null if the headers failed to parse.
      */
-    public fun getHeaders(): MessageHeaders? =
-        soup_multipart_input_stream_get_headers(soupMultipartInputStreamPointer)?.run {
-            MessageHeaders(this)
-        }
+    public fun getHeaders(): MessageHeaders? = soup_multipart_input_stream_get_headers(soupMultipartInputStreamPointer)?.run {
+        MessageHeaders(this)}
 
     /**
      * Obtains an input stream for the next part.
@@ -117,13 +113,8 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
      */
     public fun nextPart(cancellable: Cancellable? = null): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_multipart_input_stream_next_part(
-            soupMultipartInputStreamPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        )?.run {
-            InputStream.InputStreamImpl(this)
-        }
+        val gResult = soup_multipart_input_stream_next_part(soupMultipartInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            InputStream.InputStreamImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -141,16 +132,11 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
      * @param cancellable a #GCancellable.
      * @param callback callback to call when request is satisfied.
      */
-    public fun nextPartAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        soup_multipart_input_stream_next_part_async(
-            soupMultipartInputStreamPointer,
-            ioPriority,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun nextPartAsync(
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = soup_multipart_input_stream_next_part_async(soupMultipartInputStreamPointer, ioPriority, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous request for the next part.
@@ -162,13 +148,8 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
      */
     public fun nextPartFinish(result: AsyncResult): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_multipart_input_stream_next_part_finish(
-            soupMultipartInputStreamPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            InputStream.InputStreamImpl(this)
-        }
+        val gResult = soup_multipart_input_stream_next_part_finish(soupMultipartInputStreamPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            InputStream.InputStreamImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -179,13 +160,10 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
 
     public companion object : TypeCompanion<MultipartInputStream> {
         override val type: GeneratedClassKGType<MultipartInputStream> =
-            GeneratedClassKGType(getTypeOrNull("soup_multipart_input_stream_get_type")!!) {
-                MultipartInputStream(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("soup_multipart_input_stream_get_type")!!) { MultipartInputStream(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of MultipartInputStream

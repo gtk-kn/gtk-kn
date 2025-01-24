@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -26,9 +29,6 @@ import org.gtkkn.native.soup.soup_auth_domain_get_type
 import org.gtkkn.native.soup.soup_auth_domain_remove_path
 import org.gtkkn.native.soup.soup_auth_domain_set_filter
 import org.gtkkn.native.soup.soup_auth_domain_set_generic_auth_callback
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Server-side authentication.
@@ -57,8 +57,9 @@ import kotlin.Unit
  * - method `generic-auth-data`: Property has no getter nor setter
  * - method `proxy`: Property has no getter nor setter
  */
-public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<SoupAuthDomain>) :
-    Object(soupAuthDomainPointer.reinterpret()),
+public abstract class AuthDomain(
+    public val soupAuthDomainPointer: CPointer<SoupAuthDomain>,
+) : Object(soupAuthDomainPointer.reinterpret()),
     KGTyped {
     /**
      * The realm of this auth domain.
@@ -85,8 +86,7 @@ public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<Soup
      * @return the username that @msg has authenticated
      *   as, if in fact it has authenticated. null otherwise.
      */
-    public open fun accepts(msg: ServerMessage): String? =
-        soup_auth_domain_accepts(soupAuthDomainPointer, msg.soupServerMessagePointer)?.toKString()
+    public open fun accepts(msg: ServerMessage): String? = soup_auth_domain_accepts(soupAuthDomainPointer, msg.soupServerMessagePointer)?.toKString()
 
     /**
      * Adds @path to @domain.
@@ -109,8 +109,7 @@ public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<Soup
      *
      * @param msg a #SoupServerMessage
      */
-    public open fun challenge(msg: ServerMessage): Unit =
-        soup_auth_domain_challenge(soupAuthDomainPointer, msg.soupServerMessagePointer)
+    public open fun challenge(msg: ServerMessage): Unit = soup_auth_domain_challenge(soupAuthDomainPointer, msg.soupServerMessagePointer)
 
     /**
      * Checks if @msg authenticates to @domain via @username and
@@ -124,13 +123,11 @@ public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<Soup
      * @param password a password
      * @return whether or not the message is authenticated
      */
-    public open fun checkPassword(msg: ServerMessage, username: String, password: String): Boolean =
-        soup_auth_domain_check_password(
-            soupAuthDomainPointer,
-            msg.soupServerMessagePointer,
-            username,
-            password
-        ).asBoolean()
+    public open fun checkPassword(
+        msg: ServerMessage,
+        username: String,
+        password: String,
+    ): Boolean = soup_auth_domain_check_password(soupAuthDomainPointer, msg.soupServerMessagePointer, username, password).asBoolean()
 
     /**
      * Checks if @domain requires @msg to be authenticated (according to
@@ -145,8 +142,7 @@ public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<Soup
      * @param msg a #SoupServerMessage
      * @return true if @domain requires @msg to be authenticated
      */
-    public open fun covers(msg: ServerMessage): Boolean =
-        soup_auth_domain_covers(soupAuthDomainPointer, msg.soupServerMessagePointer).asBoolean()
+    public open fun covers(msg: ServerMessage): Boolean = soup_auth_domain_covers(soupAuthDomainPointer, msg.soupServerMessagePointer).asBoolean()
 
     /**
      * Removes @path from @domain.
@@ -195,12 +191,7 @@ public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<Soup
      *
      * @param filter the auth filter for @domain
      */
-    public open fun setFilter(filter: AuthDomainFilter): Unit = soup_auth_domain_set_filter(
-        soupAuthDomainPointer,
-        AuthDomainFilterFunc.reinterpret(),
-        StableRef.create(filter).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun setFilter(filter: AuthDomainFilter): Unit = soup_auth_domain_set_filter(soupAuthDomainPointer, AuthDomainFilterFunc.reinterpret(), StableRef.create(filter).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets @auth_callback as an authentication-handling callback for @domain.
@@ -213,28 +204,23 @@ public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<Soup
      *
      * @param authCallback the auth callback
      */
-    public open fun setGenericAuthCallback(authCallback: AuthDomainGenericAuthCallback): Unit =
-        soup_auth_domain_set_generic_auth_callback(
-            soupAuthDomainPointer,
-            AuthDomainGenericAuthCallbackFunc.reinterpret(),
-            StableRef.create(authCallback).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public open fun setGenericAuthCallback(authCallback: AuthDomainGenericAuthCallback): Unit = soup_auth_domain_set_generic_auth_callback(soupAuthDomainPointer, AuthDomainGenericAuthCallbackFunc.reinterpret(), StableRef.create(authCallback).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * The AuthDomainImpl type represents a native instance of the abstract AuthDomain class.
      *
      * @constructor Creates a new instance of AuthDomain for the provided [CPointer].
      */
-    public class AuthDomainImpl(pointer: CPointer<SoupAuthDomain>) : AuthDomain(pointer)
+    public class AuthDomainImpl(
+        pointer: CPointer<SoupAuthDomain>,
+    ) : AuthDomain(pointer)
 
     public companion object : TypeCompanion<AuthDomain> {
         override val type: GeneratedClassKGType<AuthDomain> =
-            GeneratedClassKGType(getTypeOrNull("soup_auth_domain_get_type")!!) { AuthDomainImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("soup_auth_domain_get_type")!!) { AuthDomainImpl(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of AuthDomain

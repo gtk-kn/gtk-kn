@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -32,8 +34,6 @@ import org.gtkkn.native.gtk.gtk_directory_list_set_attributes
 import org.gtkkn.native.gtk.gtk_directory_list_set_file
 import org.gtkkn.native.gtk.gtk_directory_list_set_io_priority
 import org.gtkkn.native.gtk.gtk_directory_list_set_monitored
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkDirectoryList` is a list model that wraps g_file_enumerate_children_async().
@@ -65,8 +65,9 @@ import kotlin.String
  * - method `loading`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<GtkDirectoryList>) :
-    Object(gtkDirectoryListPointer.reinterpret()),
+public open class DirectoryList(
+    public val gtkDirectoryListPointer: CPointer<GtkDirectoryList>,
+) : Object(gtkDirectoryListPointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -82,7 +83,6 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
          * @return The queried attributes
          */
         get() = gtk_directory_list_get_attributes(gtkDirectoryListPointer)?.toKString()
-
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
          *
@@ -111,8 +111,7 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
          *   loading finished successfully
          */
         get() = gtk_directory_list_get_error(gtkDirectoryListPointer)?.run {
-            Error(this)
-        }
+            Error(this)}
 
     /**
      * File to query.
@@ -124,9 +123,7 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
          * @return The file whose children are enumerated
          */
         get() = gtk_directory_list_get_file(gtkDirectoryListPointer)?.run {
-            File.FileImpl(reinterpret())
-        }
-
+            File.FileImpl(reinterpret())}
         /**
          * Sets the @file to be enumerated and starts the enumeration.
          *
@@ -146,7 +143,6 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
          * @return The IO priority.
          */
         get() = gtk_directory_list_get_io_priority(gtkDirectoryListPointer)
-
         /**
          * Sets the IO priority to use while loading directories.
          *
@@ -173,7 +169,6 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
          * @return true if the directory is monitored
          */
         get() = gtk_directory_list_get_monitored(gtkDirectoryListPointer).asBoolean()
-
         /**
          * Sets whether the directory list will monitor the directory
          * for changes.
@@ -201,10 +196,7 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
      * @param file The file to query
      * @return a new `GtkDirectoryList`
      */
-    public constructor(
-        attributes: String? = null,
-        `file`: File? = null,
-    ) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!.reinterpret())
+    public constructor(attributes: String? = null, `file`: File? = null) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!)
 
     /**
      * Returns true if the children enumeration is currently in
@@ -220,11 +212,10 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<DirectoryList> {
         override val type: GeneratedClassKGType<DirectoryList> =
-            GeneratedClassKGType(getTypeOrNull("gtk_directory_list_get_type")!!) { DirectoryList(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_directory_list_get_type")!!) { DirectoryList(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of DirectoryList

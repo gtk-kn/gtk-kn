@@ -3,12 +3,15 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GTree
@@ -39,8 +42,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_tree_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The GTree struct is an opaque data structure representing a
@@ -54,7 +55,20 @@ import kotlin.Unit
  * - parameter `key_compare_func`: CompareFunc
  * - parameter `key_destroy_func`: DestroyNotify
  */
-public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(glibTreePointer) {
+public class Tree(
+    public val glibTreePointer: CPointer<GTree>,
+) : ProxyInstance(glibTreePointer) {
+    /**
+     * Creates a new #GTree with a comparison function that accepts user data.
+     * See g_tree_new() for more details.
+     *
+     * @param keyCompareFunc qsort()-style comparison function
+     * @return a newly allocated #GTree
+     */
+    public constructor(keyCompareFunc: CompareDataFunc) : this(g_tree_new_with_data(CompareDataFuncFunc.reinterpret(), StableRef.create(keyCompareFunc).asCPointer())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Removes all keys and values from the #GTree and decreases its
      * reference count by one. If keys and/or values are dynamically
@@ -78,8 +92,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @param func the function to call for each node visited.
      *     If this function returns true, the traversal is stopped.
      */
-    public fun foreach(func: TraverseFunc): Unit =
-        g_tree_foreach(glibTreePointer, TraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun foreach(func: TraverseFunc): Unit = g_tree_foreach(glibTreePointer, TraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Calls the given function for each of the nodes in the #GTree.
@@ -96,8 +109,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun foreachNode(func: TraverseNodeFunc): Unit =
-        g_tree_foreach_node(glibTreePointer, TraverseNodeFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun foreachNode(func: TraverseNodeFunc): Unit = g_tree_foreach_node(glibTreePointer, TraverseNodeFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Gets the height of a #GTree.
@@ -119,8 +131,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @param key the key to insert
      * @param value the value corresponding to the key
      */
-    public fun insert(key: gpointer? = null, `value`: gpointer? = null): Unit =
-        g_tree_insert(glibTreePointer, key, `value`)
+    public fun insert(key: gpointer? = null, `value`: gpointer? = null): Unit = g_tree_insert(glibTreePointer, key, `value`)
 
     /**
      * Inserts a key/value pair into a #GTree.
@@ -144,10 +155,8 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun insertNode(key: gpointer? = null, `value`: gpointer? = null): TreeNode? =
-        g_tree_insert_node(glibTreePointer, key, `value`)?.run {
-            TreeNode(this)
-        }
+    public fun insertNode(key: gpointer? = null, `value`: gpointer? = null): TreeNode? = g_tree_insert_node(glibTreePointer, key, `value`)?.run {
+        TreeNode(this)}
 
     /**
      * Gets the value corresponding to the given key. Since a #GTree is
@@ -172,8 +181,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      */
     @GLibVersion2_68
     public fun lookupNode(key: gpointer? = null): TreeNode? = g_tree_lookup_node(glibTreePointer, key)?.run {
-        TreeNode(this)
-    }
+        TreeNode(this)}
 
     /**
      * Gets the lower bound node corresponding to the given key,
@@ -191,8 +199,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      */
     @GLibVersion2_68
     public fun lowerBound(key: gpointer? = null): TreeNode? = g_tree_lower_bound(glibTreePointer, key)?.run {
-        TreeNode(this)
-    }
+        TreeNode(this)}
 
     /**
      * Gets the number of nodes in a #GTree.
@@ -215,8 +222,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      */
     @GLibVersion2_68
     public fun nodeFirst(): TreeNode? = g_tree_node_first(glibTreePointer)?.run {
-        TreeNode(this)
-    }
+        TreeNode(this)}
 
     /**
      * Returns the last in-order node of the tree, or null
@@ -227,8 +233,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      */
     @GLibVersion2_68
     public fun nodeLast(): TreeNode? = g_tree_node_last(glibTreePointer)?.run {
-        TreeNode(this)
-    }
+        TreeNode(this)}
 
     /**
      * Increments the reference count of @tree by one.
@@ -240,8 +245,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      */
     @GLibVersion2_22
     public fun ref(): Tree = g_tree_ref(glibTreePointer)!!.run {
-        Tree(this)
-    }
+        Tree(this)}
 
     /**
      * Removes a key/value pair from a #GTree.
@@ -277,8 +281,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @param key the key to insert
      * @param value the value corresponding to the key
      */
-    public fun replace(key: gpointer? = null, `value`: gpointer? = null): Unit =
-        g_tree_replace(glibTreePointer, key, `value`)
+    public fun replace(key: gpointer? = null, `value`: gpointer? = null): Unit = g_tree_replace(glibTreePointer, key, `value`)
 
     /**
      * Inserts a new key and value into a #GTree similar to g_tree_insert_node().
@@ -298,10 +301,8 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun replaceNode(key: gpointer? = null, `value`: gpointer? = null): TreeNode? =
-        g_tree_replace_node(glibTreePointer, key, `value`)?.run {
-            TreeNode(this)
-        }
+    public fun replaceNode(key: gpointer? = null, `value`: gpointer? = null): TreeNode? = g_tree_replace_node(glibTreePointer, key, `value`)?.run {
+        TreeNode(this)}
 
     /**
      * Searches a #GTree using @search_func.
@@ -318,8 +319,7 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @return the value corresponding to the found key, or null
      *     if the key was not found
      */
-    public fun search(searchFunc: CompareFunc): gpointer? =
-        g_tree_search(glibTreePointer, CompareFuncFunc.reinterpret(), StableRef.create(searchFunc).asCPointer())
+    public fun search(searchFunc: CompareFunc): gpointer? = g_tree_search(glibTreePointer, CompareFuncFunc.reinterpret(), StableRef.create(searchFunc).asCPointer())
 
     /**
      * Searches a #GTree using @search_func.
@@ -338,13 +338,8 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun searchNode(searchFunc: CompareFunc): TreeNode? = g_tree_search_node(
-        glibTreePointer,
-        CompareFuncFunc.reinterpret(),
-        StableRef.create(searchFunc).asCPointer()
-    )?.run {
-        TreeNode(this)
-    }
+    public fun searchNode(searchFunc: CompareFunc): TreeNode? = g_tree_search_node(glibTreePointer, CompareFuncFunc.reinterpret(), StableRef.create(searchFunc).asCPointer())?.run {
+        TreeNode(this)}
 
     /**
      * Removes a key and its associated value from a #GTree without calling
@@ -387,24 +382,9 @@ public class Tree(public val glibTreePointer: CPointer<GTree>) : ProxyInstance(g
      */
     @GLibVersion2_68
     public fun upperBound(key: gpointer? = null): TreeNode? = g_tree_upper_bound(glibTreePointer, key)?.run {
-        TreeNode(this)
-    }
+        TreeNode(this)}
 
     public companion object {
-        /**
-         * Creates a new #GTree with a comparison function that accepts user data.
-         * See g_tree_new() for more details.
-         *
-         * @param keyCompareFunc qsort()-style comparison function
-         * @return a newly allocated #GTree
-         */
-        public fun newWithData(keyCompareFunc: CompareDataFunc): Tree = Tree(
-            g_tree_new_with_data(
-                CompareDataFuncFunc.reinterpret(),
-                StableRef.create(keyCompareFunc).asCPointer()
-            )!!.reinterpret()
-        )
-
         /**
          * Get the GType of Tree
          *

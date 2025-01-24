@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -10,6 +12,7 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -44,8 +47,6 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_main_context_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GMainContext` struct is an opaque data
@@ -59,8 +60,30 @@ import kotlin.Unit
  * - parameter `timeout`: timeout: Out parameter is not supported
  * - parameter `func`: PollFunc
  */
-public class MainContext(public val glibMainContextPointer: CPointer<GMainContext>) :
-    ProxyInstance(glibMainContextPointer) {
+public class MainContext(
+    public val glibMainContextPointer: CPointer<GMainContext>,
+) : ProxyInstance(glibMainContextPointer) {
+    /**
+     * Creates a new #GMainContext structure.
+     *
+     * @return the new #GMainContext
+     */
+    public constructor() : this(g_main_context_new()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new #GMainContext structure.
+     *
+     * @param flags a bitwise-OR combination of #GMainContextFlags flags that can only be
+     *         set at creation time.
+     * @return the new #GMainContext
+     * @since 2.72
+     */
+    public constructor(flags: MainContextFlags) : this(g_main_context_new_with_flags(flags.mask)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Tries to become the owner of the specified context.
      * If some other thread is the owner of the context,
@@ -92,8 +115,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(fd: PollFd, priority: gint): Unit =
-        g_main_context_add_poll(glibMainContextPointer, fd.glibPollFdPointer, priority)
+    public fun addPoll(fd: PollFd, priority: gint): Unit = g_main_context_add_poll(glibMainContextPointer, fd.glibPollFdPointer, priority)
 
     /**
      * Dispatches all pending sources.
@@ -115,14 +137,8 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @param userData the user data from the callback.
      * @return the source, if one was found, otherwise null
      */
-    public fun findSourceByFuncsUserData(funcs: SourceFuncs, userData: gpointer? = null): Source =
-        g_main_context_find_source_by_funcs_user_data(
-            glibMainContextPointer,
-            funcs.glibSourceFuncsPointer,
-            userData
-        )!!.run {
-            Source(this)
-        }
+    public fun findSourceByFuncsUserData(funcs: SourceFuncs, userData: gpointer? = null): Source = g_main_context_find_source_by_funcs_user_data(glibMainContextPointer, funcs.glibSourceFuncsPointer, userData)!!.run {
+        Source(this)}
 
     /**
      * Finds a #GSource given a pair of context and ID.
@@ -141,10 +157,8 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @param sourceId the source ID, as returned by g_source_get_id().
      * @return the #GSource
      */
-    public fun findSourceById(sourceId: guint): Source =
-        g_main_context_find_source_by_id(glibMainContextPointer, sourceId)!!.run {
-            Source(this)
-        }
+    public fun findSourceById(sourceId: guint): Source = g_main_context_find_source_by_id(glibMainContextPointer, sourceId)!!.run {
+        Source(this)}
 
     /**
      * Finds a source with the given user data for the callback.  If
@@ -154,10 +168,8 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @param userData the user_data for the callback.
      * @return the source, if one was found, otherwise null
      */
-    public fun findSourceByUserData(userData: gpointer? = null): Source =
-        g_main_context_find_source_by_user_data(glibMainContextPointer, userData)!!.run {
-            Source(this)
-        }
+    public fun findSourceByUserData(userData: gpointer? = null): Source = g_main_context_find_source_by_user_data(glibMainContextPointer, userData)!!.run {
+        Source(this)}
 
     /**
      * Invokes a function in such a way that @context is owned during the
@@ -186,11 +198,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invoke(function: SourceFunc): Unit = g_main_context_invoke(
-        glibMainContextPointer,
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(function).asCPointer()
-    )
+    public fun invoke(function: SourceFunc): Unit = g_main_context_invoke(glibMainContextPointer, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
 
     /**
      * Invokes a function in such a way that @context is owned during the
@@ -208,13 +216,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invokeFull(priority: gint, function: SourceFunc): Unit = g_main_context_invoke_full(
-        glibMainContextPointer,
-        priority,
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(function).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun invokeFull(priority: gint, function: SourceFunc): Unit = g_main_context_invoke_full(glibMainContextPointer, priority, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Determines whether this thread holds the (recursive)
@@ -245,8 +247,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @param mayBlock whether the call may block.
      * @return true if events were dispatched.
      */
-    public fun iteration(mayBlock: Boolean): Boolean =
-        g_main_context_iteration(glibMainContextPointer, mayBlock.asGBoolean()).asBoolean()
+    public fun iteration(mayBlock: Boolean): Boolean = g_main_context_iteration(glibMainContextPointer, mayBlock.asGBoolean()).asBoolean()
 
     /**
      * Checks if any sources have pending events for the given context.
@@ -315,8 +316,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @return the @context that was passed in (since 2.6)
      */
     public fun ref(): MainContext = g_main_context_ref(glibMainContextPointer)!!.run {
-        MainContext(this)
-    }
+        MainContext(this)}
 
     /**
      * Releases ownership of a context previously acquired by this thread
@@ -355,8 +355,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      * @return true if the operation succeeded, and
      *   this thread is now the owner of @context.
      */
-    public fun wait(cond: Cond, mutex: Mutex): Boolean =
-        g_main_context_wait(glibMainContextPointer, cond.glibCondPointer, mutex.glibMutexPointer).asBoolean()
+    public fun wait(cond: Cond, mutex: Mutex): Boolean = g_main_context_wait(glibMainContextPointer, cond.glibCondPointer, mutex.glibMutexPointer).asBoolean()
 
     /**
      * If @context is currently blocking in g_main_context_iteration()
@@ -375,11 +374,11 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
      *   #define NUM_TASKS 10
      *   static gint tasks_remaining = NUM_TASKS;  // (atomic)
      *   ...
-     *
+     *  
      *   while (g_atomic_int_get (&tasks_remaining) != 0)
      *     g_main_context_iteration (NULL, TRUE);
      * ]|
-     *
+     *  
      * Then in a thread:
      * |[<!-- language="C" -->
      *   perform_work();
@@ -392,24 +391,6 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
 
     public companion object {
         /**
-         * Creates a new #GMainContext structure.
-         *
-         * @return the new #GMainContext
-         */
-        public fun new(): MainContext = MainContext(g_main_context_new()!!)
-
-        /**
-         * Creates a new #GMainContext structure.
-         *
-         * @param flags a bitwise-OR combination of #GMainContextFlags flags that can only be
-         *         set at creation time.
-         * @return the new #GMainContext
-         * @since 2.72
-         */
-        public fun newWithFlags(flags: MainContextFlags): MainContext =
-            MainContext(g_main_context_new_with_flags(flags.mask)!!.reinterpret())
-
-        /**
          * Returns the global-default main context. This is the main context
          * used for main loop functions when a main loop is not explicitly
          * specified, and corresponds to the "main" main loop. See also
@@ -418,8 +399,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
          * @return the global-default main context.
          */
         public fun default(): MainContext = g_main_context_default()!!.run {
-            MainContext(this)
-        }
+            MainContext(this)}
 
         /**
          * Gets the thread-default #GMainContext for this thread. Asynchronous
@@ -440,8 +420,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
          */
         @GLibVersion2_22
         public fun getThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
-            MainContext(this)
-        }
+            MainContext(this)}
 
         /**
          * Gets the thread-default #GMainContext for this thread, as with
@@ -457,8 +436,7 @@ public class MainContext(public val glibMainContextPointer: CPointer<GMainContex
          */
         @GLibVersion2_32
         public fun refThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
-            MainContext(this)
-        }
+            MainContext(this)}
 
         /**
          * Get the GType of MainContext

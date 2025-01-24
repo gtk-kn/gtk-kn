@@ -3,10 +3,13 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.String
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.adw.AdwBreakpointCondition
 import org.gtkkn.native.adw.adw_breakpoint_condition_copy
@@ -21,17 +24,64 @@ import org.gtkkn.native.adw.adw_breakpoint_condition_to_string
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Suppress
-import kotlin.Unit
 
 /**
  * Describes condition for an [class@Breakpoint].
  * @since 1.4
  */
 @AdwVersion1_4
-public class BreakpointCondition(public val adwBreakpointConditionPointer: CPointer<AdwBreakpointCondition>) :
-    ProxyInstance(adwBreakpointConditionPointer) {
+public class BreakpointCondition(
+    public val adwBreakpointConditionPointer: CPointer<AdwBreakpointCondition>,
+) : ProxyInstance(adwBreakpointConditionPointer) {
+    /**
+     * Creates a condition that triggers when either @condition_1 or @condition_2 is
+     * true.
+     *
+     * @param condition1 first condition
+     * @param condition2 second condition
+     * @return the newly created condition
+     * @since 1.4
+     */
+    public constructor(condition1: BreakpointCondition, condition2: BreakpointCondition) : this(adw_breakpoint_condition_new_or(condition1.adwBreakpointConditionPointer, condition2.adwBreakpointConditionPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a condition that triggers on length changes.
+     *
+     * @param type the length type
+     * @param value the length value
+     * @param unit the length unit
+     * @return the newly created condition
+     * @since 1.4
+     */
+    public constructor(
+        type: BreakpointConditionLengthType,
+        `value`: gdouble,
+        unit: LengthUnit,
+    ) : this(adw_breakpoint_condition_new_length(type.nativeValue, `value`, unit.nativeValue)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a condition that triggers on ratio changes.
+     *
+     * The ratio is represented as @width divided by @height.
+     *
+     * @param type the ratio type
+     * @param width ratio width
+     * @param height ratio height
+     * @return the newly created condition
+     * @since 1.4
+     */
+    public constructor(
+        type: BreakpointConditionRatioType,
+        width: gint,
+        height: gint,
+    ) : this(adw_breakpoint_condition_new_ratio(type.nativeValue, width, height)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Copies @self.
      *
@@ -40,8 +90,7 @@ public class BreakpointCondition(public val adwBreakpointConditionPointer: CPoin
      */
     @AdwVersion1_4
     public fun copy(): BreakpointCondition = adw_breakpoint_condition_copy(adwBreakpointConditionPointer)!!.run {
-        BreakpointCondition(this)
-    }
+        BreakpointCondition(this)}
 
     /**
      * Frees @self.
@@ -61,8 +110,7 @@ public class BreakpointCondition(public val adwBreakpointConditionPointer: CPoin
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @AdwVersion1_4
-    override fun toString(): String = adw_breakpoint_condition_to_string(adwBreakpointConditionPointer)?.toKString()
-        ?: error("Expected not null string")
+    override fun toString(): String = adw_breakpoint_condition_to_string(adwBreakpointConditionPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -74,61 +122,9 @@ public class BreakpointCondition(public val adwBreakpointConditionPointer: CPoin
          * @return the newly created condition
          * @since 1.4
          */
-        public fun newAnd(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
-            BreakpointCondition(
-                adw_breakpoint_condition_new_and(
-                    condition1.adwBreakpointConditionPointer,
-                    condition2.adwBreakpointConditionPointer
-                )!!.reinterpret()
-            )
-
-        /**
-         * Creates a condition that triggers on length changes.
-         *
-         * @param type the length type
-         * @param value the length value
-         * @param unit the length unit
-         * @return the newly created condition
-         * @since 1.4
-         */
-        public fun newLength(
-            type: BreakpointConditionLengthType,
-            `value`: gdouble,
-            unit: LengthUnit,
-        ): BreakpointCondition = BreakpointCondition(
-            adw_breakpoint_condition_new_length(type.nativeValue, `value`, unit.nativeValue)!!.reinterpret()
-        )
-
-        /**
-         * Creates a condition that triggers when either @condition_1 or @condition_2 is
-         * true.
-         *
-         * @param condition1 first condition
-         * @param condition2 second condition
-         * @return the newly created condition
-         * @since 1.4
-         */
-        public fun newOr(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
-            BreakpointCondition(
-                adw_breakpoint_condition_new_or(
-                    condition1.adwBreakpointConditionPointer,
-                    condition2.adwBreakpointConditionPointer
-                )!!.reinterpret()
-            )
-
-        /**
-         * Creates a condition that triggers on ratio changes.
-         *
-         * The ratio is represented as @width divided by @height.
-         *
-         * @param type the ratio type
-         * @param width ratio width
-         * @param height ratio height
-         * @return the newly created condition
-         * @since 1.4
-         */
-        public fun newRatio(type: BreakpointConditionRatioType, width: gint, height: gint): BreakpointCondition =
-            BreakpointCondition(adw_breakpoint_condition_new_ratio(type.nativeValue, width, height)!!.reinterpret())
+        public fun and(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition = BreakpointCondition(adw_breakpoint_condition_new_and(condition1.adwBreakpointConditionPointer, condition2.adwBreakpointConditionPointer)!!).apply  {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
          * Parses a condition from a string.
@@ -193,8 +189,7 @@ public class BreakpointCondition(public val adwBreakpointConditionPointer: CPoin
          */
         @AdwVersion1_4
         public fun parse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
-            BreakpointCondition(this)
-        }
+            BreakpointCondition(this)}
 
         /**
          * Get the GType of BreakpointCondition

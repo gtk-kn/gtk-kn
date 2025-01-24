@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -26,7 +27,6 @@ import org.gtkkn.native.gtk.gtk_tree_list_row_get_position
 import org.gtkkn.native.gtk.gtk_tree_list_row_get_type
 import org.gtkkn.native.gtk.gtk_tree_list_row_is_expandable
 import org.gtkkn.native.gtk.gtk_tree_list_row_set_expanded
-import kotlin.Boolean
 
 /**
  * `GtkTreeListRow` is used by `GtkTreeListModel` to represent items.
@@ -45,8 +45,9 @@ import kotlin.Boolean
  *
  * - method `expandable`: Property has no getter nor setter
  */
-public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>) :
-    Object(gtkTreeListRowPointer.reinterpret()),
+public open class TreeListRow(
+    public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>,
+) : Object(gtkTreeListRowPointer.reinterpret()),
     KGTyped {
     /**
      * The model holding the row's children.
@@ -63,8 +64,7 @@ public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTree
          * @return The model containing the children
          */
         get() = gtk_tree_list_row_get_children(gtkTreeListRowPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
+            ListModel.ListModelImpl(reinterpret())}
 
     /**
      * The depth in the tree of this row.
@@ -94,7 +94,6 @@ public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTree
          * @return true if the row is expanded
          */
         get() = gtk_tree_list_row_get_expanded(gtkTreeListRowPointer).asBoolean()
-
         /**
          * Expands or collapses a row.
          *
@@ -121,8 +120,7 @@ public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTree
          *   compatibility reasons.
          */
         get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer)?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * If @self is not expanded or @position is greater than the
@@ -131,10 +129,8 @@ public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTree
      * @param position position of the child to get
      * @return the child in @position
      */
-    public open fun getChildRow(position: guint): TreeListRow? =
-        gtk_tree_list_row_get_child_row(gtkTreeListRowPointer, position)?.run {
-            TreeListRow(this)
-        }
+    public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_row_get_child_row(gtkTreeListRowPointer, position)?.run {
+        TreeListRow(this)}
 
     /**
      * Gets the row representing the parent for @self.
@@ -152,8 +148,7 @@ public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTree
      * @return The parent of @self
      */
     public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer)?.run {
-        TreeListRow(this)
-    }
+        TreeListRow(this)}
 
     /**
      * Returns the position in the `GtkTreeListModel` that @self occupies
@@ -178,11 +173,10 @@ public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTree
 
     public companion object : TypeCompanion<TreeListRow> {
         override val type: GeneratedClassKGType<TreeListRow> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_get_type")!!) { TreeListRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_get_type")!!) { TreeListRow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeListRow

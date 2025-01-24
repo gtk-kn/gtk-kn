@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -29,8 +31,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A helper widget for creating buttons.
@@ -81,8 +81,9 @@ import kotlin.String
  *
  * `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButtonContent>) :
-    Widget(adwButtonContentPointer.reinterpret()),
+public class ButtonContent(
+    public val adwButtonContentPointer: CPointer<AdwButtonContent>,
+) : Widget(adwButtonContentPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -111,7 +112,6 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
          * @since 1.4
          */
         get() = adw_button_content_get_can_shrink(adwButtonContentPointer).asBoolean()
-
         /**
          * Sets whether the button can be smaller than the natural size of its contents.
          *
@@ -136,9 +136,7 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
          *
          * @return the icon name
          */
-        get() = adw_button_content_get_icon_name(adwButtonContentPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_button_content_get_icon_name(adwButtonContentPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the name of the displayed icon.
          *
@@ -158,7 +156,6 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
          * @return the label
          */
         get() = adw_button_content_get_label(adwButtonContentPointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the displayed label.
          *
@@ -180,7 +177,6 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
          * @return whether an underline in the text indicates a mnemonic
          */
         get() = adw_button_content_get_use_underline(adwButtonContentPointer).asBoolean()
-
         /**
          * Sets whether an underline in the text indicates a mnemonic.
          *
@@ -201,11 +197,10 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
 
     public companion object : TypeCompanion<ButtonContent> {
         override val type: GeneratedClassKGType<ButtonContent> =
-            GeneratedClassKGType(getTypeOrNull("adw_button_content_get_type")!!) { ButtonContent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_button_content_get_type")!!) { ButtonContent(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ButtonContent

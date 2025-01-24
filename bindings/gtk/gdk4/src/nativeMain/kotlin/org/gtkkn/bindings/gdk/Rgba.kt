@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,6 +14,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkRGBA
@@ -26,12 +30,6 @@ import org.gtkkn.native.gdk.gdk_rgba_to_string
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkRGBA` is used to represent a color, in a way that is compatible
@@ -44,14 +42,14 @@ import kotlin.native.ref.createCleaner
  * (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will
  * be clamped to this range when drawing.
  */
-public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) :
-    ProxyInstance(gdkRgbaPointer) {
+public class Rgba(
+    public val gdkRgbaPointer: CPointer<GdkRGBA>,
+) : ProxyInstance(gdkRgbaPointer) {
     /**
      * The intensity of the red channel from 0.0 to 1.0 inclusive
      */
     public var red: gfloat
         get() = gdkRgbaPointer.pointed.red
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRgbaPointer.pointed.red = value
@@ -62,7 +60,6 @@ public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner
      */
     public var green: gfloat
         get() = gdkRgbaPointer.pointed.green
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRgbaPointer.pointed.green = value
@@ -73,7 +70,6 @@ public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner
      */
     public var blue: gfloat
         get() = gdkRgbaPointer.pointed.blue
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRgbaPointer.pointed.blue = value
@@ -85,7 +81,6 @@ public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner
      */
     public var alpha: gfloat
         get() = gdkRgbaPointer.pointed.alpha
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRgbaPointer.pointed.alpha = value
@@ -97,21 +92,9 @@ public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkRGBA>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Rgba and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GdkRGBA>, Cleaner>,
-    ) : this(gdkRgbaPointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GdkRGBA>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Rgba using the provided [AutofreeScope].
@@ -179,8 +162,7 @@ public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner
      * @return A newly allocated `GdkRGBA`, with the same contents as @rgba
      */
     public fun copy(): Rgba = gdk_rgba_copy(gdkRgbaPointer)!!.run {
-        Rgba(this)
-    }
+        Rgba(this)}
 
     /**
      * Compares two `GdkRGBA` colors.
@@ -266,8 +248,7 @@ public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner
      *
      * @return A newly allocated text string
      */
-    override fun toString(): String =
-        gdk_rgba_to_string(gdkRgbaPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = gdk_rgba_to_string(gdkRgbaPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

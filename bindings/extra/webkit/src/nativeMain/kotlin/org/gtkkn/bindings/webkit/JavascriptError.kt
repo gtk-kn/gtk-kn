@@ -13,17 +13,17 @@ import org.gtkkn.native.webkit.webkit_javascript_error_quark
 /**
  * Enum values used to denote errors happening when executing JavaScript
  */
-public enum class JavascriptError(public val nativeValue: WebKitJavascriptError) {
+public enum class JavascriptError(
+    public val nativeValue: WebKitJavascriptError,
+) {
     /**
      * An exception was raised in JavaScript execution
      */
     SCRIPT_FAILED(WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_SCRIPT_FAILED),
-
     /**
      * An unsupported parameter has been used to call and async function from API. Since 2.40
      */
     INVALID_PARAMETER(WebKitJavascriptError.WEBKIT_JAVASCRIPT_ERROR_INVALID_PARAMETER),
-
     /**
      * The result of JavaScript execution could not be returned. Since 2.40
      */

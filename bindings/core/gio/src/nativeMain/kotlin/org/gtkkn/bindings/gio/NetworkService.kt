@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -23,7 +24,6 @@ import org.gtkkn.native.gio.g_network_service_get_type
 import org.gtkkn.native.gio.g_network_service_new
 import org.gtkkn.native.gio.g_network_service_set_scheme
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * Like [class@Gio.NetworkAddress] does with hostnames, `GNetworkService`
@@ -36,8 +36,9 @@ import kotlin.String
  * [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
-public open class NetworkService(public val gioNetworkServicePointer: CPointer<GNetworkService>) :
-    Object(gioNetworkServicePointer.reinterpret()),
+public open class NetworkService(
+    public val gioNetworkServicePointer: CPointer<GNetworkService>,
+) : Object(gioNetworkServicePointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
@@ -72,8 +73,7 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
          * @return @srv's protocol name
          * @since 2.22
          */
-        get() = g_network_service_get_protocol(gioNetworkServicePointer)?.toKString()
-            ?: error("Expected not null string")
+        get() = g_network_service_get_protocol(gioNetworkServicePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Network scheme (default is to use service).
@@ -90,7 +90,6 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
          * @since 2.26
          */
         get() = g_network_service_get_scheme(gioNetworkServicePointer)?.toKString() ?: error("Expected not null string")
-
         /**
          * Set's the URI scheme used to resolve proxies. By default, the service name
          * is used as scheme.
@@ -114,8 +113,7 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
          * @return @srv's service name
          * @since 2.22
          */
-        get() = g_network_service_get_service(gioNetworkServicePointer)?.toKString()
-            ?: error("Expected not null string")
+        get() = g_network_service_get_service(gioNetworkServicePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a new #GNetworkService representing the given @service,
@@ -136,11 +134,10 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
 
     public companion object : TypeCompanion<NetworkService> {
         override val type: GeneratedClassKGType<NetworkService> =
-            GeneratedClassKGType(getTypeOrNull("g_network_service_get_type")!!) { NetworkService(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_network_service_get_type")!!) { NetworkService(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of NetworkService

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
@@ -19,15 +22,13 @@ import org.gtkkn.native.webkit.webkit_script_dialog_prompt_get_default_text
 import org.gtkkn.native.webkit.webkit_script_dialog_prompt_set_text
 import org.gtkkn.native.webkit.webkit_script_dialog_ref
 import org.gtkkn.native.webkit.webkit_script_dialog_unref
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Carries details to be shown in user-facing dialogs.
  */
-public class ScriptDialog(public val webkitScriptDialogPointer: CPointer<WebKitScriptDialog>) :
-    ProxyInstance(webkitScriptDialogPointer) {
+public class ScriptDialog(
+    public val webkitScriptDialogPointer: CPointer<WebKitScriptDialog>,
+) : ProxyInstance(webkitScriptDialogPointer) {
     /**
      * Close @dialog.
      *
@@ -53,8 +54,7 @@ public class ScriptDialog(public val webkitScriptDialogPointer: CPointer<WebKitS
      *
      * @param confirmed whether user confirmed the dialog
      */
-    public fun confirmSetConfirmed(confirmed: Boolean): Unit =
-        webkit_script_dialog_confirm_set_confirmed(webkitScriptDialogPointer, confirmed.asGBoolean())
+    public fun confirmSetConfirmed(confirmed: Boolean): Unit = webkit_script_dialog_confirm_set_confirmed(webkitScriptDialogPointer, confirmed.asGBoolean())
 
     /**
      * Get the dialog type of a #WebKitScriptDialog.
@@ -62,16 +62,14 @@ public class ScriptDialog(public val webkitScriptDialogPointer: CPointer<WebKitS
      * @return the #WebKitScriptDialogType of @dialog
      */
     public fun getDialogType(): ScriptDialogType = webkit_script_dialog_get_dialog_type(webkitScriptDialogPointer).run {
-        ScriptDialogType.fromNativeValue(this)
-    }
+        ScriptDialogType.fromNativeValue(this)}
 
     /**
      * Get the message of a #WebKitScriptDialog.
      *
      * @return the message of @dialog.
      */
-    public fun getMessage(): String =
-        webkit_script_dialog_get_message(webkitScriptDialogPointer)?.toKString() ?: error("Expected not null string")
+    public fun getMessage(): String = webkit_script_dialog_get_message(webkitScriptDialogPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the default text of a #WebKitScriptDialog of type %WEBKIT_SCRIPT_DIALOG_PROMPT.
@@ -81,9 +79,7 @@ public class ScriptDialog(public val webkitScriptDialogPointer: CPointer<WebKitS
      *
      * @return the default text of @dialog
      */
-    public fun promptGetDefaultText(): String =
-        webkit_script_dialog_prompt_get_default_text(webkitScriptDialogPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun promptGetDefaultText(): String = webkit_script_dialog_prompt_get_default_text(webkitScriptDialogPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Set the text entered by the user in the dialog.
@@ -110,8 +106,7 @@ public class ScriptDialog(public val webkitScriptDialogPointer: CPointer<WebKitS
      */
     @WebKitVersion2_24
     public fun ref(): ScriptDialog = webkit_script_dialog_ref(webkitScriptDialogPointer)!!.run {
-        ScriptDialog(this)
-    }
+        ScriptDialog(this)}
 
     /**
      * Atomically decrements the reference count of @dialog by one.

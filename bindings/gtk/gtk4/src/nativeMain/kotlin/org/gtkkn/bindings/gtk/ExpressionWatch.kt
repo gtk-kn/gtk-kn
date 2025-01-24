@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.gtk_expression_watch_get_type
 import org.gtkkn.native.gtk.gtk_expression_watch_ref
 import org.gtkkn.native.gtk.gtk_expression_watch_unref
 import org.gtkkn.native.gtk.gtk_expression_watch_unwatch
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * An opaque structure representing a watched `GtkExpression`.
@@ -23,8 +23,9 @@ import kotlin.Unit
  * The contents of `GtkExpressionWatch` should only be accessed through the
  * provided API.
  */
-public class ExpressionWatch(public val gtkExpressionWatchPointer: CPointer<GtkExpressionWatch>) :
-    ProxyInstance(gtkExpressionWatchPointer) {
+public class ExpressionWatch(
+    public val gtkExpressionWatchPointer: CPointer<GtkExpressionWatch>,
+) : ProxyInstance(gtkExpressionWatchPointer) {
     /**
      * Evaluates the watched expression and on success stores the result
      * in `value`.
@@ -35,8 +36,7 @@ public class ExpressionWatch(public val gtkExpressionWatchPointer: CPointer<GtkE
      * @param value an empty `GValue` to be set
      * @return `TRUE` if the expression could be evaluated and `value` was set
      */
-    public fun evaluate(`value`: Value): Boolean =
-        gtk_expression_watch_evaluate(gtkExpressionWatchPointer, `value`.gobjectValuePointer).asBoolean()
+    public fun evaluate(`value`: Value): Boolean = gtk_expression_watch_evaluate(gtkExpressionWatchPointer, `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpressionWatch`.
@@ -44,8 +44,7 @@ public class ExpressionWatch(public val gtkExpressionWatchPointer: CPointer<GtkE
      * @return the `GtkExpressionWatch` with an additional reference
      */
     public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gtkExpressionWatchPointer)!!.run {
-        ExpressionWatch(this)
-    }
+        ExpressionWatch(this)}
 
     /**
      * Releases a reference on the given `GtkExpressionWatch`.

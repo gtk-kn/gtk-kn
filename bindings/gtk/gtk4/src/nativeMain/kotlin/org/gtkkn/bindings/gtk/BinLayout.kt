@@ -23,8 +23,9 @@ import org.gtkkn.native.gtk.gtk_bin_layout_new
  * [property@Gtk.Widget:halign], and [property@Gtk.Widget:valign] properties
  * of each child to determine where they should be positioned.
  */
-public open class BinLayout(public val gtkBinLayoutPointer: CPointer<GtkBinLayout>) :
-    LayoutManager(gtkBinLayoutPointer.reinterpret()),
+public open class BinLayout(
+    public val gtkBinLayoutPointer: CPointer<GtkBinLayout>,
+) : LayoutManager(gtkBinLayoutPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `GtkBinLayout` instance.
@@ -35,11 +36,10 @@ public open class BinLayout(public val gtkBinLayoutPointer: CPointer<GtkBinLayou
 
     public companion object : TypeCompanion<BinLayout> {
         override val type: GeneratedClassKGType<BinLayout> =
-            GeneratedClassKGType(getTypeOrNull("gtk_bin_layout_get_type")!!) { BinLayout(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_bin_layout_get_type")!!) { BinLayout(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of BinLayout

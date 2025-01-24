@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -19,13 +20,13 @@ import org.gtkkn.native.adw.adw_squeezer_page_get_enabled
 import org.gtkkn.native.adw.adw_squeezer_page_get_type
 import org.gtkkn.native.adw.adw_squeezer_page_set_enabled
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * An auxiliary class used by [class@Squeezer].
  */
-public class SqueezerPage(public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>) :
-    Object(adwSqueezerPagePointer.reinterpret()),
+public class SqueezerPage(
+    public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>,
+) : Object(adwSqueezerPagePointer.reinterpret()),
     KGTyped {
     /**
      * The the squeezer child to which the page belongs.
@@ -37,8 +38,7 @@ public class SqueezerPage(public val adwSqueezerPagePointer: CPointer<AdwSqueeze
          * @return the child to which @self belongs
          */
         get() = adw_squeezer_page_get_child(adwSqueezerPagePointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * Whether the child is enabled.
@@ -59,7 +59,6 @@ public class SqueezerPage(public val adwSqueezerPagePointer: CPointer<AdwSqueeze
          * @return whether @self is enabled
          */
         get() = adw_squeezer_page_get_enabled(adwSqueezerPagePointer).asBoolean()
-
         /**
          * Sets whether @self is enabled.
          *
@@ -78,11 +77,10 @@ public class SqueezerPage(public val adwSqueezerPagePointer: CPointer<AdwSqueeze
 
     public companion object : TypeCompanion<SqueezerPage> {
         override val type: GeneratedClassKGType<SqueezerPage> =
-            GeneratedClassKGType(getTypeOrNull("adw_squeezer_page_get_type")!!) { SqueezerPage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_squeezer_page_get_type")!!) { SqueezerPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of SqueezerPage

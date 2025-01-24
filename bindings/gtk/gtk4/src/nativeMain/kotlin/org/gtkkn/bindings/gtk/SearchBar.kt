@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -27,8 +29,6 @@ import org.gtkkn.native.gtk.gtk_search_bar_set_child
 import org.gtkkn.native.gtk.gtk_search_bar_set_key_capture_widget
 import org.gtkkn.native.gtk.gtk_search_bar_set_search_mode
 import org.gtkkn.native.gtk.gtk_search_bar_set_show_close_button
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GtkSearchBar` is a container made to have a search entry.
@@ -80,8 +80,9 @@ import kotlin.Unit
  *
  * - method `search-mode-enabled`: Property has no getter nor setter
  */
-public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBar>) :
-    Widget(gtkSearchBarPointer.reinterpret()),
+public open class SearchBar(
+    public val gtkSearchBarPointer: CPointer<GtkSearchBar>,
+) : Widget(gtkSearchBarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -102,9 +103,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
          * @return the child widget of @bar
          */
         get() = gtk_search_bar_get_child(gtkSearchBarPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget of @bar.
          *
@@ -122,9 +121,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
          * @return The key capture widget.
          */
         get() = gtk_search_bar_get_key_capture_widget(gtkSearchBarPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets @widget as the widget that @bar will capture key events
          * from.
@@ -153,7 +150,6 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
          * @return whether the close button is shown
          */
         get() = gtk_search_bar_get_show_close_button(gtkSearchBarPointer).asBoolean()
-
         /**
          * Shows or hides the close button.
          *
@@ -185,8 +181,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
      *
      * @param entry a `GtkEditable`
      */
-    public open fun connectEntry(entry: Editable): Unit =
-        gtk_search_bar_connect_entry(gtkSearchBarPointer, entry.gtkEditablePointer)
+    public open fun connectEntry(entry: Editable): Unit = gtk_search_bar_connect_entry(gtkSearchBarPointer, entry.gtkEditablePointer)
 
     /**
      * Returns whether the search mode is on or off.
@@ -200,16 +195,14 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
      *
      * @param searchMode the new state of the search mode
      */
-    public open fun setSearchMode(searchMode: Boolean): Unit =
-        gtk_search_bar_set_search_mode(gtkSearchBarPointer, searchMode.asGBoolean())
+    public open fun setSearchMode(searchMode: Boolean): Unit = gtk_search_bar_set_search_mode(gtkSearchBarPointer, searchMode.asGBoolean())
 
     public companion object : TypeCompanion<SearchBar> {
         override val type: GeneratedClassKGType<SearchBar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_search_bar_get_type")!!) { SearchBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_search_bar_get_type")!!) { SearchBar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SearchBar

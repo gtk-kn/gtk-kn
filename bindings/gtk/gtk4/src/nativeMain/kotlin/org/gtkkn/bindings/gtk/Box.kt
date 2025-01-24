@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
@@ -34,8 +36,6 @@ import org.gtkkn.native.gtk.gtk_box_set_baseline_child
 import org.gtkkn.native.gtk.gtk_box_set_baseline_position
 import org.gtkkn.native.gtk.gtk_box_set_homogeneous
 import org.gtkkn.native.gtk.gtk_box_set_spacing
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GtkBox` widget arranges child widgets into a single row or column.
@@ -73,8 +73,9 @@ import kotlin.Unit
  *
  * Starting from GTK 4.12, `GtkBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
-    Widget(gtkBoxPointer.reinterpret()),
+public open class Box(
+    public val gtkBoxPointer: CPointer<GtkBox>,
+) : Widget(gtkBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
     override val gtkOrientablePointer: CPointer<GtkOrientable>
@@ -103,7 +104,6 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
          * @since 4.12
          */
         get() = gtk_box_get_baseline_child(gtkBoxPointer)
-
         /**
          * Sets the baseline child of a box.
          *
@@ -125,9 +125,7 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
          * @return the baseline position
          */
         get() = gtk_box_get_baseline_position(gtkBoxPointer).run {
-            BaselinePosition.fromNativeValue(this)
-        }
-
+            BaselinePosition.fromNativeValue(this)}
         /**
          * Sets the baseline position of a box.
          *
@@ -152,7 +150,6 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
          * @return true if the box is homogeneous.
          */
         get() = gtk_box_get_homogeneous(gtkBoxPointer).asBoolean()
-
         /**
          * Sets whether or not all children of @box are given equal space
          * in the box.
@@ -172,7 +169,6 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
          * @return spacing between children
          */
         get() = gtk_box_get_spacing(gtkBoxPointer)
-
         /**
          * Sets the number of pixels to place between children of @box.
          *
@@ -187,10 +183,7 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
      * @param spacing the number of pixels to place by default between children
      * @return a new `GtkBox`.
      */
-    public constructor(
-        orientation: Orientation,
-        spacing: gint,
-    ) : this(gtk_box_new(orientation.nativeValue, spacing)!!.reinterpret())
+    public constructor(orientation: Orientation, spacing: gint) : this(gtk_box_new(orientation.nativeValue, spacing)!!.reinterpret())
 
     /**
      * Adds @child as the last child to @box.
@@ -208,8 +201,7 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
      * @param child the `GtkWidget` to insert
      * @param sibling the sibling after which to insert @child
      */
-    public open fun insertChildAfter(child: Widget, sibling: Widget? = null): Unit =
-        gtk_box_insert_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
+    public open fun insertChildAfter(child: Widget, sibling: Widget? = null): Unit = gtk_box_insert_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     /**
      * Adds @child as the first child to @box.
@@ -238,16 +230,14 @@ public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
      * @param child the `GtkWidget` to move, must be a child of @box
      * @param sibling the sibling to move @child after
      */
-    public open fun reorderChildAfter(child: Widget, sibling: Widget? = null): Unit =
-        gtk_box_reorder_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
+    public open fun reorderChildAfter(child: Widget, sibling: Widget? = null): Unit = gtk_box_reorder_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     public companion object : TypeCompanion<Box> {
         override val type: GeneratedClassKGType<Box> =
-            GeneratedClassKGType(getTypeOrNull("gtk_box_get_type")!!) { Box(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_box_get_type")!!) { Box(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Box

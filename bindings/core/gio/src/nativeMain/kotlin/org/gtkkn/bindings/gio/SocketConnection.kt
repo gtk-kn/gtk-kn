@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -33,9 +36,6 @@ import org.gtkkn.native.gio.g_socket_connection_is_connected
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GSocketConnection` is a [class@Gio.IOStream] for a connected socket. They
@@ -57,8 +57,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketConnection(public val gioSocketConnectionPointer: CPointer<GSocketConnection>) :
-    IoStream(gioSocketConnectionPointer.reinterpret()),
+public open class SocketConnection(
+    public val gioSocketConnectionPointer: CPointer<GSocketConnection>,
+) : IoStream(gioSocketConnectionPointer.reinterpret()),
     KGTyped {
     /**
      * The underlying [class@Gio.Socket].
@@ -76,8 +77,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
          * @since 2.22
          */
         get() = g_socket_connection_get_socket(gioSocketConnectionPointer)!!.run {
-            Socket(this)
-        }
+            Socket(this)}
 
     /**
      * Connect @connection to the specified remote address.
@@ -90,12 +90,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
     @GioVersion2_32
     public open fun connect(address: SocketAddress, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_connection_connect(
-            gioSocketConnectionPointer,
-            address.gioSocketAddressPointer,
-            cancellable?.gioCancellablePointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_connection_connect(gioSocketConnectionPointer, address.gioSocketAddressPointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -125,15 +120,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
         address: SocketAddress,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_socket_connection_connect_async(
-        gioSocketConnectionPointer,
-        address.gioSocketAddressPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_socket_connection_connect_async(gioSocketConnectionPointer, address.gioSocketAddressPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Gets the result of a g_socket_connection_connect_async() call.
@@ -145,11 +132,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
     @GioVersion2_32
     public open fun connectFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_connection_connect_finish(
-            gioSocketConnectionPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_connection_connect_finish(gioSocketConnectionPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -168,8 +151,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)
-        }
+            SocketAddress.SocketAddressImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -196,8 +178,7 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_remote_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)
-        }
+            SocketAddress.SocketAddressImpl(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -218,13 +199,10 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
 
     public companion object : TypeCompanion<SocketConnection> {
         override val type: GeneratedClassKGType<SocketConnection> =
-            GeneratedClassKGType(getTypeOrNull("g_socket_connection_get_type")!!) {
-                SocketConnection(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_socket_connection_get_type")!!) { SocketConnection(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Looks up the #GType to be used when creating socket connections on
@@ -239,8 +217,11 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
          * @since 2.22
          */
         @GioVersion2_22
-        public fun factoryLookupType(family: SocketFamily, type: SocketType, protocolId: gint): GType =
-            g_socket_connection_factory_lookup_type(family.nativeValue, type.nativeValue, protocolId)
+        public fun factoryLookupType(
+            family: SocketFamily,
+            type: SocketType,
+            protocolId: gint,
+        ): GType = g_socket_connection_factory_lookup_type(family.nativeValue, type.nativeValue, protocolId)
 
         /**
          * Looks up the #GType to be used when creating socket connections on
@@ -255,8 +236,12 @@ public open class SocketConnection(public val gioSocketConnectionPointer: CPoint
          * @since 2.22
          */
         @GioVersion2_22
-        public fun factoryRegisterType(gType: GType, family: SocketFamily, type: SocketType, protocol: gint): Unit =
-            g_socket_connection_factory_register_type(gType, family.nativeValue, type.nativeValue, protocol)
+        public fun factoryRegisterType(
+            gType: GType,
+            family: SocketFamily,
+            type: SocketType,
+            protocol: gint,
+        ): Unit = g_socket_connection_factory_register_type(gType, family.nativeValue, type.nativeValue, protocol)
 
         /**
          * Get the GType of SocketConnection

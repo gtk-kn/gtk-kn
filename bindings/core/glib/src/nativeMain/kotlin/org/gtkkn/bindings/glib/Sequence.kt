@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -43,8 +45,6 @@ import org.gtkkn.native.glib.g_sequence_sort_iter
 import org.gtkkn.native.glib.g_sequence_swap
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The #GSequence struct is an opaque data type representing a
@@ -54,7 +54,9 @@ import kotlin.Unit
  *
  * - parameter `data_destroy`: DestroyNotify
  */
-public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : ProxyInstance(glibSequencePointer) {
+public class Sequence(
+    public val glibSequencePointer: CPointer<GSequence>,
+) : ProxyInstance(glibSequencePointer) {
     /**
      * Adds a new item to the end of @seq.
      *
@@ -64,8 +66,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      */
     @GLibVersion2_14
     public fun append(`data`: gpointer? = null): SequenceIter = g_sequence_append(glibSequencePointer, `data`)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Calls @func for each item in the sequence passing @user_data
@@ -75,8 +76,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun foreach(func: Func): Unit =
-        g_sequence_foreach(glibSequencePointer, FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+    public fun foreach(func: Func): Unit = g_sequence_foreach(glibSequencePointer, FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the memory allocated for @seq. If @seq has a data destroy
@@ -96,8 +96,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      */
     @GLibVersion2_14
     public fun getBeginIter(): SequenceIter = g_sequence_get_begin_iter(glibSequencePointer)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Returns the end iterator for @seg
@@ -107,8 +106,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      */
     @GLibVersion2_14
     public fun getEndIter(): SequenceIter = g_sequence_get_end_iter(glibSequencePointer)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Returns the iterator at position @pos. If @pos is negative or larger
@@ -120,8 +118,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      */
     @GLibVersion2_14
     public fun getIterAtPos(pos: gint): SequenceIter = g_sequence_get_iter_at_pos(glibSequencePointer, pos)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Returns the positive length (>= 0) of @seq. Note that this method is
@@ -154,15 +151,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun insertSorted(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter =
-        g_sequence_insert_sorted(
-            glibSequencePointer,
-            `data`,
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(cmpFunc).asCPointer()
-        )!!.run {
-            SequenceIter(this)
-        }
+    public fun insertSorted(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter = g_sequence_insert_sorted(glibSequencePointer, `data`, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())!!.run {
+        SequenceIter(this)}
 
     /**
      * Like g_sequence_insert_sorted(), but uses
@@ -184,15 +174,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun insertSortedIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter =
-        g_sequence_insert_sorted_iter(
-            glibSequencePointer,
-            `data`,
-            SequenceIterCompareFuncFunc.reinterpret(),
-            StableRef.create(iterCmp).asCPointer()
-        )!!.run {
-            SequenceIter(this)
-        }
+    public fun insertSortedIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter = g_sequence_insert_sorted_iter(glibSequencePointer, `data`, SequenceIterCompareFuncFunc.reinterpret(), StableRef.create(iterCmp).asCPointer())!!.run {
+        SequenceIter(this)}
 
     /**
      * Returns true if the sequence contains zero items.
@@ -230,14 +213,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookup(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter? = g_sequence_lookup(
-        glibSequencePointer,
-        `data`,
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(cmpFunc).asCPointer()
-    )?.run {
-        SequenceIter(this)
-    }
+    public fun lookup(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter? = g_sequence_lookup(glibSequencePointer, `data`, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())?.run {
+        SequenceIter(this)}
 
     /**
      * Like g_sequence_lookup(), but uses a #GSequenceIterCompareFunc
@@ -259,15 +236,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookupIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter? =
-        g_sequence_lookup_iter(
-            glibSequencePointer,
-            `data`,
-            SequenceIterCompareFuncFunc.reinterpret(),
-            StableRef.create(iterCmp).asCPointer()
-        )?.run {
-            SequenceIter(this)
-        }
+    public fun lookupIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter? = g_sequence_lookup_iter(glibSequencePointer, `data`, SequenceIterCompareFuncFunc.reinterpret(), StableRef.create(iterCmp).asCPointer())?.run {
+        SequenceIter(this)}
 
     /**
      * Adds a new item to the front of @seq
@@ -278,8 +248,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      */
     @GLibVersion2_14
     public fun prepend(`data`: gpointer? = null): SequenceIter = g_sequence_prepend(glibSequencePointer, `data`)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Returns an iterator pointing to the position where @data would
@@ -303,14 +272,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun search(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter = g_sequence_search(
-        glibSequencePointer,
-        `data`,
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(cmpFunc).asCPointer()
-    )!!.run {
-        SequenceIter(this)
-    }
+    public fun search(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter = g_sequence_search(glibSequencePointer, `data`, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())!!.run {
+        SequenceIter(this)}
 
     /**
      * Like g_sequence_search(), but uses a #GSequenceIterCompareFunc
@@ -335,15 +298,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun searchIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter =
-        g_sequence_search_iter(
-            glibSequencePointer,
-            `data`,
-            SequenceIterCompareFuncFunc.reinterpret(),
-            StableRef.create(iterCmp).asCPointer()
-        )!!.run {
-            SequenceIter(this)
-        }
+    public fun searchIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter = g_sequence_search_iter(glibSequencePointer, `data`, SequenceIterCompareFuncFunc.reinterpret(), StableRef.create(iterCmp).asCPointer())!!.run {
+        SequenceIter(this)}
 
     /**
      * Sorts @seq using @cmp_func.
@@ -357,8 +313,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun sort(cmpFunc: CompareDataFunc): Unit =
-        g_sequence_sort(glibSequencePointer, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
+    public fun sort(cmpFunc: CompareDataFunc): Unit = g_sequence_sort(glibSequencePointer, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
 
     /**
      * Like g_sequence_sort(), but uses a #GSequenceIterCompareFunc instead
@@ -373,11 +328,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun sortIter(cmpFunc: SequenceIterCompareFunc): Unit = g_sequence_sort_iter(
-        glibSequencePointer,
-        SequenceIterCompareFuncFunc.reinterpret(),
-        StableRef.create(cmpFunc).asCPointer()
-    )
+    public fun sortIter(cmpFunc: SequenceIterCompareFunc): Unit = g_sequence_sort_iter(glibSequencePointer, SequenceIterCompareFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
 
     public companion object {
         /**
@@ -391,12 +342,11 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun foreachRange(begin: SequenceIter, end: SequenceIter, func: Func): Unit = g_sequence_foreach_range(
-            begin.glibSequenceIterPointer,
-            end.glibSequenceIterPointer,
-            FuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreachRange(
+            begin: SequenceIter,
+            end: SequenceIter,
+            func: Func,
+        ): Unit = g_sequence_foreach_range(begin.glibSequenceIterPointer, end.glibSequenceIterPointer, FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Returns the data that @iter points to.
@@ -417,10 +367,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun insertBefore(iter: SequenceIter, `data`: gpointer? = null): SequenceIter =
-            g_sequence_insert_before(iter.glibSequenceIterPointer, `data`)!!.run {
-                SequenceIter(this)
-            }
+        public fun insertBefore(iter: SequenceIter, `data`: gpointer? = null): SequenceIter = g_sequence_insert_before(iter.glibSequenceIterPointer, `data`)!!.run {
+            SequenceIter(this)}
 
         /**
          * Moves the item pointed to by @src to the position indicated by @dest.
@@ -434,8 +382,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun move(src: SequenceIter, dest: SequenceIter): Unit =
-            g_sequence_move(src.glibSequenceIterPointer, dest.glibSequenceIterPointer)
+        public fun move(src: SequenceIter, dest: SequenceIter): Unit = g_sequence_move(src.glibSequenceIterPointer, dest.glibSequenceIterPointer)
 
         /**
          * Inserts the (@begin, @end) range at the destination pointed to by @dest.
@@ -453,11 +400,11 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun moveRange(dest: SequenceIter, begin: SequenceIter, end: SequenceIter): Unit = g_sequence_move_range(
-            dest.glibSequenceIterPointer,
-            begin.glibSequenceIterPointer,
-            end.glibSequenceIterPointer
-        )
+        public fun moveRange(
+            dest: SequenceIter,
+            begin: SequenceIter,
+            end: SequenceIter,
+        ): Unit = g_sequence_move_range(dest.glibSequenceIterPointer, begin.glibSequenceIterPointer, end.glibSequenceIterPointer)
 
         /**
          * Finds an iterator somewhere in the range (@begin, @end). This
@@ -474,10 +421,8 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun rangeGetMidpoint(begin: SequenceIter, end: SequenceIter): SequenceIter =
-            g_sequence_range_get_midpoint(begin.glibSequenceIterPointer, end.glibSequenceIterPointer)!!.run {
-                SequenceIter(this)
-            }
+        public fun rangeGetMidpoint(begin: SequenceIter, end: SequenceIter): SequenceIter = g_sequence_range_get_midpoint(begin.glibSequenceIterPointer, end.glibSequenceIterPointer)!!.run {
+            SequenceIter(this)}
 
         /**
          * Removes the item pointed to by @iter. It is an error to pass the
@@ -503,8 +448,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun removeRange(begin: SequenceIter, end: SequenceIter): Unit =
-            g_sequence_remove_range(begin.glibSequenceIterPointer, end.glibSequenceIterPointer)
+        public fun removeRange(begin: SequenceIter, end: SequenceIter): Unit = g_sequence_remove_range(begin.glibSequenceIterPointer, end.glibSequenceIterPointer)
 
         /**
          * Changes the data for the item pointed to by @iter to be @data. If
@@ -516,8 +460,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun `set`(iter: SequenceIter, `data`: gpointer? = null): Unit =
-            g_sequence_set(iter.glibSequenceIterPointer, `data`)
+        public fun `set`(iter: SequenceIter, `data`: gpointer? = null): Unit = g_sequence_set(iter.glibSequenceIterPointer, `data`)
 
         /**
          * Moves the data pointed to by @iter to a new position as indicated by
@@ -536,11 +479,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun sortChanged(iter: SequenceIter, cmpFunc: CompareDataFunc): Unit = g_sequence_sort_changed(
-            iter.glibSequenceIterPointer,
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(cmpFunc).asCPointer()
-        )
+        public fun sortChanged(iter: SequenceIter, cmpFunc: CompareDataFunc): Unit = g_sequence_sort_changed(iter.glibSequenceIterPointer, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
 
         /**
          * Like g_sequence_sort_changed(), but uses
@@ -558,12 +497,7 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun sortChangedIter(iter: SequenceIter, iterCmp: SequenceIterCompareFunc): Unit =
-            g_sequence_sort_changed_iter(
-                iter.glibSequenceIterPointer,
-                SequenceIterCompareFuncFunc.reinterpret(),
-                StableRef.create(iterCmp).asCPointer()
-            )
+        public fun sortChangedIter(iter: SequenceIter, iterCmp: SequenceIterCompareFunc): Unit = g_sequence_sort_changed_iter(iter.glibSequenceIterPointer, SequenceIterCompareFuncFunc.reinterpret(), StableRef.create(iterCmp).asCPointer())
 
         /**
          * Swaps the items pointed to by @a and @b. It is allowed for @a and @b
@@ -574,7 +508,6 @@ public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : Pro
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun swap(a: SequenceIter, b: SequenceIter): Unit =
-            g_sequence_swap(a.glibSequenceIterPointer, b.glibSequenceIterPointer)
+        public fun swap(a: SequenceIter, b: SequenceIter): Unit = g_sequence_swap(a.glibSequenceIterPointer, b.glibSequenceIterPointer)
     }
 }

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
@@ -22,7 +23,6 @@ import org.gtkkn.native.gtk.gtk_string_sorter_new
 import org.gtkkn.native.gtk.gtk_string_sorter_set_collation
 import org.gtkkn.native.gtk.gtk_string_sorter_set_expression
 import org.gtkkn.native.gtk.gtk_string_sorter_set_ignore_case
-import kotlin.Boolean
 
 /**
  * `GtkStringSorter` is a `GtkSorter` that compares strings.
@@ -34,8 +34,9 @@ import kotlin.Boolean
  * To obtain the strings to compare, this sorter evaluates a
  * [class@Gtk.Expression].
  */
-public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkStringSorter>) :
-    Sorter(gtkStringSorterPointer.reinterpret()),
+public open class StringSorter(
+    public val gtkStringSorterPointer: CPointer<GtkStringSorter>,
+) : Sorter(gtkStringSorterPointer.reinterpret()),
     KGTyped {
     /**
      * The collation method to use for sorting.
@@ -57,9 +58,7 @@ public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkSt
          * @since 4.10
          */
         get() = gtk_string_sorter_get_collation(gtkStringSorterPointer).run {
-            Collation.fromNativeValue(this)
-        }
-
+            Collation.fromNativeValue(this)}
         /**
          * Sets the collation method to use for sorting.
          *
@@ -79,9 +78,7 @@ public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkSt
          * @return a `GtkExpression`
          */
         get() = gtk_string_sorter_get_expression(gtkStringSorterPointer)?.run {
-            Expression.ExpressionImpl(this)
-        }
-
+            Expression.ExpressionImpl(this)}
         /**
          * Sets the expression that is evaluated to obtain strings from items.
          *
@@ -101,7 +98,6 @@ public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkSt
          * @return true if @self is ignoring case differences
          */
         get() = gtk_string_sorter_get_ignore_case(gtkStringSorterPointer).asBoolean()
-
         /**
          * Sets whether the sorter will ignore case differences.
          *
@@ -119,17 +115,14 @@ public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkSt
      * @param expression The expression to evaluate
      * @return a new `GtkStringSorter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_string_sorter_new(expression?.gtkExpressionPointer)!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_string_sorter_new(expression?.gtkExpressionPointer)!!)
 
     public companion object : TypeCompanion<StringSorter> {
         override val type: GeneratedClassKGType<StringSorter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_string_sorter_get_type")!!) { StringSorter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_string_sorter_get_type")!!) { StringSorter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StringSorter

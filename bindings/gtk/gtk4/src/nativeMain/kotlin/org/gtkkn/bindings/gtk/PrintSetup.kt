@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -13,7 +14,6 @@ import org.gtkkn.native.gtk.gtk_print_setup_get_print_settings
 import org.gtkkn.native.gtk.gtk_print_setup_get_type
 import org.gtkkn.native.gtk.gtk_print_setup_ref
 import org.gtkkn.native.gtk.gtk_print_setup_unref
-import kotlin.Unit
 
 /**
  * A `GtkPrintSetup` is an auxiliary object for printing that allows decoupling
@@ -29,8 +29,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>) :
-    ProxyInstance(gtkPrintSetupPointer) {
+public class PrintSetup(
+    public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>,
+) : ProxyInstance(gtkPrintSetupPointer) {
     /**
      * Returns the page setup of @setup.
      *
@@ -42,8 +43,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      */
     @GtkVersion4_14
     public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer)?.run {
-        PageSetup(this)
-    }
+        PageSetup(this)}
 
     /**
      * Returns the print settings of @setup.
@@ -56,8 +56,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      */
     @GtkVersion4_14
     public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gtkPrintSetupPointer)?.run {
-        PrintSettings(this)
-    }
+        PrintSettings(this)}
 
     /**
      * Increase the reference count of @setup.
@@ -67,8 +66,7 @@ public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>
      */
     @GtkVersion4_14
     public fun ref(): PrintSetup = gtk_print_setup_ref(gtkPrintSetupPointer)!!.run {
-        PrintSetup(this)
-    }
+        PrintSetup(this)}
 
     /**
      * Decrease the reference count of @setup.

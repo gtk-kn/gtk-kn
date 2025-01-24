@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.cairo
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
@@ -11,6 +14,7 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -110,9 +114,6 @@ import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -130,7 +131,13 @@ import kotlin.Unit
  * - parameter `dashes`: Unsupported pointer to primitive type
  * - parameter `x1`: Unsupported pointer to primitive type
  */
-public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyInstance(cairoContextPointer) {
+public class Context(
+    public val cairoContextPointer: CPointer<cairo_t>,
+) : ProxyInstance(cairoContextPointer) {
+    public constructor(surface: Surface) : this(cairo_create(surface.cairoSurfacePointer)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_destroy(it.reinterpret()) }
+    }
+
     public fun save(): Unit = cairo_save(cairoContextPointer)
 
     public fun restore(): Unit = cairo_restore(cairoContextPointer)
@@ -141,8 +148,11 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
 
     public fun paintWithAlpha(alpha: gdouble): Unit = cairo_paint_with_alpha(cairoContextPointer, alpha)
 
-    public fun setSourceSurface(surface: Surface, x: gdouble, y: gdouble): Unit =
-        cairo_set_source_surface(cairoContextPointer, surface.cairoSurfacePointer, x, y)
+    public fun setSourceSurface(
+        surface: Surface,
+        x: gdouble,
+        y: gdouble,
+    ): Unit = cairo_set_source_surface(cairoContextPointer, surface.cairoSurfacePointer, x, y)
 
     public fun setSource(source: Pattern): Unit = cairo_set_source(cairoContextPointer, source.cairoPatternPointer)
 
@@ -152,23 +162,36 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
 
     public fun setLineWidth(width: gdouble): Unit = cairo_set_line_width(cairoContextPointer, width)
 
-    public fun setAntialias(antialias: Antialias): Unit =
-        cairo_set_antialias(cairoContextPointer, antialias.nativeValue)
+    public fun setAntialias(antialias: Antialias): Unit = cairo_set_antialias(cairoContextPointer, antialias.nativeValue)
 
     public fun moveTo(x: gdouble, y: gdouble): Unit = cairo_move_to(cairoContextPointer, x, y)
 
-    public fun selectFontFace(utf8: String, style: FontSlant, weight: FontWeight): Unit =
-        cairo_select_font_face(cairoContextPointer, utf8, style.nativeValue, weight.nativeValue)
+    public fun selectFontFace(
+        utf8: String,
+        style: FontSlant,
+        weight: FontWeight,
+    ): Unit = cairo_select_font_face(cairoContextPointer, utf8, style.nativeValue, weight.nativeValue)
 
     public fun setFontSize(size: gdouble): Unit = cairo_set_font_size(cairoContextPointer, size)
 
     public fun lineTo(x: gdouble, y: gdouble): Unit = cairo_line_to(cairoContextPointer, x, y)
 
-    public fun arc(xc: gdouble, yc: gdouble, radius: gdouble, angle1: gdouble, angle2: gdouble): Unit =
-        cairo_arc(cairoContextPointer, xc, yc, radius, angle1, angle2)
+    public fun arc(
+        xc: gdouble,
+        yc: gdouble,
+        radius: gdouble,
+        angle1: gdouble,
+        angle2: gdouble,
+    ): Unit = cairo_arc(cairoContextPointer, xc, yc, radius, angle1, angle2)
 
-    public fun curveTo(x1: gdouble, y1: gdouble, x2: gdouble, y2: gdouble, x3: gdouble, y3: gdouble): Unit =
-        cairo_curve_to(cairoContextPointer, x1, y1, x2, y2, x3, y3)
+    public fun curveTo(
+        x1: gdouble,
+        y1: gdouble,
+        x2: gdouble,
+        y2: gdouble,
+        x3: gdouble,
+        y3: gdouble,
+    ): Unit = cairo_curve_to(cairoContextPointer, x1, y1, x2, y2, x3, y3)
 
     public fun stroke(): Unit = cairo_stroke(cairoContextPointer)
 
@@ -176,18 +199,29 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
 
     public fun fillPreserve(): Unit = cairo_fill_preserve(cairoContextPointer)
 
-    public fun rectangle(x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        cairo_rectangle(cairoContextPointer, x, y, width, height)
+    public fun rectangle(
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit = cairo_rectangle(cairoContextPointer, x, y, width, height)
 
     public fun setLineCap(lineCap: LineCap): Unit = cairo_set_line_cap(cairoContextPointer, lineCap.nativeValue)
 
     public fun setLineJoin(lineJoin: LineJoin): Unit = cairo_set_line_join(cairoContextPointer, lineJoin.nativeValue)
 
-    public fun setSourceRgba(red: gdouble, green: gdouble, blue: gdouble, alpha: gdouble): Unit =
-        cairo_set_source_rgba(cairoContextPointer, red, green, blue, alpha)
+    public fun setSourceRgba(
+        red: gdouble,
+        green: gdouble,
+        blue: gdouble,
+        alpha: gdouble,
+    ): Unit = cairo_set_source_rgba(cairoContextPointer, red, green, blue, alpha)
 
-    public fun setSourceRgb(red: gdouble, green: gdouble, blue: gdouble): Unit =
-        cairo_set_source_rgb(cairoContextPointer, red, green, blue)
+    public fun setSourceRgb(
+        red: gdouble,
+        green: gdouble,
+        blue: gdouble,
+    ): Unit = cairo_set_source_rgb(cairoContextPointer, red, green, blue)
 
     public fun destroy(): Unit = cairo_destroy(cairoContextPointer)
 
@@ -206,16 +240,14 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
     public fun showText(utf8: String): Unit = cairo_show_text(cairoContextPointer, utf8)
 
     public fun getSource(): Pattern = cairo_get_source(cairoContextPointer)!!.run {
-        Pattern.PatternImpl(this)
-    }
+        Pattern.PatternImpl(this)}
 
     public fun translate(x: gdouble, y: gdouble): Unit = cairo_translate(cairoContextPointer, x, y)
 
     public fun scale(x: gdouble, y: gdouble): Unit = cairo_scale(cairoContextPointer, x, y)
 
     public fun getTarget(): Surface = cairo_get_target(cairoContextPointer)!!.run {
-        Surface(this)
-    }
+        Surface(this)}
 
     /**
      *
@@ -228,12 +260,11 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
     /**
      *
      *
-     * @param content
+     * @param content 
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun pushGroupWithContent(content: Content): Unit =
-        cairo_push_group_with_content(cairoContextPointer, content.nativeValue)
+    public fun pushGroupWithContent(content: Content): Unit = cairo_push_group_with_content(cairoContextPointer, content.nativeValue)
 
     /**
      *
@@ -242,8 +273,7 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
      */
     @CairoVersion1_2
     public fun popGroup(): Pattern = cairo_pop_group(cairoContextPointer)!!.run {
-        Pattern.PatternImpl(this)
-    }
+        Pattern.PatternImpl(this)}
 
     /**
      *
@@ -260,16 +290,13 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
      */
     @CairoVersion1_2
     public fun getGroupTarget(): Surface = cairo_get_group_target(cairoContextPointer)!!.run {
-        Surface(this)
-    }
+        Surface(this)}
 
     public fun getAntialias(): Antialias = cairo_get_antialias(cairoContextPointer).run {
-        Antialias.fromNativeValue(this)
-    }
+        Antialias.fromNativeValue(this)}
 
     public fun getOperator(): Operator = cairo_get_operator(cairoContextPointer).run {
-        Operator.fromNativeValue(this)
-    }
+        Operator.fromNativeValue(this)}
 
     public fun setMiterLimit(limit: gdouble): Unit = cairo_set_miter_limit(cairoContextPointer, limit)
 
@@ -284,8 +311,8 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
     /**
      *
      *
-     * @param x
-     * @param y
+     * @param x 
+     * @param y 
      * @since 1.10
      */
     @CairoVersion1_10
@@ -299,43 +326,48 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
 
     public fun showPage(): Unit = cairo_show_page(cairoContextPointer)
 
-    public fun arcNegative(xc: gdouble, yc: gdouble, radius: gdouble, angle1: gdouble, angle2: gdouble): Unit =
-        cairo_arc_negative(cairoContextPointer, xc, yc, radius, angle1, angle2)
+    public fun arcNegative(
+        xc: gdouble,
+        yc: gdouble,
+        radius: gdouble,
+        angle1: gdouble,
+        angle2: gdouble,
+    ): Unit = cairo_arc_negative(cairoContextPointer, xc, yc, radius, angle1, angle2)
 
     public fun textPath(utf8: String): Unit = cairo_text_path(cairoContextPointer, utf8)
 
-    public fun relCurveTo(dx1: gdouble, dy1: gdouble, dx2: gdouble, dy2: gdouble, dx3: gdouble, dy3: gdouble): Unit =
-        cairo_rel_curve_to(cairoContextPointer, dx1, dy1, dx2, dy2, dx3, dy3)
+    public fun relCurveTo(
+        dx1: gdouble,
+        dy1: gdouble,
+        dx2: gdouble,
+        dy2: gdouble,
+        dx3: gdouble,
+        dy3: gdouble,
+    ): Unit = cairo_rel_curve_to(cairoContextPointer, dx1, dy1, dx2, dy2, dx3, dy3)
 
     public fun relLineTo(dx: gdouble, dy: gdouble): Unit = cairo_rel_line_to(cairoContextPointer, dx, dy)
 
     public fun relMoveTo(dx: gdouble, dy: gdouble): Unit = cairo_rel_move_to(cairoContextPointer, dx, dy)
 
-    public fun getFontMatrix(matrix: Matrix): Unit =
-        cairo_get_font_matrix(cairoContextPointer, matrix.cairoMatrixPointer)
+    public fun getFontMatrix(matrix: Matrix): Unit = cairo_get_font_matrix(cairoContextPointer, matrix.cairoMatrixPointer)
 
-    public fun setFontOptions(options: FontOptions): Unit =
-        cairo_set_font_options(cairoContextPointer, options.cairoFontOptionsPointer)
+    public fun setFontOptions(options: FontOptions): Unit = cairo_set_font_options(cairoContextPointer, options.cairoFontOptionsPointer)
 
-    public fun getFontOptions(options: FontOptions): Unit =
-        cairo_get_font_options(cairoContextPointer, options.cairoFontOptionsPointer)
+    public fun getFontOptions(options: FontOptions): Unit = cairo_get_font_options(cairoContextPointer, options.cairoFontOptionsPointer)
 
-    public fun setFontFace(fontFace: FontFace): Unit =
-        cairo_set_font_face(cairoContextPointer, fontFace.cairoFontFacePointer.reinterpret())
+    public fun setFontFace(fontFace: FontFace): Unit = cairo_set_font_face(cairoContextPointer, fontFace.cairoFontFacePointer.reinterpret())
 
     public fun getFontFace(): FontFace = cairo_get_font_face(cairoContextPointer)!!.run {
-        FontFace(reinterpret())
-    }
+        FontFace(reinterpret())}
 
     /**
      *
      *
-     * @param scaledFont
+     * @param scaledFont 
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun setScaledFont(scaledFont: ScaledFont): Unit =
-        cairo_set_scaled_font(cairoContextPointer, scaledFont.cairoScaledFontPointer)
+    public fun setScaledFont(scaledFont: ScaledFont): Unit = cairo_set_scaled_font(cairoContextPointer, scaledFont.cairoScaledFontPointer)
 
     /**
      *
@@ -344,41 +376,35 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
      */
     @CairoVersion1_4
     public fun getScaledFont(): ScaledFont = cairo_get_scaled_font(cairoContextPointer)!!.run {
-        ScaledFont(this)
-    }
+        ScaledFont(this)}
 
-    public fun fontExtents(extents: FontExtents): Unit =
-        cairo_font_extents(cairoContextPointer, extents.cairoFontExtentsPointer)
+    public fun fontExtents(extents: FontExtents): Unit = cairo_font_extents(cairoContextPointer, extents.cairoFontExtentsPointer)
 
-    public fun textExtents(utf8: String, extents: TextExtents): Unit =
-        cairo_text_extents(cairoContextPointer, utf8, extents.cairoTextExtentsPointer)
+    public fun textExtents(utf8: String, extents: TextExtents): Unit = cairo_text_extents(cairoContextPointer, utf8, extents.cairoTextExtentsPointer)
 
     /**
      *
      *
-     * @param tagName
-     * @param attributes
+     * @param tagName 
+     * @param attributes 
      * @since 1.16
      */
     @CairoVersion1_16
-    public fun tagBegin(tagName: String, attributes: String): Unit =
-        cairo_tag_begin(cairoContextPointer, tagName, attributes)
+    public fun tagBegin(tagName: String, attributes: String): Unit = cairo_tag_begin(cairoContextPointer, tagName, attributes)
 
     /**
      *
      *
-     * @param tagName
+     * @param tagName 
      * @since 1.16
      */
     @CairoVersion1_16
     public fun tagEnd(tagName: String): Unit = cairo_tag_end(cairoContextPointer, tagName)
 
-    public fun getUserData(key: UserDataKey): gpointer =
-        cairo_get_user_data(cairoContextPointer, key.cairoUserDataKeyPointer)!!
+    public fun getUserData(key: UserDataKey): gpointer = cairo_get_user_data(cairoContextPointer, key.cairoUserDataKeyPointer)!!
 
     public fun status(): Status = cairo_status(cairoContextPointer).run {
-        Status.fromNativeValue(this)
-    }
+        Status.fromNativeValue(this)}
 
     /**
      *
@@ -391,28 +417,28 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
     public fun setFillRule(fillRule: FillRule): Unit = cairo_set_fill_rule(cairoContextPointer, fillRule.nativeValue)
 
     public fun getFillRule(): FillRule = cairo_get_fill_rule(cairoContextPointer).run {
-        FillRule.fromNativeValue(this)
-    }
+        FillRule.fromNativeValue(this)}
 
     public fun getLineCap(): LineCap = cairo_get_line_cap(cairoContextPointer).run {
-        LineCap.fromNativeValue(this)
-    }
+        LineCap.fromNativeValue(this)}
 
     public fun getLineJoin(): LineJoin = cairo_get_line_join(cairoContextPointer).run {
-        LineJoin.fromNativeValue(this)
-    }
+        LineJoin.fromNativeValue(this)}
 
     public fun getLineWidth(): gdouble = cairo_get_line_width(cairoContextPointer)
 
     public fun mask(pattern: Pattern): Unit = cairo_mask(cairoContextPointer, pattern.cairoPatternPointer)
 
-    public fun maskSurface(surface: Surface, surfaceX: gdouble, surfaceY: gdouble): Unit =
-        cairo_mask_surface(cairoContextPointer, surface.cairoSurfacePointer, surfaceX, surfaceY)
+    public fun maskSurface(
+        surface: Surface,
+        surfaceX: gdouble,
+        surfaceY: gdouble,
+    ): Unit = cairo_mask_surface(cairoContextPointer, surface.cairoSurfacePointer, surfaceX, surfaceY)
 
     /**
      *
      *
-     * @param enable
+     * @param enable 
      * @since 1.18
      */
     @CairoVersion1_18
@@ -427,12 +453,10 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
     public fun getHairline(): Boolean = cairo_get_hairline(cairoContextPointer).asBoolean()
 
     public fun copyPath(): Path = cairo_copy_path(cairoContextPointer)!!.run {
-        Path(this)
-    }
+        Path(this)}
 
     public fun copyPathFlat(): Path = cairo_copy_path_flat(cairoContextPointer)!!.run {
-        Path(this)
-    }
+        Path(this)}
 
     public fun appendPath(path: Path): Unit = cairo_append_path(cairoContextPointer, path.cairoPathPointer)
 
@@ -454,13 +478,9 @@ public class Context(public val cairoContextPointer: CPointer<cairo_t>) : ProxyI
 
     public fun getMatrix(matrix: Matrix): Unit = cairo_get_matrix(cairoContextPointer, matrix.cairoMatrixPointer)
 
-    public fun setFontMatrix(matrix: Matrix): Unit =
-        cairo_set_font_matrix(cairoContextPointer, matrix.cairoMatrixPointer)
+    public fun setFontMatrix(matrix: Matrix): Unit = cairo_set_font_matrix(cairoContextPointer, matrix.cairoMatrixPointer)
 
     public companion object {
-        public fun create(surface: Surface): Context =
-            Context(cairo_create(surface.cairoSurfacePointer)!!.reinterpret())
-
         /**
          * Get the GType of Context
          *

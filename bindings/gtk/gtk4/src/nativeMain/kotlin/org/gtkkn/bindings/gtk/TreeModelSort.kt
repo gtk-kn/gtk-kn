@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -26,8 +28,6 @@ import org.gtkkn.native.gtk.gtk_tree_model_sort_get_type
 import org.gtkkn.native.gtk.gtk_tree_model_sort_iter_is_valid
 import org.gtkkn.native.gtk.gtk_tree_model_sort_new_with_model
 import org.gtkkn.native.gtk.gtk_tree_model_sort_reset_default_sort_func
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A GtkTreeModel which makes an underlying tree model sortable
@@ -127,8 +127,9 @@ import kotlin.Unit
  * }
  * ]|
  */
-public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<GtkTreeModelSort>) :
-    Object(gtkTreeModelSortPointer.reinterpret()),
+public open class TreeModelSort(
+    public val gtkTreeModelSortPointer: CPointer<GtkTreeModelSort>,
+) : Object(gtkTreeModelSortPointer.reinterpret()),
     TreeDragSource,
     TreeModel,
     TreeSortable,
@@ -149,8 +150,7 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
          * @return the "child model" being sorted
          */
         get() = gtk_tree_model_sort_get_model(gtkTreeModelSortPointer)!!.run {
-            TreeModel.TreeModelImpl(reinterpret())
-        }
+            TreeModel.TreeModelImpl(reinterpret())}
 
     /**
      * Creates a new `GtkTreeModelSort`, with @child_model as the child model.
@@ -158,9 +158,7 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
      * @param childModel A `GtkTreeModel`
      * @return A new `GtkTreeModelSort`.
      */
-    public constructor(
-        childModel: TreeModel,
-    ) : this(gtk_tree_model_sort_new_with_model(childModel.gtkTreeModelPointer)!!.reinterpret())
+    public constructor(childModel: TreeModel) : this(gtk_tree_model_sort_new_with_model(childModel.gtkTreeModelPointer)!!.reinterpret())
 
     /**
      * This function should almost never be called.  It clears the @tree_model_sort
@@ -182,12 +180,7 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
      * @return true, if @sort_iter was set, i.e. if @sort_iter is a
      * valid iterator pointer to a visible row in the child model.
      */
-    public open fun convertChildIterToIter(sortIter: TreeIter, childIter: TreeIter): Boolean =
-        gtk_tree_model_sort_convert_child_iter_to_iter(
-            gtkTreeModelSortPointer,
-            sortIter.gtkTreeIterPointer,
-            childIter.gtkTreeIterPointer
-        ).asBoolean()
+    public open fun convertChildIterToIter(sortIter: TreeIter, childIter: TreeIter): Boolean = gtk_tree_model_sort_convert_child_iter_to_iter(gtkTreeModelSortPointer, sortIter.gtkTreeIterPointer, childIter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Converts @child_path to a path relative to @tree_model_sort.  That is,
@@ -198,10 +191,8 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
      * @param childPath A `GtkTreePath` to convert
      * @return A newly allocated `GtkTreePath`
      */
-    public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
-        gtk_tree_model_sort_convert_child_path_to_path(gtkTreeModelSortPointer, childPath.gtkTreePathPointer)?.run {
-            TreePath(this)
-        }
+    public open fun convertChildPathToPath(childPath: TreePath): TreePath? = gtk_tree_model_sort_convert_child_path_to_path(gtkTreeModelSortPointer, childPath.gtkTreePathPointer)?.run {
+        TreePath(this)}
 
     /**
      * Sets @child_iter to point to the row pointed to by @sorted_iter.
@@ -209,12 +200,7 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
      * @param childIter An uninitialized `GtkTreeIter`
      * @param sortedIter A valid `GtkTreeIter` pointing to a row on @tree_model_sort.
      */
-    public open fun convertIterToChildIter(childIter: TreeIter, sortedIter: TreeIter): Unit =
-        gtk_tree_model_sort_convert_iter_to_child_iter(
-            gtkTreeModelSortPointer,
-            childIter.gtkTreeIterPointer,
-            sortedIter.gtkTreeIterPointer
-        )
+    public open fun convertIterToChildIter(childIter: TreeIter, sortedIter: TreeIter): Unit = gtk_tree_model_sort_convert_iter_to_child_iter(gtkTreeModelSortPointer, childIter.gtkTreeIterPointer, sortedIter.gtkTreeIterPointer)
 
     /**
      * Converts @sorted_path to a path on the child model of @tree_model_sort.
@@ -226,10 +212,8 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
      * @param sortedPath A `GtkTreePath` to convert
      * @return A newly allocated `GtkTreePath`
      */
-    public open fun convertPathToChildPath(sortedPath: TreePath): TreePath? =
-        gtk_tree_model_sort_convert_path_to_child_path(gtkTreeModelSortPointer, sortedPath.gtkTreePathPointer)?.run {
-            TreePath(this)
-        }
+    public open fun convertPathToChildPath(sortedPath: TreePath): TreePath? = gtk_tree_model_sort_convert_path_to_child_path(gtkTreeModelSortPointer, sortedPath.gtkTreePathPointer)?.run {
+        TreePath(this)}
 
     /**
      * > This function is slow. Only use it for debugging and/or testing
@@ -240,8 +224,7 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
      * @param iter A `GtkTreeIter`
      * @return true if the iter is valid, false if the iter is invalid.
      */
-    public open fun iterIsValid(iter: TreeIter): Boolean =
-        gtk_tree_model_sort_iter_is_valid(gtkTreeModelSortPointer, iter.gtkTreeIterPointer).asBoolean()
+    public open fun iterIsValid(iter: TreeIter): Boolean = gtk_tree_model_sort_iter_is_valid(gtkTreeModelSortPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * This resets the default sort function to be in the “unsorted” state.  That
@@ -253,13 +236,10 @@ public open class TreeModelSort(public val gtkTreeModelSortPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<TreeModelSort> {
         override val type: GeneratedClassKGType<TreeModelSort> =
-            GeneratedClassKGType(getTypeOrNull("gtk_tree_model_sort_get_type")!!) {
-                TreeModelSort(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_tree_model_sort_get_type")!!) { TreeModelSort(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeModelSort

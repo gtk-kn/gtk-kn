@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -34,10 +38,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GMenuModel` represents the contents of a menu — an ordered list of
@@ -162,8 +162,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuModel>) :
-    Object(gioMenuModelPointer.reinterpret()),
+public abstract class MenuModel(
+    public val gioMenuModelPointer: CPointer<GMenuModel>,
+) : Object(gioMenuModelPointer.reinterpret()),
     KGTyped {
     /**
      * Queries the item at position @item_index in @model for the attribute
@@ -190,14 +191,8 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
         itemIndex: gint,
         attribute: String,
         expectedType: VariantType? = null,
-    ): Variant? = g_menu_model_get_item_attribute_value(
-        gioMenuModelPointer,
-        itemIndex,
-        attribute,
-        expectedType?.glibVariantTypePointer
-    )?.run {
-        Variant(this)
-    }
+    ): Variant? = g_menu_model_get_item_attribute_value(gioMenuModelPointer, itemIndex, attribute, expectedType?.glibVariantTypePointer)?.run {
+        Variant(this)}
 
     /**
      * Queries the item at position @item_index in @model for the link
@@ -212,10 +207,8 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getItemLink(itemIndex: gint, link: String): MenuModel? =
-        g_menu_model_get_item_link(gioMenuModelPointer, itemIndex, link)?.run {
-            MenuModelImpl(this)
-        }
+    public open fun getItemLink(itemIndex: gint, link: String): MenuModel? = g_menu_model_get_item_link(gioMenuModelPointer, itemIndex, link)?.run {
+        MenuModelImpl(this)}
 
     /**
      * Query the number of items in @model.
@@ -262,8 +255,11 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun itemsChanged(position: gint, removed: gint, added: gint): Unit =
-        g_menu_model_items_changed(gioMenuModelPointer, position, removed, added)
+    public open fun itemsChanged(
+        position: gint,
+        removed: gint,
+        added: gint,
+    ): Unit = g_menu_model_items_changed(gioMenuModelPointer, position, removed, added)
 
     /**
      * Creates a #GMenuAttributeIter to iterate over the attributes of
@@ -276,10 +272,8 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter =
-        g_menu_model_iterate_item_attributes(gioMenuModelPointer, itemIndex)!!.run {
-            MenuAttributeIter.MenuAttributeIterImpl(this)
-        }
+    public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter = g_menu_model_iterate_item_attributes(gioMenuModelPointer, itemIndex)!!.run {
+        MenuAttributeIter.MenuAttributeIterImpl(this)}
 
     /**
      * Creates a #GMenuLinkIter to iterate over the links of the item at
@@ -292,10 +286,8 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter =
-        g_menu_model_iterate_item_links(gioMenuModelPointer, itemIndex)!!.run {
-            MenuLinkIter.MenuLinkIterImpl(this)
-        }
+    public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter = g_menu_model_iterate_item_links(gioMenuModelPointer, itemIndex)!!.run {
+        MenuLinkIter.MenuLinkIterImpl(this)}
 
     /**
      * Emitted when a change has occurred to the menu.
@@ -322,21 +314,11 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` the position of the change; `removed` the number of items removed; `added` the number of items added
      */
-    public fun onItemsChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            position: gint,
-            removed: gint,
-            added: gint,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioMenuModelPointer,
-        "items-changed",
-        onItemsChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onItemsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        position: gint,
+        removed: gint,
+        added: gint,
+    ) -> Unit): ULong = g_signal_connect_data(gioMenuModelPointer, "items-changed", onItemsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "items-changed" signal. See [onItemsChanged].
@@ -345,7 +327,11 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      * @param removed the number of items removed
      * @param added the number of items added
      */
-    public fun emitItemsChanged(position: gint, removed: gint, added: gint) {
+    public fun emitItemsChanged(
+        position: gint,
+        removed: gint,
+        added: gint,
+    ) {
         g_signal_emit_by_name(gioMenuModelPointer.reinterpret(), "items-changed", position, removed, added)
     }
 
@@ -354,15 +340,16 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
      *
      * @constructor Creates a new instance of MenuModel for the provided [CPointer].
      */
-    public class MenuModelImpl(pointer: CPointer<GMenuModel>) : MenuModel(pointer)
+    public class MenuModelImpl(
+        pointer: CPointer<GMenuModel>,
+    ) : MenuModel(pointer)
 
     public companion object : TypeCompanion<MenuModel> {
         override val type: GeneratedClassKGType<MenuModel> =
-            GeneratedClassKGType(getTypeOrNull("g_menu_model_get_type")!!) { MenuModelImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_menu_model_get_type")!!) { MenuModelImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of MenuModel
@@ -373,27 +360,20 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
     }
 }
 
-private val onItemsChangedFunc: CPointer<
-    CFunction<
-        (
-            gint,
-            gint,
-            gint,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val onItemsChangedFunc: CPointer<CFunction<(
+    gint,
+    gint,
+    gint,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    position: gint,
+    removed: gint,
+    added: gint,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         position: gint,
         removed: gint,
         added: gint,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            position: gint,
-            removed: gint,
-            added: gint,
-        ) -> Unit
-        >().get().invoke(position, removed, added)
-}
-    .reinterpret()
+    ) -> Unit>().get().invoke(position, removed, added)}
+.reinterpret()

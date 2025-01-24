@@ -23,8 +23,9 @@ import org.gtkkn.native.gtk.gtk_alternative_trigger_new
  *
  * This can be cascaded to combine more than two triggers.
  */
-public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>) :
-    ShortcutTrigger(gtkAlternativeTriggerPointer.reinterpret()),
+public open class AlternativeTrigger(
+    public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>,
+) : ShortcutTrigger(gtkAlternativeTriggerPointer.reinterpret()),
     KGTyped {
     /**
      * The first `GtkShortcutTrigger` to check.
@@ -40,8 +41,7 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
          * @return the first alternative trigger
          */
         get() = gtk_alternative_trigger_get_first(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)
-        }
+            ShortcutTrigger.ShortcutTriggerImpl(this)}
 
     /**
      * The second `GtkShortcutTrigger` to check.
@@ -57,8 +57,7 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
          * @return the second alternative trigger
          */
         get() = gtk_alternative_trigger_get_second(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)
-        }
+            ShortcutTrigger.ShortcutTriggerImpl(this)}
 
     /**
      * Creates a `GtkShortcutTrigger` that will trigger whenever
@@ -71,22 +70,14 @@ public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CP
      * @param second The second trigger that may trigger
      * @return a new `GtkShortcutTrigger`
      */
-    public constructor(
-        first: ShortcutTrigger,
-        second: ShortcutTrigger,
-    ) : this(
-        gtk_alternative_trigger_new(first.gtkShortcutTriggerPointer, second.gtkShortcutTriggerPointer)!!.reinterpret()
-    )
+    public constructor(first: ShortcutTrigger, second: ShortcutTrigger) : this(gtk_alternative_trigger_new(first.gtkShortcutTriggerPointer, second.gtkShortcutTriggerPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<AlternativeTrigger> {
         override val type: GeneratedClassKGType<AlternativeTrigger> =
-            GeneratedClassKGType(getTypeOrNull("gtk_alternative_trigger_get_type")!!) {
-                AlternativeTrigger(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_alternative_trigger_get_type")!!) { AlternativeTrigger(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AlternativeTrigger

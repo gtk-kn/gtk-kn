@@ -31,8 +31,9 @@ import org.gtkkn.native.webkit.webkit_website_policies_new
  * @since 2.30
  */
 @WebKitVersion2_30
-public class WebsitePolicies(public val webkitWebsitePoliciesPointer: CPointer<WebKitWebsitePolicies>) :
-    Object(webkitWebsitePoliciesPointer.reinterpret()),
+public class WebsitePolicies(
+    public val webkitWebsitePoliciesPointer: CPointer<WebKitWebsitePolicies>,
+) : Object(webkitWebsitePoliciesPointer.reinterpret()),
     KGTyped {
     /**
      * Create a new #WebKitWebsitePolicies.
@@ -40,7 +41,7 @@ public class WebsitePolicies(public val webkitWebsitePoliciesPointer: CPointer<W
      * @return the newly created #WebKitWebsitePolicies
      * @since 2.30
      */
-    public constructor() : this(webkit_website_policies_new()!!.reinterpret())
+    public constructor() : this(webkit_website_policies_new()!!)
 
     /**
      * Get the #WebKitWebsitePolicies:autoplay property.
@@ -49,20 +50,15 @@ public class WebsitePolicies(public val webkitWebsitePoliciesPointer: CPointer<W
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getAutoplayPolicy(): AutoplayPolicy =
-        webkit_website_policies_get_autoplay_policy(webkitWebsitePoliciesPointer).run {
-            AutoplayPolicy.fromNativeValue(this)
-        }
+    public fun getAutoplayPolicy(): AutoplayPolicy = webkit_website_policies_get_autoplay_policy(webkitWebsitePoliciesPointer).run {
+        AutoplayPolicy.fromNativeValue(this)}
 
     public companion object : TypeCompanion<WebsitePolicies> {
         override val type: GeneratedClassKGType<WebsitePolicies> =
-            GeneratedClassKGType(getTypeOrNull("webkit_website_policies_get_type")!!) {
-                WebsitePolicies(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_website_policies_get_type")!!) { WebsitePolicies(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of WebsitePolicies

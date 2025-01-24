@@ -11,7 +11,9 @@ import org.gtkkn.native.webkit.webkit_policy_decision_type_get_type
  * Enum values used for determining the type of a policy decision during
  * #WebKitWebView::decide-policy.
  */
-public enum class PolicyDecisionType(public val nativeValue: WebKitPolicyDecisionType) {
+public enum class PolicyDecisionType(
+    public val nativeValue: WebKitPolicyDecisionType,
+) {
     /**
      * This type of policy decision
      *   is requested when WebKit is about to navigate to a new page in either the
@@ -20,7 +22,6 @@ public enum class PolicyDecisionType(public val nativeValue: WebKitPolicyDecisio
      *   type of policy decision is always a #WebKitNavigationPolicyDecision.
      */
     NAVIGATION_ACTION(WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NAVIGATION_ACTION),
-
     /**
      * This type of policy decision
      *   is requested when WebKit is about to create a new window. Acceptable policy
@@ -32,7 +33,6 @@ public enum class PolicyDecisionType(public val nativeValue: WebKitPolicyDecisio
      *   target attribute on <a> elements.
      */
     NEW_WINDOW_ACTION(WebKitPolicyDecisionType.WEBKIT_POLICY_DECISION_TYPE_NEW_WINDOW_ACTION),
-
     /**
      * This type of decision is used when WebKit has
      *   received a response for a network resource and is about to start the load.

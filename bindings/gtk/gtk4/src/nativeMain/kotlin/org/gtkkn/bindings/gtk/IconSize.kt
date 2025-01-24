@@ -18,17 +18,17 @@ import org.gtkkn.native.gtk.gtk_icon_size_get_type
  * determine the actual size to be used with the
  * `-gtk-icon-size` CSS property.
  */
-public enum class IconSize(public val nativeValue: GtkIconSize) {
+public enum class IconSize(
+    public val nativeValue: GtkIconSize,
+) {
     /**
      * Keep the size of the parent element
      */
     INHERIT(GtkIconSize.GTK_ICON_SIZE_INHERIT),
-
     /**
      * Size similar to text size
      */
     NORMAL(GtkIconSize.GTK_ICON_SIZE_NORMAL),
-
     /**
      * Large size, for example in an icon view
      */

@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -31,8 +33,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A [class@Gtk.ListBoxRow] used to present preferences.
@@ -45,8 +45,9 @@ import kotlin.String
  * rows as they take care of presenting the preference's title while letting you
  * compose the inputs of the preference around it.
  */
-public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>) :
-    ListBoxRow(adwPreferencesRowPointer.reinterpret()),
+public open class PreferencesRow(
+    public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>,
+) : ListBoxRow(adwPreferencesRowPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -72,9 +73,7 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
          *
          * @return the title
          */
-        get() = adw_preferences_row_get_title(adwPreferencesRowPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_row_get_title(adwPreferencesRowPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of the preference represented by @self.
          *
@@ -101,7 +100,6 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
          * @since 1.1
          */
         get() = adw_preferences_row_get_title_selectable(adwPreferencesRowPointer).asBoolean()
-
         /**
          * Sets whether the user can copy the title from the label
          *
@@ -111,9 +109,7 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
          * @since 1.1
          */
         @AdwVersion1_1
-        set(
-            titleSelectable
-        ) = adw_preferences_row_set_title_selectable(adwPreferencesRowPointer, titleSelectable.asGBoolean())
+        set(titleSelectable) = adw_preferences_row_set_title_selectable(adwPreferencesRowPointer, titleSelectable.asGBoolean())
 
     /**
      * Whether to use Pango markup for the title label.
@@ -133,7 +129,6 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
          * @since 1.2
          */
         get() = adw_preferences_row_get_use_markup(adwPreferencesRowPointer).asBoolean()
-
         /**
          * Sets whether to use Pango markup for the title label.
          *
@@ -157,7 +152,6 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
          * @return whether an embedded underline in the title indicates a mnemonic
          */
         get() = adw_preferences_row_get_use_underline(adwPreferencesRowPointer).asBoolean()
-
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
@@ -174,13 +168,10 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
 
     public companion object : TypeCompanion<PreferencesRow> {
         override val type: GeneratedClassKGType<PreferencesRow> =
-            GeneratedClassKGType(getTypeOrNull("adw_preferences_row_get_type")!!) {
-                PreferencesRow(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_preferences_row_get_type")!!) { PreferencesRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PreferencesRow

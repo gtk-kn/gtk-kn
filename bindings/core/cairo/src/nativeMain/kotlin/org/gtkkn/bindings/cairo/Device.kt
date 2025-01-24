@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.cairo
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
@@ -28,7 +29,6 @@ import org.gtkkn.native.cairo.cairo_device_t
 import org.gtkkn.native.cairo.cairo_gobject_device_get_type
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -37,8 +37,9 @@ import kotlin.Unit
  * - parameter `user_data`: Unsupported pointer to primitive type
  * - method `get_user_data`: Return type gpointer is not supported
  */
-public abstract class Device(public val cairoDevicePointer: CPointer<cairo_device_t>) :
-    TypeInstance(cairoDevicePointer.reinterpret()),
+public abstract class Device(
+    public val cairoDevicePointer: CPointer<cairo_device_t>,
+) : TypeInstance(cairoDevicePointer.reinterpret()),
     KGTyped {
     /**
      *
@@ -47,20 +48,17 @@ public abstract class Device(public val cairoDevicePointer: CPointer<cairo_devic
      */
     @CairoVersion1_10
     public open fun status(): Status = cairo_device_status(cairoDevicePointer).run {
-        Status.fromNativeValue(this)
-    }
+        Status.fromNativeValue(this)}
 
     public open fun finish(): Unit = cairo_device_finish(cairoDevicePointer)
 
     public open fun flush(): Unit = cairo_device_flush(cairoDevicePointer)
 
     public open fun getDeviceType(): DeviceType = cairo_device_get_type(cairoDevicePointer).run {
-        DeviceType.fromNativeValue(this)
-    }
+        DeviceType.fromNativeValue(this)}
 
     public open fun acquire(): Status = cairo_device_acquire(cairoDevicePointer).run {
-        Status.fromNativeValue(this)
-    }
+        Status.fromNativeValue(this)}
 
     public open fun release(): Unit = cairo_device_release(cairoDevicePointer)
 
@@ -117,15 +115,16 @@ public abstract class Device(public val cairoDevicePointer: CPointer<cairo_devic
      *
      * @constructor Creates a new instance of Device for the provided [CPointer].
      */
-    public class DeviceImpl(pointer: CPointer<cairo_device_t>) : Device(pointer)
+    public class DeviceImpl(
+        pointer: CPointer<cairo_device_t>,
+    ) : Device(pointer)
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_device_get_type")!!) { DeviceImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("cairo_gobject_device_get_type")!!) { DeviceImpl(it.reinterpret()) }
 
         init {
-            CairoTypeProvider.register()
-        }
+            CairoTypeProvider.register()}
 
         /**
          * Get the GType of Device

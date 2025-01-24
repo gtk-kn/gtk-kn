@@ -10,5 +10,6 @@ import org.gtkkn.native.gobject.GParamSpecObject
 /**
  * A #GParamSpec derived structure that contains the meta data for object properties.
  */
-public open class ParamSpecObject(public val gobjectParamSpecObjectPointer: CPointer<GParamSpecObject>) :
-    ParamSpec(gobjectParamSpecObjectPointer.reinterpret())
+public open class ParamSpecObject(
+    public val gobjectParamSpecObjectPointer: CPointer<GParamSpecObject>,
+) : ParamSpec(gobjectParamSpecObjectPointer.reinterpret())

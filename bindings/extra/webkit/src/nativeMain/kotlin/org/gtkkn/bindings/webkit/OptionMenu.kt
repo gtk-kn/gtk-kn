@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -32,8 +34,6 @@ import org.gtkkn.native.webkit.webkit_option_menu_get_item
 import org.gtkkn.native.webkit.webkit_option_menu_get_n_items
 import org.gtkkn.native.webkit.webkit_option_menu_get_type
 import org.gtkkn.native.webkit.webkit_option_menu_select_item
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Represents the dropdown menu of a `select` element in a #WebKitWebView.
@@ -44,8 +44,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>) :
-    Object(webkitOptionMenuPointer.reinterpret()),
+public class OptionMenu(
+    public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>,
+) : Object(webkitOptionMenuPointer.reinterpret()),
     KGTyped {
     /**
      * Activates the #WebKitOptionMenuItem at @index in @menu.
@@ -85,8 +86,7 @@ public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptio
      */
     @WebKitVersion2_40
     public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer)!!.run {
-        Event.EventImpl(this)
-    }
+        Event.EventImpl(this)}
 
     /**
      * Returns the #WebKitOptionMenuItem at @index in @menu.
@@ -96,10 +96,8 @@ public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptio
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getItem(index: guint): OptionMenuItem =
-        webkit_option_menu_get_item(webkitOptionMenuPointer, index)!!.run {
-            OptionMenuItem(this)
-        }
+    public fun getItem(index: guint): OptionMenuItem = webkit_option_menu_get_item(webkitOptionMenuPointer, index)!!.run {
+        OptionMenuItem(this)}
 
     /**
      * Gets the length of the @menu.
@@ -134,15 +132,7 @@ public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptio
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitOptionMenuPointer,
-            "close",
-            onCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitOptionMenuPointer, "close", onCloseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "close" signal. See [onClose].
@@ -156,11 +146,10 @@ public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptio
 
     public companion object : TypeCompanion<OptionMenu> {
         override val type: GeneratedClassKGType<OptionMenu> =
-            GeneratedClassKGType(getTypeOrNull("webkit_option_menu_get_type")!!) { OptionMenu(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("webkit_option_menu_get_type")!!) { OptionMenu(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of OptionMenu
@@ -172,9 +161,8 @@ public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptio
 }
 
 private val onCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

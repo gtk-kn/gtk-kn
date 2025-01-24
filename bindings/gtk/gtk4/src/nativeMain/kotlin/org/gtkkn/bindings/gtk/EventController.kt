@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -32,8 +34,6 @@ import org.gtkkn.native.gtk.gtk_event_controller_set_name
 import org.gtkkn.native.gtk.gtk_event_controller_set_propagation_limit
 import org.gtkkn.native.gtk.gtk_event_controller_set_propagation_phase
 import org.gtkkn.native.gtk.gtk_event_controller_set_static_name
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkEventController` is the base class for event controllers.
@@ -49,8 +49,9 @@ import kotlin.Unit
  * an overview of the basic concepts, such as the capture and bubble
  * phases of event propagation.
  */
-public abstract class EventController(public val gtkEventControllerPointer: CPointer<GtkEventController>) :
-    Object(gtkEventControllerPointer.reinterpret()),
+public abstract class EventController(
+    public val gtkEventControllerPointer: CPointer<GtkEventController>,
+) : Object(gtkEventControllerPointer.reinterpret()),
     KGTyped {
     /**
      * The name for this controller, typically used for debugging purposes.
@@ -62,7 +63,6 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
          * @return The controller name
          */
         get() = gtk_event_controller_get_name(gtkEventControllerPointer)?.toKString()
-
         /**
          * Sets a name on the controller that can be used for debugging.
          *
@@ -80,9 +80,7 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
          * @return the propagation limit
          */
         get() = gtk_event_controller_get_propagation_limit(gtkEventControllerPointer).run {
-            PropagationLimit.fromNativeValue(this)
-        }
-
+            PropagationLimit.fromNativeValue(this)}
         /**
          * Sets the event propagation limit on the event controller.
          *
@@ -104,9 +102,7 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
          * @return the propagation phase
          */
         get() = gtk_event_controller_get_propagation_phase(gtkEventControllerPointer).run {
-            PropagationPhase.fromNativeValue(this)
-        }
-
+            PropagationPhase.fromNativeValue(this)}
         /**
          * Sets the propagation phase at which a controller handles events.
          *
@@ -127,8 +123,7 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
          * @return a `GtkWidget`
          */
         get() = gtk_event_controller_get_widget(gtkEventControllerPointer)!!.run {
-            Widget.WidgetImpl(this)
-        }
+            Widget.WidgetImpl(this)}
 
     /**
      * Returns the event that is currently being handled by the controller.
@@ -139,8 +134,7 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
      *   handled by @controller
      */
     public open fun getCurrentEvent(): Event? = gtk_event_controller_get_current_event(gtkEventControllerPointer)?.run {
-        Event.EventImpl(this)
-    }
+        Event.EventImpl(this)}
 
     /**
      * Returns the device of the event that is currently being
@@ -151,10 +145,8 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
      * @return device of the event is
      *   currently handled by @controller
      */
-    public open fun getCurrentEventDevice(): Device? =
-        gtk_event_controller_get_current_event_device(gtkEventControllerPointer)?.run {
-            Device.DeviceImpl(this)
-        }
+    public open fun getCurrentEventDevice(): Device? = gtk_event_controller_get_current_event_device(gtkEventControllerPointer)?.run {
+        Device.DeviceImpl(this)}
 
     /**
      * Returns the modifier state of the event that is currently being
@@ -164,10 +156,8 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
      *
      * @return modifier state of the event is currently handled by @controller
      */
-    public open fun getCurrentEventState(): ModifierType =
-        gtk_event_controller_get_current_event_state(gtkEventControllerPointer).run {
-            ModifierType(this)
-        }
+    public open fun getCurrentEventState(): ModifierType = gtk_event_controller_get_current_event_state(gtkEventControllerPointer).run {
+        ModifierType(this)}
 
     /**
      * Returns the timestamp of the event that is currently being
@@ -177,8 +167,7 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
      *
      * @return timestamp of the event is currently handled by @controller
      */
-    public open fun getCurrentEventTime(): guint =
-        gtk_event_controller_get_current_event_time(gtkEventControllerPointer)
+    public open fun getCurrentEventTime(): guint = gtk_event_controller_get_current_event_time(gtkEventControllerPointer)
 
     /**
      * Resets the @controller to a clean state.
@@ -192,25 +181,23 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
      * @since 4.8
      */
     @GtkVersion4_8
-    public open fun setStaticName(name: String? = null): Unit =
-        gtk_event_controller_set_static_name(gtkEventControllerPointer, name)
+    public open fun setStaticName(name: String? = null): Unit = gtk_event_controller_set_static_name(gtkEventControllerPointer, name)
 
     /**
      * The EventControllerImpl type represents a native instance of the abstract EventController class.
      *
      * @constructor Creates a new instance of EventController for the provided [CPointer].
      */
-    public class EventControllerImpl(pointer: CPointer<GtkEventController>) : EventController(pointer)
+    public class EventControllerImpl(
+        pointer: CPointer<GtkEventController>,
+    ) : EventController(pointer)
 
     public companion object : TypeCompanion<EventController> {
         override val type: GeneratedClassKGType<EventController> =
-            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_get_type")!!) {
-                EventControllerImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_event_controller_get_type")!!) { EventControllerImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EventController

@@ -14,7 +14,9 @@ import org.gtkkn.native.gobject.G_IO_OUT
 import org.gtkkn.native.gobject.G_IO_PRI
 import org.gtkkn.native.gobject.g_io_condition_get_type
 
-public class IoCondition(public val mask: GIOCondition) : Bitfield<IoCondition> {
+public class IoCondition(
+    public val mask: GIOCondition,
+) : Bitfield<IoCondition> {
     override infix fun or(other: IoCondition): IoCondition = IoCondition(mask or other.mask)
 
     public companion object {

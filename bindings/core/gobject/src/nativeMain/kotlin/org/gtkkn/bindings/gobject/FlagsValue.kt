@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,28 +12,25 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GFlagsValue
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure which contains a single flags value, its name, and its
  * nickname.
  */
-public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValue>, cleaner: Cleaner? = null) :
-    ProxyInstance(gobjectFlagsValuePointer) {
+public class FlagsValue(
+    public val gobjectFlagsValuePointer: CPointer<GFlagsValue>,
+) : ProxyInstance(gobjectFlagsValuePointer) {
     /**
      * the flags value
      */
     public var `value`: guint
         get() = gobjectFlagsValuePointer.pointed.value
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value = value
@@ -43,7 +41,6 @@ public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValu
      */
     public var valueName: String?
         get() = gobjectFlagsValuePointer.pointed.value_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value_name?.let { g_free(it) }
@@ -55,7 +52,6 @@ public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValu
      */
     public var valueNick: String?
         get() = gobjectFlagsValuePointer.pointed.value_nick?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsValuePointer.pointed.value_nick?.let { g_free(it) }
@@ -68,21 +64,9 @@ public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFlagsValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to FlagsValue and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<GFlagsValue>, Cleaner>,
-    ) : this(gobjectFlagsValuePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<GFlagsValue>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new FlagsValue using the provided [AutofreeScope].

@@ -3,11 +3,17 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
+import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantBuilder
 import org.gtkkn.native.glib.g_variant_builder_add_value
@@ -22,8 +28,6 @@ import org.gtkkn.native.glib.g_variant_builder_unref
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_builder_get_type
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A utility type for constructing container-type #GVariant instances.
@@ -41,11 +45,11 @@ import kotlin.Unit
  * - field `x`: Array parameter of type guintptr is not supported
  * - field `y`: Array parameter of type guintptr is not supported
  */
-public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVariantBuilder>) :
-    ProxyInstance(glibVariantBuilderPointer) {
+public class VariantBuilder(
+    public val glibVariantBuilderPointer: CPointer<GVariantBuilder>,
+) : ProxyInstance(glibVariantBuilderPointer) {
     public var partialMagic: gsize
         get() = glibVariantBuilderPointer.pointed.u.s.partial_magic
-
         @UnsafeFieldSetter
         set(`value`) {
             glibVariantBuilderPointer.pointed.u.s.partial_magic = value
@@ -53,13 +57,81 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
 
     public var type: VariantType?
         get() = glibVariantBuilderPointer.pointed.u.s.type?.run {
-            VariantType(this)
-        }
-
+            VariantType(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibVariantBuilderPointer.pointed.u.s.type = value?.glibVariantTypePointer
         }
+
+    /**
+     * Allocates and initialises a new #GVariantBuilder.
+     *
+     * You should call g_variant_builder_unref() on the return value when it
+     * is no longer needed.  The memory will not be automatically freed by
+     * any other call.
+     *
+     * In most cases it is easier to place a #GVariantBuilder directly on
+     * the stack of the calling function and initialise it with
+     * g_variant_builder_init().
+     *
+     * @param type a container type
+     * @return a #GVariantBuilder
+     * @since 2.24
+     */
+    public constructor(type: VariantType) : this(g_variant_builder_new(type.glibVariantTypePointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Allocate a new VariantBuilder.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     */
+    public constructor() : this(nativeHeap.alloc<GVariantBuilder>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
+
+    /**
+     * Allocate a new VariantBuilder using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(scope: AutofreeScope) : this(scope.alloc<GVariantBuilder>().ptr)
+
+    /**
+     * Allocate a new VariantBuilder.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param partialMagic 
+     * @param type 
+     */
+    public constructor(partialMagic: gsize, type: VariantType?) : this() {
+        this.partialMagic = partialMagic
+        this.type = type
+    }
+
+    /**
+     * Allocate a new VariantBuilder using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param partialMagic 
+     * @param type 
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        partialMagic: gsize,
+        type: VariantType?,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.partialMagic = partialMagic
+        this.type = type
+    }
 
     /**
      * Adds @value to @builder.
@@ -77,8 +149,7 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun addValue(`value`: Variant): Unit =
-        g_variant_builder_add_value(glibVariantBuilderPointer, `value`.glibVariantPointer)
+    public fun addValue(`value`: Variant): Unit = g_variant_builder_add_value(glibVariantBuilderPointer, `value`.glibVariantPointer)
 
     /**
      * Releases all memory associated with a #GVariantBuilder without
@@ -138,8 +209,7 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
      */
     @GLibVersion2_24
     public fun end(): Variant = g_variant_builder_end(glibVariantBuilderPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Initialises a #GVariantBuilder structure.
@@ -176,8 +246,7 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `init`(type: VariantType): Unit =
-        g_variant_builder_init(glibVariantBuilderPointer, type.glibVariantTypePointer)
+    public fun `init`(type: VariantType): Unit = g_variant_builder_init(glibVariantBuilderPointer, type.glibVariantTypePointer)
 
     /**
      * Opens a subcontainer inside the given @builder.  When done adding
@@ -221,8 +290,7 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `open`(type: VariantType): Unit =
-        g_variant_builder_open(glibVariantBuilderPointer, type.glibVariantTypePointer)
+    public fun `open`(type: VariantType): Unit = g_variant_builder_open(glibVariantBuilderPointer, type.glibVariantTypePointer)
 
     /**
      * Increases the reference count on @builder.
@@ -235,8 +303,7 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
      */
     @GLibVersion2_24
     public fun ref(): VariantBuilder = g_variant_builder_ref(glibVariantBuilderPointer)!!.run {
-        VariantBuilder(this)
-    }
+        VariantBuilder(this)}
 
     /**
      * Decreases the reference count on @builder.
@@ -255,24 +322,6 @@ public class VariantBuilder(public val glibVariantBuilderPointer: CPointer<GVari
     override fun toString(): String = "VariantBuilder(partialMagic=$partialMagic, type=$type)"
 
     public companion object {
-        /**
-         * Allocates and initialises a new #GVariantBuilder.
-         *
-         * You should call g_variant_builder_unref() on the return value when it
-         * is no longer needed.  The memory will not be automatically freed by
-         * any other call.
-         *
-         * In most cases it is easier to place a #GVariantBuilder directly on
-         * the stack of the calling function and initialise it with
-         * g_variant_builder_init().
-         *
-         * @param type a container type
-         * @return a #GVariantBuilder
-         * @since 2.24
-         */
-        public fun new(type: VariantType): VariantBuilder =
-            VariantBuilder(g_variant_builder_new(type.glibVariantTypePointer)!!.reinterpret())
-
         /**
          * Get the GType of VariantBuilder
          *

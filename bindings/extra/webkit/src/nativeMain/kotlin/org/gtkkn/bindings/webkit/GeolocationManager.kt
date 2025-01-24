@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,10 +33,6 @@ import org.gtkkn.native.webkit.webkit_geolocation_manager_failed
 import org.gtkkn.native.webkit.webkit_geolocation_manager_get_enable_high_accuracy
 import org.gtkkn.native.webkit.webkit_geolocation_manager_get_type
 import org.gtkkn.native.webkit.webkit_geolocation_manager_update_position
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Geolocation manager.
@@ -46,8 +46,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationManager(public val webkitGeolocationManagerPointer: CPointer<WebKitGeolocationManager>) :
-    Object(webkitGeolocationManagerPointer.reinterpret()),
+public class GeolocationManager(
+    public val webkitGeolocationManagerPointer: CPointer<WebKitGeolocationManager>,
+) : Object(webkitGeolocationManagerPointer.reinterpret()),
     KGTyped {
     /**
      * Whether high accuracy is enabled. This is a read-only property that will be
@@ -73,8 +74,7 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun failed(errorMessage: String): Unit =
-        webkit_geolocation_manager_failed(webkitGeolocationManagerPointer, errorMessage)
+    public fun failed(errorMessage: String): Unit = webkit_geolocation_manager_failed(webkitGeolocationManagerPointer, errorMessage)
 
     /**
      * Notify @manager that position has been updated to @position.
@@ -83,10 +83,7 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun updatePosition(position: GeolocationPosition): Unit = webkit_geolocation_manager_update_position(
-        webkitGeolocationManagerPointer,
-        position.webkitGeolocationPositionPointer
-    )
+    public fun updatePosition(position: GeolocationPosition): Unit = webkit_geolocation_manager_update_position(webkitGeolocationManagerPointer, position.webkitGeolocationPositionPointer)
 
     /**
      * The signal is emitted to notify that @manager needs to start receiving
@@ -104,15 +101,7 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun onStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            webkitGeolocationManagerPointer,
-            "start",
-            onStartFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(webkitGeolocationManagerPointer, "start", onStartFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The signal is emitted to notify that @manager doesn't need to receive
@@ -123,15 +112,7 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun onStop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            webkitGeolocationManagerPointer,
-            "stop",
-            onStopFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onStop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(webkitGeolocationManagerPointer, "stop", onStopFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "stop" signal. See [onStop].
@@ -145,13 +126,10 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
 
     public companion object : TypeCompanion<GeolocationManager> {
         override val type: GeneratedClassKGType<GeolocationManager> =
-            GeneratedClassKGType(getTypeOrNull("webkit_geolocation_manager_get_type")!!) {
-                GeolocationManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_geolocation_manager_get_type")!!) { GeolocationManager(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of GeolocationManager
@@ -163,17 +141,15 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
 }
 
 private val onStartFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()
 
 private val onStopFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

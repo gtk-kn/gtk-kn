@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -46,10 +50,6 @@ import org.gtkkn.native.gtk.gtk_font_dialog_button_set_language
 import org.gtkkn.native.gtk.gtk_font_dialog_button_set_level
 import org.gtkkn.native.gtk.gtk_font_dialog_button_set_use_font
 import org.gtkkn.native.gtk.gtk_font_dialog_button_set_use_size
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GtkFontDialogButton` is wrapped around a [class@Gtk.FontDialog]
@@ -78,8 +78,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPointer<GtkFontDialogButton>) :
-    Widget(gtkFontDialogButtonPointer.reinterpret()),
+public open class FontDialogButton(
+    public val gtkFontDialogButtonPointer: CPointer<GtkFontDialogButton>,
+) : Widget(gtkFontDialogButtonPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -118,7 +119,6 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
          * @since 4.10
          */
         get() = gtk_font_dialog_button_get_font_features(gtkFontDialogButtonPointer)?.toKString()
-
         /**
          * Sets the font features of the button.
          *
@@ -148,9 +148,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
          * @since 4.10
          */
         get() = gtk_font_dialog_button_get_language(gtkFontDialogButtonPointer)?.run {
-            Language(this)
-        }
-
+            Language(this)}
         /**
          * Sets the language to use for font features.
          *
@@ -172,9 +170,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
          * @since 4.10
          */
         get() = gtk_font_dialog_button_get_level(gtkFontDialogButtonPointer).run {
-            FontLevel.fromNativeValue(this)
-        }
-
+            FontLevel.fromNativeValue(this)}
         /**
          * Sets the level of detail at which this dialog
          * lets the user select fonts.
@@ -196,7 +192,6 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
          * @since 4.10
          */
         get() = gtk_font_dialog_button_get_use_font(gtkFontDialogButtonPointer).asBoolean()
-
         /**
          * If @use_font is `TRUE`, the font name will be written
          * using the selected font.
@@ -219,7 +214,6 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
          * @since 4.10
          */
         get() = gtk_font_dialog_button_get_use_size(gtkFontDialogButtonPointer).asBoolean()
-
         /**
          * If @use_size is `TRUE`, the font name will be written
          * using the selected font size.
@@ -242,9 +236,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
      * @return the new `GtkFontDialogButton`
      * @since 4.10
      */
-    public constructor(
-        dialog: FontDialog? = null,
-    ) : this(gtk_font_dialog_button_new(dialog?.gtkFontDialogPointer)!!.reinterpret())
+    public constructor(dialog: FontDialog? = null) : this(gtk_font_dialog_button_new(dialog?.gtkFontDialogPointer)!!.reinterpret())
 
     /**
      * Returns the `GtkFontDialog` of @self.
@@ -254,8 +246,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
      */
     @GtkVersion4_10
     public open fun getDialog(): FontDialog? = gtk_font_dialog_button_get_dialog(gtkFontDialogButtonPointer)?.run {
-        FontDialog(this)
-    }
+        FontDialog(this)}
 
     /**
      * Returns the font of the button.
@@ -268,10 +259,8 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getFontDesc(): FontDescription? =
-        gtk_font_dialog_button_get_font_desc(gtkFontDialogButtonPointer)?.run {
-            FontDescription(this)
-        }
+    public open fun getFontDesc(): FontDescription? = gtk_font_dialog_button_get_font_desc(gtkFontDialogButtonPointer)?.run {
+        FontDescription(this)}
 
     /**
      * Sets a `GtkFontDialog` object to use for
@@ -282,8 +271,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun setDialog(dialog: FontDialog): Unit =
-        gtk_font_dialog_button_set_dialog(gtkFontDialogButtonPointer, dialog.gtkFontDialogPointer)
+    public open fun setDialog(dialog: FontDialog): Unit = gtk_font_dialog_button_set_dialog(gtkFontDialogButtonPointer, dialog.gtkFontDialogPointer)
 
     /**
      * Sets the font of the button.
@@ -292,8 +280,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_dialog_button_set_font_desc(gtkFontDialogButtonPointer, fontDesc.pangoFontDescriptionPointer)
+    public open fun setFontDesc(fontDesc: FontDescription): Unit = gtk_font_dialog_button_set_font_desc(gtkFontDialogButtonPointer, fontDesc.pangoFontDescriptionPointer)
 
     /**
      * Emitted when the font dialog button is activated.
@@ -306,15 +293,7 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkFontDialogButtonPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkFontDialogButtonPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -328,13 +307,10 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
 
     public companion object : TypeCompanion<FontDialogButton> {
         override val type: GeneratedClassKGType<FontDialogButton> =
-            GeneratedClassKGType(getTypeOrNull("gtk_font_dialog_button_get_type")!!) {
-                FontDialogButton(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_font_dialog_button_get_type")!!) { FontDialogButton(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FontDialogButton
@@ -346,9 +322,8 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

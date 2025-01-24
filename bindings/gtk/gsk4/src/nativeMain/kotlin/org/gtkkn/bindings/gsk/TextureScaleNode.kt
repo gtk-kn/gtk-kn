@@ -8,12 +8,14 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextureScaleNode
+import org.gtkkn.native.gsk.gsk_render_node_unref
 import org.gtkkn.native.gsk.gsk_texture_scale_node_get_filter
 import org.gtkkn.native.gsk.gsk_texture_scale_node_get_texture
 import org.gtkkn.native.gsk.gsk_texture_scale_node_get_type
@@ -24,8 +26,9 @@ import org.gtkkn.native.gsk.gsk_texture_scale_node_new
  * @since 4.10
  */
 @GskVersion4_10
-public open class TextureScaleNode(public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>) :
-    RenderNode(gskTextureScaleNodePointer.reinterpret()),
+public open class TextureScaleNode(
+    public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>,
+) : RenderNode(gskTextureScaleNodePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a node that scales the texture to the size given by the
@@ -51,13 +54,9 @@ public open class TextureScaleNode(public val gskTextureScaleNodePointer: CPoint
         texture: Texture,
         bounds: Rect,
         filter: ScalingFilter,
-    ) : this(
-        gsk_texture_scale_node_new(
-            texture.gdkTexturePointer,
-            bounds.grapheneRectPointer,
-            filter.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_texture_scale_node_new(texture.gdkTexturePointer, bounds.grapheneRectPointer, filter.nativeValue)!!.reinterpret()) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { gsk_render_node_unref(it.reinterpret()) }
+    }
 
     /**
      * Retrieves the `GskScalingFilter` used when creating this `GskRenderNode`.
@@ -66,10 +65,8 @@ public open class TextureScaleNode(public val gskTextureScaleNodePointer: CPoint
      * @since 4.10
      */
     @GskVersion4_10
-    public open fun getFilter(): ScalingFilter =
-        gsk_texture_scale_node_get_filter(gskTextureScaleNodePointer.reinterpret()).run {
-            ScalingFilter.fromNativeValue(this)
-        }
+    public open fun getFilter(): ScalingFilter = gsk_texture_scale_node_get_filter(gskTextureScaleNodePointer.reinterpret()).run {
+        ScalingFilter.fromNativeValue(this)}
 
     /**
      * Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
@@ -78,20 +75,15 @@ public open class TextureScaleNode(public val gskTextureScaleNodePointer: CPoint
      * @since 4.10
      */
     @GskVersion4_10
-    public open fun getTexture(): Texture =
-        gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
-            Texture.TextureImpl(this)
-        }
+    public open fun getTexture(): Texture = gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
+        Texture.TextureImpl(this)}
 
     public companion object : TypeCompanion<TextureScaleNode> {
         override val type: GeneratedClassKGType<TextureScaleNode> =
-            GeneratedClassKGType(getTypeOrNull("gsk_texture_scale_node_get_type")!!) {
-                TextureScaleNode(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gsk_texture_scale_node_get_type")!!) { TextureScaleNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of TextureScaleNode

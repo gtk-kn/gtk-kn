@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -16,7 +17,6 @@ import org.gtkkn.native.gdk.gdk_gl_texture_release
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * A GdkTexture representing a GL texture object.
@@ -25,8 +25,9 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class GlTexture(public val gdkGlTexturePointer: CPointer<GdkGLTexture>) :
-    Texture(gdkGlTexturePointer.reinterpret()),
+public open class GlTexture(
+    public val gdkGlTexturePointer: CPointer<GdkGLTexture>,
+) : Texture(gdkGlTexturePointer.reinterpret()),
     KGTyped {
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
@@ -48,11 +49,10 @@ public open class GlTexture(public val gdkGlTexturePointer: CPointer<GdkGLTextur
 
     public companion object : TypeCompanion<GlTexture> {
         override val type: GeneratedClassKGType<GlTexture> =
-            GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_get_type")!!) { GlTexture(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_get_type")!!) { GlTexture(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of GLTexture

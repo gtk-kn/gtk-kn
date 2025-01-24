@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -17,14 +18,14 @@ import org.gtkkn.native.glib.g_sequence_iter_move
 import org.gtkkn.native.glib.g_sequence_iter_next
 import org.gtkkn.native.glib.g_sequence_iter_prev
 import org.gtkkn.native.glib.gint
-import kotlin.Boolean
 
 /**
  * The #GSequenceIter struct is an opaque data type representing an
  * iterator pointing into a #GSequence.
  */
-public class SequenceIter(public val glibSequenceIterPointer: CPointer<GSequenceIter>) :
-    ProxyInstance(glibSequenceIterPointer) {
+public class SequenceIter(
+    public val glibSequenceIterPointer: CPointer<GSequenceIter>,
+) : ProxyInstance(glibSequenceIterPointer) {
     /**
      * Returns a negative number if @a comes before @b, 0 if they are equal,
      * and a positive number if @a comes after @b.
@@ -37,8 +38,7 @@ public class SequenceIter(public val glibSequenceIterPointer: CPointer<GSequence
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun compare(b: SequenceIter): gint =
-        g_sequence_iter_compare(glibSequenceIterPointer, b.glibSequenceIterPointer)
+    public fun compare(b: SequenceIter): gint = g_sequence_iter_compare(glibSequenceIterPointer, b.glibSequenceIterPointer)
 
     /**
      * Returns the position of @iter
@@ -57,8 +57,7 @@ public class SequenceIter(public val glibSequenceIterPointer: CPointer<GSequence
      */
     @GLibVersion2_14
     public fun getSequence(): Sequence = g_sequence_iter_get_sequence(glibSequenceIterPointer)!!.run {
-        Sequence(this)
-    }
+        Sequence(this)}
 
     /**
      * Returns whether @iter is the begin iterator
@@ -91,8 +90,7 @@ public class SequenceIter(public val glibSequenceIterPointer: CPointer<GSequence
      */
     @GLibVersion2_14
     public fun move(delta: gint): SequenceIter = g_sequence_iter_move(glibSequenceIterPointer, delta)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Returns an iterator pointing to the next position after @iter.
@@ -103,8 +101,7 @@ public class SequenceIter(public val glibSequenceIterPointer: CPointer<GSequence
      */
     @GLibVersion2_14
     public fun next(): SequenceIter = g_sequence_iter_next(glibSequenceIterPointer)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 
     /**
      * Returns an iterator pointing to the previous position before @iter.
@@ -116,6 +113,5 @@ public class SequenceIter(public val glibSequenceIterPointer: CPointer<GSequence
      */
     @GLibVersion2_14
     public fun prev(): SequenceIter = g_sequence_iter_prev(glibSequenceIterPointer)!!.run {
-        SequenceIter(this)
-    }
+        SequenceIter(this)}
 }

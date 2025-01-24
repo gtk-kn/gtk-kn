@@ -5,6 +5,7 @@ package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -12,6 +13,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.cairo.cairo_gobject_surface_get_type
 import org.gtkkn.native.cairo.cairo_pattern_create_rgb
 import org.gtkkn.native.cairo.cairo_pattern_create_rgba
+import org.gtkkn.native.cairo.cairo_pattern_destroy
 import org.gtkkn.native.cairo.cairo_pattern_t
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
@@ -21,31 +23,33 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `red`: red: Out parameter is not supported
  */
-public open class SolidPattern(public val cairoSolidPatternPointer: CPointer<cairo_pattern_t>) :
-    Pattern(cairoSolidPatternPointer.reinterpret()),
+public open class SolidPattern(
+    public val cairoSolidPatternPointer: CPointer<cairo_pattern_t>,
+) : Pattern(cairoSolidPatternPointer.reinterpret()),
     KGTyped {
     public constructor(
         red: gdouble,
         green: gdouble,
         blue: gdouble,
-    ) : this(cairo_pattern_create_rgb(red, green, blue)!!.reinterpret())
+    ) : this(cairo_pattern_create_rgb(red, green, blue)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_pattern_destroy(it.reinterpret()) }
+    }
 
     public constructor(
         red: gdouble,
         green: gdouble,
         blue: gdouble,
         alpha: gdouble,
-    ) : this(cairo_pattern_create_rgba(red, green, blue, alpha)!!.reinterpret())
+    ) : this(cairo_pattern_create_rgba(red, green, blue, alpha)!!) {
+        MemoryCleaner.setFreeFunc(this, owned = true) { cairo_pattern_destroy(it.reinterpret()) }
+    }
 
     public companion object : TypeCompanion<SolidPattern> {
         override val type: GeneratedClassKGType<SolidPattern> =
-            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) {
-                SolidPattern(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { SolidPattern(it.reinterpret()) }
 
         init {
-            CairoTypeProvider.register()
-        }
+            CairoTypeProvider.register()}
 
         /**
          * Get the GType of SolidPattern

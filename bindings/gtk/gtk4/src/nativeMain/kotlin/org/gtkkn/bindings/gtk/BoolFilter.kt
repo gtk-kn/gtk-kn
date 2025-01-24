@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -19,14 +20,14 @@ import org.gtkkn.native.gtk.gtk_bool_filter_get_type
 import org.gtkkn.native.gtk.gtk_bool_filter_new
 import org.gtkkn.native.gtk.gtk_bool_filter_set_expression
 import org.gtkkn.native.gtk.gtk_bool_filter_set_invert
-import kotlin.Boolean
 
 /**
  * `GtkBoolFilter` evaluates a boolean `GtkExpression`
  * to determine whether to include items.
  */
-public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>) :
-    Filter(gtkBoolFilterPointer.reinterpret()),
+public open class BoolFilter(
+    public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>,
+) : Filter(gtkBoolFilterPointer.reinterpret()),
     KGTyped {
     /**
      * The boolean expression to evaluate on item.
@@ -39,9 +40,7 @@ public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFi
          * @return a `GtkExpression`
          */
         get() = gtk_bool_filter_get_expression(gtkBoolFilterPointer)?.run {
-            Expression.ExpressionImpl(this)
-        }
-
+            Expression.ExpressionImpl(this)}
         /**
          * Sets the expression that the filter uses to check if items
          * should be filtered.
@@ -62,7 +61,6 @@ public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFi
          * @return true if the filter inverts
          */
         get() = gtk_bool_filter_get_invert(gtkBoolFilterPointer).asBoolean()
-
         /**
          * Sets whether the filter should invert the expression.
          *
@@ -76,17 +74,14 @@ public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFi
      * @param expression The expression to evaluate
      * @return a new `GtkBoolFilter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_bool_filter_new(expression?.gtkExpressionPointer)!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_bool_filter_new(expression?.gtkExpressionPointer)!!)
 
     public companion object : TypeCompanion<BoolFilter> {
         override val type: GeneratedClassKGType<BoolFilter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_bool_filter_get_type")!!) { BoolFilter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_bool_filter_get_type")!!) { BoolFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of BoolFilter

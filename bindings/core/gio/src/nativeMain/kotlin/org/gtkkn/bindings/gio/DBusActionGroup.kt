@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
@@ -17,7 +18,6 @@ import org.gtkkn.native.gio.GRemoteActionGroup
 import org.gtkkn.native.gio.g_dbus_action_group_get
 import org.gtkkn.native.gio.g_dbus_action_group_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * `GDBusActionGroup` is an implementation of the [iface@Gio.ActionGroup]
@@ -26,8 +26,9 @@ import kotlin.String
  * `GDBusActionGroup` can be used as a proxy for an action group
  * that is exported over D-Bus with [method@Gio.DBusConnection.export_action_group].
  */
-public open class DBusActionGroup(public val gioDBusActionGroupPointer: CPointer<GDBusActionGroup>) :
-    Object(gioDBusActionGroupPointer.reinterpret()),
+public open class DBusActionGroup(
+    public val gioDBusActionGroupPointer: CPointer<GDBusActionGroup>,
+) : Object(gioDBusActionGroupPointer.reinterpret()),
     ActionGroup,
     RemoteActionGroup,
     KGTyped {
@@ -39,13 +40,10 @@ public open class DBusActionGroup(public val gioDBusActionGroupPointer: CPointer
 
     public companion object : TypeCompanion<DBusActionGroup> {
         override val type: GeneratedClassKGType<DBusActionGroup> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_action_group_get_type")!!) {
-                DBusActionGroup(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_dbus_action_group_get_type")!!) { DBusActionGroup(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Obtains a #GDBusActionGroup for the action group which is exported at
@@ -70,10 +68,12 @@ public open class DBusActionGroup(public val gioDBusActionGroupPointer: CPointer
          * @since 2.32
          */
         @GioVersion2_32
-        public fun `get`(connection: DBusConnection, busName: String? = null, objectPath: String): DBusActionGroup =
-            g_dbus_action_group_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
-                DBusActionGroup(this)
-            }
+        public fun `get`(
+            connection: DBusConnection,
+            busName: String? = null,
+            objectPath: String,
+        ): DBusActionGroup = g_dbus_action_group_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
+            DBusActionGroup(this)}
 
         /**
          * Get the GType of DBusActionGroup

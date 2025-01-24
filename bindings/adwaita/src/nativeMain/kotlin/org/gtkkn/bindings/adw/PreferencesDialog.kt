@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -31,9 +34,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A dialog showing application's preferences.
@@ -59,8 +59,9 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>) :
-    Dialog(adwPreferencesDialogPointer.reinterpret()),
+public open class PreferencesDialog(
+    public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>,
+) : Dialog(adwPreferencesDialogPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -85,7 +86,6 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
          * @since 1.5
          */
         get() = adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer).asBoolean()
-
         /**
          * Sets whether search is enabled for @self.
          *
@@ -93,9 +93,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            searchEnabled
-        ) = adw_preferences_dialog_set_search_enabled(adwPreferencesDialogPointer, searchEnabled.asGBoolean())
+        set(searchEnabled) = adw_preferences_dialog_set_search_enabled(adwPreferencesDialogPointer, searchEnabled.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesDialog`.
@@ -112,8 +110,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun add(page: PreferencesPage): Unit =
-        adw_preferences_dialog_add(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
+    public open fun add(page: PreferencesPage): Unit = adw_preferences_dialog_add(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
 
     /**
      * Displays @toast.
@@ -124,8 +121,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun addToast(toast: Toast): Unit =
-        adw_preferences_dialog_add_toast(adwPreferencesDialogPointer, toast.adwToastPointer)
+    public open fun addToast(toast: Toast): Unit = adw_preferences_dialog_add_toast(adwPreferencesDialogPointer, toast.adwToastPointer)
 
     /**
      * Gets the currently visible page of @self.
@@ -134,10 +130,8 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getVisiblePage(): PreferencesPage? =
-        adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer)?.run {
-            PreferencesPage(this)
-        }
+    public open fun getVisiblePage(): PreferencesPage? = adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer)?.run {
+        PreferencesPage(this)}
 
     /**
      * Gets the name of currently visible page of @self.
@@ -146,8 +140,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getVisiblePageName(): String? =
-        adw_preferences_dialog_get_visible_page_name(adwPreferencesDialogPointer)?.toKString()
+    public open fun getVisiblePageName(): String? = adw_preferences_dialog_get_visible_page_name(adwPreferencesDialogPointer)?.toKString()
 
     /**
      * Pop the visible page from the subpage stack of @self.
@@ -167,8 +160,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun pushSubpage(page: NavigationPage): Unit =
-        adw_preferences_dialog_push_subpage(adwPreferencesDialogPointer, page.adwNavigationPagePointer)
+    public open fun pushSubpage(page: NavigationPage): Unit = adw_preferences_dialog_push_subpage(adwPreferencesDialogPointer, page.adwNavigationPagePointer)
 
     /**
      * Removes a page from @self.
@@ -177,8 +169,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun remove(page: PreferencesPage): Unit =
-        adw_preferences_dialog_remove(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
+    public open fun remove(page: PreferencesPage): Unit = adw_preferences_dialog_remove(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
 
     /**
      * Makes @page the visible page of @self.
@@ -187,8 +178,7 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setVisiblePage(page: PreferencesPage): Unit =
-        adw_preferences_dialog_set_visible_page(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
+    public open fun setVisiblePage(page: PreferencesPage): Unit = adw_preferences_dialog_set_visible_page(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
 
     /**
      * Makes the page with the given name visible.
@@ -199,18 +189,14 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setVisiblePageName(name: String): Unit =
-        adw_preferences_dialog_set_visible_page_name(adwPreferencesDialogPointer, name)
+    public open fun setVisiblePageName(name: String): Unit = adw_preferences_dialog_set_visible_page_name(adwPreferencesDialogPointer, name)
 
     public companion object : TypeCompanion<PreferencesDialog> {
         override val type: GeneratedClassKGType<PreferencesDialog> =
-            GeneratedClassKGType(getTypeOrNull("adw_preferences_dialog_get_type")!!) {
-                PreferencesDialog(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_preferences_dialog_get_type")!!) { PreferencesDialog(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PreferencesDialog

@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -33,9 +36,6 @@ import org.gtkkn.native.gio.g_dbus_auth_observer_new
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
 
 /**
  * `GDBusAuthObserver` provides a mechanism for participating
@@ -104,8 +104,9 @@ import kotlin.ULong
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPointer<GDBusAuthObserver>) :
-    Object(gioDBusAuthObserverPointer.reinterpret()),
+public open class DBusAuthObserver(
+    public val gioDBusAuthObserverPointer: CPointer<GDBusAuthObserver>,
+) : Object(gioDBusAuthObserverPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GDBusAuthObserver object.
@@ -113,7 +114,7 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
      * @return A #GDBusAuthObserver. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_dbus_auth_observer_new()!!.reinterpret())
+    public constructor() : this(g_dbus_auth_observer_new()!!)
 
     /**
      * Emits the #GDBusAuthObserver::allow-mechanism signal on @observer.
@@ -123,8 +124,7 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun allowMechanism(mechanism: String): Boolean =
-        g_dbus_auth_observer_allow_mechanism(gioDBusAuthObserverPointer, mechanism).asBoolean()
+    public open fun allowMechanism(mechanism: String): Boolean = g_dbus_auth_observer_allow_mechanism(gioDBusAuthObserverPointer, mechanism).asBoolean()
 
     /**
      * Emits the #GDBusAuthObserver::authorize-authenticated-peer signal on @observer.
@@ -135,12 +135,7 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun authorizeAuthenticatedPeer(stream: IoStream, credentials: Credentials? = null): Boolean =
-        g_dbus_auth_observer_authorize_authenticated_peer(
-            gioDBusAuthObserverPointer,
-            stream.gioIoStreamPointer,
-            credentials?.gioCredentialsPointer
-        ).asBoolean()
+    public open fun authorizeAuthenticatedPeer(stream: IoStream, credentials: Credentials? = null): Boolean = g_dbus_auth_observer_authorize_authenticated_peer(gioDBusAuthObserverPointer, stream.gioIoStreamPointer, credentials?.gioCredentialsPointer).asBoolean()
 
     /**
      * Emitted to check if @mechanism is allowed to be used.
@@ -150,17 +145,7 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
      * @since 2.34
      */
     @GioVersion2_34
-    public fun onAllowMechanism(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (mechanism: String) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gioDBusAuthObserverPointer,
-        "allow-mechanism",
-        onAllowMechanismFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAllowMechanism(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (mechanism: String) -> Boolean): ULong = g_signal_connect_data(gioDBusAuthObserverPointer, "allow-mechanism", onAllowMechanismFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted to check if a peer that is successfully authenticated
@@ -171,27 +156,14 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
      * @since 2.26
      */
     @GioVersion2_26
-    public fun onAuthorizeAuthenticatedPeer(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (stream: IoStream, credentials: Credentials?) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gioDBusAuthObserverPointer,
-        "authorize-authenticated-peer",
-        onAuthorizeAuthenticatedPeerFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onAuthorizeAuthenticatedPeer(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (stream: IoStream, credentials: Credentials?) -> Boolean): ULong = g_signal_connect_data(gioDBusAuthObserverPointer, "authorize-authenticated-peer", onAuthorizeAuthenticatedPeerFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DBusAuthObserver> {
         override val type: GeneratedClassKGType<DBusAuthObserver> =
-            GeneratedClassKGType(getTypeOrNull("g_dbus_auth_observer_get_type")!!) {
-                DBusAuthObserver(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("g_dbus_auth_observer_get_type")!!) { DBusAuthObserver(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusAuthObserver
@@ -203,32 +175,25 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
 }
 
 private val onAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            mechanism: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(mechanism: String) -> Boolean>().get().invoke(
-            mechanism?.toKString() ?: error("Expected not null string")
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    mechanism: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(mechanism: String) -> Boolean>().get().invoke(mechanism?.toKString() ?: error("Expected not null string")).asGBoolean()}
+.reinterpret()
 
 private val onAuthorizeAuthenticatedPeerFunc:
-    CPointer<CFunction<(CPointer<GIOStream>, CPointer<GCredentials>?) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            stream: CPointer<GIOStream>?,
-            credentials: CPointer<GCredentials>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(stream: IoStream, credentials: Credentials?) -> Boolean>().get().invoke(
-            stream!!.run {
-                IoStream.IoStreamImpl(this)
-            },
-            credentials?.run {
-                Credentials(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GIOStream>, CPointer<GCredentials>?) -> gboolean>> =
+        staticCFunction {
+    _: COpaquePointer,
+    stream: CPointer<GIOStream>?,
+    credentials: CPointer<GCredentials>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(stream: IoStream, credentials: Credentials?) -> Boolean>().get().invoke(stream!!.run {
+        IoStream.IoStreamImpl(this)}
+    , credentials?.run {
+        Credentials(this)}
+    ).asGBoolean()}
+.reinterpret()

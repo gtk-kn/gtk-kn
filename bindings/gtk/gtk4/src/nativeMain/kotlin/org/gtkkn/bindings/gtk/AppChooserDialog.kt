@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -26,8 +28,6 @@ import org.gtkkn.native.gtk.gtk_app_chooser_dialog_get_widget
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_new
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_new_for_content_type
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_set_heading
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GtkAppChooserDialog` shows a `GtkAppChooserWidget` inside a `GtkDialog`.
@@ -53,8 +53,9 @@ import kotlin.Unit
  * - method `gfile`: Property has no getter nor setter
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>) :
-    Dialog(gtkAppChooserDialogPointer.reinterpret()),
+public open class AppChooserDialog(
+    public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>,
+) : Dialog(gtkAppChooserDialogPointer.reinterpret()),
     AppChooser,
     KGTyped {
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
@@ -108,9 +109,7 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
         parent: Window? = null,
         flags: DialogFlags,
         contentType: String,
-    ) : this(
-        gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer, flags.mask, contentType)!!.reinterpret()
-    )
+    ) : this(gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer, flags.mask, contentType)!!.reinterpret())
 
     /**
      * Returns the text to display at the top of the dialog.
@@ -126,8 +125,7 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
      * @return the `GtkAppChooserWidget` of @self
      */
     public open fun getWidget(): Widget = gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer)!!.run {
-        Widget.WidgetImpl(this)
-    }
+        Widget.WidgetImpl(this)}
 
     /**
      * Sets the text to display at the top of the dialog.
@@ -136,18 +134,14 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
      *
      * @param heading a string containing Pango markup
      */
-    public open fun setHeading(heading: String): Unit =
-        gtk_app_chooser_dialog_set_heading(gtkAppChooserDialogPointer, heading)
+    public open fun setHeading(heading: String): Unit = gtk_app_chooser_dialog_set_heading(gtkAppChooserDialogPointer, heading)
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_dialog_get_type")!!) {
-                AppChooserDialog(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_dialog_get_type")!!) { AppChooserDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AppChooserDialog

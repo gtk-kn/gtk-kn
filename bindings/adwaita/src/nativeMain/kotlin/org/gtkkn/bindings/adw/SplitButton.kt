@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -56,10 +60,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A combined button and dropdown widget.
@@ -104,8 +104,9 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButton>) :
-    Widget(adwSplitButtonPointer.reinterpret()),
+public class SplitButton(
+    public val adwSplitButtonPointer: CPointer<AdwSplitButton>,
+) : Widget(adwSplitButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
     override val gtkActionablePointer: CPointer<GtkActionable>
@@ -139,7 +140,6 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @since 1.4
          */
         get() = adw_split_button_get_can_shrink(adwSplitButtonPointer).asBoolean()
-
         /**
          * Sets whether the button can be smaller than the natural size of its contents.
          *
@@ -167,9 +167,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @return the child widget
          */
         get() = adw_split_button_get_child(adwSplitButtonPointer)?.run {
-            Widget.WidgetImpl(this)
-        }
-
+            Widget.WidgetImpl(this)}
         /**
          * Sets the child widget.
          *
@@ -197,9 +195,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @return the direction
          */
         get() = adw_split_button_get_direction(adwSplitButtonPointer).run {
-            ArrowType.fromNativeValue(this)
-        }
-
+            ArrowType.fromNativeValue(this)}
         /**
          * Sets the direction in which the popup will be popped up.
          *
@@ -229,9 +225,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @return the dropdown tooltip of @self
          * @since 1.2
          */
-        get() = adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer)?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer)?.toKString() ?: error("Expected not null string")
         /**
          * Sets the tooltip of the dropdown button of @self.
          *
@@ -262,9 +256,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @return the menu model
          */
         get() = adw_split_button_get_menu_model(adwSplitButtonPointer)?.run {
-            MenuModel.MenuModelImpl(this)
-        }
-
+            MenuModel.MenuModelImpl(this)}
         /**
          * Sets the menu model from which the popup will be created.
          *
@@ -296,9 +288,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @return the popover
          */
         get() = adw_split_button_get_popover(adwSplitButtonPointer)?.run {
-            Popover(this)
-        }
-
+            Popover(this)}
         /**
          * Sets the popover that will be popped up when the dropdown is clicked.
          *
@@ -323,7 +313,6 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
          * @return whether an underline in the text indicates a mnemonic
          */
         get() = adw_split_button_get_use_underline(adwSplitButtonPointer).asBoolean()
-
         /**
          * Sets whether an underline in the text indicates a mnemonic.
          *
@@ -393,15 +382,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwSplitButtonPointer,
-            "activate",
-            onActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwSplitButtonPointer, "activate", onActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "activate" signal. See [onActivate].
@@ -416,15 +397,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            adwSplitButtonPointer,
-            "clicked",
-            onClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(adwSplitButtonPointer, "clicked", onClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "clicked" signal. See [onClicked].
@@ -435,11 +408,10 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
 
     public companion object : TypeCompanion<SplitButton> {
         override val type: GeneratedClassKGType<SplitButton> =
-            GeneratedClassKGType(getTypeOrNull("adw_split_button_get_type")!!) { SplitButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("adw_split_button_get_type")!!) { SplitButton(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of SplitButton
@@ -451,17 +423,15 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
 }
 
 private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

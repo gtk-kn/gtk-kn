@@ -3,13 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.graphene
 
-import kotlinx.cinterop.AutofreeScope
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.nativeHeap
-import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
@@ -29,11 +28,6 @@ import org.gtkkn.native.graphene.graphene_plane_negate
 import org.gtkkn.native.graphene.graphene_plane_normalize
 import org.gtkkn.native.graphene.graphene_plane_t
 import org.gtkkn.native.graphene.graphene_plane_transform
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A 2D plane that extends infinitely in a 3D volume.
@@ -43,38 +37,22 @@ import kotlin.native.ref.createCleaner
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(graphenePlanePointer) {
+public class Plane(
+    public val graphenePlanePointer: CPointer<graphene_plane_t>,
+) : ProxyInstance(graphenePlanePointer) {
     /**
-     * Allocate a new Plane.
+     * Allocates a new #graphene_plane_t structure.
      *
-     * This instance will be allocated on the native heap and automatically freed when
-     * this class instance is garbage collected.
+     * The contents of the returned structure are undefined.
+     *
+     * @return the newly allocated #graphene_plane_t.
+     *   Use graphene_plane_free() to free the resources allocated by
+     *   this function
+     * @since 1.2
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_plane_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Plane and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<graphene_plane_t>, Cleaner>,
-    ) : this(graphenePlanePointer = pair.first, cleaner = pair.second)
-
-    /**
-     * Allocate a new Plane using the provided [AutofreeScope].
-     *
-     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
-     *
-     * @param scope The [AutofreeScope] to allocate this structure in.
-     */
-    public constructor(scope: AutofreeScope) : this(scope.alloc<graphene_plane_t>().ptr)
+    public constructor() : this(graphene_plane_alloc()!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
 
     /**
      * Computes the distance of @point from a #graphene_plane_t.
@@ -84,8 +62,7 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3d): gfloat =
-        graphene_plane_distance(graphenePlanePointer, point.graphenePoint3dPointer)
+    public fun distance(point: Point3d): gfloat = graphene_plane_distance(graphenePlanePointer, point.graphenePoint3dPointer)
 
     /**
      * Checks whether the two given #graphene_plane_t are equal.
@@ -123,8 +100,7 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getNormal(normal: Vec3): Unit =
-        graphene_plane_get_normal(graphenePlanePointer, normal.grapheneVec3Pointer)
+    public fun getNormal(normal: Vec3): Unit = graphene_plane_get_normal(graphenePlanePointer, normal.grapheneVec3Pointer)
 
     /**
      * Initializes the given #graphene_plane_t using the given @normal vector
@@ -139,10 +115,8 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(normal: Vec3? = null, constant: gfloat): Plane =
-        graphene_plane_init(graphenePlanePointer, normal?.grapheneVec3Pointer, constant)!!.run {
-            Plane(this)
-        }
+    public fun `init`(normal: Vec3? = null, constant: gfloat): Plane = graphene_plane_init(graphenePlanePointer, normal?.grapheneVec3Pointer, constant)!!.run {
+        Plane(this)}
 
     /**
      * Initializes the given #graphene_plane_t using the normal
@@ -153,10 +127,8 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromPlane(src: Plane): Plane =
-        graphene_plane_init_from_plane(graphenePlanePointer, src.graphenePlanePointer)!!.run {
-            Plane(this)
-        }
+    public fun initFromPlane(src: Plane): Plane = graphene_plane_init_from_plane(graphenePlanePointer, src.graphenePlanePointer)!!.run {
+        Plane(this)}
 
     /**
      * Initializes the given #graphene_plane_t using the given normal vector
@@ -168,13 +140,8 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromPoint(normal: Vec3, point: Point3d): Plane = graphene_plane_init_from_point(
-        graphenePlanePointer,
-        normal.grapheneVec3Pointer,
-        point.graphenePoint3dPointer
-    )!!.run {
-        Plane(this)
-    }
+    public fun initFromPoint(normal: Vec3, point: Point3d): Plane = graphene_plane_init_from_point(graphenePlanePointer, normal.grapheneVec3Pointer, point.graphenePoint3dPointer)!!.run {
+        Plane(this)}
 
     /**
      * Initializes the given #graphene_plane_t using the 3 provided co-planar
@@ -190,14 +157,12 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromPoints(a: Point3d, b: Point3d, c: Point3d): Plane = graphene_plane_init_from_points(
-        graphenePlanePointer,
-        a.graphenePoint3dPointer,
-        b.graphenePoint3dPointer,
-        c.graphenePoint3dPointer
-    )!!.run {
-        Plane(this)
-    }
+    public fun initFromPoints(
+        a: Point3d,
+        b: Point3d,
+        c: Point3d,
+    ): Plane = graphene_plane_init_from_points(graphenePlanePointer, a.graphenePoint3dPointer, b.graphenePoint3dPointer, c.graphenePoint3dPointer)!!.run {
+        Plane(this)}
 
     /**
      * Initializes the given #graphene_plane_t using the components of
@@ -209,10 +174,8 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromVec4(src: Vec4): Plane =
-        graphene_plane_init_from_vec4(graphenePlanePointer, src.grapheneVec4Pointer)!!.run {
-            Plane(this)
-        }
+    public fun initFromVec4(src: Vec4): Plane = graphene_plane_init_from_vec4(graphenePlanePointer, src.grapheneVec4Pointer)!!.run {
+        Plane(this)}
 
     /**
      * Negates the normal vector and constant of a #graphene_plane_t, effectively
@@ -250,26 +213,13 @@ public class Plane(public val graphenePlanePointer: CPointer<graphene_plane_t>, 
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun transform(matrix: Matrix, normalMatrix: Matrix? = null, res: Plane): Unit = graphene_plane_transform(
-        graphenePlanePointer,
-        matrix.grapheneMatrixPointer,
-        normalMatrix?.grapheneMatrixPointer,
-        res.graphenePlanePointer
-    )
+    public fun transform(
+        matrix: Matrix,
+        normalMatrix: Matrix? = null,
+        res: Plane,
+    ): Unit = graphene_plane_transform(graphenePlanePointer, matrix.grapheneMatrixPointer, normalMatrix?.grapheneMatrixPointer, res.graphenePlanePointer)
 
     public companion object {
-        /**
-         * Allocates a new #graphene_plane_t structure.
-         *
-         * The contents of the returned structure are undefined.
-         *
-         * @return the newly allocated #graphene_plane_t.
-         *   Use graphene_plane_free() to free the resources allocated by
-         *   this function
-         * @since 1.2
-         */
-        public fun alloc(): Plane = Plane(graphene_plane_alloc()!!)
-
         /**
          * Get the GType of Plane
          *

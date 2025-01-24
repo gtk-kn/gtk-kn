@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -15,41 +16,35 @@ import org.gtkkn.native.gdk.gdk_grab_broken_event_get_grab_surface
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_implicit
 import org.gtkkn.native.gdk.gdk_grab_broken_event_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * An event related to a broken windowing system grab.
  */
-public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>) :
-    Event(gdkGrabBrokenEventPointer.reinterpret()),
+public open class GrabBrokenEvent(
+    public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>,
+) : Event(gdkGrabBrokenEventPointer.reinterpret()),
     KGTyped {
     /**
      * Extracts the grab surface from a grab broken event.
      *
      * @return the grab surface of @event
      */
-    public open fun getGrabSurface(): Surface =
-        gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
-            Surface.SurfaceImpl(this)
-        }
+    public open fun getGrabSurface(): Surface = gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
+        Surface.SurfaceImpl(this)}
 
     /**
      * Checks whether the grab broken event is for an implicit grab.
      *
      * @return true if the an implicit grab was broken
      */
-    public open fun getImplicit(): Boolean =
-        gdk_grab_broken_event_get_implicit(gdkGrabBrokenEventPointer.reinterpret()).asBoolean()
+    public open fun getImplicit(): Boolean = gdk_grab_broken_event_get_implicit(gdkGrabBrokenEventPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<GrabBrokenEvent> {
         override val type: GeneratedClassKGType<GrabBrokenEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_grab_broken_event_get_type")!!) {
-                GrabBrokenEvent(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gdk_grab_broken_event_get_type")!!) { GrabBrokenEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of GrabBrokenEvent

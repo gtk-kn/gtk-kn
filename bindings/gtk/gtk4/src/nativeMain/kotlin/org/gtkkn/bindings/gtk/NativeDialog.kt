@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -36,10 +40,6 @@ import org.gtkkn.native.gtk.gtk_native_dialog_set_modal
 import org.gtkkn.native.gtk.gtk_native_dialog_set_title
 import org.gtkkn.native.gtk.gtk_native_dialog_set_transient_for
 import org.gtkkn.native.gtk.gtk_native_dialog_show
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Native dialogs are platform dialogs that don't use `GtkDialog`.
@@ -64,8 +64,9 @@ import kotlin.Unit
  *
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>) :
-    Object(gtkNativeDialogPointer.reinterpret()),
+public abstract class NativeDialog(
+    public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>,
+) : Object(gtkNativeDialogPointer.reinterpret()),
     KGTyped {
     /**
      * Whether the window should be modal with respect to its transient parent.
@@ -77,7 +78,6 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
          * @return true if the dialog is set to be modal
          */
         get() = gtk_native_dialog_get_modal(gtkNativeDialogPointer).asBoolean()
-
         /**
          * Sets a dialog modal or non-modal.
          *
@@ -102,9 +102,7 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
          *   or null if no transient parent has been set.
          */
         get() = gtk_native_dialog_get_transient_for(gtkNativeDialogPointer)?.run {
-            Window(this)
-        }
-
+            Window(this)}
         /**
          * Dialog windows should be set transient for the main application
          * window they were spawned from.
@@ -193,15 +191,7 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `responseId` the response ID
      */
-    public fun onResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong =
-        g_signal_connect_data(
-            gtkNativeDialogPointer,
-            "response",
-            onResponseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong = g_signal_connect_data(gtkNativeDialogPointer, "response", onResponseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "response" signal. See [onResponse].
@@ -217,17 +207,16 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
      *
      * @constructor Creates a new instance of NativeDialog for the provided [CPointer].
      */
-    public class NativeDialogImpl(pointer: CPointer<GtkNativeDialog>) : NativeDialog(pointer)
+    public class NativeDialogImpl(
+        pointer: CPointer<GtkNativeDialog>,
+    ) : NativeDialog(pointer)
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
-            GeneratedClassKGType(getTypeOrNull("gtk_native_dialog_get_type")!!) {
-                NativeDialogImpl(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_native_dialog_get_type")!!) { NativeDialogImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of NativeDialog
@@ -239,10 +228,9 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
 }
 
 private val onResponseFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        responseId: gint,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    responseId: gint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(responseId: gint) -> Unit>().get().invoke(responseId)
-}
-    .reinterpret()
+    userData.asStableRef<(responseId: gint) -> Unit>().get().invoke(responseId)}
+.reinterpret()

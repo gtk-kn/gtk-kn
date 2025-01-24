@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -49,9 +52,6 @@ import org.gtkkn.native.gtk.gtk_calendar_set_show_heading
 import org.gtkkn.native.gtk.gtk_calendar_set_show_week_numbers
 import org.gtkkn.native.gtk.gtk_calendar_set_year
 import org.gtkkn.native.gtk.gtk_calendar_unmark_day
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkCalendar` is a widget that displays a Gregorian calendar, one month
@@ -104,8 +104,9 @@ import kotlin.Unit
  *
  * Marked day labels get the :selected state assigned.
  */
-public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>) :
-    Widget(gtkCalendarPointer.reinterpret()),
+public open class Calendar(
+    public val gtkCalendarPointer: CPointer<GtkCalendar>,
+) : Widget(gtkCalendarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -127,7 +128,6 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
          * @since 4.14
          */
         get() = gtk_calendar_get_day(gtkCalendarPointer)
-
         /**
          * Sets the day for the selected date.
          *
@@ -153,7 +153,6 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
          * @since 4.14
          */
         get() = gtk_calendar_get_month(gtkCalendarPointer)
-
         /**
          * Sets the month for the selected date.
          *
@@ -180,7 +179,6 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
          * @return Whether the calendar shows day names.
          */
         get() = gtk_calendar_get_show_day_names(gtkCalendarPointer).asBoolean()
-
         /**
          * Sets whether the calendar shows day names.
          *
@@ -201,7 +199,6 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
          * @return Whether the calendar is showing a heading.
          */
         get() = gtk_calendar_get_show_heading(gtkCalendarPointer).asBoolean()
-
         /**
          * Sets whether the calendar should show a heading.
          *
@@ -226,7 +223,6 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
          * @return Whether the calendar is showing week numbers.
          */
         get() = gtk_calendar_get_show_week_numbers(gtkCalendarPointer).asBoolean()
-
         /**
          * Sets whether week numbers are shown in the calendar.
          *
@@ -247,7 +243,6 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
          * @since 4.14
          */
         get() = gtk_calendar_get_year(gtkCalendarPointer)
-
         /**
          * Sets the year for the selected date.
          *
@@ -282,8 +277,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @return the `GDateTime` representing the shown date
      */
     public open fun getDate(): DateTime = gtk_calendar_get_date(gtkCalendarPointer)!!.run {
-        DateTime(this)
-    }
+        DateTime(this)}
 
     /**
      * Returns if the @day of the @calendar is already marked.
@@ -291,8 +285,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @param day the day number between 1 and 31.
      * @return whether the day is marked.
      */
-    public open fun getDayIsMarked(day: guint): Boolean =
-        gtk_calendar_get_day_is_marked(gtkCalendarPointer, day).asBoolean()
+    public open fun getDayIsMarked(day: guint): Boolean = gtk_calendar_get_day_is_marked(gtkCalendarPointer, day).asBoolean()
 
     /**
      * Places a visual marker on a particular day of the current month.
@@ -306,8 +299,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      *
      * @param date a `GDateTime` representing the day to select
      */
-    public open fun selectDay(date: DateTime): Unit =
-        gtk_calendar_select_day(gtkCalendarPointer, date.glibDateTimePointer)
+    public open fun selectDay(date: DateTime): Unit = gtk_calendar_select_day(gtkCalendarPointer, date.glibDateTimePointer)
 
     /**
      * Removes the visual marker from a particular day.
@@ -322,15 +314,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onDaySelected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCalendarPointer,
-            "day-selected",
-            onDaySelectedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onDaySelected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCalendarPointer, "day-selected", onDaySelectedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "day-selected" signal. See [onDaySelected].
@@ -345,15 +329,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onNextMonth(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCalendarPointer,
-            "next-month",
-            onNextMonthFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onNextMonth(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCalendarPointer, "next-month", onNextMonthFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "next-month" signal. See [onNextMonth].
@@ -368,15 +344,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onNextYear(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCalendarPointer,
-            "next-year",
-            onNextYearFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onNextYear(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCalendarPointer, "next-year", onNextYearFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "next-year" signal. See [onNextYear].
@@ -391,15 +359,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onPrevMonth(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCalendarPointer,
-            "prev-month",
-            onPrevMonthFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onPrevMonth(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCalendarPointer, "prev-month", onPrevMonthFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "prev-month" signal. See [onPrevMonth].
@@ -414,15 +374,7 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onPrevYear(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCalendarPointer,
-            "prev-year",
-            onPrevYearFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onPrevYear(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCalendarPointer, "prev-year", onPrevYearFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "prev-year" signal. See [onPrevYear].
@@ -433,11 +385,10 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
 
     public companion object : TypeCompanion<Calendar> {
         override val type: GeneratedClassKGType<Calendar> =
-            GeneratedClassKGType(getTypeOrNull("gtk_calendar_get_type")!!) { Calendar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_calendar_get_type")!!) { Calendar(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Calendar
@@ -449,41 +400,36 @@ public open class Calendar(public val gtkCalendarPointer: CPointer<GtkCalendar>)
 }
 
 private val onDaySelectedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onNextMonthFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onNextYearFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onPrevMonthFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onPrevYearFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

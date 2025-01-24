@@ -16,16 +16,16 @@ import org.gtkkn.native.gobject.GType
 /**
  * An event related to a pointer or touch device motion.
  */
-public open class MotionEvent(public val gdkMotionEventPointer: CPointer<GdkMotionEvent>) :
-    Event(gdkMotionEventPointer.reinterpret()),
+public open class MotionEvent(
+    public val gdkMotionEventPointer: CPointer<GdkMotionEvent>,
+) : Event(gdkMotionEventPointer.reinterpret()),
     KGTyped {
     public companion object : TypeCompanion<MotionEvent> {
         override val type: GeneratedClassKGType<MotionEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_motion_event_get_type")!!) { MotionEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_motion_event_get_type")!!) { MotionEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of MotionEvent

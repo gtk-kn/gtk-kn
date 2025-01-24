@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -16,13 +17,13 @@ import org.gtkkn.native.gdk.gdk_crossing_event_get_focus
 import org.gtkkn.native.gdk.gdk_crossing_event_get_mode
 import org.gtkkn.native.gdk.gdk_crossing_event_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * An event caused by a pointing device moving between surfaces.
  */
-public open class CrossingEvent(public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>) :
-    Event(gdkCrossingEventPointer.reinterpret()),
+public open class CrossingEvent(
+    public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>,
+) : Event(gdkCrossingEventPointer.reinterpret()),
     KGTyped {
     /**
      * Extracts the notify detail from a crossing event.
@@ -30,16 +31,14 @@ public open class CrossingEvent(public val gdkCrossingEventPointer: CPointer<Gdk
      * @return the notify detail of @event
      */
     public open fun getDetail(): NotifyType = gdk_crossing_event_get_detail(gdkCrossingEventPointer.reinterpret()).run {
-        NotifyType.fromNativeValue(this)
-    }
+        NotifyType.fromNativeValue(this)}
 
     /**
      * Checks if the @event surface is the focus surface.
      *
      * @return true if the surface is the focus surface
      */
-    public open fun getFocus(): Boolean =
-        gdk_crossing_event_get_focus(gdkCrossingEventPointer.reinterpret()).asBoolean()
+    public open fun getFocus(): Boolean = gdk_crossing_event_get_focus(gdkCrossingEventPointer.reinterpret()).asBoolean()
 
     /**
      * Extracts the crossing mode from a crossing event.
@@ -47,16 +46,14 @@ public open class CrossingEvent(public val gdkCrossingEventPointer: CPointer<Gdk
      * @return the mode of @event
      */
     public open fun getMode(): CrossingMode = gdk_crossing_event_get_mode(gdkCrossingEventPointer.reinterpret()).run {
-        CrossingMode.fromNativeValue(this)
-    }
+        CrossingMode.fromNativeValue(this)}
 
     public companion object : TypeCompanion<CrossingEvent> {
         override val type: GeneratedClassKGType<CrossingEvent> =
-            GeneratedClassKGType(getTypeOrNull("gdk_crossing_event_get_type")!!) { CrossingEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gdk_crossing_event_get_type")!!) { CrossingEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of CrossingEvent

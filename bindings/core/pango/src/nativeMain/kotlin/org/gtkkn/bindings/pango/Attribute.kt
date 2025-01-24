@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,6 +15,7 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint
@@ -31,12 +35,6 @@ import org.gtkkn.native.pango.pango_attribute_destroy
 import org.gtkkn.native.pango.pango_attribute_equal
 import org.gtkkn.native.pango.pango_attribute_get_type
 import org.gtkkn.native.pango.pango_attribute_init
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttribute` structure represents the common portions of all
@@ -48,16 +46,15 @@ import kotlin.native.ref.createCleaner
  * be initialized using [method@Pango.Attribute.init]. By default, an attribute
  * will have an all-inclusive range of [0,%G_MAXUINT].
  */
-public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute>, cleaner: Cleaner? = null) :
-    ProxyInstance(pangoAttributePointer) {
+public class Attribute(
+    public val pangoAttributePointer: CPointer<PangoAttribute>,
+) : ProxyInstance(pangoAttributePointer) {
     /**
      * the class structure holding information about the type of the attribute
      */
     public var klass: AttrClass?
         get() = pangoAttributePointer.pointed.klass?.run {
-            AttrClass(this)
-        }
-
+            AttrClass(this)}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttributePointer.pointed.klass = value?.pangoAttrClassPointer
@@ -68,7 +65,6 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     public var startIndex: guint
         get() = pangoAttributePointer.pointed.start_index
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttributePointer.pointed.start_index = value
@@ -80,7 +76,6 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     public var endIndex: guint
         get() = pangoAttributePointer.pointed.end_index
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttributePointer.pointed.end_index = value
@@ -92,21 +87,9 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttribute>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
-    )
-
-    /**
-     * Private constructor that unpacks the pair into pointer and cleaner.
-     *
-     * @param pair A pair containing the pointer to Attribute and a [Cleaner] instance.
-     */
-    private constructor(
-        pair: Pair<CPointer<PangoAttribute>, Cleaner>,
-    ) : this(pangoAttributePointer = pair.first, cleaner = pair.second)
+    public constructor() : this(nativeHeap.alloc<PangoAttribute>().ptr) {
+        MemoryCleaner.setNativeHeap(this, owned = true)
+    }
 
     /**
      * Allocate a new Attribute using the provided [AutofreeScope].
@@ -171,8 +154,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asColor(): AttrColor? = pango_attribute_as_color(pangoAttributePointer)?.run {
-        AttrColor(this)
-    }
+        AttrColor(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrFloat`.
@@ -185,8 +167,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asFloat(): AttrFloat? = pango_attribute_as_float(pangoAttributePointer)?.run {
-        AttrFloat(this)
-    }
+        AttrFloat(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrFontDesc`.
@@ -199,8 +180,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asFontDesc(): AttrFontDesc? = pango_attribute_as_font_desc(pangoAttributePointer)?.run {
-        AttrFontDesc(this)
-    }
+        AttrFontDesc(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrFontFeatures`.
@@ -213,8 +193,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asFontFeatures(): AttrFontFeatures? = pango_attribute_as_font_features(pangoAttributePointer)?.run {
-        AttrFontFeatures(this)
-    }
+        AttrFontFeatures(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrInt`.
@@ -227,8 +206,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asInt(): AttrInt? = pango_attribute_as_int(pangoAttributePointer)?.run {
-        AttrInt(this)
-    }
+        AttrInt(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrLanguage`.
@@ -241,8 +219,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asLanguage(): AttrLanguage? = pango_attribute_as_language(pangoAttributePointer)?.run {
-        AttrLanguage(this)
-    }
+        AttrLanguage(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrShape`.
@@ -255,8 +232,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asShape(): AttrShape? = pango_attribute_as_shape(pangoAttributePointer)?.run {
-        AttrShape(this)
-    }
+        AttrShape(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrSize`.
@@ -269,8 +245,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asSize(): AttrSize? = pango_attribute_as_size(pangoAttributePointer)?.run {
-        AttrSize(this)
-    }
+        AttrSize(this)}
 
     /**
      * Returns the attribute cast to `PangoAttrString`.
@@ -283,8 +258,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      */
     @PangoVersion1_50
     public fun asString(): AttrString? = pango_attribute_as_string(pangoAttributePointer)?.run {
-        AttrString(this)
-    }
+        AttrString(this)}
 
     /**
      * Make a copy of an attribute.
@@ -294,8 +268,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      *   [method@Pango.Attribute.destroy].
      */
     public fun copy(): Attribute = pango_attribute_copy(pangoAttributePointer)!!.run {
-        Attribute(this)
-    }
+        Attribute(this)}
 
     /**
      * Destroy a `PangoAttribute` and free all associated memory.
@@ -312,8 +285,7 @@ public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute
      * @param attr2 another `PangoAttribute`
      * @return true if the two attributes have the same value
      */
-    public fun equal(attr2: Attribute): Boolean =
-        pango_attribute_equal(pangoAttributePointer, attr2.pangoAttributePointer).asBoolean()
+    public fun equal(attr2: Attribute): Boolean = pango_attribute_equal(pangoAttributePointer, attr2.pangoAttributePointer).asBoolean()
 
     /**
      * Initializes @attr's klass to @klass, it's start_index to

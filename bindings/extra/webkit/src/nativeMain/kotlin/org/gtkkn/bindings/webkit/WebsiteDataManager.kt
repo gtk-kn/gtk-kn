@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -48,10 +52,6 @@ import org.gtkkn.native.webkit.webkit_website_data_manager_is_ephemeral
 import org.gtkkn.native.webkit.webkit_website_data_manager_remove
 import org.gtkkn.native.webkit.webkit_website_data_manager_remove_finish
 import org.gtkkn.native.webkit.webkit_website_data_manager_set_favicons_enabled
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Manages data stored locally by web sites.
@@ -78,8 +78,9 @@ import kotlin.Unit
  * @since 2.10
  */
 @WebKitVersion2_10
-public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPointer<WebKitWebsiteDataManager>) :
-    Object(webkitWebsiteDataManagerPointer.reinterpret()),
+public class WebsiteDataManager(
+    public val webkitWebsiteDataManagerPointer: CPointer<WebKitWebsiteDataManager>,
+) : Object(webkitWebsiteDataManagerPointer.reinterpret()),
     KGTyped {
     /**
      * The base directory for caches. If null, a default location will be used.
@@ -137,16 +138,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
         timespan: TimeSpan,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = webkit_website_data_manager_clear(
-        webkitWebsiteDataManagerPointer,
-        types.mask,
-        timespan,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = webkit_website_data_manager_clear(webkitWebsiteDataManagerPointer, types.mask, timespan, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_website_data_manager_clear()
@@ -158,11 +150,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
     @WebKitVersion2_16
     public fun clearFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_website_data_manager_clear_finish(
-            webkitWebsiteDataManagerPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = webkit_website_data_manager_clear_finish(webkitWebsiteDataManagerPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -182,16 +170,11 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun fetch(types: WebsiteDataTypes, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_website_data_manager_fetch(
-            webkitWebsiteDataManagerPointer,
-            types.mask,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun fetch(
+        types: WebsiteDataTypes,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = webkit_website_data_manager_fetch(webkitWebsiteDataManagerPointer, types.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_website_data_manager_fetch().
@@ -204,13 +187,8 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
     @WebKitVersion2_16
     public fun fetchFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_website_data_manager_fetch_finish(
-            webkitWebsiteDataManagerPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(this)
-        }
+        val gResult = webkit_website_data_manager_fetch_finish(webkitWebsiteDataManagerPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -226,10 +204,8 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getFaviconDatabase(): FaviconDatabase? =
-        webkit_website_data_manager_get_favicon_database(webkitWebsiteDataManagerPointer)?.run {
-            FaviconDatabase(this)
-        }
+    public fun getFaviconDatabase(): FaviconDatabase? = webkit_website_data_manager_get_favicon_database(webkitWebsiteDataManagerPointer)?.run {
+        FaviconDatabase(this)}
 
     /**
      * Get whether website icons are enabled.
@@ -238,8 +214,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getFaviconsEnabled(): Boolean =
-        webkit_website_data_manager_get_favicons_enabled(webkitWebsiteDataManagerPointer).asBoolean()
+    public fun getFaviconsEnabled(): Boolean = webkit_website_data_manager_get_favicons_enabled(webkitWebsiteDataManagerPointer).asBoolean()
 
     /**
      * Asynchronously get the list of #WebKitITPThirdParty seen for @manager.
@@ -255,15 +230,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_website_data_manager_get_itp_summary(
-            webkitWebsiteDataManagerPointer,
-            cancellable?.gioCancellablePointer,
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = webkit_website_data_manager_get_itp_summary(webkitWebsiteDataManagerPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_website_data_manager_get_itp_summary().
@@ -277,13 +244,8 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
     @WebKitVersion2_30
     public fun getItpSummaryFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_website_data_manager_get_itp_summary_finish(
-            webkitWebsiteDataManagerPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(this)
-        }
+        val gResult = webkit_website_data_manager_get_itp_summary_finish(webkitWebsiteDataManagerPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -301,8 +263,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun isEphemeral(): Boolean =
-        webkit_website_data_manager_is_ephemeral(webkitWebsiteDataManagerPointer).asBoolean()
+    public fun isEphemeral(): Boolean = webkit_website_data_manager_is_ephemeral(webkitWebsiteDataManagerPointer).asBoolean()
 
     /**
      * Asynchronously removes the website data in the given @website_data list.
@@ -325,16 +286,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
         websiteData: List,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = webkit_website_data_manager_remove(
-        webkitWebsiteDataManagerPointer,
-        types.mask,
-        websiteData.glibListPointer,
-        cancellable?.gioCancellablePointer,
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = webkit_website_data_manager_remove(webkitWebsiteDataManagerPointer, types.mask, websiteData.glibListPointer, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_website_data_manager_remove().
@@ -346,11 +298,7 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
     @WebKitVersion2_16
     public fun removeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_website_data_manager_remove_finish(
-            webkitWebsiteDataManagerPointer,
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = webkit_website_data_manager_remove_finish(webkitWebsiteDataManagerPointer, result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -369,18 +317,14 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setFaviconsEnabled(enabled: Boolean): Unit =
-        webkit_website_data_manager_set_favicons_enabled(webkitWebsiteDataManagerPointer, enabled.asGBoolean())
+    public fun setFaviconsEnabled(enabled: Boolean): Unit = webkit_website_data_manager_set_favicons_enabled(webkitWebsiteDataManagerPointer, enabled.asGBoolean())
 
     public companion object : TypeCompanion<WebsiteDataManager> {
         override val type: GeneratedClassKGType<WebsiteDataManager> =
-            GeneratedClassKGType(getTypeOrNull("webkit_website_data_manager_get_type")!!) {
-                WebsiteDataManager(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("webkit_website_data_manager_get_type")!!) { WebsiteDataManager(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of WebsiteDataManager

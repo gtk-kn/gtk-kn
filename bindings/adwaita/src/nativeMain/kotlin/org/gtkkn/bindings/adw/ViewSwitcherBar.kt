@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -23,7 +24,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
 
 /**
  * A view switcher action bar.
@@ -88,8 +88,9 @@ import kotlin.Boolean
  *
  * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
  */
-public class ViewSwitcherBar(public val adwViewSwitcherBarPointer: CPointer<AdwViewSwitcherBar>) :
-    Widget(adwViewSwitcherBarPointer.reinterpret()),
+public class ViewSwitcherBar(
+    public val adwViewSwitcherBarPointer: CPointer<AdwViewSwitcherBar>,
+) : Widget(adwViewSwitcherBarPointer.reinterpret()),
     KGTyped {
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
@@ -110,7 +111,6 @@ public class ViewSwitcherBar(public val adwViewSwitcherBarPointer: CPointer<AdwV
          * @return whether @self is revealed
          */
         get() = adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer).asBoolean()
-
         /**
          * Sets whether @self should be revealed or hidden.
          *
@@ -128,9 +128,7 @@ public class ViewSwitcherBar(public val adwViewSwitcherBarPointer: CPointer<AdwV
          * @return the stack
          */
         get() = adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer)?.run {
-            ViewStack(this)
-        }
-
+            ViewStack(this)}
         /**
          * Sets the stack controlled by @self.
          *
@@ -147,13 +145,10 @@ public class ViewSwitcherBar(public val adwViewSwitcherBarPointer: CPointer<AdwV
 
     public companion object : TypeCompanion<ViewSwitcherBar> {
         override val type: GeneratedClassKGType<ViewSwitcherBar> =
-            GeneratedClassKGType(getTypeOrNull("adw_view_switcher_bar_get_type")!!) {
-                ViewSwitcherBar(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("adw_view_switcher_bar_get_type")!!) { ViewSwitcherBar(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ViewSwitcherBar

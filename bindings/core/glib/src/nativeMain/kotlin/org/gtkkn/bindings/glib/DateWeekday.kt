@@ -9,42 +9,37 @@ import org.gtkkn.native.glib.GDateWeekday
  * Enumeration representing a day of the week; %G_DATE_MONDAY,
  * %G_DATE_TUESDAY, etc. %G_DATE_BAD_WEEKDAY is an invalid weekday.
  */
-public enum class DateWeekday(public val nativeValue: GDateWeekday) {
+public enum class DateWeekday(
+    public val nativeValue: GDateWeekday,
+) {
     /**
      * invalid value
      */
     BAD_WEEKDAY(GDateWeekday.G_DATE_BAD_WEEKDAY),
-
     /**
      * Monday
      */
     MONDAY(GDateWeekday.G_DATE_MONDAY),
-
     /**
      * Tuesday
      */
     TUESDAY(GDateWeekday.G_DATE_TUESDAY),
-
     /**
      * Wednesday
      */
     WEDNESDAY(GDateWeekday.G_DATE_WEDNESDAY),
-
     /**
      * Thursday
      */
     THURSDAY(GDateWeekday.G_DATE_THURSDAY),
-
     /**
      * Friday
      */
     FRIDAY(GDateWeekday.G_DATE_FRIDAY),
-
     /**
      * Saturday
      */
     SATURDAY(GDateWeekday.G_DATE_SATURDAY),
-
     /**
      * Sunday
      */

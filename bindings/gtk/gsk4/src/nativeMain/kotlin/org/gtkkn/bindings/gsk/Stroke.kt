@@ -3,10 +3,12 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Context
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gfloat
@@ -29,8 +31,6 @@ import org.gtkkn.native.gsk.gsk_stroke_set_line_join
 import org.gtkkn.native.gsk.gsk_stroke_set_line_width
 import org.gtkkn.native.gsk.gsk_stroke_set_miter_limit
 import org.gtkkn.native.gsk.gsk_stroke_to_cairo
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `GskStroke` struct collects the parameters that influence
@@ -44,7 +44,20 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyInstance(gskStrokePointer) {
+public class Stroke(
+    public val gskStrokePointer: CPointer<GskStroke>,
+) : ProxyInstance(gskStrokePointer) {
+    /**
+     * Creates a new `GskStroke` with the given @line_width.
+     *
+     * @param lineWidth line width of the stroke. Must be > 0
+     * @return a new `GskStroke`
+     * @since 4.14
+     */
+    public constructor(lineWidth: gfloat) : this(gsk_stroke_new(lineWidth)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Creates a copy of the given @other stroke.
      *
@@ -53,8 +66,7 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
      */
     @GskVersion4_14
     public fun copy(): Stroke = gsk_stroke_copy(gskStrokePointer)!!.run {
-        Stroke(this)
-    }
+        Stroke(this)}
 
     /**
      * Frees a `GskStroke`.
@@ -82,8 +94,7 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
      */
     @GskVersion4_14
     public fun getLineCap(): LineCap = gsk_stroke_get_line_cap(gskStrokePointer).run {
-        LineCap.fromNativeValue(this)
-    }
+        LineCap.fromNativeValue(this)}
 
     /**
      * Gets the line join used.
@@ -95,8 +106,7 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
      */
     @GskVersion4_14
     public fun getLineJoin(): LineJoin = gsk_stroke_get_line_join(gskStrokePointer).run {
-        LineJoin.fromNativeValue(this)
-    }
+        LineJoin.fromNativeValue(this)}
 
     /**
      * Gets the line width used.
@@ -190,15 +200,6 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
 
     public companion object {
         /**
-         * Creates a new `GskStroke` with the given @line_width.
-         *
-         * @param lineWidth line width of the stroke. Must be > 0
-         * @return a new `GskStroke`
-         * @since 4.14
-         */
-        public fun new(lineWidth: gfloat): Stroke = Stroke(gsk_stroke_new(lineWidth)!!.reinterpret())
-
-        /**
          * Checks if 2 strokes are identical.
          *
          * @param stroke1 the first `GskStroke`
@@ -207,8 +208,7 @@ public class Stroke(public val gskStrokePointer: CPointer<GskStroke>) : ProxyIns
          * @since 4.14
          */
         @GskVersion4_14
-        public fun equal(stroke1: gpointer? = null, stroke2: gpointer? = null): Boolean =
-            gsk_stroke_equal(stroke1, stroke2).asBoolean()
+        public fun equal(stroke1: gpointer? = null, stroke2: gpointer? = null): Boolean = gsk_stroke_equal(stroke1, stroke2).asBoolean()
 
         /**
          * Get the GType of Stroke

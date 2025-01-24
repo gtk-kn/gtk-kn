@@ -3,10 +3,14 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Short
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
@@ -14,10 +18,12 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
+import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.Types
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.g_variant_byteswap
 import org.gtkkn.native.glib.g_variant_check_format_string
@@ -94,11 +100,7 @@ import org.gtkkn.native.glib.guint
 import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.glib.guint8
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Short
-import kotlin.Unit
-import kotlin.collections.List
+import org.gtkkn.native.gobject.GType
 
 /**
  * `GVariant` is a variant datatype; it can contain one or more values
@@ -377,7 +379,252 @@ import kotlin.collections.List
  * @since 2.24
  */
 @GLibVersion2_24
-public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyInstance(glibVariantPointer) {
+public class Variant(
+    public val glibVariantPointer: CPointer<GVariant>,
+) : ProxyInstance(glibVariantPointer) {
+    /**
+     * Creates a new boolean #GVariant instance -- either true or false.
+     *
+     * @param value a #gboolean value
+     * @return a floating reference to a new boolean #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: Boolean) : this(g_variant_new_boolean(`value`.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new byte #GVariant instance.
+     *
+     * @param value a #guint8 value
+     * @return a floating reference to a new byte #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: guint8) : this(g_variant_new_byte(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Constructs an array of object paths #GVariant from the given array of
+     * strings.
+     *
+     * Each string must be a valid #GVariant object path; see
+     * g_variant_is_object_path().
+     *
+     * If @length is -1 then @strv is null-terminated.
+     *
+     * @param strv an array of strings
+     * @param length the length of @strv, or -1
+     * @return a new floating #GVariant instance
+     * @since 2.30
+     */
+    public constructor(strv: List<kotlin.String>, length: Long) : this(memScoped {
+        g_variant_new_objv(strv.toCStringList(this), length)!!
+    }
+    ) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new dictionary entry #GVariant. @key and @value must be
+     * non-null. @key must be a value of a basic type (ie: not a container).
+     *
+     * If the @key or @value are floating references (see g_variant_ref_sink()),
+     * the new instance takes ownership of them as if via g_variant_ref_sink().
+     *
+     * @param key a basic #GVariant, the key
+     * @param value a #GVariant, the value
+     * @return a floating reference to a new dictionary entry #GVariant
+     * @since 2.24
+     */
+    public constructor(key: Variant, `value`: Variant) : this(g_variant_new_dict_entry(key.glibVariantPointer, `value`.glibVariantPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new double #GVariant instance.
+     *
+     * @param value a #gdouble floating point value
+     * @return a floating reference to a new double #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: gdouble) : this(g_variant_new_double(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Constructs a new array #GVariant instance, where the elements are
+     * of @element_type type.
+     *
+     * @elements must be an array with fixed-sized elements.  Numeric types are
+     * fixed-size as are tuples containing only other fixed-sized types.
+     *
+     * @element_size must be the size of a single element in the array.
+     * For example, if calling this function for an array of 32-bit integers,
+     * you might say sizeof(gint32). This value isn't used except for the purpose
+     * of a double-check that the form of the serialized data matches the caller's
+     * expectation.
+     *
+     * @n_elements must be the length of the @elements array.
+     *
+     * @param elementType the #GVariantType of each element
+     * @param elements a pointer to the fixed array of contiguous elements
+     * @param nElements the number of elements
+     * @param elementSize the size of each element
+     * @return a floating reference to a new array #GVariant instance
+     * @since 2.32
+     */
+    public constructor(
+        elementType: VariantType,
+        elements: gpointer? = null,
+        nElements: gsize,
+        elementSize: gsize,
+    ) : this(g_variant_new_fixed_array(elementType.glibVariantTypePointer, elements, nElements, elementSize)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Constructs a new serialized-mode #GVariant instance.  This is the
+     * inner interface for creation of new serialized values that gets
+     * called from various functions in gvariant.c.
+     *
+     * A reference is taken on @bytes.
+     *
+     * The data in @bytes must be aligned appropriately for the @type being loaded.
+     * Otherwise this function will internally create a copy of the memory (since
+     * GLib 2.60) or (in older versions) fail and exit the process.
+     *
+     * @param type a #GVariantType
+     * @param bytes a #GBytes
+     * @param trusted if the contents of @bytes are trusted
+     * @return a new #GVariant with a floating reference
+     * @since 2.36
+     */
+    public constructor(
+        type: VariantType,
+        bytes: Bytes,
+        trusted: Boolean,
+    ) : this(g_variant_new_from_bytes(type.glibVariantTypePointer, bytes.glibBytesPointer, trusted.asGBoolean())!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new int32 #GVariant instance.
+     *
+     * @param value a #gint32 value
+     * @return a floating reference to a new int32 #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: gint) : this(g_variant_new_int32(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new int16 #GVariant instance.
+     *
+     * @param value a #gint16 value
+     * @return a floating reference to a new int16 #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: Short) : this(g_variant_new_int16(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new int64 #GVariant instance.
+     *
+     * @param value a #gint64 value
+     * @return a floating reference to a new int64 #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: gint64) : this(g_variant_new_int64(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Depending on if @child is null, either wraps @child inside of a
+     * maybe container or creates a Nothing instance for the given @type.
+     *
+     * At least one of @child_type and @child must be non-null.
+     * If @child_type is non-null then it must be a definite type.
+     * If they are both non-null then @child_type must be the type
+     * of @child.
+     *
+     * If @child is a floating reference (see g_variant_ref_sink()), the new
+     * instance takes ownership of @child.
+     *
+     * @param childType the #GVariantType of the child, or null
+     * @param child the child value, or null
+     * @return a floating reference to a new #GVariant maybe instance
+     * @since 2.24
+     */
+    public constructor(childType: VariantType? = null, child: Variant? = null) : this(g_variant_new_maybe(childType?.glibVariantTypePointer, child?.glibVariantPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a string #GVariant with the contents of @string.
+     *
+     * @string must be valid UTF-8, and must not be null. To encode
+     * potentially-null strings, use g_variant_new() with `ms` as the
+     * [format string][gvariant-format-strings-maybe-types].
+     *
+     * @param string a normal UTF-8 nul-terminated string
+     * @return a floating reference to a new string #GVariant instance
+     * @since 2.24
+     */
+    public constructor(string: kotlin.String) : this(g_variant_new_string(string)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new uint16 #GVariant instance.
+     *
+     * @param value a #guint16 value
+     * @return a floating reference to a new uint16 #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: guint16) : this(g_variant_new_uint16(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new uint32 #GVariant instance.
+     *
+     * @param value a #guint32 value
+     * @return a floating reference to a new uint32 #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: guint) : this(g_variant_new_uint32(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Creates a new uint64 #GVariant instance.
+     *
+     * @param value a #guint64 value
+     * @return a floating reference to a new uint64 #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: guint64) : this(g_variant_new_uint64(`value`)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
+    /**
+     * Boxes @value.  The result is a #GVariant instance representing a
+     * variant containing the original value.
+     *
+     * If @child is a floating reference (see g_variant_ref_sink()), the new
+     * instance takes ownership of @child.
+     *
+     * @param value a #GVariant instance
+     * @return a floating reference to a new variant #GVariant instance
+     * @since 2.24
+     */
+    public constructor(`value`: Variant) : this(g_variant_new_variant(`value`.glibVariantPointer)!!) {
+        MemoryCleaner.setBoxedType(this, getType(), owned = true)
+    }
+
     /**
      * Performs a byteswapping operation on the contents of @value.  The
      * result is that all multi-byte numeric data contained in @value is
@@ -402,8 +649,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun byteswap(): Variant = g_variant_byteswap(glibVariantPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Checks if calling g_variant_get() with @format_string on @value would
@@ -427,8 +673,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun checkFormatString(formatString: kotlin.String, copyOnly: Boolean): Boolean =
-        g_variant_check_format_string(glibVariantPointer, formatString, copyOnly.asGBoolean()).asBoolean()
+    public fun checkFormatString(formatString: kotlin.String, copyOnly: Boolean): Boolean = g_variant_check_format_string(glibVariantPointer, formatString, copyOnly.asGBoolean()).asBoolean()
 
     /**
      * Classifies @value according to its top-level type.
@@ -438,8 +683,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun classify(): VariantClass = g_variant_classify(glibVariantPointer).run {
-        VariantClass.fromNativeValue(this)
-    }
+        VariantClass.fromNativeValue(this)}
 
     /**
      * Compares @one and @two.
@@ -539,8 +783,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun getChildValue(index: gsize): Variant = g_variant_get_child_value(glibVariantPointer, index)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Returns a pointer to the serialized form of a #GVariant instance.
@@ -586,8 +829,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_36
     public fun getDataAsBytes(): Bytes = g_variant_get_data_as_bytes(glibVariantPointer)!!.run {
-        Bytes(this)
-    }
+        Bytes(this)}
 
     /**
      * Returns the double precision floating point value of @value.
@@ -662,8 +904,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun getMaybe(): Variant? = g_variant_get_maybe(glibVariantPointer)?.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Gets a #GVariant instance that has the same value as @value and is
@@ -697,8 +938,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun getNormalForm(): Variant = g_variant_get_normal_form(glibVariantPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Determines the number of bytes that would be required to store @value
@@ -729,9 +969,8 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getType(): VariantType = g_variant_get_type(glibVariantPointer)!!.run {
-        VariantType(this)
-    }
+    public fun getVariantType(): VariantType = g_variant_get_type(glibVariantPointer)!!.run {
+        VariantType(this)}
 
     /**
      * Returns the type string of @value.  Unlike the result of calling
@@ -742,8 +981,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getTypeString(): kotlin.String =
-        g_variant_get_type_string(glibVariantPointer)?.toKString() ?: error("Expected not null string")
+    public fun getTypeString(): kotlin.String = g_variant_get_type_string(glibVariantPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the 16-bit unsigned integer value of @value.
@@ -790,8 +1028,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun getVariant(): Variant = g_variant_get_variant(glibVariantPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Generates a hash value for a #GVariant instance.
@@ -865,8 +1102,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun isOfType(type: VariantType): Boolean =
-        g_variant_is_of_type(glibVariantPointer, type.glibVariantTypePointer).asBoolean()
+    public fun isOfType(type: VariantType): Boolean = g_variant_is_of_type(glibVariantPointer, type.glibVariantTypePointer).asBoolean()
 
     /**
      * Creates a heap-allocated #GVariantIter for iterating over the items
@@ -883,8 +1119,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun iterNew(): VariantIter = g_variant_iter_new(glibVariantPointer)!!.run {
-        VariantIter(this)
-    }
+        VariantIter(this)}
 
     /**
      * Looks up a value in a dictionary #GVariant.
@@ -915,10 +1150,8 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookupValue(key: kotlin.String, expectedType: VariantType? = null): Variant =
-        g_variant_lookup_value(glibVariantPointer, key, expectedType?.glibVariantTypePointer)!!.run {
-            Variant(this)
-        }
+    public fun lookupValue(key: kotlin.String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(glibVariantPointer, key, expectedType?.glibVariantTypePointer)!!.run {
+        Variant(this)}
 
     /**
      * Determines the number of children in a container #GVariant instance.
@@ -953,8 +1186,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun print(typeAnnotate: Boolean): kotlin.String =
-        g_variant_print(glibVariantPointer, typeAnnotate.asGBoolean())?.toKString() ?: error("Expected not null string")
+    public fun print(typeAnnotate: Boolean): kotlin.String = g_variant_print(glibVariantPointer, typeAnnotate.asGBoolean())?.toKString() ?: error("Expected not null string")
 
     /**
      * Behaves as g_variant_print(), but operates on a #GString.
@@ -969,10 +1201,8 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun printString(string: String? = null, typeAnnotate: Boolean): String =
-        g_variant_print_string(glibVariantPointer, string?.glibStringPointer, typeAnnotate.asGBoolean())!!.run {
-            String(this)
-        }
+    public fun printString(string: String? = null, typeAnnotate: Boolean): String = g_variant_print_string(glibVariantPointer, string?.glibStringPointer, typeAnnotate.asGBoolean())!!.run {
+        String(this)}
 
     /**
      * Increases the reference count of @value.
@@ -982,8 +1212,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun ref(): Variant = g_variant_ref(glibVariantPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * #GVariant uses a floating reference count system.  All functions with
@@ -1014,8 +1243,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      */
     @GLibVersion2_24
     public fun refSink(): Variant = g_variant_ref_sink(glibVariantPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Stores the serialized form of @value at @data.  @data should be
@@ -1074,8 +1302,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
      * @return the same @value
      */
     public fun takeRef(): Variant = g_variant_take_ref(glibVariantPointer)!!.run {
-        Variant(this)
-    }
+        Variant(this)}
 
     /**
      * Decreases the reference count of @value.  When its reference count
@@ -1088,23 +1315,24 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
 
     public companion object {
         /**
-         * Creates a new boolean #GVariant instance -- either true or false.
+         * Constructs an array of strings #GVariant from the given array of
+         * strings.
          *
-         * @param value a #gboolean value
-         * @return a floating reference to a new boolean #GVariant instance
+         * If @length is -1 then @strv is null-terminated.
+         *
+         * @param strv an array of strings
+         * @param length the length of @strv, or -1
+         * @return a new floating #GVariant instance
          * @since 2.24
          */
-        public fun newBoolean(`value`: Boolean): Variant =
-            Variant(g_variant_new_boolean(`value`.asGBoolean())!!.reinterpret())
+        public fun strv(strv: List<kotlin.String>, length: Long): Variant {
+            memScoped {
+                return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!).apply  {
+                    MemoryCleaner.setBoxedType(this, getType(), owned = true)
+                }
 
-        /**
-         * Creates a new byte #GVariant instance.
-         *
-         * @param value a #guint8 value
-         * @return a floating reference to a new byte #GVariant instance
-         * @since 2.24
-         */
-        public fun newByte(`value`: guint8): Variant = Variant(g_variant_new_byte(`value`)!!.reinterpret())
+            }
+        }
 
         /**
          * Constructs an array of bytestring #GVariant from the given array of
@@ -1117,96 +1345,14 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * @return a new floating #GVariant instance
          * @since 2.26
          */
-        public fun newBytestringArray(strv: List<kotlin.String>, length: Long): Variant {
+        public fun bytestringArray(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
-                return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())
+                return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!).apply  {
+                    MemoryCleaner.setBoxedType(this, getType(), owned = true)
+                }
+
             }
         }
-
-        /**
-         * Creates a new dictionary entry #GVariant. @key and @value must be
-         * non-null. @key must be a value of a basic type (ie: not a container).
-         *
-         * If the @key or @value are floating references (see g_variant_ref_sink()),
-         * the new instance takes ownership of them as if via g_variant_ref_sink().
-         *
-         * @param key a basic #GVariant, the key
-         * @param value a #GVariant, the value
-         * @return a floating reference to a new dictionary entry #GVariant
-         * @since 2.24
-         */
-        public fun newDictEntry(key: Variant, `value`: Variant): Variant =
-            Variant(g_variant_new_dict_entry(key.glibVariantPointer, `value`.glibVariantPointer)!!.reinterpret())
-
-        /**
-         * Creates a new double #GVariant instance.
-         *
-         * @param value a #gdouble floating point value
-         * @return a floating reference to a new double #GVariant instance
-         * @since 2.24
-         */
-        public fun newDouble(`value`: gdouble): Variant = Variant(g_variant_new_double(`value`)!!.reinterpret())
-
-        /**
-         * Constructs a new array #GVariant instance, where the elements are
-         * of @element_type type.
-         *
-         * @elements must be an array with fixed-sized elements.  Numeric types are
-         * fixed-size as are tuples containing only other fixed-sized types.
-         *
-         * @element_size must be the size of a single element in the array.
-         * For example, if calling this function for an array of 32-bit integers,
-         * you might say sizeof(gint32). This value isn't used except for the purpose
-         * of a double-check that the form of the serialized data matches the caller's
-         * expectation.
-         *
-         * @n_elements must be the length of the @elements array.
-         *
-         * @param elementType the #GVariantType of each element
-         * @param elements a pointer to the fixed array of contiguous elements
-         * @param nElements the number of elements
-         * @param elementSize the size of each element
-         * @return a floating reference to a new array #GVariant instance
-         * @since 2.32
-         */
-        public fun newFixedArray(
-            elementType: VariantType,
-            elements: gpointer? = null,
-            nElements: gsize,
-            elementSize: gsize,
-        ): Variant = Variant(
-            g_variant_new_fixed_array(
-                elementType.glibVariantTypePointer,
-                elements,
-                nElements,
-                elementSize
-            )!!.reinterpret()
-        )
-
-        /**
-         * Constructs a new serialized-mode #GVariant instance.  This is the
-         * inner interface for creation of new serialized values that gets
-         * called from various functions in gvariant.c.
-         *
-         * A reference is taken on @bytes.
-         *
-         * The data in @bytes must be aligned appropriately for the @type being loaded.
-         * Otherwise this function will internally create a copy of the memory (since
-         * GLib 2.60) or (in older versions) fail and exit the process.
-         *
-         * @param type a #GVariantType
-         * @param bytes a #GBytes
-         * @param trusted if the contents of @bytes are trusted
-         * @return a new #GVariant with a floating reference
-         * @since 2.36
-         */
-        public fun newFromBytes(type: VariantType, bytes: Bytes, trusted: Boolean): Variant = Variant(
-            g_variant_new_from_bytes(
-                type.glibVariantTypePointer,
-                bytes.glibBytesPointer,
-                trusted.asGBoolean()
-            )!!.reinterpret()
-        )
 
         /**
          * Creates a new handle #GVariant instance.
@@ -1219,85 +1365,8 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * @return a floating reference to a new handle #GVariant instance
          * @since 2.24
          */
-        public fun newHandle(`value`: gint): Variant = Variant(g_variant_new_handle(`value`)!!.reinterpret())
-
-        /**
-         * Creates a new int16 #GVariant instance.
-         *
-         * @param value a #gint16 value
-         * @return a floating reference to a new int16 #GVariant instance
-         * @since 2.24
-         */
-        public fun newInt16(`value`: Short): Variant = Variant(g_variant_new_int16(`value`)!!.reinterpret())
-
-        /**
-         * Creates a new int32 #GVariant instance.
-         *
-         * @param value a #gint32 value
-         * @return a floating reference to a new int32 #GVariant instance
-         * @since 2.24
-         */
-        public fun newInt32(`value`: gint): Variant = Variant(g_variant_new_int32(`value`)!!.reinterpret())
-
-        /**
-         * Creates a new int64 #GVariant instance.
-         *
-         * @param value a #gint64 value
-         * @return a floating reference to a new int64 #GVariant instance
-         * @since 2.24
-         */
-        public fun newInt64(`value`: gint64): Variant = Variant(g_variant_new_int64(`value`)!!.reinterpret())
-
-        /**
-         * Depending on if @child is null, either wraps @child inside of a
-         * maybe container or creates a Nothing instance for the given @type.
-         *
-         * At least one of @child_type and @child must be non-null.
-         * If @child_type is non-null then it must be a definite type.
-         * If they are both non-null then @child_type must be the type
-         * of @child.
-         *
-         * If @child is a floating reference (see g_variant_ref_sink()), the new
-         * instance takes ownership of @child.
-         *
-         * @param childType the #GVariantType of the child, or null
-         * @param child the child value, or null
-         * @return a floating reference to a new #GVariant maybe instance
-         * @since 2.24
-         */
-        public fun newMaybe(childType: VariantType? = null, child: Variant? = null): Variant =
-            Variant(g_variant_new_maybe(childType?.glibVariantTypePointer, child?.glibVariantPointer)!!.reinterpret())
-
-        /**
-         * Creates a D-Bus object path #GVariant with the contents of @object_path.
-         * @object_path must be a valid D-Bus object path.  Use
-         * g_variant_is_object_path() if you're not sure.
-         *
-         * @param objectPath a normal C nul-terminated string
-         * @return a floating reference to a new object path #GVariant instance
-         * @since 2.24
-         */
-        public fun newObjectPath(objectPath: kotlin.String): Variant =
-            Variant(g_variant_new_object_path(objectPath)!!.reinterpret())
-
-        /**
-         * Constructs an array of object paths #GVariant from the given array of
-         * strings.
-         *
-         * Each string must be a valid #GVariant object path; see
-         * g_variant_is_object_path().
-         *
-         * If @length is -1 then @strv is null-terminated.
-         *
-         * @param strv an array of strings
-         * @param length the length of @strv, or -1
-         * @return a new floating #GVariant instance
-         * @since 2.30
-         */
-        public fun newObjv(strv: List<kotlin.String>, length: Long): Variant {
-            memScoped {
-                return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())
-            }
+        public fun handle(`value`: gint): Variant = Variant(g_variant_new_handle(`value`)!!).apply  {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
         }
 
         /**
@@ -1309,37 +1378,21 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * @return a floating reference to a new signature #GVariant instance
          * @since 2.24
          */
-        public fun newSignature(signature: kotlin.String): Variant =
-            Variant(g_variant_new_signature(signature)!!.reinterpret())
+        public fun signature(signature: kotlin.String): Variant = Variant(g_variant_new_signature(signature)!!).apply  {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
-         * Creates a string #GVariant with the contents of @string.
+         * Creates a D-Bus object path #GVariant with the contents of @object_path.
+         * @object_path must be a valid D-Bus object path.  Use
+         * g_variant_is_object_path() if you're not sure.
          *
-         * @string must be valid UTF-8, and must not be null. To encode
-         * potentially-null strings, use g_variant_new() with `ms` as the
-         * [format string][gvariant-format-strings-maybe-types].
-         *
-         * @param string a normal UTF-8 nul-terminated string
-         * @return a floating reference to a new string #GVariant instance
+         * @param objectPath a normal C nul-terminated string
+         * @return a floating reference to a new object path #GVariant instance
          * @since 2.24
          */
-        public fun newString(string: kotlin.String): Variant = Variant(g_variant_new_string(string)!!.reinterpret())
-
-        /**
-         * Constructs an array of strings #GVariant from the given array of
-         * strings.
-         *
-         * If @length is -1 then @strv is null-terminated.
-         *
-         * @param strv an array of strings
-         * @param length the length of @strv, or -1
-         * @return a new floating #GVariant instance
-         * @since 2.24
-         */
-        public fun newStrv(strv: List<kotlin.String>, length: Long): Variant {
-            memScoped {
-                return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())
-            }
+        public fun objectPath(objectPath: kotlin.String): Variant = Variant(g_variant_new_object_path(objectPath)!!).apply  {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
         }
 
         /**
@@ -1361,49 +1414,9 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          *   #GVariant instance
          * @since 2.38
          */
-        public fun newTakeString(string: kotlin.String): Variant =
-            Variant(g_variant_new_take_string(string.cstr)!!.reinterpret())
-
-        /**
-         * Creates a new uint16 #GVariant instance.
-         *
-         * @param value a #guint16 value
-         * @return a floating reference to a new uint16 #GVariant instance
-         * @since 2.24
-         */
-        public fun newUint16(`value`: guint16): Variant = Variant(g_variant_new_uint16(`value`)!!.reinterpret())
-
-        /**
-         * Creates a new uint32 #GVariant instance.
-         *
-         * @param value a #guint32 value
-         * @return a floating reference to a new uint32 #GVariant instance
-         * @since 2.24
-         */
-        public fun newUint32(`value`: guint): Variant = Variant(g_variant_new_uint32(`value`)!!.reinterpret())
-
-        /**
-         * Creates a new uint64 #GVariant instance.
-         *
-         * @param value a #guint64 value
-         * @return a floating reference to a new uint64 #GVariant instance
-         * @since 2.24
-         */
-        public fun newUint64(`value`: guint64): Variant = Variant(g_variant_new_uint64(`value`)!!.reinterpret())
-
-        /**
-         * Boxes @value.  The result is a #GVariant instance representing a
-         * variant containing the original value.
-         *
-         * If @child is a floating reference (see g_variant_ref_sink()), the new
-         * instance takes ownership of @child.
-         *
-         * @param value a #GVariant instance
-         * @return a floating reference to a new variant #GVariant instance
-         * @since 2.24
-         */
-        public fun newVariant(`value`: Variant): Variant =
-            Variant(g_variant_new_variant(`value`.glibVariantPointer)!!.reinterpret())
+        public fun takeString(string: kotlin.String): Variant = Variant(g_variant_new_take_string(string.cstr)!!).apply  {
+            MemoryCleaner.setBoxedType(this, getType(), owned = true)
+        }
 
         /**
          * Determines if a given string is a valid D-Bus object path.  You
@@ -1474,9 +1487,7 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * @since 2.40
          */
         @GLibVersion2_40
-        public fun parseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String =
-            g_variant_parse_error_print_context(error.glibErrorPointer, sourceStr)?.toKString()
-                ?: error("Expected not null string")
+        public fun parseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String = g_variant_parse_error_print_context(error.glibErrorPointer, sourceStr)?.toKString() ?: error("Expected not null string")
 
         public fun parseErrorQuark(): Quark = g_variant_parse_error_quark()
 
@@ -1484,5 +1495,12 @@ public class Variant(public val glibVariantPointer: CPointer<GVariant>) : ProxyI
          * Same as g_variant_error_quark().
          */
         public fun parserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()
+
+        /**
+         * Get the GType of Variant
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = Types.VARIANT
     }
 }

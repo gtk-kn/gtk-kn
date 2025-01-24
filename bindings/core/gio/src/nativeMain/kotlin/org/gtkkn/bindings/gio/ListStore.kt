@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -27,7 +28,6 @@ import org.gtkkn.native.gio.g_list_store_remove_all
 import org.gtkkn.native.gio.g_list_store_sort
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * `GListStore` is a simple implementation of [iface@Gio.ListModel] that stores
@@ -45,8 +45,9 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class ListStore(public val gioListStorePointer: CPointer<GListStore>) :
-    Object(gioListStorePointer.reinterpret()),
+public open class ListStore(
+    public val gioListStorePointer: CPointer<GListStore>,
+) : Object(gioListStorePointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -60,7 +61,7 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
      * @return a new #GListStore
      * @since 2.44
      */
-    public constructor(itemType: GType) : this(g_list_store_new(itemType)!!.reinterpret())
+    public constructor(itemType: GType) : this(g_list_store_new(itemType)!!)
 
     /**
      * Appends @item to @store. @item must be of type #GListStore:item-type.
@@ -74,8 +75,7 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun append(item: Object): Unit =
-        g_list_store_append(gioListStorePointer, item.gobjectObjectPointer.reinterpret())
+    public open fun append(item: Object): Unit = g_list_store_append(gioListStorePointer, item.gobjectObjectPointer.reinterpret())
 
     /**
      * Inserts @item into @store at @position. @item must be of type
@@ -92,8 +92,7 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun insert(position: guint, item: Object): Unit =
-        g_list_store_insert(gioListStorePointer, position, item.gobjectObjectPointer.reinterpret())
+    public open fun insert(position: guint, item: Object): Unit = g_list_store_insert(gioListStorePointer, position, item.gobjectObjectPointer.reinterpret())
 
     /**
      * Inserts @item into @store at a position to be determined by the
@@ -111,12 +110,7 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun insertSorted(item: Object, compareFunc: CompareDataFunc): guint = g_list_store_insert_sorted(
-        gioListStorePointer,
-        item.gobjectObjectPointer.reinterpret(),
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(compareFunc).asCPointer()
-    )
+    public open fun insertSorted(item: Object, compareFunc: CompareDataFunc): guint = g_list_store_insert_sorted(gioListStorePointer, item.gobjectObjectPointer.reinterpret(), CompareDataFuncFunc.reinterpret(), StableRef.create(compareFunc).asCPointer())
 
     /**
      * Removes the item from @store that is at @position. @position must be
@@ -146,19 +140,14 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
      * @since 2.46
      */
     @GioVersion2_46
-    public open fun sort(compareFunc: CompareDataFunc): Unit = g_list_store_sort(
-        gioListStorePointer,
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(compareFunc).asCPointer()
-    )
+    public open fun sort(compareFunc: CompareDataFunc): Unit = g_list_store_sort(gioListStorePointer, CompareDataFuncFunc.reinterpret(), StableRef.create(compareFunc).asCPointer())
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =
-            GeneratedClassKGType(getTypeOrNull("g_list_store_get_type")!!) { ListStore(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_list_store_get_type")!!) { ListStore(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ListStore

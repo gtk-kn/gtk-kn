@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,9 +29,6 @@ import org.gtkkn.native.gtk.gtk_event_controller_motion_contains_pointer
 import org.gtkkn.native.gtk.gtk_event_controller_motion_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_motion_is_pointer
 import org.gtkkn.native.gtk.gtk_event_controller_motion_new
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkEventControllerMotion` is an event controller tracking the pointer
@@ -62,16 +62,14 @@ public open class EventControllerMotion(
      *
      * @return true if a pointer is within @self or one of its children
      */
-    public open fun containsPointer(): Boolean =
-        gtk_event_controller_motion_contains_pointer(gtkEventControllerMotionPointer).asBoolean()
+    public open fun containsPointer(): Boolean = gtk_event_controller_motion_contains_pointer(gtkEventControllerMotionPointer).asBoolean()
 
     /**
      * Returns if a pointer is within @self, but not one of its children.
      *
      * @return true if a pointer is within @self but not one of its children
      */
-    public open fun isPointer(): Boolean =
-        gtk_event_controller_motion_is_pointer(gtkEventControllerMotionPointer).asBoolean()
+    public open fun isPointer(): Boolean = gtk_event_controller_motion_is_pointer(gtkEventControllerMotionPointer).asBoolean()
 
     /**
      * Signals that the pointer has entered the widget.
@@ -79,17 +77,7 @@ public open class EventControllerMotion(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` coordinates of pointer location; `y` coordinates of pointer location
      */
-    public fun onEnter(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: gdouble, y: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerMotionPointer,
-        "enter",
-        onEnterFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gtkEventControllerMotionPointer, "enter", onEnterFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "enter" signal. See [onEnter].
@@ -107,15 +95,7 @@ public open class EventControllerMotion(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkEventControllerMotionPointer,
-            "leave",
-            onLeaveFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkEventControllerMotionPointer, "leave", onLeaveFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "leave" signal. See [onLeave].
@@ -130,17 +110,7 @@ public open class EventControllerMotion(
      * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the x coordinate; `y` the y coordinate
      */
-    public fun onMotion(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (x: gdouble, y: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkEventControllerMotionPointer,
-        "motion",
-        onMotionFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onMotion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong = g_signal_connect_data(gtkEventControllerMotionPointer, "motion", onMotionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emits the "motion" signal. See [onMotion].
@@ -154,13 +124,10 @@ public open class EventControllerMotion(
 
     public companion object : TypeCompanion<EventControllerMotion> {
         override val type: GeneratedClassKGType<EventControllerMotion> =
-            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_motion_get_type")!!) {
-                EventControllerMotion(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_event_controller_motion_get_type")!!) { EventControllerMotion(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EventControllerMotion
@@ -172,29 +139,26 @@ public open class EventControllerMotion(
 }
 
 private val onEnterFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        x: gdouble,
-        y: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
-}
-    .reinterpret()
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
+.reinterpret()
 
 private val onLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val onMotionFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        x: gdouble,
-        y: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)
-}
-    .reinterpret()
+    userData.asStableRef<(x: gdouble, y: gdouble) -> Unit>().get().invoke(x, y)}
+.reinterpret()

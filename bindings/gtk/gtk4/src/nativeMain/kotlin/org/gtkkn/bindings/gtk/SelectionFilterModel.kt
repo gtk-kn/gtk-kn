@@ -28,8 +28,9 @@ import org.gtkkn.native.gtk.gtk_selection_filter_model_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SelectionFilterModel(public val gtkSelectionFilterModelPointer: CPointer<GtkSelectionFilterModel>) :
-    Object(gtkSelectionFilterModelPointer.reinterpret()),
+public open class SelectionFilterModel(
+    public val gtkSelectionFilterModelPointer: CPointer<GtkSelectionFilterModel>,
+) : Object(gtkSelectionFilterModelPointer.reinterpret()),
     ListModel,
     KGTyped {
     override val gioListModelPointer: CPointer<GListModel>
@@ -45,9 +46,7 @@ public open class SelectionFilterModel(public val gtkSelectionFilterModelPointer
          * @return The model that gets filtered
          */
         get() = gtk_selection_filter_model_get_model(gtkSelectionFilterModelPointer)?.run {
-            SelectionModel.SelectionModelImpl(reinterpret())
-        }
-
+            SelectionModel.SelectionModelImpl(reinterpret())}
         /**
          * Sets the model to be filtered.
          *
@@ -58,9 +57,7 @@ public open class SelectionFilterModel(public val gtkSelectionFilterModelPointer
          *
          * @param model The model to be filtered
          */
-        set(
-            model
-        ) = gtk_selection_filter_model_set_model(gtkSelectionFilterModelPointer, model?.gtkSelectionModelPointer)
+        set(model) = gtk_selection_filter_model_set_model(gtkSelectionFilterModelPointer, model?.gtkSelectionModelPointer)
 
     /**
      * Creates a new `GtkSelectionFilterModel` that will include the
@@ -69,19 +66,14 @@ public open class SelectionFilterModel(public val gtkSelectionFilterModelPointer
      * @param model the selection model to filter
      * @return a new `GtkSelectionFilterModel`
      */
-    public constructor(
-        model: SelectionModel? = null,
-    ) : this(gtk_selection_filter_model_new(model?.gtkSelectionModelPointer)!!.reinterpret())
+    public constructor(model: SelectionModel? = null) : this(gtk_selection_filter_model_new(model?.gtkSelectionModelPointer)!!)
 
     public companion object : TypeCompanion<SelectionFilterModel> {
         override val type: GeneratedClassKGType<SelectionFilterModel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_selection_filter_model_get_type")!!) {
-                SelectionFilterModel(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_selection_filter_model_get_type")!!) { SelectionFilterModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SelectionFilterModel

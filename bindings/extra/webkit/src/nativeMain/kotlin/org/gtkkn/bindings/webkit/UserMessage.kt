@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -23,8 +25,6 @@ import org.gtkkn.native.webkit.webkit_user_message_get_type
 import org.gtkkn.native.webkit.webkit_user_message_new
 import org.gtkkn.native.webkit.webkit_user_message_new_with_fd_list
 import org.gtkkn.native.webkit.webkit_user_message_send_reply
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Message that can be sent between the UI process and web process extensions.
@@ -38,8 +38,9 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUserMessage>) :
-    InitiallyUnowned(webkitUserMessagePointer.reinterpret()),
+public class UserMessage(
+    public val webkitUserMessagePointer: CPointer<WebKitUserMessage>,
+) : InitiallyUnowned(webkitUserMessagePointer.reinterpret()),
     KGTyped {
     /**
      * The UNIX file descriptors of the user message.
@@ -55,8 +56,7 @@ public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUse
          * @since 2.28
          */
         get() = webkit_user_message_get_fd_list(webkitUserMessagePointer)?.run {
-            UnixFdList(this)
-        }
+            UnixFdList(this)}
 
     /**
      * The name of the user message.
@@ -89,8 +89,7 @@ public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUse
          * @since 2.28
          */
         get() = webkit_user_message_get_parameters(webkitUserMessagePointer)?.run {
-            Variant(this)
-        }
+            Variant(this)}
 
     /**
      * Create a new #WebKitUserMessage with @name.
@@ -100,10 +99,7 @@ public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUse
      * @return the newly created #WebKitUserMessage object.
      * @since 2.28
      */
-    public constructor(
-        name: String,
-        parameters: Variant? = null,
-    ) : this(webkit_user_message_new(name, parameters?.glibVariantPointer)!!.reinterpret())
+    public constructor(name: String, parameters: Variant? = null) : this(webkit_user_message_new(name, parameters?.glibVariantPointer)!!)
 
     /**
      * Create a new #WebKitUserMessage including also a list of UNIX file descriptors to be sent.
@@ -118,13 +114,7 @@ public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUse
         name: String,
         parameters: Variant? = null,
         fdList: UnixFdList? = null,
-    ) : this(
-        webkit_user_message_new_with_fd_list(
-            name,
-            parameters?.glibVariantPointer,
-            fdList?.gioUnixFdListPointer
-        )!!.reinterpret()
-    )
+    ) : this(webkit_user_message_new_with_fd_list(name, parameters?.glibVariantPointer, fdList?.gioUnixFdListPointer)!!)
 
     /**
      * Send a reply to an user message.
@@ -137,16 +127,14 @@ public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUse
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun sendReply(reply: UserMessage): Unit =
-        webkit_user_message_send_reply(webkitUserMessagePointer, reply.webkitUserMessagePointer)
+    public fun sendReply(reply: UserMessage): Unit = webkit_user_message_send_reply(webkitUserMessagePointer, reply.webkitUserMessagePointer)
 
     public companion object : TypeCompanion<UserMessage> {
         override val type: GeneratedClassKGType<UserMessage> =
-            GeneratedClassKGType(getTypeOrNull("webkit_user_message_get_type")!!) { UserMessage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("webkit_user_message_get_type")!!) { UserMessage(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebKitTypeProvider.register()}
 
         /**
          * Get the GType of UserMessage

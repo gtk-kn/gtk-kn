@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
@@ -28,9 +31,6 @@ import org.gtkkn.native.webkit.webkit_uri_for_display
 import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_audio_device
 import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_display_device
 import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_video_device
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -247,9 +247,7 @@ public object WebKit {
      * @since 2.32
      */
     @WebKitVersion2_32
-    public fun mediaKeySystemPermissionGetName(request: MediaKeySystemPermissionRequest): String =
-        webkit_media_key_system_permission_get_name(request.webkitMediaKeySystemPermissionRequestPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun mediaKeySystemPermissionGetName(request: MediaKeySystemPermissionRequest): String = webkit_media_key_system_permission_get_name(request.webkitMediaKeySystemPermissionRequestPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Use this function to format a URI for display.
@@ -276,8 +274,7 @@ public object WebKit {
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun userMediaPermissionIsForAudioDevice(request: UserMediaPermissionRequest): Boolean =
-        webkit_user_media_permission_is_for_audio_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
+    public fun userMediaPermissionIsForAudioDevice(request: UserMediaPermissionRequest): Boolean = webkit_user_media_permission_is_for_audio_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
 
     /**
      * Check whether the permission request is for a display device.
@@ -287,8 +284,7 @@ public object WebKit {
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun userMediaPermissionIsForDisplayDevice(request: UserMediaPermissionRequest): Boolean =
-        webkit_user_media_permission_is_for_display_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
+    public fun userMediaPermissionIsForDisplayDevice(request: UserMediaPermissionRequest): Boolean = webkit_user_media_permission_is_for_display_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
 
     /**
      * Check whether the permission request is for a video device.
@@ -298,51 +294,50 @@ public object WebKit {
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun userMediaPermissionIsForVideoDevice(request: UserMediaPermissionRequest): Boolean =
-        webkit_user_media_permission_is_for_video_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
+    public fun userMediaPermissionIsForVideoDevice(request: UserMediaPermissionRequest): Boolean = webkit_user_media_permission_is_for_video_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             DownloadError.quark() -> DownloadError.fromErrorOrNull(error)
-                ?.let {
-                    DownloadErrorException(error, it)
-                }
+            ?.let {
+                DownloadErrorException(error, it)
+            }
             FaviconDatabaseError.quark() -> FaviconDatabaseError.fromErrorOrNull(error)
-                ?.let {
-                    FaviconDatabaseErrorException(error, it)
-                }
+            ?.let {
+                FaviconDatabaseErrorException(error, it)
+            }
             JavascriptError.quark() -> JavascriptError.fromErrorOrNull(error)
-                ?.let {
-                    JavascriptErrorException(error, it)
-                }
+            ?.let {
+                JavascriptErrorException(error, it)
+            }
             MediaError.quark() -> MediaError.fromErrorOrNull(error)
-                ?.let {
-                    MediaErrorException(error, it)
-                }
+            ?.let {
+                MediaErrorException(error, it)
+            }
             NetworkError.quark() -> NetworkError.fromErrorOrNull(error)
-                ?.let {
-                    NetworkErrorException(error, it)
-                }
+            ?.let {
+                NetworkErrorException(error, it)
+            }
             PolicyError.quark() -> PolicyError.fromErrorOrNull(error)
-                ?.let {
-                    PolicyErrorException(error, it)
-                }
+            ?.let {
+                PolicyErrorException(error, it)
+            }
             PrintError.quark() -> PrintError.fromErrorOrNull(error)
-                ?.let {
-                    PrintErrorException(error, it)
-                }
+            ?.let {
+                PrintErrorException(error, it)
+            }
             SnapshotError.quark() -> SnapshotError.fromErrorOrNull(error)
-                ?.let {
-                    SnapshotErrorException(error, it)
-                }
+            ?.let {
+                SnapshotErrorException(error, it)
+            }
             UserContentFilterError.quark() -> UserContentFilterError.fromErrorOrNull(error)
-                ?.let {
-                    UserContentFilterErrorException(error, it)
-                }
+            ?.let {
+                UserContentFilterErrorException(error, it)
+            }
             UserMessageError.quark() -> UserMessageError.fromErrorOrNull(error)
-                ?.let {
-                    UserMessageErrorException(error, it)
-                }
+            ?.let {
+                UserMessageErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
@@ -350,17 +345,14 @@ public object WebKit {
 }
 
 public val UriSchemeRequestCallbackFunc:
-    CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> = staticCFunction {
-            request: CPointer<WebKitURISchemeRequest>?,
-            userData: gpointer?,
-        ->
-        userData!!.asStableRef<(request: UriSchemeRequest) -> Unit>().get().invoke(
-            request!!.run {
-                UriSchemeRequest(this)
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> = staticCFunction {
+    request: CPointer<WebKitURISchemeRequest>?,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(request: UriSchemeRequest) -> Unit>().get().invoke(request!!.run {
+        UriSchemeRequest(this)}
+    )}
+.reinterpret()
 
 /**
  * Type definition for a function that will be called back when an URI request is

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -30,7 +31,6 @@ import org.gtkkn.native.gtk.gtk_sort_list_model_set_incremental
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_model
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_section_sorter
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_sorter
-import kotlin.Boolean
 
 /**
  * A `GListModel` that sorts the elements of an underlying model
@@ -65,8 +65,9 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SortListModel(public val gtkSortListModelPointer: CPointer<GtkSortListModel>) :
-    Object(gtkSortListModelPointer.reinterpret()),
+public open class SortListModel(
+    public val gtkSortListModelPointer: CPointer<GtkSortListModel>,
+) : Object(gtkSortListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
@@ -88,7 +89,6 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @return true if incremental sorting is enabled
          */
         get() = gtk_sort_list_model_get_incremental(gtkSortListModelPointer).asBoolean()
-
         /**
          * Sets the sort model to do an incremental sort.
          *
@@ -121,9 +121,7 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @return The model that gets sorted
          */
         get() = gtk_sort_list_model_get_model(gtkSortListModelPointer)?.run {
-            ListModel.ListModelImpl(reinterpret())
-        }
-
+            ListModel.ListModelImpl(reinterpret())}
         /**
          * Sets the model to be sorted.
          *
@@ -175,9 +173,7 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @since 4.12
          */
         get() = gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer)?.run {
-            Sorter(this)
-        }
-
+            Sorter(this)}
         /**
          * Sets a new section sorter on @self.
          *
@@ -197,9 +193,7 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
          * @return the sorter of #self
          */
         get() = gtk_sort_list_model_get_sorter(gtkSortListModelPointer)?.run {
-            Sorter(this)
-        }
-
+            Sorter(this)}
         /**
          * Sets a new sorter on @self.
          *
@@ -214,20 +208,14 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
      * @param sorter the `GtkSorter` to sort @model with,
      * @return a new `GtkSortListModel`
      */
-    public constructor(
-        model: ListModel? = null,
-        sorter: Sorter? = null,
-    ) : this(gtk_sort_list_model_new(model?.gioListModelPointer, sorter?.gtkSorterPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null, sorter: Sorter? = null) : this(gtk_sort_list_model_new(model?.gioListModelPointer, sorter?.gtkSorterPointer)!!)
 
     public companion object : TypeCompanion<SortListModel> {
         override val type: GeneratedClassKGType<SortListModel> =
-            GeneratedClassKGType(getTypeOrNull("gtk_sort_list_model_get_type")!!) {
-                SortListModel(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("gtk_sort_list_model_get_type")!!) { SortListModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SortListModel

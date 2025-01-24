@@ -26,12 +26,13 @@ import org.gtkkn.native.glib.GTestFileType
  * @since 2.38
  */
 @GLibVersion2_38
-public enum class TestFileType(public val nativeValue: GTestFileType) {
+public enum class TestFileType(
+    public val nativeValue: GTestFileType,
+) {
     /**
      * a file that was included in the distribution tarball
      */
     DIST(GTestFileType.G_TEST_DIST),
-
     /**
      * a file that was built on the compiling machine
      */

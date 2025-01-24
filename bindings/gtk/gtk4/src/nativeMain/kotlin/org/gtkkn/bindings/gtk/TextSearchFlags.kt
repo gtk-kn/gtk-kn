@@ -18,7 +18,9 @@ import org.gtkkn.native.gtk.gtk_text_search_flags_get_type
  * enabled, the match must be exact; the special 0xFFFC character will match
  * embedded paintables or child widgets.
  */
-public class TextSearchFlags(public val mask: GtkTextSearchFlags) : Bitfield<TextSearchFlags> {
+public class TextSearchFlags(
+    public val mask: GtkTextSearchFlags,
+) : Bitfield<TextSearchFlags> {
     override infix fun or(other: TextSearchFlags): TextSearchFlags = TextSearchFlags(mask or other.mask)
 
     public companion object {
@@ -39,7 +41,7 @@ public class TextSearchFlags(public val mask: GtkTextSearchFlags) : Bitfield<Tex
          * what case it is in.
          */
         public val CASE_INSENSITIVE: TextSearchFlags =
-            TextSearchFlags(GTK_TEXT_SEARCH_CASE_INSENSITIVE)
+                TextSearchFlags(GTK_TEXT_SEARCH_CASE_INSENSITIVE)
 
         /**
          * Get the GType of TextSearchFlags

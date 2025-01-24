@@ -3,6 +3,9 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -31,9 +34,6 @@ import org.gtkkn.native.gio.g_dbus_object_manager_get_objects
 import org.gtkkn.native.gio.g_dbus_object_manager_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GDBusObjectManager` type is the base type for service- and
@@ -44,9 +44,7 @@ import kotlin.Unit
  * See [class@Gio.DBusObjectManagerClient] for the client-side implementation
  * and [class@Gio.DBusObjectManagerServer] for the service-side implementation.
  */
-public interface DBusObjectManager :
-    Proxy,
-    KGTyped {
+public interface DBusObjectManager : Proxy, KGTyped {
     public val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
 
     /**
@@ -60,10 +58,8 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getInterface(objectPath: String, interfaceName: String): DBusInterface? =
-        g_dbus_object_manager_get_interface(gioDBusObjectManagerPointer, objectPath, interfaceName)?.run {
-            DBusInterface.DBusInterfaceImpl(reinterpret())
-        }
+    public fun getInterface(objectPath: String, interfaceName: String): DBusInterface? = g_dbus_object_manager_get_interface(gioDBusObjectManagerPointer, objectPath, interfaceName)?.run {
+        DBusInterface.DBusInterfaceImpl(reinterpret())}
 
     /**
      * Gets the #GDBusObject at @object_path, if any.
@@ -74,10 +70,8 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getObject(objectPath: String): DBusObject? =
-        g_dbus_object_manager_get_object(gioDBusObjectManagerPointer, objectPath)?.run {
-            DBusObject.DBusObjectImpl(reinterpret())
-        }
+    public fun getObject(objectPath: String): DBusObject? = g_dbus_object_manager_get_object(gioDBusObjectManagerPointer, objectPath)?.run {
+        DBusObject.DBusObjectImpl(reinterpret())}
 
     /**
      * Gets the object path that @manager is for.
@@ -86,8 +80,7 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getObjectPath(): String = g_dbus_object_manager_get_object_path(gioDBusObjectManagerPointer)?.toKString()
-        ?: error("Expected not null string")
+    public fun getObjectPath(): String = g_dbus_object_manager_get_object_path(gioDBusObjectManagerPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets all #GDBusObject objects known to @manager.
@@ -100,8 +93,7 @@ public interface DBusObjectManager :
      */
     @GioVersion2_30
     public fun getObjects(): List = g_dbus_object_manager_get_objects(gioDBusObjectManagerPointer)!!.run {
-        List(this)
-    }
+        List(this)}
 
     /**
      * Emitted when @interface is added to @object.
@@ -114,17 +106,7 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onInterfaceAdded(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: DBusObject, `interface`: DBusInterface) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectManagerPointer,
-        "interface-added",
-        onInterfaceAddedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onInterfaceAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: DBusObject, `interface`: DBusInterface) -> Unit): ULong = g_signal_connect_data(gioDBusObjectManagerPointer, "interface-added", onInterfaceAddedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @interface has been removed from @object.
@@ -137,17 +119,7 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onInterfaceRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: DBusObject, `interface`: DBusInterface) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectManagerPointer,
-        "interface-removed",
-        onInterfaceRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onInterfaceRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: DBusObject, `interface`: DBusInterface) -> Unit): ULong = g_signal_connect_data(gioDBusObjectManagerPointer, "interface-removed", onInterfaceRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @object is added to @manager.
@@ -157,17 +129,7 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onObjectAdded(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: DBusObject) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectManagerPointer,
-        "object-added",
-        onObjectAddedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onObjectAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: DBusObject) -> Unit): ULong = g_signal_connect_data(gioDBusObjectManagerPointer, "object-added", onObjectAddedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when @object is removed from @manager.
@@ -177,36 +139,24 @@ public interface DBusObjectManager :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun onObjectRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: DBusObject) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gioDBusObjectManagerPointer,
-        "object-removed",
-        onObjectRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onObjectRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: DBusObject) -> Unit): ULong = g_signal_connect_data(gioDBusObjectManagerPointer, "object-removed", onObjectRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The DBusObjectManagerImpl type represents a native instance of the DBusObjectManager interface.
      *
      * @constructor Creates a new instance of DBusObjectManager for the provided [CPointer].
      */
-    public data class DBusObjectManagerImpl(override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>) :
-        Object(gioDBusObjectManagerPointer.reinterpret()),
+    public data class DBusObjectManagerImpl(
+        override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>,
+    ) : Object(gioDBusObjectManagerPointer.reinterpret()),
         DBusObjectManager
 
     public companion object : TypeCompanion<DBusObjectManager> {
         override val type: GeneratedInterfaceKGType<DBusObjectManager> =
-            GeneratedInterfaceKGType(getTypeOrNull("g_dbus_object_manager_get_type")!!) {
-                DBusObjectManagerImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("g_dbus_object_manager_get_type")!!) { DBusObjectManagerImpl(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusObjectManager
@@ -218,67 +168,53 @@ public interface DBusObjectManager :
 }
 
 private val onInterfaceAddedFunc:
-    CPointer<CFunction<(CPointer<GDBusObject>, CPointer<GDBusInterface>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GDBusObject>?,
-            `interface`: CPointer<GDBusInterface>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: DBusObject, `interface`: DBusInterface) -> Unit>().get().invoke(
-            `object`!!.run {
-                DBusObject.DBusObjectImpl(reinterpret())
-            },
-            `interface`!!.run {
-                DBusInterface.DBusInterfaceImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusObject>, CPointer<GDBusInterface>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    `object`: CPointer<GDBusObject>?,
+    `interface`: CPointer<GDBusInterface>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`object`: DBusObject, `interface`: DBusInterface) -> Unit>().get().invoke(`object`!!.run {
+        DBusObject.DBusObjectImpl(reinterpret())}
+    , `interface`!!.run {
+        DBusInterface.DBusInterfaceImpl(reinterpret())}
+    )}
+.reinterpret()
 
 private val onInterfaceRemovedFunc:
-    CPointer<CFunction<(CPointer<GDBusObject>, CPointer<GDBusInterface>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GDBusObject>?,
-            `interface`: CPointer<GDBusInterface>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: DBusObject, `interface`: DBusInterface) -> Unit>().get().invoke(
-            `object`!!.run {
-                DBusObject.DBusObjectImpl(reinterpret())
-            },
-            `interface`!!.run {
-                DBusInterface.DBusInterfaceImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GDBusObject>, CPointer<GDBusInterface>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    `object`: CPointer<GDBusObject>?,
+    `interface`: CPointer<GDBusInterface>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`object`: DBusObject, `interface`: DBusInterface) -> Unit>().get().invoke(`object`!!.run {
+        DBusObject.DBusObjectImpl(reinterpret())}
+    , `interface`!!.run {
+        DBusInterface.DBusInterfaceImpl(reinterpret())}
+    )}
+.reinterpret()
 
 private val onObjectAddedFunc: CPointer<CFunction<(CPointer<GDBusObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GDBusObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: DBusObject) -> Unit>().get().invoke(
-            `object`!!.run {
-                DBusObject.DBusObjectImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    `object`: CPointer<GDBusObject>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`object`: DBusObject) -> Unit>().get().invoke(`object`!!.run {
+        DBusObject.DBusObjectImpl(reinterpret())}
+    )}
+.reinterpret()
 
 private val onObjectRemovedFunc: CPointer<CFunction<(CPointer<GDBusObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GDBusObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: DBusObject) -> Unit>().get().invoke(
-            `object`!!.run {
-                DBusObject.DBusObjectImpl(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    `object`: CPointer<GDBusObject>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(`object`: DBusObject) -> Unit>().get().invoke(`object`!!.run {
+        DBusObject.DBusObjectImpl(reinterpret())}
+    )}
+.reinterpret()

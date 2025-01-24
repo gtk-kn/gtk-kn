@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -27,8 +29,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkSectionModel
 import org.gtkkn.native.gtk.gtk_section_model_get_type
 import org.gtkkn.native.gtk.gtk_section_model_sections_changed
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkSectionModel` is an interface that adds support for sections to list models.
@@ -54,17 +54,13 @@ import kotlin.Unit
  * @since 4.12
  */
 @GtkVersion4_12
-public interface SectionModel :
-    Proxy,
-    ListModel,
-    KGTyped {
+public interface SectionModel : Proxy, ListModel, KGTyped {
     public val gtkSectionModelPointer: CPointer<GtkSectionModel>
 
     override val gioListModelPointer: CPointer<GListModel>
         get() = gtkSectionModelPointer.reinterpret()
 
-    public fun sectionsChanged(position: guint, nItems: guint): Unit =
-        gtk_section_model_sections_changed(gtkSectionModelPointer, position, nItems)
+    public fun sectionsChanged(position: guint, nItems: guint): Unit = gtk_section_model_sections_changed(gtkSectionModelPointer, position, nItems)
 
     /**
      * Emitted when the start-of-section state of some of the items in @model changes.
@@ -83,36 +79,24 @@ public interface SectionModel :
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun onSectionsChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (position: guint, nItems: guint) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkSectionModelPointer,
-        "sections-changed",
-        onSectionsChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onSectionsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint, nItems: guint) -> Unit): ULong = g_signal_connect_data(gtkSectionModelPointer, "sections-changed", onSectionsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * The SectionModelImpl type represents a native instance of the SectionModel interface.
      *
      * @constructor Creates a new instance of SectionModel for the provided [CPointer].
      */
-    public data class SectionModelImpl(override val gtkSectionModelPointer: CPointer<GtkSectionModel>) :
-        Object(gtkSectionModelPointer.reinterpret()),
+    public data class SectionModelImpl(
+        override val gtkSectionModelPointer: CPointer<GtkSectionModel>,
+    ) : Object(gtkSectionModelPointer.reinterpret()),
         SectionModel
 
     public companion object : TypeCompanion<SectionModel> {
         override val type: GeneratedInterfaceKGType<SectionModel> =
-            GeneratedInterfaceKGType(getTypeOrNull("gtk_section_model_get_type")!!) {
-                SectionModelImpl(it.reinterpret())
-            }
+                GeneratedInterfaceKGType(getTypeOrNull("gtk_section_model_get_type")!!) { SectionModelImpl(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SectionModel
@@ -124,11 +108,10 @@ public interface SectionModel :
 }
 
 private val onSectionsChangedFunc: CPointer<CFunction<(guint, guint) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        position: guint,
-        nItems: guint,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    position: guint,
+    nItems: guint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(position: guint, nItems: guint) -> Unit>().get().invoke(position, nItems)
-}
-    .reinterpret()
+    userData.asStableRef<(position: guint, nItems: guint) -> Unit>().get().invoke(position, nItems)}
+.reinterpret()

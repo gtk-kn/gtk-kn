@@ -14,22 +14,21 @@ import org.gtkkn.native.pango.pango_font_scale_get_type
  * @since 1.50
  */
 @PangoVersion1_50
-public enum class FontScale(public val nativeValue: PangoFontScale) {
+public enum class FontScale(
+    public val nativeValue: PangoFontScale,
+) {
     /**
      * Leave the font size unchanged
      */
     NONE(PangoFontScale.PANGO_FONT_SCALE_NONE),
-
     /**
      * Change the font to a size suitable for superscripts
      */
     SUPERSCRIPT(PangoFontScale.PANGO_FONT_SCALE_SUPERSCRIPT),
-
     /**
      * Change the font to a size suitable for subscripts
      */
     SUBSCRIPT(PangoFontScale.PANGO_FONT_SCALE_SUBSCRIPT),
-
     /**
      * Change the font to a size suitable for Small Caps
      */

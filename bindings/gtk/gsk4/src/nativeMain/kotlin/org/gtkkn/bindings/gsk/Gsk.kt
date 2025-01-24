@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
@@ -26,8 +28,6 @@ import org.gtkkn.native.gsk.gsk_value_dup_render_node
 import org.gtkkn.native.gsk.gsk_value_get_render_node
 import org.gtkkn.native.gsk.gsk_value_set_render_node
 import org.gtkkn.native.gsk.gsk_value_take_render_node
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -49,10 +49,8 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueDupRenderNode(`value`: Value): RenderNode? =
-        gsk_value_dup_render_node(`value`.gobjectValuePointer)?.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public fun valueDupRenderNode(`value`: Value): RenderNode? = gsk_value_dup_render_node(`value`.gobjectValuePointer)?.run {
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`.
@@ -62,10 +60,8 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueGetRenderNode(`value`: Value): RenderNode? =
-        gsk_value_get_render_node(`value`.gobjectValuePointer)?.run {
-            RenderNode.RenderNodeImpl(this)
-        }
+    public fun valueGetRenderNode(`value`: Value): RenderNode? = gsk_value_get_render_node(`value`.gobjectValuePointer)?.run {
+        RenderNode.RenderNodeImpl(this)}
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -77,8 +73,7 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit =
-        gsk_value_set_render_node(`value`.gobjectValuePointer, node.gskRenderNodePointer)
+    public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit = gsk_value_set_render_node(`value`.gobjectValuePointer, node.gskRenderNodePointer)
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -90,90 +85,66 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit =
-        gsk_value_take_render_node(`value`.gobjectValuePointer, node?.gskRenderNodePointer)
+    public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit = gsk_value_take_render_node(`value`.gobjectValuePointer, node?.gskRenderNodePointer)
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             SerializationError.quark() -> SerializationError.fromErrorOrNull(error)
-                ?.let {
-                    SerializationErrorException(error, it)
-                }
+            ?.let {
+                SerializationErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
     }
 }
 
-public val ParseErrorFuncFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GskParseLocation>,
-            CPointer<GskParseLocation>,
-            CPointer<GError>,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        start: CPointer<GskParseLocation>?,
-        end: CPointer<GskParseLocation>?,
-        error: CPointer<GError>?,
-        userData: gpointer?,
+public val ParseErrorFuncFunc: CPointer<CFunction<(
+    CPointer<GskParseLocation>,
+    CPointer<GskParseLocation>,
+    CPointer<GError>,
+) -> Unit>> = staticCFunction {
+    start: CPointer<GskParseLocation>?,
+    end: CPointer<GskParseLocation>?,
+    error: CPointer<GError>?,
+    userData: gpointer?,
     ->
-    userData!!.asStableRef<
-        (
-            start: ParseLocation,
-            end: ParseLocation,
-            error: Error,
-        ) -> Unit
-        >().get().invoke(
-        start!!.run {
-            ParseLocation(this)
-        },
-        end!!.run {
-            ParseLocation(this)
-        },
-        error!!.run {
-            Error(this)
-        }
-    )
-}
-    .reinterpret()
+    userData!!.asStableRef<(
+        start: ParseLocation,
+        end: ParseLocation,
+        error: Error,
+    ) -> Unit>().get().invoke(start!!.run {
+        ParseLocation(this)}
+    , end!!.run {
+        ParseLocation(this)}
+    , error!!.run {
+        Error(this)}
+    )}
+.reinterpret()
 
-public val PathForeachFuncFunc: CPointer<
-    CFunction<
-        (
-            GskPathOperation,
-            CPointer<graphene_point_t>,
-            gsize,
-            gfloat,
-        ) -> gboolean
-        >
-    > = staticCFunction {
-        op: GskPathOperation,
-        pts: CPointer<graphene_point_t>?,
+public val PathForeachFuncFunc: CPointer<CFunction<(
+    GskPathOperation,
+    CPointer<graphene_point_t>,
+    gsize,
+    gfloat,
+) -> gboolean>> = staticCFunction {
+    op: GskPathOperation,
+    pts: CPointer<graphene_point_t>?,
+    nPts: gsize,
+    weight: gfloat,
+    userData: gpointer?,
+    ->
+    userData!!.asStableRef<(
+        op: PathOperation,
+        pts: Point,
         nPts: gsize,
         weight: gfloat,
-        userData: gpointer?,
-    ->
-    userData!!.asStableRef<
-        (
-            op: PathOperation,
-            pts: Point,
-            nPts: gsize,
-            weight: gfloat,
-        ) -> Boolean
-        >().get().invoke(
-        op.run {
-            PathOperation.fromNativeValue(this)
-        },
-        pts!!.run {
-            Point(this)
-        },
-        nPts,
-        weight
-    ).asGBoolean()
-}
-    .reinterpret()
+    ) -> Boolean>().get().invoke(op.run {
+        PathOperation.fromNativeValue(this)}
+    , pts!!.run {
+        Point(this)}
+    , nPts, weight).asGBoolean()}
+.reinterpret()
 
 /**
  * Type of callback that is called when an error occurs

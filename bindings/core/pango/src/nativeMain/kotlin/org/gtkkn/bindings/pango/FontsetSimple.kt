@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.pango
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
@@ -16,7 +17,6 @@ import org.gtkkn.native.pango.pango_fontset_simple_append
 import org.gtkkn.native.pango.pango_fontset_simple_get_type
 import org.gtkkn.native.pango.pango_fontset_simple_new
 import org.gtkkn.native.pango.pango_fontset_simple_size
-import kotlin.Unit
 
 /**
  * `PangoFontsetSimple` is a implementation of the abstract
@@ -25,8 +25,9 @@ import kotlin.Unit
  * When creating a `PangoFontsetSimple`, you have to provide
  * the array of fonts that make up the fontset.
  */
-public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>) :
-    Fontset(pangoFontsetSimplePointer.reinterpret()),
+public open class FontsetSimple(
+    public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>,
+) : Fontset(pangoFontsetSimplePointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new `PangoFontsetSimple` for the given language.
@@ -34,9 +35,7 @@ public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<P
      * @param language a `PangoLanguage` tag
      * @return the newly allocated `PangoFontsetSimple`
      */
-    public constructor(
-        language: Language,
-    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!.reinterpret())
+    public constructor(language: Language) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!)
 
     /**
      * Adds a font to the fontset.
@@ -45,8 +44,7 @@ public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<P
      *
      * @param font a `PangoFont`.
      */
-    public open fun append(font: Font): Unit =
-        pango_fontset_simple_append(pangoFontsetSimplePointer, font.pangoFontPointer)
+    public open fun append(font: Font): Unit = pango_fontset_simple_append(pangoFontsetSimplePointer, font.pangoFontPointer)
 
     /**
      * Returns the number of fonts in the fontset.
@@ -57,13 +55,10 @@ public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<P
 
     public companion object : TypeCompanion<FontsetSimple> {
         override val type: GeneratedClassKGType<FontsetSimple> =
-            GeneratedClassKGType(getTypeOrNull("pango_fontset_simple_get_type")!!) {
-                FontsetSimple(it.reinterpret())
-            }
+                GeneratedClassKGType(getTypeOrNull("pango_fontset_simple_get_type")!!) { FontsetSimple(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of FontsetSimple

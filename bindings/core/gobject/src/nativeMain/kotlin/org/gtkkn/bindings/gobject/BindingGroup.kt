@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gobject
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
@@ -18,8 +20,6 @@ import org.gtkkn.native.gobject.g_binding_group_dup_source
 import org.gtkkn.native.gobject.g_binding_group_get_type
 import org.gtkkn.native.gobject.g_binding_group_new
 import org.gtkkn.native.gobject.g_binding_group_set_source
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GBindingGroup` can be used to bind multiple properties
@@ -37,8 +37,9 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<GBindingGroup>) :
-    Object(gobjectBindingGroupPointer.reinterpret()),
+public open class BindingGroup(
+    public val gobjectBindingGroupPointer: CPointer<GBindingGroup>,
+) : Object(gobjectBindingGroupPointer.reinterpret()),
     KGTyped {
     /**
      * Creates a new #GBindingGroup.
@@ -46,7 +47,7 @@ public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<G
      * @return a new #GBindingGroup
      * @since 2.72
      */
-    public constructor() : this(g_binding_group_new()!!.reinterpret())
+    public constructor() : this(g_binding_group_new()!!)
 
     /**
      * Creates a binding between @source_property on the source object
@@ -63,14 +64,12 @@ public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<G
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun bind(sourceProperty: String, target: Object, targetProperty: String, flags: BindingFlags): Unit =
-        g_binding_group_bind(
-            gobjectBindingGroupPointer,
-            sourceProperty,
-            target.gobjectObjectPointer.reinterpret(),
-            targetProperty,
-            flags.mask
-        )
+    public open fun bind(
+        sourceProperty: String,
+        target: Object,
+        targetProperty: String,
+        flags: BindingFlags,
+    ): Unit = g_binding_group_bind(gobjectBindingGroupPointer, sourceProperty, target.gobjectObjectPointer.reinterpret(), targetProperty, flags.mask)
 
     /**
      * Creates a binding between @source_property on the source object and
@@ -104,15 +103,7 @@ public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<G
         flags: BindingFlags,
         transformTo: Closure? = null,
         transformFrom: Closure? = null,
-    ): Unit = g_binding_group_bind_with_closures(
-        gobjectBindingGroupPointer,
-        sourceProperty,
-        target.gobjectObjectPointer.reinterpret(),
-        targetProperty,
-        flags.mask,
-        transformTo?.gobjectClosurePointer,
-        transformFrom?.gobjectClosurePointer
-    )
+    ): Unit = g_binding_group_bind_with_closures(gobjectBindingGroupPointer, sourceProperty, target.gobjectObjectPointer.reinterpret(), targetProperty, flags.mask, transformTo?.gobjectClosurePointer, transformFrom?.gobjectClosurePointer)
 
     /**
      * Gets the source object used for binding properties.
@@ -122,8 +113,7 @@ public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<G
      */
     @GObjectVersion2_72
     public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer)?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Sets @source as the source object used for creating property
@@ -137,16 +127,14 @@ public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<G
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun setSource(source: Object? = null): Unit =
-        g_binding_group_set_source(gobjectBindingGroupPointer, source?.gobjectObjectPointer?.reinterpret())
+    public open fun setSource(source: Object? = null): Unit = g_binding_group_set_source(gobjectBindingGroupPointer, source?.gobjectObjectPointer?.reinterpret())
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =
-            GeneratedClassKGType(getTypeOrNull("g_binding_group_get_type")!!) { BindingGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("g_binding_group_get_type")!!) { BindingGroup(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GObjectTypeProvider.register()}
 
         /**
          * Get the GType of BindingGroup

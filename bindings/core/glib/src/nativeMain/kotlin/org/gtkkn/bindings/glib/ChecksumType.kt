@@ -15,27 +15,25 @@ import org.gtkkn.native.glib.GChecksumType
  * @since 2.16
  */
 @GLibVersion2_16
-public enum class ChecksumType(public val nativeValue: GChecksumType) {
+public enum class ChecksumType(
+    public val nativeValue: GChecksumType,
+) {
     /**
      * Use the MD5 hashing algorithm
      */
     MD5(GChecksumType.G_CHECKSUM_MD5),
-
     /**
      * Use the SHA-1 hashing algorithm
      */
     SHA1(GChecksumType.G_CHECKSUM_SHA1),
-
     /**
      * Use the SHA-256 hashing algorithm
      */
     SHA256(GChecksumType.G_CHECKSUM_SHA256),
-
     /**
      * Use the SHA-512 hashing algorithm (Since: 2.36)
      */
     SHA512(GChecksumType.G_CHECKSUM_SHA512),
-
     /**
      * Use the SHA-384 hashing algorithm (Since: 2.51)
      */

@@ -11,7 +11,9 @@ import org.gtkkn.native.cairo.cairo_color_mode_t
  * @since 1.18
  */
 @CairoVersion1_18
-public enum class ColorMode(public val nativeValue: cairo_color_mode_t) {
+public enum class ColorMode(
+    public val nativeValue: cairo_color_mode_t,
+) {
     DEFAULT(cairo_color_mode_t.CAIRO_COLOR_MODE_DEFAULT),
     NO_COLOR(cairo_color_mode_t.CAIRO_COLOR_MODE_NO_COLOR),
     COLOR(cairo_color_mode_t.CAIRO_COLOR_MODE_COLOR),

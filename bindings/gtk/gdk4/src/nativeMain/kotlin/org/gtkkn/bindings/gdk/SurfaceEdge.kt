@@ -10,42 +10,37 @@ import org.gtkkn.native.gobject.GType
 /**
  * Determines a surface edge or corner.
  */
-public enum class SurfaceEdge(public val nativeValue: GdkSurfaceEdge) {
+public enum class SurfaceEdge(
+    public val nativeValue: GdkSurfaceEdge,
+) {
     /**
      * the top left corner.
      */
     NORTH_WEST(GdkSurfaceEdge.GDK_SURFACE_EDGE_NORTH_WEST),
-
     /**
      * the top edge.
      */
     NORTH(GdkSurfaceEdge.GDK_SURFACE_EDGE_NORTH),
-
     /**
      * the top right corner.
      */
     NORTH_EAST(GdkSurfaceEdge.GDK_SURFACE_EDGE_NORTH_EAST),
-
     /**
      * the left edge.
      */
     WEST(GdkSurfaceEdge.GDK_SURFACE_EDGE_WEST),
-
     /**
      * the right edge.
      */
     EAST(GdkSurfaceEdge.GDK_SURFACE_EDGE_EAST),
-
     /**
      * the lower left corner.
      */
     SOUTH_WEST(GdkSurfaceEdge.GDK_SURFACE_EDGE_SOUTH_WEST),
-
     /**
      * the lower edge.
      */
     SOUTH(GdkSurfaceEdge.GDK_SURFACE_EDGE_SOUTH),
-
     /**
      * the lower right corner.
      */

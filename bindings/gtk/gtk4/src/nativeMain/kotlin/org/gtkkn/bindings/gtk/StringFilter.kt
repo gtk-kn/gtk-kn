@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,8 +26,6 @@ import org.gtkkn.native.gtk.gtk_string_filter_set_expression
 import org.gtkkn.native.gtk.gtk_string_filter_set_ignore_case
 import org.gtkkn.native.gtk.gtk_string_filter_set_match_mode
 import org.gtkkn.native.gtk.gtk_string_filter_set_search
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkStringFilter` determines whether to include items by comparing
@@ -42,8 +42,9 @@ import kotlin.String
  * It is also possible to make case-insensitive comparisons, with
  * [method@Gtk.StringFilter.set_ignore_case].
  */
-public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkStringFilter>) :
-    Filter(gtkStringFilterPointer.reinterpret()),
+public open class StringFilter(
+    public val gtkStringFilterPointer: CPointer<GtkStringFilter>,
+) : Filter(gtkStringFilterPointer.reinterpret()),
     KGTyped {
     /**
      * The expression to evaluate on item to get a string to compare with.
@@ -56,9 +57,7 @@ public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkSt
          * @return a `GtkExpression`
          */
         get() = gtk_string_filter_get_expression(gtkStringFilterPointer)?.run {
-            Expression.ExpressionImpl(this)
-        }
-
+            Expression.ExpressionImpl(this)}
         /**
          * Sets the expression that the string filter uses to
          * obtain strings from items.
@@ -79,7 +78,6 @@ public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkSt
          * @return true if the filter ignores case
          */
         get() = gtk_string_filter_get_ignore_case(gtkStringFilterPointer).asBoolean()
-
         /**
          * Sets whether the filter ignores case differences.
          *
@@ -97,9 +95,7 @@ public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkSt
          * @return the match mode of the filter
          */
         get() = gtk_string_filter_get_match_mode(gtkStringFilterPointer).run {
-            StringFilterMatchMode.fromNativeValue(this)
-        }
-
+            StringFilterMatchMode.fromNativeValue(this)}
         /**
          * Sets the match mode for the filter.
          *
@@ -117,7 +113,6 @@ public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkSt
          * @return The search term
          */
         get() = gtk_string_filter_get_search(gtkStringFilterPointer)?.toKString()
-
         /**
          * Sets the string to search for.
          *
@@ -135,17 +130,14 @@ public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkSt
      * @param expression The expression to evaluate
      * @return a new `GtkStringFilter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_string_filter_new(expression?.gtkExpressionPointer)!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_string_filter_new(expression?.gtkExpressionPointer)!!)
 
     public companion object : TypeCompanion<StringFilter> {
         override val type: GeneratedClassKGType<StringFilter> =
-            GeneratedClassKGType(getTypeOrNull("gtk_string_filter_get_type")!!) { StringFilter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull("gtk_string_filter_get_type")!!) { StringFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StringFilter
