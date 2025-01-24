@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Git submodules" pattern="file[gtk-kn.gir.test]:resources/gir-files//*" />
+</component>

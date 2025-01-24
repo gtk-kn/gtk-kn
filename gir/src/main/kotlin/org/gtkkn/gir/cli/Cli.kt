@@ -1,17 +1,21 @@
 /*
- * Copyright (c) 2024 gtk-kn
+ * Copyright (c) 2025 gtk-kn
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
  * This file is part of gtk-kn.
- * gtk-kn is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * gtk-kn is distributed in the hope that it will be useful,
+ * gtk-kn is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.gtkkn.gir.cli
@@ -26,7 +30,6 @@ import org.gtkkn.gir.log.logger
 import java.io.File
 import java.util.Locale
 
-private const val ENV_GTK_KN_LICENSE = "GTK_KN_LICENSE"
 private const val ENV_GTK_KN_LOG_LEVEL = "GTK_KN_LOG_LEVEL"
 private const val ENV_GTK_KN_SKIP_FORMAT = "GTK_KN_SKIP_FORMAT"
 
@@ -65,13 +68,6 @@ fun parseConfig(args: Array<String>): Config {
             description = "Log level",
         )
 
-    val license by parser
-        .option(
-            ArgType.Choice<Config.License>(),
-            shortName = "l",
-            description = "License of the generated bindings ",
-        )
-
     val configFile by parser
         .option(
             ArgType.String,
@@ -86,7 +82,6 @@ fun parseConfig(args: Array<String>): Config {
     var config = loadConfigFromFile(File(configFilePath))
 
     // apply env variable overrides
-    getLicenseFromEnv()?.let { config = config.copy(bindingLicense = it) }
     getSkipFormatFromEnv()?.let { config = config.copy(skipFormat = it) }
     getLogLevelFromEnv()?.let { config = config.copy(logLevel = it) }
 
@@ -96,19 +91,12 @@ fun parseConfig(args: Array<String>): Config {
     gradlePluginPath?.let { config = config.copy(gradlePluginDir = File(it)) }
     skipFormat?.let { config = config.copy(skipFormat = it) }
     logLevel?.let { config = config.copy(logLevel = it) }
-    license?.let { config = config.copy(bindingLicense = it) }
 
     return config
 }
 
 private fun getLogLevelFromEnv(): Level? = try {
     System.getenv(ENV_GTK_KN_LOG_LEVEL)?.let { Level.valueOf(it.uppercase(Locale.ROOT)) }
-} catch (e: IllegalArgumentException) {
-    null
-}
-
-private fun getLicenseFromEnv(): Config.License? = try {
-    System.getenv(ENV_GTK_KN_LICENSE)?.let { Config.License.valueOf(it.uppercase(Locale.ROOT)) }
 } catch (e: IllegalArgumentException) {
     null
 }
@@ -153,7 +141,6 @@ private fun loadConfigFromFile(file: File): Config {
         gradlePluginDir = file.parentFile.resolve(jsonConfig.gradlePluginDir),
         logLevel = Level.valueOf(jsonConfig.logLevel),
         skipFormat = jsonConfig.skipFormat,
-        bindingLicense = Config.License.valueOf(jsonConfig.bindingLicense),
         libraries = jsonConfig.libraries,
     )
 }

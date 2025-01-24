@@ -1,17 +1,21 @@
 /*
- * Copyright (c) 2024 gtk-kn
+ * Copyright (c) 2025 gtk-kn
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
  * This file is part of gtk-kn.
- * gtk-kn is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * gtk-kn is distributed in the hope that it will be useful,
+ * gtk-kn is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- * You should have received a copy of the GNU General Public License
- * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.gtkkn.gir.processor
@@ -30,7 +34,6 @@ import com.squareup.kotlinpoet.UNIT
 import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
-import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.generator.G_BOOLEAN
 import org.gtkkn.gir.generator.G_CHAR
@@ -74,7 +77,6 @@ import org.gtkkn.gir.model.GirUnion
  */
 class ProcessorContext(
     private val repositories: List<GirRepository>,
-    private val config: Config,
     val typeRegistry: TypeRegistry,
 ) {
     private val optInVersionBlueprintsMap = mutableMapOf<GirNamespace, MutableSet<OptInVersionBlueprint>>()
@@ -432,11 +434,7 @@ class ProcessorContext(
     fun needsEnumMemberPackageImport(girEnumeration: GirEnumeration): Boolean =
         enumsWithDirectImportOverride.contains(girEnumeration.cType)
 
-    fun processKdoc(doc: String?): String? = if (config.bindingLicense == Config.License.LGPL) {
-        doc.sanitizeKDoc()
-    } else {
-        null
-    }
+    fun processKdoc(doc: String?): String? = doc.sanitizeKDoc()
 
     private fun String?.sanitizeKDoc(): String? = this?.replace("...]", "]")
         ?.replace(Regex("&[#0-9a-zA-Z]+;")) { "`${it.value}`" }

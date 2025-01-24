@@ -3,7 +3,6 @@
   "gradlePluginDir": "gradle-plugin",
   "logLevel": "INFO",
   "skipFormat": false,
-  "bindingLicense": "LGPL",
   "libraries": [
     {
       "name": "cairo",

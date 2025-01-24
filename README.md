@@ -182,12 +182,8 @@ the [GitLab issue tracker](https://gitlab.com/gtk-kn/gtk-kn/-/issues).
 ## License
 
 This project is licensed under
-the [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.en.html). However, different sections
-are licensed as follows:
+the [GNU Lesser General Public License v2.1 (LGPLv2.1)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html). However, different
+sections are licensed as follows:
 
-- **Generated bindings**:
-  `bindings/**/src/nativeMain/kotlin/org/gtkkn/bindings/` - [LGPLv3](https://www.gnu.org/licenses/lgpl-3.0.en.html).
-- **Binding extensions**:
-  `bindings/**/src/nativeMain/kotlin/org/gtkkn/extensions/` - [MIT License](https://opensource.org/licenses/MIT).
 - **Documentation**: `docs/` - [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 - **Samples**: `samples/` - [MIT License](https://opensource.org/licenses/MIT).

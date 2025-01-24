@@ -1,6 +1,6 @@
 <component name="CopyrightManager">
   <copyright>
-    <option name="notice" value="Copyright (c) &amp;#36;today.year gtk-kn&#10;&#10;Creative Commons Attribution-ShareAlike 4.0 International License.&#10;&#10;You should have received a copy of the license along with this&#10;work. If not, see http://creativecommons.org/licenses/by-sa/4.0/" />
+    <option name="notice" value="Copyright (c) &amp;#36;today.year gtk-kn&#10;&#10;SPDX-License-Identifier: CC-BY-SA-4.0&#10;&#10;Creative Commons Attribution-ShareAlike 4.0 International License.&#10;&#10;You should have received a copy of the license along with this&#10;work. If not, see http://creativecommons.org/licenses/by-sa/4.0/" />
     <option name="myName" value="CC-BY-SA 4.0" />
   </copyright>
 </component>

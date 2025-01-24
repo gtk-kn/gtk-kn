@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="Extensions" pattern="file:kotlin/org/gtkkn/extensions//*||src[gtk-kn.bindings*]:*..*||file:nativeTest/kotlin//*" />
-</component>

@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Dokka" pattern="file[gtk-kn]:docs/dokka//*" />
+</component>
