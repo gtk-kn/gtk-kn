@@ -140,10 +140,16 @@ public interface ProxyResolver : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ProxyResolver for the provided [CPointer].
      */
-    public data class ProxyResolverImpl(
-        override val gioProxyResolverPointer: CPointer<GProxyResolver>,
+    public class ProxyResolverImpl(
+        gioProxyResolverPointer: CPointer<GProxyResolver>,
     ) : Object(gioProxyResolverPointer.reinterpret()),
-        ProxyResolver
+        ProxyResolver {
+        init {
+            Gio
+        }
+
+        override val gioProxyResolverPointer: CPointer<GProxyResolver> = gioProxyResolverPointer
+    }
 
     public companion object : TypeCompanion<ProxyResolver> {
         override val type: GeneratedInterfaceKGType<ProxyResolver> =

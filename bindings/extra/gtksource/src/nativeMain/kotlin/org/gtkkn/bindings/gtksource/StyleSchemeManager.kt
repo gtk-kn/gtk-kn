@@ -40,6 +40,10 @@ public open class StyleSchemeManager(
     public val gtksourceStyleSchemeManagerPointer: CPointer<GtkSourceStyleSchemeManager>,
 ) : Object(gtksourceStyleSchemeManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val schemeIds: List<String>?
         /**
          * Returns the ids of the available style schemes.

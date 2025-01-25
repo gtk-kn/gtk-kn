@@ -124,6 +124,10 @@ public open class ToggleButton(
     public val gtkToggleButtonPointer: CPointer<GtkToggleButton>,
 ) : Button(gtkToggleButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -225,6 +229,13 @@ public open class ToggleButton(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of ToggleButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_toggle_button_get_type()
+
+        /**
          * Creates a new `GtkToggleButton` containing a label.
          *
          * The label will be created using [ctor@Gtk.Label.new_with_mnemonic],
@@ -235,13 +246,6 @@ public open class ToggleButton(
          * @return a new `GtkToggleButton`
          */
         public fun withMnemonic(label: String): ToggleButton = ToggleButton(gtk_toggle_button_new_with_mnemonic(label)!!.reinterpret())
-
-        /**
-         * Get the GType of ToggleButton
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_toggle_button_get_type()
     }
 }
 

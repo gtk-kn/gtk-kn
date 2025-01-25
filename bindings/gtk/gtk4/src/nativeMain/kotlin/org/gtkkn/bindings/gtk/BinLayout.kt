@@ -27,6 +27,10 @@ public open class BinLayout(
     public val gtkBinLayoutPointer: CPointer<GtkBinLayout>,
 ) : LayoutManager(gtkBinLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkBinLayout` instance.
      *

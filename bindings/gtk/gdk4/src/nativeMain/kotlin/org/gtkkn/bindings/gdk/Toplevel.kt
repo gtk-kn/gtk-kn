@@ -363,10 +363,16 @@ public interface Toplevel : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Toplevel for the provided [CPointer].
      */
-    public data class ToplevelImpl(
-        override val gdkToplevelPointer: CPointer<GdkToplevel>,
+    public class ToplevelImpl(
+        gdkToplevelPointer: CPointer<GdkToplevel>,
     ) : Surface(gdkToplevelPointer.reinterpret()),
-        Toplevel
+        Toplevel {
+        init {
+            Gdk
+        }
+
+        override val gdkToplevelPointer: CPointer<GdkToplevel> = gdkToplevelPointer
+    }
 
     public companion object : TypeCompanion<Toplevel> {
         override val type: GeneratedInterfaceKGType<Toplevel> =

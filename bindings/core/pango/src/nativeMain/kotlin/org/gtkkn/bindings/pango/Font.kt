@@ -57,6 +57,10 @@ public abstract class Font(
     public val pangoFontPointer: CPointer<PangoFont>,
 ) : Object(pangoFontPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Returns a description of the font, with font size set in points.
      *

@@ -62,6 +62,10 @@ public class Download(
     public val webkitDownloadPointer: CPointer<WebKitDownload>,
 ) : Object(webkitDownloadPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Whether or not the download is allowed to overwrite an existing file on
      * disk. If this property is false and the destination already exists,

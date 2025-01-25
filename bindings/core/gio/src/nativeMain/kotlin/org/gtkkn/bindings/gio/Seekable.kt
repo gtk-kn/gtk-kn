@@ -143,10 +143,16 @@ public interface Seekable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Seekable for the provided [CPointer].
      */
-    public data class SeekableImpl(
-        override val gioSeekablePointer: CPointer<GSeekable>,
+    public class SeekableImpl(
+        gioSeekablePointer: CPointer<GSeekable>,
     ) : Object(gioSeekablePointer.reinterpret()),
-        Seekable
+        Seekable {
+        init {
+            Gio
+        }
+
+        override val gioSeekablePointer: CPointer<GSeekable> = gioSeekablePointer
+    }
 
     public companion object : TypeCompanion<Seekable> {
         override val type: GeneratedInterfaceKGType<Seekable> =

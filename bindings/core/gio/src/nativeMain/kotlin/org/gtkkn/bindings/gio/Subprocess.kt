@@ -134,6 +134,10 @@ public open class Subprocess(
 ) : Object(gioSubprocessPointer.reinterpret()),
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioInitablePointer: CPointer<GInitable>
         get() = handle.reinterpret()
 

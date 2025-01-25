@@ -31,6 +31,10 @@ public open class OutsetShadowNode(
     public val gskOutsetShadowNodePointer: CPointer<GskOutsetShadowNode>,
 ) : RenderNode(gskOutsetShadowNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render an outset shadow
      * around the box given by @outline.

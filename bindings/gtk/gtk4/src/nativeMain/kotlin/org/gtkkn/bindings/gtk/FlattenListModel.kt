@@ -39,6 +39,10 @@ public open class FlattenListModel(
     ListModel,
     SectionModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

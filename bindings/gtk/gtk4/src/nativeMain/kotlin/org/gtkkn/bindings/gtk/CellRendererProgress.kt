@@ -35,6 +35,10 @@ public open class CellRendererProgress(
 ) : CellRenderer(gtkCellRendererProgressPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

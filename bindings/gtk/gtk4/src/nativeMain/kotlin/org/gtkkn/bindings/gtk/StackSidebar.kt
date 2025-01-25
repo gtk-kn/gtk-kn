@@ -45,6 +45,10 @@ public open class StackSidebar(
     public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>,
 ) : Widget(gtkStackSidebarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

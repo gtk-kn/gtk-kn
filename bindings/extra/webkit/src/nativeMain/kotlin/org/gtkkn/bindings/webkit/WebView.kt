@@ -207,6 +207,10 @@ public open class WebView(
     public val webkitWebViewPointer: CPointer<WebKitWebView>,
 ) : WebViewBase(webkitWebViewPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

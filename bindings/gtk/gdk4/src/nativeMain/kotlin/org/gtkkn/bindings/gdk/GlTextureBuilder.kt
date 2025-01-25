@@ -65,6 +65,10 @@ public open class GlTextureBuilder(
     public val gdkGlTextureBuilderPointer: CPointer<GdkGLTextureBuilder>,
 ) : Object(gdkGlTextureBuilderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The context owning the texture.
      *

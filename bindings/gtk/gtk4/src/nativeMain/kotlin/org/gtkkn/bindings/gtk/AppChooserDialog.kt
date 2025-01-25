@@ -58,6 +58,10 @@ public open class AppChooserDialog(
 ) : Dialog(gtkAppChooserDialogPointer.reinterpret()),
     AppChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
         get() = handle.reinterpret()
 

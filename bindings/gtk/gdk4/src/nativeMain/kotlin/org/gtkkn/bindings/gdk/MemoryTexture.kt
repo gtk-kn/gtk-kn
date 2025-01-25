@@ -27,6 +27,10 @@ public open class MemoryTexture(
     public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>,
 ) : Texture(gdkMemoryTexturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 

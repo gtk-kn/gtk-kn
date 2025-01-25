@@ -45,6 +45,10 @@ public open class BuilderCScope(
 ) : Object(gtkBuilderCScopePointer.reinterpret()),
     BuilderScope,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuilderScopePointer: CPointer<GtkBuilderScope>
         get() = handle.reinterpret()
 

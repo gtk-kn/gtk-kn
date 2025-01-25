@@ -113,6 +113,10 @@ public open class TestDBus(
     public val gioTestDBusPointer: CPointer<GTestDBus>,
 ) : Object(gioTestDBusPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * #GTestDBusFlags specifying the behaviour of the D-Bus session.
      *

@@ -91,6 +91,10 @@ public open class GridView(
     public val gtkGridViewPointer: CPointer<GtkGridView>,
 ) : ListBase(gtkGridViewPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

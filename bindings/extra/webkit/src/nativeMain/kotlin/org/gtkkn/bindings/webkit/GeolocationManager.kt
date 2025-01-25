@@ -50,6 +50,10 @@ public class GeolocationManager(
     public val webkitGeolocationManagerPointer: CPointer<WebKitGeolocationManager>,
 ) : Object(webkitGeolocationManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Whether high accuracy is enabled. This is a read-only property that will be
      * set to true when a #WebKitGeolocationManager needs to get accurate position updates.

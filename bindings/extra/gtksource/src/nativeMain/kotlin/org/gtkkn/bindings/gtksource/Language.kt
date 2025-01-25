@@ -43,6 +43,10 @@ public open class Language(
     public val gtksourceLanguagePointer: CPointer<GtkSourceLanguage>,
 ) : Object(gtksourceLanguagePointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val hidden: Boolean
         /**
          * Returns whether the language should be hidden from the user.

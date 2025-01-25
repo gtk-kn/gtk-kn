@@ -24,6 +24,10 @@ public open class RepeatingRadialGradientNode(
     public val gskRepeatingRadialGradientNodePointer: CPointer<GskRepeatingRadialGradientNode>,
 ) : RenderNode(gskRepeatingRadialGradientNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     public companion object : TypeCompanion<RepeatingRadialGradientNode> {
         override val type: GeneratedClassKGType<RepeatingRadialGradientNode> =
                 GeneratedClassKGType(getTypeOrNull("gsk_repeating_radial_gradient_node_get_type")!!) { RepeatingRadialGradientNode(it.reinterpret()) }

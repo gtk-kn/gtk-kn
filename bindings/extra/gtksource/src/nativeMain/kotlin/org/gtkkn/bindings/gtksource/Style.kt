@@ -51,6 +51,10 @@ public open class Style(
     public val gtksourceStylePointer: CPointer<GtkSourceStyle>,
 ) : Object(gtksourceStylePointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * This function modifies the [class@Gtk.TextTag] properties that are related to the
      * #GtkSourceStyle properties. Other [class@Gtk.TextTag] properties are left untouched.

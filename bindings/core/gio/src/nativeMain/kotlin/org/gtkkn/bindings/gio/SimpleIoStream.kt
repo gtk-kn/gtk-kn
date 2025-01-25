@@ -39,6 +39,10 @@ public open class SimpleIoStream(
     public val gioSimpleIoStreamPointer: CPointer<GSimpleIOStream>,
 ) : IoStream(gioSimpleIoStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSimpleIOStream wrapping @input_stream and @output_stream.
      * See also #GIOStream.

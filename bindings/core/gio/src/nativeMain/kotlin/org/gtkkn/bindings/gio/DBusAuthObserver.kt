@@ -108,6 +108,10 @@ public open class DBusAuthObserver(
     public val gioDBusAuthObserverPointer: CPointer<GDBusAuthObserver>,
 ) : Object(gioDBusAuthObserverPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GDBusAuthObserver object.
      *

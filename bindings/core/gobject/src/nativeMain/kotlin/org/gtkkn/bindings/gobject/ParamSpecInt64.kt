@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecInt64
  */
 public open class ParamSpecInt64(
     public val gobjectParamSpecInt64Pointer: CPointer<GParamSpecInt64>,
-) : ParamSpec(gobjectParamSpecInt64Pointer.reinterpret())
+) : ParamSpec(gobjectParamSpecInt64Pointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

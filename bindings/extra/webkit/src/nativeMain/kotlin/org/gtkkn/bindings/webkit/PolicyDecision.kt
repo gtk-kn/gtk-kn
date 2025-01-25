@@ -37,6 +37,10 @@ public abstract class PolicyDecision(
     public val webkitPolicyDecisionPointer: CPointer<WebKitPolicyDecision>,
 ) : Object(webkitPolicyDecisionPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Spawn a download from this decision.
      */

@@ -49,6 +49,10 @@ public open class ColumnViewCell(
     public val gtkColumnViewCellPointer: CPointer<GtkColumnViewCell>,
 ) : ListItem(gtkColumnViewCellPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Widget used for display.
      *

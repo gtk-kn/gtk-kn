@@ -72,6 +72,10 @@ public open class LockButton(
     public val gtkLockButtonPointer: CPointer<GtkLockButton>,
 ) : Button(gtkLockButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

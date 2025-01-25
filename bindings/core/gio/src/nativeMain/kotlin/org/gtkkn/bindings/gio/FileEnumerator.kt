@@ -79,6 +79,10 @@ public open class FileEnumerator(
     public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>,
 ) : Object(gioFileEnumeratorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Releases all resources used by this enumerator, making the
      * enumerator return %G_IO_ERROR_CLOSED on all calls.

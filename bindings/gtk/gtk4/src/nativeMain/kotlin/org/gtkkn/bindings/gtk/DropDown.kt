@@ -122,6 +122,10 @@ public open class DropDown(
     public val gtkDropDownPointer: CPointer<GtkDropDown>,
 ) : Widget(gtkDropDownPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

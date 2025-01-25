@@ -41,6 +41,10 @@ public class Exception(
     public val jscExceptionPointer: CPointer<JSCException>,
 ) : Object(jscExceptionPointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * Create a new #JSCException in @context with @message.
      *

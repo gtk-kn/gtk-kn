@@ -132,6 +132,10 @@ public open class ColumnView(
 ) : Widget(gtkColumnViewPointer.reinterpret()),
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkScrollablePointer: CPointer<GtkScrollable>
         get() = handle.reinterpret()
 

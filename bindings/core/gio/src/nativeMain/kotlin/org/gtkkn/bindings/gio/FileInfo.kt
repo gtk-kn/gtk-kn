@@ -153,6 +153,10 @@ public open class FileInfo(
     public val gioFileInfoPointer: CPointer<GFileInfo>,
 ) : Object(gioFileInfoPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new file info structure.
      *

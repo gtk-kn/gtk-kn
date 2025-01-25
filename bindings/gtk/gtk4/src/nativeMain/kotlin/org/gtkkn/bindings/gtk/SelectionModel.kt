@@ -259,10 +259,17 @@ public interface SelectionModel : Proxy, ListModel, KGTyped {
      *
      * @constructor Creates a new instance of SelectionModel for the provided [CPointer].
      */
-    public data class SelectionModelImpl(
-        override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>,
+    public class SelectionModelImpl(
+        gtkSelectionModelPointer: CPointer<GtkSelectionModel>,
     ) : Object(gtkSelectionModelPointer.reinterpret()),
-        SelectionModel
+        SelectionModel {
+        init {
+            Gtk
+        }
+
+        override val gtkSelectionModelPointer: CPointer<GtkSelectionModel> =
+                gtkSelectionModelPointer
+    }
 
     public companion object : TypeCompanion<SelectionModel> {
         override val type: GeneratedInterfaceKGType<SelectionModel> =

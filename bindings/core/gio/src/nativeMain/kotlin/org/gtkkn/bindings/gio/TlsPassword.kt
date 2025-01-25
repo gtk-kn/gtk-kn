@@ -41,6 +41,10 @@ public open class TlsPassword(
     public val gioTlsPasswordPointer: CPointer<GTlsPassword>,
 ) : Object(gioTlsPasswordPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Description of what the password is for.
      *

@@ -81,6 +81,10 @@ public open class ShortcutController(
     ListModel,
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

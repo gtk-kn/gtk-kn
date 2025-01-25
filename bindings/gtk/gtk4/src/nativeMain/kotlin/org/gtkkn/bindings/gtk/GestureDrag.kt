@@ -46,6 +46,10 @@ public open class GestureDrag(
     public val gtkGestureDragPointer: CPointer<GtkGestureDrag>,
 ) : GestureSingle(gtkGestureDragPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a newly created `GtkGesture` that recognizes drags.
      *

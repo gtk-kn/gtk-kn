@@ -98,6 +98,10 @@ public class ViewSwitcher(
     public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>,
 ) : Widget(adwViewSwitcherPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

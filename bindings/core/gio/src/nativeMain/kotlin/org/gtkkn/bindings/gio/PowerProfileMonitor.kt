@@ -91,10 +91,17 @@ public interface PowerProfileMonitor : Proxy, Initable, KGTyped {
      *
      * @constructor Creates a new instance of PowerProfileMonitor for the provided [CPointer].
      */
-    public data class PowerProfileMonitorImpl(
-        override val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor>,
+    public class PowerProfileMonitorImpl(
+        gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor>,
     ) : Object(gioPowerProfileMonitorPointer.reinterpret()),
-        PowerProfileMonitor
+        PowerProfileMonitor {
+        init {
+            Gio
+        }
+
+        override val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor> =
+                gioPowerProfileMonitorPointer
+    }
 
     public companion object : TypeCompanion<PowerProfileMonitor> {
         override val type: GeneratedInterfaceKGType<PowerProfileMonitor> =

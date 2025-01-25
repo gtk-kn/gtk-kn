@@ -85,6 +85,10 @@ public class ButtonContent(
     public val adwButtonContentPointer: CPointer<AdwButtonContent>,
 ) : Widget(adwButtonContentPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

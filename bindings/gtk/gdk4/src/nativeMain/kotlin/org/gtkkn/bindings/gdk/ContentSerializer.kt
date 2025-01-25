@@ -58,6 +58,10 @@ public open class ContentSerializer(
 ) : Object(gdkContentSerializerPointer.reinterpret()),
     AsyncResult,
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
         get() = handle.reinterpret()
 

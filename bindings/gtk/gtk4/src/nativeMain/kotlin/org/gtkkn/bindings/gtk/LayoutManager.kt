@@ -79,6 +79,10 @@ public abstract class LayoutManager(
     public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>,
 ) : Object(gtkLayoutManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Assigns the given @width, @height, and @baseline to
      * a @widget, and computes the position and sizes of the children of

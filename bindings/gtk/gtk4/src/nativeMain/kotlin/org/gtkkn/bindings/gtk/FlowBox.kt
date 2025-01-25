@@ -132,6 +132,10 @@ public open class FlowBox(
 ) : Widget(gtkFlowBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

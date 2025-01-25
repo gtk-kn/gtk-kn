@@ -50,10 +50,17 @@ public interface CompletionProposal : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of CompletionProposal for the provided [CPointer].
      */
-    public data class CompletionProposalImpl(
-        override val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>,
+    public class CompletionProposalImpl(
+        gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal>,
     ) : Object(gtksourceCompletionProposalPointer.reinterpret()),
-        CompletionProposal
+        CompletionProposal {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal> =
+                gtksourceCompletionProposalPointer
+    }
 
     public companion object : TypeCompanion<CompletionProposal> {
         override val type: GeneratedInterfaceKGType<CompletionProposal> =

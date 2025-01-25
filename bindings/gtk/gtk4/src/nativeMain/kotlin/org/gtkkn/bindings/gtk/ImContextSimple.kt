@@ -65,6 +65,10 @@ public open class ImContextSimple(
     public val gtkImContextSimplePointer: CPointer<GtkIMContextSimple>,
 ) : ImContext(gtkImContextSimplePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkIMContextSimple`.
      *

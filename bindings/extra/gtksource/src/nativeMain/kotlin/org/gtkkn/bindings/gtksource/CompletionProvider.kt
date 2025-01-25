@@ -213,10 +213,17 @@ public interface CompletionProvider : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of CompletionProvider for the provided [CPointer].
      */
-    public data class CompletionProviderImpl(
-        override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>,
+    public class CompletionProviderImpl(
+        gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>,
     ) : Object(gtksourceCompletionProviderPointer.reinterpret()),
-        CompletionProvider
+        CompletionProvider {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider> =
+                gtksourceCompletionProviderPointer
+    }
 
     public companion object : TypeCompanion<CompletionProvider> {
         override val type: GeneratedInterfaceKGType<CompletionProvider> =

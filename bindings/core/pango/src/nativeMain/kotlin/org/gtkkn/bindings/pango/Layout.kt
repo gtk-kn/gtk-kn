@@ -157,6 +157,10 @@ public open class Layout(
     public val pangoLayoutPointer: CPointer<PangoLayout>,
 ) : Object(pangoLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Create a new `PangoLayout` object with attributes initialized to
      * default values for a particular `PangoContext`.

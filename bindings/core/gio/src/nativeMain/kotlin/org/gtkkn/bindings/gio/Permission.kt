@@ -59,6 +59,10 @@ public abstract class Permission(
     public val gioPermissionPointer: CPointer<GPermission>,
 ) : Object(gioPermissionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * true if the caller currently has permission to perform the action that
      * @permission represents the permission to perform.

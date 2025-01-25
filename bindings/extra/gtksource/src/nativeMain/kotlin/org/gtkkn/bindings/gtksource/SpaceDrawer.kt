@@ -85,6 +85,10 @@ public open class SpaceDrawer(
     public val gtksourceSpaceDrawerPointer: CPointer<GtkSourceSpaceDrawer>,
 ) : Object(gtksourceSpaceDrawerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Whether the [property@SpaceDrawer:matrix] property is enabled.
      */

@@ -57,6 +57,10 @@ public open class ListItem(
     public val gtkListItemPointer: CPointer<GtkListItem>,
 ) : Object(gtkListItemPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The accessible description to set on the list item.
      *

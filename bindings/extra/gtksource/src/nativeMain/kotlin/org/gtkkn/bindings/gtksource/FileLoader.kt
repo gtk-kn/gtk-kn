@@ -72,6 +72,10 @@ public open class FileLoader(
     public val gtksourceFileLoaderPointer: CPointer<GtkSourceFileLoader>,
 ) : Object(gtksourceFileLoaderPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The #GtkSourceBuffer to load the contents into. The
      * #GtkSourceFileLoader object has a weak reference to the buffer.

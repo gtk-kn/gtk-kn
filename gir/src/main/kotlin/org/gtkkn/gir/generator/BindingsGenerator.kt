@@ -359,7 +359,6 @@ class BindingsGenerator(
         internal val GOBJECT_TYPES = ClassName("org.gtkkn.extensions.gobject", "Types")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
-        internal val MEMORY_CLEANER_FREE_MEMBER = MemberName("org.gtkkn.extensions.glib.cinterop", "MemoryCleaner.free")
         internal val MEMORY_CLEANER_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "MemoryCleaner")
         internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
         internal val PROXY_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "Proxy")
@@ -368,6 +367,7 @@ class BindingsGenerator(
         internal val TO_G_POINTER_C_ARRAY = MemberName("org.gtkkn.extensions.glib.ext", "toGPointerCArray")
         internal val TO_G_POINTER_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toGPointerList")
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toKStringList")
+        internal val TYPE_CACHE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeCache")
         internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
         internal val UNSAFE_FIELD_SETTER_TYPE = ClassName("org.gtkkn.extensions.glib.annotations", "UnsafeFieldSetter")
 

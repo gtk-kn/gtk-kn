@@ -53,6 +53,10 @@ public open class Viewport(
 ) : Widget(gtkViewportPointer.reinterpret()),
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkScrollablePointer: CPointer<GtkScrollable>
         get() = handle.reinterpret()
 

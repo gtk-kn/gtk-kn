@@ -62,6 +62,10 @@ public open class PreferencesPage(
     public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>,
 ) : Widget(adwPreferencesPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

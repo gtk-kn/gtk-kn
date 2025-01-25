@@ -92,6 +92,10 @@ public abstract class MediaStream(
 ) : Object(gtkMediaStreamPointer.reinterpret()),
     Paintable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 

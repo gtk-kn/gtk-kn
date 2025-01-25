@@ -106,6 +106,10 @@ public open class PageSetup(
     public val gtkPageSetupPointer: CPointer<GtkPageSetup>,
 ) : Object(gtkPageSetupPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkPageSetup`.
      *

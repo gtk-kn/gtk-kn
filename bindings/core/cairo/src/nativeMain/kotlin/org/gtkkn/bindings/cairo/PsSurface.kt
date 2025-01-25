@@ -40,6 +40,10 @@ public open class PsSurface(
     public val cairoPsSurfacePointer: CPointer<cairo_surface_t>,
 ) : Surface(cairoPsSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         filename: String?,
         widthInPoints: gdouble,

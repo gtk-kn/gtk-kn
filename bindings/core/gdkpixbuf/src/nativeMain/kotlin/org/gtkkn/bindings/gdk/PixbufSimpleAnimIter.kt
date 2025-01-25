@@ -17,6 +17,10 @@ public open class PixbufSimpleAnimIter(
     public val gdkPixbufSimpleAnimIterPointer: CPointer<GdkPixbufAnimationIter>,
 ) : PixbufAnimationIter(gdkPixbufSimpleAnimIterPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     public companion object : TypeCompanion<PixbufSimpleAnimIter> {
         override val type: GeneratedClassKGType<PixbufSimpleAnimIter> =
                 GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_iter_get_type")!!) { PixbufSimpleAnimIter(it.reinterpret()) }

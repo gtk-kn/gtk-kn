@@ -29,10 +29,17 @@ public interface ConstraintTarget : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ConstraintTarget for the provided [CPointer].
      */
-    public data class ConstraintTargetImpl(
-        override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>,
+    public class ConstraintTargetImpl(
+        gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>,
     ) : Object(gtkConstraintTargetPointer.reinterpret()),
-        ConstraintTarget
+        ConstraintTarget {
+        init {
+            Gtk
+        }
+
+        override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget> =
+                gtkConstraintTargetPointer
+    }
 
     public companion object : TypeCompanion<ConstraintTarget> {
         override val type: GeneratedInterfaceKGType<ConstraintTarget> =

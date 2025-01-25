@@ -57,6 +57,10 @@ public open class DBusObjectSkeleton(
 ) : Object(gioDBusObjectSkeletonPointer.reinterpret()),
     DBusObject,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusObjectPointer: CPointer<GDBusObject>
         get() = handle.reinterpret()
 

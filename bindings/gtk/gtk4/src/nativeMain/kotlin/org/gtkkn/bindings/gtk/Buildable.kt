@@ -51,10 +51,16 @@ public interface Buildable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Buildable for the provided [CPointer].
      */
-    public data class BuildableImpl(
-        override val gtkBuildablePointer: CPointer<GtkBuildable>,
+    public class BuildableImpl(
+        gtkBuildablePointer: CPointer<GtkBuildable>,
     ) : Object(gtkBuildablePointer.reinterpret()),
-        Buildable
+        Buildable {
+        init {
+            Gtk
+        }
+
+        override val gtkBuildablePointer: CPointer<GtkBuildable> = gtkBuildablePointer
+    }
 
     public companion object : TypeCompanion<Buildable> {
         override val type: GeneratedInterfaceKGType<Buildable> =

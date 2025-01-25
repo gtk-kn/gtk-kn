@@ -260,6 +260,10 @@ public class AboutWindow(
     public val adwAboutWindowPointer: CPointer<AdwAboutWindow>,
 ) : Window(adwAboutWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

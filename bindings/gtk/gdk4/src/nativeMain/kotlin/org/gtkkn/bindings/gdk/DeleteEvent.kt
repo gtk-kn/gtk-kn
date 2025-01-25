@@ -20,6 +20,10 @@ public open class DeleteEvent(
     public val gdkDeleteEventPointer: CPointer<GdkDeleteEvent>,
 ) : Event(gdkDeleteEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     public companion object : TypeCompanion<DeleteEvent> {
         override val type: GeneratedClassKGType<DeleteEvent> =
                 GeneratedClassKGType(getTypeOrNull("gdk_delete_event_get_type")!!) { DeleteEvent(it.reinterpret()) }

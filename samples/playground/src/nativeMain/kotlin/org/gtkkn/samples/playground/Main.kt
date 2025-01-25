@@ -25,6 +25,7 @@
 package org.gtkkn.samples.playground
 
 import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.HeaderBar
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.glib.DateTime
@@ -39,7 +40,9 @@ import org.gtkkn.extensions.glib.util.log.LogLevel.INFO
 import org.gtkkn.extensions.glib.util.log.LogLevel.MESSAGE
 import org.gtkkn.extensions.glib.util.log.LogLevel.WARNING
 import org.gtkkn.extensions.glib.util.log.log
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gobject.G_TYPE_STRING
+import org.gtkkn.native.gtk.gtk_box_new
 
 fun main() = Application {
     log(DEBUG) { "This is a debug message" }
@@ -56,7 +59,8 @@ fun main() = Application {
     log(INFO) { "HeaderBar.getType() = ${HeaderBar.getType()}" }
 
     // setup window layout
-    val layout = Box(Orientation.VERTICAL, 0).apply {
+    val layout: Box = (TypeCache.getConstructor(Box.getType())
+        ?.invoke(gtk_box_new(Orientation.VERTICAL.nativeValue, 0)!!.reinterpret()) as Box).apply {
         append(headerBar)
     }
     content = layout

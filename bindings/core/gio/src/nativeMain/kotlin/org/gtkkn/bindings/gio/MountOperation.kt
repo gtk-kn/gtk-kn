@@ -98,6 +98,10 @@ public open class MountOperation(
     public val gioMountOperationPointer: CPointer<GMountOperation>,
 ) : Object(gioMountOperationPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Whether to use an anonymous user when authenticating.
      */

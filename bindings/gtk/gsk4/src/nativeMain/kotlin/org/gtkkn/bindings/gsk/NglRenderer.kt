@@ -18,6 +18,10 @@ public open class NglRenderer(
     public val gskNglRendererPointer: CPointer<GskRenderer>,
 ) : Renderer(gskNglRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     public constructor() : this(gsk_ngl_renderer_new()!!)
 
     public companion object : TypeCompanion<NglRenderer> {

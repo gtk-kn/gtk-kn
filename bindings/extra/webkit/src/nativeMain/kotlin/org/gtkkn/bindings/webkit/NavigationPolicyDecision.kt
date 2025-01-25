@@ -26,6 +26,10 @@ public class NavigationPolicyDecision(
     public val webkitNavigationPolicyDecisionPointer: CPointer<WebKitNavigationPolicyDecision>,
 ) : PolicyDecision(webkitNavigationPolicyDecisionPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The #WebKitNavigationAction that triggered this policy decision.
      *

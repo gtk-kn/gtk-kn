@@ -83,6 +83,10 @@ public open class FontDialog(
     public val gtkFontDialogPointer: CPointer<GtkFontDialog>,
 ) : Object(gtkFontDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Sets a filter to restrict what fonts are shown
      * in the font chooser dialog.

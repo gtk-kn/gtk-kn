@@ -39,6 +39,10 @@ public open class EventControllerLegacy(
     public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>,
 ) : EventController(gtkEventControllerLegacyPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new legacy event controller.
      *

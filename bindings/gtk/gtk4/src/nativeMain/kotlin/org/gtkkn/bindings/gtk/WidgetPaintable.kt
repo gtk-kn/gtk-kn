@@ -46,6 +46,10 @@ public open class WidgetPaintable(
 ) : Object(gtkWidgetPaintablePointer.reinterpret()),
     Paintable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 

@@ -68,6 +68,10 @@ public abstract class Drop(
     public val gdkDropPointer: CPointer<GdkDrop>,
 ) : Object(gdkDropPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The possible actions for this drop
      */

@@ -109,6 +109,10 @@ public open class PrintContext(
     public val gtkPrintContextPointer: CPointer<GtkPrintContext>,
 ) : Object(gtkPrintContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `PangoContext` that can be used with the
      * `GtkPrintContext`.

@@ -97,6 +97,10 @@ public abstract class ImContext(
     public val gtkImContextPointer: CPointer<GtkIMContext>,
 ) : Object(gtkImContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Requests the platform to show an on-screen keyboard for user input.
      *

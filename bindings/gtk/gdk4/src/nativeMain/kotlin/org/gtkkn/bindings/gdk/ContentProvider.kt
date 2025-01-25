@@ -74,6 +74,10 @@ public open class ContentProvider(
     public val gdkContentProviderPointer: CPointer<GdkContentProvider>,
 ) : Object(gdkContentProviderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Create a content provider that provides the given @bytes as data for
      * the given @mime_type.

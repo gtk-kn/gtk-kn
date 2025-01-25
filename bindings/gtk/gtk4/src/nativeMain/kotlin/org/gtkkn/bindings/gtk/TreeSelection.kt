@@ -83,6 +83,10 @@ public open class TreeSelection(
     public val gtkTreeSelectionPointer: CPointer<GtkTreeSelection>,
 ) : Object(gtkTreeSelectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Selection mode.
      * See gtk_tree_selection_set_mode() for more information on this property.

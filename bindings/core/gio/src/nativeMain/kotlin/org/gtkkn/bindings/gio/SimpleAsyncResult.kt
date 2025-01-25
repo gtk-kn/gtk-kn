@@ -231,6 +231,10 @@ public open class SimpleAsyncResult(
 ) : Object(gioSimpleAsyncResultPointer.reinterpret()),
     AsyncResult,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
         get() = handle.reinterpret()
 
@@ -416,22 +420,6 @@ public open class SimpleAsyncResult(
             GioTypeProvider.register()}
 
         /**
-         * Creates a #GSimpleAsyncResult from an error condition, and takes over the
-         * caller's ownership of @error, so the caller does not need to free it anymore.
-         *
-         * @param sourceObject a #GObject, or null
-         * @param callback a #GAsyncReadyCallback.
-         * @param error a #GError
-         * @return a #GSimpleAsyncResult
-         * @since 2.28
-         */
-        public fun takeError(
-            sourceObject: Object? = null,
-            callback: AsyncReadyCallback?,
-            error: Error,
-        ): SimpleAsyncResult = SimpleAsyncResult(g_simple_async_result_new_take_error(sourceObject?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)!!)
-
-        /**
          * Ensures that the data passed to the _finish function of an async
          * operation is consistent.  Three checks are performed.
          *
@@ -464,5 +452,21 @@ public open class SimpleAsyncResult(
          * @return the GType
          */
         public fun getType(): GType = g_simple_async_result_get_type()
+
+        /**
+         * Creates a #GSimpleAsyncResult from an error condition, and takes over the
+         * caller's ownership of @error, so the caller does not need to free it anymore.
+         *
+         * @param sourceObject a #GObject, or null
+         * @param callback a #GAsyncReadyCallback.
+         * @param error a #GError
+         * @return a #GSimpleAsyncResult
+         * @since 2.28
+         */
+        public fun takeError(
+            sourceObject: Object? = null,
+            callback: AsyncReadyCallback?,
+            error: Error,
+        ): SimpleAsyncResult = SimpleAsyncResult(g_simple_async_result_new_take_error(sourceObject?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)!!)
     }
 }

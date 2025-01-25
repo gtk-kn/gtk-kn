@@ -92,10 +92,17 @@ public interface AccessibleText : Proxy, Accessible, KGTyped {
      *
      * @constructor Creates a new instance of AccessibleText for the provided [CPointer].
      */
-    public data class AccessibleTextImpl(
-        override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>,
+    public class AccessibleTextImpl(
+        gtkAccessibleTextPointer: CPointer<GtkAccessibleText>,
     ) : Object(gtkAccessibleTextPointer.reinterpret()),
-        AccessibleText
+        AccessibleText {
+        init {
+            Gtk
+        }
+
+        override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText> =
+                gtkAccessibleTextPointer
+    }
 
     public companion object : TypeCompanion<AccessibleText> {
         override val type: GeneratedInterfaceKGType<AccessibleText> =

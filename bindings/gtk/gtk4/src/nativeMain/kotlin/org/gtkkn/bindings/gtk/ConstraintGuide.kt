@@ -58,6 +58,10 @@ public open class ConstraintGuide(
 ) : Object(gtkConstraintGuidePointer.reinterpret()),
     ConstraintTarget,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = handle.reinterpret()
 

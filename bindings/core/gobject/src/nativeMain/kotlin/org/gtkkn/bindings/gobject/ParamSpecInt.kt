@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecInt
  */
 public open class ParamSpecInt(
     public val gobjectParamSpecIntPointer: CPointer<GParamSpecInt>,
-) : ParamSpec(gobjectParamSpecIntPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecIntPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

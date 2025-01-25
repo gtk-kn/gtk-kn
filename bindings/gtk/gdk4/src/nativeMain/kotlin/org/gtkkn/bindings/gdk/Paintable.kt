@@ -249,10 +249,16 @@ public interface Paintable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Paintable for the provided [CPointer].
      */
-    public data class PaintableImpl(
-        override val gdkPaintablePointer: CPointer<GdkPaintable>,
+    public class PaintableImpl(
+        gdkPaintablePointer: CPointer<GdkPaintable>,
     ) : Object(gdkPaintablePointer.reinterpret()),
-        Paintable
+        Paintable {
+        init {
+            Gdk
+        }
+
+        override val gdkPaintablePointer: CPointer<GdkPaintable> = gdkPaintablePointer
+    }
 
     public companion object : TypeCompanion<Paintable> {
         override val type: GeneratedInterfaceKGType<Paintable> =

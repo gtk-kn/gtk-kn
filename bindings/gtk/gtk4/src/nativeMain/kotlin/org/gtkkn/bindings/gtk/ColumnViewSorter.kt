@@ -63,6 +63,10 @@ public open class ColumnViewSorter(
     public val gtkColumnViewSorterPointer: CPointer<GtkColumnViewSorter>,
 ) : Sorter(gtkColumnViewSorterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The primary sort column.
      *

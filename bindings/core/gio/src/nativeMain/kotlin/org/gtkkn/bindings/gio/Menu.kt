@@ -50,6 +50,10 @@ public open class Menu(
     public val gioMenuPointer: CPointer<GMenu>,
 ) : MenuModel(gioMenuPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GMenu.
      *

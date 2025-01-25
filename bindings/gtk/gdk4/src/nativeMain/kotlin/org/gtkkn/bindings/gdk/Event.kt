@@ -53,6 +53,10 @@ public abstract class Event(
     public val gdkEventPointer: CPointer<GdkEvent>,
 ) : TypeInstance(gdkEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Returns the device of an event.
      *

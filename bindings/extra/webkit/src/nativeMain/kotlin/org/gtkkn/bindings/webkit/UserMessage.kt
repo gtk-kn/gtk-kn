@@ -42,6 +42,10 @@ public class UserMessage(
     public val webkitUserMessagePointer: CPointer<WebKitUserMessage>,
 ) : InitiallyUnowned(webkitUserMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The UNIX file descriptors of the user message.
      *

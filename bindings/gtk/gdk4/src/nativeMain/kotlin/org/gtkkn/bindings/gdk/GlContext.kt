@@ -107,6 +107,10 @@ public abstract class GlContext(
     public val gdkGlContextPointer: CPointer<GdkGLContext>,
 ) : DrawContext(gdkGlContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The allowed APIs.
      *

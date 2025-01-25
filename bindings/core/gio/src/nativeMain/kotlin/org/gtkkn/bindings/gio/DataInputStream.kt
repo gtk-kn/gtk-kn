@@ -69,6 +69,10 @@ public open class DataInputStream(
     public val gioDataInputStreamPointer: CPointer<GDataInputStream>,
 ) : BufferedInputStream(gioDataInputStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSeekablePointer: CPointer<GSeekable>
         get() = handle.reinterpret()
 

@@ -108,6 +108,10 @@ public open class Calendar(
     public val gtkCalendarPointer: CPointer<GtkCalendar>,
 ) : Widget(gtkCalendarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

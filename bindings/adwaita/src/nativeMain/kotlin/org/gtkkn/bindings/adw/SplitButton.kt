@@ -109,6 +109,10 @@ public class SplitButton(
 ) : Widget(adwSplitButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 

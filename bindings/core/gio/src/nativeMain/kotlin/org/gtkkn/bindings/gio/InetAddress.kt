@@ -61,6 +61,10 @@ public open class InetAddress(
     public val gioInetAddressPointer: CPointer<GInetAddress>,
 ) : Object(gioInetAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The address family (IPv4 or IPv6).
      *
@@ -304,6 +308,13 @@ public open class InetAddress(
             GioTypeProvider.register()}
 
         /**
+         * Get the GType of InetAddress
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_inet_address_get_type()
+
+        /**
          * Creates a #GInetAddress for the loopback address for @family.
          *
          * @param family the address family
@@ -313,12 +324,5 @@ public open class InetAddress(
          * @since 2.22
          */
         public fun loopback(family: SocketFamily): InetAddress = InetAddress(g_inet_address_new_loopback(family.nativeValue)!!)
-
-        /**
-         * Get the GType of InetAddress
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = g_inet_address_get_type()
     }
 }

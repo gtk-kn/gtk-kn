@@ -39,6 +39,10 @@ public open class MultiSorter(
     ListModel,
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

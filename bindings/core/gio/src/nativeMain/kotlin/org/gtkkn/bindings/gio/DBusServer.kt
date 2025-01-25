@@ -86,6 +86,10 @@ public open class DBusServer(
 ) : Object(gioDBusServerPointer.reinterpret()),
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioInitablePointer: CPointer<GInitable>
         get() = handle.reinterpret()
 

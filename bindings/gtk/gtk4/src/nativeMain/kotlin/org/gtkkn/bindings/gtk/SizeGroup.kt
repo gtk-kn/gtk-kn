@@ -94,6 +94,10 @@ public open class SizeGroup(
 ) : Object(gtkSizeGroupPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

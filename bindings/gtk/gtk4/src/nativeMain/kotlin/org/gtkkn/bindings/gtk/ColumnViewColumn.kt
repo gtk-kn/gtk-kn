@@ -60,6 +60,10 @@ public open class ColumnViewColumn(
     public val gtkColumnViewColumnPointer: CPointer<GtkColumnViewColumn>,
 ) : Object(gtkColumnViewColumnPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GtkColumnView` this column is a part of.
      */

@@ -84,6 +84,10 @@ public open class SearchBar(
     public val gtkSearchBarPointer: CPointer<GtkSearchBar>,
 ) : Widget(gtkSearchBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

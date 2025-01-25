@@ -54,10 +54,16 @@ public interface Converter : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Converter for the provided [CPointer].
      */
-    public data class ConverterImpl(
-        override val gioConverterPointer: CPointer<GConverter>,
+    public class ConverterImpl(
+        gioConverterPointer: CPointer<GConverter>,
     ) : Object(gioConverterPointer.reinterpret()),
-        Converter
+        Converter {
+        init {
+            Gio
+        }
+
+        override val gioConverterPointer: CPointer<GConverter> = gioConverterPointer
+    }
 
     public companion object : TypeCompanion<Converter> {
         override val type: GeneratedInterfaceKGType<Converter> =

@@ -72,6 +72,10 @@ public open class Fixed(
     public val gtkFixedPointer: CPointer<GtkFixed>,
 ) : Widget(gtkFixedPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

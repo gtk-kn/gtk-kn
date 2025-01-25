@@ -43,6 +43,10 @@ public open class Mesh(
     public val cairoMeshPointer: CPointer<cairo_pattern_t>,
 ) : Pattern(cairoMeshPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor() : this(cairo_pattern_create_mesh()!!) {
         MemoryCleaner.setFreeFunc(this, owned = true) { cairo_pattern_destroy(it.reinterpret()) }
     }

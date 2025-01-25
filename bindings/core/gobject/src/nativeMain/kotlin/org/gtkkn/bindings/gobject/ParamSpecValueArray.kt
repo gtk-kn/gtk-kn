@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecValueArray
  */
 public open class ParamSpecValueArray(
     public val gobjectParamSpecValueArrayPointer: CPointer<GParamSpecValueArray>,
-) : ParamSpec(gobjectParamSpecValueArrayPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecValueArrayPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

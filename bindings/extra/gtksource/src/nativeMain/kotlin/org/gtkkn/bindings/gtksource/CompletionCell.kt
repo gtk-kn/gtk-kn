@@ -59,6 +59,10 @@ public open class CompletionCell(
     public val gtksourceCompletionCellPointer: CPointer<GtkSourceCompletionCell>,
 ) : Widget(gtksourceCompletionCellPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -48,6 +48,10 @@ public open class AppLaunchContext(
     public val gdkAppLaunchContextPointer: CPointer<GdkAppLaunchContext>,
 ) : org.gtkkn.bindings.gio.AppLaunchContext(gdkAppLaunchContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The display that the `GdkAppLaunchContext` is on.
      */

@@ -26,6 +26,10 @@ public open class ColorNode(
     public val gskColorNodePointer: CPointer<GskColorNode>,
 ) : RenderNode(gskColorNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render the color specified by @rgba into
      * the area given by @bounds.

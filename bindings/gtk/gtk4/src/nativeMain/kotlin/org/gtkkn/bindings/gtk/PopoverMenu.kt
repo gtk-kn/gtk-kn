@@ -151,6 +151,10 @@ public open class PopoverMenu(
     public val gtkPopoverMenuPointer: CPointer<GtkPopoverMenu>,
 ) : Popover(gtkPopoverMenuPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

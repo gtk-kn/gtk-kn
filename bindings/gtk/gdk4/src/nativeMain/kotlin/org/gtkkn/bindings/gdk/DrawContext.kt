@@ -39,6 +39,10 @@ public abstract class DrawContext(
     public val gdkDrawContextPointer: CPointer<GdkDrawContext>,
 ) : Object(gdkDrawContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The `GdkDisplay` used to create the `GdkDrawContext`.
      */

@@ -109,6 +109,10 @@ public open class TreeViewColumn(
     Buildable,
     CellLayout,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

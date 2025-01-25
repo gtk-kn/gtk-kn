@@ -32,6 +32,7 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
 import org.gtkkn.native.gdk.gdk_cairo_draw_from_gl
@@ -94,6 +95,10 @@ import org.gtkkn.native.gobject.GType
  * - record `ToplevelInterface`: glib type struct are ignored
  */
 public object Gdk {
+    init {
+        registerTypes()
+    }
+
     /**
      * Defines all possible DND actions.
      *
@@ -5112,6 +5117,55 @@ public object Gdk {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        TypeCache.register(AppLaunchContext::class, AppLaunchContext.getType()) { AppLaunchContext(it.reinterpret()) }
+        TypeCache.register(ButtonEvent::class, ButtonEvent.getType()) { ButtonEvent(it.reinterpret()) }
+        TypeCache.register(CairoContext::class, CairoContext.getType()) { CairoContext.CairoContextImpl(it.reinterpret()) }
+        TypeCache.register(Clipboard::class, Clipboard.getType()) { Clipboard(it.reinterpret()) }
+        TypeCache.register(ContentDeserializer::class, ContentDeserializer.getType()) { ContentDeserializer(it.reinterpret()) }
+        TypeCache.register(ContentProvider::class, ContentProvider.getType()) { ContentProvider(it.reinterpret()) }
+        TypeCache.register(ContentSerializer::class, ContentSerializer.getType()) { ContentSerializer(it.reinterpret()) }
+        TypeCache.register(CrossingEvent::class, CrossingEvent.getType()) { CrossingEvent(it.reinterpret()) }
+        TypeCache.register(Cursor::class, Cursor.getType()) { Cursor(it.reinterpret()) }
+        TypeCache.register(DndEvent::class, DndEvent.getType()) { DndEvent(it.reinterpret()) }
+        TypeCache.register(DeleteEvent::class, DeleteEvent.getType()) { DeleteEvent(it.reinterpret()) }
+        TypeCache.register(Device::class, Device.getType()) { Device.DeviceImpl(it.reinterpret()) }
+        TypeCache.register(DeviceTool::class, DeviceTool.getType()) { DeviceTool(it.reinterpret()) }
+        TypeCache.register(Display::class, Display.getType()) { Display(it.reinterpret()) }
+        TypeCache.register(DisplayManager::class, DisplayManager.getType()) { DisplayManager(it.reinterpret()) }
+        TypeCache.register(DmabufTexture::class, DmabufTexture.getType()) { DmabufTexture(it.reinterpret()) }
+        TypeCache.register(DmabufTextureBuilder::class, DmabufTextureBuilder.getType()) { DmabufTextureBuilder(it.reinterpret()) }
+        TypeCache.register(Drag::class, Drag.getType()) { Drag.DragImpl(it.reinterpret()) }
+        TypeCache.register(DrawContext::class, DrawContext.getType()) { DrawContext.DrawContextImpl(it.reinterpret()) }
+        TypeCache.register(Drop::class, Drop.getType()) { Drop.DropImpl(it.reinterpret()) }
+        TypeCache.register(Event::class, Event.getType()) { Event.EventImpl(it.reinterpret()) }
+        TypeCache.register(FocusEvent::class, FocusEvent.getType()) { FocusEvent(it.reinterpret()) }
+        TypeCache.register(FrameClock::class, FrameClock.getType()) { FrameClock.FrameClockImpl(it.reinterpret()) }
+        TypeCache.register(GlContext::class, GlContext.getType()) { GlContext.GlContextImpl(it.reinterpret()) }
+        TypeCache.register(GlTexture::class, GlTexture.getType()) { GlTexture(it.reinterpret()) }
+        TypeCache.register(GlTextureBuilder::class, GlTextureBuilder.getType()) { GlTextureBuilder(it.reinterpret()) }
+        TypeCache.register(GrabBrokenEvent::class, GrabBrokenEvent.getType()) { GrabBrokenEvent(it.reinterpret()) }
+        TypeCache.register(KeyEvent::class, KeyEvent.getType()) { KeyEvent(it.reinterpret()) }
+        TypeCache.register(MemoryTexture::class, MemoryTexture.getType()) { MemoryTexture(it.reinterpret()) }
+        TypeCache.register(Monitor::class, Monitor.getType()) { Monitor(it.reinterpret()) }
+        TypeCache.register(MotionEvent::class, MotionEvent.getType()) { MotionEvent(it.reinterpret()) }
+        TypeCache.register(PadEvent::class, PadEvent.getType()) { PadEvent(it.reinterpret()) }
+        TypeCache.register(ProximityEvent::class, ProximityEvent.getType()) { ProximityEvent(it.reinterpret()) }
+        TypeCache.register(ScrollEvent::class, ScrollEvent.getType()) { ScrollEvent(it.reinterpret()) }
+        TypeCache.register(Seat::class, Seat.getType()) { Seat.SeatImpl(it.reinterpret()) }
+        TypeCache.register(Snapshot::class, Snapshot.getType()) { Snapshot.SnapshotImpl(it.reinterpret()) }
+        TypeCache.register(Surface::class, Surface.getType()) { Surface.SurfaceImpl(it.reinterpret()) }
+        TypeCache.register(Texture::class, Texture.getType()) { Texture.TextureImpl(it.reinterpret()) }
+        TypeCache.register(TouchEvent::class, TouchEvent.getType()) { TouchEvent(it.reinterpret()) }
+        TypeCache.register(TouchpadEvent::class, TouchpadEvent.getType()) { TouchpadEvent(it.reinterpret()) }
+        TypeCache.register(VulkanContext::class, VulkanContext.getType()) { VulkanContext.VulkanContextImpl(it.reinterpret()) }
+        TypeCache.register(DevicePad::class, DevicePad.getType()) { DevicePad.DevicePadImpl(it.reinterpret()) }
+        TypeCache.register(DragSurface::class, DragSurface.getType()) { DragSurface.DragSurfaceImpl(it.reinterpret()) }
+        TypeCache.register(Paintable::class, Paintable.getType()) { Paintable.PaintableImpl(it.reinterpret()) }
+        TypeCache.register(Popup::class, Popup.getType()) { Popup.PopupImpl(it.reinterpret()) }
+        TypeCache.register(Toplevel::class, Toplevel.getType()) { Toplevel.ToplevelImpl(it.reinterpret()) }
     }
 }
 

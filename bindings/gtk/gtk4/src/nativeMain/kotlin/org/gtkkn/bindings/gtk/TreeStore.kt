@@ -89,6 +89,10 @@ public open class TreeStore(
     TreeModel,
     TreeSortable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

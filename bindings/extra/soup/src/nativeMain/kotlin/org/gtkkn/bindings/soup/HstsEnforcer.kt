@@ -68,6 +68,10 @@ public open class HstsEnforcer(
 ) : Object(soupHstsEnforcerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 

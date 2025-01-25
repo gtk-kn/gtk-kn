@@ -91,6 +91,10 @@ public abstract class TlsConnection(
     public val gioTlsConnectionPointer: CPointer<GTlsConnection>,
 ) : IoStream(gioTlsConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The name of the TLS ciphersuite in use. See g_tls_connection_get_ciphersuite_name().
      *

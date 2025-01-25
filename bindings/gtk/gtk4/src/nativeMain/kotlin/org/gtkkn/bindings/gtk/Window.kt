@@ -185,6 +185,10 @@ public open class Window(
     Root,
     ShortcutManager,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkNativePointer: CPointer<GtkNative>
         get() = handle.reinterpret()
 

@@ -27,6 +27,10 @@ public open class CrossFadeNode(
     public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>,
 ) : RenderNode(gskCrossFadeNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
      *

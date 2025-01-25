@@ -26,6 +26,10 @@ public open class RepeatNode(
     public val gskRepeatNodePointer: CPointer<GskRepeatNode>,
 ) : RenderNode(gskRepeatNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will repeat the drawing of @child across
      * the given @bounds.

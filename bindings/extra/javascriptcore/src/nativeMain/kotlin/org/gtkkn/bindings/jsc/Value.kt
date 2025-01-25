@@ -105,6 +105,10 @@ public class Value(
     public val jscValuePointer: CPointer<JSCValue>,
 ) : Object(jscValuePointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * The #JSCContext in which the value was created.
      */
@@ -596,18 +600,18 @@ public class Value(
             JavaScriptCoreTypeProvider.register()}
 
         /**
+         * Get the GType of Value
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = jsc_value_get_type()
+
+        /**
          * Create a new #JSCValue referencing <function>undefined</function> in @context.
          *
          * @param context a #JSCContext
          * @return a #JSCValue.
          */
         public fun undefined(context: Context): Value = Value(jsc_value_new_undefined(context.jscContextPointer)!!)
-
-        /**
-         * Get the GType of Value
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = jsc_value_get_type()
     }
 }

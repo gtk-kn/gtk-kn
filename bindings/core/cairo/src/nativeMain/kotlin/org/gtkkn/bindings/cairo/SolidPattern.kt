@@ -27,6 +27,10 @@ public open class SolidPattern(
     public val cairoSolidPatternPointer: CPointer<cairo_pattern_t>,
 ) : Pattern(cairoSolidPatternPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         red: gdouble,
         green: gdouble,

@@ -55,6 +55,10 @@ public open class Sorter(
     public val gtkSorterPointer: CPointer<GtkSorter>,
 ) : Object(gtkSorterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Notifies all users of the sorter that it has changed.
      *

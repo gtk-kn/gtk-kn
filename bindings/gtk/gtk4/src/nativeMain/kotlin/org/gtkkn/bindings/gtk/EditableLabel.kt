@@ -61,6 +61,10 @@ public open class EditableLabel(
 ) : Widget(gtkEditableLabelPointer.reinterpret()),
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkEditablePointer: CPointer<GtkEditable>
         get() = handle.reinterpret()
 

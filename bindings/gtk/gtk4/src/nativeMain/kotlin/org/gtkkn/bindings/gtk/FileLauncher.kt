@@ -66,6 +66,10 @@ public open class FileLauncher(
     public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>,
 ) : Object(gtkFileLauncherPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether to ask the user to choose an app for opening the file. If `FALSE`,
      * the file might be opened with a default app or the previous choice.

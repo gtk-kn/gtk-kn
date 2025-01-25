@@ -200,10 +200,16 @@ public interface DatagramBased : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of DatagramBased for the provided [CPointer].
      */
-    public data class DatagramBasedImpl(
-        override val gioDatagramBasedPointer: CPointer<GDatagramBased>,
+    public class DatagramBasedImpl(
+        gioDatagramBasedPointer: CPointer<GDatagramBased>,
     ) : Object(gioDatagramBasedPointer.reinterpret()),
-        DatagramBased
+        DatagramBased {
+        init {
+            Gio
+        }
+
+        override val gioDatagramBasedPointer: CPointer<GDatagramBased> = gioDatagramBasedPointer
+    }
 
     public companion object : TypeCompanion<DatagramBased> {
         override val type: GeneratedInterfaceKGType<DatagramBased> =

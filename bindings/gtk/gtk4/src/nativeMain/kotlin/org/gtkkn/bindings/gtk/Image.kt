@@ -96,6 +96,10 @@ public open class Image(
     public val gtkImagePointer: CPointer<GtkImage>,
 ) : Widget(gtkImagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -374,6 +378,13 @@ public open class Image(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Image
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_image_get_type()
+
+        /**
          * Creates a new `GtkImage` displaying the resource file @resource_path.
          *
          * If the file isn’t found or can’t be loaded, the resulting `GtkImage` will
@@ -392,12 +403,5 @@ public open class Image(
          * @return a new `GtkImage`
          */
         public fun fromResource(resourcePath: String): Image = Image(gtk_image_new_from_resource(resourcePath)!!.reinterpret())
-
-        /**
-         * Get the GType of Image
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_image_get_type()
     }
 }

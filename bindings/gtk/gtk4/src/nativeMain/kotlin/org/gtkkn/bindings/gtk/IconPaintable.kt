@@ -42,6 +42,10 @@ public open class IconPaintable(
     Paintable,
     SymbolicPaintable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 

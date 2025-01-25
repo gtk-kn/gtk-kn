@@ -29,6 +29,10 @@ public open class GridLayoutChild(
     public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>,
 ) : LayoutChild(gtkGridLayoutChildPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The column to place the child in.
      */

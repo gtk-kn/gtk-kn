@@ -32,7 +32,6 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.extensions.gobject.associateCustomObject
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.gsize
-import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_object_add_toggle_ref
@@ -117,12 +116,16 @@ import org.gtkkn.native.gobject.g_signal_emit_by_name
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
 public open class Object(
-    public val gobjectObjectPointer: CPointer<GObject>,
+    public val gobjectObjectPointer: CPointer<org.gtkkn.native.gobject.GObject>,
 ) : TypeInstance(gobjectObjectPointer.reinterpret()),
     KGTyped {
     init {
+        GObject
+    }
+    init {
         associateCustomObject()
     }
+
     /**
      * Increases the reference count of the object by one and sets a
      * callback to be called when all other references to the object are

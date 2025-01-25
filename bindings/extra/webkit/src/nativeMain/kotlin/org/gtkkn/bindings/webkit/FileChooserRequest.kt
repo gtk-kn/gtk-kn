@@ -57,6 +57,10 @@ public class FileChooserRequest(
     public val webkitFileChooserRequestPointer: CPointer<WebKitFileChooserRequest>,
 ) : Object(webkitFileChooserRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * A null-terminated array of strings containing the list of MIME
      * types the file chooser dialog should handle. See

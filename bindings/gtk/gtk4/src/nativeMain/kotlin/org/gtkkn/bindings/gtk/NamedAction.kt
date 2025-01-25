@@ -24,6 +24,10 @@ public open class NamedAction(
     public val gtkNamedActionPointer: CPointer<GtkNamedAction>,
 ) : ShortcutAction(gtkNamedActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The name of the action to activate.
      */

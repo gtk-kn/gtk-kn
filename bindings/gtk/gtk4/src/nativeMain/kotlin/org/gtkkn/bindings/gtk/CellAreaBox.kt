@@ -51,6 +51,10 @@ public open class CellAreaBox(
 ) : CellArea(gtkCellAreaBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

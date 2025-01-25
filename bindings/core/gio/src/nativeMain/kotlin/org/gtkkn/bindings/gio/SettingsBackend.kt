@@ -63,6 +63,10 @@ public abstract class SettingsBackend(
     public val gioSettingsBackendPointer: CPointer<GSettingsBackend>,
 ) : Object(gioSettingsBackendPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Signals that a single key has possibly changed.  Backend
      * implementations should call this if a key has possibly changed its

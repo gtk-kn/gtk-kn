@@ -21,6 +21,10 @@ public open class WebViewBase(
     public val webkitWebViewBasePointer: CPointer<WebKitWebViewBase>,
 ) : Widget(webkitWebViewBasePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

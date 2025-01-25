@@ -62,6 +62,10 @@ public abstract class TlsDatabase(
     public val gioTlsDatabasePointer: CPointer<GTlsDatabase>,
 ) : Object(gioTlsDatabasePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Create a handle string for the certificate. The database will only be able
      * to create a handle for certificates that originate from the database. In

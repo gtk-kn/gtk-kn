@@ -31,6 +31,10 @@ public abstract class LayoutChild(
     public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>,
 ) : Object(gtkLayoutChildPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The widget that is associated to the `GtkLayoutChild` instance.
      */

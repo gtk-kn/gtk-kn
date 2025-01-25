@@ -74,6 +74,10 @@ public open class AppInfoMonitor(
     public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>,
 ) : Object(gioAppInfoMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Signal emitted when the app info database changes, when applications are
      * installed or removed.

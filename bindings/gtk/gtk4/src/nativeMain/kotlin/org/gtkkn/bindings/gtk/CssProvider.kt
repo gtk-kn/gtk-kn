@@ -80,6 +80,10 @@ public open class CssProvider(
 ) : Object(gtkCssProviderPointer.reinterpret()),
     StyleProvider,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
         get() = handle.reinterpret()
 

@@ -82,6 +82,10 @@ public open class Completion(
     public val gtksourceCompletionPointer: CPointer<GtkSourceCompletion>,
 ) : Object(gtksourceCompletionPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The #GtkTextBuffer for the #GtkSourceCompletion:view.
      * This is a convenience property for providers.

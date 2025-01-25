@@ -72,10 +72,16 @@ public interface Orientable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Orientable for the provided [CPointer].
      */
-    public data class OrientableImpl(
-        override val gtkOrientablePointer: CPointer<GtkOrientable>,
+    public class OrientableImpl(
+        gtkOrientablePointer: CPointer<GtkOrientable>,
     ) : Object(gtkOrientablePointer.reinterpret()),
-        Orientable
+        Orientable {
+        init {
+            Gtk
+        }
+
+        override val gtkOrientablePointer: CPointer<GtkOrientable> = gtkOrientablePointer
+    }
 
     public companion object : TypeCompanion<Orientable> {
         override val type: GeneratedInterfaceKGType<Orientable> =

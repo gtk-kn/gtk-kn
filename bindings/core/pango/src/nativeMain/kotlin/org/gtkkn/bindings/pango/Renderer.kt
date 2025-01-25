@@ -56,6 +56,10 @@ public abstract class Renderer(
     public val pangoRendererPointer: CPointer<PangoRenderer>,
 ) : Object(pangoRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Does initial setup before rendering operations on @renderer.
      *

@@ -209,10 +209,16 @@ public interface ListModel : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ListModel for the provided [CPointer].
      */
-    public data class ListModelImpl(
-        override val gioListModelPointer: CPointer<GListModel>,
+    public class ListModelImpl(
+        gioListModelPointer: CPointer<GListModel>,
     ) : Object(gioListModelPointer.reinterpret()),
-        ListModel
+        ListModel {
+        init {
+            Gio
+        }
+
+        override val gioListModelPointer: CPointer<GListModel> = gioListModelPointer
+    }
 
     public companion object : TypeCompanion<ListModel> {
         override val type: GeneratedInterfaceKGType<ListModel> =

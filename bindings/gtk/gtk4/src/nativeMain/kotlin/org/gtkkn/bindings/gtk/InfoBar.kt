@@ -131,6 +131,10 @@ public open class InfoBar(
     public val gtkInfoBarPointer: CPointer<GtkInfoBar>,
 ) : Widget(gtkInfoBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

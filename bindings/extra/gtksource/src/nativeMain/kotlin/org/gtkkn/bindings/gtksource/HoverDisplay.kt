@@ -36,6 +36,10 @@ public open class HoverDisplay(
     public val gtksourceHoverDisplayPointer: CPointer<GtkSourceHoverDisplay>,
 ) : Widget(gtksourceHoverDisplayPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

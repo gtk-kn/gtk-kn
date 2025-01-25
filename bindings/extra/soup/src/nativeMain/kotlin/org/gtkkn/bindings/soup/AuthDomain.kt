@@ -61,6 +61,10 @@ public abstract class AuthDomain(
     public val soupAuthDomainPointer: CPointer<SoupAuthDomain>,
 ) : Object(soupAuthDomainPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The realm of this auth domain.
      */

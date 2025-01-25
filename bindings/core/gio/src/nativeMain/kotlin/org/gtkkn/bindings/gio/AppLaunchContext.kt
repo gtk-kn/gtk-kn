@@ -54,6 +54,10 @@ public open class AppLaunchContext(
     public val gioAppLaunchContextPointer: CPointer<GAppLaunchContext>,
 ) : Object(gioAppLaunchContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new application launch context. This is not normally used,
      * instead you instantiate a subclass of this, such as #GdkAppLaunchContext.

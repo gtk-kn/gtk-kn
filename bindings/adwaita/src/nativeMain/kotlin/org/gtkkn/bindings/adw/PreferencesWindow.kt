@@ -68,6 +68,10 @@ public open class PreferencesWindow(
     public val adwPreferencesWindowPointer: CPointer<AdwPreferencesWindow>,
 ) : Window(adwPreferencesWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

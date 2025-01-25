@@ -30,6 +30,10 @@ public open class FontFace(
     public val cairoFontFacePointer: CPointer<cairo_font_face_t>,
 ) : TypeInstance(cairoFontFacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public open fun destroy(): Unit = cairo_font_face_destroy(cairoFontFacePointer)
 
     public open fun status(): Status = cairo_font_face_status(cairoFontFacePointer).run {

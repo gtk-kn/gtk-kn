@@ -30,6 +30,10 @@ public open class TcpWrapperConnection(
     public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>,
 ) : TcpConnection(gioTcpWrapperConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The wrapped [class@Gio.IOStream].
      *

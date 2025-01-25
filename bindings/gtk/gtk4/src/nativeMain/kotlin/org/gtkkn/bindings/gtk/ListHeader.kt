@@ -36,6 +36,10 @@ public open class ListHeader(
     public val gtkListHeaderPointer: CPointer<GtkListHeader>,
 ) : Object(gtkListHeaderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Widget used for display.
      *

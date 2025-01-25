@@ -36,10 +36,12 @@ import org.gtkkn.gir.blueprints.RepositoryBlueprint
  * The logic and final generated code remain unchanged.
  */
 interface InterfaceGenerator :
+    ConstructorGenerator,
     KGTypeGenerator,
     PropertyGenerator,
     SignalGenerator,
-    FunctionGenerator {
+    FunctionGenerator,
+    ConstantGenerator {
     fun buildInterface(iface: InterfaceBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.interfaceBuilder(iface.kotlinTypeName).apply {
             addKdocAndOptInAnnotations(iface)
@@ -49,8 +51,11 @@ interface InterfaceGenerator :
             addProperties(iface)
             addMethods(iface)
             addSignals(iface)
-            addImplClass(iface)
-            addType(createCompanionObjectBuilder(iface, repository).build())
+            addImplClass(iface, repository)
+            val companionSpecBuilder = buildAndConfigureInterfaceCompanion(iface, repository)
+            if (companionSpecBuilder.propertySpecs.isNotEmpty() || companionSpecBuilder.funSpecs.isNotEmpty()) {
+                addType(companionSpecBuilder.build())
+            }
 
             // Add KG_TYPED_INTERFACE_TYPE if KGType is available
             if (buildInterfaceKGTypeProperty(iface) != null) {
@@ -135,11 +140,12 @@ interface InterfaceGenerator :
     /**
      * Adds a nested `Impl` class inside the main `iface.typeName` interface.
      */
-    private fun TypeSpec.Builder.addImplClass(iface: InterfaceBlueprint) {
+    private fun TypeSpec.Builder.addImplClass(iface: InterfaceBlueprint, repository: RepositoryBlueprint) {
         val implClassSpec = TypeSpec.classBuilder(iface.instanceTypeName).apply {
-            addModifiers(KModifier.DATA)
             superclass(iface.implClassSuperclassTypeName)
             addSuperinterface(iface.kotlinTypeName)
+            // We need to ensure that the TypeCache will be populated by the repository object
+            addRepositoryObjectInitializerBlock(repository)
             primaryConstructor(
                 FunSpec.constructorBuilder()
                     .addParameter(ParameterSpec.builder(iface.objectPointerName, iface.objectPointerTypeName).build())
@@ -172,22 +178,24 @@ interface InterfaceGenerator :
      * including an optional KGType property, a `wrap` factory function,
      * and any top-level functions for this interface.
      */
-    private fun createCompanionObjectBuilder(
+    private fun buildAndConfigureInterfaceCompanion(
         iface: InterfaceBlueprint,
         repository: RepositoryBlueprint
     ): TypeSpec.Builder {
-        val companionBuilder = TypeSpec.companionObjectBuilder()
+        val companionSpecBuilder = TypeSpec.companionObjectBuilder()
+
+        iface.constants.forEach { companionSpecBuilder.addProperty(buildConstant(it)) }
 
         // Add KGType property if available
         buildInterfaceKGTypeProperty(iface)?.let { property ->
-            companionBuilder.addKGTypeInit(iface.kotlinTypeName, property, repository)
+            companionSpecBuilder.addKGTypeInit(iface.kotlinTypeName, property, repository)
         }
 
         // Add top-level functions
         iface.functions.forEach { functionBlueprint ->
-            companionBuilder.addFunction(buildFunction(functionBlueprint))
+            companionSpecBuilder.addFunction(buildFunction(functionBlueprint))
         }
 
-        return companionBuilder
+        return companionSpecBuilder
     }
 }

@@ -48,6 +48,10 @@ public open class GestureSwipe(
     public val gtkGestureSwipePointer: CPointer<GtkGestureSwipe>,
 ) : GestureSingle(gtkGestureSwipePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a newly created `GtkGesture` that recognizes swipes.
      *

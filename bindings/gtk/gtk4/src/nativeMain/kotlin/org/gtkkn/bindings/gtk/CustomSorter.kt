@@ -28,6 +28,10 @@ public open class CustomSorter(
     public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>,
 ) : Sorter(gtkCustomSorterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkSorter` that works by calling
      * @sort_func to compare items.

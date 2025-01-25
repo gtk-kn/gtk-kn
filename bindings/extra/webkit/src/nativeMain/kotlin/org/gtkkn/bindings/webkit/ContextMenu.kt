@@ -57,6 +57,10 @@ public class ContextMenu(
     public val webkitContextMenuPointer: CPointer<WebKitContextMenu>,
 ) : Object(webkitContextMenuPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new #WebKitContextMenu object.
      *

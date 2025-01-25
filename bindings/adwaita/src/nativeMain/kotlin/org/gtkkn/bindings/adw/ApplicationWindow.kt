@@ -71,6 +71,10 @@ public open class ApplicationWindow(
     public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>,
 ) : org.gtkkn.bindings.gtk.ApplicationWindow(adwApplicationWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 

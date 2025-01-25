@@ -327,10 +327,16 @@ public interface Action : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Action for the provided [CPointer].
      */
-    public data class ActionImpl(
-        override val gioActionPointer: CPointer<GAction>,
+    public class ActionImpl(
+        gioActionPointer: CPointer<GAction>,
     ) : Object(gioActionPointer.reinterpret()),
-        Action
+        Action {
+        init {
+            Gio
+        }
+
+        override val gioActionPointer: CPointer<GAction> = gioActionPointer
+    }
 
     public companion object : TypeCompanion<Action> {
         override val type: GeneratedInterfaceKGType<Action> =

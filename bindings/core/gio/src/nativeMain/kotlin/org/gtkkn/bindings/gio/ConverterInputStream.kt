@@ -28,6 +28,10 @@ public open class ConverterInputStream(
 ) : FilterInputStream(gioConverterInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
         get() = handle.reinterpret()
 

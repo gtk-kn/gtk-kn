@@ -172,6 +172,10 @@ public open class GlArea(
     public val gtkGlAreaPointer: CPointer<GtkGLArea>,
 ) : Widget(gtkGlAreaPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

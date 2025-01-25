@@ -30,6 +30,10 @@ public open class ScrollEvent(
     public val gdkScrollEventPointer: CPointer<GdkScrollEvent>,
 ) : Event(gdkScrollEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the direction of a scroll event.
      *

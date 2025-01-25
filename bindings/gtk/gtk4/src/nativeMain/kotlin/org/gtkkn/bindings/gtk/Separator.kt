@@ -41,6 +41,10 @@ public open class Separator(
 ) : Widget(gtkSeparatorPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

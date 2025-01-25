@@ -61,6 +61,10 @@ public open class SocketConnection(
     public val gioSocketConnectionPointer: CPointer<GSocketConnection>,
 ) : IoStream(gioSocketConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The underlying [class@Gio.Socket].
      *

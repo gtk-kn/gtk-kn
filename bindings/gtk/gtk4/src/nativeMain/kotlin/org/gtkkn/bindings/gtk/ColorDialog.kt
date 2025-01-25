@@ -64,6 +64,10 @@ public open class ColorDialog(
     public val gtkColorDialogPointer: CPointer<GtkColorDialog>,
 ) : Object(gtkColorDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether the color chooser dialog is modal.
      *

@@ -24,6 +24,10 @@ public open class RepeatingLinearGradientNode(
     public val gskRepeatingLinearGradientNodePointer: CPointer<GskRepeatingLinearGradientNode>,
 ) : RenderNode(gskRepeatingLinearGradientNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     public companion object : TypeCompanion<RepeatingLinearGradientNode> {
         override val type: GeneratedClassKGType<RepeatingLinearGradientNode> =
                 GeneratedClassKGType(getTypeOrNull("gsk_repeating_linear_gradient_node_get_type")!!) { RepeatingLinearGradientNode(it.reinterpret()) }

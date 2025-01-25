@@ -44,6 +44,10 @@ public abstract class WebsocketExtension(
     public val soupWebsocketExtensionPointer: CPointer<SoupWebsocketExtension>,
 ) : Object(soupWebsocketExtensionPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * Configures @extension with the given @params.
      *

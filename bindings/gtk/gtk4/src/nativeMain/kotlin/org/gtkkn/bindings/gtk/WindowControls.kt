@@ -82,6 +82,10 @@ public open class WindowControls(
     public val gtkWindowControlsPointer: CPointer<GtkWindowControls>,
 ) : Widget(gtkWindowControlsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

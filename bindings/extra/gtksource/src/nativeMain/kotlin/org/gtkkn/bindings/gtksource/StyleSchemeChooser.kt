@@ -70,10 +70,17 @@ public interface StyleSchemeChooser : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of StyleSchemeChooser for the provided [CPointer].
      */
-    public data class StyleSchemeChooserImpl(
-        override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>,
+    public class StyleSchemeChooserImpl(
+        gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>,
     ) : Object(gtksourceStyleSchemeChooserPointer.reinterpret()),
-        StyleSchemeChooser
+        StyleSchemeChooser {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser> =
+                gtksourceStyleSchemeChooserPointer
+    }
 
     public companion object : TypeCompanion<StyleSchemeChooser> {
         override val type: GeneratedInterfaceKGType<StyleSchemeChooser> =

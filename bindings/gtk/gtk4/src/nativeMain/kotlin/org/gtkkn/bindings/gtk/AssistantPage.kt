@@ -28,6 +28,10 @@ public open class AssistantPage(
     public val gtkAssistantPagePointer: CPointer<GtkAssistantPage>,
 ) : Object(gtkAssistantPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The child widget.
      */

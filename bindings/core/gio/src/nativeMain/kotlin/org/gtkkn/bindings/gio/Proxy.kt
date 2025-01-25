@@ -134,10 +134,16 @@ public interface Proxy : org.gtkkn.extensions.glib.cinterop.Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Proxy for the provided [CPointer].
      */
-    public data class ProxyImpl(
-        override val gioProxyPointer: CPointer<GProxy>,
+    public class ProxyImpl(
+        gioProxyPointer: CPointer<GProxy>,
     ) : Object(gioProxyPointer.reinterpret()),
-        Proxy
+        Proxy {
+        init {
+            Gio
+        }
+
+        override val gioProxyPointer: CPointer<GProxy> = gioProxyPointer
+    }
 
     public companion object : TypeCompanion<Proxy> {
         override val type: GeneratedInterfaceKGType<Proxy> =

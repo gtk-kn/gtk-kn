@@ -53,6 +53,10 @@ public open class ColorChooserWidget(
 ) : Widget(gtkColorChooserWidgetPointer.reinterpret()),
     ColorChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
         get() = handle.reinterpret()
 

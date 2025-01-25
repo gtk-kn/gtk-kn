@@ -172,6 +172,10 @@ public open class TextView(
     AccessibleText,
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 

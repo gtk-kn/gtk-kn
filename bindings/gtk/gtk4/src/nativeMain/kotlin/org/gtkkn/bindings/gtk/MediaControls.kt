@@ -30,6 +30,10 @@ public open class MediaControls(
     public val gtkMediaControlsPointer: CPointer<GtkMediaControls>,
 ) : Widget(gtkMediaControlsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

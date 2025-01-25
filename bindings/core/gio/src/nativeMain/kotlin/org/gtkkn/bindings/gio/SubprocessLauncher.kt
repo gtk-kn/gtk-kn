@@ -75,6 +75,10 @@ public open class SubprocessLauncher(
     public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>,
 ) : Object(gioSubprocessLauncherPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSubprocessLauncher.
      *

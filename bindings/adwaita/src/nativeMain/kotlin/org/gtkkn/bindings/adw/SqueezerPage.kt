@@ -28,6 +28,10 @@ public class SqueezerPage(
     public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>,
 ) : Object(adwSqueezerPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The the squeezer child to which the page belongs.
      */

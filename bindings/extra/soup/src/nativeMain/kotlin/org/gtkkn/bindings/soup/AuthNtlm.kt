@@ -24,6 +24,10 @@ public class AuthNtlm(
     public val soupAuthNtlmPointer: CPointer<SoupAuth>,
 ) : Auth(soupAuthNtlmPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     public companion object : TypeCompanion<AuthNtlm> {
         override val type: GeneratedClassKGType<AuthNtlm> =
                 GeneratedClassKGType(getTypeOrNull("soup_auth_ntlm_get_type")!!) { AuthNtlm(it.reinterpret()) }

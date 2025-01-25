@@ -28,6 +28,10 @@ public open class NumericSorter(
     public val gtkNumericSorterPointer: CPointer<GtkNumericSorter>,
 ) : Sorter(gtkNumericSorterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The expression to evaluate on items to get a number to compare with.
      */

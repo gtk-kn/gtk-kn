@@ -168,6 +168,10 @@ public open class DebugControllerDBus(
     DebugController,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDebugControllerPointer: CPointer<GDebugController>
         get() = handle.reinterpret()
 

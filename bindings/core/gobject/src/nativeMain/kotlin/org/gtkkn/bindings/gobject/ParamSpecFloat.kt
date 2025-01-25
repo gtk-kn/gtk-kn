@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecFloat
  */
 public open class ParamSpecFloat(
     public val gobjectParamSpecFloatPointer: CPointer<GParamSpecFloat>,
-) : ParamSpec(gobjectParamSpecFloatPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecFloatPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

@@ -191,6 +191,10 @@ public class OverlaySplitView(
 ) : Widget(adwOverlaySplitViewPointer.reinterpret()),
     Swipeable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
         get() = handle.reinterpret()
 

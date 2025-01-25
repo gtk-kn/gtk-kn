@@ -99,6 +99,10 @@ public open class Picture(
     public val gtkPicturePointer: CPointer<GtkPicture>,
 ) : Widget(gtkPicturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -352,6 +356,13 @@ public open class Picture(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Picture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_picture_get_type()
+
+        /**
          * Creates a new `GtkPicture` displaying the resource at @resource_path.
          *
          * This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
@@ -361,12 +372,5 @@ public open class Picture(
          * @return a new `GtkPicture`
          */
         public fun forResource(resourcePath: String? = null): Picture = Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret())
-
-        /**
-         * Get the GType of Picture
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_picture_get_type()
     }
 }

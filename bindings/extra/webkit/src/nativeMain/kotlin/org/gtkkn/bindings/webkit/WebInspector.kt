@@ -71,6 +71,10 @@ public class WebInspector(
     public val webkitWebInspectorPointer: CPointer<WebKitWebInspector>,
 ) : Object(webkitWebInspectorPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The height that the inspector view should have when it is attached.
      */

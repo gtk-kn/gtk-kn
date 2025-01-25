@@ -44,6 +44,10 @@ public open class SearchSettings(
     public val gtksourceSearchSettingsPointer: CPointer<GtkSourceSearchSettings>,
 ) : Object(gtksourceSearchSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * If true, a search match must start and end a word. The match can
      * span multiple words.

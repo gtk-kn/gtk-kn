@@ -21,6 +21,10 @@ public open class NeverTrigger(
     public val gtkNeverTriggerPointer: CPointer<GtkNeverTrigger>,
 ) : ShortcutTrigger(gtkNeverTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<NeverTrigger> {
         override val type: GeneratedClassKGType<NeverTrigger> =
                 GeneratedClassKGType(getTypeOrNull("gtk_never_trigger_get_type")!!) { NeverTrigger(it.reinterpret()) }

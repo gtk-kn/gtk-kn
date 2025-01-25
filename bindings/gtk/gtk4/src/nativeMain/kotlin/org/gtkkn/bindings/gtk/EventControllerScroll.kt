@@ -74,6 +74,10 @@ public open class EventControllerScroll(
     public val gtkEventControllerScrollPointer: CPointer<GtkEventControllerScroll>,
 ) : EventController(gtkEventControllerScrollPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The flags affecting event controller behavior.
      */

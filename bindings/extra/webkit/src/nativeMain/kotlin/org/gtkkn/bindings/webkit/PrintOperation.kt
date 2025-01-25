@@ -53,6 +53,10 @@ public class PrintOperation(
     public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>,
 ) : Object(webkitPrintOperationPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The initial #GtkPageSetup for the print operation.
      */

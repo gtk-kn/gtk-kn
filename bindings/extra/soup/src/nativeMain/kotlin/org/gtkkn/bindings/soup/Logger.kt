@@ -94,6 +94,10 @@ public class Logger(
 ) : Object(soupLoggerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 

@@ -23,6 +23,10 @@ public open class VulkanRenderer(
     public val gskVulkanRendererPointer: CPointer<GskVulkanRenderer>,
 ) : Renderer(gskVulkanRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     public constructor() : this(gsk_vulkan_renderer_new()!!.reinterpret())
 
     public companion object : TypeCompanion<VulkanRenderer> {

@@ -74,6 +74,10 @@ public open class Scrollbar(
 ) : Widget(gtkScrollbarPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

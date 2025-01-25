@@ -214,6 +214,10 @@ public open class AlertDialog(
     public val adwAlertDialogPointer: CPointer<AdwAlertDialog>,
 ) : Dialog(adwAlertDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

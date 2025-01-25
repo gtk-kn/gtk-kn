@@ -27,6 +27,10 @@ public abstract class Gradient(
     public val cairoGradientPointer: CPointer<cairo_pattern_t>,
 ) : Pattern(cairoGradientPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public open fun addColorStopRgb(
         offset: gdouble,
         red: gdouble,

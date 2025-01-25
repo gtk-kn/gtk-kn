@@ -21,6 +21,10 @@ public open class ParamSpecExpression(
     public val gtkParamSpecExpressionPointer: CPointer<GtkParamSpecExpression>,
 ) : ParamSpec(gtkParamSpecExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<ParamSpecExpression> {
         override val type: GeneratedClassKGType<ParamSpecExpression> =
                 GeneratedClassKGType(getTypeOrNull("gtk_param_expression_get_type")!!) { ParamSpecExpression(it.reinterpret()) }

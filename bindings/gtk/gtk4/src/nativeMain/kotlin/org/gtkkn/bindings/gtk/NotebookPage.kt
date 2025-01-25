@@ -34,6 +34,10 @@ public open class NotebookPage(
     public val gtkNotebookPagePointer: CPointer<GtkNotebookPage>,
 ) : Object(gtkNotebookPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The child for this page.
      */

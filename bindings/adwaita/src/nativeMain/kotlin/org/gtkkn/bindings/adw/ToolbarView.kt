@@ -149,6 +149,10 @@ public class ToolbarView(
     public val adwToolbarViewPointer: CPointer<AdwToolbarView>,
 ) : Widget(adwToolbarViewPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

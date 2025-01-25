@@ -495,10 +495,16 @@ public interface Drive : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Drive for the provided [CPointer].
      */
-    public data class DriveImpl(
-        override val gioDrivePointer: CPointer<GDrive>,
+    public class DriveImpl(
+        gioDrivePointer: CPointer<GDrive>,
     ) : Object(gioDrivePointer.reinterpret()),
-        Drive
+        Drive {
+        init {
+            Gio
+        }
+
+        override val gioDrivePointer: CPointer<GDrive> = gioDrivePointer
+    }
 
     public companion object : TypeCompanion<Drive> {
         override val type: GeneratedInterfaceKGType<Drive> =

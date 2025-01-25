@@ -87,6 +87,10 @@ public abstract class Resolver(
     public val gioResolverPointer: CPointer<GResolver>,
 ) : Object(gioResolverPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The timeout applied to all resolver lookups, in milliseconds.
      *

@@ -117,6 +117,10 @@ public open class CheckButton(
 ) : Widget(gtkCheckButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 
@@ -339,6 +343,13 @@ public open class CheckButton(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of CheckButton
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_check_button_get_type()
+
+        /**
          * Creates a new `GtkCheckButton` with the given text and a mnemonic.
          *
          * @param label The text of the button, with an underscore
@@ -346,13 +357,6 @@ public open class CheckButton(
          * @return a new `GtkCheckButton`
          */
         public fun withMnemonic(label: String? = null): CheckButton = CheckButton(gtk_check_button_new_with_mnemonic(label)!!.reinterpret())
-
-        /**
-         * Get the GType of CheckButton
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_check_button_get_type()
     }
 }
 

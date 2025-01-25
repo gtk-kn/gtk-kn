@@ -51,6 +51,10 @@ public open class SnippetChunk(
     public val gtksourceSnippetChunkPointer: CPointer<GtkSourceSnippetChunk>,
 ) : InitiallyUnowned(gtksourceSnippetChunkPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open var context: SnippetContext
         /**
          * Gets the context for the snippet insertion.

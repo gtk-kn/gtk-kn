@@ -33,6 +33,10 @@ public open class ConicGradientNode(
     public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>,
 ) : RenderNode(gskConicGradientNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Retrieves the angle for the gradient in radians, normalized in [0, 2 * PI].
      *

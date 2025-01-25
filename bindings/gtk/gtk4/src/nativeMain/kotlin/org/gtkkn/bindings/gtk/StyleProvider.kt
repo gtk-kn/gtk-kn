@@ -52,10 +52,16 @@ public interface StyleProvider : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of StyleProvider for the provided [CPointer].
      */
-    public data class StyleProviderImpl(
-        override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>,
+    public class StyleProviderImpl(
+        gtkStyleProviderPointer: CPointer<GtkStyleProvider>,
     ) : Object(gtkStyleProviderPointer.reinterpret()),
-        StyleProvider
+        StyleProvider {
+        init {
+            Gtk
+        }
+
+        override val gtkStyleProviderPointer: CPointer<GtkStyleProvider> = gtkStyleProviderPointer
+    }
 
     public companion object : TypeCompanion<StyleProvider> {
         override val type: GeneratedInterfaceKGType<StyleProvider> =

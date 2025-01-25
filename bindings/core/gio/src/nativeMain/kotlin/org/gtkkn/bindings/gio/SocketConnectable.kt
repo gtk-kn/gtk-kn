@@ -131,10 +131,17 @@ public interface SocketConnectable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of SocketConnectable for the provided [CPointer].
      */
-    public data class SocketConnectableImpl(
-        override val gioSocketConnectablePointer: CPointer<GSocketConnectable>,
+    public class SocketConnectableImpl(
+        gioSocketConnectablePointer: CPointer<GSocketConnectable>,
     ) : Object(gioSocketConnectablePointer.reinterpret()),
-        SocketConnectable
+        SocketConnectable {
+        init {
+            Gio
+        }
+
+        override val gioSocketConnectablePointer: CPointer<GSocketConnectable> =
+                gioSocketConnectablePointer
+    }
 
     public companion object : TypeCompanion<SocketConnectable> {
         override val type: GeneratedInterfaceKGType<SocketConnectable> =

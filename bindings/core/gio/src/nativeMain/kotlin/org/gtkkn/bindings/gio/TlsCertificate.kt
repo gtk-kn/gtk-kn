@@ -78,6 +78,10 @@ public abstract class TlsCertificate(
     public val gioTlsCertificatePointer: CPointer<GTlsCertificate>,
 ) : Object(gioTlsCertificatePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * A #GTlsCertificate representing the entity that issued this
      * certificate. If null, this means that the certificate is either
@@ -390,36 +394,6 @@ public abstract class TlsCertificate(
             GioTypeProvider.register()}
 
         /**
-         * Creates a #GTlsCertificate from the data in @file.
-         *
-         * If @file cannot be read or parsed, the function will return null and
-         * set @error.
-         *
-         * Any unknown file types will error with %G_IO_ERROR_NOT_SUPPORTED.
-         * Currently only `.p12` and `.pfx` files are supported.
-         * See g_tls_certificate_new_from_pkcs12() for more details.
-         *
-         * @param file file containing a certificate to import
-         * @param password password for PKCS #12 files
-         * @return the new certificate, or null on error
-         * @since 2.72
-         */
-        public fun fromFileWithPassword(`file`: String, password: String): Result<TlsCertificateImpl> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    val instance = TlsCertificateImpl(checkNotNull(gResult))
-                    Result.success(instance)
-                }
-
-            }
-        }
-
-        /**
          * Creates one or more #GTlsCertificates from the PEM-encoded
          * data in @file. If @file cannot be read or parsed, the function will
          * return null and set @error. If @file does not contain any
@@ -451,5 +425,35 @@ public abstract class TlsCertificate(
          * @return the GType
          */
         public fun getType(): GType = g_tls_certificate_get_type()
+
+        /**
+         * Creates a #GTlsCertificate from the data in @file.
+         *
+         * If @file cannot be read or parsed, the function will return null and
+         * set @error.
+         *
+         * Any unknown file types will error with %G_IO_ERROR_NOT_SUPPORTED.
+         * Currently only `.p12` and `.pfx` files are supported.
+         * See g_tls_certificate_new_from_pkcs12() for more details.
+         *
+         * @param file file containing a certificate to import
+         * @param password password for PKCS #12 files
+         * @return the new certificate, or null on error
+         * @since 2.72
+         */
+        public fun fromFileWithPassword(`file`: String, password: String): Result<TlsCertificateImpl> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = TlsCertificateImpl(checkNotNull(gResult))
+                    Result.success(instance)
+                }
+
+            }
+        }
     }
 }

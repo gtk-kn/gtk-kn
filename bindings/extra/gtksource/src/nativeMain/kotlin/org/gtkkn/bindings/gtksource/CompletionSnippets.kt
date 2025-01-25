@@ -33,6 +33,10 @@ public open class CompletionSnippets(
 ) : Object(gtksourceCompletionSnippetsPointer.reinterpret()),
     CompletionProvider,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>
         get() = handle.reinterpret()
 

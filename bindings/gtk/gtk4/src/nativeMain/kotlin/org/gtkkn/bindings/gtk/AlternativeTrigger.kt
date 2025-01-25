@@ -27,6 +27,10 @@ public open class AlternativeTrigger(
     public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>,
 ) : ShortcutTrigger(gtkAlternativeTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The first `GtkShortcutTrigger` to check.
      */

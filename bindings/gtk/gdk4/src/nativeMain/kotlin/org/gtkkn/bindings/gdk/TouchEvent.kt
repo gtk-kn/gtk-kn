@@ -23,6 +23,10 @@ public open class TouchEvent(
     public val gdkTouchEventPointer: CPointer<GdkTouchEvent>,
 ) : Event(gdkTouchEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts whether a touch event is emulating a pointer event.
      *

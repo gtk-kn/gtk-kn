@@ -412,10 +412,16 @@ public interface ActionGroup : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ActionGroup for the provided [CPointer].
      */
-    public data class ActionGroupImpl(
-        override val gioActionGroupPointer: CPointer<GActionGroup>,
+    public class ActionGroupImpl(
+        gioActionGroupPointer: CPointer<GActionGroup>,
     ) : Object(gioActionGroupPointer.reinterpret()),
-        ActionGroup
+        ActionGroup {
+        init {
+            Gio
+        }
+
+        override val gioActionGroupPointer: CPointer<GActionGroup> = gioActionGroupPointer
+    }
 
     public companion object : TypeCompanion<ActionGroup> {
         override val type: GeneratedInterfaceKGType<ActionGroup> =

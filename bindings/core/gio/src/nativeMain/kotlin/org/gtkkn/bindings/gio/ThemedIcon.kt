@@ -50,6 +50,10 @@ public open class ThemedIcon(
 ) : Object(gioThemedIconPointer.reinterpret()),
     Icon,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 
@@ -115,6 +119,13 @@ public open class ThemedIcon(
             GioTypeProvider.register()}
 
         /**
+         * Get the GType of ThemedIcon
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_themed_icon_get_type()
+
+        /**
          * Creates a new themed icon for @iconname, and all the names
          * that can be created by shortening @iconname at '-' characters.
          *
@@ -135,12 +146,5 @@ public open class ThemedIcon(
          * @return a new #GThemedIcon.
          */
         public fun withDefaultFallbacks(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
-
-        /**
-         * Get the GType of ThemedIcon
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = g_themed_icon_get_type()
     }
 }

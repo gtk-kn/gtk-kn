@@ -85,6 +85,10 @@ public class Carousel(
     Swipeable,
     Orientable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
         get() = handle.reinterpret()
 

@@ -81,10 +81,16 @@ public interface Native : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Native for the provided [CPointer].
      */
-    public data class NativeImpl(
-        override val gtkNativePointer: CPointer<GtkNative>,
+    public class NativeImpl(
+        gtkNativePointer: CPointer<GtkNative>,
     ) : Widget(gtkNativePointer.reinterpret()),
-        Native
+        Native {
+        init {
+            Gtk
+        }
+
+        override val gtkNativePointer: CPointer<GtkNative> = gtkNativePointer
+    }
 
     public companion object : TypeCompanion<Native> {
         override val type: GeneratedInterfaceKGType<Native> =

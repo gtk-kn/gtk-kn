@@ -27,6 +27,10 @@ public class VirtualMachine(
     public val jscVirtualMachinePointer: CPointer<JSCVirtualMachine>,
 ) : Object(jscVirtualMachinePointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * Create a new #JSCVirtualMachine.
      *

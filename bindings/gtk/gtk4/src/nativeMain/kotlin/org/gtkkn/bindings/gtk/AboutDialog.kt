@@ -132,6 +132,10 @@ public open class AboutDialog(
     public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>,
 ) : Window(gtkAboutDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

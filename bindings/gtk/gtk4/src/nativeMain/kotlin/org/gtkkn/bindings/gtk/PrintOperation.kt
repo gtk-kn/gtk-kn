@@ -160,6 +160,10 @@ public open class PrintOperation(
 ) : Object(gtkPrintOperationPointer.reinterpret()),
     PrintOperationPreview,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>
         get() = handle.reinterpret()
 

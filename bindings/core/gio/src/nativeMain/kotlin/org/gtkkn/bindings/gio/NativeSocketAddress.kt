@@ -30,6 +30,10 @@ public open class NativeSocketAddress(
     public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>,
 ) : SocketAddress(gioNativeSocketAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 

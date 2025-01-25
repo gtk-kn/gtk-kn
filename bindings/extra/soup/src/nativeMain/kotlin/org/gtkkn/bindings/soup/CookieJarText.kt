@@ -32,6 +32,10 @@ public class CookieJarText(
     public val soupCookieJarTextPointer: CPointer<SoupCookieJarText>,
 ) : CookieJar(soupCookieJarTextPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 

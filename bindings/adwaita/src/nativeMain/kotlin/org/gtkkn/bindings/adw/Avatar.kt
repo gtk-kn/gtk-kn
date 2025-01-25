@@ -66,6 +66,10 @@ public class Avatar(
     public val adwAvatarPointer: CPointer<AdwAvatar>,
 ) : Widget(adwAvatarPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -199,6 +199,10 @@ public open class ListStore(
     TreeModel,
     TreeSortable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

@@ -40,6 +40,10 @@ public open class Hover(
     public val gtksourceHoverPointer: CPointer<GtkSourceHover>,
 ) : Object(gtksourceHoverPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open fun addProvider(provider: HoverProvider): Unit = gtk_source_hover_add_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 
     public open fun removeProvider(provider: HoverProvider): Unit = gtk_source_hover_remove_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)

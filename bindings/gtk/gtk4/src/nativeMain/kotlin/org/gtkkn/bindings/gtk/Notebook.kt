@@ -187,6 +187,10 @@ public open class Notebook(
     public val gtkNotebookPointer: CPointer<GtkNotebook>,
 ) : Widget(gtkNotebookPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

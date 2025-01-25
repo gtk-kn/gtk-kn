@@ -21,6 +21,10 @@ public open class DndEvent(
     public val gdkDndEventPointer: CPointer<GdkDNDEvent>,
 ) : Event(gdkDndEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Gets the `GdkDrop` object from a DND event.
      *

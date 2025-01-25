@@ -21,6 +21,10 @@ public abstract class AnimationTarget(
     public val adwAnimationTargetPointer: CPointer<AdwAnimationTarget>,
 ) : Object(adwAnimationTargetPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The AnimationTargetImpl type represents a native instance of the abstract AnimationTarget class.
      *

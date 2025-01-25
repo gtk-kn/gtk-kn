@@ -92,6 +92,10 @@ public open class Button(
 ) : Widget(gtkButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 
@@ -309,6 +313,13 @@ public open class Button(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Button
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_button_get_type()
+
+        /**
          * Creates a new `GtkButton` containing a label.
          *
          * If characters in @label are preceded by an underscore, they are underlined.
@@ -334,13 +345,6 @@ public open class Button(
          * @return a new `GtkButton` displaying the themed icon
          */
         public fun fromIconName(iconName: String): Button = Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
-
-        /**
-         * Get the GType of Button
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_button_get_type()
     }
 }
 

@@ -84,10 +84,16 @@ public interface DevicePad : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of DevicePad for the provided [CPointer].
      */
-    public data class DevicePadImpl(
-        override val gdkDevicePadPointer: CPointer<GdkDevicePad>,
+    public class DevicePadImpl(
+        gdkDevicePadPointer: CPointer<GdkDevicePad>,
     ) : Device(gdkDevicePadPointer.reinterpret()),
-        DevicePad
+        DevicePad {
+        init {
+            Gdk
+        }
+
+        override val gdkDevicePadPointer: CPointer<GdkDevicePad> = gdkDevicePadPointer
+    }
 
     public companion object : TypeCompanion<DevicePad> {
         override val type: GeneratedInterfaceKGType<DevicePad> =

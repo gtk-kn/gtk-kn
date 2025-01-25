@@ -84,6 +84,10 @@ public open class Credentials(
     public val gioCredentialsPointer: CPointer<GCredentials>,
 ) : Object(gioCredentialsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GCredentials object with credentials matching the
      * the current process.

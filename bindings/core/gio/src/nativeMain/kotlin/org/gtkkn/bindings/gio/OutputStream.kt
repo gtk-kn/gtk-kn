@@ -87,6 +87,10 @@ public abstract class OutputStream(
     public val gioOutputStreamPointer: CPointer<GOutputStream>,
 ) : Object(gioOutputStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Clears the pending flag on @stream.
      */

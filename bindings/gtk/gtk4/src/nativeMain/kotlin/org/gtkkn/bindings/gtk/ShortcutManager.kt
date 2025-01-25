@@ -37,10 +37,17 @@ public interface ShortcutManager : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ShortcutManager for the provided [CPointer].
      */
-    public data class ShortcutManagerImpl(
-        override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>,
+    public class ShortcutManagerImpl(
+        gtkShortcutManagerPointer: CPointer<GtkShortcutManager>,
     ) : Object(gtkShortcutManagerPointer.reinterpret()),
-        ShortcutManager
+        ShortcutManager {
+        init {
+            Gtk
+        }
+
+        override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager> =
+                gtkShortcutManagerPointer
+    }
 
     public companion object : TypeCompanion<ShortcutManager> {
         override val type: GeneratedInterfaceKGType<ShortcutManager> =

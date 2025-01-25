@@ -28,6 +28,10 @@ public open class ColorMatrixNode(
     public val gskColorMatrixNodePointer: CPointer<GskColorMatrixNode>,
 ) : RenderNode(gskColorMatrixNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will drawn the @child with
      * @color_matrix.

@@ -50,6 +50,10 @@ public open class LanguageManager(
     public val gtksourceLanguageManagerPointer: CPointer<GtkSourceLanguageManager>,
 ) : Object(gtksourceLanguageManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val languageIds: List<String>?
         /**
          * Returns the ids of the available languages.

@@ -132,6 +132,10 @@ public open class Scale(
     public val gtkScalePointer: CPointer<GtkScale>,
 ) : Range(gtkScalePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -112,6 +112,10 @@ public open class TreeModelFilter(
     TreeDragSource,
     TreeModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
         get() = handle.reinterpret()
 

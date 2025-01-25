@@ -80,6 +80,10 @@ public open class Printer(
     public val gtkPrinterPointer: CPointer<GtkPrinter>,
 ) : Object(gtkPrinterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Icon name to use for the printer.
      */

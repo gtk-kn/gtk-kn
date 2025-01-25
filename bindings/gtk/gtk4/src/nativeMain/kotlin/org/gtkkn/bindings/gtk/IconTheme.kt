@@ -96,6 +96,10 @@ public open class IconTheme(
     public val gtkIconThemePointer: CPointer<GtkIconTheme>,
 ) : Object(gtkIconThemePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The display that this icon theme object is attached to.
      */

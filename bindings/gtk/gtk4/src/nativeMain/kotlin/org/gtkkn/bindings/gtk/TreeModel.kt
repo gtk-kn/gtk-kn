@@ -638,10 +638,16 @@ public interface TreeModel : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TreeModel for the provided [CPointer].
      */
-    public data class TreeModelImpl(
-        override val gtkTreeModelPointer: CPointer<GtkTreeModel>,
+    public class TreeModelImpl(
+        gtkTreeModelPointer: CPointer<GtkTreeModel>,
     ) : Object(gtkTreeModelPointer.reinterpret()),
-        TreeModel
+        TreeModel {
+        init {
+            Gtk
+        }
+
+        override val gtkTreeModelPointer: CPointer<GtkTreeModel> = gtkTreeModelPointer
+    }
 
     public companion object : TypeCompanion<TreeModel> {
         override val type: GeneratedInterfaceKGType<TreeModel> =

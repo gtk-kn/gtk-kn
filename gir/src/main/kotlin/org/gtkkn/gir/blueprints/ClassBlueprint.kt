@@ -31,6 +31,7 @@ data class ClassBlueprint(
     val parentClassName: ClassName?,
     val implementsInterfaces: List<ImplementsInterfaceBlueprint>,
     val methods: List<MethodBlueprint>,
+    val constants: List<ConstantBlueprint>,
     val properties: List<PropertyBlueprint>,
     override val constructors: List<ConstructorBlueprint>,
     val signals: List<SignalBlueprint>,

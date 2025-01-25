@@ -50,6 +50,10 @@ public abstract class FontMap(
 ) : Object(pangoFontMapPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Pango
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

@@ -27,6 +27,10 @@ public open class OverlayLayoutChild(
     public val gtkOverlayLayoutChildPointer: CPointer<GtkOverlayLayoutChild>,
 ) : LayoutChild(gtkOverlayLayoutChildPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether the child should be clipped to fit the parent's size.
      */

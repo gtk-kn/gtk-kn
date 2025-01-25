@@ -57,6 +57,10 @@ public class Context(
     public val jscContextPointer: CPointer<JSCContext>,
 ) : Object(jscContextPointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * The #JSCVirtualMachine in which the context was created.
      */

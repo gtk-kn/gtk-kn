@@ -45,10 +45,17 @@ public interface TlsFileDatabase : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TlsFileDatabase for the provided [CPointer].
      */
-    public data class TlsFileDatabaseImpl(
-        override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>,
+    public class TlsFileDatabaseImpl(
+        gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>,
     ) : TlsDatabase(gioTlsFileDatabasePointer.reinterpret()),
-        TlsFileDatabase
+        TlsFileDatabase {
+        init {
+            Gio
+        }
+
+        override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase> =
+                gioTlsFileDatabasePointer
+    }
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =

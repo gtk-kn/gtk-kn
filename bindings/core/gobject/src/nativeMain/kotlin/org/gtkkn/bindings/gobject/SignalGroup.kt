@@ -22,7 +22,6 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
-import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GSignalGroup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -73,6 +72,10 @@ public open class SignalGroup(
     public val gobjectSignalGroupPointer: CPointer<GSignalGroup>,
 ) : Object(gobjectSignalGroupPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
+
     /**
      * Creates a new #GSignalGroup for target instances of @target_type.
      *
@@ -274,9 +277,10 @@ public open class SignalGroup(
     }
 }
 
-private val onBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+private val onBindFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.gobject.GObject>) -> Unit>> =
+        staticCFunction {
     _: COpaquePointer,
-    instance: CPointer<GObject>?,
+    instance: CPointer<org.gtkkn.native.gobject.GObject>?,
     userData: COpaquePointer
     ->
     userData.asStableRef<(instance: Object) -> Unit>().get().invoke(instance!!.run {

@@ -38,6 +38,10 @@ public open class Vfs(
     public val gioVfsPointer: CPointer<GVfs>,
 ) : Object(gioVfsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets a #GFile for @path.
      *

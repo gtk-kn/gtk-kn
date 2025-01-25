@@ -229,6 +229,10 @@ public open class Entry(
     CellEditable,
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkCellEditablePointer: CPointer<GtkCellEditable>
         get() = handle.reinterpret()
 

@@ -51,6 +51,10 @@ public open class File(
     public val gtksourceFilePointer: CPointer<GtkSourceFile>,
 ) : Object(gtksourceFilePointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The compression type.
      */

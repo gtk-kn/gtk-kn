@@ -54,6 +54,10 @@ public open class UnixFdList(
     public val gioUnixFdListPointer: CPointer<GUnixFDList>,
 ) : Object(gioUnixFdListPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GUnixFDList containing no file descriptors.
      *

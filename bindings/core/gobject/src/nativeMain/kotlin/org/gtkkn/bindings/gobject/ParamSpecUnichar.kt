@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecUnichar
  */
 public open class ParamSpecUnichar(
     public val gobjectParamSpecUnicharPointer: CPointer<GParamSpecUnichar>,
-) : ParamSpec(gobjectParamSpecUnicharPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecUnicharPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

@@ -60,6 +60,10 @@ public abstract class Renderer(
     public val gskRendererPointer: CPointer<GskRenderer>,
 ) : Object(gskRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * The surface associated with renderer.
      */

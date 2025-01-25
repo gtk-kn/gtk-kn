@@ -43,6 +43,10 @@ public class StyleManager(
     public val adwStyleManagerPointer: CPointer<AdwStyleManager>,
 ) : Object(adwStyleManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The requested application color scheme.
      *

@@ -43,6 +43,10 @@ public class AuthManager(
 ) : Object(soupAuthManagerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 

@@ -28,6 +28,10 @@ public open class PropertyExpression(
     public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>,
 ) : Expression(gtkPropertyExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates an expression that looks up a property.
      *

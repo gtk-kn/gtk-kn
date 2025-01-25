@@ -3307,10 +3307,16 @@ public interface File : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of File for the provided [CPointer].
      */
-    public data class FileImpl(
-        override val gioFilePointer: CPointer<GFile>,
+    public class FileImpl(
+        gioFilePointer: CPointer<GFile>,
     ) : Object(gioFilePointer.reinterpret()),
-        File
+        File {
+        init {
+            Gio
+        }
+
+        override val gioFilePointer: CPointer<GFile> = gioFilePointer
+    }
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedInterfaceKGType<File> =

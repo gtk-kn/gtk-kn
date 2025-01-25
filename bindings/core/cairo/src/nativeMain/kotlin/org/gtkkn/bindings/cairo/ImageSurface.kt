@@ -32,6 +32,10 @@ public open class ImageSurface(
     public val cairoImageSurfacePointer: CPointer<cairo_surface_t>,
 ) : Surface(cairoImageSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         format: Format,
         width: gint,

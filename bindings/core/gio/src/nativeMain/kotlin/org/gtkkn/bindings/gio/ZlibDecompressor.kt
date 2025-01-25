@@ -31,6 +31,10 @@ public open class ZlibDecompressor(
 ) : Object(gioZlibDecompressorPointer.reinterpret()),
     Converter,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioConverterPointer: CPointer<GConverter>
         get() = handle.reinterpret()
 

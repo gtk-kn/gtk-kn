@@ -69,6 +69,10 @@ public open class PrintDialog(
     public val gtkPrintDialogPointer: CPointer<GtkPrintDialog>,
 ) : Object(gtkPrintDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * A label that may be shown on the accept button of a print dialog
      * that is presented by [method@Gtk.PrintDialog.setup].

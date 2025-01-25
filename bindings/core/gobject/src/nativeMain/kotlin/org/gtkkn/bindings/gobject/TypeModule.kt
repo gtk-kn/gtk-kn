@@ -64,6 +64,10 @@ public abstract class TypeModule(
 ) : Object(gobjectTypeModulePointer.reinterpret()),
     TypePlugin,
     KGTyped {
+    init {
+        GObject
+    }
+
     override val gobjectTypePluginPointer: CPointer<GTypePlugin>
         get() = handle.reinterpret()
 

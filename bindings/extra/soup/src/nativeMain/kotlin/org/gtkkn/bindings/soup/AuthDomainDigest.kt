@@ -36,6 +36,10 @@ public class AuthDomainDigest(
     public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>,
 ) : AuthDomain(soupAuthDomainDigestPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * Sets the callback that @domain will use to authenticate incoming
      * requests.

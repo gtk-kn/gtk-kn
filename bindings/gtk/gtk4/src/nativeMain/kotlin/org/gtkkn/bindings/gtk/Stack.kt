@@ -105,6 +105,10 @@ public open class Stack(
     public val gtkStackPointer: CPointer<GtkStack>,
 ) : Widget(gtkStackPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

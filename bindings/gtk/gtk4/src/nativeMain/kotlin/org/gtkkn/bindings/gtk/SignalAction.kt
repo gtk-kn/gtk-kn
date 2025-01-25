@@ -27,6 +27,10 @@ public open class SignalAction(
     public val gtkSignalActionPointer: CPointer<GtkSignalAction>,
 ) : ShortcutAction(gtkSignalActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The name of the signal to emit.
      */

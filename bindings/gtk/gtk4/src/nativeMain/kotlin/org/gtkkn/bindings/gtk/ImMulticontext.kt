@@ -31,6 +31,10 @@ public open class ImMulticontext(
     public val gtkImMulticontextPointer: CPointer<GtkIMMulticontext>,
 ) : ImContext(gtkImMulticontextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkIMMulticontext`.
      *

@@ -67,6 +67,10 @@ public abstract class Device(
     public val gdkDevicePointer: CPointer<GdkDevice>,
 ) : Object(gdkDevicePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Whether Caps Lock is on.
      *

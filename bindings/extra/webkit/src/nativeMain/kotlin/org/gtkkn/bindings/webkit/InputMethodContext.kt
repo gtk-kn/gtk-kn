@@ -70,6 +70,10 @@ public abstract class InputMethodContext(
     public val webkitInputMethodContextPointer: CPointer<WebKitInputMethodContext>,
 ) : Object(webkitInputMethodContextPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The #WebKitInputHints of the input associated with this context.
      *

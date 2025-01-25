@@ -26,6 +26,7 @@ import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHashTable
 import org.gtkkn.native.glib.g_strdup
@@ -115,6 +116,10 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - record `WebsocketExtensionManagerClass`: glib type struct are ignored
  */
 public object Soup {
+    init {
+        registerTypes()
+    }
+
     /**
      * A constant corresponding to 1 day.
      *
@@ -636,6 +641,37 @@ public object Soup {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        TypeCache.register(Auth::class, Auth.getType()) { Auth.AuthImpl(it.reinterpret()) }
+        TypeCache.register(AuthBasic::class, AuthBasic.getType()) { AuthBasic(it.reinterpret()) }
+        TypeCache.register(AuthDigest::class, AuthDigest.getType()) { AuthDigest(it.reinterpret()) }
+        TypeCache.register(AuthDomain::class, AuthDomain.getType()) { AuthDomain.AuthDomainImpl(it.reinterpret()) }
+        TypeCache.register(AuthDomainBasic::class, AuthDomainBasic.getType()) { AuthDomainBasic(it.reinterpret()) }
+        TypeCache.register(AuthDomainDigest::class, AuthDomainDigest.getType()) { AuthDomainDigest(it.reinterpret()) }
+        TypeCache.register(AuthManager::class, AuthManager.getType()) { AuthManager(it.reinterpret()) }
+        TypeCache.register(AuthNtlm::class, AuthNtlm.getType()) { AuthNtlm(it.reinterpret()) }
+        TypeCache.register(AuthNegotiate::class, AuthNegotiate.getType()) { AuthNegotiate(it.reinterpret()) }
+        TypeCache.register(Cache::class, Cache.getType()) { Cache(it.reinterpret()) }
+        TypeCache.register(ContentDecoder::class, ContentDecoder.getType()) { ContentDecoder(it.reinterpret()) }
+        TypeCache.register(ContentSniffer::class, ContentSniffer.getType()) { ContentSniffer(it.reinterpret()) }
+        TypeCache.register(CookieJar::class, CookieJar.getType()) { CookieJar(it.reinterpret()) }
+        TypeCache.register(CookieJarDb::class, CookieJarDb.getType()) { CookieJarDb(it.reinterpret()) }
+        TypeCache.register(CookieJarText::class, CookieJarText.getType()) { CookieJarText(it.reinterpret()) }
+        TypeCache.register(HstsEnforcer::class, HstsEnforcer.getType()) { HstsEnforcer(it.reinterpret()) }
+        TypeCache.register(HstsEnforcerDb::class, HstsEnforcerDb.getType()) { HstsEnforcerDb(it.reinterpret()) }
+        TypeCache.register(Logger::class, Logger.getType()) { Logger(it.reinterpret()) }
+        TypeCache.register(Message::class, Message.getType()) { Message(it.reinterpret()) }
+        TypeCache.register(MultipartInputStream::class, MultipartInputStream.getType()) { MultipartInputStream(it.reinterpret()) }
+        TypeCache.register(Server::class, Server.getType()) { Server(it.reinterpret()) }
+        TypeCache.register(ServerMessage::class, ServerMessage.getType()) { ServerMessage(it.reinterpret()) }
+        TypeCache.register(Session::class, Session.getType()) { Session(it.reinterpret()) }
+        TypeCache.register(WebsocketConnection::class, WebsocketConnection.getType()) { WebsocketConnection(it.reinterpret()) }
+        TypeCache.register(WebsocketExtension::class, WebsocketExtension.getType()) { WebsocketExtension.WebsocketExtensionImpl(it.reinterpret()) }
+        TypeCache.register(WebsocketExtensionDeflate::class, WebsocketExtensionDeflate.getType()) { WebsocketExtensionDeflate(it.reinterpret()) }
+        TypeCache.register(WebsocketExtensionManager::class, WebsocketExtensionManager.getType()) { WebsocketExtensionManager(it.reinterpret()) }
+        TypeCache.register(SessionFeature::class, SessionFeature.getType()) { SessionFeature.SessionFeatureImpl(it.reinterpret()) }
     }
 }
 

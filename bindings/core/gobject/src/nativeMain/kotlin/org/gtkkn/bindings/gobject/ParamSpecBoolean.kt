@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecBoolean
  */
 public open class ParamSpecBoolean(
     public val gobjectParamSpecBooleanPointer: CPointer<GParamSpecBoolean>,
-) : ParamSpec(gobjectParamSpecBooleanPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecBooleanPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

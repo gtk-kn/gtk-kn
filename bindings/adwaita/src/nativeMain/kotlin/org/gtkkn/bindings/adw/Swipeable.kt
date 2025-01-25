@@ -87,10 +87,16 @@ public interface Swipeable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Swipeable for the provided [CPointer].
      */
-    public data class SwipeableImpl(
-        override val adwSwipeablePointer: CPointer<AdwSwipeable>,
+    public class SwipeableImpl(
+        adwSwipeablePointer: CPointer<AdwSwipeable>,
     ) : Widget(adwSwipeablePointer.reinterpret()),
-        Swipeable
+        Swipeable {
+        init {
+            Adw
+        }
+
+        override val adwSwipeablePointer: CPointer<AdwSwipeable> = adwSwipeablePointer
+    }
 
     public companion object : TypeCompanion<Swipeable> {
         override val type: GeneratedInterfaceKGType<Swipeable> =

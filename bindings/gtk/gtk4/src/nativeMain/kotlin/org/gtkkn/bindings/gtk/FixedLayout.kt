@@ -51,6 +51,10 @@ public open class FixedLayout(
     public val gtkFixedLayoutPointer: CPointer<GtkFixedLayout>,
 ) : LayoutManager(gtkFixedLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkFixedLayout`.
      *

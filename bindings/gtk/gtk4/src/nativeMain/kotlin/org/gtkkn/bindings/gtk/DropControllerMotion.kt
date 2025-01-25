@@ -51,6 +51,10 @@ public open class DropControllerMotion(
     public val gtkDropControllerMotionPointer: CPointer<GtkDropControllerMotion>,
 ) : EventController(gtkDropControllerMotionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The ongoing drop operation over the controller's widget or
      * its descendant.

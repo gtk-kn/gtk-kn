@@ -95,6 +95,10 @@ public class Breakpoint(
 ) : Object(adwBreakpointPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

@@ -36,6 +36,10 @@ public open class ProxyAddress(
     public val gioProxyAddressPointer: CPointer<GProxyAddress>,
 ) : InetSocketAddress(gioProxyAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 

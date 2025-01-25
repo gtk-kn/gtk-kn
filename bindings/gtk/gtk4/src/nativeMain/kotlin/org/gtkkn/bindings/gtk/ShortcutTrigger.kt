@@ -52,6 +52,10 @@ public abstract class ShortcutTrigger(
     public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>,
 ) : Object(gtkShortcutTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Tries to parse the given string into a trigger.
      *

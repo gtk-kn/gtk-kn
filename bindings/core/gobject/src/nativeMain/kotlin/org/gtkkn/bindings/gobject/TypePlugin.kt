@@ -122,10 +122,16 @@ public interface TypePlugin : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TypePlugin for the provided [CPointer].
      */
-    public data class TypePluginImpl(
-        override val gobjectTypePluginPointer: CPointer<GTypePlugin>,
+    public class TypePluginImpl(
+        gobjectTypePluginPointer: CPointer<GTypePlugin>,
     ) : Object(gobjectTypePluginPointer.reinterpret()),
-        TypePlugin
+        TypePlugin {
+        init {
+            GObject
+        }
+
+        override val gobjectTypePluginPointer: CPointer<GTypePlugin> = gobjectTypePluginPointer
+    }
 
     public companion object : TypeCompanion<TypePlugin> {
         override val type: GeneratedInterfaceKGType<TypePlugin> =

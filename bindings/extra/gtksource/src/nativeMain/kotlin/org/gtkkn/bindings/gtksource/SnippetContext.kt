@@ -54,6 +54,10 @@ public open class SnippetContext(
     public val gtksourceSnippetContextPointer: CPointer<GtkSourceSnippetContext>,
 ) : Object(gtksourceSnippetContextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Creates a new #GtkSourceSnippetContext.
      *

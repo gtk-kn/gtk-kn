@@ -52,6 +52,10 @@ public open class GridLayout(
     public val gtkGridLayoutPointer: CPointer<GtkGridLayout>,
 ) : LayoutManager(gtkGridLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The row to align to the baseline, when `GtkWidget:valign` is set
      * to %GTK_ALIGN_BASELINE.

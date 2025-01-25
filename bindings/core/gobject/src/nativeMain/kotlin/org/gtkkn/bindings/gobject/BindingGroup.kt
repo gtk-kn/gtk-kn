@@ -41,6 +41,10 @@ public open class BindingGroup(
     public val gobjectBindingGroupPointer: CPointer<GBindingGroup>,
 ) : Object(gobjectBindingGroupPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
+
     /**
      * Creates a new #GBindingGroup.
      *

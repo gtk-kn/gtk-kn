@@ -30,6 +30,10 @@ public open class LinearGradientNode(
     public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>,
 ) : RenderNode(gskLinearGradientNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Retrieves the final point of the linear gradient.
      *

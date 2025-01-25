@@ -612,6 +612,10 @@ public open class Task(
 ) : Object(gioTaskPointer.reinterpret()),
     AsyncResult,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
         get() = handle.reinterpret()
 

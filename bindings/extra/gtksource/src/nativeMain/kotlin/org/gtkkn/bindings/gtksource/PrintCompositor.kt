@@ -92,6 +92,10 @@ public open class PrintCompositor(
     public val gtksourcePrintCompositorPointer: CPointer<GtkSourcePrintCompositor>,
 ) : Object(gtksourcePrintCompositorPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Name of the font used for the text body.
      *

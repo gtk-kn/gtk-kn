@@ -29,6 +29,10 @@ public class BackForwardListItem(
     public val webkitBackForwardListItemPointer: CPointer<WebKitBackForwardListItem>,
 ) : InitiallyUnowned(webkitBackForwardListItemPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Obtain the original URI of the item.
      *

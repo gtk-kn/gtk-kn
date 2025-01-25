@@ -125,6 +125,10 @@ public open class Dialog(
     public val adwDialogPointer: CPointer<AdwDialog>,
 ) : Widget(adwDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

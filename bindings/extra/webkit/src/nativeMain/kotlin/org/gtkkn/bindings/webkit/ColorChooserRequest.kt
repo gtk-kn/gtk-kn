@@ -58,6 +58,10 @@ public class ColorChooserRequest(
     public val webkitColorChooserRequestPointer: CPointer<WebKitColorChooserRequest>,
 ) : Object(webkitColorChooserRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Cancels @request and the input element changes to use the initial color.
      *

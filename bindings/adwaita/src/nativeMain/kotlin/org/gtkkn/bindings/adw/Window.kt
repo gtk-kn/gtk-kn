@@ -111,6 +111,10 @@ public open class Window(
     public val adwWindowPointer: CPointer<AdwWindow>,
 ) : org.gtkkn.bindings.gtk.Window(adwWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

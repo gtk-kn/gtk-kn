@@ -53,6 +53,10 @@ public open class InetAddressMask(
 ) : Object(gioInetAddressMaskPointer.reinterpret()),
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioInitablePointer: CPointer<GInitable>
         get() = handle.reinterpret()
 

@@ -95,6 +95,10 @@ public open class DBusMessage(
     public val gioDBusMessagePointer: CPointer<GDBusMessage>,
 ) : Object(gioDBusMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public open val locked: Boolean
         /**
          * Checks whether @message is locked. To monitor changes to this

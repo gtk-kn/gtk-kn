@@ -174,6 +174,10 @@ public open class FileChooserNative(
 ) : NativeDialog(gtkFileChooserNativePointer.reinterpret()),
     FileChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
         get() = handle.reinterpret()
 

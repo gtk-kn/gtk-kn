@@ -36,6 +36,10 @@ public abstract class FontFace(
     public val pangoFontFacePointer: CPointer<PangoFontFace>,
 ) : Object(pangoFontFacePointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Returns a font description that matches the face.
      *

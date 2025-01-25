@@ -72,6 +72,10 @@ public abstract class DBusInterfaceSkeleton(
 ) : Object(gioDBusInterfaceSkeletonPointer.reinterpret()),
     DBusInterface,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusInterfacePointer: CPointer<GDBusInterface>
         get() = handle.reinterpret()
 

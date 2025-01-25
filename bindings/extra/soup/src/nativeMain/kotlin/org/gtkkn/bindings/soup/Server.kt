@@ -170,6 +170,10 @@ public open class Server(
     public val soupServerPointer: CPointer<SoupServer>,
 ) : Object(soupServerPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * A [enum@Gio.TlsAuthenticationMode] for SSL/TLS client authentication.
      */

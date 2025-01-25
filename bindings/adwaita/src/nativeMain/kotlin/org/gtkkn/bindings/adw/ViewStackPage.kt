@@ -46,6 +46,10 @@ public class ViewStackPage(
 ) : Object(adwViewStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -70,10 +70,17 @@ public interface HoverProvider : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of HoverProvider for the provided [CPointer].
      */
-    public data class HoverProviderImpl(
-        override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>,
+    public class HoverProviderImpl(
+        gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>,
     ) : Object(gtksourceHoverProviderPointer.reinterpret()),
-        HoverProvider
+        HoverProvider {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider> =
+                gtksourceHoverProviderPointer
+    }
 
     public companion object : TypeCompanion<HoverProvider> {
         override val type: GeneratedInterfaceKGType<HoverProvider> =

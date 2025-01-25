@@ -68,6 +68,10 @@ public open class ShortcutsSection(
     public val gtkShortcutsSectionPointer: CPointer<GtkShortcutsSection>,
 ) : Box(gtkShortcutsSectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

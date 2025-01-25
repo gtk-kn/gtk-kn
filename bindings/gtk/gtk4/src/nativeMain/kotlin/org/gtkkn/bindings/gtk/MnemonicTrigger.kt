@@ -26,6 +26,10 @@ public open class MnemonicTrigger(
     public val gtkMnemonicTriggerPointer: CPointer<GtkMnemonicTrigger>,
 ) : ShortcutTrigger(gtkMnemonicTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The key value for the trigger.
      */

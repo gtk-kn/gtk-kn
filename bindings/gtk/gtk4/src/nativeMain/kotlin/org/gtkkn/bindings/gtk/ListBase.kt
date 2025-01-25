@@ -31,6 +31,10 @@ public abstract class ListBase(
     Orientable,
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

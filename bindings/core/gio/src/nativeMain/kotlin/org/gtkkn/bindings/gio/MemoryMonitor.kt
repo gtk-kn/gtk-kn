@@ -105,10 +105,16 @@ public interface MemoryMonitor : Proxy, Initable, KGTyped {
      *
      * @constructor Creates a new instance of MemoryMonitor for the provided [CPointer].
      */
-    public data class MemoryMonitorImpl(
-        override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>,
+    public class MemoryMonitorImpl(
+        gioMemoryMonitorPointer: CPointer<GMemoryMonitor>,
     ) : Object(gioMemoryMonitorPointer.reinterpret()),
-        MemoryMonitor
+        MemoryMonitor {
+        init {
+            Gio
+        }
+
+        override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor> = gioMemoryMonitorPointer
+    }
 
     public companion object : TypeCompanion<MemoryMonitor> {
         override val type: GeneratedInterfaceKGType<MemoryMonitor> =

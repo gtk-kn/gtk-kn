@@ -57,6 +57,10 @@ public abstract class Drag(
     public val gdkDragPointer: CPointer<GdkDrag>,
 ) : Object(gdkDragPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The possible actions of this drag.
      */

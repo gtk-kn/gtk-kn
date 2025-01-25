@@ -13,6 +13,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.adw.adw_get_enable_animations
 import org.gtkkn.native.adw.adw_get_major_version
 import org.gtkkn.native.adw.adw_get_micro_version
@@ -105,6 +106,10 @@ import org.gtkkn.native.glib.guint32
  * - record `WindowTitleClass`: glib type struct are ignored
  */
 public object Adw {
+    init {
+        registerTypes()
+    }
+
     /**
      * Indicates an [class@Animation] with an infinite duration.
      *
@@ -222,6 +227,79 @@ public object Adw {
         b: gdouble,
         t: gdouble,
     ): gdouble = adw_lerp(a, b, t)
+
+    private fun registerTypes() {
+        TypeCache.register(AboutDialog::class, AboutDialog.getType()) { AboutDialog(it.reinterpret()) }
+        TypeCache.register(AboutWindow::class, AboutWindow.getType()) { AboutWindow(it.reinterpret()) }
+        TypeCache.register(ActionRow::class, ActionRow.getType()) { ActionRow(it.reinterpret()) }
+        TypeCache.register(AlertDialog::class, AlertDialog.getType()) { AlertDialog(it.reinterpret()) }
+        TypeCache.register(Animation::class, Animation.getType()) { Animation.AnimationImpl(it.reinterpret()) }
+        TypeCache.register(AnimationTarget::class, AnimationTarget.getType()) { AnimationTarget.AnimationTargetImpl(it.reinterpret()) }
+        TypeCache.register(Application::class, Application.getType()) { Application(it.reinterpret()) }
+        TypeCache.register(ApplicationWindow::class, ApplicationWindow.getType()) { ApplicationWindow(it.reinterpret()) }
+        TypeCache.register(Avatar::class, Avatar.getType()) { Avatar(it.reinterpret()) }
+        TypeCache.register(Banner::class, Banner.getType()) { Banner(it.reinterpret()) }
+        TypeCache.register(Bin::class, Bin.getType()) { Bin(it.reinterpret()) }
+        TypeCache.register(Breakpoint::class, Breakpoint.getType()) { Breakpoint(it.reinterpret()) }
+        TypeCache.register(BreakpointBin::class, BreakpointBin.getType()) { BreakpointBin(it.reinterpret()) }
+        TypeCache.register(ButtonContent::class, ButtonContent.getType()) { ButtonContent(it.reinterpret()) }
+        TypeCache.register(CallbackAnimationTarget::class, CallbackAnimationTarget.getType()) { CallbackAnimationTarget(it.reinterpret()) }
+        TypeCache.register(Carousel::class, Carousel.getType()) { Carousel(it.reinterpret()) }
+        TypeCache.register(CarouselIndicatorDots::class, CarouselIndicatorDots.getType()) { CarouselIndicatorDots(it.reinterpret()) }
+        TypeCache.register(CarouselIndicatorLines::class, CarouselIndicatorLines.getType()) { CarouselIndicatorLines(it.reinterpret()) }
+        TypeCache.register(Clamp::class, Clamp.getType()) { Clamp(it.reinterpret()) }
+        TypeCache.register(ClampLayout::class, ClampLayout.getType()) { ClampLayout(it.reinterpret()) }
+        TypeCache.register(ClampScrollable::class, ClampScrollable.getType()) { ClampScrollable(it.reinterpret()) }
+        TypeCache.register(ComboRow::class, ComboRow.getType()) { ComboRow(it.reinterpret()) }
+        TypeCache.register(Dialog::class, Dialog.getType()) { Dialog(it.reinterpret()) }
+        TypeCache.register(EntryRow::class, EntryRow.getType()) { EntryRow(it.reinterpret()) }
+        TypeCache.register(EnumListItem::class, EnumListItem.getType()) { EnumListItem(it.reinterpret()) }
+        TypeCache.register(EnumListModel::class, EnumListModel.getType()) { EnumListModel(it.reinterpret()) }
+        TypeCache.register(ExpanderRow::class, ExpanderRow.getType()) { ExpanderRow(it.reinterpret()) }
+        TypeCache.register(Flap::class, Flap.getType()) { Flap(it.reinterpret()) }
+        TypeCache.register(HeaderBar::class, HeaderBar.getType()) { HeaderBar(it.reinterpret()) }
+        TypeCache.register(Leaflet::class, Leaflet.getType()) { Leaflet(it.reinterpret()) }
+        TypeCache.register(LeafletPage::class, LeafletPage.getType()) { LeafletPage(it.reinterpret()) }
+        TypeCache.register(MessageDialog::class, MessageDialog.getType()) { MessageDialog(it.reinterpret()) }
+        TypeCache.register(NavigationPage::class, NavigationPage.getType()) { NavigationPage(it.reinterpret()) }
+        TypeCache.register(NavigationSplitView::class, NavigationSplitView.getType()) { NavigationSplitView(it.reinterpret()) }
+        TypeCache.register(NavigationView::class, NavigationView.getType()) { NavigationView(it.reinterpret()) }
+        TypeCache.register(OverlaySplitView::class, OverlaySplitView.getType()) { OverlaySplitView(it.reinterpret()) }
+        TypeCache.register(PasswordEntryRow::class, PasswordEntryRow.getType()) { PasswordEntryRow(it.reinterpret()) }
+        TypeCache.register(PreferencesDialog::class, PreferencesDialog.getType()) { PreferencesDialog(it.reinterpret()) }
+        TypeCache.register(PreferencesGroup::class, PreferencesGroup.getType()) { PreferencesGroup(it.reinterpret()) }
+        TypeCache.register(PreferencesPage::class, PreferencesPage.getType()) { PreferencesPage(it.reinterpret()) }
+        TypeCache.register(PreferencesRow::class, PreferencesRow.getType()) { PreferencesRow(it.reinterpret()) }
+        TypeCache.register(PreferencesWindow::class, PreferencesWindow.getType()) { PreferencesWindow(it.reinterpret()) }
+        TypeCache.register(PropertyAnimationTarget::class, PropertyAnimationTarget.getType()) { PropertyAnimationTarget(it.reinterpret()) }
+        TypeCache.register(SpinRow::class, SpinRow.getType()) { SpinRow(it.reinterpret()) }
+        TypeCache.register(SplitButton::class, SplitButton.getType()) { SplitButton(it.reinterpret()) }
+        TypeCache.register(SpringAnimation::class, SpringAnimation.getType()) { SpringAnimation(it.reinterpret()) }
+        TypeCache.register(Squeezer::class, Squeezer.getType()) { Squeezer(it.reinterpret()) }
+        TypeCache.register(SqueezerPage::class, SqueezerPage.getType()) { SqueezerPage(it.reinterpret()) }
+        TypeCache.register(StatusPage::class, StatusPage.getType()) { StatusPage(it.reinterpret()) }
+        TypeCache.register(StyleManager::class, StyleManager.getType()) { StyleManager(it.reinterpret()) }
+        TypeCache.register(SwipeTracker::class, SwipeTracker.getType()) { SwipeTracker(it.reinterpret()) }
+        TypeCache.register(SwitchRow::class, SwitchRow.getType()) { SwitchRow(it.reinterpret()) }
+        TypeCache.register(TabBar::class, TabBar.getType()) { TabBar(it.reinterpret()) }
+        TypeCache.register(TabButton::class, TabButton.getType()) { TabButton(it.reinterpret()) }
+        TypeCache.register(TabOverview::class, TabOverview.getType()) { TabOverview(it.reinterpret()) }
+        TypeCache.register(TabPage::class, TabPage.getType()) { TabPage(it.reinterpret()) }
+        TypeCache.register(TabView::class, TabView.getType()) { TabView(it.reinterpret()) }
+        TypeCache.register(TimedAnimation::class, TimedAnimation.getType()) { TimedAnimation(it.reinterpret()) }
+        TypeCache.register(Toast::class, Toast.getType()) { Toast(it.reinterpret()) }
+        TypeCache.register(ToastOverlay::class, ToastOverlay.getType()) { ToastOverlay(it.reinterpret()) }
+        TypeCache.register(ToolbarView::class, ToolbarView.getType()) { ToolbarView(it.reinterpret()) }
+        TypeCache.register(ViewStack::class, ViewStack.getType()) { ViewStack(it.reinterpret()) }
+        TypeCache.register(ViewStackPage::class, ViewStackPage.getType()) { ViewStackPage(it.reinterpret()) }
+        TypeCache.register(ViewStackPages::class, ViewStackPages.getType()) { ViewStackPages(it.reinterpret()) }
+        TypeCache.register(ViewSwitcher::class, ViewSwitcher.getType()) { ViewSwitcher(it.reinterpret()) }
+        TypeCache.register(ViewSwitcherBar::class, ViewSwitcherBar.getType()) { ViewSwitcherBar(it.reinterpret()) }
+        TypeCache.register(ViewSwitcherTitle::class, ViewSwitcherTitle.getType()) { ViewSwitcherTitle(it.reinterpret()) }
+        TypeCache.register(Window::class, Window.getType()) { Window(it.reinterpret()) }
+        TypeCache.register(WindowTitle::class, WindowTitle.getType()) { WindowTitle(it.reinterpret()) }
+        TypeCache.register(Swipeable::class, Swipeable.getType()) { Swipeable.SwipeableImpl(it.reinterpret()) }
+    }
 }
 
 public val AnimationTargetFuncFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {

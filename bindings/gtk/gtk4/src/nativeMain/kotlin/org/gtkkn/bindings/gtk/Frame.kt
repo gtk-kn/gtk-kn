@@ -85,6 +85,10 @@ public open class Frame(
     public val gtkFramePointer: CPointer<GtkFrame>,
 ) : Widget(gtkFramePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

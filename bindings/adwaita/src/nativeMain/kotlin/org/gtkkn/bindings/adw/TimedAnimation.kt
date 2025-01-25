@@ -56,6 +56,10 @@ public class TimedAnimation(
     public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>,
 ) : Animation(adwTimedAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Whether the animation changes direction on every iteration.
      */

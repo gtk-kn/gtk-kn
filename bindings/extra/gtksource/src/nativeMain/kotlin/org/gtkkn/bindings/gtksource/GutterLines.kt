@@ -58,6 +58,10 @@ public open class GutterLines(
     public val gtksourceGutterLinesPointer: CPointer<GtkSourceGutterLines>,
 ) : Object(gtksourceGutterLinesPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Adds the class @name to @line.
      *

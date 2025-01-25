@@ -146,6 +146,10 @@ public open class Expander(
     public val gtkExpanderPointer: CPointer<GtkExpander>,
 ) : Widget(gtkExpanderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -328,6 +332,13 @@ public open class Expander(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Expander
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_expander_get_type()
+
+        /**
          * Creates a new expander using @label as the text of the label.
          *
          * If characters in @label are preceded by an underscore, they are
@@ -342,13 +353,6 @@ public open class Expander(
          * @return a new `GtkExpander` widget.
          */
         public fun withMnemonic(label: String? = null): Expander = Expander(gtk_expander_new_with_mnemonic(label)!!.reinterpret())
-
-        /**
-         * Get the GType of Expander
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_expander_get_type()
     }
 }
 

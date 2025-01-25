@@ -22,6 +22,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkPixbuf
 import org.gtkkn.native.gdk.GdkPixbufAnimation
 import org.gtkkn.native.gdk.GdkPixbufFormat
@@ -47,6 +48,10 @@ import org.gtkkn.native.glib.gsize
  * - record `PixbufSimpleAnimClass`: glib type struct are ignored
  */
 public object GdkPixbuf {
+    init {
+        registerTypes()
+    }
+
     /**
      * Major version of gdk-pixbuf library, that is the "0" in
      * "0.8.2" for example.
@@ -82,6 +87,16 @@ public object GdkPixbuf {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        TypeCache.register(Pixbuf::class, Pixbuf.getType()) { Pixbuf(it.reinterpret()) }
+        TypeCache.register(PixbufAnimation::class, PixbufAnimation.getType()) { PixbufAnimation(it.reinterpret()) }
+        TypeCache.register(PixbufAnimationIter::class, PixbufAnimationIter.getType()) { PixbufAnimationIter(it.reinterpret()) }
+        TypeCache.register(PixbufLoader::class, PixbufLoader.getType()) { PixbufLoader(it.reinterpret()) }
+        TypeCache.register(PixbufNonAnim::class, PixbufNonAnim.getType()) { PixbufNonAnim(it.reinterpret()) }
+        TypeCache.register(PixbufSimpleAnim::class, PixbufSimpleAnim.getType()) { PixbufSimpleAnim(it.reinterpret()) }
+        TypeCache.register(PixbufSimpleAnimIter::class, PixbufSimpleAnimIter.getType()) { PixbufSimpleAnimIter(it.reinterpret()) }
     }
 }
 

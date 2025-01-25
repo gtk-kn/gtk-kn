@@ -45,6 +45,10 @@ public open class SliceListModel(
     ListModel,
     SectionModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

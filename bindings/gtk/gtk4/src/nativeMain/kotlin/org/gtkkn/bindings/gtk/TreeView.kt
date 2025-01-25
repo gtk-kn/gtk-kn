@@ -234,6 +234,10 @@ public open class TreeView(
 ) : Widget(gtkTreeViewPointer.reinterpret()),
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkScrollablePointer: CPointer<GtkScrollable>
         get() = handle.reinterpret()
 

@@ -46,10 +46,17 @@ public interface DesktopAppInfoLookup : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of DesktopAppInfoLookup for the provided [CPointer].
      */
-    public data class DesktopAppInfoLookupImpl(
-        override val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup>,
+    public class DesktopAppInfoLookupImpl(
+        gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup>,
     ) : Object(gioDesktopAppInfoLookupPointer.reinterpret()),
-        DesktopAppInfoLookup
+        DesktopAppInfoLookup {
+        init {
+            Gio
+        }
+
+        override val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup> =
+                gioDesktopAppInfoLookupPointer
+    }
 
     public companion object : TypeCompanion<DesktopAppInfoLookup> {
         override val type: GeneratedInterfaceKGType<DesktopAppInfoLookup> =

@@ -85,6 +85,10 @@ public open class DisplayManager(
     public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>,
 ) : Object(gdkDisplayManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Gets the default `GdkDisplay`.
      *

@@ -27,6 +27,10 @@ public open class OverlayLayout(
     public val gtkOverlayLayoutPointer: CPointer<GtkOverlayLayout>,
 ) : LayoutManager(gtkOverlayLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkOverlayLayout` instance.
      *

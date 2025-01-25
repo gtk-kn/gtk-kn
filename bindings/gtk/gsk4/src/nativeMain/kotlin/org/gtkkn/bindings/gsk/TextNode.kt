@@ -40,6 +40,10 @@ public open class TextNode(
     public val gskTextNodePointer: CPointer<GskTextNode>,
 ) : RenderNode(gskTextNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a render node that renders the given glyphs.
      *

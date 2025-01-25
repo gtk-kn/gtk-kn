@@ -31,6 +31,10 @@ public class PropertyAnimationTarget(
     public val adwPropertyAnimationTargetPointer: CPointer<AdwPropertyAnimationTarget>,
 ) : AnimationTarget(adwPropertyAnimationTargetPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The object whose property will be animated.
      *

@@ -46,6 +46,10 @@ public class Notification(
     public val webkitNotificationPointer: CPointer<WebKitNotification>,
 ) : Object(webkitNotificationPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The body for the notification.
      *

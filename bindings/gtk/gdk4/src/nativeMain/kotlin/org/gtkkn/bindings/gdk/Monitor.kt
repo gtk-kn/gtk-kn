@@ -64,6 +64,10 @@ public open class Monitor(
     public val gdkMonitorPointer: CPointer<GdkMonitor>,
 ) : Object(gdkMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The connector name.
      */

@@ -68,6 +68,10 @@ public open class EmojiChooser(
     public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>,
 ) : Popover(gtkEmojiChooserPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

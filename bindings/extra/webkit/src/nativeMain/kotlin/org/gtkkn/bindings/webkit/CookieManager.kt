@@ -71,6 +71,10 @@ public class CookieManager(
     public val webkitCookieManagerPointer: CPointer<WebKitCookieManager>,
 ) : Object(webkitCookieManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Asynchronously add a #SoupCookie to the underlying storage.
      *

@@ -24,6 +24,10 @@ public open class CClosureExpression(
     public val gtkCClosureExpressionPointer: CPointer<GtkCClosureExpression>,
 ) : Expression(gtkCClosureExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<CClosureExpression> {
         override val type: GeneratedClassKGType<CClosureExpression> =
                 GeneratedClassKGType(getTypeOrNull("gtk_cclosure_expression_get_type")!!) { CClosureExpression(it.reinterpret()) }

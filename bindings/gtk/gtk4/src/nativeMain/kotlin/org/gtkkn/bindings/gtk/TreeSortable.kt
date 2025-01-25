@@ -121,10 +121,16 @@ public interface TreeSortable : Proxy, TreeModel, KGTyped {
      *
      * @constructor Creates a new instance of TreeSortable for the provided [CPointer].
      */
-    public data class TreeSortableImpl(
-        override val gtkTreeSortablePointer: CPointer<GtkTreeSortable>,
+    public class TreeSortableImpl(
+        gtkTreeSortablePointer: CPointer<GtkTreeSortable>,
     ) : Object(gtkTreeSortablePointer.reinterpret()),
-        TreeSortable
+        TreeSortable {
+        init {
+            Gtk
+        }
+
+        override val gtkTreeSortablePointer: CPointer<GtkTreeSortable> = gtkTreeSortablePointer
+    }
 
     public companion object : TypeCompanion<TreeSortable> {
         override val type: GeneratedInterfaceKGType<TreeSortable> =

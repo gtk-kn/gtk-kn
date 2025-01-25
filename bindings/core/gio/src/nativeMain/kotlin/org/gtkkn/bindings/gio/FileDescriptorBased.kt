@@ -47,10 +47,17 @@ public interface FileDescriptorBased : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of FileDescriptorBased for the provided [CPointer].
      */
-    public data class FileDescriptorBasedImpl(
-        override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>,
+    public class FileDescriptorBasedImpl(
+        gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>,
     ) : Object(gioFileDescriptorBasedPointer.reinterpret()),
-        FileDescriptorBased
+        FileDescriptorBased {
+        init {
+            Gio
+        }
+
+        override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased> =
+                gioFileDescriptorBasedPointer
+    }
 
     public companion object : TypeCompanion<FileDescriptorBased> {
         override val type: GeneratedInterfaceKGType<FileDescriptorBased> =

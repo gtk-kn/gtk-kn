@@ -38,6 +38,10 @@ public open class UnixMountMonitor(
     public val gioUnixMountMonitorPointer: CPointer<GUnixMountMonitor>,
 ) : Object(gioUnixMountMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Deprecated alias for g_unix_mount_monitor_get().
      *

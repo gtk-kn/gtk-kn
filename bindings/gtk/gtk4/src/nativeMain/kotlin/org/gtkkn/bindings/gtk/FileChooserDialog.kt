@@ -203,6 +203,10 @@ public open class FileChooserDialog(
 ) : Dialog(gtkFileChooserDialogPointer.reinterpret()),
     FileChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
         get() = handle.reinterpret()
 

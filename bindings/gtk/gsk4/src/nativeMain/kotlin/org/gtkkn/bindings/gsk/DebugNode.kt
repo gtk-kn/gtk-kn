@@ -29,6 +29,10 @@ public open class DebugNode(
     public val gskDebugNodePointer: CPointer<GskDebugNode>,
 ) : RenderNode(gskDebugNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will add debug information about
      * the given @child.

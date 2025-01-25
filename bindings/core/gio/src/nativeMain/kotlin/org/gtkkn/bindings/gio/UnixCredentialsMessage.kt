@@ -47,6 +47,10 @@ public open class UnixCredentialsMessage(
     public val gioUnixCredentialsMessagePointer: CPointer<GUnixCredentialsMessage>,
 ) : SocketControlMessage(gioUnixCredentialsMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The credentials stored in the message.
      *

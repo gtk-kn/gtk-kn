@@ -29,6 +29,10 @@ public open class FontsetSimple(
     public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>,
 ) : Fontset(pangoFontsetSimplePointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Creates a new `PangoFontsetSimple` for the given language.
      *

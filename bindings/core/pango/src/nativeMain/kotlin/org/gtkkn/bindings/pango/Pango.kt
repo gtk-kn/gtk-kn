@@ -29,6 +29,7 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -129,6 +130,10 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - include `HarfBuzz`: Missing dependant repository
  */
 public object Pango {
+    init {
+        registerTypes()
+    }
+
     /**
      * Whether the segment should be shifted to center around the baseline.
      *
@@ -1170,6 +1175,19 @@ public object Pango {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        TypeCache.register(Context::class, Context.getType()) { Context(it.reinterpret()) }
+        TypeCache.register(Coverage::class, Coverage.getType()) { Coverage(it.reinterpret()) }
+        TypeCache.register(Font::class, Font.getType()) { Font.FontImpl(it.reinterpret()) }
+        TypeCache.register(FontFace::class, FontFace.getType()) { FontFace.FontFaceImpl(it.reinterpret()) }
+        TypeCache.register(FontFamily::class, FontFamily.getType()) { FontFamily.FontFamilyImpl(it.reinterpret()) }
+        TypeCache.register(FontMap::class, FontMap.getType()) { FontMap.FontMapImpl(it.reinterpret()) }
+        TypeCache.register(Fontset::class, Fontset.getType()) { Fontset.FontsetImpl(it.reinterpret()) }
+        TypeCache.register(FontsetSimple::class, FontsetSimple.getType()) { FontsetSimple(it.reinterpret()) }
+        TypeCache.register(Layout::class, Layout.getType()) { Layout(it.reinterpret()) }
+        TypeCache.register(Renderer::class, Renderer.getType()) { Renderer.RendererImpl(it.reinterpret()) }
     }
 }
 

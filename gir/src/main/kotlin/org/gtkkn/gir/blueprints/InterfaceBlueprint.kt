@@ -29,6 +29,7 @@ data class InterfaceBlueprint(
     val nativeName: String,
     val kotlinTypeName: ClassName,
     val methods: List<MethodBlueprint>,
+    val constants: List<ConstantBlueprint>,
     val properties: List<PropertyBlueprint>,
     val signals: List<SignalBlueprint>,
     val functions: List<FunctionBlueprint>,

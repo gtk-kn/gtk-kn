@@ -24,6 +24,10 @@ public class AuthDigest(
     public val soupAuthDigestPointer: CPointer<SoupAuth>,
 ) : Auth(soupAuthDigestPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     public companion object : TypeCompanion<AuthDigest> {
         override val type: GeneratedClassKGType<AuthDigest> =
                 GeneratedClassKGType(getTypeOrNull("soup_auth_digest_get_type")!!) { AuthDigest(it.reinterpret()) }

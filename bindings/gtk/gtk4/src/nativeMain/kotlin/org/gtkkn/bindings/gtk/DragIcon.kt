@@ -47,6 +47,10 @@ public open class DragIcon(
     Native,
     Root,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkNativePointer: CPointer<GtkNative>
         get() = handle.reinterpret()
 

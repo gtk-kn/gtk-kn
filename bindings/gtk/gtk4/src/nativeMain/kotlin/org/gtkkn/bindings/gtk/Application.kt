@@ -130,6 +130,10 @@ public open class Application(
     public val gtkApplicationPointer: CPointer<GtkApplication>,
 ) : org.gtkkn.bindings.gio.Application(gtkApplicationPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 

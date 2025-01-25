@@ -33,6 +33,10 @@ public open class VolumeButton(
     public val gtkVolumeButtonPointer: CPointer<GtkVolumeButton>,
 ) : ScaleButton(gtkVolumeButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

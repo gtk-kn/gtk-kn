@@ -44,6 +44,10 @@ public abstract class MediaFile(
     public val gtkMediaFilePointer: CPointer<GtkMediaFile>,
 ) : MediaStream(gtkMediaFilePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 
@@ -177,6 +181,13 @@ public abstract class MediaFile(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of MediaFile
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_media_file_get_type()
+
+        /**
          * Creates a new new media file for the given resource.
          *
          * This is a utility function that converts the given @resource
@@ -186,12 +197,5 @@ public abstract class MediaFile(
          * @return a new `GtkMediaFile` playing @resource_path
          */
         public fun forResource(resourcePath: String): MediaFileImpl = MediaFileImpl(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
-
-        /**
-         * Get the GType of MediaFile
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_media_file_get_type()
     }
 }

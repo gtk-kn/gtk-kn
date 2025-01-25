@@ -106,6 +106,10 @@ public open class SocketClient(
     public val gioSocketClientPointer: CPointer<GSocketClient>,
 ) : Object(gioSocketClientPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Enable proxy support.
      *

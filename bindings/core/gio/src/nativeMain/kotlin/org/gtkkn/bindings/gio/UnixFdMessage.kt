@@ -52,6 +52,10 @@ public open class UnixFdMessage(
     public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>,
 ) : SocketControlMessage(gioUnixFdMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The [class@Gio.UnixFDList] object to send with the message.
      *

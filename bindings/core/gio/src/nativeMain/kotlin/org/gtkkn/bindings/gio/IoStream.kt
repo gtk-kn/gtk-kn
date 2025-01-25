@@ -101,6 +101,10 @@ public abstract class IoStream(
     public val gioIoStreamPointer: CPointer<GIOStream>,
 ) : Object(gioIoStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The [class@Gio.InputStream] to read from.
      *

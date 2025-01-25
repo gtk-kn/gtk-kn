@@ -29,6 +29,10 @@ public open class GlTexture(
     public val gdkGlTexturePointer: CPointer<GdkGLTexture>,
 ) : Texture(gdkGlTexturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 

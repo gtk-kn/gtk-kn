@@ -160,6 +160,10 @@ public open class Text(
     AccessibleText,
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 

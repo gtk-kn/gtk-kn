@@ -34,6 +34,10 @@ public class DeviceInfoPermissionRequest(
 ) : Object(webkitDeviceInfoPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
+    init {
+        WebKit
+    }
+
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
         get() = handle.reinterpret()
 

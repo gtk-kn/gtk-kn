@@ -63,6 +63,10 @@ public class WebResource(
     public val webkitWebResourcePointer: CPointer<WebKitWebResource>,
 ) : Object(webkitWebResourcePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The #WebKitURIResponse associated with this resource.
      */

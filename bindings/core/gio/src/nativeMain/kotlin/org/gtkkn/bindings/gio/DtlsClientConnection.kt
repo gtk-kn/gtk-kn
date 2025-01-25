@@ -246,10 +246,17 @@ public interface DtlsClientConnection : Proxy, DatagramBased, DtlsConnection, KG
      *
      * @constructor Creates a new instance of DtlsClientConnection for the provided [CPointer].
      */
-    public data class DtlsClientConnectionImpl(
-        override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection>,
+    public class DtlsClientConnectionImpl(
+        gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection>,
     ) : Object(gioDtlsClientConnectionPointer.reinterpret()),
-        DtlsClientConnection
+        DtlsClientConnection {
+        init {
+            Gio
+        }
+
+        override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection> =
+                gioDtlsClientConnectionPointer
+    }
 
     public companion object : TypeCompanion<DtlsClientConnection> {
         override val type: GeneratedInterfaceKGType<DtlsClientConnection> =

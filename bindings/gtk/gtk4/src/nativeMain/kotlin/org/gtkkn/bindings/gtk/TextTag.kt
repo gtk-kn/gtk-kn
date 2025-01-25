@@ -139,6 +139,10 @@ public open class TextTag(
     public val gtkTextTagPointer: CPointer<GtkTextTag>,
 ) : Object(gtkTextTagPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a `GtkTextTag`.
      *

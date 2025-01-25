@@ -68,6 +68,10 @@ public open class Snippet(
     public val gtksourceSnippetPointer: CPointer<GtkSourceSnippet>,
 ) : Object(gtksourceSnippetPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open var description: String
         /**
          * Gets the description for the snippet.

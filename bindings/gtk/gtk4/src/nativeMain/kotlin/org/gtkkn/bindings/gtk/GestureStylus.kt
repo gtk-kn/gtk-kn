@@ -50,6 +50,10 @@ public open class GestureStylus(
     public val gtkGestureStylusPointer: CPointer<GtkGestureStylus>,
 ) : GestureSingle(gtkGestureStylusPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * If this gesture should exclusively react to stylus input devices.
      *

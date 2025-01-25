@@ -26,6 +26,10 @@ public open class ClipNode(
     public val gskClipNodePointer: CPointer<GskClipNode>,
 ) : RenderNode(gskClipNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will clip the @child to the area
      * given by @clip.

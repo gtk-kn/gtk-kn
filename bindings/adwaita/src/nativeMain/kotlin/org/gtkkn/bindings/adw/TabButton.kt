@@ -71,6 +71,10 @@ public class TabButton(
 ) : Widget(adwTabButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 

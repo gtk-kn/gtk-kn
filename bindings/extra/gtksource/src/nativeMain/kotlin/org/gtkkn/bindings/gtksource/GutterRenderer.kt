@@ -100,6 +100,10 @@ public abstract class GutterRenderer(
     public val gtksourceGutterRendererPointer: CPointer<GtkSourceGutterRenderer>,
 ) : Widget(gtksourceGutterRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

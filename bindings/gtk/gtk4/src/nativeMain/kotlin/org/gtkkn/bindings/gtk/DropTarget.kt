@@ -129,6 +129,10 @@ public open class DropTarget(
     public val gtkDropTargetPointer: CPointer<GtkDropTarget>,
 ) : EventController(gtkDropTargetPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GdkDragActions` that this drop target supports.
      */

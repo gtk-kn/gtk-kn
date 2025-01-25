@@ -31,6 +31,10 @@ public open class DmabufTexture(
     public val gdkDmabufTexturePointer: CPointer<GdkDmabufTexture>,
 ) : Texture(gdkDmabufTexturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 

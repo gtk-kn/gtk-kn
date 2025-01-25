@@ -38,6 +38,10 @@ public open class HoverContext(
     public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>,
 ) : Object(gtksourceHoverContextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Gets the current word bounds of the hover.
      *

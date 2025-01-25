@@ -46,7 +46,7 @@ class RecordBlueprintBuilder(
     private val girNode: GirRecord,
 ) : BlueprintBuilder<RecordBlueprint>(context) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
-    private val methodBluePrints = mutableListOf<MethodBlueprint>()
+    private val methodBlueprints = mutableListOf<MethodBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val fieldBlueprints = mutableListOf<FieldBlueprint>()
 
@@ -89,7 +89,7 @@ class RecordBlueprintBuilder(
             nativeTypeName = buildNativeClassName(girNamespace, girNode),
             constructors = constructorBlueprints,
             functions = functionBlueprints,
-            methods = methodBluePrints,
+            methods = methodBlueprints,
             fields = fieldBlueprints,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
@@ -125,7 +125,7 @@ class RecordBlueprintBuilder(
             girNode = method,
             objectPointerTypeName = objectPointerTypeName,
         ).build()) {
-            is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> methodBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }

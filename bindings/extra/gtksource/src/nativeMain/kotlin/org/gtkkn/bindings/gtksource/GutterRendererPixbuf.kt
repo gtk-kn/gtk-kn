@@ -48,6 +48,10 @@ public open class GutterRendererPixbuf(
     public val gtksourceGutterRendererPixbufPointer: CPointer<GtkSourceGutterRendererPixbuf>,
 ) : GutterRenderer(gtksourceGutterRendererPixbufPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

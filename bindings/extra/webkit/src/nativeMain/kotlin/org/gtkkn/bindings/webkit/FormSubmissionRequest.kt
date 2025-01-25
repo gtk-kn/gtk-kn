@@ -34,6 +34,10 @@ public class FormSubmissionRequest(
     public val webkitFormSubmissionRequestPointer: CPointer<WebKitFormSubmissionRequest>,
 ) : Object(webkitFormSubmissionRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Continue the form submission.
      */

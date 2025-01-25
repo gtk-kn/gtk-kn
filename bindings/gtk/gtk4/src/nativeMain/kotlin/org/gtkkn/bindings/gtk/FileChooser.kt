@@ -573,10 +573,16 @@ public interface FileChooser : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of FileChooser for the provided [CPointer].
      */
-    public data class FileChooserImpl(
-        override val gtkFileChooserPointer: CPointer<GtkFileChooser>,
+    public class FileChooserImpl(
+        gtkFileChooserPointer: CPointer<GtkFileChooser>,
     ) : Object(gtkFileChooserPointer.reinterpret()),
-        FileChooser
+        FileChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkFileChooserPointer: CPointer<GtkFileChooser> = gtkFileChooserPointer
+    }
 
     public companion object : TypeCompanion<FileChooser> {
         override val type: GeneratedInterfaceKGType<FileChooser> =

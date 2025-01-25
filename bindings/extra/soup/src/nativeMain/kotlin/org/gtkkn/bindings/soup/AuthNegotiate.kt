@@ -32,6 +32,10 @@ public class AuthNegotiate(
     public val soupAuthNegotiatePointer: CPointer<SoupAuth>,
 ) : Auth(soupAuthNegotiatePointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     public companion object : TypeCompanion<AuthNegotiate> {
         override val type: GeneratedClassKGType<AuthNegotiate> =
                 GeneratedClassKGType(getTypeOrNull("soup_auth_negotiate_get_type")!!) { AuthNegotiate(it.reinterpret()) }

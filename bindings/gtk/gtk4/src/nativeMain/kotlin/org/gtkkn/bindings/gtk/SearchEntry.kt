@@ -100,6 +100,10 @@ public open class SearchEntry(
 ) : Widget(gtkSearchEntryPointer.reinterpret()),
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkEditablePointer: CPointer<GtkEditable>
         get() = handle.reinterpret()
 

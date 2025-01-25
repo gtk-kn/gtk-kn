@@ -30,6 +30,10 @@ public open class GlShaderNode(
     public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>,
 ) : RenderNode(gskGlShaderNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Gets args for the node.
      *

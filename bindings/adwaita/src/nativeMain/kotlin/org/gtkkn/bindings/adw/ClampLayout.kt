@@ -53,6 +53,10 @@ public class ClampLayout(
 ) : LayoutManager(adwClampLayoutPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

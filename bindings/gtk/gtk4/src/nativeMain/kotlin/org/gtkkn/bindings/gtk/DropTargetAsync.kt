@@ -79,6 +79,10 @@ public open class DropTargetAsync(
     public val gtkDropTargetAsyncPointer: CPointer<GtkDropTargetAsync>,
 ) : EventController(gtkDropTargetAsyncPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GdkDragActions` that this drop target supports.
      */

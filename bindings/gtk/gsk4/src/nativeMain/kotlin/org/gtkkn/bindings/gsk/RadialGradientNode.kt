@@ -34,6 +34,10 @@ public open class RadialGradientNode(
     public val gskRadialGradientNodePointer: CPointer<GskRadialGradientNode>,
 ) : RenderNode(gskRadialGradientNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Retrieves the center pointer for the gradient.
      *

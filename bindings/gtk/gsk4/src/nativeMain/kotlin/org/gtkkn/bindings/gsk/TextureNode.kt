@@ -26,6 +26,10 @@ public open class TextureNode(
     public val gskTextureNodePointer: CPointer<GskTextureNode>,
 ) : RenderNode(gskTextureNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render the given
      * @texture into the area given by @bounds.

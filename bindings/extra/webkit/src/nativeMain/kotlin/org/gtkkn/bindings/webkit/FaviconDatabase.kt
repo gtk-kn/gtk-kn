@@ -63,6 +63,10 @@ public class FaviconDatabase(
     public val webkitFaviconDatabasePointer: CPointer<WebKitFaviconDatabase>,
 ) : Object(webkitFaviconDatabasePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Clears all icons from the database.
      */

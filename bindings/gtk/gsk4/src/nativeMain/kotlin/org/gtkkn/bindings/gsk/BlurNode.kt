@@ -26,6 +26,10 @@ public open class BlurNode(
     public val gskBlurNodePointer: CPointer<GskBlurNode>,
 ) : RenderNode(gskBlurNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a render node that blurs the child.
      *

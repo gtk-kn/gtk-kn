@@ -91,6 +91,10 @@ public open class PropertyAction(
 ) : Object(gioPropertyActionPointer.reinterpret()),
     Action,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioActionPointer: CPointer<GAction>
         get() = handle.reinterpret()
 

@@ -289,6 +289,10 @@ public open class Label(
 ) : Widget(gtkLabelPointer.reinterpret()),
     AccessibleText,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 
@@ -1089,6 +1093,13 @@ public open class Label(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Label
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_label_get_type()
+
+        /**
          * Creates a new `GtkLabel`, containing the text in @str.
          *
          * If characters in @str are preceded by an underscore, they are
@@ -1109,13 +1120,6 @@ public open class Label(
          * @return the new `GtkLabel`
          */
         public fun withMnemonic(str: String? = null): Label = Label(gtk_label_new_with_mnemonic(str)!!.reinterpret())
-
-        /**
-         * Get the GType of Label
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_label_get_type()
     }
 }
 

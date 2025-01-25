@@ -46,6 +46,10 @@ public open class GestureSingle(
     public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>,
 ) : Gesture(gtkGestureSinglePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Mouse button number to listen to, or 0 to listen for any button.
      */

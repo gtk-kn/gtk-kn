@@ -43,6 +43,10 @@ public class SecurityManager(
     public val webkitSecurityManagerPointer: CPointer<WebKitSecurityManager>,
 ) : Object(webkitSecurityManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Register @scheme as a CORS (Cross-origin resource sharing) enabled scheme.
      *

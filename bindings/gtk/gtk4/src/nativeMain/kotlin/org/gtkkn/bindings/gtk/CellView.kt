@@ -69,6 +69,10 @@ public open class CellView(
     CellLayout,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
         get() = handle.reinterpret()
 
@@ -231,6 +235,13 @@ public open class CellView(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of CellView
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_cell_view_get_type()
+
+        /**
          * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
          * to it, and makes it show @markup. The text can be marked up with
          * the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
@@ -239,12 +250,5 @@ public open class CellView(
          * @return A newly created `GtkCellView` widget.
          */
         public fun withMarkup(markup: String): CellView = CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
-
-        /**
-         * Get the GType of CellView
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_cell_view_get_type()
     }
 }

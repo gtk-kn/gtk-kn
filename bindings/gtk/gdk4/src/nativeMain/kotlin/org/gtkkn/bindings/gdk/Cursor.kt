@@ -64,6 +64,10 @@ public open class Cursor(
     public val gdkCursorPointer: CPointer<GdkCursor>,
 ) : Object(gdkCursorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Cursor to fall back to if this cursor cannot be displayed.
      */

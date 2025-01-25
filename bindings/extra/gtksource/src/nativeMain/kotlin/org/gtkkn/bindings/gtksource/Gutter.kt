@@ -52,6 +52,10 @@ public open class Gutter(
     public val gtksourceGutterPointer: CPointer<GtkSourceGutter>,
 ) : Widget(gtksourceGutterPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -74,6 +74,10 @@ public class SpringAnimation(
     public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>,
 ) : Animation(adwSpringAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Whether the animation should be clamped.
      *

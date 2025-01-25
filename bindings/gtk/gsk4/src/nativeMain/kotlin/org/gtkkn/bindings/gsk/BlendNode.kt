@@ -26,6 +26,10 @@ public open class BlendNode(
     public val gskBlendNodePointer: CPointer<GskBlendNode>,
 ) : RenderNode(gskBlendNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will use @blend_mode to blend the @top
      * node onto the @bottom node.

@@ -49,6 +49,10 @@ public open class SnippetManager(
     public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>,
 ) : Object(gtksourceSnippetManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Gets the list directories where @self looks for snippet files.
      *

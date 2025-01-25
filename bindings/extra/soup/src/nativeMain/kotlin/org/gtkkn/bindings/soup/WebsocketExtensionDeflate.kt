@@ -24,6 +24,10 @@ public class WebsocketExtensionDeflate(
     public val soupWebsocketExtensionDeflatePointer: CPointer<SoupWebsocketExtensionDeflate>,
 ) : WebsocketExtension(soupWebsocketExtensionDeflatePointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     public companion object : TypeCompanion<WebsocketExtensionDeflate> {
         override val type: GeneratedClassKGType<WebsocketExtensionDeflate> =
                 GeneratedClassKGType(getTypeOrNull("soup_websocket_extension_deflate_get_type")!!) { WebsocketExtensionDeflate(it.reinterpret()) }

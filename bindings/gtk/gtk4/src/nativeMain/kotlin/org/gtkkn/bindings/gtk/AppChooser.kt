@@ -86,10 +86,16 @@ public interface AppChooser : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of AppChooser for the provided [CPointer].
      */
-    public data class AppChooserImpl(
-        override val gtkAppChooserPointer: CPointer<GtkAppChooser>,
+    public class AppChooserImpl(
+        gtkAppChooserPointer: CPointer<GtkAppChooser>,
     ) : Widget(gtkAppChooserPointer.reinterpret()),
-        AppChooser
+        AppChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkAppChooserPointer: CPointer<GtkAppChooser> = gtkAppChooserPointer
+    }
 
     public companion object : TypeCompanion<AppChooser> {
         override val type: GeneratedInterfaceKGType<AppChooser> =

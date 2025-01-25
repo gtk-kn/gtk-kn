@@ -41,6 +41,10 @@ public open class UnixOutputStream(
     FileDescriptorBased,
     PollableOutputStream,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
         get() = handle.reinterpret()
 

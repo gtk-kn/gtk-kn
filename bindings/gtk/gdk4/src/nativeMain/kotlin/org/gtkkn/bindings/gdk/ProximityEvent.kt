@@ -20,6 +20,10 @@ public open class ProximityEvent(
     public val gdkProximityEventPointer: CPointer<GdkProximityEvent>,
 ) : Event(gdkProximityEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     public companion object : TypeCompanion<ProximityEvent> {
         override val type: GeneratedClassKGType<ProximityEvent> =
                 GeneratedClassKGType(getTypeOrNull("gdk_proximity_event_get_type")!!) { ProximityEvent(it.reinterpret()) }

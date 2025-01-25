@@ -73,6 +73,10 @@ public open class Inscription(
 ) : Widget(gtkInscriptionPointer.reinterpret()),
     AccessibleText,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
         get() = handle.reinterpret()
 

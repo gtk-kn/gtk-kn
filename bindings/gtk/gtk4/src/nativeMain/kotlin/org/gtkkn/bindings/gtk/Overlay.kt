@@ -80,6 +80,10 @@ public open class Overlay(
     public val gtkOverlayPointer: CPointer<GtkOverlay>,
 ) : Widget(gtkOverlayPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

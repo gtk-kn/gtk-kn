@@ -45,6 +45,10 @@ public open class StyleScheme(
     public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>,
 ) : Object(gtksourceStyleSchemePointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Style scheme description, a translatable string to present to the user.
      */

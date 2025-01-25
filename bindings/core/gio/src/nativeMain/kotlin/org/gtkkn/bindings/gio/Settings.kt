@@ -406,6 +406,10 @@ public open class Settings(
     public val gioSettingsPointer: CPointer<GSettings>,
 ) : Object(gioSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * If this property is true, the #GSettings object has outstanding
      * changes that will be applied when g_settings_apply() is called.

@@ -66,6 +66,10 @@ public open class TextMark(
     public val gtkTextMarkPointer: CPointer<GtkTextMark>,
 ) : Object(gtkTextMarkPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether the mark has left gravity.
      *

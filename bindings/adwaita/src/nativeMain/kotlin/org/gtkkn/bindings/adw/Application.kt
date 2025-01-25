@@ -51,6 +51,10 @@ public open class Application(
     public val adwApplicationPointer: CPointer<AdwApplication>,
 ) : org.gtkkn.bindings.gtk.Application(adwApplicationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 

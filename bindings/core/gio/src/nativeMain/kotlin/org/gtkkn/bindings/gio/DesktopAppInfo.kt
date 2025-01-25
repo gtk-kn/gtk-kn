@@ -85,6 +85,10 @@ public open class DesktopAppInfo(
 ) : Object(gioDesktopAppInfoPointer.reinterpret()),
     AppInfo,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAppInfoPointer: CPointer<GAppInfo>
         get() = handle.reinterpret()
 
@@ -401,15 +405,6 @@ public open class DesktopAppInfo(
             GioTypeProvider.register()}
 
         /**
-         * Creates a new #GDesktopAppInfo.
-         *
-         * @param filename the path of a desktop file, in the GLib
-         *      filename encoding
-         * @return a new #GDesktopAppInfo or null on error.
-         */
-        public fun fromFilename(filename: String): DesktopAppInfo = DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret())
-
-        /**
          * Gets all applications that implement @interface.
          *
          * An application implements an interface if that interface is listed in
@@ -443,5 +438,14 @@ public open class DesktopAppInfo(
          * @return the GType
          */
         public fun getType(): GType = g_desktop_app_info_get_type()
+
+        /**
+         * Creates a new #GDesktopAppInfo.
+         *
+         * @param filename the path of a desktop file, in the GLib
+         *      filename encoding
+         * @return a new #GDesktopAppInfo or null on error.
+         */
+        public fun fromFilename(filename: String): DesktopAppInfo = DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret())
     }
 }

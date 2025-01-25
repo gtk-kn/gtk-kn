@@ -178,6 +178,10 @@ public open class GlShader(
     public val gskGlShaderPointer: CPointer<GskGLShader>,
 ) : Object(gskGlShaderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Resource containing the source code for the shader.
      *

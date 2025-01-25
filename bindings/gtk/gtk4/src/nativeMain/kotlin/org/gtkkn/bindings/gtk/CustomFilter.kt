@@ -25,6 +25,10 @@ public open class CustomFilter(
     public val gtkCustomFilterPointer: CPointer<GtkCustomFilter>,
 ) : Filter(gtkCustomFilterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new filter using the given @match_func to filter
      * items.

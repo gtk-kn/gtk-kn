@@ -31,6 +31,10 @@ public open class InsetShadowNode(
     public val gskInsetShadowNodePointer: CPointer<GskInsetShadowNode>,
 ) : RenderNode(gskInsetShadowNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render an inset shadow
      * into the box given by @outline.

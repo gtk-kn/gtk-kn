@@ -74,6 +74,10 @@ public class UserContentManager(
     public val webkitUserContentManagerPointer: CPointer<WebKitUserContentManager>,
 ) : Object(webkitUserContentManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new user content manager.
      *

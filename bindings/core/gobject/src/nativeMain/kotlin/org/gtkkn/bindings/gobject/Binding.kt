@@ -110,6 +110,10 @@ public open class Binding(
     public val gobjectBindingPointer: CPointer<GBinding>,
 ) : Object(gobjectBindingPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
+
     /**
      * Flags to be used to control the #GBinding
      *

@@ -52,6 +52,10 @@ public open class ColorChooserDialog(
 ) : Dialog(gtkColorChooserDialogPointer.reinterpret()),
     ColorChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
         get() = handle.reinterpret()
 

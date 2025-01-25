@@ -71,6 +71,10 @@ public class UserContentFilterStore(
     public val webkitUserContentFilterStorePointer: CPointer<WebKitUserContentFilterStore>,
 ) : Object(webkitUserContentFilterStorePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The directory used for filter storage. This path is used as the base
      * directory where user content filters are stored on disk.

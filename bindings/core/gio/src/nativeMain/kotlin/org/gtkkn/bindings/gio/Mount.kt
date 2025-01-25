@@ -564,10 +564,16 @@ public interface Mount : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Mount for the provided [CPointer].
      */
-    public data class MountImpl(
-        override val gioMountPointer: CPointer<GMount>,
+    public class MountImpl(
+        gioMountPointer: CPointer<GMount>,
     ) : Object(gioMountPointer.reinterpret()),
-        Mount
+        Mount {
+        init {
+            Gio
+        }
+
+        override val gioMountPointer: CPointer<GMount> = gioMountPointer
+    }
 
     public companion object : TypeCompanion<Mount> {
         override val type: GeneratedInterfaceKGType<Mount> =

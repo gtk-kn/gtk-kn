@@ -105,10 +105,17 @@ public interface PollableInputStream : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of PollableInputStream for the provided [CPointer].
      */
-    public data class PollableInputStreamImpl(
-        override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>,
+    public class PollableInputStreamImpl(
+        gioPollableInputStreamPointer: CPointer<GPollableInputStream>,
     ) : InputStream(gioPollableInputStreamPointer.reinterpret()),
-        PollableInputStream
+        PollableInputStream {
+        init {
+            Gio
+        }
+
+        override val gioPollableInputStreamPointer: CPointer<GPollableInputStream> =
+                gioPollableInputStreamPointer
+    }
 
     public companion object : TypeCompanion<PollableInputStream> {
         override val type: GeneratedInterfaceKGType<PollableInputStream> =

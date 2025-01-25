@@ -57,6 +57,10 @@ public open class EntryBuffer(
     public val gtkEntryBufferPointer: CPointer<GtkEntryBuffer>,
 ) : Object(gtkEntryBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The length (in characters) of the text in buffer.
      */

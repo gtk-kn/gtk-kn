@@ -30,6 +30,10 @@ public abstract class FilterOutputStream(
     public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>,
 ) : OutputStream(gioFilterOutputStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public open val baseStream: OutputStream
         /**
          * Gets the base stream for the filter stream.

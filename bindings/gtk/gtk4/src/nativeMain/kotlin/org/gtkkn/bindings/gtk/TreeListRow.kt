@@ -49,6 +49,10 @@ public open class TreeListRow(
     public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>,
 ) : Object(gtkTreeListRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The model holding the row's children.
      */

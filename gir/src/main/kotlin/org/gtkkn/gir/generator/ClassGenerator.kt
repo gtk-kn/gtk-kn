@@ -32,20 +32,22 @@ interface ClassGenerator :
     PropertyGenerator,
     MethodGenerator,
     SignalGenerator,
-    FunctionGenerator {
+    FunctionGenerator,
+    ConstantGenerator {
     fun buildClass(clazz: ClassBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.classBuilder(clazz.kotlinTypeName).apply {
             addKDocAndOptInAnnotations(clazz)
             applyClassModifiers(clazz)
             setupInheritance(clazz)
-            val companionSpecBuilder = buildAndConfigureClassCompanion(clazz, repository)
             addPrimaryPointerConstructor(clazz)
+            // We need to ensure that the TypeCache will be populated by the repository object
+            addRepositoryObjectInitializerBlock(repository)
+            val companionSpecBuilder = buildAndConfigureClassCompanion(clazz, repository)
             addGirConstructors(clazz, companionSpecBuilder)
             addInterfaceAndOverridePointers(clazz)
             addProperties(clazz)
             addMethods(clazz)
             addSignals(clazz)
-            clazz.functions.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
             if (clazz.isAbstract) {
                 addImplClass(clazz)
             }
@@ -66,6 +68,10 @@ interface ClassGenerator :
         repository: RepositoryBlueprint
     ): TypeSpec.Builder {
         val companionSpecBuilder = TypeSpec.companionObjectBuilder()
+
+        clazz.constants.forEach { companionSpecBuilder.addProperty(buildConstant(it)) }
+        clazz.functions.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
+
         val kgTypeProperty = buildKGTypeProperty(clazz)
 
         if (kgTypeProperty != null) {
@@ -127,18 +133,14 @@ interface ClassGenerator :
      * Adds all the properties from the [clazz].
      */
     private fun TypeSpec.Builder.addProperties(clazz: ClassBlueprint) {
-        clazz.properties.forEach { property ->
-            addProperty(buildProperty(property, clazz.objectPointerName))
-        }
+        clazz.properties.forEach { property -> addProperty(buildProperty(property, clazz.objectPointerName)) }
     }
 
     /**
      * Adds all methods from the [clazz].
      */
     private fun TypeSpec.Builder.addMethods(clazz: ClassBlueprint) {
-        clazz.methods.forEach { method ->
-            addFunction(buildMethod(method, clazz.objectPointerName))
-        }
+        clazz.methods.forEach { method -> addFunction(buildMethod(method, clazz.objectPointerName)) }
     }
 
     /**

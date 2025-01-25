@@ -63,6 +63,10 @@ public open class DBusMethodInvocation(
     public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>,
 ) : Object(gioDBusMethodInvocationPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets the #GDBusConnection the method was invoked on.
      *

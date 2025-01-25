@@ -38,6 +38,10 @@ public open class CellRendererSpinner(
     public val gtkCellRendererSpinnerPointer: CPointer<GtkCellRendererSpinner>,
 ) : CellRenderer(gtkCellRendererSpinnerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a new cell renderer which will show a spinner to indicate
      * activity.

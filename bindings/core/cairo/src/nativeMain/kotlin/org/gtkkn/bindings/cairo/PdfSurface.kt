@@ -41,6 +41,10 @@ public open class PdfSurface(
     public val cairoPdfSurfacePointer: CPointer<cairo_surface_t>,
 ) : Surface(cairoPdfSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         filename: String?,
         widthInPoints: gdouble,
@@ -117,6 +121,13 @@ public open class PdfSurface(
     public open fun setThumbnailSize(width: gint, height: gint): Unit = cairo_pdf_surface_set_thumbnail_size(cairoPdfSurfacePointer, width, height)
 
     public companion object : TypeCompanion<PdfSurface> {
+        /**
+         *
+         *
+         * @since 1.16
+         */
+        public const val PDF_OUTLINE_ROOT: gint = 0
+
         override val type: GeneratedClassKGType<PdfSurface> =
                 GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { PdfSurface(it.reinterpret()) }
 

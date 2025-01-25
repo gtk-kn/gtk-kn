@@ -191,6 +191,10 @@ public class Settings(
     public val webkitSettingsPointer: CPointer<WebKitSettings>,
 ) : Object(webkitSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Whether file access is allowed from file URLs. By default, when
      * something is loaded in a #WebKitWebView using a file URI, cross

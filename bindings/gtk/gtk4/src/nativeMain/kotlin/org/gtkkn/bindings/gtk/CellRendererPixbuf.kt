@@ -44,6 +44,10 @@ public open class CellRendererPixbuf(
     public val gtkCellRendererPixbufPointer: CPointer<GtkCellRendererPixbuf>,
 ) : CellRenderer(gtkCellRendererPixbufPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkCellRendererPixbuf`. Adjust rendering
      * parameters using object properties. Object properties can be set

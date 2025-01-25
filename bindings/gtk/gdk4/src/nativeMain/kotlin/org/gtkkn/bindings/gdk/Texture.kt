@@ -77,6 +77,10 @@ public abstract class Texture(
     Icon,
     LoadableIcon,
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = handle.reinterpret()
 
@@ -308,6 +312,13 @@ public abstract class Texture(
             GdkTypeProvider.register()}
 
         /**
+         * Get the GType of Texture
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_texture_get_type()
+
+        /**
          * Creates a new texture by loading an image from a resource.
          *
          * The file format is detected automatically. The supported formats
@@ -326,12 +337,5 @@ public abstract class Texture(
          * @return A newly-created `GdkTexture`
          */
         public fun fromResource(resourcePath: String): TextureImpl = TextureImpl(gdk_texture_new_from_resource(resourcePath)!!)
-
-        /**
-         * Get the GType of Texture
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gdk_texture_get_type()
     }
 }

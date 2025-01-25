@@ -48,6 +48,10 @@ public open class SimpleProxyResolver(
 ) : Object(gioSimpleProxyResolverPointer.reinterpret()),
     ProxyResolver,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioProxyResolverPointer: CPointer<GProxyResolver>
         get() = handle.reinterpret()
 

@@ -26,6 +26,10 @@ public open class RasterSource(
     public val cairoRasterSourcePointer: CPointer<cairo_pattern_t>,
 ) : Pattern(cairoRasterSourcePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public companion object : TypeCompanion<RasterSource> {
         override val type: GeneratedClassKGType<RasterSource> =
                 GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { RasterSource(it.reinterpret()) }

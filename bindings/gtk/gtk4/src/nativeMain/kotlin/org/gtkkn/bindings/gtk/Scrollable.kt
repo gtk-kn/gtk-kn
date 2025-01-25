@@ -226,10 +226,16 @@ public interface Scrollable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Scrollable for the provided [CPointer].
      */
-    public data class ScrollableImpl(
-        override val gtkScrollablePointer: CPointer<GtkScrollable>,
+    public class ScrollableImpl(
+        gtkScrollablePointer: CPointer<GtkScrollable>,
     ) : Object(gtkScrollablePointer.reinterpret()),
-        Scrollable
+        Scrollable {
+        init {
+            Gtk
+        }
+
+        override val gtkScrollablePointer: CPointer<GtkScrollable> = gtkScrollablePointer
+    }
 
     public companion object : TypeCompanion<Scrollable> {
         override val type: GeneratedInterfaceKGType<Scrollable> =

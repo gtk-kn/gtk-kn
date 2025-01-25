@@ -82,6 +82,10 @@ public open class FontDialogButton(
     public val gtkFontDialogButtonPointer: CPointer<GtkFontDialogButton>,
 ) : Widget(gtkFontDialogButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

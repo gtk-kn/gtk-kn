@@ -109,6 +109,10 @@ public open class PrintUnixDialog(
     public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>,
 ) : Dialog(gtkPrintUnixDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

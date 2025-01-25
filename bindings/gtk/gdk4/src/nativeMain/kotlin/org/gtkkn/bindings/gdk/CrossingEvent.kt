@@ -25,6 +25,10 @@ public open class CrossingEvent(
     public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>,
 ) : Event(gdkCrossingEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the notify detail from a crossing event.
      *

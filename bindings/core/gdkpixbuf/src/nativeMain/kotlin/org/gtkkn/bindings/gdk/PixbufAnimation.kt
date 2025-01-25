@@ -69,6 +69,10 @@ public open class PixbufAnimation(
     public val gdkPixbufAnimationPointer: CPointer<GdkPixbufAnimation>,
 ) : Object(gdkPixbufAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     /**
      * Creates a new animation by loading it from a file.
      *
@@ -253,31 +257,6 @@ public open class PixbufAnimation(
             GdkPixbufTypeProvider.register()}
 
         /**
-         * Creates a new pixbuf animation by loading an image from an resource.
-         *
-         * The file format is detected automatically. If `NULL` is returned, then
-         * @error will be set.
-         *
-         * @param resourcePath the path of the resource file
-         * @return A newly-created animation
-         * @since 2.28
-         */
-        public fun fromResource(resourcePath: String): Result<PixbufAnimation> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = gdk_pixbuf_animation_new_from_resource(resourcePath, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    val instance = PixbufAnimation(checkNotNull(gResult).reinterpret())
-                    Result.success(instance)
-                }
-
-            }
-        }
-
-        /**
          * Creates a new animation by asynchronously loading an image from an input stream.
          *
          * For more details see gdk_pixbuf_new_from_stream(), which is the synchronous
@@ -305,5 +284,30 @@ public open class PixbufAnimation(
          * @return the GType
          */
         public fun getType(): GType = gdk_pixbuf_animation_get_type()
+
+        /**
+         * Creates a new pixbuf animation by loading an image from an resource.
+         *
+         * The file format is detected automatically. If `NULL` is returned, then
+         * @error will be set.
+         *
+         * @param resourcePath the path of the resource file
+         * @return A newly-created animation
+         * @since 2.28
+         */
+        public fun fromResource(resourcePath: String): Result<PixbufAnimation> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = gdk_pixbuf_animation_new_from_resource(resourcePath, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = PixbufAnimation(checkNotNull(gResult).reinterpret())
+                    Result.success(instance)
+                }
+
+            }
+        }
     }
 }

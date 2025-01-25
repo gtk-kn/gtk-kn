@@ -24,6 +24,10 @@ public class CallbackAnimationTarget(
     public val adwCallbackAnimationTargetPointer: CPointer<AdwCallbackAnimationTarget>,
 ) : AnimationTarget(adwCallbackAnimationTargetPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Creates a new `AdwAnimationTarget` that calls the given @callback during
      * the animation.

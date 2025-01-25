@@ -33,6 +33,10 @@ public abstract class Fontset(
     public val pangoFontsetPointer: CPointer<PangoFontset>,
 ) : Object(pangoFontsetPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Iterates through all the fonts in a fontset, calling @func for
      * each one.

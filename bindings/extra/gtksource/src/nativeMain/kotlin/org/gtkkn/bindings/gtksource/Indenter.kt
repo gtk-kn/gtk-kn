@@ -87,10 +87,17 @@ public interface Indenter : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Indenter for the provided [CPointer].
      */
-    public data class IndenterImpl(
-        override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>,
+    public class IndenterImpl(
+        gtksourceIndenterPointer: CPointer<GtkSourceIndenter>,
     ) : Object(gtksourceIndenterPointer.reinterpret()),
-        Indenter
+        Indenter {
+        init {
+            GtkSource
+        }
+
+        override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter> =
+                gtksourceIndenterPointer
+    }
 
     public companion object : TypeCompanion<Indenter> {
         override val type: GeneratedInterfaceKGType<Indenter> =

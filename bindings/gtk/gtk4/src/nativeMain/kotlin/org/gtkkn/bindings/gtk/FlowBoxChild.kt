@@ -43,6 +43,10 @@ public open class FlowBoxChild(
     public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>,
 ) : Widget(gtkFlowBoxChildPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

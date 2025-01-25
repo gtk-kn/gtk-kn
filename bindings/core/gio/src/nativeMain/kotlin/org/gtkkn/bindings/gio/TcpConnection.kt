@@ -29,6 +29,10 @@ public open class TcpConnection(
     public val gioTcpConnectionPointer: CPointer<GTcpConnection>,
 ) : SocketConnection(gioTcpConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Whether [method@Gio.IOStream.close] does a graceful disconnect.
      *

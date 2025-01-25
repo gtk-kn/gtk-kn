@@ -37,6 +37,10 @@ public abstract class MenuLinkIter(
     public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>,
 ) : Object(gioMenuLinkIterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets the name of the link at the current iterator position.
      *

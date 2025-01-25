@@ -94,6 +94,10 @@ public open class TreeExpander(
     public val gtkTreeExpanderPointer: CPointer<GtkTreeExpander>,
 ) : Widget(gtkTreeExpanderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

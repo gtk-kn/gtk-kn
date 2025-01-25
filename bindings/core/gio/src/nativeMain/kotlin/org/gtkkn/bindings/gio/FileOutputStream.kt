@@ -52,6 +52,10 @@ public open class FileOutputStream(
 ) : OutputStream(gioFileOutputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSeekablePointer: CPointer<GSeekable>
         get() = handle.reinterpret()
 

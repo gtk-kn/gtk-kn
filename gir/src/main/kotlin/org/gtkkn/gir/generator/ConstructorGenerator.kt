@@ -36,6 +36,7 @@ import org.gtkkn.gir.blueprints.HasConstructorsBlueprint
 import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.MemoryManagement
 import org.gtkkn.gir.blueprints.ParameterBlueprint
+import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
 /**
@@ -43,6 +44,12 @@ import org.gtkkn.gir.blueprints.TypeInfo
  * related initialization code for classes, records, and unions.
  */
 interface ConstructorGenerator : FieldGenerator, MethodGenerator {
+    /**
+     * Builds the initializer block and ensure that the TypeCache will be populated by the repository object
+     */
+    fun TypeSpec.Builder.addRepositoryObjectInitializerBlock(repository: RepositoryBlueprint) =
+        addInitializerBlock(CodeBlock.of("%T\n", repository.repositoryObjectName))
+
     /**
      * Builds the primary pointer constructor for a class/record/union.
      */

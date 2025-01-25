@@ -220,6 +220,10 @@ public open class MessageDialog(
     public val adwMessageDialogPointer: CPointer<AdwMessageDialog>,
 ) : Window(adwMessageDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

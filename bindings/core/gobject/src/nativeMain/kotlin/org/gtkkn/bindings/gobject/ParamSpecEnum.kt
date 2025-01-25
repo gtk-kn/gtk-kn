@@ -13,4 +13,8 @@ import org.gtkkn.native.gobject.GParamSpecEnum
  */
 public open class ParamSpecEnum(
     public val gobjectParamSpecEnumPointer: CPointer<GParamSpecEnum>,
-) : ParamSpec(gobjectParamSpecEnumPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecEnumPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

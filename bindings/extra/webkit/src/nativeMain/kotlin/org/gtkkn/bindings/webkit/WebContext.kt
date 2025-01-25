@@ -102,6 +102,10 @@ public class WebContext(
     public val webkitWebContextPointer: CPointer<WebKitWebContext>,
 ) : Object(webkitWebContextPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The timezone override for this web context. Setting this property provides a better
      * alternative to configure the timezone information for all webviews managed by the WebContext.

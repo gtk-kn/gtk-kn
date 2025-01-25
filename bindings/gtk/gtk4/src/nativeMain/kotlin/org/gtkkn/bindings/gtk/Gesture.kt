@@ -149,6 +149,10 @@ public abstract class Gesture(
     public val gtkGesturePointer: CPointer<GtkGesture>,
 ) : EventController(gtkGesturePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * If there are touch sequences being currently handled by @gesture,
      * returns true and fills in @rect with the bounding box containing

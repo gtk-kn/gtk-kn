@@ -21,6 +21,10 @@ public open class MnemonicAction(
     public val gtkMnemonicActionPointer: CPointer<GtkMnemonicAction>,
 ) : ShortcutAction(gtkMnemonicActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<MnemonicAction> {
         override val type: GeneratedClassKGType<MnemonicAction> =
                 GeneratedClassKGType(getTypeOrNull("gtk_mnemonic_action_get_type")!!) { MnemonicAction(it.reinterpret()) }

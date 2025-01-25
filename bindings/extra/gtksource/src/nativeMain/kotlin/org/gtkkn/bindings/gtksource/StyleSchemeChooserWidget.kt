@@ -37,6 +37,10 @@ public open class StyleSchemeChooserWidget(
 ) : Widget(gtksourceStyleSchemeChooserWidgetPointer.reinterpret()),
     StyleSchemeChooser,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>
         get() = handle.reinterpret()
 

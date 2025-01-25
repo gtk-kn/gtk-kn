@@ -29,6 +29,10 @@ public open class StringObject(
     public val gtkStringObjectPointer: CPointer<GtkStringObject>,
 ) : Object(gtkStringObjectPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The string.
      */

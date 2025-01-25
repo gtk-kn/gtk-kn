@@ -38,6 +38,10 @@ public open class StringSorter(
     public val gtkStringSorterPointer: CPointer<GtkStringSorter>,
 ) : Sorter(gtkStringSorterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The collation method to use for sorting.
      *

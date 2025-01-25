@@ -31,6 +31,10 @@ public class EnumListModel(
 ) : Object(adwEnumListModelPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

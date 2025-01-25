@@ -85,6 +85,10 @@ public open class Notification(
     public val gioNotificationPointer: CPointer<GNotification>,
 ) : Object(gioNotificationPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GNotification with @title as its title.
      *

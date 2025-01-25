@@ -50,6 +50,10 @@ public open class ShortcutsGroup(
     public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>,
 ) : Box(gtkShortcutsGroupPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

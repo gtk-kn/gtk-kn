@@ -111,10 +111,16 @@ public interface CellEditable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of CellEditable for the provided [CPointer].
      */
-    public data class CellEditableImpl(
-        override val gtkCellEditablePointer: CPointer<GtkCellEditable>,
+    public class CellEditableImpl(
+        gtkCellEditablePointer: CPointer<GtkCellEditable>,
     ) : Widget(gtkCellEditablePointer.reinterpret()),
-        CellEditable
+        CellEditable {
+        init {
+            Gtk
+        }
+
+        override val gtkCellEditablePointer: CPointer<GtkCellEditable> = gtkCellEditablePointer
+    }
 
     public companion object : TypeCompanion<CellEditable> {
         override val type: GeneratedInterfaceKGType<CellEditable> =

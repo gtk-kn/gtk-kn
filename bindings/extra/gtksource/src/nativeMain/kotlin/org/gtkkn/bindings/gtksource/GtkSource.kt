@@ -21,6 +21,7 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gio.GMountOperation
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -91,6 +92,10 @@ import org.gtkkn.native.gtksource.gtk_source_utils_unescape_search_text
  * - record `VimIMContextClass`: glib type struct are ignored
  */
 public object GtkSource {
+    init {
+        registerTypes()
+    }
+
     /**
      * Like gtk_source_get_major_version(), but from the headers used at
      * application compile time, rather than from the library linked
@@ -274,6 +279,54 @@ public object GtkSource {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        TypeCache.register(Buffer::class, Buffer.getType()) { Buffer(it.reinterpret()) }
+        TypeCache.register(Completion::class, Completion.getType()) { Completion(it.reinterpret()) }
+        TypeCache.register(CompletionCell::class, CompletionCell.getType()) { CompletionCell(it.reinterpret()) }
+        TypeCache.register(CompletionContext::class, CompletionContext.getType()) { CompletionContext(it.reinterpret()) }
+        TypeCache.register(CompletionSnippets::class, CompletionSnippets.getType()) { CompletionSnippets(it.reinterpret()) }
+        TypeCache.register(CompletionWords::class, CompletionWords.getType()) { CompletionWords(it.reinterpret()) }
+        TypeCache.register(File::class, File.getType()) { File(it.reinterpret()) }
+        TypeCache.register(FileLoader::class, FileLoader.getType()) { FileLoader(it.reinterpret()) }
+        TypeCache.register(FileSaver::class, FileSaver.getType()) { FileSaver(it.reinterpret()) }
+        TypeCache.register(Gutter::class, Gutter.getType()) { Gutter(it.reinterpret()) }
+        TypeCache.register(GutterLines::class, GutterLines.getType()) { GutterLines(it.reinterpret()) }
+        TypeCache.register(GutterRenderer::class, GutterRenderer.getType()) { GutterRenderer.GutterRendererImpl(it.reinterpret()) }
+        TypeCache.register(GutterRendererPixbuf::class, GutterRendererPixbuf.getType()) { GutterRendererPixbuf(it.reinterpret()) }
+        TypeCache.register(GutterRendererText::class, GutterRendererText.getType()) { GutterRendererText(it.reinterpret()) }
+        TypeCache.register(Hover::class, Hover.getType()) { Hover(it.reinterpret()) }
+        TypeCache.register(HoverContext::class, HoverContext.getType()) { HoverContext(it.reinterpret()) }
+        TypeCache.register(HoverDisplay::class, HoverDisplay.getType()) { HoverDisplay(it.reinterpret()) }
+        TypeCache.register(Language::class, Language.getType()) { Language(it.reinterpret()) }
+        TypeCache.register(LanguageManager::class, LanguageManager.getType()) { LanguageManager(it.reinterpret()) }
+        TypeCache.register(Map::class, Map.getType()) { Map(it.reinterpret()) }
+        TypeCache.register(Mark::class, Mark.getType()) { Mark(it.reinterpret()) }
+        TypeCache.register(MarkAttributes::class, MarkAttributes.getType()) { MarkAttributes(it.reinterpret()) }
+        TypeCache.register(PrintCompositor::class, PrintCompositor.getType()) { PrintCompositor(it.reinterpret()) }
+        TypeCache.register(Region::class, Region.getType()) { Region(it.reinterpret()) }
+        TypeCache.register(SearchContext::class, SearchContext.getType()) { SearchContext(it.reinterpret()) }
+        TypeCache.register(SearchSettings::class, SearchSettings.getType()) { SearchSettings(it.reinterpret()) }
+        TypeCache.register(Snippet::class, Snippet.getType()) { Snippet(it.reinterpret()) }
+        TypeCache.register(SnippetChunk::class, SnippetChunk.getType()) { SnippetChunk(it.reinterpret()) }
+        TypeCache.register(SnippetContext::class, SnippetContext.getType()) { SnippetContext(it.reinterpret()) }
+        TypeCache.register(SnippetManager::class, SnippetManager.getType()) { SnippetManager(it.reinterpret()) }
+        TypeCache.register(SpaceDrawer::class, SpaceDrawer.getType()) { SpaceDrawer(it.reinterpret()) }
+        TypeCache.register(Style::class, Style.getType()) { Style(it.reinterpret()) }
+        TypeCache.register(StyleScheme::class, StyleScheme.getType()) { StyleScheme(it.reinterpret()) }
+        TypeCache.register(StyleSchemeChooserButton::class, StyleSchemeChooserButton.getType()) { StyleSchemeChooserButton(it.reinterpret()) }
+        TypeCache.register(StyleSchemeChooserWidget::class, StyleSchemeChooserWidget.getType()) { StyleSchemeChooserWidget(it.reinterpret()) }
+        TypeCache.register(StyleSchemeManager::class, StyleSchemeManager.getType()) { StyleSchemeManager(it.reinterpret()) }
+        TypeCache.register(StyleSchemePreview::class, StyleSchemePreview.getType()) { StyleSchemePreview(it.reinterpret()) }
+        TypeCache.register(Tag::class, Tag.getType()) { Tag(it.reinterpret()) }
+        TypeCache.register(View::class, View.getType()) { View(it.reinterpret()) }
+        TypeCache.register(VimImContext::class, VimImContext.getType()) { VimImContext(it.reinterpret()) }
+        TypeCache.register(CompletionProposal::class, CompletionProposal.getType()) { CompletionProposal.CompletionProposalImpl(it.reinterpret()) }
+        TypeCache.register(CompletionProvider::class, CompletionProvider.getType()) { CompletionProvider.CompletionProviderImpl(it.reinterpret()) }
+        TypeCache.register(HoverProvider::class, HoverProvider.getType()) { HoverProvider.HoverProviderImpl(it.reinterpret()) }
+        TypeCache.register(Indenter::class, Indenter.getType()) { Indenter.IndenterImpl(it.reinterpret()) }
+        TypeCache.register(StyleSchemeChooser::class, StyleSchemeChooser.getType()) { StyleSchemeChooser.StyleSchemeChooserImpl(it.reinterpret()) }
     }
 }
 

@@ -58,6 +58,10 @@ public abstract class FileMonitor(
     public val gioFileMonitorPointer: CPointer<GFileMonitor>,
 ) : Object(gioFileMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Cancels a file monitor.
      *

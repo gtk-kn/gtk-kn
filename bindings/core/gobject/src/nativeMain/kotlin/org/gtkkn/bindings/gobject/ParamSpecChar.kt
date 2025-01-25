@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecChar
  */
 public open class ParamSpecChar(
     public val gobjectParamSpecCharPointer: CPointer<GParamSpecChar>,
-) : ParamSpec(gobjectParamSpecCharPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecCharPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

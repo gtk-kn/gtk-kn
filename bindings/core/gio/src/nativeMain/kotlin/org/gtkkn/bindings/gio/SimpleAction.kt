@@ -58,6 +58,10 @@ public open class SimpleAction(
 ) : Object(gioSimpleActionPointer.reinterpret()),
     Action,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioActionPointer: CPointer<GAction>
         get() = handle.reinterpret()
 

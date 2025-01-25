@@ -25,6 +25,10 @@ public open class ToyFontFace(
     public val cairoToyFontFacePointer: CPointer<cairo_font_face_t>,
 ) : FontFace(cairoToyFontFacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         family: String,
         slant: FontSlant,

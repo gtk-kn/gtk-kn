@@ -104,10 +104,17 @@ public interface RemoteActionGroup : Proxy, ActionGroup, KGTyped {
      *
      * @constructor Creates a new instance of RemoteActionGroup for the provided [CPointer].
      */
-    public data class RemoteActionGroupImpl(
-        override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>,
+    public class RemoteActionGroupImpl(
+        gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>,
     ) : Object(gioRemoteActionGroupPointer.reinterpret()),
-        RemoteActionGroup
+        RemoteActionGroup {
+        init {
+            Gio
+        }
+
+        override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup> =
+                gioRemoteActionGroupPointer
+    }
 
     public companion object : TypeCompanion<RemoteActionGroup> {
         override val type: GeneratedInterfaceKGType<RemoteActionGroup> =

@@ -39,6 +39,10 @@ public open class Mark(
     public val gtksourceMarkPointer: CPointer<GtkSourceMark>,
 ) : TextMark(gtksourceMarkPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The category of the `GtkSourceMark`, classifies the mark and controls
      * which pixbuf is used and with which priority it is drawn.

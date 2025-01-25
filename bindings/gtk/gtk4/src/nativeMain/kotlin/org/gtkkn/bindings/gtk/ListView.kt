@@ -153,6 +153,10 @@ public open class ListView(
     public val gtkListViewPointer: CPointer<GtkListView>,
 ) : ListBase(gtkListViewPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -39,6 +39,10 @@ public abstract class Pattern(
     public val cairoPatternPointer: CPointer<cairo_pattern_t>,
 ) : TypeInstance(cairoPatternPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public open fun status(): Status = cairo_pattern_status(cairoPatternPointer).run {
         Status.fromNativeValue(this)}
 

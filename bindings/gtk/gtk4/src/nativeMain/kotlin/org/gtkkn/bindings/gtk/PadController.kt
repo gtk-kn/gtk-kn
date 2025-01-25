@@ -79,6 +79,10 @@ public open class PadController(
     public val gtkPadControllerPointer: CPointer<GtkPadController>,
 ) : EventController(gtkPadControllerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkPadController` that will associate events from @pad to
      * actions.

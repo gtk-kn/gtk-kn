@@ -184,6 +184,10 @@ public abstract class Expression(
     public val gtkExpressionPointer: CPointer<GtkExpression>,
 ) : TypeInstance(gtkExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Bind `target`'s property named `property` to `self`.
      *

@@ -25,6 +25,10 @@ public open class KeyvalTrigger(
     public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>,
 ) : ShortcutTrigger(gtkKeyvalTriggerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The key value for the trigger.
      */

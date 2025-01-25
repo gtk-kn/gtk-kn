@@ -154,10 +154,16 @@ public interface TlsBackend : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TlsBackend for the provided [CPointer].
      */
-    public data class TlsBackendImpl(
-        override val gioTlsBackendPointer: CPointer<GTlsBackend>,
+    public class TlsBackendImpl(
+        gioTlsBackendPointer: CPointer<GTlsBackend>,
     ) : Object(gioTlsBackendPointer.reinterpret()),
-        TlsBackend
+        TlsBackend {
+        init {
+            Gio
+        }
+
+        override val gioTlsBackendPointer: CPointer<GTlsBackend> = gioTlsBackendPointer
+    }
 
     public companion object : TypeCompanion<TlsBackend> {
         override val type: GeneratedInterfaceKGType<TlsBackend> =

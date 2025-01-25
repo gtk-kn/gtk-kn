@@ -29,6 +29,10 @@ public open class MaskNode(
     public val gskMaskNodePointer: CPointer<GskMaskNode>,
 ) : RenderNode(gskMaskNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will mask a given node by another.
      *

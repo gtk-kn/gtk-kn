@@ -52,6 +52,10 @@ public open class Constraint(
     public val gtkConstraintPointer: CPointer<GtkConstraint>,
 ) : Object(gtkConstraintPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The constant value to be added to the [property@Gtk.Constraint:source-attribute].
      */

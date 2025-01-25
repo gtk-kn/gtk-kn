@@ -76,6 +76,10 @@ public class Banner(
 ) : Widget(adwBannerPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 

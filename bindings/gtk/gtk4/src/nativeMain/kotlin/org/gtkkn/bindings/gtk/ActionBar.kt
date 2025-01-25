@@ -72,6 +72,10 @@ public open class ActionBar(
     public val gtkActionBarPointer: CPointer<GtkActionBar>,
 ) : Widget(gtkActionBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

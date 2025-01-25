@@ -210,6 +210,10 @@ public open class ConstraintLayout(
 ) : LayoutManager(gtkConstraintLayoutPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

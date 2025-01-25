@@ -225,6 +225,10 @@ public open class ApplicationCommandLine(
     public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>,
 ) : Object(gioApplicationCommandLinePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Whether this is a remote commandline.
      *

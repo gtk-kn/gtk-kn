@@ -56,6 +56,10 @@ import org.gtkkn.native.gobject.g_param_spec_unref
 public abstract class ParamSpec(
     public val gobjectParamSpecPointer: CPointer<GParamSpec>,
 ) : TypeInstance(gobjectParamSpecPointer.reinterpret()) {
+    init {
+        GObject
+    }
+
     /**
      * Get the short description of a #GParamSpec.
      *

@@ -97,6 +97,10 @@ public open class ActionRow(
     public val adwActionRowPointer: CPointer<AdwActionRow>,
 ) : PreferencesRow(adwActionRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

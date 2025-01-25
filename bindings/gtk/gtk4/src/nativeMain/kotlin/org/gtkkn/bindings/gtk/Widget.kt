@@ -638,6 +638,10 @@ public abstract class Widget(
     Buildable,
     ConstraintTarget,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

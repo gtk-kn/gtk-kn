@@ -36,6 +36,10 @@ public class CookieJarDb(
     public val soupCookieJarDbPointer: CPointer<SoupCookieJarDB>,
 ) : CookieJar(soupCookieJarDbPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 

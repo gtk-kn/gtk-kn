@@ -52,6 +52,10 @@ public open class NetworkAddress(
 ) : Object(gioNetworkAddressPointer.reinterpret()),
     SocketConnectable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 

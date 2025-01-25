@@ -27,6 +27,10 @@ public open class ContainerNode(
     public val gskContainerNodePointer: CPointer<GskContainerNode>,
 ) : RenderNode(gskContainerNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Gets one of the children of @container.
      *

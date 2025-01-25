@@ -36,6 +36,10 @@ public open class InetSocketAddress(
     public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>,
 ) : SocketAddress(gioInetSocketAddressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
         get() = handle.reinterpret()
 

@@ -40,6 +40,10 @@ public open class ShortcutsShortcut(
     public val gtkShortcutsShortcutPointer: CPointer<GtkShortcutsShortcut>,
 ) : Widget(gtkShortcutsShortcutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -98,6 +98,10 @@ public open class MessageDialog(
     public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>,
 ) : Dialog(gtkMessageDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

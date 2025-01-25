@@ -17,6 +17,10 @@ public abstract class NativeVolumeMonitor(
     public val gioNativeVolumeMonitorPointer: CPointer<GNativeVolumeMonitor>,
 ) : VolumeMonitor(gioNativeVolumeMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The NativeVolumeMonitorImpl type represents a native instance of the abstract NativeVolumeMonitor class.
      *

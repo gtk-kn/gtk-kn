@@ -19,6 +19,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
@@ -87,6 +88,10 @@ import org.gtkkn.native.webkit.webkit_user_media_permission_is_for_video_device
  * - record `WindowPropertiesClass`: glib type struct are ignored
  */
 public object WebKit {
+    init {
+        registerTypes()
+    }
+
     /**
      * The copy clipboard command. Copies the current selection inside
      * a #WebKitWebView to the clipboard.
@@ -341,6 +346,59 @@ public object WebKit {
             else -> null
         }
         return ex ?: GLibException(error)
+    }
+
+    private fun registerTypes() {
+        TypeCache.register(AuthenticationRequest::class, AuthenticationRequest.getType()) { AuthenticationRequest(it.reinterpret()) }
+        TypeCache.register(AutomationSession::class, AutomationSession.getType()) { AutomationSession(it.reinterpret()) }
+        TypeCache.register(BackForwardList::class, BackForwardList.getType()) { BackForwardList(it.reinterpret()) }
+        TypeCache.register(BackForwardListItem::class, BackForwardListItem.getType()) { BackForwardListItem(it.reinterpret()) }
+        TypeCache.register(ClipboardPermissionRequest::class, ClipboardPermissionRequest.getType()) { ClipboardPermissionRequest(it.reinterpret()) }
+        TypeCache.register(ColorChooserRequest::class, ColorChooserRequest.getType()) { ColorChooserRequest(it.reinterpret()) }
+        TypeCache.register(ContextMenu::class, ContextMenu.getType()) { ContextMenu(it.reinterpret()) }
+        TypeCache.register(ContextMenuItem::class, ContextMenuItem.getType()) { ContextMenuItem(it.reinterpret()) }
+        TypeCache.register(CookieManager::class, CookieManager.getType()) { CookieManager(it.reinterpret()) }
+        TypeCache.register(DeviceInfoPermissionRequest::class, DeviceInfoPermissionRequest.getType()) { DeviceInfoPermissionRequest(it.reinterpret()) }
+        TypeCache.register(Download::class, Download.getType()) { Download(it.reinterpret()) }
+        TypeCache.register(EditorState::class, EditorState.getType()) { EditorState(it.reinterpret()) }
+        TypeCache.register(FaviconDatabase::class, FaviconDatabase.getType()) { FaviconDatabase(it.reinterpret()) }
+        TypeCache.register(FileChooserRequest::class, FileChooserRequest.getType()) { FileChooserRequest(it.reinterpret()) }
+        TypeCache.register(FindController::class, FindController.getType()) { FindController(it.reinterpret()) }
+        TypeCache.register(FormSubmissionRequest::class, FormSubmissionRequest.getType()) { FormSubmissionRequest(it.reinterpret()) }
+        TypeCache.register(GeolocationManager::class, GeolocationManager.getType()) { GeolocationManager(it.reinterpret()) }
+        TypeCache.register(GeolocationPermissionRequest::class, GeolocationPermissionRequest.getType()) { GeolocationPermissionRequest(it.reinterpret()) }
+        TypeCache.register(HitTestResult::class, HitTestResult.getType()) { HitTestResult(it.reinterpret()) }
+        TypeCache.register(InputMethodContext::class, InputMethodContext.getType()) { InputMethodContext.InputMethodContextImpl(it.reinterpret()) }
+        TypeCache.register(MediaKeySystemPermissionRequest::class, MediaKeySystemPermissionRequest.getType()) { MediaKeySystemPermissionRequest(it.reinterpret()) }
+        TypeCache.register(NavigationPolicyDecision::class, NavigationPolicyDecision.getType()) { NavigationPolicyDecision(it.reinterpret()) }
+        TypeCache.register(NetworkSession::class, NetworkSession.getType()) { NetworkSession(it.reinterpret()) }
+        TypeCache.register(Notification::class, Notification.getType()) { Notification(it.reinterpret()) }
+        TypeCache.register(NotificationPermissionRequest::class, NotificationPermissionRequest.getType()) { NotificationPermissionRequest(it.reinterpret()) }
+        TypeCache.register(OptionMenu::class, OptionMenu.getType()) { OptionMenu(it.reinterpret()) }
+        TypeCache.register(PointerLockPermissionRequest::class, PointerLockPermissionRequest.getType()) { PointerLockPermissionRequest(it.reinterpret()) }
+        TypeCache.register(PolicyDecision::class, PolicyDecision.getType()) { PolicyDecision.PolicyDecisionImpl(it.reinterpret()) }
+        TypeCache.register(PrintOperation::class, PrintOperation.getType()) { PrintOperation(it.reinterpret()) }
+        TypeCache.register(ResponsePolicyDecision::class, ResponsePolicyDecision.getType()) { ResponsePolicyDecision(it.reinterpret()) }
+        TypeCache.register(SecurityManager::class, SecurityManager.getType()) { SecurityManager(it.reinterpret()) }
+        TypeCache.register(Settings::class, Settings.getType()) { Settings(it.reinterpret()) }
+        TypeCache.register(UriRequest::class, UriRequest.getType()) { UriRequest(it.reinterpret()) }
+        TypeCache.register(UriResponse::class, UriResponse.getType()) { UriResponse(it.reinterpret()) }
+        TypeCache.register(UriSchemeRequest::class, UriSchemeRequest.getType()) { UriSchemeRequest(it.reinterpret()) }
+        TypeCache.register(UriSchemeResponse::class, UriSchemeResponse.getType()) { UriSchemeResponse(it.reinterpret()) }
+        TypeCache.register(UserContentFilterStore::class, UserContentFilterStore.getType()) { UserContentFilterStore(it.reinterpret()) }
+        TypeCache.register(UserContentManager::class, UserContentManager.getType()) { UserContentManager(it.reinterpret()) }
+        TypeCache.register(UserMediaPermissionRequest::class, UserMediaPermissionRequest.getType()) { UserMediaPermissionRequest(it.reinterpret()) }
+        TypeCache.register(UserMessage::class, UserMessage.getType()) { UserMessage(it.reinterpret()) }
+        TypeCache.register(WebContext::class, WebContext.getType()) { WebContext(it.reinterpret()) }
+        TypeCache.register(WebInspector::class, WebInspector.getType()) { WebInspector(it.reinterpret()) }
+        TypeCache.register(WebResource::class, WebResource.getType()) { WebResource(it.reinterpret()) }
+        TypeCache.register(WebView::class, WebView.getType()) { WebView(it.reinterpret()) }
+        TypeCache.register(WebViewBase::class, WebViewBase.getType()) { WebViewBase(it.reinterpret()) }
+        TypeCache.register(WebsiteDataAccessPermissionRequest::class, WebsiteDataAccessPermissionRequest.getType()) { WebsiteDataAccessPermissionRequest(it.reinterpret()) }
+        TypeCache.register(WebsiteDataManager::class, WebsiteDataManager.getType()) { WebsiteDataManager(it.reinterpret()) }
+        TypeCache.register(WebsitePolicies::class, WebsitePolicies.getType()) { WebsitePolicies(it.reinterpret()) }
+        TypeCache.register(WindowProperties::class, WindowProperties.getType()) { WindowProperties(it.reinterpret()) }
+        TypeCache.register(PermissionRequest::class, PermissionRequest.getType()) { PermissionRequest.PermissionRequestImpl(it.reinterpret()) }
     }
 }
 

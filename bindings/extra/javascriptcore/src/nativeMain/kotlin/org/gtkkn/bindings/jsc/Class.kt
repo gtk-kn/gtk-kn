@@ -43,6 +43,10 @@ public class Class(
     public val jscClassPointer: CPointer<JSCClass>,
 ) : Object(jscClassPointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * The name of the class.
      */

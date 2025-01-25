@@ -145,6 +145,10 @@ public open class Popover(
     Native,
     ShortcutManager,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkNativePointer: CPointer<GtkNative>
         get() = handle.reinterpret()
 

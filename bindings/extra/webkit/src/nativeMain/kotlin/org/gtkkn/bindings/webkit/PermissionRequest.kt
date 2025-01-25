@@ -46,10 +46,17 @@ public interface PermissionRequest : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of PermissionRequest for the provided [CPointer].
      */
-    public data class PermissionRequestImpl(
-        override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>,
+    public class PermissionRequestImpl(
+        webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>,
     ) : Object(webkitPermissionRequestPointer.reinterpret()),
-        PermissionRequest
+        PermissionRequest {
+        init {
+            WebKit
+        }
+
+        override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest> =
+                webkitPermissionRequestPointer
+    }
 
     public companion object : TypeCompanion<PermissionRequest> {
         override val type: GeneratedInterfaceKGType<PermissionRequest> =

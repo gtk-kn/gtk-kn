@@ -50,6 +50,10 @@ public open class CellRendererAccel(
     public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>,
 ) : CellRendererText(gtkCellRendererAccelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkCellRendererAccel`.
      *

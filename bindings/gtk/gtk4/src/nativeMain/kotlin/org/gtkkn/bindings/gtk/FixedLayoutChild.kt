@@ -28,6 +28,10 @@ public open class FixedLayoutChild(
     public val gtkFixedLayoutChildPointer: CPointer<GtkFixedLayoutChild>,
 ) : LayoutChild(gtkFixedLayoutChildPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Retrieves the transformation of the child.
      *

@@ -37,6 +37,10 @@ public class UriResponse(
     public val webkitUriResponsePointer: CPointer<WebKitURIResponse>,
 ) : Object(webkitUriResponsePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The expected content length of the response.
      */

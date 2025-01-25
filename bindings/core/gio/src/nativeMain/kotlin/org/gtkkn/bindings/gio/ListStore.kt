@@ -50,6 +50,10 @@ public open class ListStore(
 ) : Object(gioListStorePointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

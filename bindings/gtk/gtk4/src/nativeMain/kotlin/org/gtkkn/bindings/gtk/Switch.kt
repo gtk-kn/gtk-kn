@@ -77,6 +77,10 @@ public open class Switch(
 ) : Widget(gtkSwitchPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 

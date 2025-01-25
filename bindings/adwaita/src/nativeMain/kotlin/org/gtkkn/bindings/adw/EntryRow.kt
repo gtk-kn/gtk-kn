@@ -102,6 +102,10 @@ public open class EntryRow(
 ) : PreferencesRow(adwEntryRowPointer.reinterpret()),
     Editable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkEditablePointer: CPointer<GtkEditable>
         get() = handle.reinterpret()
 

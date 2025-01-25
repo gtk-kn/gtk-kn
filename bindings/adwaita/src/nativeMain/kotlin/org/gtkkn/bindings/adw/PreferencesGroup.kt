@@ -67,6 +67,10 @@ public open class PreferencesGroup(
     public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>,
 ) : Widget(adwPreferencesGroupPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

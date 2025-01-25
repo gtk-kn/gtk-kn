@@ -24,6 +24,10 @@ public open class CairoRenderer(
     public val gskCairoRendererPointer: CPointer<GskCairoRenderer>,
 ) : Renderer(gskCairoRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a new Cairo renderer.
      *

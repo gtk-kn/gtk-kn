@@ -48,6 +48,10 @@ public open class StackPage(
 ) : Object(gtkStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

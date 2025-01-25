@@ -495,10 +495,16 @@ public interface AppInfo : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of AppInfo for the provided [CPointer].
      */
-    public data class AppInfoImpl(
-        override val gioAppInfoPointer: CPointer<GAppInfo>,
+    public class AppInfoImpl(
+        gioAppInfoPointer: CPointer<GAppInfo>,
     ) : Object(gioAppInfoPointer.reinterpret()),
-        AppInfo
+        AppInfo {
+        init {
+            Gio
+        }
+
+        override val gioAppInfoPointer: CPointer<GAppInfo> = gioAppInfoPointer
+    }
 
     public companion object : TypeCompanion<AppInfo> {
         override val type: GeneratedInterfaceKGType<AppInfo> =

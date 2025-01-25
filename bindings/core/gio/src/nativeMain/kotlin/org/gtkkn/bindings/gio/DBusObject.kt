@@ -101,10 +101,16 @@ public interface DBusObject : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of DBusObject for the provided [CPointer].
      */
-    public data class DBusObjectImpl(
-        override val gioDBusObjectPointer: CPointer<GDBusObject>,
+    public class DBusObjectImpl(
+        gioDBusObjectPointer: CPointer<GDBusObject>,
     ) : Object(gioDBusObjectPointer.reinterpret()),
-        DBusObject
+        DBusObject {
+        init {
+            Gio
+        }
+
+        override val gioDBusObjectPointer: CPointer<GDBusObject> = gioDBusObjectPointer
+    }
 
     public companion object : TypeCompanion<DBusObject> {
         override val type: GeneratedInterfaceKGType<DBusObject> =

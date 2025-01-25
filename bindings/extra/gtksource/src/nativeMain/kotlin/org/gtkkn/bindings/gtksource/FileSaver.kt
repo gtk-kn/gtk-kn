@@ -67,6 +67,10 @@ public open class FileSaver(
     public val gtksourceFileSaverPointer: CPointer<GtkSourceFileSaver>,
 ) : Object(gtksourceFileSaverPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The #GtkSourceBuffer to save. The #GtkSourceFileSaver object has a
      * weak reference to the buffer.

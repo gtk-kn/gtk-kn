@@ -59,6 +59,10 @@ public open class Adjustment(
     public val gtkAdjustmentPointer: CPointer<GtkAdjustment>,
 ) : InitiallyUnowned(gtkAdjustmentPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The minimum value of the adjustment.
      */

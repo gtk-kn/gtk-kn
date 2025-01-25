@@ -26,6 +26,10 @@ public open class RadialGradient(
     public val cairoRadialGradientPointer: CPointer<cairo_pattern_t>,
 ) : Gradient(cairoRadialGradientPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         cx0: gdouble,
         cy0: gdouble,

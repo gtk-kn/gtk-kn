@@ -63,6 +63,10 @@ public open class PreferencesDialog(
     public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>,
 ) : Dialog(adwPreferencesDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

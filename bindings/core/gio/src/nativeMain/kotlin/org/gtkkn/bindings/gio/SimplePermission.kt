@@ -28,6 +28,10 @@ public open class SimplePermission(
     public val gioSimplePermissionPointer: CPointer<GSimplePermission>,
 ) : Permission(gioSimplePermissionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GPermission instance that represents an action that is
      * either always or never allowed.

@@ -51,6 +51,10 @@ public open class CharsetConverter(
     Converter,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioConverterPointer: CPointer<GConverter>
         get() = handle.reinterpret()
 

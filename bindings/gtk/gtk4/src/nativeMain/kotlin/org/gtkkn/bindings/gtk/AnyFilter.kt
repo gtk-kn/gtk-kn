@@ -25,6 +25,10 @@ public open class AnyFilter(
     public val gtkAnyFilterPointer: CPointer<GtkAnyFilter>,
 ) : MultiFilter(gtkAnyFilterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

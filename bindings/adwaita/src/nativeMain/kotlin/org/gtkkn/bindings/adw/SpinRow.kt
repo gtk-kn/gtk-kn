@@ -105,6 +105,10 @@ public class SpinRow(
 ) : ActionRow(adwSpinRowPointer.reinterpret()),
     Editable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkEditablePointer: CPointer<GtkEditable>
         get() = handle.reinterpret()
 

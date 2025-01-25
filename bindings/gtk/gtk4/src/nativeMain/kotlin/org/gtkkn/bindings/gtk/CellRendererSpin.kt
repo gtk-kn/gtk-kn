@@ -39,6 +39,10 @@ public open class CellRendererSpin(
     public val gtkCellRendererSpinPointer: CPointer<GtkCellRendererSpin>,
 ) : CellRendererText(gtkCellRendererSpinPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkCellRendererSpin`.
      *

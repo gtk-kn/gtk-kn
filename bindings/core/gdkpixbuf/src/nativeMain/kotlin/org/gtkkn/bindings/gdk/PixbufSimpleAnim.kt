@@ -32,6 +32,10 @@ public open class PixbufSimpleAnim(
     public val gdkPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>,
 ) : PixbufAnimation(gdkPixbufSimpleAnimPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     /**
      * Whether the animation should loop when it reaches the end.
      *

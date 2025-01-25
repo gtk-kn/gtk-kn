@@ -37,6 +37,10 @@ public open class GestureRotate(
     public val gtkGestureRotatePointer: CPointer<GtkGestureRotate>,
 ) : Gesture(gtkGestureRotatePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a newly created `GtkGesture` that recognizes 2-touch
      * rotation gestures.

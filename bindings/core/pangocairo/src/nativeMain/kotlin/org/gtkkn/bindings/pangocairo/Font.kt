@@ -47,10 +47,16 @@ public interface Font : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Font for the provided [CPointer].
      */
-    public data class FontImpl(
-        override val pangocairoFontPointer: CPointer<PangoCairoFont>,
+    public class FontImpl(
+        pangocairoFontPointer: CPointer<PangoCairoFont>,
     ) : org.gtkkn.bindings.pango.Font(pangocairoFontPointer.reinterpret()),
-        Font
+        Font {
+        init {
+            PangoCairo
+        }
+
+        override val pangocairoFontPointer: CPointer<PangoCairoFont> = pangocairoFontPointer
+    }
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedInterfaceKGType<Font> =

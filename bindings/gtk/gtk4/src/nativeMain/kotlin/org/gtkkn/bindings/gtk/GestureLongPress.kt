@@ -49,6 +49,10 @@ public open class GestureLongPress(
     public val gtkGestureLongPressPointer: CPointer<GtkGestureLongPress>,
 ) : GestureSingle(gtkGestureLongPressPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Factor by which to modify the default timeout.
      */

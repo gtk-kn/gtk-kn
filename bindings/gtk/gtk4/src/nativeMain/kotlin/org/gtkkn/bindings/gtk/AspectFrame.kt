@@ -51,6 +51,10 @@ public open class AspectFrame(
     public val gtkAspectFramePointer: CPointer<GtkAspectFrame>,
 ) : Widget(gtkAspectFramePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

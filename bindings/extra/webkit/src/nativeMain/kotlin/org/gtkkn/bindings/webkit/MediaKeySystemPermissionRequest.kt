@@ -34,6 +34,10 @@ public class MediaKeySystemPermissionRequest(
 ) : Object(webkitMediaKeySystemPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
+    init {
+        WebKit
+    }
+
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
         get() = handle.reinterpret()
 

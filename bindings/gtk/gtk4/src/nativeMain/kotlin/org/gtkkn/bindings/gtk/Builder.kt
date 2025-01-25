@@ -407,6 +407,10 @@ public open class Builder(
     public val gtkBuilderPointer: CPointer<GtkBuilder>,
 ) : Object(gtkBuilderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The object the builder is evaluating for.
      */
@@ -872,6 +876,13 @@ public open class Builder(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Builder
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_builder_get_type()
+
+        /**
          * Parses the UI definition at @resource_path.
          *
          * If there is an error locating the resource or parsing the
@@ -881,12 +892,5 @@ public open class Builder(
          * @return a `GtkBuilder` containing the described interface
          */
         public fun fromResource(resourcePath: String): Builder = Builder(gtk_builder_new_from_resource(resourcePath)!!)
-
-        /**
-         * Get the GType of Builder
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_builder_get_type()
     }
 }

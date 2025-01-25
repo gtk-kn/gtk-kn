@@ -80,6 +80,10 @@ public class NetworkSession(
     public val webkitNetworkSessionPointer: CPointer<WebKitNetworkSession>,
 ) : Object(webkitNetworkSessionPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new #WebKitNetworkSession with an ephemeral #WebKitWebsiteDataManager.
      *

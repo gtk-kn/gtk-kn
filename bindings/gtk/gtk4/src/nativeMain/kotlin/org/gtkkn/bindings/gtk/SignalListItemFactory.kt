@@ -73,6 +73,10 @@ public open class SignalListItemFactory(
     public val gtkSignalListItemFactoryPointer: CPointer<GtkSignalListItemFactory>,
 ) : ListItemFactory(gtkSignalListItemFactoryPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkSignalListItemFactory`.
      *

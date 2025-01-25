@@ -133,6 +133,10 @@ public open class ListBox(
     public val gtkListBoxPointer: CPointer<GtkListBox>,
 ) : Widget(gtkListBoxPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

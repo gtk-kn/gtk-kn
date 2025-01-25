@@ -54,6 +54,10 @@ public open class CellRendererToggle(
     public val gtkCellRendererTogglePointer: CPointer<GtkCellRendererToggle>,
 ) : CellRenderer(gtkCellRendererTogglePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public open var activatable: Boolean
         /**
          * Returns whether the cell renderer is activatable. See

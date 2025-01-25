@@ -51,6 +51,10 @@ public open class CellAreaContext(
     public val gtkCellAreaContextPointer: CPointer<GtkCellAreaContext>,
 ) : Object(gtkCellAreaContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GtkCellArea` this context was created by
      */

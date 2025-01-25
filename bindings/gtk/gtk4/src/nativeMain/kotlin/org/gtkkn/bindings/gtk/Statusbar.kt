@@ -80,6 +80,10 @@ public open class Statusbar(
     public val gtkStatusbarPointer: CPointer<GtkStatusbar>,
 ) : Widget(gtkStatusbarPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

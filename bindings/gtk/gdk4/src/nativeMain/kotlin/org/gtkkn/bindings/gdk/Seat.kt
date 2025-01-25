@@ -42,6 +42,10 @@ public abstract class Seat(
     public val gdkSeatPointer: CPointer<GdkSeat>,
 ) : Object(gdkSeatPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * `GdkDisplay` of this seat.
      */

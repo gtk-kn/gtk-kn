@@ -74,6 +74,10 @@ public open class CenterBox(
 ) : Widget(gtkCenterBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

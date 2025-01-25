@@ -44,6 +44,10 @@ public open class FilenameCompleter(
     public val gioFilenameCompleterPointer: CPointer<GFilenameCompleter>,
 ) : Object(gioFilenameCompleterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new filename completer.
      *

@@ -47,6 +47,10 @@ public class PasswordEntryRow(
     public val adwPasswordEntryRowPointer: CPointer<AdwPasswordEntryRow>,
 ) : EntryRow(adwPasswordEntryRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

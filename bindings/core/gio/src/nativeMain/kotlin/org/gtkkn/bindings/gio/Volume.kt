@@ -391,10 +391,16 @@ public interface Volume : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Volume for the provided [CPointer].
      */
-    public data class VolumeImpl(
-        override val gioVolumePointer: CPointer<GVolume>,
+    public class VolumeImpl(
+        gioVolumePointer: CPointer<GVolume>,
     ) : Object(gioVolumePointer.reinterpret()),
-        Volume
+        Volume {
+        init {
+            Gio
+        }
+
+        override val gioVolumePointer: CPointer<GVolume> = gioVolumePointer
+    }
 
     public companion object : TypeCompanion<Volume> {
         override val type: GeneratedInterfaceKGType<Volume> =

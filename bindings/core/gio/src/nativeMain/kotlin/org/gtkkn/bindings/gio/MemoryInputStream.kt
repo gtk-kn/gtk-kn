@@ -39,6 +39,10 @@ public open class MemoryInputStream(
     PollableInputStream,
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
         get() = handle.reinterpret()
 

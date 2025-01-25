@@ -48,6 +48,10 @@ public abstract class FontFamily(
 ) : Object(pangoFontFamilyPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Pango
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

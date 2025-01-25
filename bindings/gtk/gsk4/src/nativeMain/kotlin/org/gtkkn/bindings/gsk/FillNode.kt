@@ -30,6 +30,10 @@ public open class FillNode(
     public val gskFillNodePointer: CPointer<GskFillNode>,
 ) : RenderNode(gskFillNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will fill the @child in the area
      * given by @path and @fill_rule.

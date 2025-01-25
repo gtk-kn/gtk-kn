@@ -79,6 +79,10 @@ public open class Range(
     AccessibleRange,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = handle.reinterpret()
 

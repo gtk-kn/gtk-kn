@@ -58,6 +58,10 @@ public class SwitchRow(
     public val adwSwitchRowPointer: CPointer<AdwSwitchRow>,
 ) : ActionRow(adwSwitchRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

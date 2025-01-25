@@ -308,10 +308,16 @@ public interface NetworkMonitor : Proxy, Initable, KGTyped {
      *
      * @constructor Creates a new instance of NetworkMonitor for the provided [CPointer].
      */
-    public data class NetworkMonitorImpl(
-        override val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>,
+    public class NetworkMonitorImpl(
+        gioNetworkMonitorPointer: CPointer<GNetworkMonitor>,
     ) : Object(gioNetworkMonitorPointer.reinterpret()),
-        NetworkMonitor
+        NetworkMonitor {
+        init {
+            Gio
+        }
+
+        override val gioNetworkMonitorPointer: CPointer<GNetworkMonitor> = gioNetworkMonitorPointer
+    }
 
     public companion object : TypeCompanion<NetworkMonitor> {
         override val type: GeneratedInterfaceKGType<NetworkMonitor> =

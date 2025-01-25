@@ -70,6 +70,10 @@ public open class LinkButton(
     public val gtkLinkButtonPointer: CPointer<GtkLinkButton>,
 ) : Button(gtkLinkButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

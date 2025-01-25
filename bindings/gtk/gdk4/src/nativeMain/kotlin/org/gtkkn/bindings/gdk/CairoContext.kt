@@ -27,6 +27,10 @@ public abstract class CairoContext(
     public val gdkCairoContextPointer: CPointer<GdkCairoContext>,
 ) : DrawContext(gdkCairoContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Retrieves a Cairo context to be used to draw on the `GdkSurface`
      * of @context.

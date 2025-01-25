@@ -67,6 +67,10 @@ public class ToastOverlay(
     public val adwToastOverlayPointer: CPointer<AdwToastOverlay>,
 ) : Widget(adwToastOverlayPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

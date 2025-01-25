@@ -58,6 +58,10 @@ public class HitTestResult(
     public val webkitHitTestResultPointer: CPointer<WebKitHitTestResult>,
 ) : Object(webkitHitTestResultPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Bitmask of #WebKitHitTestResultContext flags representing
      * the context of the #WebKitHitTestResult.

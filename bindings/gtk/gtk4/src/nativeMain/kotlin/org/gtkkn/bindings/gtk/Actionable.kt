@@ -146,10 +146,16 @@ public interface Actionable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Actionable for the provided [CPointer].
      */
-    public data class ActionableImpl(
-        override val gtkActionablePointer: CPointer<GtkActionable>,
+    public class ActionableImpl(
+        gtkActionablePointer: CPointer<GtkActionable>,
     ) : Widget(gtkActionablePointer.reinterpret()),
-        Actionable
+        Actionable {
+        init {
+            Gtk
+        }
+
+        override val gtkActionablePointer: CPointer<GtkActionable> = gtkActionablePointer
+    }
 
     public companion object : TypeCompanion<Actionable> {
         override val type: GeneratedInterfaceKGType<Actionable> =

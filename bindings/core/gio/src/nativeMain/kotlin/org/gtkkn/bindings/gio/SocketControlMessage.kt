@@ -56,6 +56,10 @@ public abstract class SocketControlMessage(
     public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>,
 ) : Object(gioSocketControlMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Returns the "level" (i.e. the originating protocol) of the control message.
      * This is often SOL_SOCKET.

@@ -58,6 +58,10 @@ public class FindController(
     public val webkitFindControllerPointer: CPointer<WebKitFindController>,
 ) : Object(webkitFindControllerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The maximum number of matches to report for a given search.
      */

@@ -39,6 +39,10 @@ public open class WindowHandle(
     public val gtkWindowHandlePointer: CPointer<GtkWindowHandle>,
 ) : Widget(gtkWindowHandlePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

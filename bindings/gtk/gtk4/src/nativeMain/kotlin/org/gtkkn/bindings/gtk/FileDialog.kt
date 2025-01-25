@@ -81,6 +81,10 @@ public open class FileDialog(
     public val gtkFileDialogPointer: CPointer<GtkFileDialog>,
 ) : Object(gtkFileDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Label for the file chooser's accept button.
      *

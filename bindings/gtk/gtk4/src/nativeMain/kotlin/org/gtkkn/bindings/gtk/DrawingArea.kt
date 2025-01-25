@@ -118,6 +118,10 @@ public open class DrawingArea(
     public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>,
 ) : Widget(gtkDrawingAreaPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

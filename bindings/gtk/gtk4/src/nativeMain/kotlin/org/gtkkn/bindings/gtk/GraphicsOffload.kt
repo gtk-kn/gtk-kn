@@ -66,6 +66,10 @@ public open class GraphicsOffload(
     public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>,
 ) : Widget(gtkGraphicsOffloadPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

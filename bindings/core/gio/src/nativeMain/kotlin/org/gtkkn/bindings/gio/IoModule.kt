@@ -30,6 +30,10 @@ public open class IoModule(
     public val gioIoModulePointer: CPointer<GIOModule>,
 ) : TypeModule(gioIoModulePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gobjectTypePluginPointer: CPointer<GTypePlugin>
         get() = handle.reinterpret()
 

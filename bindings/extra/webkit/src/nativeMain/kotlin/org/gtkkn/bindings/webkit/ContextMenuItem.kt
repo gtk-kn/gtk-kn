@@ -44,6 +44,10 @@ public class ContextMenuItem(
     public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>,
 ) : InitiallyUnowned(webkitContextMenuItemPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Creates a new #WebKitContextMenuItem representing a separator.
      *

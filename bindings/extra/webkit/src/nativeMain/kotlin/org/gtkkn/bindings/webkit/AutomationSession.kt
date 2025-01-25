@@ -49,6 +49,10 @@ public class AutomationSession(
     public val webkitAutomationSessionPointer: CPointer<WebKitAutomationSession>,
 ) : Object(webkitAutomationSessionPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The session unique identifier.
      *

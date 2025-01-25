@@ -45,6 +45,10 @@ public abstract class AtContext(
     public val gtkAtContextPointer: CPointer<GtkATContext>,
 ) : Object(gtkAtContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The `GtkAccessible` that created the `GtkATContext` instance.
      */

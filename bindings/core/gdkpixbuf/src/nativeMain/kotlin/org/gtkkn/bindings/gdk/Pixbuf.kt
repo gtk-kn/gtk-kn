@@ -50,7 +50,6 @@ import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
-import org.gtkkn.native.gdk.GdkPixbuf
 import org.gtkkn.native.gdk.gdk_pixbuf_add_alpha
 import org.gtkkn.native.gdk.gdk_pixbuf_apply_embedded_orientation
 import org.gtkkn.native.gdk.gdk_pixbuf_calculate_rowstride
@@ -270,11 +269,15 @@ import org.gtkkn.native.gobject.GType
  * - parameter `width`: width: Out parameter is not supported
  */
 public open class Pixbuf(
-    public val gdkPixbufPointer: CPointer<GdkPixbuf>,
+    public val gdkPixbufPointer: CPointer<org.gtkkn.native.gdk.GdkPixbuf>,
 ) : Object(gdkPixbufPointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 
@@ -1269,73 +1272,6 @@ public open class Pixbuf(
             GdkPixbufTypeProvider.register()}
 
         /**
-         * Creates a new pixbuf by loading an image from an resource.
-         *
-         * The file format is detected automatically. If `NULL` is returned, then
-         * @error will be set.
-         *
-         * @param resourcePath the path of the resource file
-         * @return A newly-created pixbuf
-         * @since 2.26
-         */
-        public fun fromResource(resourcePath: String): Result<Pixbuf> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = gdk_pixbuf_new_from_resource(resourcePath, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    val instance = Pixbuf(checkNotNull(gResult).reinterpret())
-                    Result.success(instance)
-                }
-
-            }
-        }
-
-        /**
-         * Creates a new pixbuf by loading an image from an resource.
-         *
-         * The file format is detected automatically. If `NULL` is returned, then
-         * @error will be set.
-         *
-         * The image will be scaled to fit in the requested size, optionally
-         * preserving the image's aspect ratio. When preserving the aspect ratio,
-         * a @width of -1 will cause the image to be scaled to the exact given
-         * height, and a @height of -1 will cause the image to be scaled to the
-         * exact given width. When not preserving aspect ratio, a @width or
-         * @height of -1 means to not scale the image at all in that dimension.
-         *
-         * The stream is not closed.
-         *
-         * @param resourcePath the path of the resource file
-         * @param width The width the image should have or -1 to not constrain the width
-         * @param height The height the image should have or -1 to not constrain the height
-         * @param preserveAspectRatio `TRUE` to preserve the image's aspect ratio
-         * @return A newly-created pixbuf
-         * @since 2.26
-         */
-        public fun fromResourceAtScale(
-            resourcePath: String,
-            width: gint,
-            height: gint,
-            preserveAspectRatio: Boolean,
-        ): Result<Pixbuf> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = gdk_pixbuf_new_from_resource_at_scale(resourcePath, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    val instance = Pixbuf(checkNotNull(gResult).reinterpret())
-                    Result.success(instance)
-                }
-
-            }
-        }
-
-        /**
          * Calculates the rowstride that an image created with those values would
          * have.
          *
@@ -1497,5 +1433,72 @@ public open class Pixbuf(
          * @return the GType
          */
         public fun getType(): GType = gdk_pixbuf_get_type()
+
+        /**
+         * Creates a new pixbuf by loading an image from an resource.
+         *
+         * The file format is detected automatically. If `NULL` is returned, then
+         * @error will be set.
+         *
+         * @param resourcePath the path of the resource file
+         * @return A newly-created pixbuf
+         * @since 2.26
+         */
+        public fun fromResource(resourcePath: String): Result<Pixbuf> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = gdk_pixbuf_new_from_resource(resourcePath, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = Pixbuf(checkNotNull(gResult).reinterpret())
+                    Result.success(instance)
+                }
+
+            }
+        }
+
+        /**
+         * Creates a new pixbuf by loading an image from an resource.
+         *
+         * The file format is detected automatically. If `NULL` is returned, then
+         * @error will be set.
+         *
+         * The image will be scaled to fit in the requested size, optionally
+         * preserving the image's aspect ratio. When preserving the aspect ratio,
+         * a @width of -1 will cause the image to be scaled to the exact given
+         * height, and a @height of -1 will cause the image to be scaled to the
+         * exact given width. When not preserving aspect ratio, a @width or
+         * @height of -1 means to not scale the image at all in that dimension.
+         *
+         * The stream is not closed.
+         *
+         * @param resourcePath the path of the resource file
+         * @param width The width the image should have or -1 to not constrain the width
+         * @param height The height the image should have or -1 to not constrain the height
+         * @param preserveAspectRatio `TRUE` to preserve the image's aspect ratio
+         * @return A newly-created pixbuf
+         * @since 2.26
+         */
+        public fun fromResourceAtScale(
+            resourcePath: String,
+            width: gint,
+            height: gint,
+            preserveAspectRatio: Boolean,
+        ): Result<Pixbuf> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = gdk_pixbuf_new_from_resource_at_scale(resourcePath, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = Pixbuf(checkNotNull(gResult).reinterpret())
+                    Result.success(instance)
+                }
+
+            }
+        }
     }
 }

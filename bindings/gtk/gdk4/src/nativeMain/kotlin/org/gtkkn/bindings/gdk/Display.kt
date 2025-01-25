@@ -105,6 +105,10 @@ public open class Display(
     public val gdkDisplayPointer: CPointer<GdkDisplay>,
 ) : Object(gdkDisplayPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The dma-buf formats that are supported on this display
      *

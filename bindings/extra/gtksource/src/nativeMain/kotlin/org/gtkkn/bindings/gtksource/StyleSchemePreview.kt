@@ -53,6 +53,10 @@ public open class StyleSchemePreview(
 ) : Widget(gtksourceStyleSchemePreviewPointer.reinterpret()),
     Actionable,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkActionablePointer: CPointer<GtkActionable>
         get() = handle.reinterpret()
 

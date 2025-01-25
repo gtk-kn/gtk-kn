@@ -29,6 +29,10 @@ public open class RecordingSurface(
     public val cairoRecordingSurfacePointer: CPointer<cairo_surface_t>,
 ) : Surface(cairoRecordingSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     /**
      *
      *

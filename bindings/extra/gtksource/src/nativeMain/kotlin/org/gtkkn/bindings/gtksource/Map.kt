@@ -55,6 +55,10 @@ public open class Map(
     public val gtksourceMapPointer: CPointer<GtkSourceMap>,
 ) : View(gtksourceMapPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

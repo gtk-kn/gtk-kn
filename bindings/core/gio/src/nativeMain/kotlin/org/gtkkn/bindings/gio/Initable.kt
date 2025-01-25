@@ -126,10 +126,16 @@ public interface Initable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Initable for the provided [CPointer].
      */
-    public data class InitableImpl(
-        override val gioInitablePointer: CPointer<GInitable>,
+    public class InitableImpl(
+        gioInitablePointer: CPointer<GInitable>,
     ) : Object(gioInitablePointer.reinterpret()),
-        Initable
+        Initable {
+        init {
+            Gio
+        }
+
+        override val gioInitablePointer: CPointer<GInitable> = gioInitablePointer
+    }
 
     public companion object : TypeCompanion<Initable> {
         override val type: GeneratedInterfaceKGType<Initable> =

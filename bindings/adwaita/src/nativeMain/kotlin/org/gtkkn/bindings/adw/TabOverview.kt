@@ -130,6 +130,10 @@ public class TabOverview(
     public val adwTabOverviewPointer: CPointer<AdwTabOverview>,
 ) : Widget(adwTabOverviewPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

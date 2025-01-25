@@ -68,6 +68,10 @@ public open class ListItemFactory(
     public val gtkListItemFactoryPointer: CPointer<GtkListItemFactory>,
 ) : Object(gtkListItemFactoryPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<ListItemFactory> {
         override val type: GeneratedClassKGType<ListItemFactory> =
                 GeneratedClassKGType(getTypeOrNull("gtk_list_item_factory_get_type")!!) { ListItemFactory(it.reinterpret()) }

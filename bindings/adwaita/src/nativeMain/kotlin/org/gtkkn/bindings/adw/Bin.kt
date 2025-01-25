@@ -38,6 +38,10 @@ public open class Bin(
     public val adwBinPointer: CPointer<AdwBin>,
 ) : Widget(adwBinPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

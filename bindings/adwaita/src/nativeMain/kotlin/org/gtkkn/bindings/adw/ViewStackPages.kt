@@ -40,6 +40,10 @@ public class ViewStackPages(
     ListModel,
     SelectionModel,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

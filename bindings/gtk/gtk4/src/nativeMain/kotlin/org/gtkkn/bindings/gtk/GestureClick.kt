@@ -43,6 +43,10 @@ public open class GestureClick(
     public val gtkGestureClickPointer: CPointer<GtkGestureClick>,
 ) : GestureSingle(gtkGestureClickPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a newly created `GtkGesture` that recognizes
      * single and multiple presses.

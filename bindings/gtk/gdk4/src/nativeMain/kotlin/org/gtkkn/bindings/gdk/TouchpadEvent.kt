@@ -35,6 +35,10 @@ public open class TouchpadEvent(
     public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>,
 ) : Event(gdkTouchpadEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the touchpad gesture phase from a touchpad event.
      *

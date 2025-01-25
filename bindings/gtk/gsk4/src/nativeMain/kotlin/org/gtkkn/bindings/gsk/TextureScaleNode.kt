@@ -30,6 +30,10 @@ public open class TextureScaleNode(
     public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>,
 ) : RenderNode(gskTextureScaleNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a node that scales the texture to the size given by the
      * bounds using the filter and then places it at the bounds' position.

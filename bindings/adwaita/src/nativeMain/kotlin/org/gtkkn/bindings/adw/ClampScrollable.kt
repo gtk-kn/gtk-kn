@@ -47,6 +47,10 @@ public class ClampScrollable(
     Orientable,
     Scrollable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

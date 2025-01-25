@@ -70,6 +70,10 @@ public open class DirectoryList(
 ) : Object(gtkDirectoryListPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

@@ -117,6 +117,10 @@ public open class Snapshot(
     public val gtkSnapshotPointer: CPointer<GdkSnapshot>,
 ) : org.gtkkn.bindings.gdk.Snapshot(gtkSnapshotPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkSnapshot`.
      *

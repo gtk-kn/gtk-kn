@@ -18,6 +18,10 @@ public open class BroadwayRenderer(
     public val gskBroadwayRendererPointer: CPointer<GskBroadwayRenderer>,
 ) : Renderer(gskBroadwayRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a new Broadway renderer.
      *

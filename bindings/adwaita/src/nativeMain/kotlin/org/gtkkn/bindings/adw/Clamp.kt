@@ -62,6 +62,10 @@ public class Clamp(
 ) : Widget(adwClampPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

@@ -33,6 +33,10 @@ public class AuthDomainBasic(
     public val soupAuthDomainBasicPointer: CPointer<SoupAuthDomainBasic>,
 ) : AuthDomain(soupAuthDomainBasicPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * Sets the callback that @domain will use to authenticate incoming
      * requests.

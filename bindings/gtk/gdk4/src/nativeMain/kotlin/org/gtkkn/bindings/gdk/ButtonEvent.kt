@@ -22,6 +22,10 @@ public open class ButtonEvent(
     public val gdkButtonEventPointer: CPointer<GdkButtonEvent>,
 ) : Event(gdkButtonEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extract the button number from a button event.
      *

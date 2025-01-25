@@ -60,6 +60,10 @@ public open class Video(
     public val gtkVideoPointer: CPointer<GtkVideo>,
 ) : Widget(gtkVideoPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -236,6 +240,13 @@ public open class Video(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of Video
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_video_get_type()
+
+        /**
          * Creates a `GtkVideo` to play back the resource at the
          * given @resource_path.
          *
@@ -245,12 +256,5 @@ public open class Video(
          * @return a new `GtkVideo`
          */
         public fun forResource(resourcePath: String? = null): Video = Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret())
-
-        /**
-         * Get the GType of Video
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_video_get_type()
     }
 }

@@ -141,6 +141,10 @@ public open class Buffer(
     public val gtksourceBufferPointer: CPointer<GtkSourceBuffer>,
 ) : TextBuffer(gtksourceBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Whether to highlight matching brackets in the buffer.
      */

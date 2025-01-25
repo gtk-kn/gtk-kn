@@ -113,6 +113,10 @@ public open class ApplicationWindow(
     ActionGroup,
     ActionMap,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 

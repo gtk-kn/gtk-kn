@@ -66,10 +66,17 @@ public interface TreeDragSource : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TreeDragSource for the provided [CPointer].
      */
-    public data class TreeDragSourceImpl(
-        override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>,
+    public class TreeDragSourceImpl(
+        gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>,
     ) : Object(gtkTreeDragSourcePointer.reinterpret()),
-        TreeDragSource
+        TreeDragSource {
+        init {
+            Gtk
+        }
+
+        override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource> =
+                gtkTreeDragSourcePointer
+    }
 
     public companion object : TypeCompanion<TreeDragSource> {
         override val type: GeneratedInterfaceKGType<TreeDragSource> =

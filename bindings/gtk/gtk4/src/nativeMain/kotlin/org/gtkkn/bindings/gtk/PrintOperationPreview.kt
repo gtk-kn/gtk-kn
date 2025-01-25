@@ -105,10 +105,17 @@ public interface PrintOperationPreview : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of PrintOperationPreview for the provided [CPointer].
      */
-    public data class PrintOperationPreviewImpl(
-        override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>,
+    public class PrintOperationPreviewImpl(
+        gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>,
     ) : Object(gtkPrintOperationPreviewPointer.reinterpret()),
-        PrintOperationPreview
+        PrintOperationPreview {
+        init {
+            Gtk
+        }
+
+        override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview> =
+                gtkPrintOperationPreviewPointer
+    }
 
     public companion object : TypeCompanion<PrintOperationPreview> {
         override val type: GeneratedInterfaceKGType<PrintOperationPreview> =

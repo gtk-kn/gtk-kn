@@ -53,6 +53,10 @@ public abstract class EventController(
     public val gtkEventControllerPointer: CPointer<GtkEventController>,
 ) : Object(gtkEventControllerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The name for this controller, typically used for debugging purposes.
      */

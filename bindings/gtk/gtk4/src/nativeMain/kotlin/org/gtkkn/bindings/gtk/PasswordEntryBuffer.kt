@@ -27,6 +27,10 @@ public open class PasswordEntryBuffer(
     public val gtkPasswordEntryBufferPointer: CPointer<GtkPasswordEntryBuffer>,
 ) : EntryBuffer(gtkPasswordEntryBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkEntryBuffer` using secure memory allocations.
      *

@@ -29,6 +29,10 @@ public open class BoolFilter(
     public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>,
 ) : Filter(gtkBoolFilterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The boolean expression to evaluate on item.
      */

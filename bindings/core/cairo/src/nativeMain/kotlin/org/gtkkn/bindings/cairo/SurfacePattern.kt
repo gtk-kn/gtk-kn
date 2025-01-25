@@ -25,6 +25,10 @@ public open class SurfacePattern(
     public val cairoSurfacePatternPointer: CPointer<cairo_pattern_t>,
 ) : Pattern(cairoSurfacePatternPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(surface: Surface) : this(cairo_pattern_create_for_surface(surface.cairoSurfacePointer)!!) {
         MemoryCleaner.setFreeFunc(this, owned = true) { cairo_pattern_destroy(it.reinterpret()) }
     }

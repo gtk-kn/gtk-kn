@@ -28,6 +28,10 @@ public open class ShadowNode(
     public val gskShadowNodePointer: CPointer<GskShadowNode>,
 ) : RenderNode(gskShadowNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Retrieves the child `GskRenderNode` of the shadow @node.
      *

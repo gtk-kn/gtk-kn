@@ -78,6 +78,10 @@ public open class NavigationPage(
     public val adwNavigationPagePointer: CPointer<AdwNavigationPage>,
 ) : Widget(adwNavigationPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

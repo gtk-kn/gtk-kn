@@ -110,6 +110,10 @@ public open class Settings(
 ) : Object(gtkSettingsPointer.reinterpret()),
     StyleProvider,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
         get() = handle.reinterpret()
 

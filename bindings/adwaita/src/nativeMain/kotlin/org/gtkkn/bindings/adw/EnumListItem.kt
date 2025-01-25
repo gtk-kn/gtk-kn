@@ -27,6 +27,10 @@ public class EnumListItem(
     public val adwEnumListItemPointer: CPointer<AdwEnumListItem>,
 ) : Object(adwEnumListItemPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The enum value name.
      */

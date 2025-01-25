@@ -44,6 +44,10 @@ public open class EventControllerKey(
     public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>,
 ) : EventController(gtkEventControllerKeyPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new event controller that will handle key events.
      *

@@ -29,6 +29,10 @@ public open class ConstantExpression(
     public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>,
 ) : Expression(gtkConstantExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates an expression that always evaluates to the given `value`.
      *

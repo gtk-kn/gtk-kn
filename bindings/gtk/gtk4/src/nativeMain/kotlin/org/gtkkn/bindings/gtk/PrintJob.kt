@@ -93,6 +93,10 @@ public open class PrintJob(
     public val gtkPrintJobPointer: CPointer<GtkPrintJob>,
 ) : Object(gtkPrintJobPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The printer to send the job to.
      */

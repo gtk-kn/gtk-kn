@@ -30,6 +30,10 @@ public class HstsEnforcerDb(
     public val soupHstsEnforcerDbPointer: CPointer<SoupHSTSEnforcerDB>,
 ) : HstsEnforcer(soupHstsEnforcerDbPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
         get() = handle.reinterpret()
 

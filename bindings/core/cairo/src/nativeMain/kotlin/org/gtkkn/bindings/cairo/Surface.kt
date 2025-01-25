@@ -65,6 +65,10 @@ public open class Surface(
     public val cairoSurfacePointer: CPointer<cairo_surface_t>,
 ) : TypeInstance(cairoSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         other: Surface,
         content: Content,

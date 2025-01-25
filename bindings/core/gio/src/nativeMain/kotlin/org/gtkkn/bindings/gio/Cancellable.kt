@@ -68,6 +68,10 @@ public open class Cancellable(
     public val gioCancellablePointer: CPointer<GCancellable>,
 ) : Object(gioCancellablePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GCancellable object.
      *

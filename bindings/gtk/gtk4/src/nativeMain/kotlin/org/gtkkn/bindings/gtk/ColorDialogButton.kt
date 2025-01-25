@@ -66,6 +66,10 @@ public open class ColorDialogButton(
     public val gtkColorDialogButtonPointer: CPointer<GtkColorDialogButton>,
 ) : Widget(gtkColorDialogButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

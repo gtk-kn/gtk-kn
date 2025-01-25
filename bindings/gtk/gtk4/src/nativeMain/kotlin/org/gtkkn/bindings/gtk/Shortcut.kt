@@ -47,6 +47,10 @@ public open class Shortcut(
     public val gtkShortcutPointer: CPointer<GtkShortcut>,
 ) : Object(gtkShortcutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The action that gets activated by this shortcut.
      */

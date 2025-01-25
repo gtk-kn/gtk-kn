@@ -50,6 +50,10 @@ public open class BuilderListItemFactory(
     public val gtkBuilderListItemFactoryPointer: CPointer<GtkBuilderListItemFactory>,
 ) : ListItemFactory(gtkBuilderListItemFactoryPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * `GBytes` containing the UI definition.
      */

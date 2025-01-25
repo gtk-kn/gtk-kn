@@ -57,6 +57,10 @@ public open class UnixConnection(
     public val gioUnixConnectionPointer: CPointer<GUnixConnection>,
 ) : SocketConnection(gioUnixConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Receives credentials from the sending end of the connection.  The
      * sending end has to call g_unix_connection_send_credentials() (or

@@ -41,6 +41,10 @@ public abstract class Device(
     public val cairoDevicePointer: CPointer<cairo_device_t>,
 ) : TypeInstance(cairoDevicePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     /**
      *
      *

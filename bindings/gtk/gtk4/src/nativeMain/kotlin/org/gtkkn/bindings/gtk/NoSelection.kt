@@ -42,6 +42,10 @@ public open class NoSelection(
     SectionModel,
     SelectionModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

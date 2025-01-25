@@ -30,6 +30,10 @@ public open class FileIcon(
     Icon,
     LoadableIcon,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 

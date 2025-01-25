@@ -58,10 +58,16 @@ public interface TreeDragDest : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TreeDragDest for the provided [CPointer].
      */
-    public data class TreeDragDestImpl(
-        override val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>,
+    public class TreeDragDestImpl(
+        gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>,
     ) : Object(gtkTreeDragDestPointer.reinterpret()),
-        TreeDragDest
+        TreeDragDest {
+        init {
+            Gtk
+        }
+
+        override val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest> = gtkTreeDragDestPointer
+    }
 
     public companion object : TypeCompanion<TreeDragDest> {
         override val type: GeneratedInterfaceKGType<TreeDragDest> =

@@ -21,6 +21,10 @@ public open class ActivateAction(
     public val gtkActivateActionPointer: CPointer<GtkActivateAction>,
 ) : ShortcutAction(gtkActivateActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public companion object : TypeCompanion<ActivateAction> {
         override val type: GeneratedClassKGType<ActivateAction> =
                 GeneratedClassKGType(getTypeOrNull("gtk_activate_action_get_type")!!) { ActivateAction(it.reinterpret()) }

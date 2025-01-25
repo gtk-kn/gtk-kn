@@ -23,6 +23,10 @@ public open class InitiallyUnowned(
     public val gobjectInitiallyUnownedPointer: CPointer<GInitiallyUnowned>,
 ) : Object(gobjectInitiallyUnownedPointer.reinterpret()),
     KGTyped {
+    init {
+        GObject
+    }
+
     public companion object : TypeCompanion<InitiallyUnowned> {
         override val type: GeneratedClassKGType<InitiallyUnowned> =
                 GeneratedClassKGType(getTypeOrNull("g_initially_unowned_get_type")!!) { InitiallyUnowned(it.reinterpret()) }

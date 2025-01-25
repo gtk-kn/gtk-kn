@@ -81,6 +81,10 @@ public open class PasswordEntry(
 ) : Widget(gtkPasswordEntryPointer.reinterpret()),
     Editable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkEditablePointer: CPointer<GtkEditable>
         get() = handle.reinterpret()
 

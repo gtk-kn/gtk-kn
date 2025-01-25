@@ -82,6 +82,10 @@ public class WebsiteDataManager(
     public val webkitWebsiteDataManagerPointer: CPointer<WebKitWebsiteDataManager>,
 ) : Object(webkitWebsiteDataManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The base directory for caches. If null, a default location will be used.
      *

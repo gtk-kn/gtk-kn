@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecLong
  */
 public open class ParamSpecLong(
     public val gobjectParamSpecLongPointer: CPointer<GParamSpecLong>,
-) : ParamSpec(gobjectParamSpecLongPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecLongPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

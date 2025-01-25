@@ -30,6 +30,10 @@ public open class PixbufAnimationIter(
     public val gdkPixbufAnimationIterPointer: CPointer<GdkPixbufAnimationIter>,
 ) : Object(gdkPixbufAnimationIterPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     /**
      * Possibly advances an animation to a new frame.
      *

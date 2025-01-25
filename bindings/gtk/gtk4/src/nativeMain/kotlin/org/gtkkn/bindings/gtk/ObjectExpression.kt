@@ -25,6 +25,10 @@ public open class ObjectExpression(
     public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>,
 ) : Expression(gtkObjectExpressionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates an expression evaluating to the given `object` with a weak reference.
      *

@@ -69,6 +69,10 @@ public open class CompletionContext(
 ) : Object(gtksourceCompletionContextPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

@@ -143,6 +143,10 @@ public open class ComboBox(
     CellEditable,
     CellLayout,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkCellEditablePointer: CPointer<GtkCellEditable>
         get() = handle.reinterpret()
 
@@ -595,6 +599,13 @@ public open class ComboBox(
             GtkTypeProvider.register()}
 
         /**
+         * Get the GType of ComboBox
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gtk_combo_box_get_type()
+
+        /**
          * Creates a new empty `GtkComboBox` with an entry.
          *
          * In order to use a combo box with entry, you need to tell it
@@ -614,13 +625,6 @@ public open class ComboBox(
          * @return A new `GtkComboBox`
          */
         public fun withModelAndEntry(model: TreeModel): ComboBox = ComboBox(gtk_combo_box_new_with_model_and_entry(model.gtkTreeModelPointer)!!.reinterpret())
-
-        /**
-         * Get the GType of ComboBox
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gtk_combo_box_get_type()
     }
 }
 

@@ -82,6 +82,10 @@ public open class AppChooserWidget(
 ) : Widget(gtkAppChooserWidgetPointer.reinterpret()),
     AppChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
         get() = handle.reinterpret()
 

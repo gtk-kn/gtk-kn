@@ -54,6 +54,10 @@ public class StatusPage(
     public val adwStatusPagePointer: CPointer<AdwStatusPage>,
 ) : Widget(adwStatusPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

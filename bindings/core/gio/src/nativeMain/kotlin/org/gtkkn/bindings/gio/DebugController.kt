@@ -96,10 +96,17 @@ public interface DebugController : Proxy, Initable, KGTyped {
      *
      * @constructor Creates a new instance of DebugController for the provided [CPointer].
      */
-    public data class DebugControllerImpl(
-        override val gioDebugControllerPointer: CPointer<GDebugController>,
+    public class DebugControllerImpl(
+        gioDebugControllerPointer: CPointer<GDebugController>,
     ) : Object(gioDebugControllerPointer.reinterpret()),
-        DebugController
+        DebugController {
+        init {
+            Gio
+        }
+
+        override val gioDebugControllerPointer: CPointer<GDebugController> =
+                gioDebugControllerPointer
+    }
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =

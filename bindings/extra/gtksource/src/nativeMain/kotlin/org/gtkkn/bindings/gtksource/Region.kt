@@ -81,6 +81,10 @@ public open class Region(
     public val gtksourceRegionPointer: CPointer<GtkSourceRegion>,
 ) : Object(gtksourceRegionPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The [class@Gtk.TextBuffer]. The #GtkSourceRegion has a weak reference to the
      * buffer.

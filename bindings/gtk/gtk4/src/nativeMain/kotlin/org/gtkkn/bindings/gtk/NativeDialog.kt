@@ -68,6 +68,10 @@ public abstract class NativeDialog(
     public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>,
 ) : Object(gtkNativeDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether the window should be modal with respect to its transient parent.
      */

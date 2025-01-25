@@ -166,6 +166,10 @@ public abstract class MenuModel(
     public val gioMenuModelPointer: CPointer<GMenuModel>,
 ) : Object(gioMenuModelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Queries the item at position @item_index in @model for the attribute
      * specified by @attribute.

@@ -115,6 +115,10 @@ public open class SearchContext(
     public val gtksourceSearchContextPointer: CPointer<GtkSourceSearchContext>,
 ) : Object(gtksourceSearchContextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * The [class@Buffer] associated to the search context.
      */

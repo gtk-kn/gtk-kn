@@ -56,6 +56,10 @@ public open class VolumeMonitor(
     public val gioVolumeMonitorPointer: CPointer<GVolumeMonitor>,
 ) : Object(gioVolumeMonitorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets a list of drives connected to the system.
      *

@@ -188,6 +188,10 @@ public class Toast(
     public val adwToastPointer: CPointer<AdwToast>,
 ) : Object(adwToastPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The name of the associated action.
      *

@@ -56,6 +56,10 @@ public open class FileChooserWidget(
 ) : Widget(gtkFileChooserWidgetPointer.reinterpret()),
     FileChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
         get() = handle.reinterpret()
 

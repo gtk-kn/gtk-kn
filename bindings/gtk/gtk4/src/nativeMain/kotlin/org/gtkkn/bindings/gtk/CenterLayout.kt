@@ -44,6 +44,10 @@ public open class CenterLayout(
     public val gtkCenterLayoutPointer: CPointer<GtkCenterLayout>,
 ) : LayoutManager(gtkCenterLayoutPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Whether to shrink the center widget after other children.
      *

@@ -305,10 +305,17 @@ public interface TlsClientConnection : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TlsClientConnection for the provided [CPointer].
      */
-    public data class TlsClientConnectionImpl(
-        override val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection>,
+    public class TlsClientConnectionImpl(
+        gioTlsClientConnectionPointer: CPointer<GTlsClientConnection>,
     ) : TlsConnection(gioTlsClientConnectionPointer.reinterpret()),
-        TlsClientConnection
+        TlsClientConnection {
+        init {
+            Gio
+        }
+
+        override val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection> =
+                gioTlsClientConnectionPointer
+    }
 
     public companion object : TypeCompanion<TlsClientConnection> {
         override val type: GeneratedInterfaceKGType<TlsClientConnection> =

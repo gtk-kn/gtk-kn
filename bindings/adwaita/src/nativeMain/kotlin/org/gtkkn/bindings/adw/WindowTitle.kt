@@ -43,6 +43,10 @@ public class WindowTitle(
     public val adwWindowTitlePointer: CPointer<AdwWindowTitle>,
 ) : Widget(adwWindowTitlePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

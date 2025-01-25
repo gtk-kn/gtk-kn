@@ -47,6 +47,10 @@ public open class ColumnViewRow(
     public val gtkColumnViewRowPointer: CPointer<GtkColumnViewRow>,
 ) : Object(gtkColumnViewRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The accessible description to set on the row.
      *

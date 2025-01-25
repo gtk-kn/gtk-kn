@@ -26,6 +26,10 @@ public open class OpacityNode(
     public val gskOpacityNodePointer: CPointer<GskOpacityNode>,
 ) : RenderNode(gskOpacityNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will drawn the @child with reduced
      * @opacity.

@@ -41,6 +41,10 @@ public open class CompletionWords(
 ) : Object(gtksourceCompletionWordsPointer.reinterpret()),
     CompletionProvider,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>
         get() = handle.reinterpret()
 

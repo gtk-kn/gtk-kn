@@ -114,10 +114,17 @@ public interface FontMap : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of FontMap for the provided [CPointer].
      */
-    public data class FontMapImpl(
-        override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap>,
+    public class FontMapImpl(
+        pangocairoFontMapPointer: CPointer<PangoCairoFontMap>,
     ) : org.gtkkn.bindings.pango.FontMap(pangocairoFontMapPointer.reinterpret()),
-        FontMap
+        FontMap {
+        init {
+            PangoCairo
+        }
+
+        override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap> =
+                pangocairoFontMapPointer
+    }
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedInterfaceKGType<FontMap> =

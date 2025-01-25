@@ -38,6 +38,10 @@ public abstract class MenuAttributeIter(
     public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>,
 ) : Object(gioMenuAttributeIterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Gets the name of the attribute at the current iterator position, as
      * a string.

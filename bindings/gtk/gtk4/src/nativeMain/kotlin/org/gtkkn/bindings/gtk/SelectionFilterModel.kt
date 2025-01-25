@@ -33,6 +33,10 @@ public open class SelectionFilterModel(
 ) : Object(gtkSelectionFilterModelPointer.reinterpret()),
     ListModel,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gioListModelPointer: CPointer<GListModel>
         get() = handle.reinterpret()
 

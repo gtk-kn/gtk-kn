@@ -58,6 +58,10 @@ public open class UriLauncher(
     public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>,
 ) : Object(gtkUriLauncherPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The uri to launch.
      *

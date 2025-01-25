@@ -70,6 +70,10 @@ public class AuthenticationRequest(
     public val webkitAuthenticationRequestPointer: CPointer<WebKitAuthenticationRequest>,
 ) : Object(webkitAuthenticationRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Authenticate the #WebKitAuthenticationRequest.
      *

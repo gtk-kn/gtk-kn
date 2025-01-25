@@ -134,6 +134,10 @@ public open class TreeModelSort(
     TreeModel,
     TreeSortable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
         get() = handle.reinterpret()
 

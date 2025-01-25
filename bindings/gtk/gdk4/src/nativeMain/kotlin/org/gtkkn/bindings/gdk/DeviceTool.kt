@@ -26,6 +26,10 @@ public open class DeviceTool(
     public val gdkDeviceToolPointer: CPointer<GdkDeviceTool>,
 ) : Object(gdkDeviceToolPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The axes of the tool.
      */

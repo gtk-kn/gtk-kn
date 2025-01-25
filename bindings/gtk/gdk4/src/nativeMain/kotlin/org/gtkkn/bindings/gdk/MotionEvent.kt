@@ -20,6 +20,10 @@ public open class MotionEvent(
     public val gdkMotionEventPointer: CPointer<GdkMotionEvent>,
 ) : Event(gdkMotionEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     public companion object : TypeCompanion<MotionEvent> {
         override val type: GeneratedClassKGType<MotionEvent> =
                 GeneratedClassKGType(getTypeOrNull("gdk_motion_event_get_type")!!) { MotionEvent(it.reinterpret()) }

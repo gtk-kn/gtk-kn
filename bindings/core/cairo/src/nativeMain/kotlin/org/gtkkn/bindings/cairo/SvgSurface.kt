@@ -34,6 +34,10 @@ public open class SvgSurface(
     public val cairoSvgSurfacePointer: CPointer<cairo_surface_t>,
 ) : Surface(cairoSvgSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(
         filename: String?,
         widthInPoints: gdouble,

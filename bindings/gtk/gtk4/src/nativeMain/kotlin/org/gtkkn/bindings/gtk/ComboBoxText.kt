@@ -94,6 +94,10 @@ public open class ComboBoxText(
     public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>,
 ) : ComboBox(gtkComboBoxTextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 
@@ -227,17 +231,17 @@ public open class ComboBoxText(
             GtkTypeProvider.register()}
 
         /**
-         * Creates a new `GtkComboBoxText` with an entry.
-         *
-         * @return a new `GtkComboBoxText`
-         */
-        public fun withEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
-
-        /**
          * Get the GType of ComboBoxText
          *
          * @return the GType
          */
         public fun getType(): GType = gtk_combo_box_text_get_type()
+
+        /**
+         * Creates a new `GtkComboBoxText` with an entry.
+         *
+         * @return a new `GtkComboBoxText`
+         */
+        public fun withEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
     }
 }

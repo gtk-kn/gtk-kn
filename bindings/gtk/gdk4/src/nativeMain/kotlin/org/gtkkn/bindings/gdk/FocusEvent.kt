@@ -23,6 +23,10 @@ public open class FocusEvent(
     public val gdkFocusEventPointer: CPointer<GdkFocusEvent>,
 ) : Event(gdkFocusEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts whether this event is about focus entering or
      * leaving the surface.

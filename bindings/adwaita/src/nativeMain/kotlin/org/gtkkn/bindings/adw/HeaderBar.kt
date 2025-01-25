@@ -135,6 +135,10 @@ public class HeaderBar(
     public val adwHeaderBarPointer: CPointer<AdwHeaderBar>,
 ) : Widget(adwHeaderBarPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

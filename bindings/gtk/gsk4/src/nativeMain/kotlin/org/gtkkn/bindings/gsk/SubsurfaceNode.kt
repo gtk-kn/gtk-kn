@@ -29,6 +29,10 @@ public open class SubsurfaceNode(
     public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>,
 ) : RenderNode(gskSubsurfaceNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will possibly divert the child
      * node to a subsurface.

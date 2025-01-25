@@ -34,10 +34,17 @@ public interface SessionFeature : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of SessionFeature for the provided [CPointer].
      */
-    public data class SessionFeatureImpl(
-        override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>,
+    public class SessionFeatureImpl(
+        soupSessionFeaturePointer: CPointer<SoupSessionFeature>,
     ) : Object(soupSessionFeaturePointer.reinterpret()),
-        SessionFeature
+        SessionFeature {
+        init {
+            Soup
+        }
+
+        override val soupSessionFeaturePointer: CPointer<SoupSessionFeature> =
+                soupSessionFeaturePointer
+    }
 
     public companion object : TypeCompanion<SessionFeature> {
         override val type: GeneratedInterfaceKGType<SessionFeature> =

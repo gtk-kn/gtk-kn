@@ -32,6 +32,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
@@ -212,6 +213,10 @@ import org.gtkkn.native.gobject.g_variant_get_gtype
  * - union `_Value__data__union`: Missing cType on union
  */
 public object GObject {
+    init {
+        registerTypes()
+    }
+
     /**
      * Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
      */
@@ -1932,6 +1937,16 @@ public object GObject {
     public fun typeTestFlags(type: GType, flags: guint): Boolean = g_type_test_flags(type, flags).asBoolean()
 
     public fun variantGetGtype(): GType = g_variant_get_gtype()
+
+    private fun registerTypes() {
+        TypeCache.register(Binding::class, Binding.getType()) { Binding(it.reinterpret()) }
+        TypeCache.register(BindingGroup::class, BindingGroup.getType()) { BindingGroup(it.reinterpret()) }
+        TypeCache.register(InitiallyUnowned::class, InitiallyUnowned.getType()) { InitiallyUnowned(it.reinterpret()) }
+        TypeCache.register(Object::class, Object.getType()) { Object(it.reinterpret()) }
+        TypeCache.register(SignalGroup::class, SignalGroup.getType()) { SignalGroup(it.reinterpret()) }
+        TypeCache.register(TypeModule::class, TypeModule.getType()) { TypeModule.TypeModuleImpl(it.reinterpret()) }
+        TypeCache.register(TypePlugin::class, TypePlugin.getType()) { TypePlugin.TypePluginImpl(it.reinterpret()) }
+    }
 }
 
 public val BaseFinalizeFuncFunc: CPointer<CFunction<(CPointer<GTypeClass>) -> Unit>> =

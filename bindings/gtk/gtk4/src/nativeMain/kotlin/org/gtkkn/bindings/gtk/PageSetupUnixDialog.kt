@@ -45,6 +45,10 @@ public open class PageSetupUnixDialog(
     public val gtkPageSetupUnixDialogPointer: CPointer<GtkPageSetupUnixDialog>,
 ) : Dialog(gtkPageSetupUnixDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

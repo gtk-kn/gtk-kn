@@ -32,6 +32,10 @@ public open class BytesIcon(
     Icon,
     LoadableIcon,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 

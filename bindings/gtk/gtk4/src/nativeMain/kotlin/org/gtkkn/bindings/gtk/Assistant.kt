@@ -108,6 +108,10 @@ public open class Assistant(
     public val gtkAssistantPointer: CPointer<GtkAssistant>,
 ) : Window(gtkAssistantPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

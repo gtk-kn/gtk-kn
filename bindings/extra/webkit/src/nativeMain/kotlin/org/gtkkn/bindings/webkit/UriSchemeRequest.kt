@@ -50,6 +50,10 @@ public class UriSchemeRequest(
     public val webkitUriSchemeRequestPointer: CPointer<WebKitURISchemeRequest>,
 ) : Object(webkitUriSchemeRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Finish a #WebKitURISchemeRequest by setting the contents of the request and its mime type.
      *

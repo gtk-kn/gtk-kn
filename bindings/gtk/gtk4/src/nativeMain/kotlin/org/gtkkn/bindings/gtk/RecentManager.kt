@@ -115,6 +115,10 @@ public open class RecentManager(
     public val gtkRecentManagerPointer: CPointer<GtkRecentManager>,
 ) : Object(gtkRecentManagerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new recent manager object.
      *

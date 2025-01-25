@@ -48,6 +48,10 @@ public class UriSchemeResponse(
     public val webkitUriSchemeResponsePointer: CPointer<WebKitURISchemeResponse>,
 ) : Object(webkitUriSchemeResponsePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Create a new #WebKitURISchemeResponse
      *

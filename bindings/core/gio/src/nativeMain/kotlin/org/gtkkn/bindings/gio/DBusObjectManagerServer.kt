@@ -63,6 +63,10 @@ public open class DBusObjectManagerServer(
 ) : Object(gioDBusObjectManagerServerPointer.reinterpret()),
     DBusObjectManager,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
         get() = handle.reinterpret()
 

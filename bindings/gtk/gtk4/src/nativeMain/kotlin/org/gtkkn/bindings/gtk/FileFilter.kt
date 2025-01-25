@@ -90,6 +90,10 @@ public open class FileFilter(
 ) : Filter(gtkFileFilterPointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

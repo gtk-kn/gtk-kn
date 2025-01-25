@@ -72,10 +72,16 @@ public interface DragSurface : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of DragSurface for the provided [CPointer].
      */
-    public data class DragSurfaceImpl(
-        override val gdkDragSurfacePointer: CPointer<GdkDragSurface>,
+    public class DragSurfaceImpl(
+        gdkDragSurfacePointer: CPointer<GdkDragSurface>,
     ) : Surface(gdkDragSurfacePointer.reinterpret()),
-        DragSurface
+        DragSurface {
+        init {
+            Gdk
+        }
+
+        override val gdkDragSurfacePointer: CPointer<GdkDragSurface> = gdkDragSurfacePointer
+    }
 
     public companion object : TypeCompanion<DragSurface> {
         override val type: GeneratedInterfaceKGType<DragSurface> =

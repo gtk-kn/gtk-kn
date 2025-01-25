@@ -95,6 +95,10 @@ public open class ComboRow(
     public val adwComboRowPointer: CPointer<AdwComboRow>,
 ) : ActionRow(adwComboRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

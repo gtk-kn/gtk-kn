@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecBoxed
  */
 public open class ParamSpecBoxed(
     public val gobjectParamSpecBoxedPointer: CPointer<GParamSpecBoxed>,
-) : ParamSpec(gobjectParamSpecBoxedPointer.reinterpret())
+) : ParamSpec(gobjectParamSpecBoxedPointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

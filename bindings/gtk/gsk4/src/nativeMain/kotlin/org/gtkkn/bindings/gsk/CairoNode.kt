@@ -28,6 +28,10 @@ public open class CairoNode(
     public val gskCairoNodePointer: CPointer<GskCairoNode>,
 ) : RenderNode(gskCairoNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will render a cairo surface
      * into the area given by @bounds.

@@ -60,6 +60,10 @@ public open class FileIoStream(
 ) : IoStream(gioFileIoStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioSeekablePointer: CPointer<GSeekable>
         get() = handle.reinterpret()
 

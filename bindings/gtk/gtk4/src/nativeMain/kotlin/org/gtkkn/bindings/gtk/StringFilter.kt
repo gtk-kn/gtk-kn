@@ -46,6 +46,10 @@ public open class StringFilter(
     public val gtkStringFilterPointer: CPointer<GtkStringFilter>,
 ) : Filter(gtkStringFilterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The expression to evaluate on item to get a string to compare with.
      */

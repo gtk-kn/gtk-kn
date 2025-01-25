@@ -60,6 +60,10 @@ public class BackForwardList(
     public val webkitBackForwardListPointer: CPointer<WebKitBackForwardList>,
 ) : Object(webkitBackForwardListPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Returns the item that precedes the current item.
      *

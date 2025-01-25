@@ -34,6 +34,10 @@ public class ResponsePolicyDecision(
     public val webkitResponsePolicyDecisionPointer: CPointer<WebKitResponsePolicyDecision>,
 ) : PolicyDecision(webkitResponsePolicyDecisionPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * This property contains the #WebKitURIRequest associated with this
      * policy decision.

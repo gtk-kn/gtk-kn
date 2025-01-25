@@ -94,6 +94,10 @@ public open class CellRendererText(
     public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>,
 ) : CellRenderer(gtkCellRendererTextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkCellRendererText`. Adjust how text is drawn using
      * object properties. Object properties can be

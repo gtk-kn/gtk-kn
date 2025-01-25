@@ -38,6 +38,10 @@ public open class ShortcutLabel(
     public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>,
 ) : Widget(gtkShortcutLabelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -49,6 +49,10 @@ public open class EventControllerFocus(
     public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>,
 ) : EventController(gtkEventControllerFocusPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new event controller that will handle focus events.
      *

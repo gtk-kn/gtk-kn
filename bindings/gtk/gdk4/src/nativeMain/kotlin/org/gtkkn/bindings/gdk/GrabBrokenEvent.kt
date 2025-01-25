@@ -24,6 +24,10 @@ public open class GrabBrokenEvent(
     public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>,
 ) : Event(gdkGrabBrokenEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the grab surface from a grab broken event.
      *

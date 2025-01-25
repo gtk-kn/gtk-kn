@@ -24,6 +24,7 @@ import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -66,6 +67,10 @@ import org.gtkkn.native.jsc.jsc_options_set_uint
  * - record `WeakValueClass`: glib type struct are ignored
  */
 public object JavaScriptCore {
+    init {
+        registerTypes()
+    }
+
     /**
      * Like jsc_get_major_version(), but from the headers used at
      * application compile time, rather than from the library linked
@@ -267,6 +272,15 @@ public object JavaScriptCore {
      */
     @JavaScriptCoreVersion2_24
     public fun optionsSetUint(option: String, `value`: guint): Boolean = jsc_options_set_uint(option, `value`).asBoolean()
+
+    private fun registerTypes() {
+        TypeCache.register(Class::class, Class.getType()) { Class(it.reinterpret()) }
+        TypeCache.register(Context::class, Context.getType()) { Context(it.reinterpret()) }
+        TypeCache.register(Exception::class, Exception.getType()) { Exception(it.reinterpret()) }
+        TypeCache.register(Value::class, Value.getType()) { Value(it.reinterpret()) }
+        TypeCache.register(VirtualMachine::class, VirtualMachine.getType()) { VirtualMachine(it.reinterpret()) }
+        TypeCache.register(WeakValue::class, WeakValue.getType()) { WeakValue(it.reinterpret()) }
+    }
 }
 
 public val ClassDeletePropertyFunctionFunc: CPointer<CFunction<(

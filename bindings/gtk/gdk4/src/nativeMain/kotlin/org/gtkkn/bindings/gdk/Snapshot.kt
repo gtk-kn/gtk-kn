@@ -23,6 +23,10 @@ public abstract class Snapshot(
     public val gdkSnapshotPointer: CPointer<GdkSnapshot>,
 ) : Object(gdkSnapshotPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The SnapshotImpl type represents a native instance of the abstract Snapshot class.
      *

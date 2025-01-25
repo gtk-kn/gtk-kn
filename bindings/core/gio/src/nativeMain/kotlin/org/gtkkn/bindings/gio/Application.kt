@@ -241,6 +241,10 @@ public open class Application(
     ActionGroup,
     ActionMap,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 

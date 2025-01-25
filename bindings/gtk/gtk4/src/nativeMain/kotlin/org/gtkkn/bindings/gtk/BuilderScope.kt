@@ -43,10 +43,16 @@ public interface BuilderScope : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of BuilderScope for the provided [CPointer].
      */
-    public data class BuilderScopeImpl(
-        override val gtkBuilderScopePointer: CPointer<GtkBuilderScope>,
+    public class BuilderScopeImpl(
+        gtkBuilderScopePointer: CPointer<GtkBuilderScope>,
     ) : Object(gtkBuilderScopePointer.reinterpret()),
-        BuilderScope
+        BuilderScope {
+        init {
+            Gtk
+        }
+
+        override val gtkBuilderScopePointer: CPointer<GtkBuilderScope> = gtkBuilderScopePointer
+    }
 
     public companion object : TypeCompanion<BuilderScope> {
         override val type: GeneratedInterfaceKGType<BuilderScope> =

@@ -53,10 +53,17 @@ public interface AccessibleRange : Proxy, Accessible, KGTyped {
      *
      * @constructor Creates a new instance of AccessibleRange for the provided [CPointer].
      */
-    public data class AccessibleRangeImpl(
-        override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>,
+    public class AccessibleRangeImpl(
+        gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>,
     ) : Object(gtkAccessibleRangePointer.reinterpret()),
-        AccessibleRange
+        AccessibleRange {
+        init {
+            Gtk
+        }
+
+        override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange> =
+                gtkAccessibleRangePointer
+    }
 
     public companion object : TypeCompanion<AccessibleRange> {
         override val type: GeneratedInterfaceKGType<AccessibleRange> =

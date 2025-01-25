@@ -87,6 +87,10 @@ public class ServerMessage(
     public val soupServerMessagePointer: CPointer<SoupServerMessage>,
 ) : Object(soupServerMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The peer's #GTlsCertificate associated with the message
      *

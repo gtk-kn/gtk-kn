@@ -147,6 +147,10 @@ public open class Session(
     public val soupSessionPointer: CPointer<SoupSession>,
 ) : Object(soupSessionPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * If true, #SoupSession will automatically set the string
      * for the "Accept-Language" header on every [class@Message]

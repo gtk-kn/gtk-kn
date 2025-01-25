@@ -192,6 +192,10 @@ public open class Socket(
     DatagramBased,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
         get() = handle.reinterpret()
 

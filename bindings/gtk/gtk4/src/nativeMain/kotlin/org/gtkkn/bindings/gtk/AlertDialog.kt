@@ -76,6 +76,10 @@ public open class AlertDialog(
     public val gtkAlertDialogPointer: CPointer<GtkAlertDialog>,
 ) : Object(gtkAlertDialogPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * This property determines what happens when the Escape key is
      * pressed while the alert is shown.

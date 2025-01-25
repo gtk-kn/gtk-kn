@@ -38,6 +38,10 @@ public open class DBusObjectProxy(
 ) : Object(gioDBusObjectProxyPointer.reinterpret()),
     DBusObject,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioDBusObjectPointer: CPointer<GDBusObject>
         get() = handle.reinterpret()
 

@@ -48,6 +48,10 @@ public class OptionMenu(
     public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>,
 ) : Object(webkitOptionMenuPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Activates the #WebKitOptionMenuItem at @index in @menu.
      *

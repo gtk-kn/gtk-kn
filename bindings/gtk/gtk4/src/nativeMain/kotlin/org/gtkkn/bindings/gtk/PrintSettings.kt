@@ -132,6 +132,10 @@ public open class PrintSettings(
     public val gtkPrintSettingsPointer: CPointer<GtkPrintSettings>,
 ) : Object(gtkPrintSettingsPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkPrintSettings` object.
      *

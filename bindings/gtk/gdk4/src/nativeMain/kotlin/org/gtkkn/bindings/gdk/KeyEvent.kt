@@ -34,6 +34,10 @@ public open class KeyEvent(
     public val gdkKeyEventPointer: CPointer<GdkKeyEvent>,
 ) : Event(gdkKeyEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts the consumed modifiers from a key event.
      *

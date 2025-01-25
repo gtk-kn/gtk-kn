@@ -139,6 +139,10 @@ public open class MenuButton(
     public val gtkMenuButtonPointer: CPointer<GtkMenuButton>,
 ) : Widget(gtkMenuButtonPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

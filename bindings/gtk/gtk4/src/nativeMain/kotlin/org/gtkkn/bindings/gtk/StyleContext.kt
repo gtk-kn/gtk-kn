@@ -87,6 +87,10 @@ public open class StyleContext(
     public val gtkStyleContextPointer: CPointer<GtkStyleContext>,
 ) : Object(gtkStyleContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public open var display: Display
         /**
          * Returns the `GdkDisplay` to which @context is attached.

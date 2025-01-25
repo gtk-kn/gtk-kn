@@ -256,10 +256,16 @@ public interface CellLayout : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of CellLayout for the provided [CPointer].
      */
-    public data class CellLayoutImpl(
-        override val gtkCellLayoutPointer: CPointer<GtkCellLayout>,
+    public class CellLayoutImpl(
+        gtkCellLayoutPointer: CPointer<GtkCellLayout>,
     ) : Object(gtkCellLayoutPointer.reinterpret()),
-        CellLayout
+        CellLayout {
+        init {
+            Gtk
+        }
+
+        override val gtkCellLayoutPointer: CPointer<GtkCellLayout> = gtkCellLayoutPointer
+    }
 
     public companion object : TypeCompanion<CellLayout> {
         override val type: GeneratedInterfaceKGType<CellLayout> =

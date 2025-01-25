@@ -23,6 +23,10 @@ public open class CallbackAction(
     public val gtkCallbackActionPointer: CPointer<GtkCallbackAction>,
 ) : ShortcutAction(gtkCallbackActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Create a custom action that calls the given @callback when
      * activated.

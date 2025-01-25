@@ -377,10 +377,16 @@ public interface FontChooser : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of FontChooser for the provided [CPointer].
      */
-    public data class FontChooserImpl(
-        override val gtkFontChooserPointer: CPointer<GtkFontChooser>,
+    public class FontChooserImpl(
+        gtkFontChooserPointer: CPointer<GtkFontChooser>,
     ) : Object(gtkFontChooserPointer.reinterpret()),
-        FontChooser
+        FontChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkFontChooserPointer: CPointer<GtkFontChooser> = gtkFontChooserPointer
+    }
 
     public companion object : TypeCompanion<FontChooser> {
         override val type: GeneratedInterfaceKGType<FontChooser> =

@@ -94,6 +94,10 @@ public open class VimImContext(
     public val gtksourceVimImContextPointer: CPointer<GtkSourceVimIMContext>,
 ) : ImContext(gtksourceVimImContextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     public open val commandBarText: String
         /**
          * Gets the current command-bar text as it is entered by the user.

@@ -35,6 +35,10 @@ public open class TreeListRowSorter(
     public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>,
 ) : Sorter(gtkTreeListRowSorterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The underlying sorter
      */

@@ -53,6 +53,10 @@ public open class MenuItem(
     public val gioMenuItemPointer: CPointer<GMenuItem>,
 ) : Object(gioMenuItemPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GMenuItem.
      *
@@ -361,6 +365,13 @@ public open class MenuItem(
             GioTypeProvider.register()}
 
         /**
+         * Get the GType of MenuItem
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = g_menu_item_get_type()
+
+        /**
          * Creates a new #GMenuItem representing a submenu.
          *
          * This is a convenience API around g_menu_item_new() and
@@ -372,12 +383,5 @@ public open class MenuItem(
          * @since 2.32
          */
         public fun submenu(label: String? = null, submenu: MenuModel): MenuItem = MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer)!!)
-
-        /**
-         * Get the GType of MenuItem
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = g_menu_item_get_type()
     }
 }

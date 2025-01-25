@@ -118,6 +118,10 @@ public open class DmabufTextureBuilder(
     public val gdkDmabufTextureBuilderPointer: CPointer<GdkDmabufTextureBuilder>,
 ) : Object(gdkDmabufTextureBuilderPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The display that this texture will be used on.
      *

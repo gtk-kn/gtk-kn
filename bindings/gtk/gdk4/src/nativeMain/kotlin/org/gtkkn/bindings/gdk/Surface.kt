@@ -90,6 +90,10 @@ public abstract class Surface(
     public val gdkSurfacePointer: CPointer<GdkSurface>,
 ) : Object(gdkSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The mouse pointer for the `GdkSurface`.
      */

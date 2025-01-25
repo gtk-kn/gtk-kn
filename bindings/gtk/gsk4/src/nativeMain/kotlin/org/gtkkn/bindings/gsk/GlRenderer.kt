@@ -18,6 +18,10 @@ public open class GlRenderer(
     public val gskGlRendererPointer: CPointer<GskGLRenderer>,
 ) : Renderer(gskGlRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a new `GskRenderer` using the new OpenGL renderer.
      *

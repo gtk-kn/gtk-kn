@@ -86,6 +86,10 @@ public class WebsocketConnection(
     public val soupWebsocketConnectionPointer: CPointer<SoupWebsocketConnection>,
 ) : Object(soupWebsocketConnectionPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The type of connection (client/server).
      */

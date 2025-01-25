@@ -39,6 +39,10 @@ public open class GutterRendererText(
     public val gtksourceGutterRendererTextPointer: CPointer<GtkSourceGutterRendererText>,
 ) : GutterRenderer(gtksourceGutterRendererTextPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

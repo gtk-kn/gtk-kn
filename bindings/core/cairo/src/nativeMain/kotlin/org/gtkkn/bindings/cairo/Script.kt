@@ -36,6 +36,10 @@ public open class Script(
     public val cairoScriptPointer: CPointer<cairo_device_t>,
 ) : Device(cairoScriptPointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(filename: String) : this(cairo_script_create(filename)!!) {
         MemoryCleaner.setFreeFunc(this, owned = true) { cairo_device_destroy(it.reinterpret()) }
     }

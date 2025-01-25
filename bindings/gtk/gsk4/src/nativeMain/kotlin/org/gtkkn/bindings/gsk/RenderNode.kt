@@ -57,6 +57,10 @@ public abstract class RenderNode(
     public val gskRenderNodePointer: CPointer<GskRenderNode>,
 ) : TypeInstance(gskRenderNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Draw the contents of @node to the given cairo context.
      *

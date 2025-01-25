@@ -94,6 +94,10 @@ public abstract class Animation(
     public val adwAnimationPointer: CPointer<AdwAnimation>,
 ) : Object(adwAnimationPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * Whether to skip the animation when animations are globally disabled.
      *

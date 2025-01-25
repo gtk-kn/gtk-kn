@@ -34,6 +34,10 @@ public class UriRequest(
     public val webkitUriRequestPointer: CPointer<WebKitURIRequest>,
 ) : Object(webkitUriRequestPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * The URI to which the request will be made.
      */

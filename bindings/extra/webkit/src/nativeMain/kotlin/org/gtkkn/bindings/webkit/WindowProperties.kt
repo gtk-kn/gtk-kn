@@ -90,6 +90,10 @@ public class WindowProperties(
     public val webkitWindowPropertiesPointer: CPointer<WebKitWindowProperties>,
 ) : Object(webkitWindowPropertiesPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Whether window will be displayed fullscreen.
      */

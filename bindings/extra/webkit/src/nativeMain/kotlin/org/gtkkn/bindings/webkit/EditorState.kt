@@ -50,6 +50,10 @@ public class EditorState(
     public val webkitEditorStatePointer: CPointer<WebKitEditorState>,
 ) : Object(webkitEditorStatePointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Bitmask of #WebKitEditorTypingAttributes flags.
      * See webkit_editor_state_get_typing_attributes() for more information.

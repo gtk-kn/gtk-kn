@@ -37,6 +37,10 @@ public open class StyleSchemeChooserButton(
 ) : Button(gtksourceStyleSchemeChooserButtonPointer.reinterpret()),
     StyleSchemeChooser,
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>
         get() = handle.reinterpret()
 

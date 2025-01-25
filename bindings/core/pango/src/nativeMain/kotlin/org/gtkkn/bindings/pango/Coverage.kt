@@ -42,6 +42,10 @@ public open class Coverage(
     public val pangoCoveragePointer: CPointer<PangoCoverage>,
 ) : Object(pangoCoveragePointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Create a new `PangoCoverage`
      *

@@ -132,10 +132,16 @@ public interface Icon : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Icon for the provided [CPointer].
      */
-    public data class IconImpl(
-        override val gioIconPointer: CPointer<GIcon>,
+    public class IconImpl(
+        gioIconPointer: CPointer<GIcon>,
     ) : Object(gioIconPointer.reinterpret()),
-        Icon
+        Icon {
+        init {
+            Gio
+        }
+
+        override val gioIconPointer: CPointer<GIcon> = gioIconPointer
+    }
 
     public companion object : TypeCompanion<Icon> {
         override val type: GeneratedInterfaceKGType<Icon> =

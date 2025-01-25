@@ -29,6 +29,10 @@ public abstract class FilterInputStream(
     public val gioFilterInputStreamPointer: CPointer<GFilterInputStream>,
 ) : InputStream(gioFilterInputStreamPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * The underlying base stream on which the I/O ops will be done.
      */

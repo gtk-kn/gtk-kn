@@ -37,6 +37,10 @@ public class WebsiteDataAccessPermissionRequest(
 ) : Object(webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
+    init {
+        WebKit
+    }
+
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
         get() = handle.reinterpret()
 

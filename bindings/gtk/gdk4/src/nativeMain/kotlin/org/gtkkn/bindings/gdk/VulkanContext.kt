@@ -42,6 +42,10 @@ public abstract class VulkanContext(
 ) : DrawContext(gdkVulkanContextPointer.reinterpret()),
     Initable,
     KGTyped {
+    init {
+        Gdk
+    }
+
     override val gioInitablePointer: CPointer<GInitable>
         get() = handle.reinterpret()
 

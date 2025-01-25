@@ -34,6 +34,10 @@ public open class ZlibCompressor(
 ) : Object(gioZlibCompressorPointer.reinterpret()),
     Converter,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioConverterPointer: CPointer<GConverter>
         get() = handle.reinterpret()
 

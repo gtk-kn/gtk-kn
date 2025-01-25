@@ -152,6 +152,10 @@ public open class View(
     public val gtksourceViewPointer: CPointer<GtkSourceView>,
 ) : TextView(gtksourceViewPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

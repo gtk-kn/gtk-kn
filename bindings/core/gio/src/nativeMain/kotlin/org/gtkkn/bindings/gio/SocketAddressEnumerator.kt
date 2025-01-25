@@ -48,6 +48,10 @@ public abstract class SocketAddressEnumerator(
     public val gioSocketAddressEnumeratorPointer: CPointer<GSocketAddressEnumerator>,
 ) : Object(gioSocketAddressEnumeratorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Retrieves the next #GSocketAddress from @enumerator. Note that this
      * may block for some amount of time. (Eg, a #GNetworkAddress may need

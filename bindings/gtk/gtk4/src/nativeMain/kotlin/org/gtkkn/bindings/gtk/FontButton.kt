@@ -68,6 +68,10 @@ public open class FontButton(
 ) : Widget(gtkFontButtonPointer.reinterpret()),
     FontChooser,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkFontChooserPointer: CPointer<GtkFontChooser>
         get() = handle.reinterpret()
 

@@ -46,6 +46,10 @@ public open class Spinner(
     public val gtkSpinnerPointer: CPointer<GtkSpinner>,
 ) : Widget(gtkSpinnerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

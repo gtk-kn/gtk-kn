@@ -145,6 +145,10 @@ public open class BreakpointBin(
     public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>,
 ) : Widget(adwBreakpointBinPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

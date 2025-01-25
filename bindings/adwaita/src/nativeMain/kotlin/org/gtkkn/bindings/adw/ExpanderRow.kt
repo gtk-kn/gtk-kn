@@ -86,6 +86,10 @@ public open class ExpanderRow(
     public val adwExpanderRowPointer: CPointer<AdwExpanderRow>,
 ) : PreferencesRow(adwExpanderRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

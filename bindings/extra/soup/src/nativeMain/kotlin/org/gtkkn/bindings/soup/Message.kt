@@ -138,6 +138,10 @@ public class Message(
     public val soupMessagePointer: CPointer<SoupMessage>,
 ) : Object(soupMessagePointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The [struct@GLib.Uri] loaded in the application when the message was
      * queued.

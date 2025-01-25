@@ -58,6 +58,10 @@ public abstract class ShortcutAction(
     public val gtkShortcutActionPointer: CPointer<GtkShortcutAction>,
 ) : Object(gtkShortcutActionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Tries to parse the given string into an action.
      *

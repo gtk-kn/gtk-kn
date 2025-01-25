@@ -18,6 +18,10 @@ public open class PixbufNonAnim(
     public val gdkPixbufNonAnimPointer: CPointer<GdkPixbufAnimation>,
 ) : PixbufAnimation(gdkPixbufNonAnimPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     public constructor(pixbuf: Pixbuf) : this(gdk_pixbuf_non_anim_new(pixbuf.gdkPixbufPointer)!!)
 
     public companion object : TypeCompanion<PixbufNonAnim> {

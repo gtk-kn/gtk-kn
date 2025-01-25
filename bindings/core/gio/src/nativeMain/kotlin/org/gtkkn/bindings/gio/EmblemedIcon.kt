@@ -41,6 +41,10 @@ public open class EmblemedIcon(
 ) : Object(gioEmblemedIconPointer.reinterpret()),
     Icon,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioIconPointer: CPointer<GIcon>
         get() = handle.reinterpret()
 

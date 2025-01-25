@@ -67,6 +67,10 @@ public open class TextTagTable(
 ) : Object(gtkTextTagTablePointer.reinterpret()),
     Buildable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

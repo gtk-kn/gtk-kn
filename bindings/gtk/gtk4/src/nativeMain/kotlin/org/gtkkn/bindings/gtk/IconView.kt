@@ -141,6 +141,10 @@ public open class IconView(
     CellLayout,
     Scrollable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
         get() = handle.reinterpret()
 

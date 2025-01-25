@@ -83,6 +83,10 @@ public open class SocketListener(
     public val gioSocketListenerPointer: CPointer<GSocketListener>,
 ) : Object(gioSocketListenerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSocketListener with no sockets to listen for.
      * New listeners can be added with e.g. g_socket_listener_add_address()

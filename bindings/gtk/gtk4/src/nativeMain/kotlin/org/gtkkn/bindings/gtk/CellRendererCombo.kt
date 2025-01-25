@@ -54,6 +54,10 @@ public open class CellRendererCombo(
     public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>,
 ) : CellRendererText(gtkCellRendererComboPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkCellRendererCombo`.
      * Adjust how text is drawn using object properties.

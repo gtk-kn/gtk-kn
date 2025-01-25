@@ -27,6 +27,10 @@ public open class PadEvent(
     public val gdkPadEventPointer: CPointer<GdkPadEvent>,
 ) : Event(gdkPadEventPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Extracts information about the pressed button from
      * a pad event.

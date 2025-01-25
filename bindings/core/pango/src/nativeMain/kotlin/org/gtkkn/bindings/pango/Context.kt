@@ -64,6 +64,10 @@ public open class Context(
     public val pangoContextPointer: CPointer<PangoContext>,
 ) : Object(pangoContextPointer.reinterpret()),
     KGTyped {
+    init {
+        Pango
+    }
+
     /**
      * Creates a new `PangoContext` initialized to default values.
      *

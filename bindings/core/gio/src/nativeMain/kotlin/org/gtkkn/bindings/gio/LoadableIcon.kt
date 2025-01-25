@@ -56,10 +56,16 @@ public interface LoadableIcon : Proxy, Icon, KGTyped {
      *
      * @constructor Creates a new instance of LoadableIcon for the provided [CPointer].
      */
-    public data class LoadableIconImpl(
-        override val gioLoadableIconPointer: CPointer<GLoadableIcon>,
+    public class LoadableIconImpl(
+        gioLoadableIconPointer: CPointer<GLoadableIcon>,
     ) : Object(gioLoadableIconPointer.reinterpret()),
-        LoadableIcon
+        LoadableIcon {
+        init {
+            Gio
+        }
+
+        override val gioLoadableIconPointer: CPointer<GLoadableIcon> = gioLoadableIconPointer
+    }
 
     public companion object : TypeCompanion<LoadableIcon> {
         override val type: GeneratedInterfaceKGType<LoadableIcon> =

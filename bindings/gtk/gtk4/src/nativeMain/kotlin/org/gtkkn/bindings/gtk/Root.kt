@@ -82,10 +82,16 @@ public interface Root : Proxy, Native, KGTyped {
      *
      * @constructor Creates a new instance of Root for the provided [CPointer].
      */
-    public data class RootImpl(
-        override val gtkRootPointer: CPointer<GtkRoot>,
+    public class RootImpl(
+        gtkRootPointer: CPointer<GtkRoot>,
     ) : Widget(gtkRootPointer.reinterpret()),
-        Root
+        Root {
+        init {
+            Gtk
+        }
+
+        override val gtkRootPointer: CPointer<GtkRoot> = gtkRootPointer
+    }
 
     public companion object : TypeCompanion<Root> {
         override val type: GeneratedInterfaceKGType<Root> =

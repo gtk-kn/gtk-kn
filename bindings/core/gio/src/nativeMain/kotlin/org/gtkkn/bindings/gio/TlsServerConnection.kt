@@ -43,10 +43,17 @@ public interface TlsServerConnection : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of TlsServerConnection for the provided [CPointer].
      */
-    public data class TlsServerConnectionImpl(
-        override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>,
+    public class TlsServerConnectionImpl(
+        gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>,
     ) : TlsConnection(gioTlsServerConnectionPointer.reinterpret()),
-        TlsServerConnection
+        TlsServerConnection {
+        init {
+            Gio
+        }
+
+        override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection> =
+                gioTlsServerConnectionPointer
+    }
 
     public companion object : TypeCompanion<TlsServerConnection> {
         override val type: GeneratedInterfaceKGType<TlsServerConnection> =

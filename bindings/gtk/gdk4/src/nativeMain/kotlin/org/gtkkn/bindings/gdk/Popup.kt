@@ -143,10 +143,16 @@ public interface Popup : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of Popup for the provided [CPointer].
      */
-    public data class PopupImpl(
-        override val gdkPopupPointer: CPointer<GdkPopup>,
+    public class PopupImpl(
+        gdkPopupPointer: CPointer<GdkPopup>,
     ) : Surface(gdkPopupPointer.reinterpret()),
-        Popup
+        Popup {
+        init {
+            Gdk
+        }
+
+        override val gdkPopupPointer: CPointer<GdkPopup> = gdkPopupPointer
+    }
 
     public companion object : TypeCompanion<Popup> {
         override val type: GeneratedInterfaceKGType<Popup> =

@@ -35,6 +35,10 @@ public class WebsitePolicies(
     public val webkitWebsitePoliciesPointer: CPointer<WebKitWebsitePolicies>,
 ) : Object(webkitWebsitePoliciesPointer.reinterpret()),
     KGTyped {
+    init {
+        WebKit
+    }
+
     /**
      * Create a new #WebKitWebsitePolicies.
      *

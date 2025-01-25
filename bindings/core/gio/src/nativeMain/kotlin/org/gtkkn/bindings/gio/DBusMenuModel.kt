@@ -25,6 +25,10 @@ public open class DBusMenuModel(
     public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>,
 ) : MenuModel(gioDBusMenuModelPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public companion object : TypeCompanion<DBusMenuModel> {
         override val type: GeneratedClassKGType<DBusMenuModel> =
                 GeneratedClassKGType(getTypeOrNull("g_dbus_menu_model_get_type")!!) { DBusMenuModel(it.reinterpret()) }

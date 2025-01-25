@@ -50,6 +50,10 @@ public open class BoxLayout(
 ) : LayoutManager(gtkBoxLayoutPointer.reinterpret()),
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkOrientablePointer: CPointer<GtkOrientable>
         get() = handle.reinterpret()
 

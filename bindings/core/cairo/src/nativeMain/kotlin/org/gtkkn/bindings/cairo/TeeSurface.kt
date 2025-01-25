@@ -29,6 +29,10 @@ public open class TeeSurface(
     public val cairoTeeSurfacePointer: CPointer<cairo_surface_t>,
 ) : Surface(cairoTeeSurfacePointer.reinterpret()),
     KGTyped {
+    init {
+        Cairo
+    }
+
     public constructor(primary: Surface) : this(cairo_tee_surface_create(primary.cairoSurfacePointer)!!) {
         MemoryCleaner.setFreeFunc(this, owned = true) { cairo_surface_destroy(it.reinterpret()) }
     }

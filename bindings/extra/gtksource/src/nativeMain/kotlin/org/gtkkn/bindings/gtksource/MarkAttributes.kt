@@ -90,6 +90,10 @@ public open class MarkAttributes(
     public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>,
 ) : Object(gtksourceMarkAttributesPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * A #GIcon that may be a base of a rendered icon.
      */

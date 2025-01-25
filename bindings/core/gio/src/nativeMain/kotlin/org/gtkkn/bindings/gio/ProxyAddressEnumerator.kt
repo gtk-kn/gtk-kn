@@ -36,6 +36,10 @@ public open class ProxyAddressEnumerator(
     public val gioProxyAddressEnumeratorPointer: CPointer<GProxyAddressEnumerator>,
 ) : SocketAddressEnumerator(gioProxyAddressEnumeratorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     public companion object : TypeCompanion<ProxyAddressEnumerator> {
         override val type: GeneratedClassKGType<ProxyAddressEnumerator> =
                 GeneratedClassKGType(getTypeOrNull("g_proxy_address_enumerator_get_type")!!) { ProxyAddressEnumerator(it.reinterpret()) }

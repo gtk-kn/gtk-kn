@@ -38,6 +38,10 @@ public open class GestureZoom(
     public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>,
 ) : Gesture(gtkGestureZoomPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Returns a newly created `GtkGesture` that recognizes
      * pinch/zoom gestures.

@@ -42,6 +42,10 @@ public open class WindowGroup(
     public val gtkWindowGroupPointer: CPointer<GtkWindowGroup>,
 ) : Object(gtkWindowGroupPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkWindowGroup` object.
      *

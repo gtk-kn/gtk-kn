@@ -128,6 +128,10 @@ public open class DragSource(
     public val gtkDragSourcePointer: CPointer<GtkDragSource>,
 ) : GestureSingle(gtkDragSourcePointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The actions that are supported by drag operations from the source.
      *

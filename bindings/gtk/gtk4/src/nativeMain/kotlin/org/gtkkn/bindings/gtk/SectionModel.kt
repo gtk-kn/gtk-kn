@@ -86,10 +86,16 @@ public interface SectionModel : Proxy, ListModel, KGTyped {
      *
      * @constructor Creates a new instance of SectionModel for the provided [CPointer].
      */
-    public data class SectionModelImpl(
-        override val gtkSectionModelPointer: CPointer<GtkSectionModel>,
+    public class SectionModelImpl(
+        gtkSectionModelPointer: CPointer<GtkSectionModel>,
     ) : Object(gtkSectionModelPointer.reinterpret()),
-        SectionModel
+        SectionModel {
+        init {
+            Gtk
+        }
+
+        override val gtkSectionModelPointer: CPointer<GtkSectionModel> = gtkSectionModelPointer
+    }
 
     public companion object : TypeCompanion<SectionModel> {
         override val type: GeneratedInterfaceKGType<SectionModel> =

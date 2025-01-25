@@ -60,6 +60,10 @@ public open class ThreadedSocketService(
     public val gioThreadedSocketServicePointer: CPointer<GThreadedSocketService>,
 ) : SocketService(gioThreadedSocketServicePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GThreadedSocketService with no listeners. Listeners
      * must be added with one of the #GSocketListener "add" methods.

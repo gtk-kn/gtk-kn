@@ -121,6 +121,10 @@ public abstract class CellRenderer(
     public val gtkCellRendererPointer: CPointer<GtkCellRenderer>,
 ) : InitiallyUnowned(gtkCellRendererPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     public open var isExpanded: Boolean
         /**
          * Checks whether the given `GtkCellRenderer` is expanded.

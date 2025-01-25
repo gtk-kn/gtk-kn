@@ -107,6 +107,10 @@ public class ViewStack(
     public val adwViewStackPointer: CPointer<AdwViewStack>,
 ) : Widget(adwViewStackPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

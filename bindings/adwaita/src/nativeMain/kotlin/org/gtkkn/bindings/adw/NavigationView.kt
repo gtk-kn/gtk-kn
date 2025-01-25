@@ -228,6 +228,10 @@ public class NavigationView(
 ) : Widget(adwNavigationViewPointer.reinterpret()),
     Swipeable,
     KGTyped {
+    init {
+        Adw
+    }
+
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
         get() = handle.reinterpret()
 

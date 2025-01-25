@@ -49,6 +49,10 @@ public open class PreferencesRow(
     public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>,
 ) : ListBoxRow(adwPreferencesRowPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

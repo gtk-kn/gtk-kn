@@ -34,6 +34,10 @@ public open class Tag(
     public val gtksourceTagPointer: CPointer<GtkSourceTag>,
 ) : TextTag(gtksourceTagPointer.reinterpret()),
     KGTyped {
+    init {
+        GtkSource
+    }
+
     /**
      * Creates a `GtkSourceTag`.
      *

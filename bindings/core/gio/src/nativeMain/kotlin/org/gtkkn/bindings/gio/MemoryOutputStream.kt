@@ -46,6 +46,10 @@ public open class MemoryOutputStream(
     PollableOutputStream,
     Seekable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
         get() = handle.reinterpret()
 

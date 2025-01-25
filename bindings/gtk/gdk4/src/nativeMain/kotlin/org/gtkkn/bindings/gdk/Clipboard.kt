@@ -91,6 +91,10 @@ public open class Clipboard(
     public val gdkClipboardPointer: CPointer<GdkClipboard>,
 ) : Object(gdkClipboardPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * The `GdkContentProvider` or null if the clipboard is empty or contents are
      * provided otherwise.

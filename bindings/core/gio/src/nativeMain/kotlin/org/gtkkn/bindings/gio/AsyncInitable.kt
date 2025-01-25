@@ -246,10 +246,16 @@ public interface AsyncInitable : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of AsyncInitable for the provided [CPointer].
      */
-    public data class AsyncInitableImpl(
-        override val gioAsyncInitablePointer: CPointer<GAsyncInitable>,
+    public class AsyncInitableImpl(
+        gioAsyncInitablePointer: CPointer<GAsyncInitable>,
     ) : Object(gioAsyncInitablePointer.reinterpret()),
-        AsyncInitable
+        AsyncInitable {
+        init {
+            Gio
+        }
+
+        override val gioAsyncInitablePointer: CPointer<GAsyncInitable> = gioAsyncInitablePointer
+    }
 
     public companion object : TypeCompanion<AsyncInitable> {
         override val type: GeneratedInterfaceKGType<AsyncInitable> =

@@ -45,6 +45,10 @@ public open class MountOperation(
     public val gtkMountOperationPointer: CPointer<GtkMountOperation>,
 ) : org.gtkkn.bindings.gio.MountOperation(gtkMountOperationPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The display where dialogs will be shown.
      */

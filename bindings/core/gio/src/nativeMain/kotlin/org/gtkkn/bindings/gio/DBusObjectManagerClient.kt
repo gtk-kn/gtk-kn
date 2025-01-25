@@ -161,6 +161,10 @@ public open class DBusObjectManagerClient(
     DBusObjectManager,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
         get() = handle.reinterpret()
 
@@ -435,30 +439,6 @@ public open class DBusObjectManagerClient(
             GioTypeProvider.register()}
 
         /**
-         * Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
-         *
-         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_object_manager_client_new_for_bus().
-         * @return A
-         *   #GDBusObjectManagerClient object or null if @error is set. Free
-         *   with g_object_unref().
-         * @since 2.30
-         */
-        public fun forBusFinish(res: AsyncResult): Result<DBusObjectManagerClient> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = g_dbus_object_manager_client_new_for_bus_finish(res.gioAsyncResultPointer, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    val instance = DBusObjectManagerClient(checkNotNull(gResult).reinterpret())
-                    Result.success(instance)
-                }
-
-            }
-        }
-
-        /**
          * Asynchronously creates a new #GDBusObjectManagerClient object.
          *
          * This is an asynchronous failable constructor. When the result is
@@ -525,6 +505,30 @@ public open class DBusObjectManagerClient(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_object_manager_client_get_type()
+
+        /**
+         * Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
+         *
+         * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_object_manager_client_new_for_bus().
+         * @return A
+         *   #GDBusObjectManagerClient object or null if @error is set. Free
+         *   with g_object_unref().
+         * @since 2.30
+         */
+        public fun forBusFinish(res: AsyncResult): Result<DBusObjectManagerClient> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_dbus_object_manager_client_new_for_bus_finish(res.gioAsyncResultPointer, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = DBusObjectManagerClient(checkNotNull(gResult).reinterpret())
+                    Result.success(instance)
+                }
+
+            }
+        }
     }
 }
 

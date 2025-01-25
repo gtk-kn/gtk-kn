@@ -62,6 +62,10 @@ public open class TlsInteraction(
     public val gioTlsInteractionPointer: CPointer<GTlsInteraction>,
 ) : Object(gioTlsInteractionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Run synchronous interaction to ask the user for a password. In general,
      * g_tls_interaction_invoke_ask_password() should be used instead of this

@@ -181,6 +181,10 @@ public class NavigationSplitView(
     public val adwNavigationSplitViewPointer: CPointer<AdwNavigationSplitView>,
 ) : Widget(adwNavigationSplitViewPointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

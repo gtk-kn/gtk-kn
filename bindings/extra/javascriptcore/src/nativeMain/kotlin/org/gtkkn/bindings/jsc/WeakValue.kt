@@ -40,6 +40,10 @@ public class WeakValue(
     public val jscWeakValuePointer: CPointer<JSCWeakValue>,
 ) : Object(jscWeakValuePointer.reinterpret()),
     KGTyped {
+    init {
+        JavaScriptCore
+    }
+
     /**
      * Create a new #JSCWeakValue for the JavaScript value referenced by @value.
      *

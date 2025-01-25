@@ -107,6 +107,10 @@ public open class PixbufLoader(
     public val gdkPixbufLoaderPointer: CPointer<GdkPixbufLoader>,
 ) : Object(gdkPixbufLoaderPointer.reinterpret()),
     KGTyped {
+    init {
+        GdkPixbuf
+    }
+
     /**
      * Creates a new pixbuf loader object.
      *
@@ -369,6 +373,13 @@ public open class PixbufLoader(
             GdkPixbufTypeProvider.register()}
 
         /**
+         * Get the GType of PixbufLoader
+         *
+         * @return the GType
+         */
+        public fun getType(): GType = gdk_pixbuf_loader_get_type()
+
+        /**
          * Creates a new pixbuf loader object that always attempts to parse
          * image data as if it were an image of MIME type @mime_type, instead of
          * identifying the type automatically.
@@ -403,13 +414,6 @@ public open class PixbufLoader(
 
             }
         }
-
-        /**
-         * Get the GType of PixbufLoader
-         *
-         * @return the GType
-         */
-        public fun getType(): GType = gdk_pixbuf_loader_get_type()
     }
 }
 

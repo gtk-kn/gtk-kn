@@ -57,6 +57,10 @@ public abstract class Auth(
     public val soupAuthPointer: CPointer<SoupAuth>,
 ) : Object(soupAuthPointer.reinterpret()),
     KGTyped {
+    init {
+        Soup
+    }
+
     /**
      * The authority (host:port) being authenticated to.
      */

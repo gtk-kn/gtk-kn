@@ -12,4 +12,8 @@ import org.gtkkn.native.gobject.GParamSpecDouble
  */
 public open class ParamSpecDouble(
     public val gobjectParamSpecDoublePointer: CPointer<GParamSpecDouble>,
-) : ParamSpec(gobjectParamSpecDoublePointer.reinterpret())
+) : ParamSpec(gobjectParamSpecDoublePointer.reinterpret()) {
+    init {
+        GObject
+    }
+}

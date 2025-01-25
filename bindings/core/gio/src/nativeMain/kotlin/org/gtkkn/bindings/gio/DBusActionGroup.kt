@@ -32,6 +32,10 @@ public open class DBusActionGroup(
     ActionGroup,
     RemoteActionGroup,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioActionGroupPointer: CPointer<GActionGroup>
         get() = handle.reinterpret()
 

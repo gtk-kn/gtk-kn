@@ -181,10 +181,16 @@ public interface AsyncResult : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of AsyncResult for the provided [CPointer].
      */
-    public data class AsyncResultImpl(
-        override val gioAsyncResultPointer: CPointer<GAsyncResult>,
+    public class AsyncResultImpl(
+        gioAsyncResultPointer: CPointer<GAsyncResult>,
     ) : Object(gioAsyncResultPointer.reinterpret()),
-        AsyncResult
+        AsyncResult {
+        init {
+            Gio
+        }
+
+        override val gioAsyncResultPointer: CPointer<GAsyncResult> = gioAsyncResultPointer
+    }
 
     public companion object : TypeCompanion<AsyncResult> {
         override val type: GeneratedInterfaceKGType<AsyncResult> =

@@ -50,6 +50,10 @@ public open class EventControllerMotion(
     public val gtkEventControllerMotionPointer: CPointer<GtkEventControllerMotion>,
 ) : EventController(gtkEventControllerMotionPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new event controller that will handle motion events.
      *

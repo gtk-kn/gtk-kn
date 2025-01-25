@@ -88,10 +88,16 @@ public interface ActionMap : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ActionMap for the provided [CPointer].
      */
-    public data class ActionMapImpl(
-        override val gioActionMapPointer: CPointer<GActionMap>,
+    public class ActionMapImpl(
+        gioActionMapPointer: CPointer<GActionMap>,
     ) : Object(gioActionMapPointer.reinterpret()),
-        ActionMap
+        ActionMap {
+        init {
+            Gio
+        }
+
+        override val gioActionMapPointer: CPointer<GActionMap> = gioActionMapPointer
+    }
 
     public companion object : TypeCompanion<ActionMap> {
         override val type: GeneratedInterfaceKGType<ActionMap> =

@@ -32,6 +32,10 @@ public class LeafletPage(
     public val adwLeafletPagePointer: CPointer<AdwLeafletPage>,
 ) : Object(adwLeafletPagePointer.reinterpret()),
     KGTyped {
+    init {
+        Adw
+    }
+
     /**
      * The leaflet child to which the page belongs.
      */

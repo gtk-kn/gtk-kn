@@ -79,6 +79,10 @@ public abstract class FrameClock(
     public val gdkFrameClockPointer: CPointer<GdkFrameClock>,
 ) : Object(gdkFrameClockPointer.reinterpret()),
     KGTyped {
+    init {
+        Gdk
+    }
+
     /**
      * Starts updates for an animation.
      *

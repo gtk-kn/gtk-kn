@@ -57,6 +57,10 @@ public open class Revealer(
     public val gtkRevealerPointer: CPointer<GtkRevealer>,
 ) : Widget(gtkRevealerPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

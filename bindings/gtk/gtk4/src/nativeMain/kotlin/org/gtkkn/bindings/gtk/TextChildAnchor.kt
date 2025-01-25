@@ -34,6 +34,10 @@ public open class TextChildAnchor(
     public val gtkTextChildAnchorPointer: CPointer<GtkTextChildAnchor>,
 ) : Object(gtkTextChildAnchorPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Creates a new `GtkTextChildAnchor`.
      *

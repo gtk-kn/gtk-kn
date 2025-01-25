@@ -25,6 +25,10 @@ public open class TransformNode(
     public val gskTransformNodePointer: CPointer<GskTransformNode>,
 ) : RenderNode(gskTransformNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Creates a `GskRenderNode` that will transform the given @child
      * with the given @transform.

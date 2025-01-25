@@ -50,10 +50,17 @@ public interface SymbolicPaintable : Proxy, Paintable, KGTyped {
      *
      * @constructor Creates a new instance of SymbolicPaintable for the provided [CPointer].
      */
-    public data class SymbolicPaintableImpl(
-        override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>,
+    public class SymbolicPaintableImpl(
+        gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>,
     ) : Object(gtkSymbolicPaintablePointer.reinterpret()),
-        SymbolicPaintable
+        SymbolicPaintable {
+        init {
+            Gtk
+        }
+
+        override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable> =
+                gtkSymbolicPaintablePointer
+    }
 
     public companion object : TypeCompanion<SymbolicPaintable> {
         override val type: GeneratedInterfaceKGType<SymbolicPaintable> =

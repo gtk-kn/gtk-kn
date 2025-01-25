@@ -131,6 +131,10 @@ public open class Paned(
     AccessibleRange,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = handle.reinterpret()
 

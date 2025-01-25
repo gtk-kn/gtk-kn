@@ -149,6 +149,10 @@ public open class ScrolledWindow(
     public val gtkScrolledWindowPointer: CPointer<GtkScrolledWindow>,
 ) : Widget(gtkScrolledWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

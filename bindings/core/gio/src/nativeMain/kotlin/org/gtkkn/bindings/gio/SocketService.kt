@@ -74,6 +74,10 @@ public open class SocketService(
     public val gioSocketServicePointer: CPointer<GSocketService>,
 ) : SocketListener(gioSocketServicePointer.reinterpret()),
     KGTyped {
+    init {
+        Gio
+    }
+
     /**
      * Creates a new #GSocketService with no sockets to listen for.
      * New listeners can be added with e.g. g_socket_listener_add_address()

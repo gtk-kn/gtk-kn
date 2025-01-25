@@ -28,6 +28,10 @@ public open class BorderNode(
     public val gskBorderNodePointer: CPointer<GskBorderNode>,
 ) : RenderNode(gskBorderNodePointer.reinterpret()),
     KGTyped {
+    init {
+        Gsk
+    }
+
     /**
      * Retrieves the colors of the border.
      *

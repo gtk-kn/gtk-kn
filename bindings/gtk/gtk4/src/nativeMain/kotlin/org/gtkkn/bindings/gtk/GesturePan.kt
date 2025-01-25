@@ -49,6 +49,10 @@ public open class GesturePan(
     public val gtkGesturePanPointer: CPointer<GtkGesturePan>,
 ) : GestureDrag(gtkGesturePanPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * The expected orientation of pan gestures.
      */

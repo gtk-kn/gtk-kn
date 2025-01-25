@@ -134,6 +134,10 @@ public open class TextBuffer(
     public val gtkTextBufferPointer: CPointer<GtkTextBuffer>,
 ) : Object(gtkTextBufferPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Denotes that the buffer can reapply the last undone action.
      */

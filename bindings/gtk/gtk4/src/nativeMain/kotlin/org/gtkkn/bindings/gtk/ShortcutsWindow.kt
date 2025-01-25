@@ -94,6 +94,10 @@ public open class ShortcutsWindow(
     public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>,
 ) : Window(gtkShortcutsWindowPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = handle.reinterpret()
 

@@ -194,6 +194,10 @@ public open class SpinButton(
     Editable,
     Orientable,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
         get() = handle.reinterpret()
 

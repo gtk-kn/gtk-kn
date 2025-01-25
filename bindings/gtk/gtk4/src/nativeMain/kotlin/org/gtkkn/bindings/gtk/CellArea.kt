@@ -413,6 +413,10 @@ public abstract class CellArea(
     Buildable,
     CellLayout,
     KGTyped {
+    init {
+        Gtk
+    }
+
     override val gtkBuildablePointer: CPointer<GtkBuildable>
         get() = handle.reinterpret()
 

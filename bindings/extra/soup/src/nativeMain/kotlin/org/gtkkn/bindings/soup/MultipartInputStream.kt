@@ -59,6 +59,10 @@ public class MultipartInputStream(
 ) : FilterInputStream(soupMultipartInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
+    init {
+        Soup
+    }
+
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
         get() = handle.reinterpret()
 

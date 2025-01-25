@@ -55,6 +55,10 @@ public open class Filter(
     public val gtkFilterPointer: CPointer<GtkFilter>,
 ) : Object(gtkFilterPointer.reinterpret()),
     KGTyped {
+    init {
+        Gtk
+    }
+
     /**
      * Notifies all users of the filter that it has changed.
      *

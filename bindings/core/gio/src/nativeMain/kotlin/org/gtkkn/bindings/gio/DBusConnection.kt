@@ -169,6 +169,10 @@ public open class DBusConnection(
     AsyncInitable,
     Initable,
     KGTyped {
+    init {
+        Gio
+    }
+
     override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
         get() = handle.reinterpret()
 
@@ -1279,30 +1283,6 @@ public open class DBusConnection(
             GioTypeProvider.register()}
 
         /**
-         * Finishes an operation started with g_dbus_connection_new_for_address().
-         *
-         * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback passed
-         *     to g_dbus_connection_new()
-         * @return a #GDBusConnection or null if @error is set.
-         *     Free with g_object_unref().
-         * @since 2.26
-         */
-        public fun forAddressFinish(res: AsyncResult): Result<DBusConnection> {
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                gError.`value` = null
-                val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    val instance = DBusConnection(checkNotNull(gResult))
-                    Result.success(instance)
-                }
-
-            }
-        }
-
-        /**
          * Asynchronously sets up a D-Bus connection for exchanging D-Bus messages
          * with the end represented by @stream.
          *
@@ -1388,6 +1368,30 @@ public open class DBusConnection(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_connection_get_type()
+
+        /**
+         * Finishes an operation started with g_dbus_connection_new_for_address().
+         *
+         * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback passed
+         *     to g_dbus_connection_new()
+         * @return a #GDBusConnection or null if @error is set.
+         *     Free with g_object_unref().
+         * @since 2.26
+         */
+        public fun forAddressFinish(res: AsyncResult): Result<DBusConnection> {
+            memScoped {
+                val gError = allocPointerTo<GError>()
+                gError.`value` = null
+                val gResult = g_dbus_connection_new_for_address_finish(res.gioAsyncResultPointer, gError.ptr)
+                return if (gError.pointed != null) {
+                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+                } else {
+                    val instance = DBusConnection(checkNotNull(gResult))
+                    Result.success(instance)
+                }
+
+            }
+        }
     }
 }
 

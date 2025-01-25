@@ -123,10 +123,16 @@ public interface ColorChooser : Proxy, KGTyped {
      *
      * @constructor Creates a new instance of ColorChooser for the provided [CPointer].
      */
-    public data class ColorChooserImpl(
-        override val gtkColorChooserPointer: CPointer<GtkColorChooser>,
+    public class ColorChooserImpl(
+        gtkColorChooserPointer: CPointer<GtkColorChooser>,
     ) : Object(gtkColorChooserPointer.reinterpret()),
-        ColorChooser
+        ColorChooser {
+        init {
+            Gtk
+        }
+
+        override val gtkColorChooserPointer: CPointer<GtkColorChooser> = gtkColorChooserPointer
+    }
 
     public companion object : TypeCompanion<ColorChooser> {
         override val type: GeneratedInterfaceKGType<ColorChooser> =
