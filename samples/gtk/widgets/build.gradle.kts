@@ -34,6 +34,7 @@ kotlin {
     val isArm64 = System.getProperty("os.arch") == "aarch64"
     val nativeTarget = when {
         hostOs.isLinux && !isArm64 -> linuxX64()
+        hostOs.isLinux && isArm64 -> linuxArm64()
         hostOs.isMacOsX && isArm64 -> macosArm64()
         else -> throw GradleException("Host OS '${hostOs}' is not supported by gtk-kn.")
     }

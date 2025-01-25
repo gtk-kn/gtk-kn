@@ -29,11 +29,12 @@ plugins {
 
 kotlin {
     explicitApi()
+    // https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
     val hostOs = OperatingSystem.current()
-    val hostArch = System.getProperty("os.arch")
-    val isArm64 = hostArch == "aarch64"
+    val isArm64 = System.getProperty("os.arch") == "aarch64"
     when {
         hostOs.isLinux && !isArm64 -> linuxX64()
+        hostOs.isLinux && isArm64 -> linuxArm64()
         hostOs.isMacOsX && isArm64 -> macosArm64()
         else -> throw GradleException("Host OS '${hostOs}' is not supported by gtk-kn.")
     }

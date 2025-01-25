@@ -44,6 +44,7 @@ class GtkPlugin : Plugin<Project> {
 
             val nativeTarget = when {
                 hostOs.isLinux && !isArm64 -> kotlin.linuxX64()
+                hostOs.isLinux && isArm64 -> kotlin.linuxArm64()
                 hostOs.isMacOsX && isArm64 -> kotlin.macosArm64()
                 else -> error("Host OS '$hostOs' is not supported by gtk-kn.")
             }

@@ -13,7 +13,7 @@ To start developing a GTK application in Kotlin/Native, you first need to set up
     }
 
     kotlin {
-        linuxX64("native") {
+        linuxX64() {
             binaries {
                 executable()
             }
