@@ -20,6 +20,7 @@
 
 import ext.PublishConfigExt
 import ext.config
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
     id("config-conventions")
@@ -72,7 +73,7 @@ publishing {
         // Provide artifacts information requited by Maven Central
         pom {
             name.set(project.name)
-            description.set("Provides Kotlin Native bindings for the GTK framework")
+            description.set("Provides Kotlin/Native bindings for the GTK framework and other GObject-based libraries")
             url.set(config.website)
 
             licenses {
@@ -140,3 +141,25 @@ signing {
 tasks.withType<AbstractPublishToMaven> {
     mustRunAfter(tasks.withType<Sign>())
 }
+
+// https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
+if (project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")) {
+    val kotlinExtension =
+        project.extensions.getByName("kotlin") as KotlinMultiplatformExtension
+
+    afterEvaluate {
+        val targetName = kotlinExtension.targets
+            .withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>()
+            .single()
+            .konanTarget
+            .name
+            .replace("_", "")
+
+        publishing {
+            publications.withType<MavenPublication>().configureEach {
+                artifactId = "${project.name}-$targetName"
+            }
+        }
+    }
+}
+

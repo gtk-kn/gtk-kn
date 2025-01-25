@@ -61,7 +61,7 @@ fun Project.nativeTargetCompilation(name: String = "main"): Provider<KotlinNativ
     provider {
         val kotlin = extensions.findByType(KotlinMultiplatformExtension::class.java)
             ?: throw GradleException("KotlinMultiplatformExtension not found.")
-        val nativeTarget = kotlin.targets.withType<KotlinNativeTarget>().firstOrNull()
+        val nativeTarget = kotlin.targets.withType<KotlinNativeTarget>().singleOrNull()
             ?: throw GradleException("No native target named 'native' found.")
         nativeTarget.compilations.getByName(name)
     }

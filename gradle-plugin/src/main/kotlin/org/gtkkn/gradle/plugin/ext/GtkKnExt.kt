@@ -29,7 +29,7 @@ import org.gradle.api.provider.Property
 import org.gradle.kotlin.dsl.domainObjectContainer
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
-import org.gtkkn.gradle.plugin.GtkPlugin
+import org.gtkkn.gradle.plugin.GtkKnPlugin
 import org.gtkkn.gradle.plugin.domain.GResourceBundle
 import org.gtkkn.gradle.plugin.domain.GSchemaBundle
 import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
@@ -58,6 +58,11 @@ interface GtkKnExt : ExtensionAware {
      * Base directory to install various gio resources
      */
     val installPrefix: DirectoryProperty
+
+    /**
+     * The computed platform name, typically taken from the konanTarget name with underscores removed.
+     */
+    val platformSuffix: Property<String>
 
     /**
      * A map of library names to their target versions.
@@ -134,7 +139,7 @@ interface GtkKnExt : ExtensionAware {
 
         private fun registerMetaTasks(project: Project) {
             val installGSchemas = project.tasks.register("installGSchemas") {
-                group = GtkPlugin.TASK_GROUP
+                group = GtkKnPlugin.TASK_GROUP
                 description = "Installs all gschemas"
                 dependsOn(
                     project.tasks.withType<CompileGSchemasTask>()
@@ -142,7 +147,7 @@ interface GtkKnExt : ExtensionAware {
                 )
             }
             project.tasks.maybeRegister<Task>("install") {
-                group = group ?: GtkPlugin.TASK_GROUP
+                group = group ?: GtkKnPlugin.TASK_GROUP
                 dependsOn(installGSchemas)
             }
         }

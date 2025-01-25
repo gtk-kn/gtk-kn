@@ -55,12 +55,12 @@ gradlePlugin {
     website = config.website.get()
     vcsUrl = config.vcsUrl.get()
     plugins {
-        register("gtk") {
-            id = "org.gtkkn.gtk"
-            displayName = "GTK Gradle Plugin"
-            description = "GTK Gradle plugin for easy configuration"
+        register("gtkkn") {
+            id = "org.gtkkn.application"
+            displayName = "gtk-kn gradle plugin"
+            description = "gtk-kn gradle plugin for easy configuration"
             tags = listOf("ui-framework")
-            implementationClass = "org.gtkkn.gradle.plugin.GtkPlugin"
+            implementationClass = "org.gtkkn.gradle.plugin.GtkKnPlugin"
         }
     }
 }

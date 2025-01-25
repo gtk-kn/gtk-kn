@@ -30,9 +30,9 @@ import org.gtkkn.gradle.plugin.ext.gtkKn
 import org.gtkkn.gradle.plugin.utils.configureOptInAnnotations
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-class GtkPlugin : Plugin<Project> {
+class GtkKnPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        GtkKnExt.register(project)
+        val gtkKnExt = GtkKnExt.register(project)
         project.dependencyResolutionConfig()
 
         project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
@@ -47,6 +47,8 @@ class GtkPlugin : Plugin<Project> {
                 hostOs.isMacOsX && isArm64 -> kotlin.macosArm64()
                 else -> error("Host OS '$hostOs' is not supported by gtk-kn.")
             }
+
+            gtkKnExt.platformSuffix.set(nativeTarget.name.replace("_", "").lowercase())
 
             project.afterEvaluate {
                 project.gtkKn.entryPoint.orNull?.let { entryPoint ->

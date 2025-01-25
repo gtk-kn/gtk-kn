@@ -1,6 +1,6 @@
 # Gradle Plugin for gtk-kn
 
-The `org.gtkkn.gtk` Gradle plugin simplifies the process of building and deploying applications with `gtk-kn`. It
+The `org.gtkkn.application` Gradle plugin simplifies the process of building and deploying applications with `gtk-kn`. It
 provides automation for configuring GObject library versions and embedding resources, allowing for smoother integration
 and streamlined project setup.
 
@@ -44,7 +44,7 @@ maintenance effort.
 
 ## Embedding GResources
 
-The `org.gtkkn.gtk` plugin also supports embedding resources—such as images, CSS, and UI files—directly into the
+The `org.gtkkn.application` plugin also supports embedding resources—such as images, CSS, and UI files—directly into the
 application binary. This feature simplifies resource management, as embedded resources become part of the application’s
 executable, accessible without external dependencies.
 

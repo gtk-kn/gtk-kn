@@ -4,7 +4,7 @@ First, create a GTK `Application` instance with an application ID. To do this, a
 `build.gradle.kts` file. Open the file and replace `// Specify dependencies here` with:
 
 ```kotlin
-implementation("org.gtkkn:gtk4:0.0.1-SNAPSHOT")
+implementation("org.gtkkn:gtk4-linuxx64:0.0.2-SNAPSHOT")
 ```
 
 Next, update `hello.kt` with the following content:
