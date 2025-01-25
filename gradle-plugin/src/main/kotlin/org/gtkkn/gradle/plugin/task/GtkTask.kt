@@ -20,11 +20,11 @@
 
 package org.gtkkn.gradle.plugin.task
 
-import org.gtkkn.gradle.plugin.GtkPlugin
+import org.gtkkn.gradle.plugin.GtkKnPlugin
 
 @Suppress("UnnecessaryAbstractClass")
 abstract class GtkTask : NativeTask() {
     init {
-        group = GtkPlugin.TASK_GROUP
+        group = GtkKnPlugin.TASK_GROUP
     }
 }

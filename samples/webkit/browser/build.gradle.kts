@@ -25,7 +25,7 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id("detekt-conventions")
-    id("org.gtkkn.gtk")
+    id("org.gtkkn.application")
 }
 
 gtkKn {
@@ -41,7 +41,7 @@ kotlin {
                 implementation(projects.bindings.extra.webkit)
                 implementation(projects.bindings.adwaita)
                 // Import from mavenLocal
-                // implementation("org.gtkkn:webkit:0.0.1-SNAPSHOT")
+                // implementation("org.gtkkn:webkit-${gtkKn.platformSuffix.get()}:0.0.2-SNAPSHOT")
             }
         }
     }

@@ -28,9 +28,10 @@ workaround until the library is published to MavenCentral.
     ```bash
     ./gradlew assemble
     ```
-4. Install to MavenLocal:
+4. Install to MavenLocal (`publishLinuxX64PublicationToMavenLocal` for Linux or
+   `publishMacosArm64PublicationToMavenLocal` for macOS):
     ```bash
-    ./gradlew publishToMavenLocal :gradle-plugin:publishToMavenLocal
+    ./gradlew publishLinuxX64PublicationToMavenLocal :gradle-plugin:publishToMavenLocal
     ```
 5. Verify the installation by checking the `~/.m2/repository` directory.
 6. In your project’s `settings.gradle.kts`, add `mavenLocal()` to the repositories block:

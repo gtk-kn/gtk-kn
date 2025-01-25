@@ -19,11 +19,23 @@
 # License along with this library; if not, see <http://www.gnu.org/licenses/>.
 #
 
-#!/bin/bash
 set -e -v
 
 ./gradlew :gradle-plugin:check
 ./gradlew :gir:run
 ./gradlew check
 ./gradlew gradle-plugin:publishToMavenLocal
-./gradlew publishToMavenLocal
+
+# https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
+# Determine the OS and architecture
+OS=$(uname -s)
+ARCH=$(uname -m)
+
+if [[ "$OS" == "Linux" && "$ARCH" == "x86_64" ]]; then
+    ./gradlew publishLinuxX64PublicationToMavenLocal
+elif [[ "$OS" == "Darwin" && "$ARCH" == "arm64" ]]; then
+    ./gradlew publishMacosArm64PublicationToMavenLocal
+else
+    echo "Error: The current OS ($OS) and architecture ($ARCH) are not supported."
+    exit 1
+fi

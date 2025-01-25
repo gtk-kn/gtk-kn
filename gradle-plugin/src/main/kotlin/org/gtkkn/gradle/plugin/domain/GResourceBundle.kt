@@ -34,7 +34,7 @@ import org.gradle.kotlin.dsl.domainObjectSet
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
 import org.gtkkn.gradle.plugin.BuildConfig
-import org.gtkkn.gradle.plugin.GtkPlugin
+import org.gtkkn.gradle.plugin.GtkKnPlugin
 import org.gtkkn.gradle.plugin.ext.gtkKn
 import org.gtkkn.gradle.plugin.task.CompileGResourcesTask
 import org.gtkkn.gradle.plugin.task.GenerateCEmbedDefTask
@@ -111,7 +111,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
                                 )
                                 error("Multiple manifests detected for gresource[${this@gresource.name}]!")
                             } else {
-                                candidates.firstOrNull()
+                                candidates.singleOrNull()
                             }
                         },
                     ),
@@ -134,7 +134,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
         private fun Project.registerProcessTask(
             bundle: GResourceBundle,
         ) = tasks.register<Copy>("${bundle.name}ProcessGResources") {
-            group = GtkPlugin.TASK_GROUP
+            group = GtkKnPlugin.TASK_GROUP
             from(bundle.asFileTree)
             destinationDir = layout.buildDirectory.file("processedGResources/${bundle.name}").get().asFile
         }
@@ -144,7 +144,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
         ) = tasks.register<CompileGResourcesTask>("${bundle.name}CompileGResourceHeader") {
             onlyIf("Manifest file exists") { manifest.asFile.get().exists() }
             dependsOn(bundle.processTask)
-            group = GtkPlugin.TASK_GROUP
+            group = GtkKnPlugin.TASK_GROUP
             description = "Compiles gresources into c header file"
             sourceDir.convention(layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
             target.convention(project.gtkKn.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.h"))
@@ -158,7 +158,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
         ) = tasks.register<CompileGResourcesTask>("${bundle.name}CompileGResourceSource") {
             onlyIf("Manifest file exists") { manifest.asFile.get().exists() }
             dependsOn(bundle.processTask)
-            group = GtkPlugin.TASK_GROUP
+            group = GtkKnPlugin.TASK_GROUP
             description = "Compiles gresources into c source file"
             sourceDir.convention(layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
             target.convention(project.gtkKn.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.c"))
@@ -172,7 +172,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
         ) = tasks.register<CompileGResourcesTask>("${bundle.name}CompileGResourceBundle") {
             onlyIf("Manifest file exists") { manifest.asFile.get().exists() }
             dependsOn(bundle.processTask)
-            group = GtkPlugin.TASK_GROUP
+            group = GtkKnPlugin.TASK_GROUP
             description = "Compiles gresources into bundle file"
             sourceDir.convention(layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
             target.convention(project.gtkKn.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.gresource"))
@@ -191,7 +191,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
             }
             return tasks.maybeRegister<GenerateCEmbedDefTask>("${bundle.name}GenerateGResourceDef") {
                 dependsOn(bundle.compileSourceTask, pkgConfigTask)
-                group = GtkPlugin.TASK_GROUP
+                group = GtkKnPlugin.TASK_GROUP
                 source.convention(bundle.compileSourceTask.flatMap(CompileGResourcesTask::target))
                 target.convention(defFile)
                 packageName.convention("${BuildConfig.group}.resources.c")

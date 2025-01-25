@@ -30,7 +30,7 @@ import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.domainObjectSet
 import org.gradle.kotlin.dsl.register
-import org.gtkkn.gradle.plugin.GtkPlugin
+import org.gtkkn.gradle.plugin.GtkKnPlugin
 import org.gtkkn.gradle.plugin.ext.GtkKnExt
 import org.gtkkn.gradle.plugin.ext.gtkKn
 import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
@@ -92,7 +92,7 @@ interface GSchemaBundle : Named {
         private fun Project.registerProcessTask(
             bundle: GSchemaBundle,
         ) = tasks.register<Copy>("${bundle.name}ProcessGSchema") {
-            group = GtkPlugin.TASK_GROUP
+            group = GtkKnPlugin.TASK_GROUP
             description = "Processes ${bundle.name} gschema"
             from(bundle.manifest)
             destinationDir = layout.buildDirectory.file("processedGSchemas/${bundle.name}").get().asFile
@@ -118,7 +118,7 @@ interface GSchemaBundle : Named {
             val resourcesDir = bundle.processTask.map(Copy::getDestinationDir)
             val namePrefix = "${project.group}_${project.name}"
             val copyTask = tasks.register<Copy>("${bundle.name}PrepareInstallGSchema") {
-                group = GtkPlugin.TASK_GROUP
+                group = GtkKnPlugin.TASK_GROUP
                 description = "Prepares ${bundle.name} gschema for installation"
                 dependsOn(bundle.processTask)
                 mustRunAfter(bundle.verifyTask)
@@ -127,7 +127,7 @@ interface GSchemaBundle : Named {
                 eachFile { name = "${namePrefix}_${file.name}" }
             }
             return tasks.register<CompileGSchemasTask>("${bundle.name}InstallGSchema") {
-                group = GtkPlugin.TASK_GROUP
+                group = GtkKnPlugin.TASK_GROUP
                 description = "Installs ${bundle.name} gschema"
                 dependsOn(copyTask)
                 onlyIf { resourcesDir.get().exists() }

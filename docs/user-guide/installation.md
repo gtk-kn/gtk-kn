@@ -62,8 +62,8 @@ The `gtk-kn` project now supports macOS on Apple Silicon (arm64). To get started
 2. **Install Dependencies**:
    Use the following script to set up additional dependencies:
 
-``` bash title="misc/install_macos_deps.sh"
---8<-- "misc/install_macos_deps.sh:23"
+``` bash title=".ci/install_macos_deps.sh"
+--8<-- ".ci/install_macos_deps.sh:23"
 ```
 
 ### Windows

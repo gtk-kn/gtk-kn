@@ -1,4 +1,4 @@
-snapshots:
+publish-linux-x64-snapshots:
   extends: .build-base
   image: "$REGISTRY_PATH/fedora:41"
   stage: deploy
@@ -8,7 +8,24 @@ snapshots:
     - ./gradlew :gir:run
     - ./gradlew assemble
     - ./gradlew gradle-plugin:publishAllPublicationsToSnapshotsRepository
-    - ./gradlew publishAllPublicationsToSnapshotsRepository
+    - ./gradlew publishLinuxX64PublicationToSnapshotsRepository # https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "web"'
+      when: manual
+    - when: never
+
+publish-macos-arm64-snapshots:
+  extends: .build-base-macos
+  stage: deploy
+  variables:
+    GRADLE_OPTS: "-Dorg.gradle.project.org.gtkkn.samples.disable=true"
+  script:
+    - ./gradlew :gir:run
+    - ./gradlew assemble
+    - ./gradlew gradle-plugin:publishAllPublicationsToSnapshotsRepository
+    - ./gradlew publishMacosArm64PublicationToSnapshotsRepository # https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
       when: on_success
