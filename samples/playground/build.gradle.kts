@@ -40,7 +40,7 @@ kotlin {
                 // Import from project
                 implementation(projects.bindings.adwaita)
                 // Import from mavenLocal
-                // implementation("org.gtkkn:adwaita-${gtkKn.platformSuffix.get()}:0.0.2-SNAPSHOT")
+                // implementation("org.gtkkn:adwaita-${gtkKn.platformSuffix.get()}:0.0.3-SNAPSHOT")
             }
         }
     }
