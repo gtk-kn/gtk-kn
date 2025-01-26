@@ -1,6 +1,7 @@
 
 pluginManagement {
     repositories {
+        maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
         mavenLocal()
         gradlePluginPortal()
         mavenCentral()
@@ -9,6 +10,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
         mavenLocal()
         mavenCentral()
     }

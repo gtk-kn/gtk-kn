@@ -1,8 +1,8 @@
 # Gradle Plugin for gtk-kn
 
-The `org.gtkkn.application` Gradle plugin simplifies the process of building and deploying applications with `gtk-kn`. It
-provides automation for configuring GObject library versions and embedding resources, allowing for smoother integration
-and streamlined project setup.
+The `org.gtkkn.application` Gradle plugin simplifies the process of building and deploying applications with `gtk-kn`.
+It provides automation for configuring GObject library versions and embedding resources, allowing for smoother
+integration and streamlined project setup.
 
 ## Targeting Library Versions
 
@@ -41,6 +41,22 @@ sourceSets.configureEach {
 
 While this approach provides the same compatibility, using the Gradle plugin streamlines this process and reduces the
 maintenance effort.
+
+## Ignoring Unresolved Symbols in Object Files
+
+When including a gtk-kn dependency to your project, you may encounter linker errors such as:
+
+```
+ld.lld: error: undefined symbol: <some native symbol>
+```
+
+These errors usually occur when one of the project dependencies references symbols from a native library version
+different from the one installed on your system. If these symbols are not required for your application, they can be
+safely ignored during linking.
+
+The `org.gtkkn.application` plugin automatically adds the linker option `--unresolved-symbols=ignore-in-object-files` to
+the build. This tells the linker to skip unresolved symbols in object files, while still enforcing symbol resolution in
+shared libraries. This ensures the build succeeds without risking runtime issues for unused symbols.
 
 ## Embedding GResources
 
