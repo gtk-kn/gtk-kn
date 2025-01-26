@@ -80,10 +80,6 @@ public open class LogcatLogFormatter(
 
     override fun formatMessage(message: String): String = message
 
-    protected open fun formatTime(dateTime: DateTime): String {
-        val dateStr = "${dateTime.getMonth()}-${dateTime.getDayOfMonth()}"
-        val timeStr =
-            "${dateTime.getHour()}:${dateTime.getMinute()}:${dateTime.getSecond()}:${dateTime.getMicrosecond() / 1000}"
-        return "$dateStr $timeStr"
-    }
+    protected open fun formatTime(dateTime: DateTime): String =
+        checkNotNull(dateTime.format("%m-%d %H:%M:%S.%f")).let { it.substring(0, it.length - 2) }
 }
