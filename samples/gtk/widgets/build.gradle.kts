@@ -50,7 +50,7 @@ kotlin {
                 // Import from project
                 implementation(projects.bindings.gtk.gtk4)
                 // Import from mavenLocal
-                // implementation("org.gtkkn:gtk4-${gtkKn.platformSuffix.get()}:0.0.2-SNAPSHOT")
+                // implementation("org.gtkkn:gtk4-${gtkKn.platformSuffix.get()}:0.0.3-SNAPSHOT")
             }
         }
         configureEach {

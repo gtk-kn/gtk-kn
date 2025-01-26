@@ -57,7 +57,15 @@ class GtkKnPlugin : Plugin<Project> {
                         // Ignore unresolved symbols in object files to handle dependencies built with different native
                         // library versions.
                         // https://gtk-kn.org/user-guide/gradle-plugin/#ignoring-unresolved-symbols-in-object-files
-                        freeCompilerArgs += listOf("-linker-option", "--unresolved-symbols=ignore-in-object-files")
+                        freeCompilerArgs += when {
+                            hostOs.isLinux -> listOf("-linker-option", "--unresolved-symbols=ignore-in-object-files")
+                            hostOs.isMacOsX -> listOf(
+                                "-linker-option", "-undefined",
+                                "-linker-option", "dynamic_lookup"
+                            )
+
+                            else -> error("Host OS '$hostOs' is not supported by gtk-kn.")
+                        }
                     }
                 }
             }

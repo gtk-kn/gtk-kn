@@ -1,6 +1,6 @@
 plugins {
     kotlin("multiplatform") version "2.1.0"
-    id("org.gtkkn.application") version "0.0.2-SNAPSHOT"
+    id("org.gtkkn.application") version "0.0.3-SNAPSHOT"
 }
 
 gtkKn {
@@ -12,7 +12,7 @@ kotlin {
     sourceSets {
         nativeMain {
             dependencies {
-                implementation("org.gtkkn:gtk4-${gtkKn.platformSuffix.get()}:0.0.2-SNAPSHOT")
+                implementation("org.gtkkn:gtk4-${gtkKn.platformSuffix.get()}:0.0.3-SNAPSHOT")
             }
         }
     }

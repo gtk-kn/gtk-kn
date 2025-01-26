@@ -18,14 +18,24 @@
     This often happens because the dependency was compiled with a different version of a native library than the one
     installed.
 
-    If these symbols are not required by your application, you can ignore them by adding this line to your Gradle
-    configuration:
+    If these symbols are not required by your application, you can ignore them by adding the appropriate linker option
+    to your Gradle configuration based on your operating system:
 
+    **For Linux**:
     ```kotlin
     freeCompilerArgs += listOf("-linker-option", "--unresolved-symbols=ignore-in-object-files")
     ```
-
     This tells the linker to skip unresolved symbols in object files, but it will still check for symbols in libraries.
 
-    **Note**: If you're using the official [gtk-kn Gradle plugin](https://gtk-kn.org/user-guide/gradle-plugin/), this
-    setting is applied automatically. If you're still seeing this error, the problem may lie elsewhere.
+    **For macOS**:
+    ```kotlin
+    freeCompilerArgs += listOf(
+        "-linker-option", "-undefined",
+        "-linker-option", "dynamic_lookup"
+    )
+    ```
+    This tells the linker to ignore unresolved symbols and attempt to resolve them dynamically at runtime if needed.
+
+    **Note**: If you're using the official [gtk-kn Gradle plugin](https://gtk-kn.org/user-guide/gradle-plugin/), these
+    settings are applied automatically depending on the target operating system. If you're still seeing this error,
+    the problem may lie elsewhere.

@@ -44,7 +44,7 @@ maintenance effort.
 
 ## Ignoring Unresolved Symbols in Object Files
 
-When including a gtk-kn dependency to your project, you may encounter linker errors such as:
+When including a gtk-kn dependency in your project, you may encounter linker errors such as:
 
 ```
 ld.lld: error: undefined symbol: <some native symbol>
@@ -54,9 +54,35 @@ These errors usually occur when one of the project dependencies references symbo
 different from the one installed on your system. If these symbols are not required for your application, they can be
 safely ignored during linking.
 
-The `org.gtkkn.application` plugin automatically adds the linker option `--unresolved-symbols=ignore-in-object-files` to
-the build. This tells the linker to skip unresolved symbols in object files, while still enforcing symbol resolution in
-shared libraries. This ensures the build succeeds without risking runtime issues for unused symbols.
+The `org.gtkkn.application` plugin automatically applies the appropriate linker options based on your operating system:
+
+### Linux
+
+For Linux, the linker option `--unresolved-symbols=ignore-in-object-files` is added:
+
+```kotlin
+freeCompilerArgs += listOf("-linker-option", "--unresolved-symbols=ignore-in-object-files")
+```
+
+This instructs the linker to skip unresolved symbols in object files while still enforcing symbol resolution in shared
+libraries. This ensures the build succeeds without risking runtime issues for unused symbols.
+
+### macOS
+
+For macOS, where `--unresolved-symbols` is not supported, the following linker options are used:
+
+```kotlin
+freeCompilerArgs += listOf(
+    "-linker-option", "-undefined",
+    "-linker-option", "dynamic_lookup"
+)
+```
+
+This tells the linker to ignore unresolved symbols and defer their resolution to runtime. Symbols that are never
+accessed will not cause any issues, but if they are accessed and remain unresolved, the program will crash.
+
+These settings ensure compatibility across platforms while avoiding linker errors for unused symbols. If you're still
+seeing this error, the issue might lie elsewhere in your setup.
 
 ## Embedding GResources
 

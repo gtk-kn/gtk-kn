@@ -41,7 +41,7 @@ kotlin {
                 implementation(projects.bindings.extra.webkit)
                 implementation(projects.bindings.adwaita)
                 // Import from mavenLocal
-                // implementation("org.gtkkn:webkit-${gtkKn.platformSuffix.get()}:0.0.2-SNAPSHOT")
+                // implementation("org.gtkkn:webkit-${gtkKn.platformSuffix.get()}:0.0.3-SNAPSHOT")
             }
         }
     }
