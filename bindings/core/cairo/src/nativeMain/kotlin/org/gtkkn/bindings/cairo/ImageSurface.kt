@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -60,7 +61,9 @@ public open class ImageSurface(public val cairoImageSurfacePointer: CPointer<cai
 
     public companion object : TypeCompanion<ImageSurface> {
         override val type: GeneratedClassKGType<ImageSurface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { ImageSurface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) {
+                ImageSurface(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

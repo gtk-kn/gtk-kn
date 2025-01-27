@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -98,7 +99,7 @@ public open class Gutter(public val gtksourceGutterPointer: CPointer<GtkSourceGu
 
     public companion object : TypeCompanion<Gutter> {
         override val type: GeneratedClassKGType<Gutter> =
-            GeneratedClassKGType(gtk_source_gutter_get_type()) { Gutter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_get_type")!!) { Gutter(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -207,7 +208,7 @@ public open class SignalListItemFactory(
 
     public companion object : TypeCompanion<SignalListItemFactory> {
         override val type: GeneratedClassKGType<SignalListItemFactory> =
-            GeneratedClassKGType(gtk_signal_list_item_factory_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_signal_list_item_factory_get_type")!!) {
                 SignalListItemFactory(it.reinterpret())
             }
 

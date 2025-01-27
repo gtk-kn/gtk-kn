@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -203,7 +204,7 @@ public abstract class TypeModule(public val gobjectTypeModulePointer: CPointer<G
 
     public companion object : TypeCompanion<TypeModule> {
         override val type: GeneratedClassKGType<TypeModule> =
-            GeneratedClassKGType(g_type_module_get_type()) { TypeModuleImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_type_module_get_type")!!) { TypeModuleImpl(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()

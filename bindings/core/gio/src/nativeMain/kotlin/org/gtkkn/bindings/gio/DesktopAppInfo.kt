@@ -26,6 +26,7 @@ import org.gtkkn.bindings.glib.SpawnChildSetupFunc
 import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.glib.SpawnFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -439,7 +440,9 @@ public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<G
 
     public companion object : TypeCompanion<DesktopAppInfo> {
         override val type: GeneratedClassKGType<DesktopAppInfo> =
-            GeneratedClassKGType(g_desktop_app_info_get_type()) { DesktopAppInfo(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_desktop_app_info_get_type")!!) {
+                DesktopAppInfo(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

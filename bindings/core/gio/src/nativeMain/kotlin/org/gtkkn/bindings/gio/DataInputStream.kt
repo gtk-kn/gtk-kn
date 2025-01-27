@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -401,7 +402,9 @@ public open class DataInputStream(public val gioDataInputStreamPointer: CPointer
 
     public companion object : TypeCompanion<DataInputStream> {
         override val type: GeneratedClassKGType<DataInputStream> =
-            GeneratedClassKGType(g_data_input_stream_get_type()) { DataInputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_data_input_stream_get_type")!!) {
+                DataInputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

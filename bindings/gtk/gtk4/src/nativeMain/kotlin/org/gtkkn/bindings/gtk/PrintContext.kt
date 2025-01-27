@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -206,7 +207,7 @@ public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPr
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =
-            GeneratedClassKGType(gtk_print_context_get_type()) { PrintContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_print_context_get_type")!!) { PrintContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

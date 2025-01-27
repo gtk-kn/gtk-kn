@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -34,7 +35,9 @@ public open class PasswordEntryBuffer(public val gtkPasswordEntryBufferPointer: 
 
     public companion object : TypeCompanion<PasswordEntryBuffer> {
         override val type: GeneratedClassKGType<PasswordEntryBuffer> =
-            GeneratedClassKGType(gtk_password_entry_buffer_get_type()) { PasswordEntryBuffer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_password_entry_buffer_get_type")!!) {
+                PasswordEntryBuffer(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

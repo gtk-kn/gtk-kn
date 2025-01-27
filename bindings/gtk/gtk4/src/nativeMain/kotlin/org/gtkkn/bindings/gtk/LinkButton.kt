@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -173,7 +174,7 @@ public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkBu
 
     public companion object : TypeCompanion<LinkButton> {
         override val type: GeneratedClassKGType<LinkButton> =
-            GeneratedClassKGType(gtk_link_button_get_type()) { LinkButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_link_button_get_type")!!) { LinkButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

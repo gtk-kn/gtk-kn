@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -221,7 +222,7 @@ public open class Region(public val gtksourceRegionPointer: CPointer<GtkSourceRe
 
     public companion object : TypeCompanion<Region> {
         override val type: GeneratedClassKGType<Region> =
-            GeneratedClassKGType(gtk_source_region_get_type()) { Region(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_region_get_type")!!) { Region(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

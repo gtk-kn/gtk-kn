@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gobject.TypeModule
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -43,7 +44,7 @@ public open class IoModule(public val gioIoModulePointer: CPointer<GIOModule>) :
 
     public companion object : TypeCompanion<IoModule> {
         override val type: GeneratedClassKGType<IoModule> =
-            GeneratedClassKGType(g_io_module_get_type()) { IoModule(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_io_module_get_type")!!) { IoModule(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

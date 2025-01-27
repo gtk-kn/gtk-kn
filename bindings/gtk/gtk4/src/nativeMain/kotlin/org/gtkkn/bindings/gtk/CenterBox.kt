@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -242,7 +243,7 @@ public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBo
 
     public companion object : TypeCompanion<CenterBox> {
         override val type: GeneratedClassKGType<CenterBox> =
-            GeneratedClassKGType(gtk_center_box_get_type()) { CenterBox(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_center_box_get_type")!!) { CenterBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

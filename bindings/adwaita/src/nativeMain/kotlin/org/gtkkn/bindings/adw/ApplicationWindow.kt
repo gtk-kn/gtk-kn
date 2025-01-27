@@ -10,6 +10,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -192,7 +193,9 @@ public open class ApplicationWindow(public val adwApplicationWindowPointer: CPoi
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(adw_application_window_get_type()) { ApplicationWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_application_window_get_type")!!) {
+                ApplicationWindow(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

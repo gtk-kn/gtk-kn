@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -446,7 +447,7 @@ public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
 
     public companion object : TypeCompanion<Paned> {
         override val type: GeneratedClassKGType<Paned> =
-            GeneratedClassKGType(gtk_paned_get_type()) { Paned(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_paned_get_type")!!) { Paned(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

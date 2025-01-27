@@ -19,6 +19,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -379,7 +380,9 @@ public class UserContentManager(public val webkitUserContentManagerPointer: CPoi
 
     public companion object : TypeCompanion<UserContentManager> {
         override val type: GeneratedClassKGType<UserContentManager> =
-            GeneratedClassKGType(webkit_user_content_manager_get_type()) { UserContentManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_user_content_manager_get_type")!!) {
+                UserContentManager(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

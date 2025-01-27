@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -182,7 +183,9 @@ public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer
 
     public companion object : TypeCompanion<ShortcutsWindow> {
         override val type: GeneratedClassKGType<ShortcutsWindow> =
-            GeneratedClassKGType(gtk_shortcuts_window_get_type()) { ShortcutsWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_window_get_type")!!) {
+                ShortcutsWindow(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

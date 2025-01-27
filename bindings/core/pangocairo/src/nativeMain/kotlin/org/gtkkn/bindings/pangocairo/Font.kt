@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.ScaledFont
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -55,7 +56,7 @@ public interface Font :
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedInterfaceKGType<Font> =
-            GeneratedInterfaceKGType(pango_cairo_font_get_type()) { FontImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("pango_cairo_font_get_type")!!) { FontImpl(it.reinterpret()) }
 
         init {
             PangocairoTypeProvider.register()

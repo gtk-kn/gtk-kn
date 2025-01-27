@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -98,7 +99,7 @@ public open class EmblemedIcon(public val gioEmblemedIconPointer: CPointer<GEmbl
 
     public companion object : TypeCompanion<EmblemedIcon> {
         override val type: GeneratedClassKGType<EmblemedIcon> =
-            GeneratedClassKGType(g_emblemed_icon_get_type()) { EmblemedIcon(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_emblemed_icon_get_type")!!) { EmblemedIcon(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

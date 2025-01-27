@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -92,7 +93,7 @@ public interface Root :
 
     public companion object : TypeCompanion<Root> {
         override val type: GeneratedInterfaceKGType<Root> =
-            GeneratedInterfaceKGType(gtk_root_get_type()) { RootImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_root_get_type")!!) { RootImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

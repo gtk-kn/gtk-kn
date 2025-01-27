@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -58,7 +59,9 @@ public interface SymbolicPaintable :
 
     public companion object : TypeCompanion<SymbolicPaintable> {
         override val type: GeneratedInterfaceKGType<SymbolicPaintable> =
-            GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) { SymbolicPaintableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_symbolic_paintable_get_type")!!) {
+                SymbolicPaintableImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

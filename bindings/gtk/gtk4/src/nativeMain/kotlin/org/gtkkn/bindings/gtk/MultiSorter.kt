@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -78,7 +79,7 @@ public open class MultiSorter(public val gtkMultiSorterPointer: CPointer<GtkMult
 
     public companion object : TypeCompanion<MultiSorter> {
         override val type: GeneratedClassKGType<MultiSorter> =
-            GeneratedClassKGType(gtk_multi_sorter_get_type()) { MultiSorter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_multi_sorter_get_type")!!) { MultiSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

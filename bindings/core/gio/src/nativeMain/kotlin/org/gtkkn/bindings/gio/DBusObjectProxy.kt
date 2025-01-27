@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -68,7 +69,9 @@ public open class DBusObjectProxy(public val gioDBusObjectProxyPointer: CPointer
 
     public companion object : TypeCompanion<DBusObjectProxy> {
         override val type: GeneratedClassKGType<DBusObjectProxy> =
-            GeneratedClassKGType(g_dbus_object_proxy_get_type()) { DBusObjectProxy(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_object_proxy_get_type")!!) {
+                DBusObjectProxy(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

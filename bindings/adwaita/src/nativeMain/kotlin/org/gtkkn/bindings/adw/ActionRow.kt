@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -318,7 +319,7 @@ public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRo
 
     public companion object : TypeCompanion<ActionRow> {
         override val type: GeneratedClassKGType<ActionRow> =
-            GeneratedClassKGType(adw_action_row_get_type()) { ActionRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_action_row_get_type")!!) { ActionRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

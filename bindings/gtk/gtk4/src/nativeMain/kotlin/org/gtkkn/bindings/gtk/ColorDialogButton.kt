@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -181,7 +182,9 @@ public open class ColorDialogButton(public val gtkColorDialogButtonPointer: CPoi
 
     public companion object : TypeCompanion<ColorDialogButton> {
         override val type: GeneratedClassKGType<ColorDialogButton> =
-            GeneratedClassKGType(gtk_color_dialog_button_get_type()) { ColorDialogButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_color_dialog_button_get_type")!!) {
+                ColorDialogButton(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

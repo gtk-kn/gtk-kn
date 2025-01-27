@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -622,7 +623,7 @@ public interface Editable :
 
     public companion object : TypeCompanion<Editable> {
         override val type: GeneratedInterfaceKGType<Editable> =
-            GeneratedInterfaceKGType(gtk_editable_get_type()) { EditableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_editable_get_type")!!) { EditableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

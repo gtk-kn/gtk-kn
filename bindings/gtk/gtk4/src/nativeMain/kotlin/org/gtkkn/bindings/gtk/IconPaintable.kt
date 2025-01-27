@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -113,7 +114,7 @@ public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<IconPaintable> {
         override val type: GeneratedClassKGType<IconPaintable> =
-            GeneratedClassKGType(gtk_icon_paintable_get_type()) { IconPaintable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_icon_paintable_get_type")!!) { IconPaintable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

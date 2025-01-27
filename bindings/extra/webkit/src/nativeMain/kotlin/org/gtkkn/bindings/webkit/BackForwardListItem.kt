@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.InitiallyUnowned
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -64,7 +65,9 @@ public class BackForwardListItem(public val webkitBackForwardListItemPointer: CP
 
     public companion object : TypeCompanion<BackForwardListItem> {
         override val type: GeneratedClassKGType<BackForwardListItem> =
-            GeneratedClassKGType(webkit_back_forward_list_item_get_type()) { BackForwardListItem(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_back_forward_list_item_get_type")!!) {
+                BackForwardListItem(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

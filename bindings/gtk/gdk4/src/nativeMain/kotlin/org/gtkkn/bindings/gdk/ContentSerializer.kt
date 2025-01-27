@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gio.OutputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -150,7 +151,9 @@ public open class ContentSerializer(public val gdkContentSerializerPointer: CPoi
 
     public companion object : TypeCompanion<ContentSerializer> {
         override val type: GeneratedClassKGType<ContentSerializer> =
-            GeneratedClassKGType(gdk_content_serializer_get_type()) { ContentSerializer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_content_serializer_get_type")!!) {
+                ContentSerializer(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

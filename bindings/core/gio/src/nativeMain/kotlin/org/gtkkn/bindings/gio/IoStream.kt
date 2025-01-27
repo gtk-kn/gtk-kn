@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -328,7 +329,7 @@ public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream
 
     public companion object : TypeCompanion<IoStream> {
         override val type: GeneratedClassKGType<IoStream> =
-            GeneratedClassKGType(g_io_stream_get_type()) { IoStreamImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_io_stream_get_type")!!) { IoStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

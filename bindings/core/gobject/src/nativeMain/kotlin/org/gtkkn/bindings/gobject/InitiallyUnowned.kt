@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gobject
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -23,7 +24,9 @@ public open class InitiallyUnowned(public val gobjectInitiallyUnownedPointer: CP
     KGTyped {
     public companion object : TypeCompanion<InitiallyUnowned> {
         override val type: GeneratedClassKGType<InitiallyUnowned> =
-            GeneratedClassKGType(g_initially_unowned_get_type()) { InitiallyUnowned(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_initially_unowned_get_type")!!) {
+                InitiallyUnowned(it.reinterpret())
+            }
 
         init {
             GobjectTypeProvider.register()

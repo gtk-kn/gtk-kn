@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -437,7 +438,9 @@ public open class SimpleAsyncResult(public val gioSimpleAsyncResultPointer: CPoi
 
     public companion object : TypeCompanion<SimpleAsyncResult> {
         override val type: GeneratedClassKGType<SimpleAsyncResult> =
-            GeneratedClassKGType(g_simple_async_result_get_type()) { SimpleAsyncResult(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_simple_async_result_get_type")!!) {
+                SimpleAsyncResult(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

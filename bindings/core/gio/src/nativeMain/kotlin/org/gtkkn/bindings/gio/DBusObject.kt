@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -132,7 +133,7 @@ public interface DBusObject :
 
     public companion object : TypeCompanion<DBusObject> {
         override val type: GeneratedInterfaceKGType<DBusObject> =
-            GeneratedInterfaceKGType(g_dbus_object_get_type()) { DBusObjectImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_dbus_object_get_type")!!) { DBusObjectImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

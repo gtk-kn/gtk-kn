@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -140,7 +141,9 @@ public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPoint
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =
-            GeneratedClassKGType(gtk_app_chooser_dialog_get_type()) { AppChooserDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_dialog_get_type")!!) {
+                AppChooserDialog(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

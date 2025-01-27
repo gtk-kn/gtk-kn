@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -269,7 +270,7 @@ public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) 
 
     public companion object : TypeCompanion<Binding> {
         override val type: GeneratedClassKGType<Binding> =
-            GeneratedClassKGType(g_binding_get_type()) { Binding(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_binding_get_type")!!) { Binding(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()

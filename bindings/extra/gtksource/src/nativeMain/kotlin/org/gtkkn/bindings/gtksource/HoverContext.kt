@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -78,7 +79,9 @@ public open class HoverContext(public val gtksourceHoverContextPointer: CPointer
 
     public companion object : TypeCompanion<HoverContext> {
         override val type: GeneratedClassKGType<HoverContext> =
-            GeneratedClassKGType(gtk_source_hover_context_get_type()) { HoverContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_hover_context_get_type")!!) {
+                HoverContext(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

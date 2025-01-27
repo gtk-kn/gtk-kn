@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -260,7 +261,7 @@ public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstr
 
     public companion object : TypeCompanion<Constraint> {
         override val type: GeneratedClassKGType<Constraint> =
-            GeneratedClassKGType(gtk_constraint_get_type()) { Constraint(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_constraint_get_type")!!) { Constraint(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

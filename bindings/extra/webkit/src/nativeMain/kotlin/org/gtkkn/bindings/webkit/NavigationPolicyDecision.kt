@@ -6,6 +6,7 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -44,7 +45,7 @@ public class NavigationPolicyDecision(
 
     public companion object : TypeCompanion<NavigationPolicyDecision> {
         override val type: GeneratedClassKGType<NavigationPolicyDecision> =
-            GeneratedClassKGType(webkit_navigation_policy_decision_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_navigation_policy_decision_get_type")!!) {
                 NavigationPolicyDecision(it.reinterpret())
             }
 

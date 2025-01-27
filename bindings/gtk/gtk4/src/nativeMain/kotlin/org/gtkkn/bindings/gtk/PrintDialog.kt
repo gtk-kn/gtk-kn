@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -405,7 +406,7 @@ public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrin
 
     public companion object : TypeCompanion<PrintDialog> {
         override val type: GeneratedClassKGType<PrintDialog> =
-            GeneratedClassKGType(gtk_print_dialog_get_type()) { PrintDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_print_dialog_get_type")!!) { PrintDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

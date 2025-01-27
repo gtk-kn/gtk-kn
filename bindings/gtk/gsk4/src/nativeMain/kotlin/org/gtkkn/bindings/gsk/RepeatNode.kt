@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -65,7 +66,7 @@ public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeat
 
     public companion object : TypeCompanion<RepeatNode> {
         override val type: GeneratedClassKGType<RepeatNode> =
-            GeneratedClassKGType(gsk_repeat_node_get_type()) { RepeatNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_repeat_node_get_type")!!) { RepeatNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

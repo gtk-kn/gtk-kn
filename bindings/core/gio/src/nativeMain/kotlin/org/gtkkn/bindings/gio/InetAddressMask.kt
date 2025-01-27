@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -182,7 +183,9 @@ public open class InetAddressMask(public val gioInetAddressMaskPointer: CPointer
 
     public companion object : TypeCompanion<InetAddressMask> {
         override val type: GeneratedClassKGType<InetAddressMask> =
-            GeneratedClassKGType(g_inet_address_mask_get_type()) { InetAddressMask(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_inet_address_mask_get_type")!!) {
+                InetAddressMask(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

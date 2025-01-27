@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -47,7 +48,9 @@ public open class ConstantExpression(public val gtkConstantExpressionPointer: CP
 
     public companion object : TypeCompanion<ConstantExpression> {
         override val type: GeneratedClassKGType<ConstantExpression> =
-            GeneratedClassKGType(gtk_constant_expression_get_type()) { ConstantExpression(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_constant_expression_get_type")!!) {
+                ConstantExpression(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

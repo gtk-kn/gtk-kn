@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -241,7 +242,9 @@ public open class BufferedInputStream(public val gioBufferedInputStreamPointer: 
 
     public companion object : TypeCompanion<BufferedInputStream> {
         override val type: GeneratedClassKGType<BufferedInputStream> =
-            GeneratedClassKGType(g_buffered_input_stream_get_type()) { BufferedInputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_buffered_input_stream_get_type")!!) {
+                BufferedInputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

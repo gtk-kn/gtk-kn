@@ -15,6 +15,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -659,7 +660,9 @@ public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNav
 
     public companion object : TypeCompanion<NavigationView> {
         override val type: GeneratedClassKGType<NavigationView> =
-            GeneratedClassKGType(adw_navigation_view_get_type()) { NavigationView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_navigation_view_get_type")!!) {
+                NavigationView(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

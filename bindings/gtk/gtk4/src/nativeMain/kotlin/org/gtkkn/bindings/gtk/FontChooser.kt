@@ -19,6 +19,7 @@ import org.gtkkn.bindings.pango.FontFace
 import org.gtkkn.bindings.pango.FontFamily
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -422,7 +423,9 @@ public interface FontChooser :
 
     public companion object : TypeCompanion<FontChooser> {
         override val type: GeneratedInterfaceKGType<FontChooser> =
-            GeneratedInterfaceKGType(gtk_font_chooser_get_type()) { FontChooserImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_font_chooser_get_type")!!) {
+                FontChooserImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

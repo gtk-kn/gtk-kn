@@ -28,6 +28,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -799,7 +800,7 @@ public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>
 
     public companion object : TypeCompanion<DBusProxy> {
         override val type: GeneratedClassKGType<DBusProxy> =
-            GeneratedClassKGType(g_dbus_proxy_get_type()) { DBusProxy(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_proxy_get_type")!!) { DBusProxy(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -21,6 +21,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gio.annotations.GioVersion2_58
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -519,7 +520,7 @@ public open class MountOperation(public val gioMountOperationPointer: CPointer<G
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =
-            GeneratedClassKGType(g_mount_operation_get_type()) { MountOperation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_mount_operation_get_type")!!) { MountOperation(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

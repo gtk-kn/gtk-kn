@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_12
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -186,7 +187,7 @@ public class Notification(public val webkitNotificationPointer: CPointer<WebKitN
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
-            GeneratedClassKGType(webkit_notification_get_type()) { Notification(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_notification_get_type")!!) { Notification(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

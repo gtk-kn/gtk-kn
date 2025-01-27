@@ -6,6 +6,7 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -34,7 +35,7 @@ public class WebsocketExtensionManager(
 
     public companion object : TypeCompanion<WebsocketExtensionManager> {
         override val type: GeneratedClassKGType<WebsocketExtensionManager> =
-            GeneratedClassKGType(soup_websocket_extension_manager_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("soup_websocket_extension_manager_get_type")!!) {
                 WebsocketExtensionManager(it.reinterpret())
             }
 

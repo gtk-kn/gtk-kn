@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -384,7 +385,9 @@ public open class NavigationPage(public val adwNavigationPagePointer: CPointer<A
 
     public companion object : TypeCompanion<NavigationPage> {
         override val type: GeneratedClassKGType<NavigationPage> =
-            GeneratedClassKGType(adw_navigation_page_get_type()) { NavigationPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_navigation_page_get_type")!!) {
+                NavigationPage(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

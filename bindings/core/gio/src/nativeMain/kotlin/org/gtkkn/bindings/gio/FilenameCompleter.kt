@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -105,7 +106,9 @@ public open class FilenameCompleter(public val gioFilenameCompleterPointer: CPoi
 
     public companion object : TypeCompanion<FilenameCompleter> {
         override val type: GeneratedClassKGType<FilenameCompleter> =
-            GeneratedClassKGType(g_filename_completer_get_type()) { FilenameCompleter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_filename_completer_get_type")!!) {
+                FilenameCompleter(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

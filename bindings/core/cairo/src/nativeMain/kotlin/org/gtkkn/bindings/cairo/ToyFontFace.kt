@@ -6,6 +6,7 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -40,7 +41,9 @@ public open class ToyFontFace(public val cairoToyFontFacePointer: CPointer<cairo
 
     public companion object : TypeCompanion<ToyFontFace> {
         override val type: GeneratedClassKGType<ToyFontFace> =
-            GeneratedClassKGType(cairo_gobject_font_face_get_type()) { ToyFontFace(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_font_face_get_type")!!) {
+                ToyFontFace(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

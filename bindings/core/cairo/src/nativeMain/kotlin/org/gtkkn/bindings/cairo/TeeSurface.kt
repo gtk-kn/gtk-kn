@@ -6,6 +6,7 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -33,7 +34,7 @@ public open class TeeSurface(public val cairoTeeSurfacePointer: CPointer<cairo_s
 
     public companion object : TypeCompanion<TeeSurface> {
         override val type: GeneratedClassKGType<TeeSurface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { TeeSurface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { TeeSurface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

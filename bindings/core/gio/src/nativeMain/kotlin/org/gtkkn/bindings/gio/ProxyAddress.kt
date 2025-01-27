@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -193,7 +194,7 @@ public open class ProxyAddress(public val gioProxyAddressPointer: CPointer<GProx
 
     public companion object : TypeCompanion<ProxyAddress> {
         override val type: GeneratedClassKGType<ProxyAddress> =
-            GeneratedClassKGType(g_proxy_address_get_type()) { ProxyAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_proxy_address_get_type")!!) { ProxyAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

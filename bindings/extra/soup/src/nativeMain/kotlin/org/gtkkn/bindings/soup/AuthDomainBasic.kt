@@ -6,6 +6,7 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -55,7 +56,9 @@ public class AuthDomainBasic(public val soupAuthDomainBasicPointer: CPointer<Sou
 
     public companion object : TypeCompanion<AuthDomainBasic> {
         override val type: GeneratedClassKGType<AuthDomainBasic> =
-            GeneratedClassKGType(soup_auth_domain_basic_get_type()) { AuthDomainBasic(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_domain_basic_get_type")!!) {
+                AuthDomainBasic(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

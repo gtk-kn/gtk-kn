@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.EventSequence
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -192,7 +193,7 @@ public open class GestureClick(public val gtkGestureClickPointer: CPointer<GtkGe
 
     public companion object : TypeCompanion<GestureClick> {
         override val type: GeneratedClassKGType<GestureClick> =
-            GeneratedClassKGType(gtk_gesture_click_get_type()) { GestureClick(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_click_get_type")!!) { GestureClick(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

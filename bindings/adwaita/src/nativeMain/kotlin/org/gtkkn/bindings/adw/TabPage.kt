@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Accessible
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -553,7 +554,7 @@ public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
 
     public companion object : TypeCompanion<TabPage> {
         override val type: GeneratedClassKGType<TabPage> =
-            GeneratedClassKGType(adw_tab_page_get_type()) { TabPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_tab_page_get_type")!!) { TabPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

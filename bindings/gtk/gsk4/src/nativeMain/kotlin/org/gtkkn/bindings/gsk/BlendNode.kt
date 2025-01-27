@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -69,7 +70,7 @@ public open class BlendNode(public val gskBlendNodePointer: CPointer<GskBlendNod
 
     public companion object : TypeCompanion<BlendNode> {
         override val type: GeneratedClassKGType<BlendNode> =
-            GeneratedClassKGType(gsk_blend_node_get_type()) { BlendNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_blend_node_get_type")!!) { BlendNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

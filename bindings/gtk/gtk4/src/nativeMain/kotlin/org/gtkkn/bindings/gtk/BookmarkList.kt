@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -128,7 +129,7 @@ public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBo
 
     public companion object : TypeCompanion<BookmarkList> {
         override val type: GeneratedClassKGType<BookmarkList> =
-            GeneratedClassKGType(gtk_bookmark_list_get_type()) { BookmarkList(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_bookmark_list_get_type")!!) { BookmarkList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

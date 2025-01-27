@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -401,7 +402,7 @@ public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-            GeneratedClassKGType(adw_header_bar_get_type()) { HeaderBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

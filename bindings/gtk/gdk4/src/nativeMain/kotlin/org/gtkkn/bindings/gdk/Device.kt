@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_2
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.Direction
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -380,7 +381,7 @@ public abstract class Device(public val gdkDevicePointer: CPointer<GdkDevice>) :
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-            GeneratedClassKGType(gdk_device_get_type()) { DeviceImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_device_get_type")!!) { DeviceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

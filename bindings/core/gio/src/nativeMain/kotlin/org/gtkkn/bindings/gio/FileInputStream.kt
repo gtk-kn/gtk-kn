@@ -12,6 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -135,7 +136,9 @@ public open class FileInputStream(public val gioFileInputStreamPointer: CPointer
 
     public companion object : TypeCompanion<FileInputStream> {
         override val type: GeneratedClassKGType<FileInputStream> =
-            GeneratedClassKGType(g_file_input_stream_get_type()) { FileInputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_file_input_stream_get_type")!!) {
+                FileInputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -227,7 +228,7 @@ public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkTo
 
     public companion object : TypeCompanion<ToggleButton> {
         override val type: GeneratedClassKGType<ToggleButton> =
-            GeneratedClassKGType(gtk_toggle_button_get_type()) { ToggleButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_toggle_button_get_type")!!) { ToggleButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

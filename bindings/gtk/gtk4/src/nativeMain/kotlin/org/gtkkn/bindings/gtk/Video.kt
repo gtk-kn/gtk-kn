@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -239,7 +240,7 @@ public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
 
     public companion object : TypeCompanion<Video> {
         override val type: GeneratedClassKGType<Video> =
-            GeneratedClassKGType(gtk_video_get_type()) { Video(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_video_get_type")!!) { Video(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

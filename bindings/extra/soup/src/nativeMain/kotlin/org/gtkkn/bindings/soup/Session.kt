@@ -33,6 +33,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -1030,7 +1031,7 @@ public open class Session(public val soupSessionPointer: CPointer<SoupSession>) 
 
     public companion object : TypeCompanion<Session> {
         override val type: GeneratedClassKGType<Session> =
-            GeneratedClassKGType(soup_session_get_type()) { Session(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_session_get_type")!!) { Session(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

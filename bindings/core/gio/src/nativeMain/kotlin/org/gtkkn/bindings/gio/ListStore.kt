@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -153,7 +154,7 @@ public open class ListStore(public val gioListStorePointer: CPointer<GListStore>
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =
-            GeneratedClassKGType(g_list_store_get_type()) { ListStore(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_list_store_get_type")!!) { ListStore(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

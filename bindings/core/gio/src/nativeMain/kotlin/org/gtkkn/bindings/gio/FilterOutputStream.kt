@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -67,7 +68,9 @@ public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer
 
     public companion object : TypeCompanion<FilterOutputStream> {
         override val type: GeneratedClassKGType<FilterOutputStream> =
-            GeneratedClassKGType(g_filter_output_stream_get_type()) { FilterOutputStreamImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_filter_output_stream_get_type")!!) {
+                FilterOutputStreamImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

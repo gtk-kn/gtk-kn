@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -259,7 +260,7 @@ public interface CompletionProvider :
 
     public companion object : TypeCompanion<CompletionProvider> {
         override val type: GeneratedInterfaceKGType<CompletionProvider> =
-            GeneratedInterfaceKGType(gtk_source_completion_provider_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_completion_provider_get_type")!!) {
                 CompletionProviderImpl(it.reinterpret())
             }
 

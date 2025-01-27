@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Accessible
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -213,7 +214,9 @@ public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewS
 
     public companion object : TypeCompanion<ViewStackPage> {
         override val type: GeneratedClassKGType<ViewStackPage> =
-            GeneratedClassKGType(adw_view_stack_page_get_type()) { ViewStackPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_view_stack_page_get_type")!!) {
+                ViewStackPage(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

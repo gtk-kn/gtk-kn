@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -151,7 +152,7 @@ public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFl
 
     public companion object : TypeCompanion<FlowBoxChild> {
         override val type: GeneratedClassKGType<FlowBoxChild> =
-            GeneratedClassKGType(gtk_flow_box_child_get_type()) { FlowBoxChild(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_flow_box_child_get_type")!!) { FlowBoxChild(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

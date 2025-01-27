@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -140,7 +141,7 @@ public interface Icon :
 
     public companion object : TypeCompanion<Icon> {
         override val type: GeneratedInterfaceKGType<Icon> =
-            GeneratedInterfaceKGType(g_icon_get_type()) { IconImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_icon_get_type")!!) { IconImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -41,7 +42,7 @@ public open class AssistantPage(public val gtkAssistantPagePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<AssistantPage> {
         override val type: GeneratedClassKGType<AssistantPage> =
-            GeneratedClassKGType(gtk_assistant_page_get_type()) { AssistantPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_assistant_page_get_type")!!) { AssistantPage(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

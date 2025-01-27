@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -54,7 +55,7 @@ public interface PermissionRequest :
 
     public companion object : TypeCompanion<PermissionRequest> {
         override val type: GeneratedInterfaceKGType<PermissionRequest> =
-            GeneratedInterfaceKGType(webkit_permission_request_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("webkit_permission_request_get_type")!!) {
                 PermissionRequestImpl(it.reinterpret())
             }
 

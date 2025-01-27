@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -115,7 +116,7 @@ public interface PollableInputStream :
 
     public companion object : TypeCompanion<PollableInputStream> {
         override val type: GeneratedInterfaceKGType<PollableInputStream> =
-            GeneratedInterfaceKGType(g_pollable_input_stream_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("g_pollable_input_stream_get_type")!!) {
                 PollableInputStreamImpl(it.reinterpret())
             }
 

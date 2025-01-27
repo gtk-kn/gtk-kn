@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -88,7 +89,9 @@ public abstract class MenuAttributeIter(public val gioMenuAttributeIterPointer: 
 
     public companion object : TypeCompanion<MenuAttributeIter> {
         override val type: GeneratedClassKGType<MenuAttributeIter> =
-            GeneratedClassKGType(g_menu_attribute_iter_get_type()) { MenuAttributeIterImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_menu_attribute_iter_get_type")!!) {
+                MenuAttributeIterImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

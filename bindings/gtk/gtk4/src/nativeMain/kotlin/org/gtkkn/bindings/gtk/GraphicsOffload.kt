@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -137,7 +138,9 @@ public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer
 
     public companion object : TypeCompanion<GraphicsOffload> {
         override val type: GeneratedClassKGType<GraphicsOffload> =
-            GeneratedClassKGType(gtk_graphics_offload_get_type()) { GraphicsOffload(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_graphics_offload_get_type")!!) {
+                GraphicsOffload(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

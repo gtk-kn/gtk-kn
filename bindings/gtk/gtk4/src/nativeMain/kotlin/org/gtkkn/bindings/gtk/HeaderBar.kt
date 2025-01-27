@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -245,7 +246,7 @@ public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBa
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-            GeneratedClassKGType(gtk_header_bar_get_type()) { HeaderBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

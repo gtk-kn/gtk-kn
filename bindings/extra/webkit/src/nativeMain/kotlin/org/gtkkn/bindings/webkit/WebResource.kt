@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -264,7 +265,7 @@ public class WebResource(public val webkitWebResourcePointer: CPointer<WebKitWeb
 
     public companion object : TypeCompanion<WebResource> {
         override val type: GeneratedClassKGType<WebResource> =
-            GeneratedClassKGType(webkit_web_resource_get_type()) { WebResource(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_web_resource_get_type")!!) { WebResource(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

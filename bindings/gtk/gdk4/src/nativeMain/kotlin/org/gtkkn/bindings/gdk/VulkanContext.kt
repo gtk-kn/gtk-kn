@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.Initable
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -78,7 +79,9 @@ public abstract class VulkanContext(public val gdkVulkanContextPointer: CPointer
 
     public companion object : TypeCompanion<VulkanContext> {
         override val type: GeneratedClassKGType<VulkanContext> =
-            GeneratedClassKGType(gdk_vulkan_context_get_type()) { VulkanContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_vulkan_context_get_type")!!) {
+                VulkanContextImpl(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

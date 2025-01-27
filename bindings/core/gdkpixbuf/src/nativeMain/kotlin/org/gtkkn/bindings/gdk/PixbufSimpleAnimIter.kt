@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -17,7 +18,9 @@ public open class PixbufSimpleAnimIter(public val gdkPixbufSimpleAnimIterPointer
     KGTyped {
     public companion object : TypeCompanion<PixbufSimpleAnimIter> {
         override val type: GeneratedClassKGType<PixbufSimpleAnimIter> =
-            GeneratedClassKGType(gdk_pixbuf_simple_anim_iter_get_type()) { PixbufSimpleAnimIter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_iter_get_type")!!) {
+                PixbufSimpleAnimIter(it.reinterpret())
+            }
 
         init {
             GdkpixbufTypeProvider.register()

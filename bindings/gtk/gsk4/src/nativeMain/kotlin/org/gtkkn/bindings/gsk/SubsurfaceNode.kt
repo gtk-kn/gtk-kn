@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -57,7 +58,9 @@ public open class SubsurfaceNode(public val gskSubsurfaceNodePointer: CPointer<G
 
     public companion object : TypeCompanion<SubsurfaceNode> {
         override val type: GeneratedClassKGType<SubsurfaceNode> =
-            GeneratedClassKGType(gsk_subsurface_node_get_type()) { SubsurfaceNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_subsurface_node_get_type")!!) {
+                SubsurfaceNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

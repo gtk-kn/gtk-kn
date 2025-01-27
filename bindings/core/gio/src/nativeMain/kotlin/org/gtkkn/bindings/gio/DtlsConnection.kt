@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -1048,7 +1049,9 @@ public interface DtlsConnection :
 
     public companion object : TypeCompanion<DtlsConnection> {
         override val type: GeneratedInterfaceKGType<DtlsConnection> =
-            GeneratedInterfaceKGType(g_dtls_connection_get_type()) { DtlsConnectionImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_dtls_connection_get_type")!!) {
+                DtlsConnectionImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

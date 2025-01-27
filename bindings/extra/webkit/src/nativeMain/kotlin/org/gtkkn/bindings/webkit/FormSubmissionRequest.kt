@@ -6,6 +6,7 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -40,7 +41,7 @@ public class FormSubmissionRequest(
 
     public companion object : TypeCompanion<FormSubmissionRequest> {
         override val type: GeneratedClassKGType<FormSubmissionRequest> =
-            GeneratedClassKGType(webkit_form_submission_request_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_form_submission_request_get_type")!!) {
                 FormSubmissionRequest(it.reinterpret())
             }
 

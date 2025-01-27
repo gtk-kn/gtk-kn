@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -182,7 +183,7 @@ public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspe
 
     public companion object : TypeCompanion<AspectFrame> {
         override val type: GeneratedClassKGType<AspectFrame> =
-            GeneratedClassKGType(gtk_aspect_frame_get_type()) { AspectFrame(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_aspect_frame_get_type")!!) { AspectFrame(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

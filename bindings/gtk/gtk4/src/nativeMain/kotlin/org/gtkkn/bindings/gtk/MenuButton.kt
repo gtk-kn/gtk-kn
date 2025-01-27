@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -538,7 +539,7 @@ public open class MenuButton(public val gtkMenuButtonPointer: CPointer<GtkMenuBu
 
     public companion object : TypeCompanion<MenuButton> {
         override val type: GeneratedClassKGType<MenuButton> =
-            GeneratedClassKGType(gtk_menu_button_get_type()) { MenuButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_menu_button_get_type")!!) { MenuButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

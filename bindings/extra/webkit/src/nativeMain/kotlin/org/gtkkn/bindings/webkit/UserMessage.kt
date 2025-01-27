@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gio.UnixFdList
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -141,7 +142,7 @@ public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUse
 
     public companion object : TypeCompanion<UserMessage> {
         override val type: GeneratedClassKGType<UserMessage> =
-            GeneratedClassKGType(webkit_user_message_get_type()) { UserMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_user_message_get_type")!!) { UserMessage(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -228,7 +229,7 @@ public open class CssProvider(public val gtkCssProviderPointer: CPointer<GtkCssP
 
     public companion object : TypeCompanion<CssProvider> {
         override val type: GeneratedClassKGType<CssProvider> =
-            GeneratedClassKGType(gtk_css_provider_get_type()) { CssProvider(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_css_provider_get_type")!!) { CssProvider(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

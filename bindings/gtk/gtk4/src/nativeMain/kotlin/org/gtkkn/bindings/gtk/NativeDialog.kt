@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -220,7 +221,9 @@ public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<G
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
-            GeneratedClassKGType(gtk_native_dialog_get_type()) { NativeDialogImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_native_dialog_get_type")!!) {
+                NativeDialogImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

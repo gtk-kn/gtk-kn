@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -67,7 +68,9 @@ public interface StyleProvider :
 
     public companion object : TypeCompanion<StyleProvider> {
         override val type: GeneratedInterfaceKGType<StyleProvider> =
-            GeneratedInterfaceKGType(gtk_style_provider_get_type()) { StyleProviderImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_style_provider_get_type")!!) {
+                StyleProviderImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

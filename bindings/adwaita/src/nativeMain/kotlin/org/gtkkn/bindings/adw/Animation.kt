@@ -14,6 +14,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -298,7 +299,7 @@ public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnim
 
     public companion object : TypeCompanion<Animation> {
         override val type: GeneratedClassKGType<Animation> =
-            GeneratedClassKGType(adw_animation_get_type()) { AnimationImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_animation_get_type")!!) { AnimationImpl(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -34,6 +34,7 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -3437,7 +3438,7 @@ public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
 
     public companion object : TypeCompanion<Widget> {
         override val type: GeneratedClassKGType<Widget> =
-            GeneratedClassKGType(gtk_widget_get_type()) { WidgetImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_widget_get_type")!!) { WidgetImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

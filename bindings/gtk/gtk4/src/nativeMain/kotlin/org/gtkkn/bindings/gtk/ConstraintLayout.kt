@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -434,7 +435,9 @@ public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPoint
 
     public companion object : TypeCompanion<ConstraintLayout> {
         override val type: GeneratedClassKGType<ConstraintLayout> =
-            GeneratedClassKGType(gtk_constraint_layout_get_type()) { ConstraintLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_get_type")!!) {
+                ConstraintLayout(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

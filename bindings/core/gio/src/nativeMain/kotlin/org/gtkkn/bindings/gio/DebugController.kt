@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -106,7 +107,9 @@ public interface DebugController :
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =
-            GeneratedInterfaceKGType(g_debug_controller_get_type()) { DebugControllerImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_debug_controller_get_type")!!) {
+                DebugControllerImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

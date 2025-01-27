@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -80,7 +81,7 @@ public class WeakValue(public val jscWeakValuePointer: CPointer<JSCWeakValue>) :
 
     public companion object : TypeCompanion<WeakValue> {
         override val type: GeneratedClassKGType<WeakValue> =
-            GeneratedClassKGType(jsc_weak_value_get_type()) { WeakValue(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("jsc_weak_value_get_type")!!) { WeakValue(it.reinterpret()) }
 
         init {
             JavascriptcoreTypeProvider.register()

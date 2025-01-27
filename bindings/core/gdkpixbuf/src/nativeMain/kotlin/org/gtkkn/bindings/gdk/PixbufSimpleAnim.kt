@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_18
 import org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -83,7 +84,9 @@ public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPoint
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =
-            GeneratedClassKGType(gdk_pixbuf_simple_anim_get_type()) { PixbufSimpleAnim(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_simple_anim_get_type")!!) {
+                PixbufSimpleAnim(it.reinterpret())
+            }
 
         init {
             GdkpixbufTypeProvider.register()

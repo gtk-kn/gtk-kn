@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -427,7 +428,7 @@ public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
 
     public companion object : TypeCompanion<Popover> {
         override val type: GeneratedClassKGType<Popover> =
-            GeneratedClassKGType(gtk_popover_get_type()) { Popover(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_popover_get_type")!!) { Popover(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

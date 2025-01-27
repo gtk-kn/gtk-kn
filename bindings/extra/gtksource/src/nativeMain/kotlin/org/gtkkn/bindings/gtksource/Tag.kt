@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.TextTag
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -47,7 +48,7 @@ public open class Tag(public val gtksourceTagPointer: CPointer<GtkSourceTag>) :
 
     public companion object : TypeCompanion<Tag> {
         override val type: GeneratedClassKGType<Tag> =
-            GeneratedClassKGType(gtk_source_tag_get_type()) { Tag(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_tag_get_type")!!) { Tag(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -18,6 +18,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SpawnChildSetupFunc
 import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -426,7 +427,9 @@ public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CP
 
     public companion object : TypeCompanion<SubprocessLauncher> {
         override val type: GeneratedClassKGType<SubprocessLauncher> =
-            GeneratedClassKGType(g_subprocess_launcher_get_type()) { SubprocessLauncher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_subprocess_launcher_get_type")!!) {
+                SubprocessLauncher(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

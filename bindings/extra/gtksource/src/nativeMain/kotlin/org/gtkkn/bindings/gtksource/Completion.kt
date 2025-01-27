@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.AttrList
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -267,7 +268,7 @@ public open class Completion(public val gtksourceCompletionPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<Completion> {
         override val type: GeneratedClassKGType<Completion> =
-            GeneratedClassKGType(gtk_source_completion_get_type()) { Completion(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_get_type")!!) { Completion(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

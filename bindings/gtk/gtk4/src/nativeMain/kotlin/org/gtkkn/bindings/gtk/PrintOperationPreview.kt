@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -133,7 +134,7 @@ public interface PrintOperationPreview :
 
     public companion object : TypeCompanion<PrintOperationPreview> {
         override val type: GeneratedInterfaceKGType<PrintOperationPreview> =
-            GeneratedInterfaceKGType(gtk_print_operation_preview_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_print_operation_preview_get_type")!!) {
                 PrintOperationPreviewImpl(it.reinterpret())
             }
 

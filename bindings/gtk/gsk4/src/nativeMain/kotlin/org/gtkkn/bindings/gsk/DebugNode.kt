@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -59,7 +60,7 @@ public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNod
 
     public companion object : TypeCompanion<DebugNode> {
         override val type: GeneratedClassKGType<DebugNode> =
-            GeneratedClassKGType(gsk_debug_node_get_type()) { DebugNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_debug_node_get_type")!!) { DebugNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -56,7 +57,9 @@ public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<P
 
     public companion object : TypeCompanion<FontsetSimple> {
         override val type: GeneratedClassKGType<FontsetSimple> =
-            GeneratedClassKGType(pango_fontset_simple_get_type()) { FontsetSimple(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("pango_fontset_simple_get_type")!!) {
+                FontsetSimple(it.reinterpret())
+            }
 
         init {
             PangoTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -103,7 +104,9 @@ public open class UnixInputStream(public val gioUnixInputStreamPointer: CPointer
 
     public companion object : TypeCompanion<UnixInputStream> {
         override val type: GeneratedClassKGType<UnixInputStream> =
-            GeneratedClassKGType(g_unix_input_stream_get_type()) { UnixInputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_unix_input_stream_get_type")!!) {
+                UnixInputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -52,7 +53,7 @@ public open class BlurNode(public val gskBlurNodePointer: CPointer<GskBlurNode>)
 
     public companion object : TypeCompanion<BlurNode> {
         override val type: GeneratedClassKGType<BlurNode> =
-            GeneratedClassKGType(gsk_blur_node_get_type()) { BlurNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_blur_node_get_type")!!) { BlurNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

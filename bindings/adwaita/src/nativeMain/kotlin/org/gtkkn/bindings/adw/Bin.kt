@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -74,7 +75,7 @@ public open class Bin(public val adwBinPointer: CPointer<AdwBin>) :
 
     public companion object : TypeCompanion<Bin> {
         override val type: GeneratedClassKGType<Bin> =
-            GeneratedClassKGType(adw_bin_get_type()) { Bin(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_bin_get_type")!!) { Bin(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

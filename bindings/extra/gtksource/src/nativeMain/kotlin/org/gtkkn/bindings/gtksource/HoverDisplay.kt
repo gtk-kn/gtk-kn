@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -60,7 +61,9 @@ public open class HoverDisplay(public val gtksourceHoverDisplayPointer: CPointer
 
     public companion object : TypeCompanion<HoverDisplay> {
         override val type: GeneratedClassKGType<HoverDisplay> =
-            GeneratedClassKGType(gtk_source_hover_display_get_type()) { HoverDisplay(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_hover_display_get_type")!!) {
+                HoverDisplay(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

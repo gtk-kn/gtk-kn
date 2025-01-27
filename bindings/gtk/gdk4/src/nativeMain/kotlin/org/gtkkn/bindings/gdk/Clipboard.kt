@@ -24,6 +24,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -454,7 +455,7 @@ public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboar
 
     public companion object : TypeCompanion<Clipboard> {
         override val type: GeneratedClassKGType<Clipboard> =
-            GeneratedClassKGType(gdk_clipboard_get_type()) { Clipboard(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_clipboard_get_type")!!) { Clipboard(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

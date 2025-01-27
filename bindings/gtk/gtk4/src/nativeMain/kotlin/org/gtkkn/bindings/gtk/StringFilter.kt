@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -140,7 +141,7 @@ public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkSt
 
     public companion object : TypeCompanion<StringFilter> {
         override val type: GeneratedClassKGType<StringFilter> =
-            GeneratedClassKGType(gtk_string_filter_get_type()) { StringFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_string_filter_get_type")!!) { StringFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Context
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -51,7 +52,9 @@ public abstract class CairoContext(public val gdkCairoContextPointer: CPointer<G
 
     public companion object : TypeCompanion<CairoContext> {
         override val type: GeneratedClassKGType<CairoContext> =
-            GeneratedClassKGType(gdk_cairo_context_get_type()) { CairoContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_cairo_context_get_type")!!) {
+                CairoContextImpl(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -459,7 +460,9 @@ public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer
 
     public companion object : TypeCompanion<DmabufTextureBuilder> {
         override val type: GeneratedClassKGType<DmabufTextureBuilder> =
-            GeneratedClassKGType(gdk_dmabuf_texture_builder_get_type()) { DmabufTextureBuilder(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_dmabuf_texture_builder_get_type")!!) {
+                DmabufTextureBuilder(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

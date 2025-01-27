@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -276,7 +277,7 @@ public interface DtlsClientConnection :
 
     public companion object : TypeCompanion<DtlsClientConnection> {
         override val type: GeneratedInterfaceKGType<DtlsClientConnection> =
-            GeneratedInterfaceKGType(g_dtls_client_connection_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("g_dtls_client_connection_get_type")!!) {
                 DtlsClientConnectionImpl(it.reinterpret())
             }
 

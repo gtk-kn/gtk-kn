@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -82,7 +83,7 @@ public open class StrokeNode(public val gskStrokeNodePointer: CPointer<GskStroke
 
     public companion object : TypeCompanion<StrokeNode> {
         override val type: GeneratedClassKGType<StrokeNode> =
-            GeneratedClassKGType(gsk_stroke_node_get_type()) { StrokeNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_stroke_node_get_type")!!) { StrokeNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

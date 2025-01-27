@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,7 +21,7 @@ public open class NglRenderer(public val gskNglRendererPointer: CPointer<GskRend
 
     public companion object : TypeCompanion<NglRenderer> {
         override val type: GeneratedClassKGType<NglRenderer> =
-            GeneratedClassKGType(gsk_ngl_renderer_get_type()) { NglRenderer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_ngl_renderer_get_type")!!) { NglRenderer(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.SelectionModel
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -582,7 +583,7 @@ public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
 
     public companion object : TypeCompanion<Leaflet> {
         override val type: GeneratedClassKGType<Leaflet> =
-            GeneratedClassKGType(adw_leaflet_get_type()) { Leaflet(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_leaflet_get_type")!!) { Leaflet(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

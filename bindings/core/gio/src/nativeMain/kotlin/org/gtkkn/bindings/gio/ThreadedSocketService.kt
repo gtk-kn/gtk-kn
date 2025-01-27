@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -92,7 +93,9 @@ public open class ThreadedSocketService(public val gioThreadedSocketServicePoint
 
     public companion object : TypeCompanion<ThreadedSocketService> {
         override val type: GeneratedClassKGType<ThreadedSocketService> =
-            GeneratedClassKGType(g_threaded_socket_service_get_type()) { ThreadedSocketService(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_threaded_socket_service_get_type")!!) {
+                ThreadedSocketService(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

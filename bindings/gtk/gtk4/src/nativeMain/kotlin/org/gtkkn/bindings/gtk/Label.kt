@@ -21,6 +21,7 @@ import org.gtkkn.bindings.pango.EllipsizeMode
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.bindings.pango.TabArray
 import org.gtkkn.bindings.pango.WrapMode
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1147,7 +1148,7 @@ public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
 
     public companion object : TypeCompanion<Label> {
         override val type: GeneratedClassKGType<Label> =
-            GeneratedClassKGType(gtk_label_get_type()) { Label(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_label_get_type")!!) { Label(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

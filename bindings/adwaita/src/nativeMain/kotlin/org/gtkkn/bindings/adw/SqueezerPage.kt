@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -77,7 +78,7 @@ public class SqueezerPage(public val adwSqueezerPagePointer: CPointer<AdwSqueeze
 
     public companion object : TypeCompanion<SqueezerPage> {
         override val type: GeneratedClassKGType<SqueezerPage> =
-            GeneratedClassKGType(adw_squeezer_page_get_type()) { SqueezerPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_squeezer_page_get_type")!!) { SqueezerPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

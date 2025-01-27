@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -657,7 +658,9 @@ public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<G
 
     public companion object : TypeCompanion<ScrolledWindow> {
         override val type: GeneratedClassKGType<ScrolledWindow> =
-            GeneratedClassKGType(gtk_scrolled_window_get_type()) { ScrolledWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_scrolled_window_get_type")!!) {
+                ScrolledWindow(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

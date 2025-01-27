@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -264,7 +265,9 @@ public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: 
 
     public companion object : TypeCompanion<DebugControllerDBus> {
         override val type: GeneratedClassKGType<DebugControllerDBus> =
-            GeneratedClassKGType(g_debug_controller_dbus_get_type()) { DebugControllerDBus(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_debug_controller_dbus_get_type")!!) {
+                DebugControllerDBus(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

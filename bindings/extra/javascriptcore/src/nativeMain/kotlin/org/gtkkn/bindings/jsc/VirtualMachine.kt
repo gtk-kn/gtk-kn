@@ -6,6 +6,7 @@ package org.gtkkn.bindings.jsc
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -34,7 +35,9 @@ public class VirtualMachine(public val jscVirtualMachinePointer: CPointer<JSCVir
 
     public companion object : TypeCompanion<VirtualMachine> {
         override val type: GeneratedClassKGType<VirtualMachine> =
-            GeneratedClassKGType(jsc_virtual_machine_get_type()) { VirtualMachine(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("jsc_virtual_machine_get_type")!!) {
+                VirtualMachine(it.reinterpret())
+            }
 
         init {
             JavascriptcoreTypeProvider.register()

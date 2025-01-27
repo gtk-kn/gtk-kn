@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -61,7 +62,7 @@ public interface Converter :
 
     public companion object : TypeCompanion<Converter> {
         override val type: GeneratedInterfaceKGType<Converter> =
-            GeneratedInterfaceKGType(g_converter_get_type()) { ConverterImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_converter_get_type")!!) { ConverterImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

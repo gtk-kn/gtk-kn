@@ -24,6 +24,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -696,7 +697,7 @@ public abstract class Resolver(public val gioResolverPointer: CPointer<GResolver
 
     public companion object : TypeCompanion<Resolver> {
         override val type: GeneratedClassKGType<Resolver> =
-            GeneratedClassKGType(g_resolver_get_type()) { ResolverImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_resolver_get_type")!!) { ResolverImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -436,7 +437,7 @@ public abstract class ImContext(public val gtkImContextPointer: CPointer<GtkIMCo
 
     public companion object : TypeCompanion<ImContext> {
         override val type: GeneratedClassKGType<ImContext> =
-            GeneratedClassKGType(gtk_im_context_get_type()) { ImContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_im_context_get_type")!!) { ImContextImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

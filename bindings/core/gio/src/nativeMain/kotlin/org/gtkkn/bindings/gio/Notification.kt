@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -233,7 +234,7 @@ public open class Notification(public val gioNotificationPointer: CPointer<GNoti
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
-            GeneratedClassKGType(g_notification_get_type()) { Notification(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_notification_get_type")!!) { Notification(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

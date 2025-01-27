@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -323,7 +324,9 @@ public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwS
 
     public companion object : TypeCompanion<SpringAnimation> {
         override val type: GeneratedClassKGType<SpringAnimation> =
-            GeneratedClassKGType(adw_spring_animation_get_type()) { SpringAnimation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_spring_animation_get_type")!!) {
+                SpringAnimation(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

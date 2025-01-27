@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -183,7 +184,9 @@ public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer
 
     public companion object : TypeCompanion<SingleSelection> {
         override val type: GeneratedClassKGType<SingleSelection> =
-            GeneratedClassKGType(gtk_single_selection_get_type()) { SingleSelection(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_single_selection_get_type")!!) {
+                SingleSelection(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

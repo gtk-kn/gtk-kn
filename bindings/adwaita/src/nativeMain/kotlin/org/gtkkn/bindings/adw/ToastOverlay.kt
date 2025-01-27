@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -119,7 +120,7 @@ public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOv
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =
-            GeneratedClassKGType(adw_toast_overlay_get_type()) { ToastOverlay(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_toast_overlay_get_type")!!) { ToastOverlay(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

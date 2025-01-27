@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -219,7 +220,7 @@ public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBo
 
     public companion object : TypeCompanion<ListBoxRow> {
         override val type: GeneratedClassKGType<ListBoxRow> =
-            GeneratedClassKGType(gtk_list_box_row_get_type()) { ListBoxRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_box_row_get_type")!!) { ListBoxRow(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

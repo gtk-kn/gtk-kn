@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.MessageHeaders
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -97,7 +98,9 @@ public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPoint
 
     public companion object : TypeCompanion<UriSchemeResponse> {
         override val type: GeneratedClassKGType<UriSchemeResponse> =
-            GeneratedClassKGType(webkit_uri_scheme_response_get_type()) { UriSchemeResponse(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_uri_scheme_response_get_type")!!) {
+                UriSchemeResponse(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -64,7 +65,9 @@ public open class EventControllerLegacy(
 
     public companion object : TypeCompanion<EventControllerLegacy> {
         override val type: GeneratedClassKGType<EventControllerLegacy> =
-            GeneratedClassKGType(gtk_event_controller_legacy_get_type()) { EventControllerLegacy(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_legacy_get_type")!!) {
+                EventControllerLegacy(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

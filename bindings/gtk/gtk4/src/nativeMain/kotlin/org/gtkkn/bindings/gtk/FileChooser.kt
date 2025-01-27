@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -619,7 +620,9 @@ public interface FileChooser :
 
     public companion object : TypeCompanion<FileChooser> {
         override val type: GeneratedInterfaceKGType<FileChooser> =
-            GeneratedInterfaceKGType(gtk_file_chooser_get_type()) { FileChooserImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_file_chooser_get_type")!!) {
+                FileChooserImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -75,7 +76,7 @@ public open class CustomFilter(public val gtkCustomFilterPointer: CPointer<GtkCu
 
     public companion object : TypeCompanion<CustomFilter> {
         override val type: GeneratedClassKGType<CustomFilter> =
-            GeneratedClassKGType(gtk_custom_filter_get_type()) { CustomFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_custom_filter_get_type")!!) { CustomFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

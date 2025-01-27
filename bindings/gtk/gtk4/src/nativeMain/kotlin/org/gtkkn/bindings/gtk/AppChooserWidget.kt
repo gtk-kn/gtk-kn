@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.AppInfo
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -302,7 +303,9 @@ public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPoint
 
     public companion object : TypeCompanion<AppChooserWidget> {
         override val type: GeneratedClassKGType<AppChooserWidget> =
-            GeneratedClassKGType(gtk_app_chooser_widget_get_type()) { AppChooserWidget(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_widget_get_type")!!) {
+                AppChooserWidget(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

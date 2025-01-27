@@ -25,6 +25,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -376,7 +377,9 @@ public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<Web
 
     public companion object : TypeCompanion<NetworkSession> {
         override val type: GeneratedClassKGType<NetworkSession> =
-            GeneratedClassKGType(webkit_network_session_get_type()) { NetworkSession(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_network_session_get_type")!!) {
+                NetworkSession(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

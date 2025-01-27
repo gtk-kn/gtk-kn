@@ -9,6 +9,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Scrollable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -187,7 +188,9 @@ public class ClampScrollable(public val adwClampScrollablePointer: CPointer<AdwC
 
     public companion object : TypeCompanion<ClampScrollable> {
         override val type: GeneratedClassKGType<ClampScrollable> =
-            GeneratedClassKGType(adw_clamp_scrollable_get_type()) { ClampScrollable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_clamp_scrollable_get_type")!!) {
+                ClampScrollable(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

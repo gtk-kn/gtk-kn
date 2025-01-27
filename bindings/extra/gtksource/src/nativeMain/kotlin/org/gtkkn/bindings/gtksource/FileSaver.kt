@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gio.FileProgressCallbackFunc
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -299,7 +300,7 @@ public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSo
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =
-            GeneratedClassKGType(gtk_source_file_saver_get_type()) { FileSaver(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_file_saver_get_type")!!) { FileSaver(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

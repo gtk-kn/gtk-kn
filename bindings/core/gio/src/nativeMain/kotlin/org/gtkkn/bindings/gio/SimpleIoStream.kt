@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -55,7 +56,9 @@ public open class SimpleIoStream(public val gioSimpleIoStreamPointer: CPointer<G
 
     public companion object : TypeCompanion<SimpleIoStream> {
         override val type: GeneratedClassKGType<SimpleIoStream> =
-            GeneratedClassKGType(g_simple_io_stream_get_type()) { SimpleIoStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_simple_io_stream_get_type")!!) {
+                SimpleIoStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

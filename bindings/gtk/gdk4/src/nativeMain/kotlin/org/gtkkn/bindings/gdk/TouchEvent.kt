@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -31,7 +32,7 @@ public open class TouchEvent(public val gdkTouchEventPointer: CPointer<GdkTouchE
 
     public companion object : TypeCompanion<TouchEvent> {
         override val type: GeneratedClassKGType<TouchEvent> =
-            GeneratedClassKGType(gdk_touch_event_get_type()) { TouchEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_touch_event_get_type")!!) { TouchEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

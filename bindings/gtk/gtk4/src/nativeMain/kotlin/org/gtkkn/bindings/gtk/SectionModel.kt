@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -105,7 +106,9 @@ public interface SectionModel :
 
     public companion object : TypeCompanion<SectionModel> {
         override val type: GeneratedInterfaceKGType<SectionModel> =
-            GeneratedInterfaceKGType(gtk_section_model_get_type()) { SectionModelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_section_model_get_type")!!) {
+                SectionModelImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

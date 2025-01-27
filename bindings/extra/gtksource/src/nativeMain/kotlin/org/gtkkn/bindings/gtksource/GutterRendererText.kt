@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -62,7 +63,7 @@ public open class GutterRendererText(
 
     public companion object : TypeCompanion<GutterRendererText> {
         override val type: GeneratedClassKGType<GutterRendererText> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_text_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_text_get_type")!!) {
                 GutterRendererText(it.reinterpret())
             }
 

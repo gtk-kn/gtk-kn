@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -116,7 +117,7 @@ public open class Scrollbar(public val gtkScrollbarPointer: CPointer<GtkScrollba
 
     public companion object : TypeCompanion<Scrollbar> {
         override val type: GeneratedClassKGType<Scrollbar> =
-            GeneratedClassKGType(gtk_scrollbar_get_type()) { Scrollbar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_scrollbar_get_type")!!) { Scrollbar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

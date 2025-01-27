@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -200,7 +201,7 @@ public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButto
 
     public companion object : TypeCompanion<ButtonContent> {
         override val type: GeneratedClassKGType<ButtonContent> =
-            GeneratedClassKGType(adw_button_content_get_type()) { ButtonContent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_button_content_get_type")!!) { ButtonContent(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

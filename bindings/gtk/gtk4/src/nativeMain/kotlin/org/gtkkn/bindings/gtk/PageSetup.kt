@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -427,7 +428,7 @@ public open class PageSetup(public val gtkPageSetupPointer: CPointer<GtkPageSetu
 
     public companion object : TypeCompanion<PageSetup> {
         override val type: GeneratedClassKGType<PageSetup> =
-            GeneratedClassKGType(gtk_page_setup_get_type()) { PageSetup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_page_setup_get_type")!!) { PageSetup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

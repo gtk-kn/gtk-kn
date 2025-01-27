@@ -14,6 +14,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -96,7 +97,9 @@ public abstract class WebsocketExtension(public val soupWebsocketExtensionPointe
 
     public companion object : TypeCompanion<WebsocketExtension> {
         override val type: GeneratedClassKGType<WebsocketExtension> =
-            GeneratedClassKGType(soup_websocket_extension_get_type()) { WebsocketExtensionImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_websocket_extension_get_type")!!) {
+                WebsocketExtensionImpl(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

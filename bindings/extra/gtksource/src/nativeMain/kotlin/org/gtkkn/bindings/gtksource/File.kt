@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -192,7 +193,7 @@ public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>)
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedClassKGType<File> =
-            GeneratedClassKGType(gtk_source_file_get_type()) { File(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_file_get_type")!!) { File(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -27,6 +27,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -493,7 +494,7 @@ public open class DBusObjectManagerClient(
 
     public companion object : TypeCompanion<DBusObjectManagerClient> {
         override val type: GeneratedClassKGType<DBusObjectManagerClient> =
-            GeneratedClassKGType(g_dbus_object_manager_client_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("g_dbus_object_manager_client_get_type")!!) {
                 DBusObjectManagerClient(it.reinterpret())
             }
 

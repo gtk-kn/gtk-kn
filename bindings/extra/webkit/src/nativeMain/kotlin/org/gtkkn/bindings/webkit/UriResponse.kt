@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.MessageHeaders
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -124,7 +125,7 @@ public class UriResponse(public val webkitUriResponsePointer: CPointer<WebKitURI
 
     public companion object : TypeCompanion<UriResponse> {
         override val type: GeneratedClassKGType<UriResponse> =
-            GeneratedClassKGType(webkit_uri_response_get_type()) { UriResponse(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_uri_response_get_type")!!) { UriResponse(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

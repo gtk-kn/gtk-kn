@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -169,7 +170,9 @@ public open class WindowControls(public val gtkWindowControlsPointer: CPointer<G
 
     public companion object : TypeCompanion<WindowControls> {
         override val type: GeneratedClassKGType<WindowControls> =
-            GeneratedClassKGType(gtk_window_controls_get_type()) { WindowControls(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_window_controls_get_type")!!) {
+                WindowControls(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

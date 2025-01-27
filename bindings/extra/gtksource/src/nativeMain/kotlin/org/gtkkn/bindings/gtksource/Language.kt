@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -161,7 +162,7 @@ public open class Language(public val gtksourceLanguagePointer: CPointer<GtkSour
 
     public companion object : TypeCompanion<Language> {
         override val type: GeneratedClassKGType<Language> =
-            GeneratedClassKGType(gtk_source_language_get_type()) { Language(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_language_get_type")!!) { Language(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

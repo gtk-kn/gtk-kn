@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -273,7 +274,7 @@ public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
 
     public companion object : TypeCompanion<Drag> {
         override val type: GeneratedClassKGType<Drag> =
-            GeneratedClassKGType(gdk_drag_get_type()) { DragImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_drag_get_type")!!) { DragImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

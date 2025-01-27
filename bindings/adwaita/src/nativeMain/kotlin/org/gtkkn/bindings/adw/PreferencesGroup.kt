@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -171,7 +172,9 @@ public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPoint
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =
-            GeneratedClassKGType(adw_preferences_group_get_type()) { PreferencesGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_preferences_group_get_type")!!) {
+                PreferencesGroup(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

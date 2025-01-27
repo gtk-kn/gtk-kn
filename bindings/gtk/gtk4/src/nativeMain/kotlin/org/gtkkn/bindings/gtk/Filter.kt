@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -136,7 +137,7 @@ public open class Filter(public val gtkFilterPointer: CPointer<GtkFilter>) :
 
     public companion object : TypeCompanion<Filter> {
         override val type: GeneratedClassKGType<Filter> =
-            GeneratedClassKGType(gtk_filter_get_type()) { Filter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_filter_get_type")!!) { Filter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

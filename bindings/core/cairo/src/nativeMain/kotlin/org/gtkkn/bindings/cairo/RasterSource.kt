@@ -6,6 +6,7 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -26,7 +27,9 @@ public open class RasterSource(public val cairoRasterSourcePointer: CPointer<cai
     KGTyped {
     public companion object : TypeCompanion<RasterSource> {
         override val type: GeneratedClassKGType<RasterSource> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { RasterSource(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) {
+                RasterSource(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

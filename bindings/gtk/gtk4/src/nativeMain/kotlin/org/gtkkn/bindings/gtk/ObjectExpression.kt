@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -49,7 +50,9 @@ public open class ObjectExpression(public val gtkObjectExpressionPointer: CPoint
 
     public companion object : TypeCompanion<ObjectExpression> {
         override val type: GeneratedClassKGType<ObjectExpression> =
-            GeneratedClassKGType(gtk_object_expression_get_type()) { ObjectExpression(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_object_expression_get_type")!!) {
+                ObjectExpression(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

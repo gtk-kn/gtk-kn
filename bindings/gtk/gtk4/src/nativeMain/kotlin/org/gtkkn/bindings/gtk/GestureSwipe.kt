@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -85,7 +86,7 @@ public open class GestureSwipe(public val gtkGestureSwipePointer: CPointer<GtkGe
 
     public companion object : TypeCompanion<GestureSwipe> {
         override val type: GeneratedClassKGType<GestureSwipe> =
-            GeneratedClassKGType(gtk_gesture_swipe_get_type()) { GestureSwipe(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_swipe_get_type")!!) { GestureSwipe(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

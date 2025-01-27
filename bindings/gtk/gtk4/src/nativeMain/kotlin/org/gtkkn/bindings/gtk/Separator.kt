@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -61,7 +62,7 @@ public open class Separator(public val gtkSeparatorPointer: CPointer<GtkSeparato
 
     public companion object : TypeCompanion<Separator> {
         override val type: GeneratedClassKGType<Separator> =
-            GeneratedClassKGType(gtk_separator_get_type()) { Separator(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_separator_get_type")!!) { Separator(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

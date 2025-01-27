@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -150,7 +151,9 @@ public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPoi
 
     public companion object : TypeCompanion<SnippetManager> {
         override val type: GeneratedClassKGType<SnippetManager> =
-            GeneratedClassKGType(gtk_source_snippet_manager_get_type()) { SnippetManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_manager_get_type")!!) {
+                SnippetManager(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

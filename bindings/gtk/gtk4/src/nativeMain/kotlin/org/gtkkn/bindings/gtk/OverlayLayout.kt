@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -34,7 +35,7 @@ public open class OverlayLayout(public val gtkOverlayLayoutPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<OverlayLayout> {
         override val type: GeneratedClassKGType<OverlayLayout> =
-            GeneratedClassKGType(gtk_overlay_layout_get_type()) { OverlayLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_overlay_layout_get_type")!!) { OverlayLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

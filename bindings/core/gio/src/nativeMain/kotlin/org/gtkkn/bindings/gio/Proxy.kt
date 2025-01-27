@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -158,7 +159,7 @@ public interface Proxy :
 
     public companion object : TypeCompanion<Proxy> {
         override val type: GeneratedInterfaceKGType<Proxy> =
-            GeneratedInterfaceKGType(g_proxy_get_type()) { ProxyImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_proxy_get_type")!!) { ProxyImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

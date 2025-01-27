@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -511,7 +512,7 @@ public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<MediaStream> {
         override val type: GeneratedClassKGType<MediaStream> =
-            GeneratedClassKGType(gtk_media_stream_get_type()) { MediaStreamImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_media_stream_get_type")!!) { MediaStreamImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

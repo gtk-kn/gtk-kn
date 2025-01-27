@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -69,7 +70,7 @@ public open class ScrollEvent(public val gdkScrollEventPointer: CPointer<GdkScro
 
     public companion object : TypeCompanion<ScrollEvent> {
         override val type: GeneratedClassKGType<ScrollEvent> =
-            GeneratedClassKGType(gdk_scroll_event_get_type()) { ScrollEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_scroll_event_get_type")!!) { ScrollEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

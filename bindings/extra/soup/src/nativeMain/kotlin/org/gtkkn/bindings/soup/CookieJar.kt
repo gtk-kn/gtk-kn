@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -356,7 +357,7 @@ public open class CookieJar(public val soupCookieJarPointer: CPointer<SoupCookie
 
     public companion object : TypeCompanion<CookieJar> {
         override val type: GeneratedClassKGType<CookieJar> =
-            GeneratedClassKGType(soup_cookie_jar_get_type()) { CookieJar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_cookie_jar_get_type")!!) { CookieJar(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

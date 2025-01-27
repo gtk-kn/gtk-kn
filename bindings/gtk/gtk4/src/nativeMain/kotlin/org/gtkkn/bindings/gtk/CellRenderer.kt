@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -482,7 +483,9 @@ public abstract class CellRenderer(public val gtkCellRendererPointer: CPointer<G
 
     public companion object : TypeCompanion<CellRenderer> {
         override val type: GeneratedClassKGType<CellRenderer> =
-            GeneratedClassKGType(gtk_cell_renderer_get_type()) { CellRendererImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_get_type")!!) {
+                CellRendererImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

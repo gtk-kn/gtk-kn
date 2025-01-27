@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -74,7 +75,7 @@ public open class PsSurface(public val cairoPsSurfacePointer: CPointer<cairo_sur
 
     public companion object : TypeCompanion<PsSurface> {
         override val type: GeneratedClassKGType<PsSurface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { PsSurface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { PsSurface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

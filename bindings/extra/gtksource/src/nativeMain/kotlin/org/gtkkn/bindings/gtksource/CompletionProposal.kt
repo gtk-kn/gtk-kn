@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -59,7 +60,7 @@ public interface CompletionProposal :
 
     public companion object : TypeCompanion<CompletionProposal> {
         override val type: GeneratedInterfaceKGType<CompletionProposal> =
-            GeneratedInterfaceKGType(gtk_source_completion_proposal_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_completion_proposal_get_type")!!) {
                 CompletionProposalImpl(it.reinterpret())
             }
 

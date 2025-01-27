@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -639,7 +640,7 @@ public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMe
 
     public companion object : TypeCompanion<DBusMessage> {
         override val type: GeneratedClassKGType<DBusMessage> =
-            GeneratedClassKGType(g_dbus_message_get_type()) { DBusMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_message_get_type")!!) { DBusMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

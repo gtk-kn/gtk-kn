@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -144,7 +145,9 @@ public class GeolocationManager(public val webkitGeolocationManagerPointer: CPoi
 
     public companion object : TypeCompanion<GeolocationManager> {
         override val type: GeneratedClassKGType<GeolocationManager> =
-            GeneratedClassKGType(webkit_geolocation_manager_get_type()) { GeolocationManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_geolocation_manager_get_type")!!) {
+                GeolocationManager(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -38,7 +39,9 @@ public open class SolidPattern(public val cairoSolidPatternPointer: CPointer<cai
 
     public companion object : TypeCompanion<SolidPattern> {
         override val type: GeneratedClassKGType<SolidPattern> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { SolidPattern(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) {
+                SolidPattern(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

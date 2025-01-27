@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_16
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -53,7 +54,7 @@ public open class SvgSurface(public val cairoSvgSurfacePointer: CPointer<cairo_s
 
     public companion object : TypeCompanion<SvgSurface> {
         override val type: GeneratedClassKGType<SvgSurface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { SvgSurface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { SvgSurface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

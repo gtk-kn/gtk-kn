@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -149,7 +150,9 @@ public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer
 
     public companion object : TypeCompanion<CellAreaContext> {
         override val type: GeneratedClassKGType<CellAreaContext> =
-            GeneratedClassKGType(gtk_cell_area_context_get_type()) { CellAreaContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_area_context_get_type")!!) {
+                CellAreaContext(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

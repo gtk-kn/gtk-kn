@@ -21,6 +21,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -302,7 +303,7 @@ public open class SocketListener(public val gioSocketListenerPointer: CPointer<G
 
     public companion object : TypeCompanion<SocketListener> {
         override val type: GeneratedClassKGType<SocketListener> =
-            GeneratedClassKGType(g_socket_listener_get_type()) { SocketListener(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_socket_listener_get_type")!!) { SocketListener(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

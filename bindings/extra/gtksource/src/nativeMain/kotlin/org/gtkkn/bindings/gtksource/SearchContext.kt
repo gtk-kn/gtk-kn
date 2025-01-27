@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -380,7 +381,9 @@ public open class SearchContext(public val gtksourceSearchContextPointer: CPoint
 
     public companion object : TypeCompanion<SearchContext> {
         override val type: GeneratedClassKGType<SearchContext> =
-            GeneratedClassKGType(gtk_source_search_context_get_type()) { SearchContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_search_context_get_type")!!) {
+                SearchContext(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

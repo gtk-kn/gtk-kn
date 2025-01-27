@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -37,7 +38,7 @@ public class PointerLockPermissionRequest(
 
     public companion object : TypeCompanion<PointerLockPermissionRequest> {
         override val type: GeneratedClassKGType<PointerLockPermissionRequest> =
-            GeneratedClassKGType(webkit_pointer_lock_permission_request_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_pointer_lock_permission_request_get_type")!!) {
                 PointerLockPermissionRequest(it.reinterpret())
             }
 

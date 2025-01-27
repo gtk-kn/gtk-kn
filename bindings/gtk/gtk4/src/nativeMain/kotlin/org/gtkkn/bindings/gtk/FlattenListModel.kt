@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -86,7 +87,9 @@ public open class FlattenListModel(public val gtkFlattenListModelPointer: CPoint
 
     public companion object : TypeCompanion<FlattenListModel> {
         override val type: GeneratedClassKGType<FlattenListModel> =
-            GeneratedClassKGType(gtk_flatten_list_model_get_type()) { FlattenListModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_flatten_list_model_get_type")!!) {
+                FlattenListModel(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

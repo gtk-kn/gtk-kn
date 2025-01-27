@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -25,7 +26,9 @@ public open class ClosureExpression(public val gtkClosureExpressionPointer: CPoi
     KGTyped {
     public companion object : TypeCompanion<ClosureExpression> {
         override val type: GeneratedClassKGType<ClosureExpression> =
-            GeneratedClassKGType(gtk_closure_expression_get_type()) { ClosureExpression(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_closure_expression_get_type")!!) {
+                ClosureExpression(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

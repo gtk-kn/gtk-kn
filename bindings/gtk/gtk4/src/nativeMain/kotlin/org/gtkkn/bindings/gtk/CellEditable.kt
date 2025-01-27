@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -135,7 +136,9 @@ public interface CellEditable :
 
     public companion object : TypeCompanion<CellEditable> {
         override val type: GeneratedInterfaceKGType<CellEditable> =
-            GeneratedInterfaceKGType(gtk_cell_editable_get_type()) { CellEditableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_cell_editable_get_type")!!) {
+                CellEditableImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

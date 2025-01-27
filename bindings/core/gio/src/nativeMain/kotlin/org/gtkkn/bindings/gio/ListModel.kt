@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -224,7 +225,7 @@ public interface ListModel :
 
     public companion object : TypeCompanion<ListModel> {
         override val type: GeneratedInterfaceKGType<ListModel> =
-            GeneratedInterfaceKGType(g_list_model_get_type()) { ListModelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_list_model_get_type")!!) { ListModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

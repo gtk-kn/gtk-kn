@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -34,7 +35,7 @@ public open class BinLayout(public val gtkBinLayoutPointer: CPointer<GtkBinLayou
 
     public companion object : TypeCompanion<BinLayout> {
         override val type: GeneratedClassKGType<BinLayout> =
-            GeneratedClassKGType(gtk_bin_layout_get_type()) { BinLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_bin_layout_get_type")!!) { BinLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

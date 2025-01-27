@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -904,7 +905,7 @@ public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
 
     public companion object : TypeCompanion<Builder> {
         override val type: GeneratedClassKGType<Builder> =
-            GeneratedClassKGType(gtk_builder_get_type()) { Builder(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_builder_get_type")!!) { Builder(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

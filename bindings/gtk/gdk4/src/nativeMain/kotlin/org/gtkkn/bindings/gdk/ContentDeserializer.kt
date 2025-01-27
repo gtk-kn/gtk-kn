@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -149,7 +150,9 @@ public open class ContentDeserializer(public val gdkContentDeserializerPointer: 
 
     public companion object : TypeCompanion<ContentDeserializer> {
         override val type: GeneratedClassKGType<ContentDeserializer> =
-            GeneratedClassKGType(gdk_content_deserializer_get_type()) { ContentDeserializer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_content_deserializer_get_type")!!) {
+                ContentDeserializer(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

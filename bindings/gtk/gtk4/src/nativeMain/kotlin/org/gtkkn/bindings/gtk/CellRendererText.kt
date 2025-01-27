@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -152,7 +153,9 @@ public open class CellRendererText(public val gtkCellRendererTextPointer: CPoint
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
-            GeneratedClassKGType(gtk_cell_renderer_text_get_type()) { CellRendererText(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_text_get_type")!!) {
+                CellRendererText(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

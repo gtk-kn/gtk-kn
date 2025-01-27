@@ -25,6 +25,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -667,7 +668,7 @@ public interface Mount :
 
     public companion object : TypeCompanion<Mount> {
         override val type: GeneratedInterfaceKGType<Mount> =
-            GeneratedInterfaceKGType(g_mount_get_type()) { MountImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_mount_get_type")!!) { MountImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

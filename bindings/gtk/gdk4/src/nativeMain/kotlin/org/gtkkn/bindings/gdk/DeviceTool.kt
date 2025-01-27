@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -89,7 +90,7 @@ public open class DeviceTool(public val gdkDeviceToolPointer: CPointer<GdkDevice
 
     public companion object : TypeCompanion<DeviceTool> {
         override val type: GeneratedClassKGType<DeviceTool> =
-            GeneratedClassKGType(gdk_device_tool_get_type()) { DeviceTool(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_device_tool_get_type")!!) { DeviceTool(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

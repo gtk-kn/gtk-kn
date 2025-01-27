@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,7 +21,9 @@ public open class ProximityEvent(public val gdkProximityEventPointer: CPointer<G
     KGTyped {
     public companion object : TypeCompanion<ProximityEvent> {
         override val type: GeneratedClassKGType<ProximityEvent> =
-            GeneratedClassKGType(gdk_proximity_event_get_type()) { ProximityEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_proximity_event_get_type")!!) {
+                ProximityEvent(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

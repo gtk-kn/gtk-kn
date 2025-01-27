@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -124,7 +125,7 @@ public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkSt
 
     public companion object : TypeCompanion<StringSorter> {
         override val type: GeneratedClassKGType<StringSorter> =
-            GeneratedClassKGType(gtk_string_sorter_get_type()) { StringSorter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_string_sorter_get_type")!!) { StringSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -219,7 +220,7 @@ public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkCo
 
     public companion object : TypeCompanion<ComboBoxText> {
         override val type: GeneratedClassKGType<ComboBoxText> =
-            GeneratedClassKGType(gtk_combo_box_text_get_type()) { ComboBoxText(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_combo_box_text_get_type")!!) { ComboBoxText(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

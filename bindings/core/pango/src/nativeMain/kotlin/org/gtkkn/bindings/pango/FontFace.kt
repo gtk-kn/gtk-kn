@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_18
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -95,7 +96,7 @@ public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFo
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =
-            GeneratedClassKGType(pango_font_face_get_type()) { FontFaceImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("pango_font_face_get_type")!!) { FontFaceImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

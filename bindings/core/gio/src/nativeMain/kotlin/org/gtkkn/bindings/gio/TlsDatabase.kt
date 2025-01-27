@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -508,7 +509,7 @@ public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTl
 
     public companion object : TypeCompanion<TlsDatabase> {
         override val type: GeneratedClassKGType<TlsDatabase> =
-            GeneratedClassKGType(g_tls_database_get_type()) { TlsDatabaseImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_tls_database_get_type")!!) { TlsDatabaseImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

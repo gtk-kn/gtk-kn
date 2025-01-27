@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.PackType
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -581,7 +582,9 @@ public class OverlaySplitView(public val adwOverlaySplitViewPointer: CPointer<Ad
 
     public companion object : TypeCompanion<OverlaySplitView> {
         override val type: GeneratedClassKGType<OverlaySplitView> =
-            GeneratedClassKGType(adw_overlay_split_view_get_type()) { OverlaySplitView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_overlay_split_view_get_type")!!) {
+                OverlaySplitView(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

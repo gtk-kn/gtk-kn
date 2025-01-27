@@ -13,6 +13,7 @@ import org.gtkkn.bindings.soup.MessageHeaders
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -155,7 +156,9 @@ public class UriSchemeRequest(public val webkitUriSchemeRequestPointer: CPointer
 
     public companion object : TypeCompanion<UriSchemeRequest> {
         override val type: GeneratedClassKGType<UriSchemeRequest> =
-            GeneratedClassKGType(webkit_uri_scheme_request_get_type()) { UriSchemeRequest(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_uri_scheme_request_get_type")!!) {
+                UriSchemeRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

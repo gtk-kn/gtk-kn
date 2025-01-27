@@ -8,6 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -109,7 +110,7 @@ public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIc
 
     public companion object : TypeCompanion<ThemedIcon> {
         override val type: GeneratedClassKGType<ThemedIcon> =
-            GeneratedClassKGType(g_themed_icon_get_type()) { ThemedIcon(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_themed_icon_get_type")!!) { ThemedIcon(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

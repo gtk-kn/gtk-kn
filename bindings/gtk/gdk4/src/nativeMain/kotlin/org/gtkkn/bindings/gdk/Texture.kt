@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -304,7 +305,7 @@ public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>
 
     public companion object : TypeCompanion<Texture> {
         override val type: GeneratedClassKGType<Texture> =
-            GeneratedClassKGType(gdk_texture_get_type()) { TextureImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_texture_get_type")!!) { TextureImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

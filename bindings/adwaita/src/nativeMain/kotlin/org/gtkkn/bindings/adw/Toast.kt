@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -501,7 +502,7 @@ public class Toast(public val adwToastPointer: CPointer<AdwToast>) :
 
     public companion object : TypeCompanion<Toast> {
         override val type: GeneratedClassKGType<Toast> =
-            GeneratedClassKGType(adw_toast_get_type()) { Toast(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_toast_get_type")!!) { Toast(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

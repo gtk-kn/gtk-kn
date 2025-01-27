@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -57,7 +58,7 @@ public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<Gdk
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =
-            GeneratedClassKGType(gdk_memory_texture_get_type()) { MemoryTexture(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_memory_texture_get_type")!!) { MemoryTexture(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

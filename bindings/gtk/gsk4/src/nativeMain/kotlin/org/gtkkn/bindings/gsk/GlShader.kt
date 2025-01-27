@@ -17,6 +17,7 @@ import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.graphene.Vec4
 import org.gtkkn.bindings.gsk.Gsk.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -395,7 +396,7 @@ public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>)
 
     public companion object : TypeCompanion<GlShader> {
         override val type: GeneratedClassKGType<GlShader> =
-            GeneratedClassKGType(gsk_gl_shader_get_type()) { GlShader(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_gl_shader_get_type")!!) { GlShader(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -178,7 +179,9 @@ public open class FilterListModel(public val gtkFilterListModelPointer: CPointer
 
     public companion object : TypeCompanion<FilterListModel> {
         override val type: GeneratedClassKGType<FilterListModel> =
-            GeneratedClassKGType(gtk_filter_list_model_get_type()) { FilterListModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_filter_list_model_get_type")!!) {
+                FilterListModel(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

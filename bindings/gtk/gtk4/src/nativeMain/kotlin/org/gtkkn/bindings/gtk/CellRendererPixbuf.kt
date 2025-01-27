@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -57,7 +58,9 @@ public open class CellRendererPixbuf(public val gtkCellRendererPixbufPointer: CP
 
     public companion object : TypeCompanion<CellRendererPixbuf> {
         override val type: GeneratedClassKGType<CellRendererPixbuf> =
-            GeneratedClassKGType(gtk_cell_renderer_pixbuf_get_type()) { CellRendererPixbuf(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_pixbuf_get_type")!!) {
+                CellRendererPixbuf(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -361,7 +362,7 @@ public class UserContentFilterStore(
 
     public companion object : TypeCompanion<UserContentFilterStore> {
         override val type: GeneratedClassKGType<UserContentFilterStore> =
-            GeneratedClassKGType(webkit_user_content_filter_store_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_user_content_filter_store_get_type")!!) {
                 UserContentFilterStore(it.reinterpret())
             }
 

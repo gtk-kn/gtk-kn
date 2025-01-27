@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -351,7 +352,9 @@ public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPoint
 
     public companion object : TypeCompanion<GlTextureBuilder> {
         override val type: GeneratedClassKGType<GlTextureBuilder> =
-            GeneratedClassKGType(gdk_gl_texture_builder_get_type()) { GlTextureBuilder(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_builder_get_type")!!) {
+                GlTextureBuilder(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

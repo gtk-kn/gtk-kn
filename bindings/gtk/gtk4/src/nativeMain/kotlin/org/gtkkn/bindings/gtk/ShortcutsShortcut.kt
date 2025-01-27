@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -49,7 +50,9 @@ public open class ShortcutsShortcut(public val gtkShortcutsShortcutPointer: CPoi
 
     public companion object : TypeCompanion<ShortcutsShortcut> {
         override val type: GeneratedClassKGType<ShortcutsShortcut> =
-            GeneratedClassKGType(gtk_shortcuts_shortcut_get_type()) { ShortcutsShortcut(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_shortcut_get_type")!!) {
+                ShortcutsShortcut(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

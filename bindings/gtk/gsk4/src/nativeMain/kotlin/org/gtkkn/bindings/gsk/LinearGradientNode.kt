@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -58,7 +59,9 @@ public open class LinearGradientNode(public val gskLinearGradientNodePointer: CP
 
     public companion object : TypeCompanion<LinearGradientNode> {
         override val type: GeneratedClassKGType<LinearGradientNode> =
-            GeneratedClassKGType(gsk_linear_gradient_node_get_type()) { LinearGradientNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_linear_gradient_node_get_type")!!) {
+                LinearGradientNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

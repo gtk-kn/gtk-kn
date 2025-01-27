@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -61,7 +62,9 @@ public interface AccessibleRange :
 
     public companion object : TypeCompanion<AccessibleRange> {
         override val type: GeneratedInterfaceKGType<AccessibleRange> =
-            GeneratedInterfaceKGType(gtk_accessible_range_get_type()) { AccessibleRangeImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_range_get_type")!!) {
+                AccessibleRangeImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

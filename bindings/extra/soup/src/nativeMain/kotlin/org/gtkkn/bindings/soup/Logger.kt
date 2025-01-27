@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -176,7 +177,7 @@ public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
 
     public companion object : TypeCompanion<Logger> {
         override val type: GeneratedClassKGType<Logger> =
-            GeneratedClassKGType(soup_logger_get_type()) { Logger(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_logger_get_type")!!) { Logger(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

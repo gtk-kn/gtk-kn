@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -115,7 +116,7 @@ public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEm
 
     public companion object : TypeCompanion<EmojiChooser> {
         override val type: GeneratedClassKGType<EmojiChooser> =
-            GeneratedClassKGType(gtk_emoji_chooser_get_type()) { EmojiChooser(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_emoji_chooser_get_type")!!) { EmojiChooser(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

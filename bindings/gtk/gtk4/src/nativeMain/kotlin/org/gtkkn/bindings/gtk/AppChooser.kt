@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.AppInfo
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -95,7 +96,9 @@ public interface AppChooser :
 
     public companion object : TypeCompanion<AppChooser> {
         override val type: GeneratedInterfaceKGType<AppChooser> =
-            GeneratedInterfaceKGType(gtk_app_chooser_get_type()) { AppChooserImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_app_chooser_get_type")!!) {
+                AppChooserImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

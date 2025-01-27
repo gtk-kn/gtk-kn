@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -87,7 +88,7 @@ public class CarouselIndicatorLines(public val adwCarouselIndicatorLinesPointer:
 
     public companion object : TypeCompanion<CarouselIndicatorLines> {
         override val type: GeneratedClassKGType<CarouselIndicatorLines> =
-            GeneratedClassKGType(adw_carousel_indicator_lines_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("adw_carousel_indicator_lines_get_type")!!) {
                 CarouselIndicatorLines(it.reinterpret())
             }
 

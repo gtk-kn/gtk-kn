@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.DeviceTool
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -209,7 +210,7 @@ public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<GestureStylus> {
         override val type: GeneratedClassKGType<GestureStylus> =
-            GeneratedClassKGType(gtk_gesture_stylus_get_type()) { GestureStylus(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_stylus_get_type")!!) { GestureStylus(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

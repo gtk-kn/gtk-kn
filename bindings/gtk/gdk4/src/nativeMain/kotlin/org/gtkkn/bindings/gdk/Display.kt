@@ -27,6 +27,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -564,7 +565,7 @@ public open class Display(public val gdkDisplayPointer: CPointer<GdkDisplay>) :
 
     public companion object : TypeCompanion<Display> {
         override val type: GeneratedClassKGType<Display> =
-            GeneratedClassKGType(gdk_display_get_type()) { Display(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_display_get_type")!!) { Display(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

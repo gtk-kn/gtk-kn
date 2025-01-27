@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -359,7 +360,7 @@ public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
 
     public companion object : TypeCompanion<Picture> {
         override val type: GeneratedClassKGType<Picture> =
-            GeneratedClassKGType(gtk_picture_get_type()) { Picture(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_picture_get_type")!!) { Picture(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

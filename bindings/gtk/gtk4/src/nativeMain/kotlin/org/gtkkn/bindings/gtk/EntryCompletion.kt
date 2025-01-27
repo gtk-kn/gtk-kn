@@ -14,6 +14,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -497,7 +498,9 @@ public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer
 
     public companion object : TypeCompanion<EntryCompletion> {
         override val type: GeneratedClassKGType<EntryCompletion> =
-            GeneratedClassKGType(gtk_entry_completion_get_type()) { EntryCompletion(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_entry_completion_get_type")!!) {
+                EntryCompletion(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

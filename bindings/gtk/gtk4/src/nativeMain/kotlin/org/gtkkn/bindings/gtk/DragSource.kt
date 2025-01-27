@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gdk.DragCancelReason
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -341,7 +342,7 @@ public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSo
 
     public companion object : TypeCompanion<DragSource> {
         override val type: GeneratedClassKGType<DragSource> =
-            GeneratedClassKGType(gtk_drag_source_get_type()) { DragSource(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_drag_source_get_type")!!) { DragSource(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

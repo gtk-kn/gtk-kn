@@ -19,6 +19,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.TabArray
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -974,7 +975,7 @@ public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
 
     public companion object : TypeCompanion<Text> {
         override val type: GeneratedClassKGType<Text> =
-            GeneratedClassKGType(gtk_text_get_type()) { Text(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_text_get_type")!!) { Text(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

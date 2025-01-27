@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -207,7 +208,7 @@ public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusba
 
     public companion object : TypeCompanion<Statusbar> {
         override val type: GeneratedClassKGType<Statusbar> =
-            GeneratedClassKGType(gtk_statusbar_get_type()) { Statusbar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_statusbar_get_type")!!) { Statusbar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Tree
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -206,7 +207,9 @@ public abstract class SettingsBackend(public val gioSettingsBackendPointer: CPoi
 
     public companion object : TypeCompanion<SettingsBackend> {
         override val type: GeneratedClassKGType<SettingsBackend> =
-            GeneratedClassKGType(g_settings_backend_get_type()) { SettingsBackendImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_settings_backend_get_type")!!) {
+                SettingsBackendImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

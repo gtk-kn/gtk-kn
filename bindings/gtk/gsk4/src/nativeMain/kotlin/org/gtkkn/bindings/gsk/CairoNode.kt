@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Context
 import org.gtkkn.bindings.cairo.Surface
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -61,7 +62,7 @@ public open class CairoNode(public val gskCairoNodePointer: CPointer<GskCairoNod
 
     public companion object : TypeCompanion<CairoNode> {
         override val type: GeneratedClassKGType<CairoNode> =
-            GeneratedClassKGType(gsk_cairo_node_get_type()) { CairoNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_cairo_node_get_type")!!) { CairoNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

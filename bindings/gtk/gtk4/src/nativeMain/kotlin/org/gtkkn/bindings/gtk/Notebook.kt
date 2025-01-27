@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1006,7 +1007,7 @@ public open class Notebook(public val gtkNotebookPointer: CPointer<GtkNotebook>)
 
     public companion object : TypeCompanion<Notebook> {
         override val type: GeneratedClassKGType<Notebook> =
-            GeneratedClassKGType(gtk_notebook_get_type()) { Notebook(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_notebook_get_type")!!) { Notebook(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -21,6 +21,7 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -604,7 +605,7 @@ public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>
 
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
-            GeneratedClassKGType(gdk_surface_get_type()) { SurfaceImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_surface_get_type")!!) { SurfaceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

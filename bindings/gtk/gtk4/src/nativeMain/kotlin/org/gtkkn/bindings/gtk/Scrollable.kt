@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -250,7 +251,9 @@ public interface Scrollable :
 
     public companion object : TypeCompanion<Scrollable> {
         override val type: GeneratedInterfaceKGType<Scrollable> =
-            GeneratedInterfaceKGType(gtk_scrollable_get_type()) { ScrollableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_scrollable_get_type")!!) {
+                ScrollableImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

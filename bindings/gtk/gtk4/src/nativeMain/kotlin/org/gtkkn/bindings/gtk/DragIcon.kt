@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Drag
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -82,7 +83,7 @@ public open class DragIcon(public val gtkDragIconPointer: CPointer<GtkDragIcon>)
 
     public companion object : TypeCompanion<DragIcon> {
         override val type: GeneratedClassKGType<DragIcon> =
-            GeneratedClassKGType(gtk_drag_icon_get_type()) { DragIcon(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_drag_icon_get_type")!!) { DragIcon(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

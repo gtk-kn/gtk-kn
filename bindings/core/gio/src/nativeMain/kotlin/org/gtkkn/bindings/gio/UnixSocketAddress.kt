@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -132,7 +133,9 @@ public open class UnixSocketAddress(public val gioUnixSocketAddressPointer: CPoi
 
     public companion object : TypeCompanion<UnixSocketAddress> {
         override val type: GeneratedClassKGType<UnixSocketAddress> =
-            GeneratedClassKGType(g_unix_socket_address_get_type()) { UnixSocketAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_unix_socket_address_get_type")!!) {
+                UnixSocketAddress(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

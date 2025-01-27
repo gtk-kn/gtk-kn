@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -323,7 +324,9 @@ public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer
 
     public companion object : TypeCompanion<PrintUnixDialog> {
         override val type: GeneratedClassKGType<PrintUnixDialog> =
-            GeneratedClassKGType(gtk_print_unix_dialog_get_type()) { PrintUnixDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_print_unix_dialog_get_type")!!) {
+                PrintUnixDialog(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Permission
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -114,7 +115,7 @@ public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockBu
 
     public companion object : TypeCompanion<LockButton> {
         override val type: GeneratedClassKGType<LockButton> =
-            GeneratedClassKGType(gtk_lock_button_get_type()) { LockButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_lock_button_get_type")!!) { LockButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

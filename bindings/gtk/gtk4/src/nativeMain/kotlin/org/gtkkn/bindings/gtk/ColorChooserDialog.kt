@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -85,7 +86,9 @@ public open class ColorChooserDialog(public val gtkColorChooserDialogPointer: CP
 
     public companion object : TypeCompanion<ColorChooserDialog> {
         override val type: GeneratedClassKGType<ColorChooserDialog> =
-            GeneratedClassKGType(gtk_color_chooser_dialog_get_type()) { ColorChooserDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_dialog_get_type")!!) {
+                ColorChooserDialog(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

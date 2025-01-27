@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -133,7 +134,9 @@ public open class SliceListModel(public val gtkSliceListModelPointer: CPointer<G
 
     public companion object : TypeCompanion<SliceListModel> {
         override val type: GeneratedClassKGType<SliceListModel> =
-            GeneratedClassKGType(gtk_slice_list_model_get_type()) { SliceListModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_slice_list_model_get_type")!!) {
+                SliceListModel(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

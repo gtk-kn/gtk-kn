@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -151,7 +152,7 @@ public open class Sorter(public val gtkSorterPointer: CPointer<GtkSorter>) :
 
     public companion object : TypeCompanion<Sorter> {
         override val type: GeneratedClassKGType<Sorter> =
-            GeneratedClassKGType(gtk_sorter_get_type()) { Sorter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_sorter_get_type")!!) { Sorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

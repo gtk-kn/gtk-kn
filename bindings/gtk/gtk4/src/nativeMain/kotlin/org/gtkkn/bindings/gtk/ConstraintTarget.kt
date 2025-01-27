@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -36,7 +37,9 @@ public interface ConstraintTarget :
 
     public companion object : TypeCompanion<ConstraintTarget> {
         override val type: GeneratedInterfaceKGType<ConstraintTarget> =
-            GeneratedInterfaceKGType(gtk_constraint_target_get_type()) { ConstraintTargetImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_constraint_target_get_type")!!) {
+                ConstraintTargetImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

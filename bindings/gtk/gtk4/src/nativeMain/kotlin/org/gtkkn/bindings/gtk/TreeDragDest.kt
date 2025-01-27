@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -73,7 +74,9 @@ public interface TreeDragDest :
 
     public companion object : TypeCompanion<TreeDragDest> {
         override val type: GeneratedInterfaceKGType<TreeDragDest> =
-            GeneratedInterfaceKGType(gtk_tree_drag_dest_get_type()) { TreeDragDestImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_drag_dest_get_type")!!) {
+                TreeDragDestImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

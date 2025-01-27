@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gtk.InputHints
 import org.gtkkn.bindings.gtk.InputPurpose
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.pango.AttrList
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -429,7 +430,7 @@ public open class EntryRow(public val adwEntryRowPointer: CPointer<AdwEntryRow>)
 
     public companion object : TypeCompanion<EntryRow> {
         override val type: GeneratedClassKGType<EntryRow> =
-            GeneratedClassKGType(adw_entry_row_get_type()) { EntryRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_entry_row_get_type")!!) { EntryRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -212,7 +213,7 @@ public open class ColorDialog(public val gtkColorDialogPointer: CPointer<GtkColo
 
     public companion object : TypeCompanion<ColorDialog> {
         override val type: GeneratedClassKGType<ColorDialog> =
-            GeneratedClassKGType(gtk_color_dialog_get_type()) { ColorDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_color_dialog_get_type")!!) { ColorDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

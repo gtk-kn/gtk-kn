@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gtk.ListBoxRow
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -173,7 +174,9 @@ public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<A
 
     public companion object : TypeCompanion<PreferencesRow> {
         override val type: GeneratedClassKGType<PreferencesRow> =
-            GeneratedClassKGType(adw_preferences_row_get_type()) { PreferencesRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_preferences_row_get_type")!!) {
+                PreferencesRow(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

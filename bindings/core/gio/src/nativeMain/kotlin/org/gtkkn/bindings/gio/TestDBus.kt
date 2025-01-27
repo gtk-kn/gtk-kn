@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -185,7 +186,7 @@ public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
 
     public companion object : TypeCompanion<TestDBus> {
         override val type: GeneratedClassKGType<TestDBus> =
-            GeneratedClassKGType(g_test_dbus_get_type()) { TestDBus(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_test_dbus_get_type")!!) { TestDBus(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

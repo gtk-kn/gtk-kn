@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -65,7 +66,7 @@ public open class BytesIcon(public val gioBytesIconPointer: CPointer<GBytesIcon>
 
     public companion object : TypeCompanion<BytesIcon> {
         override val type: GeneratedClassKGType<BytesIcon> =
-            GeneratedClassKGType(g_bytes_icon_get_type()) { BytesIcon(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_bytes_icon_get_type")!!) { BytesIcon(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

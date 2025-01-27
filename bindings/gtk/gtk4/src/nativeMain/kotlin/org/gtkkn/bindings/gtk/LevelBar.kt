@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -383,7 +384,7 @@ public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>)
 
     public companion object : TypeCompanion<LevelBar> {
         override val type: GeneratedClassKGType<LevelBar> =
-            GeneratedClassKGType(gtk_level_bar_get_type()) { LevelBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_level_bar_get_type")!!) { LevelBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

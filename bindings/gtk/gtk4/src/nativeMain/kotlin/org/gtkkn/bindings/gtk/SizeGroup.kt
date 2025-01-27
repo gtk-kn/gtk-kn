@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -167,7 +168,7 @@ public open class SizeGroup(public val gtkSizeGroupPointer: CPointer<GtkSizeGrou
 
     public companion object : TypeCompanion<SizeGroup> {
         override val type: GeneratedClassKGType<SizeGroup> =
-            GeneratedClassKGType(gtk_size_group_get_type()) { SizeGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_size_group_get_type")!!) { SizeGroup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

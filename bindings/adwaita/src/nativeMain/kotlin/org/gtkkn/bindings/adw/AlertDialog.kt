@@ -20,6 +20,7 @@ import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -700,7 +701,7 @@ public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAler
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =
-            GeneratedClassKGType(adw_alert_dialog_get_type()) { AlertDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_alert_dialog_get_type")!!) { AlertDialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

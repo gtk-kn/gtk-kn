@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -392,7 +393,9 @@ public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPoint
 
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
-            GeneratedClassKGType(g_tls_certificate_get_type()) { TlsCertificateImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_tls_certificate_get_type")!!) {
+                TlsCertificateImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

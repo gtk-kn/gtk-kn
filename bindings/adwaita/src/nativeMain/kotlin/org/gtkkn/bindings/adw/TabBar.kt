@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -368,7 +369,7 @@ public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
 
     public companion object : TypeCompanion<TabBar> {
         override val type: GeneratedClassKGType<TabBar> =
-            GeneratedClassKGType(adw_tab_bar_get_type()) { TabBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_tab_bar_get_type")!!) { TabBar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -38,7 +39,9 @@ public open class DBusActionGroup(public val gioDBusActionGroupPointer: CPointer
 
     public companion object : TypeCompanion<DBusActionGroup> {
         override val type: GeneratedClassKGType<DBusActionGroup> =
-            GeneratedClassKGType(g_dbus_action_group_get_type()) { DBusActionGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_action_group_get_type")!!) {
+                DBusActionGroup(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

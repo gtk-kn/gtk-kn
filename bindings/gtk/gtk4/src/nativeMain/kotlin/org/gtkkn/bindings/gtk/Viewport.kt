@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -139,7 +140,7 @@ public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>)
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =
-            GeneratedClassKGType(gtk_viewport_get_type()) { Viewport(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_viewport_get_type")!!) { Viewport(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

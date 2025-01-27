@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -217,7 +218,7 @@ public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFi
 
     public companion object : TypeCompanion<FileFilter> {
         override val type: GeneratedClassKGType<FileFilter> =
-            GeneratedClassKGType(gtk_file_filter_get_type()) { FileFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_file_filter_get_type")!!) { FileFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

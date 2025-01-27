@@ -15,6 +15,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -241,7 +242,7 @@ public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
 
     public companion object : TypeCompanion<Banner> {
         override val type: GeneratedClassKGType<Banner> =
-            GeneratedClassKGType(adw_banner_get_type()) { Banner(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_banner_get_type")!!) { Banner(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

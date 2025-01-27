@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -390,7 +391,9 @@ public abstract class GutterRenderer(public val gtksourceGutterRendererPointer: 
 
     public companion object : TypeCompanion<GutterRenderer> {
         override val type: GeneratedClassKGType<GutterRenderer> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_get_type()) { GutterRendererImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_get_type")!!) {
+                GutterRendererImpl(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

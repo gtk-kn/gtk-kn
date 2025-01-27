@@ -18,6 +18,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -480,7 +481,9 @@ public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPoi
 
     public companion object : TypeCompanion<WebsocketConnection> {
         override val type: GeneratedClassKGType<WebsocketConnection> =
-            GeneratedClassKGType(soup_websocket_connection_get_type()) { WebsocketConnection(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_websocket_connection_get_type")!!) {
+                WebsocketConnection(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

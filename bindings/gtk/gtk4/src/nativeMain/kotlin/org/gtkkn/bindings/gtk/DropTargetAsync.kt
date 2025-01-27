@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gdk.ContentFormats
 import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gdk.Drop
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -284,7 +285,9 @@ public open class DropTargetAsync(public val gtkDropTargetAsyncPointer: CPointer
 
     public companion object : TypeCompanion<DropTargetAsync> {
         override val type: GeneratedClassKGType<DropTargetAsync> =
-            GeneratedClassKGType(gtk_drop_target_async_get_type()) { DropTargetAsync(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_drop_target_async_get_type")!!) {
+                DropTargetAsync(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

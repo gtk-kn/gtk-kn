@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -665,7 +666,7 @@ public open class SpinButton(public val gtkSpinButtonPointer: CPointer<GtkSpinBu
 
     public companion object : TypeCompanion<SpinButton> {
         override val type: GeneratedClassKGType<SpinButton> =
-            GeneratedClassKGType(gtk_spin_button_get_type()) { SpinButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_spin_button_get_type")!!) { SpinButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

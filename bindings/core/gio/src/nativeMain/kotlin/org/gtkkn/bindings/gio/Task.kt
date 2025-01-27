@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -1108,7 +1109,7 @@ public open class Task(public val gioTaskPointer: CPointer<GTask>) :
 
     public companion object : TypeCompanion<Task> {
         override val type: GeneratedClassKGType<Task> =
-            GeneratedClassKGType(g_task_get_type()) { Task(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_task_get_type")!!) { Task(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

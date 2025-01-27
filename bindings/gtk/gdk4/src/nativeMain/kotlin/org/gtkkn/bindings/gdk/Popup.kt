@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -151,7 +152,7 @@ public interface Popup :
 
     public companion object : TypeCompanion<Popup> {
         override val type: GeneratedInterfaceKGType<Popup> =
-            GeneratedInterfaceKGType(gdk_popup_get_type()) { PopupImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gdk_popup_get_type")!!) { PopupImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

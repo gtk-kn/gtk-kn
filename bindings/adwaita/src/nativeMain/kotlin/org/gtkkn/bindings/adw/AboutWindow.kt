@@ -16,6 +16,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.License
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -1348,7 +1349,7 @@ public class AboutWindow(public val adwAboutWindowPointer: CPointer<AdwAboutWind
 
     public companion object : TypeCompanion<AboutWindow> {
         override val type: GeneratedClassKGType<AboutWindow> =
-            GeneratedClassKGType(adw_about_window_get_type()) { AboutWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_about_window_get_type")!!) { AboutWindow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

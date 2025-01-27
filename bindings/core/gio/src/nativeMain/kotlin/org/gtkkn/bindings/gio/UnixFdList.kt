@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -131,7 +132,7 @@ public open class UnixFdList(public val gioUnixFdListPointer: CPointer<GUnixFDLi
 
     public companion object : TypeCompanion<UnixFdList> {
         override val type: GeneratedClassKGType<UnixFdList> =
-            GeneratedClassKGType(g_unix_fd_list_get_type()) { UnixFdList(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_unix_fd_list_get_type")!!) { UnixFdList(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

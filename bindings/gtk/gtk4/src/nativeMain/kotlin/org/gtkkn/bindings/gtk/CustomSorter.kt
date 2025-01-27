@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.CompareDataFunc
 import org.gtkkn.bindings.glib.CompareDataFuncFunc
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -75,7 +76,7 @@ public open class CustomSorter(public val gtkCustomSorterPointer: CPointer<GtkCu
 
     public companion object : TypeCompanion<CustomSorter> {
         override val type: GeneratedClassKGType<CustomSorter> =
-            GeneratedClassKGType(gtk_custom_sorter_get_type()) { CustomSorter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_custom_sorter_get_type")!!) { CustomSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.EventSequence
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -139,7 +140,7 @@ public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<GestureSingle> {
         override val type: GeneratedClassKGType<GestureSingle> =
-            GeneratedClassKGType(gtk_gesture_single_get_type()) { GestureSingle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_single_get_type")!!) { GestureSingle(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

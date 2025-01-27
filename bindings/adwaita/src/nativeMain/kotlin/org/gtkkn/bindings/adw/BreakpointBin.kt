@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -225,7 +226,7 @@ public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<Adw
 
     public companion object : TypeCompanion<BreakpointBin> {
         override val type: GeneratedClassKGType<BreakpointBin> =
-            GeneratedClassKGType(adw_breakpoint_bin_get_type()) { BreakpointBin(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_breakpoint_bin_get_type")!!) { BreakpointBin(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -15,6 +15,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Orientable
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -391,7 +392,7 @@ public class SwipeTracker(public val adwSwipeTrackerPointer: CPointer<AdwSwipeTr
 
     public companion object : TypeCompanion<SwipeTracker> {
         override val type: GeneratedClassKGType<SwipeTracker> =
-            GeneratedClassKGType(adw_swipe_tracker_get_type()) { SwipeTracker(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_swipe_tracker_get_type")!!) { SwipeTracker(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

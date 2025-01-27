@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -615,7 +616,7 @@ public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDi
 
     public companion object : TypeCompanion<FileDialog> {
         override val type: GeneratedClassKGType<FileDialog> =
-            GeneratedClassKGType(gtk_file_dialog_get_type()) { FileDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_file_dialog_get_type")!!) { FileDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

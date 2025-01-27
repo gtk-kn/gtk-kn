@@ -13,6 +13,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -159,7 +160,9 @@ public open class FileOutputStream(public val gioFileOutputStreamPointer: CPoint
 
     public companion object : TypeCompanion<FileOutputStream> {
         override val type: GeneratedClassKGType<FileOutputStream> =
-            GeneratedClassKGType(g_file_output_stream_get_type()) { FileOutputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_file_output_stream_get_type")!!) {
+                FileOutputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

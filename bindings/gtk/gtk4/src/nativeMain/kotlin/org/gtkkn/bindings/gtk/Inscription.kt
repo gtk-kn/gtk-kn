@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.WrapMode
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -420,7 +421,7 @@ public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInsc
 
     public companion object : TypeCompanion<Inscription> {
         override val type: GeneratedClassKGType<Inscription> =
-            GeneratedClassKGType(gtk_inscription_get_type()) { Inscription(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_inscription_get_type")!!) { Inscription(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

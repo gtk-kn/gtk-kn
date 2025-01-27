@@ -6,6 +6,7 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -61,7 +62,7 @@ public open class Script(public val cairoScriptPointer: CPointer<cairo_device_t>
 
     public companion object : TypeCompanion<Script> {
         override val type: GeneratedClassKGType<Script> =
-            GeneratedClassKGType(cairo_gobject_device_get_type()) { Script(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_device_get_type")!!) { Script(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

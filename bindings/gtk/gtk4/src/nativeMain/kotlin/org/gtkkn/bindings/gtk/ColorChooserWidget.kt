@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -72,7 +73,9 @@ public open class ColorChooserWidget(public val gtkColorChooserWidgetPointer: CP
 
     public companion object : TypeCompanion<ColorChooserWidget> {
         override val type: GeneratedClassKGType<ColorChooserWidget> =
-            GeneratedClassKGType(gtk_color_chooser_widget_get_type()) { ColorChooserWidget(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_color_chooser_widget_get_type")!!) {
+                ColorChooserWidget(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

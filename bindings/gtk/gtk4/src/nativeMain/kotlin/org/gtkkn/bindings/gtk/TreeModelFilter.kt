@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -266,7 +267,9 @@ public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer
 
     public companion object : TypeCompanion<TreeModelFilter> {
         override val type: GeneratedClassKGType<TreeModelFilter> =
-            GeneratedClassKGType(gtk_tree_model_filter_get_type()) { TreeModelFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tree_model_filter_get_type")!!) {
+                TreeModelFilter(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

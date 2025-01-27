@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ApplicationFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -94,7 +95,7 @@ public open class Application(public val adwApplicationPointer: CPointer<AdwAppl
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(adw_application_get_type()) { Application(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_application_get_type")!!) { Application(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

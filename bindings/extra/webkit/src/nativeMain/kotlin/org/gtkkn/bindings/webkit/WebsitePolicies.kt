@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -55,7 +56,9 @@ public class WebsitePolicies(public val webkitWebsitePoliciesPointer: CPointer<W
 
     public companion object : TypeCompanion<WebsitePolicies> {
         override val type: GeneratedClassKGType<WebsitePolicies> =
-            GeneratedClassKGType(webkit_website_policies_get_type()) { WebsitePolicies(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_website_policies_get_type")!!) {
+                WebsitePolicies(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

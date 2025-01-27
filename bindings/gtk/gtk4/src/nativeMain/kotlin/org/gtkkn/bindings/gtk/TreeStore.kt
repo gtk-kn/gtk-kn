@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -317,7 +318,7 @@ public open class TreeStore(public val gtkTreeStorePointer: CPointer<GtkTreeStor
 
     public companion object : TypeCompanion<TreeStore> {
         override val type: GeneratedClassKGType<TreeStore> =
-            GeneratedClassKGType(gtk_tree_store_get_type()) { TreeStore(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tree_store_get_type")!!) { TreeStore(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

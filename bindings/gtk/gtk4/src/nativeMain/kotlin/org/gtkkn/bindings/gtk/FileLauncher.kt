@@ -21,6 +21,7 @@ import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -258,7 +259,7 @@ public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFi
 
     public companion object : TypeCompanion<FileLauncher> {
         override val type: GeneratedClassKGType<FileLauncher> =
-            GeneratedClassKGType(gtk_file_launcher_get_type()) { FileLauncher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_file_launcher_get_type")!!) { FileLauncher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

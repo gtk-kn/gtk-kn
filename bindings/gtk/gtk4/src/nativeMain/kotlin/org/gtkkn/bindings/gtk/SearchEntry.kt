@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -421,7 +422,7 @@ public open class SearchEntry(public val gtkSearchEntryPointer: CPointer<GtkSear
 
     public companion object : TypeCompanion<SearchEntry> {
         override val type: GeneratedClassKGType<SearchEntry> =
-            GeneratedClassKGType(gtk_search_entry_get_type()) { SearchEntry(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_search_entry_get_type")!!) { SearchEntry(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

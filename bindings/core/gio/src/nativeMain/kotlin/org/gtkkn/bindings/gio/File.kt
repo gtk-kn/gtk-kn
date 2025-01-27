@@ -29,6 +29,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -3855,7 +3856,7 @@ public interface File :
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedInterfaceKGType<File> =
-            GeneratedInterfaceKGType(g_file_get_type()) { FileImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_file_get_type")!!) { FileImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

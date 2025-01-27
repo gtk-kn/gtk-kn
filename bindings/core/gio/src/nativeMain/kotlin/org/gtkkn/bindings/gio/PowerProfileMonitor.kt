@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -101,7 +102,7 @@ public interface PowerProfileMonitor :
 
     public companion object : TypeCompanion<PowerProfileMonitor> {
         override val type: GeneratedInterfaceKGType<PowerProfileMonitor> =
-            GeneratedInterfaceKGType(g_power_profile_monitor_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("g_power_profile_monitor_get_type")!!) {
                 PowerProfileMonitorImpl(it.reinterpret())
             }
 

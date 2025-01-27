@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -717,7 +718,7 @@ public interface TreeModel :
 
     public companion object : TypeCompanion<TreeModel> {
         override val type: GeneratedInterfaceKGType<TreeModel> =
-            GeneratedInterfaceKGType(gtk_tree_model_get_type()) { TreeModelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_model_get_type")!!) { TreeModelImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

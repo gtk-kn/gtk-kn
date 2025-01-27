@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,7 +21,7 @@ public open class DeleteEvent(public val gdkDeleteEventPointer: CPointer<GdkDele
     KGTyped {
     public companion object : TypeCompanion<DeleteEvent> {
         override val type: GeneratedClassKGType<DeleteEvent> =
-            GeneratedClassKGType(gdk_delete_event_get_type()) { DeleteEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_delete_event_get_type")!!) { DeleteEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

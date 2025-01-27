@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -252,7 +253,9 @@ public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTim
 
     public companion object : TypeCompanion<TimedAnimation> {
         override val type: GeneratedClassKGType<TimedAnimation> =
-            GeneratedClassKGType(adw_timed_animation_get_type()) { TimedAnimation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_timed_animation_get_type")!!) {
+                TimedAnimation(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

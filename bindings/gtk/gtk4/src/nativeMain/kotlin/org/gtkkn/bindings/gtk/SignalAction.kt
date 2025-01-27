@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -50,7 +51,7 @@ public open class SignalAction(public val gtkSignalActionPointer: CPointer<GtkSi
 
     public companion object : TypeCompanion<SignalAction> {
         override val type: GeneratedClassKGType<SignalAction> =
-            GeneratedClassKGType(gtk_signal_action_get_type()) { SignalAction(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_signal_action_get_type")!!) { SignalAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

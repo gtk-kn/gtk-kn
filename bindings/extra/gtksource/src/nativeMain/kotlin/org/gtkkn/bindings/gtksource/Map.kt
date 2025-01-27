@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -90,7 +91,7 @@ public open class Map(public val gtksourceMapPointer: CPointer<GtkSourceMap>) :
 
     public companion object : TypeCompanion<Map> {
         override val type: GeneratedClassKGType<Map> =
-            GeneratedClassKGType(gtk_source_map_get_type()) { Map(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_map_get_type")!!) { Map(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

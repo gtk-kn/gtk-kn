@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -48,7 +49,7 @@ public open class StringObject(public val gtkStringObjectPointer: CPointer<GtkSt
 
     public companion object : TypeCompanion<StringObject> {
         override val type: GeneratedClassKGType<StringObject> =
-            GeneratedClassKGType(gtk_string_object_get_type()) { StringObject(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_string_object_get_type")!!) { StringObject(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

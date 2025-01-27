@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -84,7 +85,9 @@ public open class TextureScaleNode(public val gskTextureScaleNodePointer: CPoint
 
     public companion object : TypeCompanion<TextureScaleNode> {
         override val type: GeneratedClassKGType<TextureScaleNode> =
-            GeneratedClassKGType(gsk_texture_scale_node_get_type()) { TextureScaleNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_texture_scale_node_get_type")!!) {
+                TextureScaleNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -84,7 +85,9 @@ public open class UnixCredentialsMessage(
 
     public companion object : TypeCompanion<UnixCredentialsMessage> {
         override val type: GeneratedClassKGType<UnixCredentialsMessage> =
-            GeneratedClassKGType(g_unix_credentials_message_get_type()) { UnixCredentialsMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_unix_credentials_message_get_type")!!) {
+                UnixCredentialsMessage(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

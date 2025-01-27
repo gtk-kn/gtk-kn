@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -136,7 +137,7 @@ public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
 
     public companion object : TypeCompanion<Tooltip> {
         override val type: GeneratedClassKGType<Tooltip> =
-            GeneratedClassKGType(gtk_tooltip_get_type()) { Tooltip(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tooltip_get_type")!!) { Tooltip(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

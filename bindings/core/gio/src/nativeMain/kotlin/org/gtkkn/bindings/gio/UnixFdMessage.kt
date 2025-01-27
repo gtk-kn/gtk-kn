@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -116,7 +117,7 @@ public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUn
 
     public companion object : TypeCompanion<UnixFdMessage> {
         override val type: GeneratedClassKGType<UnixFdMessage> =
-            GeneratedClassKGType(g_unix_fd_message_get_type()) { UnixFdMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_unix_fd_message_get_type")!!) { UnixFdMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

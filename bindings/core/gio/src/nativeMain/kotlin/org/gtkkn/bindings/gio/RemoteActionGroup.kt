@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -116,7 +117,9 @@ public interface RemoteActionGroup :
 
     public companion object : TypeCompanion<RemoteActionGroup> {
         override val type: GeneratedInterfaceKGType<RemoteActionGroup> =
-            GeneratedInterfaceKGType(g_remote_action_group_get_type()) { RemoteActionGroupImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_remote_action_group_get_type")!!) {
+                RemoteActionGroupImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

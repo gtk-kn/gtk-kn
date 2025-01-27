@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -179,7 +180,9 @@ public open class TreeListModel(public val gtkTreeListModelPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<TreeListModel> {
         override val type: GeneratedClassKGType<TreeListModel> =
-            GeneratedClassKGType(gtk_tree_list_model_get_type()) { TreeListModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tree_list_model_get_type")!!) {
+                TreeListModel(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

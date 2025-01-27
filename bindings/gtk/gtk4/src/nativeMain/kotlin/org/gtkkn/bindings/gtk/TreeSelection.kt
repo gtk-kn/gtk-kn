@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -276,7 +277,7 @@ public open class TreeSelection(public val gtkTreeSelectionPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<TreeSelection> {
         override val type: GeneratedClassKGType<TreeSelection> =
-            GeneratedClassKGType(gtk_tree_selection_get_type()) { TreeSelection(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tree_selection_get_type")!!) { TreeSelection(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -184,7 +185,9 @@ public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPoint
 
     public companion object : TypeCompanion<DBusAuthObserver> {
         override val type: GeneratedClassKGType<DBusAuthObserver> =
-            GeneratedClassKGType(g_dbus_auth_observer_get_type()) { DBusAuthObserver(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_auth_observer_get_type")!!) {
+                DBusAuthObserver(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

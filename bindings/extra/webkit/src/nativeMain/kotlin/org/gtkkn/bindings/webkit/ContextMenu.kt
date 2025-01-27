@@ -11,6 +11,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -245,7 +246,7 @@ public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitCon
 
     public companion object : TypeCompanion<ContextMenu> {
         override val type: GeneratedClassKGType<ContextMenu> =
-            GeneratedClassKGType(webkit_context_menu_get_type()) { ContextMenu(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_context_menu_get_type")!!) { ContextMenu(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

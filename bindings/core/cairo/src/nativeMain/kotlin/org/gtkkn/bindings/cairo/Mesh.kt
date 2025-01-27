@@ -6,6 +6,7 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -72,7 +73,7 @@ public open class Mesh(public val cairoMeshPointer: CPointer<cairo_pattern_t>) :
 
     public companion object : TypeCompanion<Mesh> {
         override val type: GeneratedClassKGType<Mesh> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { Mesh(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { Mesh(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

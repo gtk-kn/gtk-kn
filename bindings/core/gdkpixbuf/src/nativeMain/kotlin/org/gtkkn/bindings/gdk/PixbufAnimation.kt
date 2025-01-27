@@ -22,6 +22,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -255,7 +256,9 @@ public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer
 
     public companion object : TypeCompanion<PixbufAnimation> {
         override val type: GeneratedClassKGType<PixbufAnimation> =
-            GeneratedClassKGType(gdk_pixbuf_animation_get_type()) { PixbufAnimation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_animation_get_type")!!) {
+                PixbufAnimation(it.reinterpret())
+            }
 
         init {
             GdkpixbufTypeProvider.register()

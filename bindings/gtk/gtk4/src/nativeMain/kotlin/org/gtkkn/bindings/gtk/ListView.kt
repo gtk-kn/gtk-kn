@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -392,7 +393,7 @@ public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>)
 
     public companion object : TypeCompanion<ListView> {
         override val type: GeneratedClassKGType<ListView> =
-            GeneratedClassKGType(gtk_list_view_get_type()) { ListView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_view_get_type")!!) { ListView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

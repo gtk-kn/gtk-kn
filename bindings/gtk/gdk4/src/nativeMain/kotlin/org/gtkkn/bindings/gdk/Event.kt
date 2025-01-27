@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.TypeInstance
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -192,7 +193,7 @@ public abstract class Event(public val gdkEventPointer: CPointer<GdkEvent>) :
 
     public companion object : TypeCompanion<Event> {
         override val type: GeneratedClassKGType<Event> =
-            GeneratedClassKGType(gdk_event_get_type()) { EventImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_event_get_type")!!) { EventImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

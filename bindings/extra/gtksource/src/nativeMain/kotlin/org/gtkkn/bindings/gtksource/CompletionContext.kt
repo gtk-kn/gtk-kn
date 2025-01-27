@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -276,7 +277,9 @@ public open class CompletionContext(
 
     public companion object : TypeCompanion<CompletionContext> {
         override val type: GeneratedClassKGType<CompletionContext> =
-            GeneratedClassKGType(gtk_source_completion_context_get_type()) { CompletionContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_context_get_type")!!) {
+                CompletionContext(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

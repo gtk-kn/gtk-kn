@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -362,7 +363,7 @@ public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>
 
     public companion object : TypeCompanion<Download> {
         override val type: GeneratedClassKGType<Download> =
-            GeneratedClassKGType(webkit_download_get_type()) { Download(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_download_get_type")!!) { Download(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

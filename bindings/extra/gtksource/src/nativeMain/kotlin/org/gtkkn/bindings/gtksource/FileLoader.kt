@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -278,7 +279,9 @@ public open class FileLoader(public val gtksourceFileLoaderPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<FileLoader> {
         override val type: GeneratedClassKGType<FileLoader> =
-            GeneratedClassKGType(gtk_source_file_loader_get_type()) { FileLoader(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_file_loader_get_type")!!) {
+                FileLoader(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

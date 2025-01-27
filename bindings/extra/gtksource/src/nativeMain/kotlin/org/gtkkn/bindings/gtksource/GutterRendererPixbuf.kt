@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.Icon
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -148,7 +149,7 @@ public open class GutterRendererPixbuf(
 
     public companion object : TypeCompanion<GutterRendererPixbuf> {
         override val type: GeneratedClassKGType<GutterRendererPixbuf> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_pixbuf_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_pixbuf_get_type")!!) {
                 GutterRendererPixbuf(it.reinterpret())
             }
 

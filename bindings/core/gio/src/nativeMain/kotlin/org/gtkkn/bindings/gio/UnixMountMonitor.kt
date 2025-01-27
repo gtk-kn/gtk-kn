@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -111,7 +112,9 @@ public open class UnixMountMonitor(public val gioUnixMountMonitorPointer: CPoint
 
     public companion object : TypeCompanion<UnixMountMonitor> {
         override val type: GeneratedClassKGType<UnixMountMonitor> =
-            GeneratedClassKGType(g_unix_mount_monitor_get_type()) { UnixMountMonitor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_unix_mount_monitor_get_type")!!) {
+                UnixMountMonitor(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

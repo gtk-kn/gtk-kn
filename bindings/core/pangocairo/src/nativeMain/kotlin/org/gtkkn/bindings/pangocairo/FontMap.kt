@@ -11,6 +11,7 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -124,7 +125,9 @@ public interface FontMap :
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedInterfaceKGType<FontMap> =
-            GeneratedInterfaceKGType(pango_cairo_font_map_get_type()) { FontMapImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("pango_cairo_font_map_get_type")!!) {
+                FontMapImpl(it.reinterpret())
+            }
 
         init {
             PangocairoTypeProvider.register()

@@ -14,6 +14,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -223,7 +224,7 @@ public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSource
 
     public companion object : TypeCompanion<Snippet> {
         override val type: GeneratedClassKGType<Snippet> =
-            GeneratedClassKGType(gtk_source_snippet_get_type()) { Snippet(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_get_type")!!) { Snippet(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

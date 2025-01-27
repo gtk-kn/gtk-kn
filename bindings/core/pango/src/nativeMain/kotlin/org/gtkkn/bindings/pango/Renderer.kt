@@ -10,6 +10,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -391,7 +392,7 @@ public abstract class Renderer(public val pangoRendererPointer: CPointer<PangoRe
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-            GeneratedClassKGType(pango_renderer_get_type()) { RendererImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("pango_renderer_get_type")!!) { RendererImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

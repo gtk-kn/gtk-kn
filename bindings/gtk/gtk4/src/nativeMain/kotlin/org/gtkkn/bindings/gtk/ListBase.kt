@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -53,7 +54,7 @@ public abstract class ListBase(public val gtkListBasePointer: CPointer<GtkListBa
 
     public companion object : TypeCompanion<ListBase> {
         override val type: GeneratedClassKGType<ListBase> =
-            GeneratedClassKGType(gtk_list_base_get_type()) { ListBaseImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_base_get_type")!!) { ListBaseImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Drop
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -182,7 +183,9 @@ public open class DropControllerMotion(public val gtkDropControllerMotionPointer
 
     public companion object : TypeCompanion<DropControllerMotion> {
         override val type: GeneratedClassKGType<DropControllerMotion> =
-            GeneratedClassKGType(gtk_drop_controller_motion_get_type()) { DropControllerMotion(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_drop_controller_motion_get_type")!!) {
+                DropControllerMotion(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

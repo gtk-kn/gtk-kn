@@ -10,6 +10,7 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -108,7 +109,7 @@ public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>)
 
     public companion object : TypeCompanion<TextNode> {
         override val type: GeneratedClassKGType<TextNode> =
-            GeneratedClassKGType(gsk_text_node_get_type()) { TextNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_text_node_get_type")!!) { TextNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

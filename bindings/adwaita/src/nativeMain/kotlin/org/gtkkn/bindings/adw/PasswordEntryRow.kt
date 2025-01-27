@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -70,7 +71,9 @@ public class PasswordEntryRow(public val adwPasswordEntryRowPointer: CPointer<Ad
 
     public companion object : TypeCompanion<PasswordEntryRow> {
         override val type: GeneratedClassKGType<PasswordEntryRow> =
-            GeneratedClassKGType(adw_password_entry_row_get_type()) { PasswordEntryRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_password_entry_row_get_type")!!) {
+                PasswordEntryRow(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

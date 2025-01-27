@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -109,7 +110,9 @@ public open class CharsetConverter(public val gioCharsetConverterPointer: CPoint
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =
-            GeneratedClassKGType(g_charset_converter_get_type()) { CharsetConverter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_charset_converter_get_type")!!) {
+                CharsetConverter(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

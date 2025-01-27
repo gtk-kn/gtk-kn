@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -299,7 +300,7 @@ public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAd
 
     public companion object : TypeCompanion<InetAddress> {
         override val type: GeneratedClassKGType<InetAddress> =
-            GeneratedClassKGType(g_inet_address_get_type()) { InetAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_inet_address_get_type")!!) { InetAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

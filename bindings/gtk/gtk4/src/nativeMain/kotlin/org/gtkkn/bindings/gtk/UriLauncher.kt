@@ -19,6 +19,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -144,7 +145,7 @@ public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriL
 
     public companion object : TypeCompanion<UriLauncher> {
         override val type: GeneratedClassKGType<UriLauncher> =
-            GeneratedClassKGType(gtk_uri_launcher_get_type()) { UriLauncher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_uri_launcher_get_type")!!) { UriLauncher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

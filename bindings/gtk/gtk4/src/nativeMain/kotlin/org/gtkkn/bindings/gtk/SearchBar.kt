@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -204,7 +205,7 @@ public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBa
 
     public companion object : TypeCompanion<SearchBar> {
         override val type: GeneratedClassKGType<SearchBar> =
-            GeneratedClassKGType(gtk_search_bar_get_type()) { SearchBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_search_bar_get_type")!!) { SearchBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Button
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -59,7 +60,7 @@ public open class StyleSchemeChooserButton(
 
     public companion object : TypeCompanion<StyleSchemeChooserButton> {
         override val type: GeneratedClassKGType<StyleSchemeChooserButton> =
-            GeneratedClassKGType(gtk_source_style_scheme_chooser_button_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_chooser_button_get_type")!!) {
                 StyleSchemeChooserButton(it.reinterpret())
             }
 

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -67,7 +68,7 @@ public open class TouchpadEvent(public val gdkTouchpadEventPointer: CPointer<Gdk
 
     public companion object : TypeCompanion<TouchpadEvent> {
         override val type: GeneratedClassKGType<TouchpadEvent> =
-            GeneratedClassKGType(gdk_touchpad_event_get_type()) { TouchpadEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_touchpad_event_get_type")!!) { TouchpadEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

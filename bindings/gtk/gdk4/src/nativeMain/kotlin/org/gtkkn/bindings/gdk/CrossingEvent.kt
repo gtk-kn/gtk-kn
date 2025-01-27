@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -51,7 +52,7 @@ public open class CrossingEvent(public val gdkCrossingEventPointer: CPointer<Gdk
 
     public companion object : TypeCompanion<CrossingEvent> {
         override val type: GeneratedClassKGType<CrossingEvent> =
-            GeneratedClassKGType(gdk_crossing_event_get_type()) { CrossingEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_crossing_event_get_type")!!) { CrossingEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

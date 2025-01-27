@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -176,7 +177,7 @@ public abstract class FileMonitor(public val gioFileMonitorPointer: CPointer<GFi
 
     public companion object : TypeCompanion<FileMonitor> {
         override val type: GeneratedClassKGType<FileMonitor> =
-            GeneratedClassKGType(g_file_monitor_get_type()) { FileMonitorImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_file_monitor_get_type")!!) { FileMonitorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

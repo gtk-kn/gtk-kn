@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -90,7 +91,7 @@ public open class Spinner(public val gtkSpinnerPointer: CPointer<GtkSpinner>) :
 
     public companion object : TypeCompanion<Spinner> {
         override val type: GeneratedClassKGType<Spinner> =
-            GeneratedClassKGType(gtk_spinner_get_type()) { Spinner(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_spinner_get_type")!!) { Spinner(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -211,7 +212,7 @@ public class Context(public val jscContextPointer: CPointer<JSCContext>) :
 
     public companion object : TypeCompanion<Context> {
         override val type: GeneratedClassKGType<Context> =
-            GeneratedClassKGType(jsc_context_get_type()) { Context(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("jsc_context_get_type")!!) { Context(it.reinterpret()) }
 
         init {
             JavascriptcoreTypeProvider.register()

@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -394,7 +395,7 @@ public interface Toplevel :
 
     public companion object : TypeCompanion<Toplevel> {
         override val type: GeneratedInterfaceKGType<Toplevel> =
-            GeneratedInterfaceKGType(gdk_toplevel_get_type()) { ToplevelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gdk_toplevel_get_type")!!) { ToplevelImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -93,7 +94,7 @@ public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
 
     public companion object : TypeCompanion<Emblem> {
         override val type: GeneratedClassKGType<Emblem> =
-            GeneratedClassKGType(g_emblem_get_type()) { Emblem(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_emblem_get_type")!!) { Emblem(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

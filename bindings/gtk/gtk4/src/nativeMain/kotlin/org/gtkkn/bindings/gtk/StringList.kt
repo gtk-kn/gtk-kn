@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -161,7 +162,7 @@ public open class StringList(public val gtkStringListPointer: CPointer<GtkString
 
     public companion object : TypeCompanion<StringList> {
         override val type: GeneratedClassKGType<StringList> =
-            GeneratedClassKGType(gtk_string_list_get_type()) { StringList(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_string_list_get_type")!!) { StringList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

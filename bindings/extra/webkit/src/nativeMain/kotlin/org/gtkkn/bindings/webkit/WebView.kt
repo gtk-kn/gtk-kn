@@ -46,6 +46,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -2623,7 +2624,7 @@ public open class WebView(public val webkitWebViewPointer: CPointer<WebKitWebVie
 
     public companion object : TypeCompanion<WebView> {
         override val type: GeneratedClassKGType<WebView> =
-            GeneratedClassKGType(webkit_web_view_get_type()) { WebView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_web_view_get_type")!!) { WebView(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

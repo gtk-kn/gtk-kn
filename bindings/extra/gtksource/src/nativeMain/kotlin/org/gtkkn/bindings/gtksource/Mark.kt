@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.TextMark
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -102,7 +103,7 @@ public open class Mark(public val gtksourceMarkPointer: CPointer<GtkSourceMark>)
 
     public companion object : TypeCompanion<Mark> {
         override val type: GeneratedClassKGType<Mark> =
-            GeneratedClassKGType(gtk_source_mark_get_type()) { Mark(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_mark_get_type")!!) { Mark(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

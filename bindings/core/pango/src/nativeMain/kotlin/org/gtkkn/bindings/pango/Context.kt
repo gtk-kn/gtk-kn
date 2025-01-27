@@ -10,6 +10,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -401,7 +402,7 @@ public open class Context(public val pangoContextPointer: CPointer<PangoContext>
 
     public companion object : TypeCompanion<Context> {
         override val type: GeneratedClassKGType<Context> =
-            GeneratedClassKGType(pango_context_get_type()) { Context(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("pango_context_get_type")!!) { Context(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

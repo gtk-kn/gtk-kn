@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -471,7 +472,9 @@ public class NavigationSplitView(public val adwNavigationSplitViewPointer: CPoin
 
     public companion object : TypeCompanion<NavigationSplitView> {
         override val type: GeneratedClassKGType<NavigationSplitView> =
-            GeneratedClassKGType(adw_navigation_split_view_get_type()) { NavigationSplitView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_navigation_split_view_get_type")!!) {
+                NavigationSplitView(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

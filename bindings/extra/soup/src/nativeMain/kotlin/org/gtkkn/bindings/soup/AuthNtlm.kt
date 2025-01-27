@@ -5,6 +5,7 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -24,7 +25,7 @@ public class AuthNtlm(public val soupAuthNtlmPointer: CPointer<SoupAuth>) :
     KGTyped {
     public companion object : TypeCompanion<AuthNtlm> {
         override val type: GeneratedClassKGType<AuthNtlm> =
-            GeneratedClassKGType(soup_auth_ntlm_get_type()) { AuthNtlm(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_ntlm_get_type")!!) { AuthNtlm(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
