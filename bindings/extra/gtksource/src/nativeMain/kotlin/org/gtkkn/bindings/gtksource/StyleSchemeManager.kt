@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -134,7 +135,7 @@ public open class StyleSchemeManager(
 
     public companion object : TypeCompanion<StyleSchemeManager> {
         override val type: GeneratedClassKGType<StyleSchemeManager> =
-            GeneratedClassKGType(gtk_source_style_scheme_manager_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_manager_get_type")!!) {
                 StyleSchemeManager(it.reinterpret())
             }
 

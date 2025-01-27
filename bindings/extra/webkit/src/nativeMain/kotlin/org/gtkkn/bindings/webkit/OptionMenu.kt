@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -155,7 +156,7 @@ public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptio
 
     public companion object : TypeCompanion<OptionMenu> {
         override val type: GeneratedClassKGType<OptionMenu> =
-            GeneratedClassKGType(webkit_option_menu_get_type()) { OptionMenu(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_option_menu_get_type")!!) { OptionMenu(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

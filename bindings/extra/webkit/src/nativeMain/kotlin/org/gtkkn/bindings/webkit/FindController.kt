@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -278,7 +279,9 @@ public class FindController(public val webkitFindControllerPointer: CPointer<Web
 
     public companion object : TypeCompanion<FindController> {
         override val type: GeneratedClassKGType<FindController> =
-            GeneratedClassKGType(webkit_find_controller_get_type()) { FindController(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_find_controller_get_type")!!) {
+                FindController(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

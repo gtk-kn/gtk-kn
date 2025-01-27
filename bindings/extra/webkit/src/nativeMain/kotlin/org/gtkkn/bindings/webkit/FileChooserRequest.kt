@@ -8,6 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.FileFilter
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -171,7 +172,9 @@ public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPoi
 
     public companion object : TypeCompanion<FileChooserRequest> {
         override val type: GeneratedClassKGType<FileChooserRequest> =
-            GeneratedClassKGType(webkit_file_chooser_request_get_type()) { FileChooserRequest(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_file_chooser_request_get_type")!!) {
+                FileChooserRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

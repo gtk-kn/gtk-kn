@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -124,7 +125,9 @@ public abstract class SocketAddress(public val gioSocketAddressPointer: CPointer
 
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-            GeneratedClassKGType(g_socket_address_get_type()) { SocketAddressImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_socket_address_get_type")!!) {
+                SocketAddressImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

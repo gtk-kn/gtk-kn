@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -50,7 +51,9 @@ public interface BuilderScope :
 
     public companion object : TypeCompanion<BuilderScope> {
         override val type: GeneratedInterfaceKGType<BuilderScope> =
-            GeneratedInterfaceKGType(gtk_builder_scope_get_type()) { BuilderScopeImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_builder_scope_get_type")!!) {
+                BuilderScopeImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

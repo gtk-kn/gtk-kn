@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -135,7 +136,7 @@ public open class NetworkService(public val gioNetworkServicePointer: CPointer<G
 
     public companion object : TypeCompanion<NetworkService> {
         override val type: GeneratedClassKGType<NetworkService> =
-            GeneratedClassKGType(g_network_service_get_type()) { NetworkService(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_network_service_get_type")!!) { NetworkService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

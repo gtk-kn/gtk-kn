@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -139,7 +140,7 @@ public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<G
 
     public companion object : TypeCompanion<NetworkAddress> {
         override val type: GeneratedClassKGType<NetworkAddress> =
-            GeneratedClassKGType(g_network_address_get_type()) { NetworkAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_network_address_get_type")!!) { NetworkAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

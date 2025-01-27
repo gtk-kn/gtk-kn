@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -438,7 +439,7 @@ public abstract class InputStream(public val gioInputStreamPointer: CPointer<GIn
 
     public companion object : TypeCompanion<InputStream> {
         override val type: GeneratedClassKGType<InputStream> =
-            GeneratedClassKGType(g_input_stream_get_type()) { InputStreamImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_input_stream_get_type")!!) { InputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

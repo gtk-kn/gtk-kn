@@ -43,12 +43,14 @@ interface TypeProviderGenerator {
             .plusParameter(BindingsGenerator.GOBJECT_KG_TYPE.parameterizedBy(STAR))
 
         val initializer = CodeBlock.builder().apply {
-            addStatement("mapOf(")
+            beginControlFlow("buildMap")
             repository.classBlueprints
                 .filter { it.glibGetTypeFunc != null }
                 .forEach { clazz ->
                     addStatement(
-                        "%T::class to %T.type,",
+                        "if (%M(%S) != null) put(%T::class, %T.type)",
+                        BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
+                        checkNotNull(clazz.glibGetTypeFunc).simpleName,
                         clazz.typeName,
                         clazz.typeName,
                     )
@@ -57,12 +59,14 @@ interface TypeProviderGenerator {
                 .filter { it.glibGetTypeFunc != null }
                 .forEach { iface ->
                     addStatement(
-                        "%T::class to %T.type,",
+                        "if (%M(%S) != null) put(%T::class, %T.type)",
+                        BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
+                        checkNotNull(iface.glibGetTypeFunc).simpleName,
                         iface.typeName,
                         iface.typeName,
                     )
                 }
-            addStatement(")")
+            endControlFlow()
         }.build()
 
         return PropertySpec.builder("typeMap", mapType, KModifier.OVERRIDE)

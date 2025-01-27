@@ -25,6 +25,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -237,7 +238,9 @@ public open class ContentProvider(public val gdkContentProviderPointer: CPointer
 
     public companion object : TypeCompanion<ContentProvider> {
         override val type: GeneratedClassKGType<ContentProvider> =
-            GeneratedClassKGType(gdk_content_provider_get_type()) { ContentProvider(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_content_provider_get_type")!!) {
+                ContentProvider(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

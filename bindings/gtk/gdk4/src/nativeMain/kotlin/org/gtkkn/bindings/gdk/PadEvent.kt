@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -35,7 +36,7 @@ public open class PadEvent(public val gdkPadEventPointer: CPointer<GdkPadEvent>)
 
     public companion object : TypeCompanion<PadEvent> {
         override val type: GeneratedClassKGType<PadEvent> =
-            GeneratedClassKGType(gdk_pad_event_get_type()) { PadEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pad_event_get_type")!!) { PadEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

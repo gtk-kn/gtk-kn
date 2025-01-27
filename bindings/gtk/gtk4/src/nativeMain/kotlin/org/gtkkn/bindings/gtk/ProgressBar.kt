@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.EllipsizeMode
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -293,7 +294,7 @@ public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProg
 
     public companion object : TypeCompanion<ProgressBar> {
         override val type: GeneratedClassKGType<ProgressBar> =
-            GeneratedClassKGType(gtk_progress_bar_get_type()) { ProgressBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_progress_bar_get_type")!!) { ProgressBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

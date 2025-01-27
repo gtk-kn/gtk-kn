@@ -14,6 +14,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -331,7 +332,7 @@ public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScal
 
     public companion object : TypeCompanion<ScaleButton> {
         override val type: GeneratedClassKGType<ScaleButton> =
-            GeneratedClassKGType(gtk_scale_button_get_type()) { ScaleButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_scale_button_get_type")!!) { ScaleButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

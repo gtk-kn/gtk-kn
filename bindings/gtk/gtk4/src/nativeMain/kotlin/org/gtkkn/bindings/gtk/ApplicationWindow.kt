@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.bindings.gio.ActionMap
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -211,7 +212,9 @@ public open class ApplicationWindow(public val gtkApplicationWindowPointer: CPoi
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-            GeneratedClassKGType(gtk_application_window_get_type()) { ApplicationWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_application_window_get_type")!!) {
+                ApplicationWindow(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

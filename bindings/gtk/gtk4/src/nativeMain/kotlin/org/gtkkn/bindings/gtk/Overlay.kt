@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -212,7 +213,7 @@ public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
 
     public companion object : TypeCompanion<Overlay> {
         override val type: GeneratedClassKGType<Overlay> =
-            GeneratedClassKGType(gtk_overlay_get_type()) { Overlay(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_overlay_get_type")!!) { Overlay(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

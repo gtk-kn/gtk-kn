@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -38,7 +39,9 @@ public open class RecordingSurface(public val cairoRecordingSurfacePointer: CPoi
 
     public companion object : TypeCompanion<RecordingSurface> {
         override val type: GeneratedClassKGType<RecordingSurface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { RecordingSurface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) {
+                RecordingSurface(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

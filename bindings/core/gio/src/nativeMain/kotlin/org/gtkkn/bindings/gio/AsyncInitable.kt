@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Parameter
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -263,7 +264,9 @@ public interface AsyncInitable :
 
     public companion object : TypeCompanion<AsyncInitable> {
         override val type: GeneratedInterfaceKGType<AsyncInitable> =
-            GeneratedInterfaceKGType(g_async_initable_get_type()) { AsyncInitableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_async_initable_get_type")!!) {
+                AsyncInitableImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

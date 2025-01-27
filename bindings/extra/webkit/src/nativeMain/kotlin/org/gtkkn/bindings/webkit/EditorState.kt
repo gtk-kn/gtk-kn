@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_44
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -145,7 +146,7 @@ public class EditorState(public val webkitEditorStatePointer: CPointer<WebKitEdi
 
     public companion object : TypeCompanion<EditorState> {
         override val type: GeneratedClassKGType<EditorState> =
-            GeneratedClassKGType(webkit_editor_state_get_type()) { EditorState(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_editor_state_get_type")!!) { EditorState(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

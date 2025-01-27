@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -117,7 +118,7 @@ public open class PropertyAction(public val gioPropertyActionPointer: CPointer<G
 
     public companion object : TypeCompanion<PropertyAction> {
         override val type: GeneratedClassKGType<PropertyAction> =
-            GeneratedClassKGType(g_property_action_get_type()) { PropertyAction(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_property_action_get_type")!!) { PropertyAction(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

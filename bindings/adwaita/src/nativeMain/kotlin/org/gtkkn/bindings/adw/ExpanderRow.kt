@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -291,7 +292,7 @@ public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpa
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =
-            GeneratedClassKGType(adw_expander_row_get_type()) { ExpanderRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_expander_row_get_type")!!) { ExpanderRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

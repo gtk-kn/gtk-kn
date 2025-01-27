@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -393,7 +394,7 @@ public class Carousel(public val adwCarouselPointer: CPointer<AdwCarousel>) :
 
     public companion object : TypeCompanion<Carousel> {
         override val type: GeneratedClassKGType<Carousel> =
-            GeneratedClassKGType(adw_carousel_get_type()) { Carousel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_carousel_get_type")!!) { Carousel(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

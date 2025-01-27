@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -99,7 +100,7 @@ public open class StackSwitcher(public val gtkStackSwitcherPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<StackSwitcher> {
         override val type: GeneratedClassKGType<StackSwitcher> =
-            GeneratedClassKGType(gtk_stack_switcher_get_type()) { StackSwitcher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_stack_switcher_get_type")!!) { StackSwitcher(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

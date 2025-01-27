@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -189,7 +190,7 @@ public open class Frame(public val gtkFramePointer: CPointer<GtkFrame>) :
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =
-            GeneratedClassKGType(gtk_frame_get_type()) { Frame(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_frame_get_type")!!) { Frame(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

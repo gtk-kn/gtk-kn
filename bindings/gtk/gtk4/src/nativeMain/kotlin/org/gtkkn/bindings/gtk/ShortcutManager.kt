@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -44,7 +45,9 @@ public interface ShortcutManager :
 
     public companion object : TypeCompanion<ShortcutManager> {
         override val type: GeneratedInterfaceKGType<ShortcutManager> =
-            GeneratedInterfaceKGType(gtk_shortcut_manager_get_type()) { ShortcutManagerImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_shortcut_manager_get_type")!!) {
+                ShortcutManagerImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

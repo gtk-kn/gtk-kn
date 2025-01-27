@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -74,7 +75,9 @@ public open class SelectionFilterModel(public val gtkSelectionFilterModelPointer
 
     public companion object : TypeCompanion<SelectionFilterModel> {
         override val type: GeneratedClassKGType<SelectionFilterModel> =
-            GeneratedClassKGType(gtk_selection_filter_model_get_type()) { SelectionFilterModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_selection_filter_model_get_type")!!) {
+                SelectionFilterModel(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

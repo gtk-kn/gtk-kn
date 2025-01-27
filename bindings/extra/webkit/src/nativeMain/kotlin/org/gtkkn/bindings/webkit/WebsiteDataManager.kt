@@ -24,6 +24,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_10
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -373,7 +374,9 @@ public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPoi
 
     public companion object : TypeCompanion<WebsiteDataManager> {
         override val type: GeneratedClassKGType<WebsiteDataManager> =
-            GeneratedClassKGType(webkit_website_data_manager_get_type()) { WebsiteDataManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_website_data_manager_get_type")!!) {
+                WebsiteDataManager(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

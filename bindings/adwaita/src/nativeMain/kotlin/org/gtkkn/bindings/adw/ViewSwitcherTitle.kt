@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -232,7 +233,9 @@ public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<
 
     public companion object : TypeCompanion<ViewSwitcherTitle> {
         override val type: GeneratedClassKGType<ViewSwitcherTitle> =
-            GeneratedClassKGType(adw_view_switcher_title_get_type()) { ViewSwitcherTitle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_view_switcher_title_get_type")!!) {
+                ViewSwitcherTitle(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

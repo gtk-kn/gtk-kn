@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -155,7 +156,7 @@ public open class MapListModel(public val gtkMapListModelPointer: CPointer<GtkMa
 
     public companion object : TypeCompanion<MapListModel> {
         override val type: GeneratedClassKGType<MapListModel> =
-            GeneratedClassKGType(gtk_map_list_model_get_type()) { MapListModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_map_list_model_get_type")!!) { MapListModel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

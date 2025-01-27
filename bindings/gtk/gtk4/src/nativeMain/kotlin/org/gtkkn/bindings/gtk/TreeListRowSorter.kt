@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -72,7 +73,9 @@ public open class TreeListRowSorter(public val gtkTreeListRowSorterPointer: CPoi
 
     public companion object : TypeCompanion<TreeListRowSorter> {
         override val type: GeneratedClassKGType<TreeListRowSorter> =
-            GeneratedClassKGType(gtk_tree_list_row_sorter_get_type()) { TreeListRowSorter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_sorter_get_type")!!) {
+                TreeListRowSorter(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

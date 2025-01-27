@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -354,7 +355,7 @@ public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkChec
 
     public companion object : TypeCompanion<CheckButton> {
         override val type: GeneratedClassKGType<CheckButton> =
-            GeneratedClassKGType(gtk_check_button_get_type()) { CheckButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_check_button_get_type")!!) { CheckButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.Transform
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -45,7 +46,9 @@ public open class FixedLayoutChild(public val gtkFixedLayoutChildPointer: CPoint
 
     public companion object : TypeCompanion<FixedLayoutChild> {
         override val type: GeneratedClassKGType<FixedLayoutChild> =
-            GeneratedClassKGType(gtk_fixed_layout_child_get_type()) { FixedLayoutChild(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_fixed_layout_child_get_type")!!) {
+                FixedLayoutChild(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

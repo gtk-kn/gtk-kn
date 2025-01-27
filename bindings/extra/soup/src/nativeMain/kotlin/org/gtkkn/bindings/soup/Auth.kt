@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -251,7 +252,7 @@ public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
 
     public companion object : TypeCompanion<Auth> {
         override val type: GeneratedClassKGType<Auth> =
-            GeneratedClassKGType(soup_auth_get_type()) { AuthImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_get_type")!!) { AuthImpl(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

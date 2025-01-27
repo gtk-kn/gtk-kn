@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.PageSetup
 import org.gtkkn.bindings.gtk.PrintSettings
 import org.gtkkn.bindings.gtk.Window
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -218,7 +219,9 @@ public class PrintOperation(public val webkitPrintOperationPointer: CPointer<Web
 
     public companion object : TypeCompanion<PrintOperation> {
         override val type: GeneratedClassKGType<PrintOperation> =
-            GeneratedClassKGType(webkit_print_operation_get_type()) { PrintOperation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_print_operation_get_type")!!) {
+                PrintOperation(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

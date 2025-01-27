@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -168,7 +169,7 @@ public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPag
 
     public companion object : TypeCompanion<StackPage> {
         override val type: GeneratedClassKGType<StackPage> =
-            GeneratedClassKGType(gtk_stack_page_get_type()) { StackPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_stack_page_get_type")!!) { StackPage(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

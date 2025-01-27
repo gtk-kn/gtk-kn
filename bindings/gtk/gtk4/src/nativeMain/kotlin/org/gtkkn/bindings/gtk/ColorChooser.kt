@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -140,7 +141,9 @@ public interface ColorChooser :
 
     public companion object : TypeCompanion<ColorChooser> {
         override val type: GeneratedInterfaceKGType<ColorChooser> =
-            GeneratedInterfaceKGType(gtk_color_chooser_get_type()) { ColorChooserImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_color_chooser_get_type")!!) {
+                ColorChooserImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

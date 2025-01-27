@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -782,7 +783,7 @@ public open class FlowBox(public val gtkFlowBoxPointer: CPointer<GtkFlowBox>) :
 
     public companion object : TypeCompanion<FlowBox> {
         override val type: GeneratedClassKGType<FlowBox> =
-            GeneratedClassKGType(gtk_flow_box_get_type()) { FlowBox(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_flow_box_get_type")!!) { FlowBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

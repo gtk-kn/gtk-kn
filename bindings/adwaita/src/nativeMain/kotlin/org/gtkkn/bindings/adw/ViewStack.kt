@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gtk.SelectionModel
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -327,7 +328,7 @@ public class ViewStack(public val adwViewStackPointer: CPointer<AdwViewStack>) :
 
     public companion object : TypeCompanion<ViewStack> {
         override val type: GeneratedClassKGType<ViewStack> =
-            GeneratedClassKGType(adw_view_stack_get_type()) { ViewStack(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_view_stack_get_type")!!) { ViewStack(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

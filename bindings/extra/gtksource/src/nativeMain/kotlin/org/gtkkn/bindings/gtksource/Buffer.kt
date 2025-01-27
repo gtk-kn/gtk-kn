@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextMark
 import org.gtkkn.bindings.gtk.TextTagTable
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -620,7 +621,7 @@ public open class Buffer(public val gtksourceBufferPointer: CPointer<GtkSourceBu
 
     public companion object : TypeCompanion<Buffer> {
         override val type: GeneratedClassKGType<Buffer> =
-            GeneratedClassKGType(gtk_source_buffer_get_type()) { Buffer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_buffer_get_type")!!) { Buffer(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -108,7 +109,7 @@ public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
 
     public companion object : TypeCompanion<Cache> {
         override val type: GeneratedClassKGType<Cache> =
-            GeneratedClassKGType(soup_cache_get_type()) { Cache(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_cache_get_type")!!) { Cache(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

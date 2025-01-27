@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -69,7 +70,7 @@ public class AuthManager(public val soupAuthManagerPointer: CPointer<SoupAuthMan
 
     public companion object : TypeCompanion<AuthManager> {
         override val type: GeneratedClassKGType<AuthManager> =
-            GeneratedClassKGType(soup_auth_manager_get_type()) { AuthManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_manager_get_type")!!) { AuthManager(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

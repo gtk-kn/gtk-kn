@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -49,7 +50,9 @@ public open class MnemonicTrigger(public val gtkMnemonicTriggerPointer: CPointer
 
     public companion object : TypeCompanion<MnemonicTrigger> {
         override val type: GeneratedClassKGType<MnemonicTrigger> =
-            GeneratedClassKGType(gtk_mnemonic_trigger_get_type()) { MnemonicTrigger(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_mnemonic_trigger_get_type")!!) {
+                MnemonicTrigger(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

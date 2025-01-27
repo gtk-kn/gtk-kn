@@ -33,6 +33,7 @@ import org.gtkkn.bindings.glib.OptionGroup
 import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -1187,7 +1188,7 @@ public open class Application(public val gioApplicationPointer: CPointer<GApplic
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(g_application_get_type()) { Application(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_application_get_type")!!) { Application(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

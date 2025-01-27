@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -110,7 +111,7 @@ public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<EditableLabel> {
         override val type: GeneratedClassKGType<EditableLabel> =
-            GeneratedClassKGType(gtk_editable_label_get_type()) { EditableLabel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_editable_label_get_type")!!) { EditableLabel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

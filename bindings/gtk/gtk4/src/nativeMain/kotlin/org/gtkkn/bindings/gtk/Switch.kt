@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -195,7 +196,7 @@ public open class Switch(public val gtkSwitchPointer: CPointer<GtkSwitch>) :
 
     public companion object : TypeCompanion<Switch> {
         override val type: GeneratedClassKGType<Switch> =
-            GeneratedClassKGType(gtk_switch_get_type()) { Switch(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_switch_get_type")!!) { Switch(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

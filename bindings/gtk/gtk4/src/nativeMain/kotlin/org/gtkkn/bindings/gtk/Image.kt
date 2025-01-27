@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.Icon
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -380,7 +381,7 @@ public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
 
     public companion object : TypeCompanion<Image> {
         override val type: GeneratedClassKGType<Image> =
-            GeneratedClassKGType(gtk_image_get_type()) { Image(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_image_get_type")!!) { Image(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

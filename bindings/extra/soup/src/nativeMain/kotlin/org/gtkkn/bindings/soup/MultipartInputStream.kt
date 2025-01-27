@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gio.PollableInputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.soup.Soup.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -178,7 +179,9 @@ public class MultipartInputStream(public val soupMultipartInputStreamPointer: CP
 
     public companion object : TypeCompanion<MultipartInputStream> {
         override val type: GeneratedClassKGType<MultipartInputStream> =
-            GeneratedClassKGType(soup_multipart_input_stream_get_type()) { MultipartInputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_multipart_input_stream_get_type")!!) {
+                MultipartInputStream(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

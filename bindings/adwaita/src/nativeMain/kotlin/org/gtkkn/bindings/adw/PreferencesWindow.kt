@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -256,7 +257,9 @@ public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPoi
 
     public companion object : TypeCompanion<PreferencesWindow> {
         override val type: GeneratedClassKGType<PreferencesWindow> =
-            GeneratedClassKGType(adw_preferences_window_get_type()) { PreferencesWindow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_preferences_window_get_type")!!) {
+                PreferencesWindow(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

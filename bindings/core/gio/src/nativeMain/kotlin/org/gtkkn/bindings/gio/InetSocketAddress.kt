@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -134,7 +135,9 @@ public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPoi
 
     public companion object : TypeCompanion<InetSocketAddress> {
         override val type: GeneratedClassKGType<InetSocketAddress> =
-            GeneratedClassKGType(g_inet_socket_address_get_type()) { InetSocketAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_inet_socket_address_get_type")!!) {
+                InetSocketAddress(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

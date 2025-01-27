@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -102,7 +103,7 @@ public class SwitchRow(public val adwSwitchRowPointer: CPointer<AdwSwitchRow>) :
 
     public companion object : TypeCompanion<SwitchRow> {
         override val type: GeneratedClassKGType<SwitchRow> =
-            GeneratedClassKGType(adw_switch_row_get_type()) { SwitchRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_switch_row_get_type")!!) { SwitchRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -47,7 +48,7 @@ public open class NotebookPage(public val gtkNotebookPagePointer: CPointer<GtkNo
 
     public companion object : TypeCompanion<NotebookPage> {
         override val type: GeneratedClassKGType<NotebookPage> =
-            GeneratedClassKGType(gtk_notebook_page_get_type()) { NotebookPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_notebook_page_get_type")!!) { NotebookPage(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -45,7 +46,9 @@ public open class CellRendererProgress(public val gtkCellRendererProgressPointer
 
     public companion object : TypeCompanion<CellRendererProgress> {
         override val type: GeneratedClassKGType<CellRendererProgress> =
-            GeneratedClassKGType(gtk_cell_renderer_progress_get_type()) { CellRendererProgress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_progress_get_type")!!) {
+                CellRendererProgress(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

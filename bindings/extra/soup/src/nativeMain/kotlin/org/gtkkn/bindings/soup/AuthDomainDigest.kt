@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -59,7 +60,9 @@ public class AuthDomainDigest(public val soupAuthDomainDigestPointer: CPointer<S
 
     public companion object : TypeCompanion<AuthDomainDigest> {
         override val type: GeneratedClassKGType<AuthDomainDigest> =
-            GeneratedClassKGType(soup_auth_domain_digest_get_type()) { AuthDomainDigest(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_domain_digest_get_type")!!) {
+                AuthDomainDigest(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

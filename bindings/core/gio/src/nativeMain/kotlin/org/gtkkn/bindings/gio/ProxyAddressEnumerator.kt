@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -37,7 +38,9 @@ public open class ProxyAddressEnumerator(
     KGTyped {
     public companion object : TypeCompanion<ProxyAddressEnumerator> {
         override val type: GeneratedClassKGType<ProxyAddressEnumerator> =
-            GeneratedClassKGType(g_proxy_address_enumerator_get_type()) { ProxyAddressEnumerator(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_proxy_address_enumerator_get_type")!!) {
+                ProxyAddressEnumerator(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

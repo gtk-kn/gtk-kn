@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -73,7 +74,9 @@ public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPoi
 
     public companion object : TypeCompanion<MemoryInputStream> {
         override val type: GeneratedClassKGType<MemoryInputStream> =
-            GeneratedClassKGType(g_memory_input_stream_get_type()) { MemoryInputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_memory_input_stream_get_type")!!) {
+                MemoryInputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

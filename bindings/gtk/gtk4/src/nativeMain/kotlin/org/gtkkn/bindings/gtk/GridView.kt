@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -330,7 +331,7 @@ public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>)
 
     public companion object : TypeCompanion<GridView> {
         override val type: GeneratedClassKGType<GridView> =
-            GeneratedClassKGType(gtk_grid_view_get_type()) { GridView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_grid_view_get_type")!!) { GridView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

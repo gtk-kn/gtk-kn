@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.ScrollUnit
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -226,7 +227,9 @@ public open class EventControllerScroll(
 
     public companion object : TypeCompanion<EventControllerScroll> {
         override val type: GeneratedClassKGType<EventControllerScroll> =
-            GeneratedClassKGType(gtk_event_controller_scroll_get_type()) { EventControllerScroll(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_scroll_get_type")!!) {
+                EventControllerScroll(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

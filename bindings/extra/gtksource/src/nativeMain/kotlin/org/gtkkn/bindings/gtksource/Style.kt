@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextTag
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -75,7 +76,7 @@ public open class Style(public val gtksourceStylePointer: CPointer<GtkSourceStyl
 
     public companion object : TypeCompanion<Style> {
         override val type: GeneratedClassKGType<Style> =
-            GeneratedClassKGType(gtk_source_style_get_type()) { Style(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_style_get_type")!!) { Style(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -87,7 +88,7 @@ public open class NumericSorter(public val gtkNumericSorterPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<NumericSorter> {
         override val type: GeneratedClassKGType<NumericSorter> =
-            GeneratedClassKGType(gtk_numeric_sorter_get_type()) { NumericSorter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_numeric_sorter_get_type")!!) { NumericSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

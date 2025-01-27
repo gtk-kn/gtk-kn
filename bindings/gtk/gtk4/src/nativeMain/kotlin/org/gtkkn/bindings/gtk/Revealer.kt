@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -176,7 +177,7 @@ public open class Revealer(public val gtkRevealerPointer: CPointer<GtkRevealer>)
 
     public companion object : TypeCompanion<Revealer> {
         override val type: GeneratedClassKGType<Revealer> =
-            GeneratedClassKGType(gtk_revealer_get_type()) { Revealer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_revealer_get_type")!!) { Revealer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

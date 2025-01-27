@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -150,7 +151,9 @@ public interface TreeSortable :
 
     public companion object : TypeCompanion<TreeSortable> {
         override val type: GeneratedInterfaceKGType<TreeSortable> =
-            GeneratedInterfaceKGType(gtk_tree_sortable_get_type()) { TreeSortableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_sortable_get_type")!!) {
+                TreeSortableImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -20,6 +20,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.TabArray
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1611,7 +1612,7 @@ public open class TextView(public val gtkTextViewPointer: CPointer<GtkTextView>)
 
     public companion object : TypeCompanion<TextView> {
         override val type: GeneratedClassKGType<TextView> =
-            GeneratedClassKGType(gtk_text_view_get_type()) { TextView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_text_view_get_type")!!) { TextView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

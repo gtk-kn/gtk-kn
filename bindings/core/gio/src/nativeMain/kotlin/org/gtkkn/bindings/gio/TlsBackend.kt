@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -165,7 +166,7 @@ public interface TlsBackend :
 
     public companion object : TypeCompanion<TlsBackend> {
         override val type: GeneratedInterfaceKGType<TlsBackend> =
-            GeneratedInterfaceKGType(g_tls_backend_get_type()) { TlsBackendImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_tls_backend_get_type")!!) { TlsBackendImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

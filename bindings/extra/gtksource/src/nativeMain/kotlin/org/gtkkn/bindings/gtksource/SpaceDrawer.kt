@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gio.Settings
 import org.gtkkn.bindings.gio.SettingsBindFlags
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -196,7 +197,9 @@ public open class SpaceDrawer(public val gtksourceSpaceDrawerPointer: CPointer<G
 
     public companion object : TypeCompanion<SpaceDrawer> {
         override val type: GeneratedClassKGType<SpaceDrawer> =
-            GeneratedClassKGType(gtk_source_space_drawer_get_type()) { SpaceDrawer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_space_drawer_get_type")!!) {
+                SpaceDrawer(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

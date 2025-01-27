@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -143,7 +144,9 @@ public interface SocketConnectable :
 
     public companion object : TypeCompanion<SocketConnectable> {
         override val type: GeneratedInterfaceKGType<SocketConnectable> =
-            GeneratedInterfaceKGType(g_socket_connectable_get_type()) { SocketConnectableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_socket_connectable_get_type")!!) {
+                SocketConnectableImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

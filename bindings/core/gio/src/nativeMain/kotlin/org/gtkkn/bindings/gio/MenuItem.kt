@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -371,7 +372,7 @@ public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
 
     public companion object : TypeCompanion<MenuItem> {
         override val type: GeneratedClassKGType<MenuItem> =
-            GeneratedClassKGType(g_menu_item_get_type()) { MenuItem(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_menu_item_get_type")!!) { MenuItem(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

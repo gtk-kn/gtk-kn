@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -44,7 +45,7 @@ public open class EveryFilter(public val gtkEveryFilterPointer: CPointer<GtkEver
 
     public companion object : TypeCompanion<EveryFilter> {
         override val type: GeneratedClassKGType<EveryFilter> =
-            GeneratedClassKGType(gtk_every_filter_get_type()) { EveryFilter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_every_filter_get_type")!!) { EveryFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

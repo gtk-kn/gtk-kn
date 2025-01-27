@@ -1,0 +1,16 @@
+cairo=1.18.0
+gdk-pixbuf-2.0=2.42.10
+gio-unix-2.0=2.78.6
+glib-2.0=2.78.6
+gmodule-2.0=2.78.6
+gobject-2.0=2.78.6
+graphene-1.0=1.10.6
+gtk4=4.12.5
+gtksourceview-5=5.10.0
+harfbuzz=8.2.1
+javascriptcoregtk-6.0=2.46.3
+libadwaita-1=1.4.8
+libsoup-3.0=3.4.4
+pango=1.51.0
+pangocairo=1.51.0
+webkitgtk-6.0=2.46.3

@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -298,7 +299,7 @@ public abstract class Permission(public val gioPermissionPointer: CPointer<GPerm
 
     public companion object : TypeCompanion<Permission> {
         override val type: GeneratedClassKGType<Permission> =
-            GeneratedClassKGType(g_permission_get_type()) { PermissionImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_permission_get_type")!!) { PermissionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

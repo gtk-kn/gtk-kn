@@ -5,6 +5,7 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -32,7 +33,9 @@ public class AuthNegotiate(public val soupAuthNegotiatePointer: CPointer<SoupAut
     KGTyped {
     public companion object : TypeCompanion<AuthNegotiate> {
         override val type: GeneratedClassKGType<AuthNegotiate> =
-            GeneratedClassKGType(soup_auth_negotiate_get_type()) { AuthNegotiate(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_negotiate_get_type")!!) {
+                AuthNegotiate(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

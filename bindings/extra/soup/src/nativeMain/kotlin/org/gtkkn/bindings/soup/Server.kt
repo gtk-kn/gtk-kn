@@ -25,6 +25,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -797,7 +798,7 @@ public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
 
     public companion object : TypeCompanion<Server> {
         override val type: GeneratedClassKGType<Server> =
-            GeneratedClassKGType(soup_server_get_type()) { Server(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_server_get_type")!!) { Server(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

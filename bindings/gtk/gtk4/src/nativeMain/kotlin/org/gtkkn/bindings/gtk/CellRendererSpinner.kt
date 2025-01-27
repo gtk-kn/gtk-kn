@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -46,7 +47,9 @@ public open class CellRendererSpinner(public val gtkCellRendererSpinnerPointer: 
 
     public companion object : TypeCompanion<CellRendererSpinner> {
         override val type: GeneratedClassKGType<CellRendererSpinner> =
-            GeneratedClassKGType(gtk_cell_renderer_spinner_get_type()) { CellRendererSpinner(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_spinner_get_type")!!) {
+                CellRendererSpinner(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -186,7 +187,7 @@ public open class TextTag(public val gtkTextTagPointer: CPointer<GtkTextTag>) :
 
     public companion object : TypeCompanion<TextTag> {
         override val type: GeneratedClassKGType<TextTag> =
-            GeneratedClassKGType(gtk_text_tag_get_type()) { TextTag(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_text_tag_get_type")!!) { TextTag(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

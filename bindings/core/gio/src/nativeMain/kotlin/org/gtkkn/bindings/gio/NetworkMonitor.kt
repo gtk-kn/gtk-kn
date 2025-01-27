@@ -22,6 +22,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -348,7 +349,9 @@ public interface NetworkMonitor :
 
     public companion object : TypeCompanion<NetworkMonitor> {
         override val type: GeneratedInterfaceKGType<NetworkMonitor> =
-            GeneratedInterfaceKGType(g_network_monitor_get_type()) { NetworkMonitorImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_network_monitor_get_type")!!) {
+                NetworkMonitorImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

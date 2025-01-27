@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -309,7 +310,9 @@ public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPoint
 
     public companion object : TypeCompanion<ColumnViewColumn> {
         override val type: GeneratedClassKGType<ColumnViewColumn> =
-            GeneratedClassKGType(gtk_column_view_column_get_type()) { ColumnViewColumn(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_column_view_column_get_type")!!) {
+                ColumnViewColumn(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

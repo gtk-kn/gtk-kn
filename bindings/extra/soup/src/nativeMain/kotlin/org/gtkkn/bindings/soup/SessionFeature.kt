@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -41,7 +42,9 @@ public interface SessionFeature :
 
     public companion object : TypeCompanion<SessionFeature> {
         override val type: GeneratedInterfaceKGType<SessionFeature> =
-            GeneratedInterfaceKGType(soup_session_feature_get_type()) { SessionFeatureImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("soup_session_feature_get_type")!!) {
+                SessionFeatureImpl(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

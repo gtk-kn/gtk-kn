@@ -13,6 +13,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -327,7 +328,9 @@ public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =
-            GeneratedClassKGType(g_dbus_method_invocation_get_type()) { DBusMethodInvocation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_method_invocation_get_type")!!) {
+                DBusMethodInvocation(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

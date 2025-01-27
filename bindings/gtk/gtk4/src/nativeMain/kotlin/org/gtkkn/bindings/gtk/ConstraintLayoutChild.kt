@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -21,7 +22,9 @@ public open class ConstraintLayoutChild(
     KGTyped {
     public companion object : TypeCompanion<ConstraintLayoutChild> {
         override val type: GeneratedClassKGType<ConstraintLayoutChild> =
-            GeneratedClassKGType(gtk_constraint_layout_child_get_type()) { ConstraintLayoutChild(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_constraint_layout_child_get_type")!!) {
+                ConstraintLayoutChild(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

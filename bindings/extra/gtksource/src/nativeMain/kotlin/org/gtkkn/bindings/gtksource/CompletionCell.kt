@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.pango.AttrList
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -112,7 +113,9 @@ public open class CompletionCell(public val gtksourceCompletionCellPointer: CPoi
 
     public companion object : TypeCompanion<CompletionCell> {
         override val type: GeneratedClassKGType<CompletionCell> =
-            GeneratedClassKGType(gtk_source_completion_cell_get_type()) { CompletionCell(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_cell_get_type")!!) {
+                CompletionCell(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

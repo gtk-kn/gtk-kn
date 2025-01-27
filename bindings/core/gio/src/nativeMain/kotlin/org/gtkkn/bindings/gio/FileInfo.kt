@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -935,7 +936,7 @@ public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
 
     public companion object : TypeCompanion<FileInfo> {
         override val type: GeneratedClassKGType<FileInfo> =
-            GeneratedClassKGType(g_file_info_get_type()) { FileInfo(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_file_info_get_type")!!) { FileInfo(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

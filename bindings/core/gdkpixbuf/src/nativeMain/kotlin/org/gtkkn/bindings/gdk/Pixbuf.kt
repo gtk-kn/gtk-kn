@@ -37,6 +37,7 @@ import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -1334,7 +1335,7 @@ public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
 
     public companion object : TypeCompanion<Pixbuf> {
         override val type: GeneratedClassKGType<Pixbuf> =
-            GeneratedClassKGType(gdk_pixbuf_get_type()) { Pixbuf(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_get_type")!!) { Pixbuf(it.reinterpret()) }
 
         init {
             GdkpixbufTypeProvider.register()

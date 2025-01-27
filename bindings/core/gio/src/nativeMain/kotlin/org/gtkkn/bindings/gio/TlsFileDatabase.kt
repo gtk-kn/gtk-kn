@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -52,7 +53,9 @@ public interface TlsFileDatabase :
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =
-            GeneratedInterfaceKGType(g_tls_file_database_get_type()) { TlsFileDatabaseImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_tls_file_database_get_type")!!) {
+                TlsFileDatabaseImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -790,7 +791,7 @@ public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
 
     public companion object : TypeCompanion<ListBox> {
         override val type: GeneratedClassKGType<ListBox> =
-            GeneratedClassKGType(gtk_list_box_get_type()) { ListBox(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_box_get_type")!!) { ListBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

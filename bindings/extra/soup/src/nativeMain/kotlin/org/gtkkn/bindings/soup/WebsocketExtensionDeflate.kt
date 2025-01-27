@@ -5,6 +5,7 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -25,7 +26,7 @@ public class WebsocketExtensionDeflate(
     KGTyped {
     public companion object : TypeCompanion<WebsocketExtensionDeflate> {
         override val type: GeneratedClassKGType<WebsocketExtensionDeflate> =
-            GeneratedClassKGType(soup_websocket_extension_deflate_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("soup_websocket_extension_deflate_get_type")!!) {
                 WebsocketExtensionDeflate(it.reinterpret())
             }
 

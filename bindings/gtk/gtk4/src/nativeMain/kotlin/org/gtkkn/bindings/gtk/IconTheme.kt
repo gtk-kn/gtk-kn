@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -391,7 +392,7 @@ public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconThem
 
     public companion object : TypeCompanion<IconTheme> {
         override val type: GeneratedClassKGType<IconTheme> =
-            GeneratedClassKGType(gtk_icon_theme_get_type()) { IconTheme(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_icon_theme_get_type")!!) { IconTheme(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

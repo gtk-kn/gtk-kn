@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -178,7 +179,7 @@ public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>
 
     public companion object : TypeCompanion<StatusPage> {
         override val type: GeneratedClassKGType<StatusPage> =
-            GeneratedClassKGType(adw_status_page_get_type()) { StatusPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_status_page_get_type")!!) { StatusPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -97,7 +98,7 @@ public interface ActionMap :
 
     public companion object : TypeCompanion<ActionMap> {
         override val type: GeneratedInterfaceKGType<ActionMap> =
-            GeneratedInterfaceKGType(g_action_map_get_type()) { ActionMapImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_action_map_get_type")!!) { ActionMapImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -405,7 +406,7 @@ public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
 
     public companion object : TypeCompanion<Stack> {
         override val type: GeneratedClassKGType<Stack> =
-            GeneratedClassKGType(gtk_stack_get_type()) { Stack(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_stack_get_type")!!) { Stack(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

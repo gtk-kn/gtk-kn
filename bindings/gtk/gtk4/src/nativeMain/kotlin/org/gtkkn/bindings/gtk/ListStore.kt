@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -341,7 +342,7 @@ public open class ListStore(public val gtkListStorePointer: CPointer<GtkListStor
 
     public companion object : TypeCompanion<ListStore> {
         override val type: GeneratedClassKGType<ListStore> =
-            GeneratedClassKGType(gtk_list_store_get_type()) { ListStore(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_store_get_type")!!) { ListStore(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

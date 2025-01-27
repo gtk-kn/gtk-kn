@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -32,7 +33,9 @@ public open class BroadwayRenderer(public val gskBroadwayRendererPointer: CPoint
 
     public companion object : TypeCompanion<BroadwayRenderer> {
         override val type: GeneratedClassKGType<BroadwayRenderer> =
-            GeneratedClassKGType(gsk_broadway_renderer_get_type()) { BroadwayRenderer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_broadway_renderer_get_type")!!) {
+                BroadwayRenderer(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

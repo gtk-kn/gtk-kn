@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -107,7 +108,7 @@ public class PropertyAnimationTarget(
 
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =
-            GeneratedClassKGType(adw_property_animation_target_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("adw_property_animation_target_get_type")!!) {
                 PropertyAnimationTarget(it.reinterpret())
             }
 

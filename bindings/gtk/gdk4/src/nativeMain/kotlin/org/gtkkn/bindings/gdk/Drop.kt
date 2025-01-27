@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -285,7 +286,7 @@ public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
 
     public companion object : TypeCompanion<Drop> {
         override val type: GeneratedClassKGType<Drop> =
-            GeneratedClassKGType(gdk_drop_get_type()) { DropImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_drop_get_type")!!) { DropImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

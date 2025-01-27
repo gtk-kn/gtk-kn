@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Expression
 import org.gtkkn.bindings.gtk.ListItemFactory
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -325,7 +326,7 @@ public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>)
 
     public companion object : TypeCompanion<ComboRow> {
         override val type: GeneratedClassKGType<ComboRow> =
-            GeneratedClassKGType(adw_combo_row_get_type()) { ComboRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_combo_row_get_type")!!) { ComboRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

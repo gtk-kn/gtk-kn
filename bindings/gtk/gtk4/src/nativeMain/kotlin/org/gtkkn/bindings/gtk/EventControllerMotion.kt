@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -153,7 +154,9 @@ public open class EventControllerMotion(
 
     public companion object : TypeCompanion<EventControllerMotion> {
         override val type: GeneratedClassKGType<EventControllerMotion> =
-            GeneratedClassKGType(gtk_event_controller_motion_get_type()) { EventControllerMotion(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_motion_get_type")!!) {
+                EventControllerMotion(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

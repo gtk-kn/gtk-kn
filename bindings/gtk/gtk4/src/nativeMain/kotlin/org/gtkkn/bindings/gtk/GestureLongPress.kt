@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -130,7 +131,9 @@ public open class GestureLongPress(public val gtkGestureLongPressPointer: CPoint
 
     public companion object : TypeCompanion<GestureLongPress> {
         override val type: GeneratedClassKGType<GestureLongPress> =
-            GeneratedClassKGType(gtk_gesture_long_press_get_type()) { GestureLongPress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_long_press_get_type")!!) {
+                GestureLongPress(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

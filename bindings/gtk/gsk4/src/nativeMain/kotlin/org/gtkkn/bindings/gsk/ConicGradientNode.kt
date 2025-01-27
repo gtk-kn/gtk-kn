@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -73,7 +74,9 @@ public open class ConicGradientNode(public val gskConicGradientNodePointer: CPoi
 
     public companion object : TypeCompanion<ConicGradientNode> {
         override val type: GeneratedClassKGType<ConicGradientNode> =
-            GeneratedClassKGType(gsk_conic_gradient_node_get_type()) { ConicGradientNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_conic_gradient_node_get_type")!!) {
+                ConicGradientNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

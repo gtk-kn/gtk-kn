@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -90,7 +91,9 @@ public interface DragSurface :
 
     public companion object : TypeCompanion<DragSurface> {
         override val type: GeneratedInterfaceKGType<DragSurface> =
-            GeneratedInterfaceKGType(gdk_drag_surface_get_type()) { DragSurfaceImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gdk_drag_surface_get_type")!!) {
+                DragSurfaceImpl(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

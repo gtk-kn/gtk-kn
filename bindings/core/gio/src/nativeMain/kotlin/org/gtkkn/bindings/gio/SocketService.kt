@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -163,7 +164,7 @@ public open class SocketService(public val gioSocketServicePointer: CPointer<GSo
 
     public companion object : TypeCompanion<SocketService> {
         override val type: GeneratedClassKGType<SocketService> =
-            GeneratedClassKGType(g_socket_service_get_type()) { SocketService(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_socket_service_get_type")!!) { SocketService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

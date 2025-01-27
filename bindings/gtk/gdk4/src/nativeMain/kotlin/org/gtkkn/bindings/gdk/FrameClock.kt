@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -388,7 +389,7 @@ public abstract class FrameClock(public val gdkFrameClockPointer: CPointer<GdkFr
 
     public companion object : TypeCompanion<FrameClock> {
         override val type: GeneratedClassKGType<FrameClock> =
-            GeneratedClassKGType(gdk_frame_clock_get_type()) { FrameClockImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_frame_clock_get_type")!!) { FrameClockImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

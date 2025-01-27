@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -522,7 +523,7 @@ public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistan
 
     public companion object : TypeCompanion<Assistant> {
         override val type: GeneratedClassKGType<Assistant> =
-            GeneratedClassKGType(gtk_assistant_get_type()) { Assistant(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_assistant_get_type")!!) { Assistant(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

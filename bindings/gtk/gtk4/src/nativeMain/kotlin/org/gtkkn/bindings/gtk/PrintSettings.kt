@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -848,7 +849,7 @@ public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<PrintSettings> {
         override val type: GeneratedClassKGType<PrintSettings> =
-            GeneratedClassKGType(gtk_print_settings_get_type()) { PrintSettings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_print_settings_get_type")!!) { PrintSettings(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

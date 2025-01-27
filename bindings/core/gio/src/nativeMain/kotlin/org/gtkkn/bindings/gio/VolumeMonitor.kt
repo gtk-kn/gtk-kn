@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -439,7 +440,7 @@ public open class VolumeMonitor(public val gioVolumeMonitorPointer: CPointer<GVo
 
     public companion object : TypeCompanion<VolumeMonitor> {
         override val type: GeneratedClassKGType<VolumeMonitor> =
-            GeneratedClassKGType(g_volume_monitor_get_type()) { VolumeMonitor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_volume_monitor_get_type")!!) { VolumeMonitor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

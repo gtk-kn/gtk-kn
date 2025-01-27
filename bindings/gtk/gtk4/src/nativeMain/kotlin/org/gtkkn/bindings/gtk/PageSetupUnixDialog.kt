@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -116,7 +117,9 @@ public open class PageSetupUnixDialog(public val gtkPageSetupUnixDialogPointer: 
 
     public companion object : TypeCompanion<PageSetupUnixDialog> {
         override val type: GeneratedClassKGType<PageSetupUnixDialog> =
-            GeneratedClassKGType(gtk_page_setup_unix_dialog_get_type()) { PageSetupUnixDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_page_setup_unix_dialog_get_type")!!) {
+                PageSetupUnixDialog(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

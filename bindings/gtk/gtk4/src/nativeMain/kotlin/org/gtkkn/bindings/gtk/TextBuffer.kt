@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1739,7 +1740,7 @@ public open class TextBuffer(public val gtkTextBufferPointer: CPointer<GtkTextBu
 
     public companion object : TypeCompanion<TextBuffer> {
         override val type: GeneratedClassKGType<TextBuffer> =
-            GeneratedClassKGType(gtk_text_buffer_get_type()) { TextBuffer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_text_buffer_get_type")!!) { TextBuffer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

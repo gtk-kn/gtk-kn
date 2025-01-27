@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -25,7 +26,9 @@ public open class VulkanRenderer(public val gskVulkanRendererPointer: CPointer<G
 
     public companion object : TypeCompanion<VulkanRenderer> {
         override val type: GeneratedClassKGType<VulkanRenderer> =
-            GeneratedClassKGType(gsk_vulkan_renderer_get_type()) { VulkanRenderer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_vulkan_renderer_get_type")!!) {
+                VulkanRenderer(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

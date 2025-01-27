@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -273,7 +274,9 @@ public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPoi
 
     public companion object : TypeCompanion<MarkAttributes> {
         override val type: GeneratedClassKGType<MarkAttributes> =
-            GeneratedClassKGType(gtk_source_mark_attributes_get_type()) { MarkAttributes(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_mark_attributes_get_type")!!) {
+                MarkAttributes(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

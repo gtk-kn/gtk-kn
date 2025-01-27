@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.PackType
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -530,7 +531,7 @@ public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
 
     public companion object : TypeCompanion<Flap> {
         override val type: GeneratedClassKGType<Flap> =
-            GeneratedClassKGType(adw_flap_get_type()) { Flap(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_flap_get_type")!!) { Flap(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

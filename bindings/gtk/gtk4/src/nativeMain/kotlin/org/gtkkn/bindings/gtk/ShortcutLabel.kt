@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -87,7 +88,7 @@ public open class ShortcutLabel(public val gtkShortcutLabelPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<ShortcutLabel> {
         override val type: GeneratedClassKGType<ShortcutLabel> =
-            GeneratedClassKGType(gtk_shortcut_label_get_type()) { ShortcutLabel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_shortcut_label_get_type")!!) { ShortcutLabel(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

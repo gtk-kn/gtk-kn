@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -92,7 +93,7 @@ public class ResponsePolicyDecision(
 
     public companion object : TypeCompanion<ResponsePolicyDecision> {
         override val type: GeneratedClassKGType<ResponsePolicyDecision> =
-            GeneratedClassKGType(webkit_response_policy_decision_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_response_policy_decision_get_type")!!) {
                 ResponsePolicyDecision(it.reinterpret())
             }
 

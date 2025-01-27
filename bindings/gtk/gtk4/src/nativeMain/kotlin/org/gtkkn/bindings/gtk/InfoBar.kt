@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -364,7 +365,7 @@ public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
 
     public companion object : TypeCompanion<InfoBar> {
         override val type: GeneratedClassKGType<InfoBar> =
-            GeneratedClassKGType(gtk_info_bar_get_type()) { InfoBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_info_bar_get_type")!!) { InfoBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

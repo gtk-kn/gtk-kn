@@ -21,8 +21,8 @@
 
 set -e -v
 
-./gradlew :gradle-plugin:check
 ./gradlew :gir:run
+./gradlew :gradle-plugin:check
 ./gradlew check
 ./gradlew gradle-plugin:publishToMavenLocal
 

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -67,7 +68,9 @@ public open class CrossFadeNode(public val gskCrossFadeNodePointer: CPointer<Gsk
 
     public companion object : TypeCompanion<CrossFadeNode> {
         override val type: GeneratedClassKGType<CrossFadeNode> =
-            GeneratedClassKGType(gsk_cross_fade_node_get_type()) { CrossFadeNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_cross_fade_node_get_type")!!) {
+                CrossFadeNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

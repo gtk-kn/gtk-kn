@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -66,7 +67,7 @@ public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGL
 
     public companion object : TypeCompanion<GlShaderNode> {
         override val type: GeneratedClassKGType<GlShaderNode> =
-            GeneratedClassKGType(gsk_gl_shader_node_get_type()) { GlShaderNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_gl_shader_node_get_type")!!) { GlShaderNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

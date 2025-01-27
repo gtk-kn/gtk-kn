@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -203,7 +204,9 @@ public abstract class EventController(public val gtkEventControllerPointer: CPoi
 
     public companion object : TypeCompanion<EventController> {
         override val type: GeneratedClassKGType<EventController> =
-            GeneratedClassKGType(gtk_event_controller_get_type()) { EventControllerImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_get_type")!!) {
+                EventControllerImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

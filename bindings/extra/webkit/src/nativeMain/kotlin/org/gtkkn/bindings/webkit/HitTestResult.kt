@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -203,7 +204,9 @@ public class HitTestResult(public val webkitHitTestResultPointer: CPointer<WebKi
 
     public companion object : TypeCompanion<HitTestResult> {
         override val type: GeneratedClassKGType<HitTestResult> =
-            GeneratedClassKGType(webkit_hit_test_result_get_type()) { HitTestResult(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_hit_test_result_get_type")!!) {
+                HitTestResult(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

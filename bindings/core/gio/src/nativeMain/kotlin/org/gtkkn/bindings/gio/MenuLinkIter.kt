@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -85,7 +86,9 @@ public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<G
 
     public companion object : TypeCompanion<MenuLinkIter> {
         override val type: GeneratedClassKGType<MenuLinkIter> =
-            GeneratedClassKGType(g_menu_link_iter_get_type()) { MenuLinkIterImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_menu_link_iter_get_type")!!) {
+                MenuLinkIterImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

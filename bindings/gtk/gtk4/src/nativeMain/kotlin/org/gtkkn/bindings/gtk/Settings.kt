@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -124,7 +125,7 @@ public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>)
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(gtk_settings_get_type()) { Settings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_settings_get_type")!!) { Settings(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -20,7 +21,9 @@ public open class PixbufNonAnim(public val gdkPixbufNonAnimPointer: CPointer<Gdk
 
     public companion object : TypeCompanion<PixbufNonAnim> {
         override val type: GeneratedClassKGType<PixbufNonAnim> =
-            GeneratedClassKGType(gdk_pixbuf_non_anim_get_type()) { PixbufNonAnim(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_non_anim_get_type")!!) {
+                PixbufNonAnim(it.reinterpret())
+            }
 
         init {
             GdkpixbufTypeProvider.register()

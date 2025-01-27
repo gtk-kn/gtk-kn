@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -154,7 +155,7 @@ public class ViewSwitcher(public val adwViewSwitcherPointer: CPointer<AdwViewSwi
 
     public companion object : TypeCompanion<ViewSwitcher> {
         override val type: GeneratedClassKGType<ViewSwitcher> =
-            GeneratedClassKGType(adw_view_switcher_get_type()) { ViewSwitcher(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_view_switcher_get_type")!!) { ViewSwitcher(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

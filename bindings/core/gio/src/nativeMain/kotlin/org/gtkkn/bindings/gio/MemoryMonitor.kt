@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_64
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -123,7 +124,9 @@ public interface MemoryMonitor :
 
     public companion object : TypeCompanion<MemoryMonitor> {
         override val type: GeneratedInterfaceKGType<MemoryMonitor> =
-            GeneratedInterfaceKGType(g_memory_monitor_get_type()) { MemoryMonitorImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_memory_monitor_get_type")!!) {
+                MemoryMonitorImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -369,7 +370,7 @@ public abstract class InputMethodContext(
 
     public companion object : TypeCompanion<InputMethodContext> {
         override val type: GeneratedClassKGType<InputMethodContext> =
-            GeneratedClassKGType(webkit_input_method_context_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_input_method_context_get_type")!!) {
                 InputMethodContextImpl(it.reinterpret())
             }
 

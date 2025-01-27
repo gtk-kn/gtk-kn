@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -326,7 +327,7 @@ public class AuthenticationRequest(
 
     public companion object : TypeCompanion<AuthenticationRequest> {
         override val type: GeneratedClassKGType<AuthenticationRequest> =
-            GeneratedClassKGType(webkit_authentication_request_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_authentication_request_get_type")!!) {
                 AuthenticationRequest(it.reinterpret())
             }
 

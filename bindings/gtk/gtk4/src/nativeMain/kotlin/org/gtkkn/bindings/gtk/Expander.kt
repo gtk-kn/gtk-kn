@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -337,7 +338,7 @@ public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>)
 
     public companion object : TypeCompanion<Expander> {
         override val type: GeneratedClassKGType<Expander> =
-            GeneratedClassKGType(gtk_expander_get_type()) { Expander(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_expander_get_type")!!) { Expander(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

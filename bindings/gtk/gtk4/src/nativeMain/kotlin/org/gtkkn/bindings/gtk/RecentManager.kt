@@ -19,6 +19,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -306,7 +307,7 @@ public open class RecentManager(public val gtkRecentManagerPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<RecentManager> {
         override val type: GeneratedClassKGType<RecentManager> =
-            GeneratedClassKGType(gtk_recent_manager_get_type()) { RecentManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_recent_manager_get_type")!!) { RecentManager(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

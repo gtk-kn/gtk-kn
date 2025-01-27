@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -387,7 +388,7 @@ public open class TlsInteraction(public val gioTlsInteractionPointer: CPointer<G
 
     public companion object : TypeCompanion<TlsInteraction> {
         override val type: GeneratedClassKGType<TlsInteraction> =
-            GeneratedClassKGType(g_tls_interaction_get_type()) { TlsInteraction(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_tls_interaction_get_type")!!) { TlsInteraction(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

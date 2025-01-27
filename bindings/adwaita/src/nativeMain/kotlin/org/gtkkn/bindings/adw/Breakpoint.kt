@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Buildable
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -246,7 +247,7 @@ public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>
 
     public companion object : TypeCompanion<Breakpoint> {
         override val type: GeneratedClassKGType<Breakpoint> =
-            GeneratedClassKGType(adw_breakpoint_get_type()) { Breakpoint(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_breakpoint_get_type")!!) { Breakpoint(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

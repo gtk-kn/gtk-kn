@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_24
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -149,7 +150,9 @@ public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CP
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =
-            GeneratedClassKGType(g_memory_output_stream_get_type()) { MemoryOutputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_memory_output_stream_get_type")!!) {
+                MemoryOutputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

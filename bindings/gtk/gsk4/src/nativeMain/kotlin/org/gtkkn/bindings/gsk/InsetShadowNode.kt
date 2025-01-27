@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -107,7 +108,9 @@ public open class InsetShadowNode(public val gskInsetShadowNodePointer: CPointer
 
     public companion object : TypeCompanion<InsetShadowNode> {
         override val type: GeneratedClassKGType<InsetShadowNode> =
-            GeneratedClassKGType(gsk_inset_shadow_node_get_type()) { InsetShadowNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_inset_shadow_node_get_type")!!) {
+                InsetShadowNode(it.reinterpret())
+            }
 
         init {
             GskTypeProvider.register()

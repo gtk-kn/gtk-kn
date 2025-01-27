@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -88,7 +89,9 @@ public class CarouselIndicatorDots(public val adwCarouselIndicatorDotsPointer: C
 
     public companion object : TypeCompanion<CarouselIndicatorDots> {
         override val type: GeneratedClassKGType<CarouselIndicatorDots> =
-            GeneratedClassKGType(adw_carousel_indicator_dots_get_type()) { CarouselIndicatorDots(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_carousel_indicator_dots_get_type")!!) {
+                CarouselIndicatorDots(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

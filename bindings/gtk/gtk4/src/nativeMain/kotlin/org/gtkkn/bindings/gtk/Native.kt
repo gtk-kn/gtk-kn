@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.gsk.Renderer
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -90,7 +91,7 @@ public interface Native :
 
     public companion object : TypeCompanion<Native> {
         override val type: GeneratedInterfaceKGType<Native> =
-            GeneratedInterfaceKGType(gtk_native_get_type()) { NativeImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_native_get_type")!!) { NativeImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

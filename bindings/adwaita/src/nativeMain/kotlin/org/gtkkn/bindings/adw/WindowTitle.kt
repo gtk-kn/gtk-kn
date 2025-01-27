@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -107,7 +108,7 @@ public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTit
 
     public companion object : TypeCompanion<WindowTitle> {
         override val type: GeneratedClassKGType<WindowTitle> =
-            GeneratedClassKGType(adw_window_title_get_type()) { WindowTitle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_window_title_get_type")!!) { WindowTitle(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -141,7 +142,7 @@ public open class ListHeader(public val gtkListHeaderPointer: CPointer<GtkListHe
 
     public companion object : TypeCompanion<ListHeader> {
         override val type: GeneratedClassKGType<ListHeader> =
-            GeneratedClassKGType(gtk_list_header_get_type()) { ListHeader(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_header_get_type")!!) { ListHeader(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -98,7 +99,7 @@ public open class KeyEvent(public val gdkKeyEventPointer: CPointer<GdkKeyEvent>)
 
     public companion object : TypeCompanion<KeyEvent> {
         override val type: GeneratedClassKGType<KeyEvent> =
-            GeneratedClassKGType(gdk_key_event_get_type()) { KeyEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_key_event_get_type")!!) { KeyEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -333,7 +334,7 @@ public open class Adjustment(public val gtkAdjustmentPointer: CPointer<GtkAdjust
 
     public companion object : TypeCompanion<Adjustment> {
         override val type: GeneratedClassKGType<Adjustment> =
-            GeneratedClassKGType(gtk_adjustment_get_type()) { Adjustment(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_adjustment_get_type")!!) { Adjustment(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

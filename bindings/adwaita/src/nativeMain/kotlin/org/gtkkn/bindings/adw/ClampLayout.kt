@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.LayoutManager
 import org.gtkkn.bindings.gtk.Orientable
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -160,7 +161,7 @@ public class ClampLayout(public val adwClampLayoutPointer: CPointer<AdwClampLayo
 
     public companion object : TypeCompanion<ClampLayout> {
         override val type: GeneratedClassKGType<ClampLayout> =
-            GeneratedClassKGType(adw_clamp_layout_get_type()) { ClampLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_clamp_layout_get_type")!!) { ClampLayout(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

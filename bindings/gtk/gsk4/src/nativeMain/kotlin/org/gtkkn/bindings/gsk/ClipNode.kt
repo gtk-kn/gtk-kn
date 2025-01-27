@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -55,7 +56,7 @@ public open class ClipNode(public val gskClipNodePointer: CPointer<GskClipNode>)
 
     public companion object : TypeCompanion<ClipNode> {
         override val type: GeneratedClassKGType<ClipNode> =
-            GeneratedClassKGType(gsk_clip_node_get_type()) { ClipNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_clip_node_get_type")!!) { ClipNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

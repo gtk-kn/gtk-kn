@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -67,7 +68,9 @@ public open class ZlibDecompressor(public val gioZlibDecompressorPointer: CPoint
 
     public companion object : TypeCompanion<ZlibDecompressor> {
         override val type: GeneratedClassKGType<ZlibDecompressor> =
-            GeneratedClassKGType(g_zlib_decompressor_get_type()) { ZlibDecompressor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_zlib_decompressor_get_type")!!) {
+                ZlibDecompressor(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

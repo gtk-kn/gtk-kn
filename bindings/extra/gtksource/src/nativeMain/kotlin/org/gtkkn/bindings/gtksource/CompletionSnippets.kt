@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -39,7 +40,9 @@ public open class CompletionSnippets(
 
     public companion object : TypeCompanion<CompletionSnippets> {
         override val type: GeneratedClassKGType<CompletionSnippets> =
-            GeneratedClassKGType(gtk_source_completion_snippets_get_type()) { CompletionSnippets(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_completion_snippets_get_type")!!) {
+                CompletionSnippets(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

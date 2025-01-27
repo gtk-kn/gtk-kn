@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.SelectionModel
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -390,7 +391,7 @@ public class Squeezer(public val adwSqueezerPointer: CPointer<AdwSqueezer>) :
 
     public companion object : TypeCompanion<Squeezer> {
         override val type: GeneratedClassKGType<Squeezer> =
-            GeneratedClassKGType(adw_squeezer_get_type()) { Squeezer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_squeezer_get_type")!!) { Squeezer(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

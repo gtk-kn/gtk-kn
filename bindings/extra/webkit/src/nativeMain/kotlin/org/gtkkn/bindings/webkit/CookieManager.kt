@@ -26,6 +26,7 @@ import org.gtkkn.bindings.soup.Cookie
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -410,7 +411,9 @@ public class CookieManager(public val webkitCookieManagerPointer: CPointer<WebKi
 
     public companion object : TypeCompanion<CookieManager> {
         override val type: GeneratedClassKGType<CookieManager> =
-            GeneratedClassKGType(webkit_cookie_manager_get_type()) { CookieManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_cookie_manager_get_type")!!) {
+                CookieManager(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

@@ -24,6 +24,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -447,7 +448,7 @@ public interface Volume :
 
     public companion object : TypeCompanion<Volume> {
         override val type: GeneratedInterfaceKGType<Volume> =
-            GeneratedInterfaceKGType(g_volume_get_type()) { VolumeImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_volume_get_type")!!) { VolumeImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

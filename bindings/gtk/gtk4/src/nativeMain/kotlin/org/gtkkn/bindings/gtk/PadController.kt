@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Device
 import org.gtkkn.bindings.gio.ActionGroup
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -125,7 +126,7 @@ public open class PadController(public val gtkPadControllerPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<PadController> {
         override val type: GeneratedClassKGType<PadController> =
-            GeneratedClassKGType(gtk_pad_controller_get_type()) { PadController(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_pad_controller_get_type")!!) { PadController(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -254,7 +255,9 @@ public interface Accessible :
 
     public companion object : TypeCompanion<Accessible> {
         override val type: GeneratedInterfaceKGType<Accessible> =
-            GeneratedInterfaceKGType(gtk_accessible_get_type()) { AccessibleImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_get_type")!!) {
+                AccessibleImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

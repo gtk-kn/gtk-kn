@@ -26,6 +26,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -167,7 +168,9 @@ public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<W
 
     public companion object : TypeCompanion<FaviconDatabase> {
         override val type: GeneratedClassKGType<FaviconDatabase> =
-            GeneratedClassKGType(webkit_favicon_database_get_type()) { FaviconDatabase(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_favicon_database_get_type")!!) {
+                FaviconDatabase(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

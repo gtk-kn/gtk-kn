@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -202,7 +203,9 @@ public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer
 
     public companion object : TypeCompanion<PreferencesPage> {
         override val type: GeneratedClassKGType<PreferencesPage> =
-            GeneratedClassKGType(adw_preferences_page_get_type()) { PreferencesPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_preferences_page_get_type")!!) {
+                PreferencesPage(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

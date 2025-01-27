@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -42,7 +43,9 @@ public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer
 
     public companion object : TypeCompanion<GrabBrokenEvent> {
         override val type: GeneratedClassKGType<GrabBrokenEvent> =
-            GeneratedClassKGType(gdk_grab_broken_event_get_type()) { GrabBrokenEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_grab_broken_event_get_type")!!) {
+                GrabBrokenEvent(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

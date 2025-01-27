@@ -11,6 +11,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -262,7 +263,9 @@ public open class DataOutputStream(public val gioDataOutputStreamPointer: CPoint
 
     public companion object : TypeCompanion<DataOutputStream> {
         override val type: GeneratedClassKGType<DataOutputStream> =
-            GeneratedClassKGType(g_data_output_stream_get_type()) { DataOutputStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_data_output_stream_get_type")!!) {
+                DataOutputStream(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

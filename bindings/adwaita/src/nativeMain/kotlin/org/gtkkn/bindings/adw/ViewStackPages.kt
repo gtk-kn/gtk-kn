@@ -9,6 +9,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.SelectionModel
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -74,7 +75,9 @@ public class ViewStackPages(public val adwViewStackPagesPointer: CPointer<AdwVie
 
     public companion object : TypeCompanion<ViewStackPages> {
         override val type: GeneratedClassKGType<ViewStackPages> =
-            GeneratedClassKGType(adw_view_stack_pages_get_type()) { ViewStackPages(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_view_stack_pages_get_type")!!) {
+                ViewStackPages(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -275,7 +276,7 @@ public open class Monitor(public val gdkMonitorPointer: CPointer<GdkMonitor>) :
 
     public companion object : TypeCompanion<Monitor> {
         override val type: GeneratedClassKGType<Monitor> =
-            GeneratedClassKGType(gdk_monitor_get_type()) { Monitor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_monitor_get_type")!!) { Monitor(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

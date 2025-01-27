@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -78,7 +79,7 @@ public open class WindowGroup(public val gtkWindowGroupPointer: CPointer<GtkWind
 
     public companion object : TypeCompanion<WindowGroup> {
         override val type: GeneratedClassKGType<WindowGroup> =
-            GeneratedClassKGType(gtk_window_group_get_type()) { WindowGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_window_group_get_type")!!) { WindowGroup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

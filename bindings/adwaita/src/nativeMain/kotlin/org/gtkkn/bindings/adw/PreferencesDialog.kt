@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -203,7 +204,9 @@ public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPoi
 
     public companion object : TypeCompanion<PreferencesDialog> {
         override val type: GeneratedClassKGType<PreferencesDialog> =
-            GeneratedClassKGType(adw_preferences_dialog_get_type()) { PreferencesDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_preferences_dialog_get_type")!!) {
+                PreferencesDialog(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

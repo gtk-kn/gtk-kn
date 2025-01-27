@@ -14,6 +14,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -176,7 +177,7 @@ public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
 
     public companion object : TypeCompanion<TabButton> {
         override val type: GeneratedClassKGType<TabButton> =
-            GeneratedClassKGType(adw_tab_button_get_type()) { TabButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_tab_button_get_type")!!) { TabButton(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

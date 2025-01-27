@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -103,7 +104,9 @@ public open class MountOperation(public val gtkMountOperationPointer: CPointer<G
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =
-            GeneratedClassKGType(gtk_mount_operation_get_type()) { MountOperation(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_mount_operation_get_type")!!) {
+                MountOperation(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

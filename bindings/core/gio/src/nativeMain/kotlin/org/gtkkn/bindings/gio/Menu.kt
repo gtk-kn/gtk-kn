@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -270,7 +271,7 @@ public open class Menu(public val gioMenuPointer: CPointer<GMenu>) :
 
     public companion object : TypeCompanion<Menu> {
         override val type: GeneratedClassKGType<Menu> =
-            GeneratedClassKGType(g_menu_get_type()) { Menu(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_menu_get_type")!!) { Menu(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

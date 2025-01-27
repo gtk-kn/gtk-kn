@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Gsk.resolveException
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -202,7 +203,7 @@ public abstract class Renderer(public val gskRendererPointer: CPointer<GskRender
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-            GeneratedClassKGType(gsk_renderer_get_type()) { RendererImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_renderer_get_type")!!) { RendererImpl(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

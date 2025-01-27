@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -122,7 +123,7 @@ public open class BuilderListItemFactory(
 
     public companion object : TypeCompanion<BuilderListItemFactory> {
         override val type: GeneratedClassKGType<BuilderListItemFactory> =
-            GeneratedClassKGType(gtk_builder_list_item_factory_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_builder_list_item_factory_get_type")!!) {
                 BuilderListItemFactory(it.reinterpret())
             }
 

@@ -24,6 +24,7 @@ import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -371,7 +372,7 @@ public open class Cancellable(public val gioCancellablePointer: CPointer<GCancel
 
     public companion object : TypeCompanion<Cancellable> {
         override val type: GeneratedClassKGType<Cancellable> =
-            GeneratedClassKGType(g_cancellable_get_type()) { Cancellable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_cancellable_get_type")!!) { Cancellable(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

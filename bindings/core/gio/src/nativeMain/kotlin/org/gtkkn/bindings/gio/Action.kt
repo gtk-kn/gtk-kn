@@ -13,6 +13,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -342,7 +343,7 @@ public interface Action :
 
     public companion object : TypeCompanion<Action> {
         override val type: GeneratedInterfaceKGType<Action> =
-            GeneratedInterfaceKGType(g_action_get_type()) { ActionImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_action_get_type")!!) { ActionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

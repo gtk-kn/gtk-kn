@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -197,7 +198,7 @@ public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
 
     public companion object : TypeCompanion<Clamp> {
         override val type: GeneratedClassKGType<Clamp> =
-            GeneratedClassKGType(adw_clamp_get_type()) { Clamp(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_clamp_get_type")!!) { Clamp(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -50,7 +51,7 @@ public open class NamedAction(public val gtkNamedActionPointer: CPointer<GtkName
 
     public companion object : TypeCompanion<NamedAction> {
         override val type: GeneratedClassKGType<NamedAction> =
-            GeneratedClassKGType(gtk_named_action_get_type()) { NamedAction(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_named_action_get_type")!!) { NamedAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

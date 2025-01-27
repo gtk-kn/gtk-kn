@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gtk.PrintContext
 import org.gtkkn.bindings.gtk.TextTag
 import org.gtkkn.bindings.gtk.WrapMode
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -731,7 +732,9 @@ public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CP
 
     public companion object : TypeCompanion<PrintCompositor> {
         override val type: GeneratedClassKGType<PrintCompositor> =
-            GeneratedClassKGType(gtk_source_print_compositor_get_type()) { PrintCompositor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_print_compositor_get_type")!!) {
+                PrintCompositor(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

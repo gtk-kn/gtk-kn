@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -152,7 +153,9 @@ public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<G
 
     public companion object : TypeCompanion<DisplayManager> {
         override val type: GeneratedClassKGType<DisplayManager> =
-            GeneratedClassKGType(gdk_display_manager_get_type()) { DisplayManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_display_manager_get_type")!!) {
+                DisplayManager(it.reinterpret())
+            }
 
         init {
             GdkTypeProvider.register()

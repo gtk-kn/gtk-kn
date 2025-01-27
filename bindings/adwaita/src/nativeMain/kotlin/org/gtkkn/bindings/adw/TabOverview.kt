@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -565,7 +566,7 @@ public class TabOverview(public val adwTabOverviewPointer: CPointer<AdwTabOvervi
 
     public companion object : TypeCompanion<TabOverview> {
         override val type: GeneratedClassKGType<TabOverview> =
-            GeneratedClassKGType(adw_tab_overview_get_type()) { TabOverview(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_tab_overview_get_type")!!) { TabOverview(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

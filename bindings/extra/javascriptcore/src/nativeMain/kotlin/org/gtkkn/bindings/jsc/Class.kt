@@ -10,6 +10,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -121,7 +122,7 @@ public class Class(public val jscClassPointer: CPointer<JSCClass>) :
 
     public companion object : TypeCompanion<Class> {
         override val type: GeneratedClassKGType<Class> =
-            GeneratedClassKGType(jsc_class_get_type()) { Class(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("jsc_class_get_type")!!) { Class(it.reinterpret()) }
 
         init {
             JavascriptcoreTypeProvider.register()

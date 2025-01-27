@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -267,7 +268,7 @@ public open class ListItem(public val gtkListItemPointer: CPointer<GtkListItem>)
 
     public companion object : TypeCompanion<ListItem> {
         override val type: GeneratedClassKGType<ListItem> =
-            GeneratedClassKGType(gtk_list_item_get_type()) { ListItem(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_list_item_get_type")!!) { ListItem(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

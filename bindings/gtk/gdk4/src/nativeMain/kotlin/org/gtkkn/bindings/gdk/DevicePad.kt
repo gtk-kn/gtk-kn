@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -93,7 +94,7 @@ public interface DevicePad :
 
     public companion object : TypeCompanion<DevicePad> {
         override val type: GeneratedInterfaceKGType<DevicePad> =
-            GeneratedInterfaceKGType(gdk_device_pad_get_type()) { DevicePadImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gdk_device_pad_get_type")!!) { DevicePadImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

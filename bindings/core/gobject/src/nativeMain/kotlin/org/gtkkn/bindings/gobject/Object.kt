@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_34
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_70
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -813,7 +814,7 @@ public open class Object(public val gobjectObjectPointer: CPointer<GObject>) :
 
     public companion object : TypeCompanion<Object> {
         override val type: GeneratedClassKGType<Object> =
-            GeneratedClassKGType(g_object_get_type()) { Object(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_object_get_type")!!) { Object(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()

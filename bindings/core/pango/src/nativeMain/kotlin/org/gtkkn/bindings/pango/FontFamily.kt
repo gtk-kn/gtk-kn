@@ -12,6 +12,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -128,7 +129,7 @@ public abstract class FontFamily(public val pangoFontFamilyPointer: CPointer<Pan
 
     public companion object : TypeCompanion<FontFamily> {
         override val type: GeneratedClassKGType<FontFamily> =
-            GeneratedClassKGType(pango_font_family_get_type()) { FontFamilyImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("pango_font_family_get_type")!!) { FontFamilyImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

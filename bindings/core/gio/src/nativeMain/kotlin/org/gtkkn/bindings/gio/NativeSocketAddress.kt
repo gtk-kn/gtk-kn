@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -46,7 +47,9 @@ public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: 
 
     public companion object : TypeCompanion<NativeSocketAddress> {
         override val type: GeneratedClassKGType<NativeSocketAddress> =
-            GeneratedClassKGType(g_native_socket_address_get_type()) { NativeSocketAddress(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_native_socket_address_get_type")!!) {
+                NativeSocketAddress(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

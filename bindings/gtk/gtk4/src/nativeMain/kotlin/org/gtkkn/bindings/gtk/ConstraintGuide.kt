@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -146,7 +147,9 @@ public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer
 
     public companion object : TypeCompanion<ConstraintGuide> {
         override val type: GeneratedClassKGType<ConstraintGuide> =
-            GeneratedClassKGType(gtk_constraint_guide_get_type()) { ConstraintGuide(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_constraint_guide_get_type")!!) {
+                ConstraintGuide(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

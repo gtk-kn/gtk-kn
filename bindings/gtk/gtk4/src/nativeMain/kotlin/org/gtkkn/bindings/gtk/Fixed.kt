@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.Transform
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -142,7 +143,7 @@ public open class Fixed(public val gtkFixedPointer: CPointer<GtkFixed>) :
 
     public companion object : TypeCompanion<Fixed> {
         override val type: GeneratedClassKGType<Fixed> =
-            GeneratedClassKGType(gtk_fixed_get_type()) { Fixed(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_fixed_get_type")!!) { Fixed(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

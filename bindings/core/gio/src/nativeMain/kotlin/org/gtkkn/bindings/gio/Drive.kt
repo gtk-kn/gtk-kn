@@ -24,6 +24,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -587,7 +588,7 @@ public interface Drive :
 
     public companion object : TypeCompanion<Drive> {
         override val type: GeneratedInterfaceKGType<Drive> =
-            GeneratedInterfaceKGType(g_drive_get_type()) { DriveImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_drive_get_type")!!) { DriveImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

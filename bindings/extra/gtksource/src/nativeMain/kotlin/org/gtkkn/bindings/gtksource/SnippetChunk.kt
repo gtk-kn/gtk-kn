@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.InitiallyUnowned
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -181,7 +182,9 @@ public open class SnippetChunk(public val gtksourceSnippetChunkPointer: CPointer
 
     public companion object : TypeCompanion<SnippetChunk> {
         override val type: GeneratedClassKGType<SnippetChunk> =
-            GeneratedClassKGType(gtk_source_snippet_chunk_get_type()) { SnippetChunk(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_chunk_get_type")!!) {
+                SnippetChunk(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

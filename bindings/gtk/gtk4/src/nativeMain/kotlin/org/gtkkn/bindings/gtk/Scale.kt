@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -340,7 +341,7 @@ public open class Scale(public val gtkScalePointer: CPointer<GtkScale>) :
 
     public companion object : TypeCompanion<Scale> {
         override val type: GeneratedClassKGType<Scale> =
-            GeneratedClassKGType(gtk_scale_get_type()) { Scale(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_scale_get_type")!!) { Scale(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

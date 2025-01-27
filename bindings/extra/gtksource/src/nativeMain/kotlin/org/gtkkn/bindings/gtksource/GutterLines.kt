@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -221,7 +222,9 @@ public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<G
 
     public companion object : TypeCompanion<GutterLines> {
         override val type: GeneratedClassKGType<GutterLines> =
-            GeneratedClassKGType(gtk_source_gutter_lines_get_type()) { GutterLines(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_lines_get_type")!!) {
+                GutterLines(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -80,7 +81,9 @@ public open class ImContextSimple(public val gtkImContextSimplePointer: CPointer
 
     public companion object : TypeCompanion<ImContextSimple> {
         override val type: GeneratedClassKGType<ImContextSimple> =
-            GeneratedClassKGType(gtk_im_context_simple_get_type()) { ImContextSimple(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_im_context_simple_get_type")!!) {
+                ImContextSimple(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

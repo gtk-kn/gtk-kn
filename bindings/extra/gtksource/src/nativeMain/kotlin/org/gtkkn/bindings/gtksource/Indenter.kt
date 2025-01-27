@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -96,7 +97,9 @@ public interface Indenter :
 
     public companion object : TypeCompanion<Indenter> {
         override val type: GeneratedInterfaceKGType<Indenter> =
-            GeneratedInterfaceKGType(gtk_source_indenter_get_type()) { IndenterImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_indenter_get_type")!!) {
+                IndenterImpl(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

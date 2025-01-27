@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -58,7 +59,7 @@ public interface Buildable :
 
     public companion object : TypeCompanion<Buildable> {
         override val type: GeneratedInterfaceKGType<Buildable> =
-            GeneratedInterfaceKGType(gtk_buildable_get_type()) { BuildableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_buildable_get_type")!!) { BuildableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -31,6 +31,7 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.pango.Direction
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -795,7 +796,7 @@ public open class Snapshot(public val gtkSnapshotPointer: CPointer<GdkSnapshot>)
 
     public companion object : TypeCompanion<Snapshot> {
         override val type: GeneratedClassKGType<Snapshot> =
-            GeneratedClassKGType(gtk_snapshot_get_type()) { Snapshot(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_snapshot_get_type")!!) { Snapshot(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

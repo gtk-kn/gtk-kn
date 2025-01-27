@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -371,7 +372,7 @@ public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLCo
 
     public companion object : TypeCompanion<GlContext> {
         override val type: GeneratedClassKGType<GlContext> =
-            GeneratedClassKGType(gdk_gl_context_get_type()) { GlContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_gl_context_get_type")!!) { GlContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

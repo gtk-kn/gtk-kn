@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.ImContext
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -267,7 +268,9 @@ public open class VimImContext(public val gtksourceVimImContextPointer: CPointer
 
     public companion object : TypeCompanion<VimImContext> {
         override val type: GeneratedClassKGType<VimImContext> =
-            GeneratedClassKGType(gtk_source_vim_im_context_get_type()) { VimImContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_vim_im_context_get_type")!!) {
+                VimImContext(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

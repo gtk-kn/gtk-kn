@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -146,7 +147,9 @@ public class ColorChooserRequest(public val webkitColorChooserRequestPointer: CP
 
     public companion object : TypeCompanion<ColorChooserRequest> {
         override val type: GeneratedClassKGType<ColorChooserRequest> =
-            GeneratedClassKGType(webkit_color_chooser_request_get_type()) { ColorChooserRequest(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_color_chooser_request_get_type")!!) {
+                ColorChooserRequest(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

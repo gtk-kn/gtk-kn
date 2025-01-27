@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -81,7 +82,7 @@ public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>)
 
     public companion object : TypeCompanion<MaskNode> {
         override val type: GeneratedClassKGType<MaskNode> =
-            GeneratedClassKGType(gsk_mask_node_get_type()) { MaskNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_mask_node_get_type")!!) { MaskNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

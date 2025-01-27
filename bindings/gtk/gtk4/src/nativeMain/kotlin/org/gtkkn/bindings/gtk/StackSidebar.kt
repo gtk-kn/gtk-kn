@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -82,7 +83,7 @@ public open class StackSidebar(public val gtkStackSidebarPointer: CPointer<GtkSt
 
     public companion object : TypeCompanion<StackSidebar> {
         override val type: GeneratedClassKGType<StackSidebar> =
-            GeneratedClassKGType(gtk_stack_sidebar_get_type()) { StackSidebar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_stack_sidebar_get_type")!!) { StackSidebar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

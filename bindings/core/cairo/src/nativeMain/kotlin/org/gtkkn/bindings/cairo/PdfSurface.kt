@@ -9,6 +9,7 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_16
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -107,7 +108,7 @@ public open class PdfSurface(public val cairoPdfSurfacePointer: CPointer<cairo_s
 
     public companion object : TypeCompanion<PdfSurface> {
         override val type: GeneratedClassKGType<PdfSurface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { PdfSurface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { PdfSurface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -118,7 +119,7 @@ public open class StyleSchemePreview(
 
     public companion object : TypeCompanion<StyleSchemePreview> {
         override val type: GeneratedClassKGType<StyleSchemePreview> =
-            GeneratedClassKGType(gtk_source_style_scheme_preview_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_preview_get_type")!!) {
                 StyleSchemePreview(it.reinterpret())
             }
 

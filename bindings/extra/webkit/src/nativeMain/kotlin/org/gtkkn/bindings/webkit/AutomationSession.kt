@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_46
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -164,7 +165,9 @@ public class AutomationSession(public val webkitAutomationSessionPointer: CPoint
 
     public companion object : TypeCompanion<AutomationSession> {
         override val type: GeneratedClassKGType<AutomationSession> =
-            GeneratedClassKGType(webkit_automation_session_get_type()) { AutomationSession(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_automation_session_get_type")!!) {
+                AutomationSession(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

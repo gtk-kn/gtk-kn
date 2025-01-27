@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -143,7 +144,7 @@ public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<Gdk
 
     public companion object : TypeCompanion<DrawContext> {
         override val type: GeneratedClassKGType<DrawContext> =
-            GeneratedClassKGType(gdk_draw_context_get_type()) { DrawContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_draw_context_get_type")!!) { DrawContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

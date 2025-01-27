@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -298,7 +299,7 @@ public open class StyleContext(public val gtkStyleContextPointer: CPointer<GtkSt
 
     public companion object : TypeCompanion<StyleContext> {
         override val type: GeneratedClassKGType<StyleContext> =
-            GeneratedClassKGType(gtk_style_context_get_type()) { StyleContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_style_context_get_type")!!) { StyleContext(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

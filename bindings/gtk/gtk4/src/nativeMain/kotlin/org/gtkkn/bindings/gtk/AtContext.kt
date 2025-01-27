@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -129,7 +130,7 @@ public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATCo
 
     public companion object : TypeCompanion<AtContext> {
         override val type: GeneratedClassKGType<AtContext> =
-            GeneratedClassKGType(gtk_at_context_get_type()) { AtContextImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_at_context_get_type")!!) { AtContextImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

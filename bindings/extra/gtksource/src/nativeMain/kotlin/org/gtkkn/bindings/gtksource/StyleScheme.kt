@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -129,7 +130,9 @@ public open class StyleScheme(public val gtksourceStyleSchemePointer: CPointer<G
 
     public companion object : TypeCompanion<StyleScheme> {
         override val type: GeneratedClassKGType<StyleScheme> =
-            GeneratedClassKGType(gtk_source_style_scheme_get_type()) { StyleScheme(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_get_type")!!) {
+                StyleScheme(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

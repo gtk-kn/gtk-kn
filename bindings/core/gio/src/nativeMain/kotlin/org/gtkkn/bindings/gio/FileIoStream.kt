@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -176,7 +177,7 @@ public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFile
 
     public companion object : TypeCompanion<FileIoStream> {
         override val type: GeneratedClassKGType<FileIoStream> =
-            GeneratedClassKGType(g_file_io_stream_get_type()) { FileIoStream(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_file_io_stream_get_type")!!) { FileIoStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

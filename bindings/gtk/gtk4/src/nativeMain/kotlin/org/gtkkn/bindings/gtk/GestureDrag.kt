@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -137,7 +138,7 @@ public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGest
 
     public companion object : TypeCompanion<GestureDrag> {
         override val type: GeneratedClassKGType<GestureDrag> =
-            GeneratedClassKGType(gtk_gesture_drag_get_type()) { GestureDrag(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_drag_get_type")!!) { GestureDrag(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

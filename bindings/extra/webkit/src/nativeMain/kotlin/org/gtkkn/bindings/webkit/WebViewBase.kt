@@ -6,6 +6,7 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -30,7 +31,7 @@ public open class WebViewBase(public val webkitWebViewBasePointer: CPointer<WebK
 
     public companion object : TypeCompanion<WebViewBase> {
         override val type: GeneratedClassKGType<WebViewBase> =
-            GeneratedClassKGType(webkit_web_view_base_get_type()) { WebViewBase(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_web_view_base_get_type")!!) { WebViewBase(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

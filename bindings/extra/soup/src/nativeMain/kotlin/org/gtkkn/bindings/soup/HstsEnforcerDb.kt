@@ -5,6 +5,7 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -48,7 +49,9 @@ public class HstsEnforcerDb(public val soupHstsEnforcerDbPointer: CPointer<SoupH
 
     public companion object : TypeCompanion<HstsEnforcerDb> {
         override val type: GeneratedClassKGType<HstsEnforcerDb> =
-            GeneratedClassKGType(soup_hsts_enforcer_db_get_type()) { HstsEnforcerDb(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_hsts_enforcer_db_get_type")!!) {
+                HstsEnforcerDb(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -564,7 +565,7 @@ public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarVi
 
     public companion object : TypeCompanion<ToolbarView> {
         override val type: GeneratedClassKGType<ToolbarView> =
-            GeneratedClassKGType(adw_toolbar_view_get_type()) { ToolbarView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_toolbar_view_get_type")!!) { ToolbarView(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

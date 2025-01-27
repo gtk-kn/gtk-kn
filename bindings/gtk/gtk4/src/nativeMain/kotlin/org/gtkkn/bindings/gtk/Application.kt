@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gio.Menu
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -511,7 +512,7 @@ public open class Application(public val gtkApplicationPointer: CPointer<GtkAppl
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-            GeneratedClassKGType(gtk_application_get_type()) { Application(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_application_get_type")!!) { Application(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -20,6 +20,7 @@ import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.TabArray
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1069,7 +1070,7 @@ public open class Entry(public val gtkEntryPointer: CPointer<GtkEntry>) :
 
     public companion object : TypeCompanion<Entry> {
         override val type: GeneratedClassKGType<Entry> =
-            GeneratedClassKGType(gtk_entry_get_type()) { Entry(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_entry_get_type")!!) { Entry(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

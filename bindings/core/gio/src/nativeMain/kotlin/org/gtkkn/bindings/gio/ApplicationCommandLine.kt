@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -481,7 +482,9 @@ public open class ApplicationCommandLine(
 
     public companion object : TypeCompanion<ApplicationCommandLine> {
         override val type: GeneratedClassKGType<ApplicationCommandLine> =
-            GeneratedClassKGType(g_application_command_line_get_type()) { ApplicationCommandLine(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_application_command_line_get_type")!!) {
+                ApplicationCommandLine(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

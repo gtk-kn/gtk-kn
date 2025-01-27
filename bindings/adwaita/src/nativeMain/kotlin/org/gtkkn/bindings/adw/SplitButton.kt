@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.ArrowType
 import org.gtkkn.bindings.gtk.Popover
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -434,7 +435,7 @@ public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButt
 
     public companion object : TypeCompanion<SplitButton> {
         override val type: GeneratedClassKGType<SplitButton> =
-            GeneratedClassKGType(adw_split_button_get_type()) { SplitButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_split_button_get_type")!!) { SplitButton(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

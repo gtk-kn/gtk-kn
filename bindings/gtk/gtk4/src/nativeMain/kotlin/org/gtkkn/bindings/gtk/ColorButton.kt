@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -200,7 +201,7 @@ public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColo
 
     public companion object : TypeCompanion<ColorButton> {
         override val type: GeneratedClassKGType<ColorButton> =
-            GeneratedClassKGType(gtk_color_button_get_type()) { ColorButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_color_button_get_type")!!) { ColorButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

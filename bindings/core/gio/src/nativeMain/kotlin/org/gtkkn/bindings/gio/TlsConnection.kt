@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -667,7 +668,9 @@ public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer
 
     public companion object : TypeCompanion<TlsConnection> {
         override val type: GeneratedClassKGType<TlsConnection> =
-            GeneratedClassKGType(g_tls_connection_get_type()) { TlsConnectionImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_tls_connection_get_type")!!) {
+                TlsConnectionImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

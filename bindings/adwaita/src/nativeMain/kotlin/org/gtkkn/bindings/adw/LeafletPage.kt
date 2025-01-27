@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -92,7 +93,7 @@ public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPa
 
     public companion object : TypeCompanion<LeafletPage> {
         override val type: GeneratedClassKGType<LeafletPage> =
-            GeneratedClassKGType(adw_leaflet_page_get_type()) { LeafletPage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_leaflet_page_get_type")!!) { LeafletPage(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

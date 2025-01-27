@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -523,7 +524,7 @@ public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubproce
 
     public companion object : TypeCompanion<Subprocess> {
         override val type: GeneratedClassKGType<Subprocess> =
-            GeneratedClassKGType(g_subprocess_get_type()) { Subprocess(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_subprocess_get_type")!!) { Subprocess(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

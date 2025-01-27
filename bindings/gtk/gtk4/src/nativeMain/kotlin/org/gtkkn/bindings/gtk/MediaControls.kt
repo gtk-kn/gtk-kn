@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -69,7 +70,7 @@ public open class MediaControls(public val gtkMediaControlsPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =
-            GeneratedClassKGType(gtk_media_controls_get_type()) { MediaControls(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_media_controls_get_type")!!) { MediaControls(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

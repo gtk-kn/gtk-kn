@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -213,7 +214,7 @@ public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
 
     public companion object : TypeCompanion<Avatar> {
         override val type: GeneratedClassKGType<Avatar> =
-            GeneratedClassKGType(adw_avatar_get_type()) { Avatar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_avatar_get_type")!!) { Avatar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

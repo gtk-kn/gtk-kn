@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -96,7 +97,7 @@ public interface Swipeable :
 
     public companion object : TypeCompanion<Swipeable> {
         override val type: GeneratedInterfaceKGType<Swipeable> =
-            GeneratedInterfaceKGType(adw_swipeable_get_type()) { SwipeableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("adw_swipeable_get_type")!!) { SwipeableImpl(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

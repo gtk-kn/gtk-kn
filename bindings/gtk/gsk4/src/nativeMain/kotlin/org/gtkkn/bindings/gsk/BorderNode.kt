@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -47,7 +48,7 @@ public open class BorderNode(public val gskBorderNodePointer: CPointer<GskBorder
 
     public companion object : TypeCompanion<BorderNode> {
         override val type: GeneratedClassKGType<BorderNode> =
-            GeneratedClassKGType(gsk_border_node_get_type()) { BorderNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_border_node_get_type")!!) { BorderNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

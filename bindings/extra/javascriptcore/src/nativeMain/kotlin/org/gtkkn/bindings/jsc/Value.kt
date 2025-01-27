@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_28
 import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_38
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -637,7 +638,7 @@ public class Value(public val jscValuePointer: CPointer<JSCValue>) :
 
     public companion object : TypeCompanion<Value> {
         override val type: GeneratedClassKGType<Value> =
-            GeneratedClassKGType(jsc_value_get_type()) { Value(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("jsc_value_get_type")!!) { Value(it.reinterpret()) }
 
         init {
             JavascriptcoreTypeProvider.register()

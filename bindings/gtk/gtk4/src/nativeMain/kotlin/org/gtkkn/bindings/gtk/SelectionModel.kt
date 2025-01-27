@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -291,7 +292,9 @@ public interface SelectionModel :
 
     public companion object : TypeCompanion<SelectionModel> {
         override val type: GeneratedInterfaceKGType<SelectionModel> =
-            GeneratedInterfaceKGType(gtk_selection_model_get_type()) { SelectionModelImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_selection_model_get_type")!!) {
+                SelectionModelImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

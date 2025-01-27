@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -90,7 +91,7 @@ public interface StyleSchemeChooser :
 
     public companion object : TypeCompanion<StyleSchemeChooser> {
         override val type: GeneratedInterfaceKGType<StyleSchemeChooser> =
-            GeneratedInterfaceKGType(gtk_source_style_scheme_chooser_get_type()) {
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_source_style_scheme_chooser_get_type")!!) {
                 StyleSchemeChooserImpl(it.reinterpret())
             }
 

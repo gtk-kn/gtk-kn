@@ -13,6 +13,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -143,7 +144,7 @@ public abstract class SocketAddressEnumerator(
 
     public companion object : TypeCompanion<SocketAddressEnumerator> {
         override val type: GeneratedClassKGType<SocketAddressEnumerator> =
-            GeneratedClassKGType(g_socket_address_enumerator_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("g_socket_address_enumerator_get_type")!!) {
                 SocketAddressEnumeratorImpl(it.reinterpret())
             }
 

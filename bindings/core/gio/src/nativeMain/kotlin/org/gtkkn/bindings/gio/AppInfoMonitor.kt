@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -103,7 +104,9 @@ public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<G
 
     public companion object : TypeCompanion<AppInfoMonitor> {
         override val type: GeneratedClassKGType<AppInfoMonitor> =
-            GeneratedClassKGType(g_app_info_monitor_get_type()) { AppInfoMonitor(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_app_info_monitor_get_type")!!) {
+                AppInfoMonitor(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

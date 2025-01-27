@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -433,7 +434,7 @@ public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>)
 
     public companion object : TypeCompanion<PrintJob> {
         override val type: GeneratedClassKGType<PrintJob> =
-            GeneratedClassKGType(gtk_print_job_get_type()) { PrintJob(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_print_job_get_type")!!) { PrintJob(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

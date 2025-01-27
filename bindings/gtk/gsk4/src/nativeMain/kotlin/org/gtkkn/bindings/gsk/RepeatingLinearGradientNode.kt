@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -25,7 +26,7 @@ public open class RepeatingLinearGradientNode(
     KGTyped {
     public companion object : TypeCompanion<RepeatingLinearGradientNode> {
         override val type: GeneratedClassKGType<RepeatingLinearGradientNode> =
-            GeneratedClassKGType(gsk_repeating_linear_gradient_node_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("gsk_repeating_linear_gradient_node_get_type")!!) {
                 RepeatingLinearGradientNode(it.reinterpret())
             }
 

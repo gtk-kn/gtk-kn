@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -80,7 +81,9 @@ public abstract class PolicyDecision(public val webkitPolicyDecisionPointer: CPo
 
     public companion object : TypeCompanion<PolicyDecision> {
         override val type: GeneratedClassKGType<PolicyDecision> =
-            GeneratedClassKGType(webkit_policy_decision_get_type()) { PolicyDecisionImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_policy_decision_get_type")!!) {
+                PolicyDecisionImpl(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

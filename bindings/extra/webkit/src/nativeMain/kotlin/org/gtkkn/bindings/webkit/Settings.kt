@@ -29,6 +29,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_46
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -1546,7 +1547,7 @@ public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(webkit_settings_get_type()) { Settings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_settings_get_type")!!) { Settings(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

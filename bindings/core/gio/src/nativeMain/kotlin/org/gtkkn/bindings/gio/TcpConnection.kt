@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -64,7 +65,7 @@ public open class TcpConnection(public val gioTcpConnectionPointer: CPointer<GTc
 
     public companion object : TypeCompanion<TcpConnection> {
         override val type: GeneratedClassKGType<TcpConnection> =
-            GeneratedClassKGType(g_tcp_connection_get_type()) { TcpConnection(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_tcp_connection_get_type")!!) { TcpConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

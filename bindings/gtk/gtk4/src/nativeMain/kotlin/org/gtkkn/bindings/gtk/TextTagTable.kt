@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -223,7 +224,7 @@ public open class TextTagTable(public val gtkTextTagTablePointer: CPointer<GtkTe
 
     public companion object : TypeCompanion<TextTagTable> {
         override val type: GeneratedClassKGType<TextTagTable> =
-            GeneratedClassKGType(gtk_text_tag_table_get_type()) { TextTagTable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_text_tag_table_get_type")!!) { TextTagTable(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

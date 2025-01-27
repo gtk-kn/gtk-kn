@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Adjustment
 import org.gtkkn.bindings.gtk.Editable
 import org.gtkkn.bindings.gtk.SpinButtonUpdatePolicy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -441,7 +442,7 @@ public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
 
     public companion object : TypeCompanion<SpinRow> {
         override val type: GeneratedClassKGType<SpinRow> =
-            GeneratedClassKGType(adw_spin_row_get_type()) { SpinRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_spin_row_get_type")!!) { SpinRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

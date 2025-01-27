@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.pango.FontDescription
 import org.gtkkn.bindings.pango.Language
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -327,7 +328,9 @@ public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPoint
 
     public companion object : TypeCompanion<FontDialogButton> {
         override val type: GeneratedClassKGType<FontDialogButton> =
-            GeneratedClassKGType(gtk_font_dialog_button_get_type()) { FontDialogButton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_font_dialog_button_get_type")!!) {
+                FontDialogButton(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

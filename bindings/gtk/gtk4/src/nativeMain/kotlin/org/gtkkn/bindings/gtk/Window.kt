@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1089,7 +1090,7 @@ public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
 
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =
-            GeneratedClassKGType(gtk_window_get_type()) { Window(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_window_get_type")!!) { Window(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

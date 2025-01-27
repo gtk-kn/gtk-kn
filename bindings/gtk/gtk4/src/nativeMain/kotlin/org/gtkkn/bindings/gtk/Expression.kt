@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -312,7 +313,7 @@ public abstract class Expression(public val gtkExpressionPointer: CPointer<GtkEx
 
     public companion object : TypeCompanion<Expression> {
         override val type: GeneratedClassKGType<Expression> =
-            GeneratedClassKGType(gtk_expression_get_type()) { ExpressionImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_expression_get_type")!!) { ExpressionImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

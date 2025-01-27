@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -224,7 +225,7 @@ public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
 
     public companion object : TypeCompanion<Seat> {
         override val type: GeneratedClassKGType<Seat> =
-            GeneratedClassKGType(gdk_seat_get_type()) { SeatImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_seat_get_type")!!) { SeatImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -357,7 +358,7 @@ public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuMo
 
     public companion object : TypeCompanion<MenuModel> {
         override val type: GeneratedClassKGType<MenuModel> =
-            GeneratedClassKGType(g_menu_model_get_type()) { MenuModelImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_menu_model_get_type")!!) { MenuModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

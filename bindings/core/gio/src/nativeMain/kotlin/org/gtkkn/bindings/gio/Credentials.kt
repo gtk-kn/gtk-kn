@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -235,7 +236,7 @@ public open class Credentials(public val gioCredentialsPointer: CPointer<GCreden
 
     public companion object : TypeCompanion<Credentials> {
         override val type: GeneratedClassKGType<Credentials> =
-            GeneratedClassKGType(g_credentials_get_type()) { Credentials(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_credentials_get_type")!!) { Credentials(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

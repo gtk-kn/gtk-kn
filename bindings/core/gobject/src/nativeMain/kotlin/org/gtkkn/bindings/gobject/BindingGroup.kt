@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -141,7 +142,7 @@ public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<G
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =
-            GeneratedClassKGType(g_binding_group_get_type()) { BindingGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_binding_group_get_type")!!) { BindingGroup(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()

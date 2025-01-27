@@ -11,6 +11,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -105,7 +106,7 @@ public open class GesturePan(public val gtkGesturePanPointer: CPointer<GtkGestur
 
     public companion object : TypeCompanion<GesturePan> {
         override val type: GeneratedClassKGType<GesturePan> =
-            GeneratedClassKGType(gtk_gesture_pan_get_type()) { GesturePan(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_gesture_pan_get_type")!!) { GesturePan(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

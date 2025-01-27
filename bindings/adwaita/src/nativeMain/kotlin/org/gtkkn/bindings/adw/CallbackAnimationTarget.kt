@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -42,7 +43,7 @@ public class CallbackAnimationTarget(
 
     public companion object : TypeCompanion<CallbackAnimationTarget> {
         override val type: GeneratedClassKGType<CallbackAnimationTarget> =
-            GeneratedClassKGType(adw_callback_animation_target_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("adw_callback_animation_target_get_type")!!) {
                 CallbackAnimationTarget(it.reinterpret())
             }
 

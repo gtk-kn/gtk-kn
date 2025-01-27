@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -297,7 +298,7 @@ public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSi
 
     public companion object : TypeCompanion<SignalGroup> {
         override val type: GeneratedClassKGType<SignalGroup> =
-            GeneratedClassKGType(g_signal_group_get_type()) { SignalGroup(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_signal_group_get_type")!!) { SignalGroup(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()

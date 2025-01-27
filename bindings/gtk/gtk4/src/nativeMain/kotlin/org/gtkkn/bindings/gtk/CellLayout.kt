@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -275,7 +276,9 @@ public interface CellLayout :
 
     public companion object : TypeCompanion<CellLayout> {
         override val type: GeneratedInterfaceKGType<CellLayout> =
-            GeneratedInterfaceKGType(gtk_cell_layout_get_type()) { CellLayoutImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_cell_layout_get_type")!!) {
+                CellLayoutImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

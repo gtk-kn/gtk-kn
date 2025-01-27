@@ -22,6 +22,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -585,7 +586,7 @@ public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebCo
 
     public companion object : TypeCompanion<WebContext> {
         override val type: GeneratedClassKGType<WebContext> =
-            GeneratedClassKGType(webkit_web_context_get_type()) { WebContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_web_context_get_type")!!) { WebContext(it.reinterpret()) }
 
         init {
             WebkitTypeProvider.register()

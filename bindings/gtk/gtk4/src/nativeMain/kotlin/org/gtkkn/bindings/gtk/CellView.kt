@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -234,7 +235,7 @@ public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>)
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =
-            GeneratedClassKGType(gtk_cell_view_get_type()) { CellView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_view_get_type")!!) { CellView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -215,7 +216,9 @@ public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPoi
 
     public companion object : TypeCompanion<SearchSettings> {
         override val type: GeneratedClassKGType<SearchSettings> =
-            GeneratedClassKGType(gtk_source_search_settings_get_type()) { SearchSettings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_search_settings_get_type")!!) {
+                SearchSettings(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

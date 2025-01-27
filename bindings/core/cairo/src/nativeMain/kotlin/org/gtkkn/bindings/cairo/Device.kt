@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
 import org.gtkkn.bindings.gobject.TypeInstance
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -120,7 +121,7 @@ public abstract class Device(public val cairoDevicePointer: CPointer<cairo_devic
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-            GeneratedClassKGType(cairo_gobject_device_get_type()) { DeviceImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_device_get_type")!!) { DeviceImpl(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

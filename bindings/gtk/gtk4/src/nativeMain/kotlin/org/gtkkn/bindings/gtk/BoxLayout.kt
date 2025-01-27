@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -160,7 +161,7 @@ public open class BoxLayout(public val gtkBoxLayoutPointer: CPointer<GtkBoxLayou
 
     public companion object : TypeCompanion<BoxLayout> {
         override val type: GeneratedClassKGType<BoxLayout> =
-            GeneratedClassKGType(gtk_box_layout_get_type()) { BoxLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_box_layout_get_type")!!) { BoxLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

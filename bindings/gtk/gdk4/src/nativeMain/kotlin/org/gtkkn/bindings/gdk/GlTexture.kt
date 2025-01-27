@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -47,7 +48,7 @@ public open class GlTexture(public val gdkGlTexturePointer: CPointer<GdkGLTextur
 
     public companion object : TypeCompanion<GlTexture> {
         override val type: GeneratedClassKGType<GlTexture> =
-            GeneratedClassKGType(gdk_gl_texture_get_type()) { GlTexture(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_get_type")!!) { GlTexture(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

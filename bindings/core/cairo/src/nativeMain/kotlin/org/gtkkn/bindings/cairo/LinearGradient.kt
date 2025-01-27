@@ -5,6 +5,7 @@ package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -31,7 +32,9 @@ public open class LinearGradient(public val cairoLinearGradientPointer: CPointer
 
     public companion object : TypeCompanion<LinearGradient> {
         override val type: GeneratedClassKGType<LinearGradient> =
-            GeneratedClassKGType(cairo_gobject_pattern_get_type()) { LinearGradient(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) {
+                LinearGradient(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

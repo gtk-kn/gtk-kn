@@ -12,6 +12,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -191,7 +192,7 @@ public abstract class FontMap(public val pangoFontMapPointer: CPointer<PangoFont
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedClassKGType<FontMap> =
-            GeneratedClassKGType(pango_font_map_get_type()) { FontMapImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("pango_font_map_get_type")!!) { FontMapImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

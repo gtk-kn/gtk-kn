@@ -18,6 +18,7 @@ import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -479,7 +480,9 @@ public interface ActionGroup :
 
     public companion object : TypeCompanion<ActionGroup> {
         override val type: GeneratedInterfaceKGType<ActionGroup> =
-            GeneratedInterfaceKGType(g_action_group_get_type()) { ActionGroupImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_action_group_get_type")!!) {
+                ActionGroupImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

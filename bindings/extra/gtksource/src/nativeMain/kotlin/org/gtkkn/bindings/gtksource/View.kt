@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
 import org.gtkkn.bindings.gtk.TextWindowType
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -914,7 +915,7 @@ public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>)
 
     public companion object : TypeCompanion<View> {
         override val type: GeneratedClassKGType<View> =
-            GeneratedClassKGType(gtk_source_view_get_type()) { View(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_view_get_type")!!) { View(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

@@ -19,6 +19,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1158,7 +1159,7 @@ public abstract class CellArea(public val gtkCellAreaPointer: CPointer<GtkCellAr
 
     public companion object : TypeCompanion<CellArea> {
         override val type: GeneratedClassKGType<CellArea> =
-            GeneratedClassKGType(gtk_cell_area_get_type()) { CellAreaImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_area_get_type")!!) { CellAreaImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

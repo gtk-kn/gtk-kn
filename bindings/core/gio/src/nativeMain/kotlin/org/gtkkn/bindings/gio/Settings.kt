@@ -23,6 +23,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -1378,7 +1379,7 @@ public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-            GeneratedClassKGType(g_settings_get_type()) { Settings(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_settings_get_type")!!) { Settings(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -5,6 +5,7 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -24,7 +25,7 @@ public class AuthDigest(public val soupAuthDigestPointer: CPointer<SoupAuth>) :
     KGTyped {
     public companion object : TypeCompanion<AuthDigest> {
         override val type: GeneratedClassKGType<AuthDigest> =
-            GeneratedClassKGType(soup_auth_digest_get_type()) { AuthDigest(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_auth_digest_get_type")!!) { AuthDigest(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

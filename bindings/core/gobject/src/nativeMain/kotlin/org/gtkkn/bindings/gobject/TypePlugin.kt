@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gobject
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -133,7 +134,7 @@ public interface TypePlugin :
 
     public companion object : TypeCompanion<TypePlugin> {
         override val type: GeneratedInterfaceKGType<TypePlugin> =
-            GeneratedInterfaceKGType(g_type_plugin_get_type()) { TypePluginImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_type_plugin_get_type")!!) { TypePluginImpl(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.soup
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -49,7 +50,9 @@ public class ContentDecoder(public val soupContentDecoderPointer: CPointer<SoupC
 
     public companion object : TypeCompanion<ContentDecoder> {
         override val type: GeneratedClassKGType<ContentDecoder> =
-            GeneratedClassKGType(soup_content_decoder_get_type()) { ContentDecoder(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_content_decoder_get_type")!!) {
+                ContentDecoder(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

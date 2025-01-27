@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -271,7 +272,7 @@ public interface Paintable :
 
     public companion object : TypeCompanion<Paintable> {
         override val type: GeneratedInterfaceKGType<Paintable> =
-            GeneratedInterfaceKGType(gdk_paintable_get_type()) { PaintableImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gdk_paintable_get_type")!!) { PaintableImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

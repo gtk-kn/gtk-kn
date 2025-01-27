@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -157,7 +158,9 @@ public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CP
 
     public companion object : TypeCompanion<DBusObjectSkeleton> {
         override val type: GeneratedClassKGType<DBusObjectSkeleton> =
-            GeneratedClassKGType(g_dbus_object_skeleton_get_type()) { DBusObjectSkeleton(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_dbus_object_skeleton_get_type")!!) {
+                DBusObjectSkeleton(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

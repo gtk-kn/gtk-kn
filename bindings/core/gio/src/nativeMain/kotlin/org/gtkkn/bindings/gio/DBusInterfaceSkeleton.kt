@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -324,7 +325,7 @@ public abstract class DBusInterfaceSkeleton(
 
     public companion object : TypeCompanion<DBusInterfaceSkeleton> {
         override val type: GeneratedClassKGType<DBusInterfaceSkeleton> =
-            GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("g_dbus_interface_skeleton_get_type")!!) {
                 DBusInterfaceSkeletonImpl(it.reinterpret())
             }
 

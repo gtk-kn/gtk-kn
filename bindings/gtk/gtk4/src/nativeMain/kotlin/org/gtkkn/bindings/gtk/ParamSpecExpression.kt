@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.ParamSpec
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -21,7 +22,9 @@ public open class ParamSpecExpression(public val gtkParamSpecExpressionPointer: 
     KGTyped {
     public companion object : TypeCompanion<ParamSpecExpression> {
         override val type: GeneratedClassKGType<ParamSpecExpression> =
-            GeneratedClassKGType(gtk_param_expression_get_type()) { ParamSpecExpression(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_param_expression_get_type")!!) {
+                ParamSpecExpression(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

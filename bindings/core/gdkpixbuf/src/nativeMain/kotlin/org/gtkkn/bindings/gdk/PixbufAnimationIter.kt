@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -110,7 +111,9 @@ public open class PixbufAnimationIter(public val gdkPixbufAnimationIterPointer: 
 
     public companion object : TypeCompanion<PixbufAnimationIter> {
         override val type: GeneratedClassKGType<PixbufAnimationIter> =
-            GeneratedClassKGType(gdk_pixbuf_animation_iter_get_type()) { PixbufAnimationIter(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_animation_iter_get_type")!!) {
+                PixbufAnimationIter(it.reinterpret())
+            }
 
         init {
             GdkpixbufTypeProvider.register()

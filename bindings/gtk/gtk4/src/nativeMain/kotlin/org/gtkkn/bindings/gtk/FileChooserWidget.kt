@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -460,7 +461,9 @@ public open class FileChooserWidget(public val gtkFileChooserWidgetPointer: CPoi
 
     public companion object : TypeCompanion<FileChooserWidget> {
         override val type: GeneratedClassKGType<FileChooserWidget> =
-            GeneratedClassKGType(gtk_file_chooser_widget_get_type()) { FileChooserWidget(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_file_chooser_widget_get_type")!!) {
+                FileChooserWidget(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

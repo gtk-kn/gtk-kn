@@ -14,6 +14,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -247,7 +248,7 @@ public open class EntryBuffer(public val gtkEntryBufferPointer: CPointer<GtkEntr
 
     public companion object : TypeCompanion<EntryBuffer> {
         override val type: GeneratedClassKGType<EntryBuffer> =
-            GeneratedClassKGType(gtk_entry_buffer_get_type()) { EntryBuffer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_entry_buffer_get_type")!!) { EntryBuffer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

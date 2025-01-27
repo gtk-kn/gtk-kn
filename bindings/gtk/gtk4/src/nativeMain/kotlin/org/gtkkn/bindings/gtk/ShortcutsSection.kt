@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -114,7 +115,9 @@ public open class ShortcutsSection(public val gtkShortcutsSectionPointer: CPoint
 
     public companion object : TypeCompanion<ShortcutsSection> {
         override val type: GeneratedClassKGType<ShortcutsSection> =
-            GeneratedClassKGType(gtk_shortcuts_section_get_type()) { ShortcutsSection(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_shortcuts_section_get_type")!!) {
+                ShortcutsSection(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

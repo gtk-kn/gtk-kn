@@ -6,6 +6,7 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -28,7 +29,9 @@ public abstract class AnimationTarget(public val adwAnimationTargetPointer: CPoi
 
     public companion object : TypeCompanion<AnimationTarget> {
         override val type: GeneratedClassKGType<AnimationTarget> =
-            GeneratedClassKGType(adw_animation_target_get_type()) { AnimationTargetImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_animation_target_get_type")!!) {
+                AnimationTargetImpl(it.reinterpret())
+            }
 
         init {
             AdwTypeProvider.register()

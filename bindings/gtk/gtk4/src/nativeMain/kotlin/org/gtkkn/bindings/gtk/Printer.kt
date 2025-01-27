@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -321,7 +322,7 @@ public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
 
     public companion object : TypeCompanion<Printer> {
         override val type: GeneratedClassKGType<Printer> =
-            GeneratedClassKGType(gtk_printer_get_type()) { Printer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_printer_get_type")!!) { Printer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -13,6 +13,7 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_8
 import org.gtkkn.bindings.gobject.TypeInstance
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -203,7 +204,7 @@ public open class Surface(public val cairoSurfacePointer: CPointer<cairo_surface
 
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
-            GeneratedClassKGType(cairo_gobject_surface_get_type()) { Surface(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { Surface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -632,7 +633,9 @@ public open class TreeViewColumn(public val gtkTreeViewColumnPointer: CPointer<G
 
     public companion object : TypeCompanion<TreeViewColumn> {
         override val type: GeneratedClassKGType<TreeViewColumn> =
-            GeneratedClassKGType(gtk_tree_view_column_get_type()) { TreeViewColumn(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_tree_view_column_get_type")!!) {
+                TreeViewColumn(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

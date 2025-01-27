@@ -8,6 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -194,7 +195,9 @@ public open class LanguageManager(public val gtksourceLanguageManagerPointer: CP
 
     public companion object : TypeCompanion<LanguageManager> {
         override val type: GeneratedClassKGType<LanguageManager> =
-            GeneratedClassKGType(gtk_source_language_manager_get_type()) { LanguageManager(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_language_manager_get_type")!!) {
+                LanguageManager(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

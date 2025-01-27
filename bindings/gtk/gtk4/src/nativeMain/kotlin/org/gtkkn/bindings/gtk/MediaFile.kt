@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.InputStream
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -175,7 +176,7 @@ public abstract class MediaFile(public val gtkMediaFilePointer: CPointer<GtkMedi
 
     public companion object : TypeCompanion<MediaFile> {
         override val type: GeneratedClassKGType<MediaFile> =
-            GeneratedClassKGType(gtk_media_file_get_type()) { MediaFileImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_media_file_get_type")!!) { MediaFileImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

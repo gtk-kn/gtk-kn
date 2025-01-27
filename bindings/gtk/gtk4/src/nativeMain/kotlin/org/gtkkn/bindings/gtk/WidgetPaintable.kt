@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -79,7 +80,9 @@ public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =
-            GeneratedClassKGType(gtk_widget_paintable_get_type()) { WidgetPaintable(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_widget_paintable_get_type")!!) {
+                WidgetPaintable(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

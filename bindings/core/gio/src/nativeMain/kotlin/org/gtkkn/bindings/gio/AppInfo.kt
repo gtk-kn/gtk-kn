@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -532,7 +533,7 @@ public interface AppInfo :
 
     public companion object : TypeCompanion<AppInfo> {
         override val type: GeneratedInterfaceKGType<AppInfo> =
-            GeneratedInterfaceKGType(g_app_info_get_type()) { AppInfoImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("g_app_info_get_type")!!) { AppInfoImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

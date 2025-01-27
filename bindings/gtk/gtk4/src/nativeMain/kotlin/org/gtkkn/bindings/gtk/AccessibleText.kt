@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -97,7 +98,9 @@ public interface AccessibleText :
 
     public companion object : TypeCompanion<AccessibleText> {
         override val type: GeneratedInterfaceKGType<AccessibleText> =
-            GeneratedInterfaceKGType(gtk_accessible_text_get_type()) { AccessibleTextImpl(it.reinterpret()) }
+            GeneratedInterfaceKGType(getTypeOrNull("gtk_accessible_text_get_type")!!) {
+                AccessibleTextImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

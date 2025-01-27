@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.graphene.Rect
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -46,7 +47,7 @@ public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNod
 
     public companion object : TypeCompanion<ColorNode> {
         override val type: GeneratedClassKGType<ColorNode> =
-            GeneratedClassKGType(gsk_color_node_get_type()) { ColorNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_color_node_get_type")!!) { ColorNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

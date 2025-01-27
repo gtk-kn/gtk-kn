@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -29,7 +30,7 @@ public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButt
 
     public companion object : TypeCompanion<ButtonEvent> {
         override val type: GeneratedClassKGType<ButtonEvent> =
-            GeneratedClassKGType(gdk_button_event_get_type()) { ButtonEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_button_event_get_type")!!) { ButtonEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

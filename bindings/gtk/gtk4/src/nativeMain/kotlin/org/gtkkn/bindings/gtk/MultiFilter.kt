@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -66,7 +67,7 @@ public abstract class MultiFilter(public val gtkMultiFilterPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<MultiFilter> {
         override val type: GeneratedClassKGType<MultiFilter> =
-            GeneratedClassKGType(gtk_multi_filter_get_type()) { MultiFilterImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_multi_filter_get_type")!!) { MultiFilterImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

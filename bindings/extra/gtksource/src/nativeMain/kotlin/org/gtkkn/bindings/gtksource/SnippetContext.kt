@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -143,7 +144,9 @@ public open class SnippetContext(public val gtksourceSnippetContextPointer: CPoi
 
     public companion object : TypeCompanion<SnippetContext> {
         override val type: GeneratedClassKGType<SnippetContext> =
-            GeneratedClassKGType(gtk_source_snippet_context_get_type()) { SnippetContext(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_context_get_type")!!) {
+                SnippetContext(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()

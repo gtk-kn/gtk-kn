@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -31,7 +32,7 @@ public open class FocusEvent(public val gdkFocusEventPointer: CPointer<GdkFocusE
 
     public companion object : TypeCompanion<FocusEvent> {
         override val type: GeneratedClassKGType<FocusEvent> =
-            GeneratedClassKGType(gdk_focus_event_get_type()) { FocusEvent(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_focus_event_get_type")!!) { FocusEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

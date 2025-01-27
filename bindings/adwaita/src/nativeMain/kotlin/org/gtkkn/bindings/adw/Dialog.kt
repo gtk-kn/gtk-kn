@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -555,7 +556,7 @@ public open class Dialog(public val adwDialogPointer: CPointer<AdwDialog>) :
 
     public companion object : TypeCompanion<Dialog> {
         override val type: GeneratedClassKGType<Dialog> =
-            GeneratedClassKGType(adw_dialog_get_type()) { Dialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_dialog_get_type")!!) { Dialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

@@ -22,6 +22,7 @@ import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -1363,7 +1364,7 @@ public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
 
     public companion object : TypeCompanion<Socket> {
         override val type: GeneratedClassKGType<Socket> =
-            GeneratedClassKGType(g_socket_get_type()) { Socket(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_socket_get_type")!!) { Socket(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

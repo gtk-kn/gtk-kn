@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -219,7 +220,7 @@ public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<DirectoryList> {
         override val type: GeneratedClassKGType<DirectoryList> =
-            GeneratedClassKGType(gtk_directory_list_get_type()) { DirectoryList(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_directory_list_get_type")!!) { DirectoryList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

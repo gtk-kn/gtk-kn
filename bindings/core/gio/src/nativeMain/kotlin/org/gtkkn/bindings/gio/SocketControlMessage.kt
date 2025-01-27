@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -109,7 +110,9 @@ public abstract class SocketControlMessage(
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =
-            GeneratedClassKGType(g_socket_control_message_get_type()) { SocketControlMessageImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_socket_control_message_get_type")!!) {
+                SocketControlMessageImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

@@ -14,6 +14,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -151,7 +152,9 @@ public open class CellRendererToggle(public val gtkCellRendererTogglePointer: CP
 
     public companion object : TypeCompanion<CellRendererToggle> {
         override val type: GeneratedClassKGType<CellRendererToggle> =
-            GeneratedClassKGType(gtk_cell_renderer_toggle_get_type()) { CellRendererToggle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_cell_renderer_toggle_get_type")!!) {
+                CellRendererToggle(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

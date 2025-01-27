@@ -8,6 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -163,7 +164,7 @@ public open class Vfs(public val gioVfsPointer: CPointer<GVfs>) :
 
     public companion object : TypeCompanion<Vfs> {
         override val type: GeneratedClassKGType<Vfs> =
-            GeneratedClassKGType(g_vfs_get_type()) { Vfs(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_vfs_get_type")!!) { Vfs(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

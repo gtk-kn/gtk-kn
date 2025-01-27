@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -400,7 +401,7 @@ public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPi
 
     public companion object : TypeCompanion<PixbufLoader> {
         override val type: GeneratedClassKGType<PixbufLoader> =
-            GeneratedClassKGType(gdk_pixbuf_loader_get_type()) { PixbufLoader(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_loader_get_type")!!) { PixbufLoader(it.reinterpret()) }
 
         init {
             GdkpixbufTypeProvider.register()

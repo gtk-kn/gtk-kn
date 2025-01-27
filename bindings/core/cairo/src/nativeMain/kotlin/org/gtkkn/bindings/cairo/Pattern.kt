@@ -9,6 +9,7 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.gobject.TypeInstance
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -107,7 +108,9 @@ public abstract class Pattern(public val cairoPatternPointer: CPointer<cairo_pat
 
     public companion object : TypeCompanion<Pattern> {
         override val type: GeneratedClassKGType<Pattern> =
-            GeneratedClassKGType(cairo_gobject_pattern_get_type()) { PatternImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("cairo_gobject_pattern_get_type")!!) {
+                PatternImpl(it.reinterpret())
+            }
 
         init {
             CairoTypeProvider.register()

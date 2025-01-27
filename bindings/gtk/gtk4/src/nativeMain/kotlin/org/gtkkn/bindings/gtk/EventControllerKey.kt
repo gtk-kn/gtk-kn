@@ -12,6 +12,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -193,7 +194,9 @@ public open class EventControllerKey(public val gtkEventControllerKeyPointer: CP
 
     public companion object : TypeCompanion<EventControllerKey> {
         override val type: GeneratedClassKGType<EventControllerKey> =
-            GeneratedClassKGType(gtk_event_controller_key_get_type()) { EventControllerKey(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_event_controller_key_get_type")!!) {
+                EventControllerKey(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

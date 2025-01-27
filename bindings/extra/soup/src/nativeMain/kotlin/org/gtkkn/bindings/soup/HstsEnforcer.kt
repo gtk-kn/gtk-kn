@@ -13,6 +13,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -195,7 +196,7 @@ public open class HstsEnforcer(public val soupHstsEnforcerPointer: CPointer<Soup
 
     public companion object : TypeCompanion<HstsEnforcer> {
         override val type: GeneratedClassKGType<HstsEnforcer> =
-            GeneratedClassKGType(soup_hsts_enforcer_get_type()) { HstsEnforcer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_hsts_enforcer_get_type")!!) { HstsEnforcer(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

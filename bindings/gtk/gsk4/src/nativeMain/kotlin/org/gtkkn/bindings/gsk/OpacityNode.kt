@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -53,7 +54,7 @@ public open class OpacityNode(public val gskOpacityNodePointer: CPointer<GskOpac
 
     public companion object : TypeCompanion<OpacityNode> {
         override val type: GeneratedClassKGType<OpacityNode> =
-            GeneratedClassKGType(gsk_opacity_node_get_type()) { OpacityNode(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_opacity_node_get_type")!!) { OpacityNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

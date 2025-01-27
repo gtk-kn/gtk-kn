@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -30,7 +31,7 @@ public abstract class Snapshot(public val gdkSnapshotPointer: CPointer<GdkSnapsh
 
     public companion object : TypeCompanion<Snapshot> {
         override val type: GeneratedClassKGType<Snapshot> =
-            GeneratedClassKGType(gdk_snapshot_get_type()) { SnapshotImpl(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gdk_snapshot_get_type")!!) { SnapshotImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

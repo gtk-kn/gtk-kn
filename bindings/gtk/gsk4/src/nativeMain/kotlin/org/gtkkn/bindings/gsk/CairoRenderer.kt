@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -38,7 +39,7 @@ public open class CairoRenderer(public val gskCairoRendererPointer: CPointer<Gsk
 
     public companion object : TypeCompanion<CairoRenderer> {
         override val type: GeneratedClassKGType<CairoRenderer> =
-            GeneratedClassKGType(gsk_cairo_renderer_get_type()) { CairoRenderer(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gsk_cairo_renderer_get_type")!!) { CairoRenderer(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

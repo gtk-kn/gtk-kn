@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -75,7 +76,7 @@ public open class WindowHandle(public val gtkWindowHandlePointer: CPointer<GtkWi
 
     public companion object : TypeCompanion<WindowHandle> {
         override val type: GeneratedClassKGType<WindowHandle> =
-            GeneratedClassKGType(gtk_window_handle_get_type()) { WindowHandle(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_window_handle_get_type")!!) { WindowHandle(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

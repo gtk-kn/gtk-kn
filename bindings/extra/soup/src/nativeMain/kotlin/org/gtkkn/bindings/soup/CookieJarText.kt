@@ -5,6 +5,7 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -53,7 +54,9 @@ public class CookieJarText(public val soupCookieJarTextPointer: CPointer<SoupCoo
 
     public companion object : TypeCompanion<CookieJarText> {
         override val type: GeneratedClassKGType<CookieJarText> =
-            GeneratedClassKGType(soup_cookie_jar_text_get_type()) { CookieJarText(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_cookie_jar_text_get_type")!!) {
+                CookieJarText(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

@@ -24,6 +24,7 @@ import org.gtkkn.bindings.pango.FontFace
 import org.gtkkn.bindings.pango.FontFamily
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Language
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -445,7 +446,7 @@ public open class FontDialog(public val gtkFontDialogPointer: CPointer<GtkFontDi
 
     public companion object : TypeCompanion<FontDialog> {
         override val type: GeneratedClassKGType<FontDialog> =
-            GeneratedClassKGType(gtk_font_dialog_get_type()) { FontDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_font_dialog_get_type")!!) { FontDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

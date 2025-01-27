@@ -8,6 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -100,7 +101,9 @@ public open class SimpleProxyResolver(public val gioSimpleProxyResolverPointer: 
 
     public companion object : TypeCompanion<SimpleProxyResolver> {
         override val type: GeneratedClassKGType<SimpleProxyResolver> =
-            GeneratedClassKGType(g_simple_proxy_resolver_get_type()) { SimpleProxyResolver(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_simple_proxy_resolver_get_type")!!) {
+                SimpleProxyResolver(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

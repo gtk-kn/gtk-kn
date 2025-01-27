@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -152,7 +153,7 @@ public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBa
 
     public companion object : TypeCompanion<ActionBar> {
         override val type: GeneratedClassKGType<ActionBar> =
-            GeneratedClassKGType(gtk_action_bar_get_type()) { ActionBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_action_bar_get_type")!!) { ActionBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

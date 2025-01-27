@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -64,7 +65,7 @@ public class WebsiteDataAccessPermissionRequest(
 
     public companion object : TypeCompanion<WebsiteDataAccessPermissionRequest> {
         override val type: GeneratedClassKGType<WebsiteDataAccessPermissionRequest> =
-            GeneratedClassKGType(webkit_website_data_access_permission_request_get_type()) {
+            GeneratedClassKGType(getTypeOrNull("webkit_website_data_access_permission_request_get_type")!!) {
                 WebsiteDataAccessPermissionRequest(it.reinterpret())
             }
 

@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -1058,7 +1059,7 @@ public open class IconView(public val gtkIconViewPointer: CPointer<GtkIconView>)
 
     public companion object : TypeCompanion<IconView> {
         override val type: GeneratedClassKGType<IconView> =
-            GeneratedClassKGType(gtk_icon_view_get_type()) { IconView(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_icon_view_get_type")!!) { IconView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

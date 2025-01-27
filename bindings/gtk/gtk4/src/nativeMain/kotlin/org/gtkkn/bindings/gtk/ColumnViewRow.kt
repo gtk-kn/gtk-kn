@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -255,7 +256,9 @@ public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<ColumnViewRow> {
         override val type: GeneratedClassKGType<ColumnViewRow> =
-            GeneratedClassKGType(gtk_column_view_row_get_type()) { ColumnViewRow(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_column_view_row_get_type")!!) {
+                ColumnViewRow(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

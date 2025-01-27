@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.ParamSpec
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -99,7 +100,9 @@ public open class PropertyExpression(public val gtkPropertyExpressionPointer: CP
 
     public companion object : TypeCompanion<PropertyExpression> {
         override val type: GeneratedClassKGType<PropertyExpression> =
-            GeneratedClassKGType(gtk_property_expression_get_type()) { PropertyExpression(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_property_expression_get_type")!!) {
+                PropertyExpression(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

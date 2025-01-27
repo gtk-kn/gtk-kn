@@ -23,6 +23,7 @@ import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.gtk.Window
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -720,7 +721,7 @@ public open class MessageDialog(public val adwMessageDialogPointer: CPointer<Adw
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =
-            GeneratedClassKGType(adw_message_dialog_get_type()) { MessageDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("adw_message_dialog_get_type")!!) { MessageDialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

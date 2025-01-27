@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.MenuModel
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -125,7 +126,9 @@ public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<G
 
     public companion object : TypeCompanion<PopoverMenuBar> {
         override val type: GeneratedClassKGType<PopoverMenuBar> =
-            GeneratedClassKGType(gtk_popover_menu_bar_get_type()) { PopoverMenuBar(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_popover_menu_bar_get_type")!!) {
+                PopoverMenuBar(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -220,7 +221,9 @@ public open class SortListModel(public val gtkSortListModelPointer: CPointer<Gtk
 
     public companion object : TypeCompanion<SortListModel> {
         override val type: GeneratedClassKGType<SortListModel> =
-            GeneratedClassKGType(gtk_sort_list_model_get_type()) { SortListModel(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_sort_list_model_get_type")!!) {
+                SortListModel(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()

@@ -15,6 +15,7 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -602,7 +603,7 @@ public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAbou
 
     public companion object : TypeCompanion<AboutDialog> {
         override val type: GeneratedClassKGType<AboutDialog> =
-            GeneratedClassKGType(gtk_about_dialog_get_type()) { AboutDialog(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_about_dialog_get_type")!!) { AboutDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

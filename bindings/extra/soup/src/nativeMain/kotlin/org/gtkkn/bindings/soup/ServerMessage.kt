@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_2
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -641,7 +642,9 @@ public class ServerMessage(public val soupServerMessagePointer: CPointer<SoupSer
 
     public companion object : TypeCompanion<ServerMessage> {
         override val type: GeneratedClassKGType<ServerMessage> =
-            GeneratedClassKGType(soup_server_message_get_type()) { ServerMessage(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("soup_server_message_get_type")!!) {
+                ServerMessage(it.reinterpret())
+            }
 
         init {
             SoupTypeProvider.register()

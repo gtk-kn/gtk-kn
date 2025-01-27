@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -38,7 +39,9 @@ public open class SimplePermission(public val gioSimplePermissionPointer: CPoint
 
     public companion object : TypeCompanion<SimplePermission> {
         override val type: GeneratedClassKGType<SimplePermission> =
-            GeneratedClassKGType(g_simple_permission_get_type()) { SimplePermission(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_simple_permission_get_type")!!) {
+                SimplePermission(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

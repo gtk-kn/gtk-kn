@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -180,7 +181,7 @@ public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLa
 
     public companion object : TypeCompanion<GridLayout> {
         override val type: GeneratedClassKGType<GridLayout> =
-            GeneratedClassKGType(gtk_grid_layout_get_type()) { GridLayout(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_grid_layout_get_type")!!) { GridLayout(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

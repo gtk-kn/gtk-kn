@@ -14,6 +14,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -294,7 +295,9 @@ public class WebInspector(public val webkitWebInspectorPointer: CPointer<WebKitW
 
     public companion object : TypeCompanion<WebInspector> {
         override val type: GeneratedClassKGType<WebInspector> =
-            GeneratedClassKGType(webkit_web_inspector_get_type()) { WebInspector(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("webkit_web_inspector_get_type")!!) {
+                WebInspector(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -59,7 +60,7 @@ public open class BuilderCScope(public val gtkBuilderCScopePointer: CPointer<Gtk
 
     public companion object : TypeCompanion<BuilderCScope> {
         override val type: GeneratedClassKGType<BuilderCScope> =
-            GeneratedClassKGType(gtk_builder_cscope_get_type()) { BuilderCScope(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("gtk_builder_cscope_get_type")!!) { BuilderCScope(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

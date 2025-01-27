@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -367,7 +368,7 @@ public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<G
 
     public companion object : TypeCompanion<FileEnumerator> {
         override val type: GeneratedClassKGType<FileEnumerator> =
-            GeneratedClassKGType(g_file_enumerator_get_type()) { FileEnumerator(it.reinterpret()) }
+            GeneratedClassKGType(getTypeOrNull("g_file_enumerator_get_type")!!) { FileEnumerator(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
