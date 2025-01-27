@@ -63,9 +63,10 @@ interface KGTypeGenerator {
             val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
             PropertySpec.builder("type", propertyType)
                 .initializer(
-                    "%T(%M()) { %T(it.%M()) }",
+                    "%T(%M(%S)!!) { %T(it.%M()) }",
                     BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
-                    clazz.glibGetTypeFunc,
+                    BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
+                    clazz.glibGetTypeFunc.simpleName,
                     clazz.instanceTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -83,9 +84,10 @@ interface KGTypeGenerator {
             val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
             PropertySpec.builder("type", propertyType)
                 .initializer(
-                    "%T(%M()) { %T(it.%M()) }",
+                    "%T(%M(%S)!!) { %T(it.%M()) }",
                     BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
-                    iface.glibGetTypeFunc,
+                    BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
+                    iface.glibGetTypeFunc.simpleName,
                     iface.instanceTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )

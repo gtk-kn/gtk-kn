@@ -347,6 +347,7 @@ class BindingsGenerator(
         // gtk-kn common function members
         internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.glib.ext", "asBoolean")
         internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.glib.ext", "asGBoolean")
+        internal val GET_TYPE_OR_NULL_MEMBER = MemberName("org.gtkkn.extensions.glib.cinterop", "getTypeOrNull")
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
         internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GLibException")
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
@@ -357,8 +358,8 @@ class BindingsGenerator(
         internal val GOBJECT_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGType")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
-        internal val PROXY_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "Proxy")
         internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
+        internal val PROXY_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "Proxy")
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
         internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toCStringList")
         internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toKStringList")
