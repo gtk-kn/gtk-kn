@@ -1,23 +1,21 @@
 /*
  * Copyright (c) 2025 gtk-kn
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * This file is part of gtk-kn.
+ * gtk-kn is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.gtkkn.extensions.glib.collections
@@ -32,6 +30,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.test.fail
 
 /**
  * Unit tests for `ConcurrentMap`, ensuring correct behavior in single-threaded
@@ -39,7 +38,7 @@ import kotlin.test.assertTrue
  *
  * ## Key Behaviors Tested:
  * - Basic operations (`get`, `put`, `remove`, `clear`).
- * - Thread-safety of `computeIfAbsent`.
+ * - Thread-safety of `computeIfAbsent`, `computeIfPresent` and `putIfAbsent`
  * - Consistency of `equals` and `hashCode`.
  */
 @OptIn(ObsoleteWorkersApi::class)
@@ -223,6 +222,156 @@ class ConcurrentMapTest {
         assertEquals(1, callCount.value, "Block should be called exactly once.")
         assertEquals(1, map.size)
         assertEquals(results.first(), map["foo"])
+    }
+
+    /**
+     * Verifies that `computeIfPresent` does nothing and returns `null` if the key is not present in the map.
+     */
+    @Test
+    fun `computeIfPresent should do nothing and return null if key is missing`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+
+        // Act
+        val result = map.computeIfPresent("no-such-key") { _, _ ->
+            fail("Block should not be called.")
+        }
+
+        // Assert
+        assertNull(result)
+        assertNull(map["no-such-key"])
+    }
+
+    /**
+     * Verifies that `computeIfPresent` updates the value for an existing key and returns the updated value.
+     */
+    @Test
+    fun `computeIfPresent should update value for existing key`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+        map["key"] = 5
+
+        // Act
+        val result = map.computeIfPresent("key") { _, oldValue ->
+            oldValue + 10
+        }
+
+        // Assert
+        assertEquals(15, result)
+        assertEquals(15, map["key"])
+    }
+
+    /**
+     * Verifies that `computeIfPresent` removes the key if the remapping function returns `null`.
+     */
+    @Test
+    fun `computeIfPresent should remove key if remapping function returns null`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+        map["key"] = 5
+
+        // Act
+        val result = map.computeIfPresent("key") { _, _ ->
+            null
+        }
+
+        // Assert
+        assertNull(result)
+        assertFalse(map.containsKey("key"))
+    }
+
+    /**
+     * Verifies that `putIfAbsent` inserts a key-value pair if the key is not already present in the map.
+     */
+    @Test
+    fun `putIfAbsent should insert key and value if key is missing`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+
+        // Act
+        val previous = map.putIfAbsent("one", 1)
+
+        // Assert
+        assertNull(previous)
+        assertEquals(1, map["one"])
+    }
+
+    /**
+     * Verifies that `putIfAbsent` does not overwrite an existing value and returns the current value.
+     */
+    @Test
+    fun `putIfAbsent should not overwrite existing key and should return current value`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+        map["one"] = 100
+
+        // Act
+        val previous = map.putIfAbsent("one", 999)
+
+        // Assert
+        assertEquals(100, previous)
+        assertEquals(100, map["one"])
+    }
+
+    /**
+     * Verifies that `computeIfPresent` correctly updates a value under concurrent access.
+     * Multiple threads attempt to update the same key in the map, and the final result
+     * should reflect all successful updates.
+     */
+    @Test
+    fun `computeIfPresent should correctly update value under concurrent access`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+        map["sharedKey"] = 0
+
+        val workerCount = 5
+        val workers = List(workerCount) { Worker.start() }
+
+        // Each worker tries to increment the value if present.
+        val futures = workers.map { worker ->
+            worker.execute(
+                TransferMode.SAFE,
+                { map },
+            ) { theMap ->
+                repeat(100) {
+                    theMap.computeIfPresent("sharedKey") { _, oldValue -> oldValue + 1 }
+                }
+            }
+        }
+        futures.forEach { it.result }
+        workers.forEach { it.requestTermination().result }
+
+        // Assert
+        assertEquals(500, map["sharedKey"], "Final value should reflect all increments.")
+    }
+
+    /**
+     * Verifies that `putIfAbsent` ensures only one thread inserts a value for a given key
+     * under concurrent access, while other threads retrieve the existing value.
+     */
+    @Test
+    fun `putIfAbsent should allow only one thread to insert value under concurrent access`() {
+        // Arrange
+        val map = ConcurrentMap<String, Int>()
+        val workerCount = 5
+        val workers = List(workerCount) { Worker.start() }
+
+        // Each worker tries to insert the same key-value pair.
+        val futures = workers.map { worker ->
+            worker.execute(
+                TransferMode.SAFE,
+                { map },
+            ) { theMap ->
+                theMap.putIfAbsent("onlyOne", 999)
+            }
+        }
+        val results = futures.map { it.result }
+        workers.forEach { it.requestTermination().result }
+
+        // Assert
+        val nullResults = results.count { it == null }
+        assertEquals(1, nullResults, "Only one thread should have inserted the value.")
+        assertEquals(999, map["onlyOne"], "The value in the map should match the inserted value.")
     }
 
     /**

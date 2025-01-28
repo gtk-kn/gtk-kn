@@ -35,8 +35,8 @@ import org.gtkkn.bindings.gtk.SingleSelection
 import org.gtkkn.bindings.gtk.StringList
 import org.gtkkn.bindings.gtk.StringObject
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.gobject.ObjectType
-import org.gtkkn.extensions.gobject.asType
+import org.gtkkn.extensions.gobject.legacy.ObjectType
+import org.gtkkn.extensions.gobject.legacy.asType
 
 fun listViewStrings(): Widget {
     // listModel contains our list items

@@ -21,7 +21,7 @@
 package org.gtkkn.extensions.gobject.properties
 
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.gobject.ObjectType
+import org.gtkkn.extensions.gobject.legacy.ObjectType
 import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty

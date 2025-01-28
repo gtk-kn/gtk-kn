@@ -195,6 +195,7 @@ interface InterfaceGenerator :
         iface.functions.forEach { functionBlueprint ->
             companionSpecBuilder.addFunction(buildFunction(functionBlueprint))
         }
+        companionSpecBuilder.buildInternalGetTypeOrNullFunction(iface.functions)
 
         return companionSpecBuilder
     }

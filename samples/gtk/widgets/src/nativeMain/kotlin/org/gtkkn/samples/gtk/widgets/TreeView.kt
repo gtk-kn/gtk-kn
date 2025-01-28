@@ -39,8 +39,8 @@ import org.gtkkn.bindings.gtk.TreeExpander
 import org.gtkkn.bindings.gtk.TreeListModel
 import org.gtkkn.bindings.gtk.TreeListRow
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.gobject.ObjectType
-import org.gtkkn.extensions.gobject.asType
+import org.gtkkn.extensions.gobject.legacy.ObjectType
+import org.gtkkn.extensions.gobject.legacy.asType
 
 fun treeView(): Widget {
     // create a ListStore that contains instances of Comment

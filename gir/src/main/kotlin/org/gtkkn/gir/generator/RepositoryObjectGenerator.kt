@@ -20,27 +20,22 @@
 
 package org.gtkkn.gir.generator
 
-import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.EnumBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
+import org.gtkkn.gir.blueprints.TypeToRegister
 
 interface RepositoryObjectGenerator : FunctionGenerator, ConstantGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.objectBuilder(repository.repositoryObjectName.simpleName).apply {
             addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
 
-            val typesToRegister: Set<Pair<ClassName, ClassName>> = buildSet {
-                repository.classBlueprints
-                    .filter { it.glibGetTypeFunc != null }
-                    .mapTo(this) { it.kotlinTypeName to it.instanceTypeName }
-
-                repository.interfaceBlueprints
-                    .filter { it.glibGetTypeFunc != null }
-                    .mapTo(this) { it.kotlinTypeName to it.instanceTypeName }
+            val typesToRegister: Set<TypeToRegister> = buildSet {
+                addAll(repository.classBlueprints.filterNot { it.glibGetTypeFunc == null })
+                addAll(repository.interfaceBlueprints.filterNot { it.glibGetTypeFunc == null })
             }
 
             val registerTypesFunction =
@@ -58,16 +53,16 @@ interface RepositoryObjectGenerator : FunctionGenerator, ConstantGenerator {
             registerTypesFunction?.let { addFunction(it) }
         }.build()
 
-    fun buildRegisterTypesFunction(typesToRegister: Set<Pair<ClassName, ClassName>>) =
+    private fun buildRegisterTypesFunction(typesToRegister: Set<TypeToRegister>) =
         FunSpec.builder("registerTypes").apply {
             addModifiers(KModifier.PRIVATE)
-            typesToRegister.forEach { pair ->
+            typesToRegister.forEach { typeToRegister ->
                 addStatement(
-                    "%T.register(%T::class, %T.getType()) { %T(it.%M()) }",
+                    "%T.getTypeOrNull()?.let { gtype -> %T.register(%T::class, gtype) { %T(it.%M()) } }",
+                    typeToRegister.kotlinTypeName,
                     BindingsGenerator.TYPE_CACHE_TYPE,
-                    pair.first,
-                    pair.first,
-                    pair.second,
+                    typeToRegister.kotlinTypeName,
+                    typeToRegister.instanceTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
             }

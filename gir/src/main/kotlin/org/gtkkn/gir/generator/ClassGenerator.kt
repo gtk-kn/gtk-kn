@@ -71,6 +71,7 @@ interface ClassGenerator :
 
         clazz.constants.forEach { companionSpecBuilder.addProperty(buildConstant(it)) }
         clazz.functions.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
+        companionSpecBuilder.buildInternalGetTypeOrNullFunction(clazz.functions)
 
         val kgTypeProperty = buildKGTypeProperty(clazz)
 
