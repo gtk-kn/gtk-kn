@@ -46,3 +46,7 @@ ecosystem.
 This guide is licensed
 under [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/), with
 code snippets under the [MIT License](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/README.md).
+
+## Powered by
+
+[![GitLab](assets/logo-gitlab.svg)](https://about.gitlab.com/solutions/open-source/join/) [![IntelliJ IDEA](assets/logo-intellij-idea.svg)](https://jb.gg/OpenSourceSupport)
