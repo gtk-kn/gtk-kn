@@ -3,6 +3,7 @@ build/
 out/
 .gradle/
 .kotlin/
+venv/
 .~lock*
 
 # Exclude configuration files with sensitive information
