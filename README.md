@@ -187,3 +187,7 @@ sections are licensed as follows:
 
 - **Documentation**: `docs/` - [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 - **Samples**: `samples/` - [MIT License](https://opensource.org/licenses/MIT).
+
+## Powered by
+
+[![GitLab](docs/assets/logo-gitlab.svg)](https://about.gitlab.com/solutions/open-source/join/) [![IntelliJ IDEA](docs/assets/logo-intellij-idea.svg)](https://jb.gg/OpenSourceSupport)
