@@ -21,3 +21,9 @@ specific topics as needed.
 We aim to introduce key GTK concepts with practical examples. Occasionally, you’ll find less practical examples where
 they help explain complex concepts more clearly. For focused examples, refer to the relevant section in the `gtk-kn`
 repository.
+
+## License
+
+This guide is licensed
+under [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/), with
+code snippets under the [MIT License](https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/README.md).

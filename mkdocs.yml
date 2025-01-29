@@ -5,7 +5,7 @@
 # Project information
 site_name: gtk-kn
 site_url: https://gtk-kn.org
-site_description: "Kotlin/Native bindings for the GTK framework and other GObject-based libraries"
+site_description: "Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries."
 site_author: gtk-kn
 site_dir: public
 
@@ -19,7 +19,6 @@ nav:
   - Home:
       - index.md
       #      - Change Log: changelog.md
-      - Contributing: contributing.md
   - Get Started: get-started/index.md
   - User guide:
       - user-guide/index.md
@@ -67,21 +66,24 @@ nav:
   #      - Tutorials:
   #          - Text viewer: user-guide/tutorials/text-viewer.md
   - FAQ: faq/index.md
+  - Contributing: contributing/index.md
   - API: dokka/index.html
 
 # Copyright
 copyright: >
-  Copyright &copy; 2023 gtk-kn –
+  Copyright &copy; 2025 gtk-kn –
   <a href="#__consent">Change cookie settings</a>
 
 # Configuration
 theme:
   name: 'material'
   features:
+    - announce.dismiss
     - content.action.edit
     - content.action.view
     - content.code.copy
     - navigation.expand
+    - navigation.footer
     - navigation.indexes
     - navigation.tabs
     - navigation.top
@@ -89,23 +91,34 @@ theme:
     - search.share
     - search.suggest
     - toc.follow
+    - toc.integrate
   palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
     - media: '(prefers-color-scheme: light)'
       scheme: default
       primary: custom
       accent: 'deep-purple'
       toggle:
-        icon: material/weather-night
+        icon: material/brightness-7
         name: Switch to dark mode
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
       primary: 'black'
       accent: 'blue-grey'
       toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
+        icon: material/brightness-4
+        name: Switch to system preference
   logo: 'assets/logo.svg'
   favicon: 'assets/favicon.ico'
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - search
+  - social
 
 # Customization
 extra_css:

@@ -18,5 +18,6 @@ local.properties
 .idea/
 
 # Exclude documentation and site files
+.cache
 docs/dokka/
 public/

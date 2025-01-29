@@ -4,6 +4,7 @@ pages:
   stage: deploy
   variables:
     GRADLE_OPTS: "-Dorg.gradle.project.org.gtkkn.samples.disable=true"
+    GIT_DEPTH: 0
   script:
     - pip install -r mkdocs-requirements.txt --break-system-packages --ignore-installed PyYAML
     - ./gradlew :gir:run

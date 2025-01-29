@@ -76,4 +76,5 @@ pip install -r "$REQUIREMENTS_FILE"
 
 # Run MkDocs server
 echo "Starting MkDocs server..."
+# To see which process is using port 8000: sudo lsof -i :8000
 mkdocs serve
