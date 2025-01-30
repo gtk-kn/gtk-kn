@@ -10,6 +10,17 @@ publish-gradle-plugin-and-linux-x64-snapshots:
     - ./gradlew publishLinuxX64PublicationToSnapshotsRepository # https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - ".gitlab/ci/publish-snapshots.yml"
+        - "bindings/**"
+        - "build-conventions/**"
+        - "compose/**"
+        - "coroutines/**"
+        - "gradle-plugin/**"
+        - "gradle/**"
+        - "*.json"
+        - "*.kts"
+        - "*.properties"
       when: on_success
     - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "web"'
       when: manual
@@ -25,6 +36,17 @@ publish-macos-arm64-snapshots:
     - ./gradlew publishMacosArm64PublicationToSnapshotsRepository # https://gitlab.com/gtk-kn/gtk-kn/-/issues/115
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      changes:
+        - ".gitlab/ci/publish-snapshots.yml"
+        - "bindings/**"
+        - "build-conventions/**"
+        - "compose/**"
+        - "coroutines/**"
+        - "gradle-plugin/**"
+        - "gradle/**"
+        - "*.json"
+        - "*.kts"
+        - "*.properties"
       when: on_success
     - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "web"'
       when: manual

@@ -17,17 +17,17 @@ Kotlin/Native bindings for the GTK framework and other GObject-Introspection-bas
 <br>
 <div class="grid cards" markdown>
 
--   __Modern & Native__
+-   __Modern Native Apps__
 
     ---
 
-    A fresh, native approach to GTK development with Kotlin/Native.
+    Build fast, Kotlin/Native GTK apps with direct system performance, no JVM needed.
 
--   __GObject Introspection__
+-   __Familiar Tools__
 
     ---
 
-    Leverages GObject-Introspection for broad library compatibility and easy API access.
+    IntelliJ IDEA, Gradle, Kotlin — everything you already know, now for GTK.
 
 -   __Linux & macOS Support__
 
