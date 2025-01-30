@@ -1,8 +1,51 @@
+---
+description: Learn how the `org.gtkkn.application` Gradle plugin simplifies building and deploying GTK applications in Kotlin/Native.
+...
+
 # Gradle Plugin for gtk-kn
 
 The `org.gtkkn.application` Gradle plugin simplifies the process of building and deploying applications with `gtk-kn`.
-It provides automation for configuring GObject library versions and embedding resources, allowing for smoother
-integration and streamlined project setup.
+It automates the configuration of entry point definition, GObject library versions and resource embedding, reducing
+boilerplate code and simplifying project setup.
+
+## Binary Entry Point
+
+By default, when building a Kotlin/Native executable, you need to specify the entry point manually in your
+`build.gradle.kts` configuration. The `org.gtkkn.application` plugin provides a more convenient way to define the entry
+point, avoiding unnecessary boilerplate.
+
+You can specify the entry point directly in the `gtkKn` block:
+
+```kotlin
+gtkKn {
+    entryPoint = "com.example.main"
+}
+```
+
+This eliminates the need to manually configure the `entryPoint` property inside the `binaries` block, reducing
+boilerplate code like:
+
+```kotlin
+kotlin {
+    val hostOs = OperatingSystem.current()
+    val isArm64 = System.getProperty("os.arch") == "aarch64"
+    val nativeTarget = when {
+        hostOs.isLinux && !isArm64 -> linuxX64()
+        hostOs.isMacOsX && isArm64 -> macosArm64()
+        else -> throw GradleException("Host OS '${hostOs}' is not supported by gtk-kn.")
+    }
+    nativeTarget.apply {
+        binaries {
+            executable {
+                entryPoint = "main"
+            }
+        }
+    }
+}
+```
+
+By specifying the `entryPoint` in `gtkKn`, the plugin takes care of setting the correct entry point for the executable,
+making the build configuration cleaner and more maintainable.
 
 ## Targeting Library Versions
 
@@ -10,11 +53,11 @@ One of the core features of the plugin is the ability to specify target versions
 target version, the build process will automatically enable compatibility for all APIs up to and including the specified
 version, ensuring access to newer features while maintaining control over API level compatibility.
 
-For example, to set the target version for the `gtk` library, add the following to your `build.gradle.kts`:
+For example, to set the target version for the `gio` and `gtk` libraries, add the following to your `build.gradle.kts`:
 
 ```kotlin
-kotlin.linuxX64.gtk {
-    targetLibraryVersions.put("gtk", "4.10")
+gtkKn {
+    targetLibraryVersions.putAll(mapOf("gio" to "2.28", "gtk" to "4.10"))
 }
 ```
 

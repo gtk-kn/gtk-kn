@@ -16,57 +16,56 @@ edit_uri: edit/master/docs/
 
 # Page tree
 nav:
-  - Home:
-      - index.md
-      #      - Change Log: changelog.md
+  - Home: index.md
   - Get Started: get-started/index.md
-  - User guide:
-      - user-guide/index.md
-      - Installation: user-guide/installation.md
-      - Deploy on MavenLocal: user-guide/deploy-on-mavenlocal.md
-      - K/N project setup: user-guide/project-setup.md
-      - Hello World!: user-guide/hello-world.md
-      #      - GObject concepts: user-guide/gobject-concepts.md
-      #      - The main event loop: user-guide/the-main-event-loop.md
-      - Gradle plugin: user-guide/gradle-plugin.md
-      - Logging: user-guide/logging.md
-      - GTK4:
-          - user-guide/gtk4/index.md
-          - Widgets:
-              - user-guide/gtk4/widgets/index.md
-              - Gallery: user-guide/gtk4/widgets/visual-index.md
-              - Examples:
-                  - Label: user-guide/gtk4/widgets/examples/label.md
-                  - ProgressBar: user-guide/gtk4/widgets/examples/progress-bar.md
-                  - Spinner: user-guide/gtk4/widgets/examples/spinner.md
-      #          - Clipboard: user-guide/gtk4/clipboard.md
-      #          - Drag and Drop: user-guide/gtk4/drag-and-drop.md
-      #          - Actions: user-guide/gtk4/actions.md
-      #          - Menus: user-guide/gtk4/menus.md
-      - GIO:
-          - user-guide/gio/index.md
-          #          - File operations: user-guide/gio/file-operations.md
-          - Notifications: user-guide/gio/notifications.md
-      #          - Settings: user-guide/gio/settings.md
-      - Adwaita:
-          - user-guide/adwaita/index.md
-      #          - Examples:
-      #              - Boxed lists: user-guide/adwaita/examples/boxed-lists.md
-      #              - Sidebar: user-guide/adwaita/examples/sidebar.md
-      #              - Placeholder page: user-guide/adwaita/examples/placeholder-page.md
-      #              - Collections: user-guide/adwaita/examples/collections.md
-      #              - Window: user-guide/adwaita/examples/window.md
-      #              - Leaflet and Dialog: user-guide/adwaita/examples/leaflet-and-dialog.md
+  - Developer Guide:
+      - developer-guide/index.md
+      - Environment Setup: developer-guide/environment-setup.md
+      - Gradle plugin: developer-guide/gradle-plugin.md
+      - Logging: developer-guide/logging.md
+      #      - GObject Concepts: developer-guide/gobject-concepts.md
+      #      - Main Event Loop: developer-guide/the-main-event-loop.md
+      - Bindings:
+          - developer-guide/bindings/index.md
+          - GTK4:
+              - developer-guide/bindings/gtk4/index.md
+              - Widgets:
+                  - developer-guide/bindings/gtk4/widgets/index.md
+                  - Gallery: developer-guide/bindings/gtk4/widgets/visual-index.md
+                  - Examples:
+                      - Label: developer-guide/bindings/gtk4/widgets/examples/label.md
+                      - ProgressBar: developer-guide/bindings/gtk4/widgets/examples/progress-bar.md
+                      - Spinner: developer-guide/bindings/gtk4/widgets/examples/spinner.md
+          #          - Clipboard: developer-guide/bindings/gtk4/clipboard.md
+          #          - Drag and Drop: developer-guide/bindings/gtk4/drag-and-drop.md
+          #          - Actions: developer-guide/bindings/gtk4/actions.md
+          #          - Menus: developer-guide/bindings/gtk4/menus.md
+          - GIO:
+              - developer-guide/bindings/gio/index.md
+              #          - File operations: developer-guide/bindings/gio/file-operations.md
+              - Notifications: developer-guide/bindings/gio/notifications.md
+          #          - Settings: developer-guide/bindings/gio/settings.md
+          - Adwaita:
+              - developer-guide/bindings/adwaita/index.md
+          #          - Examples:
+          #              - Boxed lists: developer-guide/bindings/adwaita/examples/boxed-lists.md
+          #              - Sidebar: developer-guide/bindings/adwaita/examples/sidebar.md
+          #              - Placeholder page: developer-guide/bindings/adwaita/examples/placeholder-page.md
+          #              - Collections: developer-guide/bindings/adwaita/examples/collections.md
+          #              - Window: developer-guide/bindings/adwaita/examples/window.md
+          #              - Leaflet and Dialog: developer-guide/bindings/adwaita/examples/leaflet-and-dialog.md
+          - GtkSourceView:
+              - developer-guide/bindings/gtksource/index.md
+          - WebKitGTK:
+              - developer-guide/bindings/webkitgtk/index.md
       #      - Tutorials:
       #          - Text viewer: user-guide/tutorials/text-viewer.md
-      - Optional bindings:
-          - user-guide/optional-bindings/index.md
-          - GtkSourceView: user-guide/optional-bindings/gtksource/index.md
-          - WebKitGTK: user-guide/optional-bindings/webkitgtk/index.md
-  #      - Tutorials:
-  #          - Text viewer: user-guide/tutorials/text-viewer.md
+  - Contributor Guide:
+      - contributor-guide/index.md
+      - Deploying to MavenLocal: contributor-guide/deploying-to-mavenlocal.md
+      #      - MkDocs: contributor-guide/mkdocs.md
+      #      - CI and Docker images: contributor-guide/ci-and-docker-images.md
   - FAQ: faq/index.md
-  - Contributing: contributing/index.md
   - API: dokka/index.html
 
 # Copyright
@@ -82,7 +81,6 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
-    - navigation.expand
     - navigation.footer
     - navigation.indexes
     - navigation.tabs
@@ -122,7 +120,7 @@ plugins:
 
 # Customization
 extra_css:
-  - stylesheets/extra.css
+  - assets/stylesheets/extra.css
 extra:
   social:
     - icon: simple/matrix
@@ -173,3 +171,4 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+      toc_depth: 3

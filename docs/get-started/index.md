@@ -1,6 +1,10 @@
+---
+title: Get started
+description: Learn how to set up gtk-kn and run a Hello World GTK application using Kotlin and Gradle in IntelliJ IDEA on Linux and macOS.
+---
 This guide will help you set up gtk-kn and run a Hello World GTK application using IntelliJ IDEA on Linux and macOS.
 
-For detailed installation steps, refer to the [User Guide](../user-guide/index.md).
+For detailed installation steps, refer to the [Developer Guide](../developer-guide/index.md).
 
 ---
 
@@ -36,8 +40,8 @@ Download and install [IntelliJ IDEA (Community Edition is fine)](https://www.jet
 
 ### Configure Gradle
 
-Replace the content of **`settings.gradle.kts`** (this step won’t be needed once the artifacts are published on *
-*MavenCentral** and **Gradle Plugin Portal**):
+Replace the content of **`settings.gradle.kts`** (this step won’t be needed once the artifacts are published on
+**MavenCentral** and **Gradle Plugin Portal**):
 
 ```kotlin
 pluginManagement {
@@ -151,4 +155,4 @@ This will open a **GTK Hello World** window. 🎉
 ---
 
 This **Get Started** guide provides a **quick setup** to help you run your first **gtk-kn** application.
-For more details, check out the [User Guide](../user-guide/index.md). 🚀
+For more details, check out the [Developer Guide](../developer-guide/index.md). 🚀

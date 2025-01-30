@@ -1,9 +1,9 @@
 # Adwaita
 
-Adwaita (Libadwaita or Adw) is a set of widgets and classes that extend the GTK toolkit, the default UI toolkit for
-GNOME. It’s designed to implement GNOME’s design patterns, as outlined in
-the [GNOME Human Interface Guidelines](https://developer.gnome.org/hig/) (HIG). The HIG provides recommendations for
-creating consistent, intuitive, and accessible user interfaces across GNOME applications.
+[Adwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/) (Libadwaita or Adw) is a set of widgets and classes that
+extend the GTK toolkit, the default UI toolkit for GNOME. It’s designed to implement GNOME’s design patterns, as
+outlined in the [GNOME Human Interface Guidelines](https://developer.gnome.org/hig/) (HIG). The HIG provides
+recommendations for creating consistent, intuitive, and accessible user interfaces across GNOME applications.
 
 Adwaita offers a range of HIG-compliant widgets, including buttons, switches, and dialogs, that give applications a
 consistent and modern GNOME look. It supports high-resolution displays, with scalable icons for clarity on various
