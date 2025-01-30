@@ -1,9 +1,8 @@
-# Logging in `gtk-kn`
-
-This document explains the logging API provided by `gtk-kn`, including how to configure, use, and customize it for your
-application.
-
 ---
+description: Learn how to use gtk-kn's flexible logging API.
+---
+
+# Logging in `gtk-kn`
 
 ## Overview
 
@@ -18,7 +17,7 @@ The `gtk-kn` logging API is designed for flexibility and performance, providing 
 
 !!! warning
 
-    To enable logging, a logger (`LogLogger`) must be explicitly installed. Without a logger, no logs will be generated.
+    To enable logging, a logger (`Log`) must be explicitly installed. Without a logger, no logs will be generated.
 
 ---
 
@@ -34,24 +33,23 @@ Use this method to enable logging in all build types.
 **Examples:**
 
 ```kotlin
-LogcatStyleLogger.install()
+Log.installConsoleLogWriter()
 ```
 
 ```kotlin
-LogcatStyleLogger.install(time = false, color = false)
+Log.installConsoleLogWriter(time = false)
 ```
 
 The second example disables timestamps and colors for the log output.
 
 - **`time`**: Adds timestamps to each log message (default: `true`).
-- **`color`**: Enables ANSI color coding in the log output (default: `true`).
 
 ### Install Only for Debug Builds
 
 Use this method to enable logging only during development.
 
 ```kotlin
-LogcatStyleLogger.installOnDebuggableApp(time = true, color = true)
+Log.installConsoleLogWriterForDebugBuilds(time = true)
 ```
 
 - Typically used for verbose debugging information.
@@ -62,16 +60,16 @@ LogcatStyleLogger.installOnDebuggableApp(time = true, color = true)
 Use this method to log messages selectively in release builds.
 
 ```kotlin
-GLibLogLogger.installOnReleaseApp(minPriority = LogPriority.MESSAGE)
+Log.installGLibLogWriterForReleaseBuilds(minLevel = LogLevel.MESSAGE)
 ```
 
-- **`minPriority`**: The minimum log priority to capture (default: `LogPriority.MESSAGE`).
+- **`minLevel`**: The minimum log priority to capture (default: `LogPriority.MESSAGE`).
 - Useful for filtering out lower-priority logs like `DEBUG` or `INFO` in production.
 
 **Example:**
 
 ```kotlin
-GLibLogLogger.installOnReleaseApp(minPriority = LogPriority.CRITICAL)
+Log.installGLibLogWriterForReleaseBuilds(minPriority = LogPriority.CRITICAL)
 ```
 
 This setup logs only critical and error messages in release builds.
@@ -84,14 +82,13 @@ For both loggers, debug logs can still be enabled in release builds using the GL
 export G_MESSAGES_DEBUG=all
 ```
 
-To restrict debug logs to a specific domain (only works with `GLibLogLogger`):
+To restrict debug logs to a specific domain (only works with `GLibLogWriter`):
 
 ```bash
 export G_MESSAGES_DEBUG=my_app
 ```
 
-To disable debug logs in release builds entirely, explicitly set `minPriority` to `LogPriority.MESSAGE` or higher when
-calling `installOnReleaseApp`.
+To disable debug logs in release builds entirely, explicitly set `minLevel` to `LogLevel.MESSAGE` or higher.
 
 ---
 
@@ -106,37 +103,37 @@ logging.
 log { "This is a debug message" }
 ```
 
-- **Default priority**: `LogPriority.DEBUG`.
+- **Default level**: `LogLevel.DEBUG`.
 - **Default domain**: Derived automatically from the calling class name.
 
 ### Custom Log Domain
 
-Specify a custom domain for the log using the `logDomain` parameter. This is helpful for grouping logs by context.
+Specify a custom domain for the log using the `domain` parameter. This is helpful for grouping logs by context.
 
 ```kotlin
-log(logDomain = "MyComponent") { "This is a log from MyComponent" }
+log(domain = "MyComponent") { "This is a log from MyComponent" }
 ```
 
-### Custom Log Priority
+### Custom Log Level
 
-Control the log severity with the `priority` parameter. Available levels:
+Control the log severity with the `level` parameter. Available levels:
 
-- `LogPriority.DEBUG`: Debugging information.
-- `LogPriority.INFO`: General information.
-- `LogPriority.MESSAGE`: Non-critical notifications.
-- `LogPriority.WARNING`: Warnings that do not interrupt execution.
-- `LogPriority.CRITICAL`: Critical issues requiring attention.
-- `LogPriority.ERROR`: Fatal errors (**Note:** it will terminate the application with a `SIGTRAP`!).
+- `LogLevel.DEBUG`: Debugging information.
+- `LogLevel.INFO`: General information.
+- `LogLevel.MESSAGE`: Non-critical notifications.
+- `LogLevel.WARNING`: Warnings that do not interrupt execution.
+- `LogLevel.CRITICAL`: Critical issues requiring attention.
+- `LogLevel.ERROR`: Fatal errors (**Note:** it will terminate the application with a `SIGTRAP`!).
 
 **Example:**
 
 ```kotlin
-log(priority = LogPriority.WARNING) { "This is a warning message" }
+log(level = LogLevel.WARNING) { "This is a warning message" }
 ```
 
 !!! warning
 
-    Use `LogPriority.CRITICAL` for critical issues that are non-fatal. Use `LogPriority.ERROR` only if termination
+    Use `LogLevel.CRITICAL` for critical issues that are non-fatal. Use `LogLevel.ERROR` only if termination
     is desired.
 
 ### Logging Outside a Class
@@ -144,7 +141,7 @@ log(priority = LogPriority.WARNING) { "This is a warning message" }
 Use the overload of the `log` function when `this` is unavailable, such as in top-level functions or static contexts.
 
 ```kotlin
-log(logDomain = "GlobalDomain", priority = LogPriority.INFO) { "This is a global log message" }
+log(domain = "GlobalDomain", level = LogLevel.INFO) { "This is a global log message" }
 ```
 
 ### Logging Exceptions
@@ -155,7 +152,7 @@ Log exceptions directly using the `org.gtkkn.extensions.glib.util.log` function.
 try {
     // Some operation that might fail
 } catch (e: Exception) {
-    log(LogPriority.CRITICAL) { "Critical error: ${e.message}" }
+    log(LogLevel.CRITICAL) { "Critical error: ${e.message}" }
 }
 ```
 
@@ -167,12 +164,12 @@ try {
 
 ```kotlin
 fun printLogs() {
-    log(LogPriority.DEBUG) { "This is a debug message" }
-    log(LogPriority.INFO) { "This is an info message" }
-    log(LogPriority.MESSAGE) { "This is a message" }
-    log(LogPriority.WARNING) { "This is a warning message" }
-    log(LogPriority.CRITICAL) { "This is a critical message" }
-    log(LogPriority.ERROR) { "This is an error message" }
+    log(LogLevel.DEBUG) { "This is a debug message" }
+    log(LogLevel.INFO) { "This is an info message" }
+    log(LogLevel.MESSAGE) { "This is a message" }
+    log(LogLevel.WARNING) { "This is a warning message" }
+    log(LogLevel.CRITICAL) { "This is a critical message" }
+    log(LogLevel.ERROR) { "This is an error message" }
 }
 ```
 
@@ -181,7 +178,7 @@ fun printLogs() {
 **Setup:**
 
 ```kotlin
-LogcatStyleLogger.install(time = true, color = false)
+Log.installConsoleLogWriter(time = true)
 printLogs()
 ```
 
@@ -194,15 +191,15 @@ printLogs()
 12-12 17:12:07.282 194173 W ApplicationWindow: This is a warning message
 12-12 17:12:07.282 194173 C ApplicationWindow: This is a critical message
 12-12 17:12:07.282 194173 E ApplicationWindow: This is an error message
-LogPriority.ERROR is considered fatal and will terminate the application. Use LogPriority.CRITICAL for non-fatal critical errors. Sending SIGTRAP.
+LogLevel.ERROR is considered fatal and will terminate the application. Use LogLevel.CRITICAL for non-fatal critical errors. Sending SIGTRAP.
 ```
 
-### Using `GLibLogLogger`
+### Using `GLibLogWriter`
 
 **Setup:**
 
 ```kotlin
-GLibLogLogger.install()
+Log.installGLibLogWriter()
 printLogs()
 ```
 
