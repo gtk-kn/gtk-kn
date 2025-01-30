@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries.">
+        <meta name="description" content="Learn how to set up gtk-kn and run a Hello World GTK application using Kotlin and Gradle in IntelliJ IDEA on Linux and macOS.">
       
       
         <meta name="author" content="gtk-kn">
@@ -18,7 +18,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../user-guide/">
+        <link rel="next" href="../developer-guide/">
       
       
       <link rel="icon" href="../assets/favicon.ico">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Get Started - gtk-kn</title>
+        <title>Get started - gtk-kn</title>
       
     
     
@@ -52,7 +52,7 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -63,9 +63,9 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Get Started - gtk-kn" >
+        <meta  property="og:title"  content="Get started - gtk-kn" >
       
-        <meta  property="og:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
+        <meta  property="og:description"  content="Learn how to set up gtk-kn and run a Hello World GTK application using Kotlin and Gradle in IntelliJ IDEA on Linux and macOS." >
       
         <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/get-started/index.png" >
       
@@ -79,9 +79,9 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Get Started - gtk-kn" >
+        <meta  name="twitter:title"  content="Get started - gtk-kn" >
       
-        <meta  name="twitter:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
+        <meta  name="twitter:description"  content="Learn how to set up gtk-kn and run a Hello World GTK application using Kotlin and Gradle in IntelliJ IDEA on Linux and macOS." >
       
         <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/get-started/index.png" >
       
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Get Started
+              Get started
             
           </span>
         </div>
@@ -262,19 +262,16 @@
   
   
   
-    
-    
-      <li class="md-tabs__item">
-        <a href=".." class="md-tabs__link">
-          
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
   
     
   
   Home
 
-        </a>
-      </li>
-    
+      </a>
+    </li>
   
 
       
@@ -304,12 +301,32 @@
     
     
       <li class="md-tabs__item">
-        <a href="../user-guide/" class="md-tabs__link">
+        <a href="../developer-guide/" class="md-tabs__link">
           
   
     
   
-  User guide
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributor-guide/" class="md-tabs__link">
+          
+  
+    
+  
+  Contributor Guide
 
         </a>
       </li>
@@ -328,23 +345,6 @@
     
   
   FAQ
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../contributing/" class="md-tabs__link">
-        
-  
-    
-  
-  Contributing
 
       </a>
     </li>
@@ -420,54 +420,16 @@
   
   
   
-    
-    
-      
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
         
-          
-        
-      
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href=".." class="md-nav__link ">
-              
   
   <span class="md-ellipsis">
     Home
   </span>
   
 
-            </a>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_1">
-            <span class="md-nav__icon md-icon"></span>
-            Home
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-          </ul>
-        </nav>
-      
+      </a>
     </li>
   
 
@@ -536,30 +498,6 @@
       Install System Dependencies
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Install System Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    <span class="md-ellipsis">
-      Linux
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#macos-homebrew" class="md-nav__link">
-    <span class="md-ellipsis">
-      macOS (Homebrew)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -705,18 +643,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -727,18 +653,16 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../user-guide/" class="md-nav__link ">
+            <a href="../developer-guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
-    User guide
+    Developer Guide
   </span>
   
 
@@ -754,7 +678,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            User guide
+            Developer Guide
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -767,11 +691,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/installation/" class="md-nav__link">
+      <a href="../developer-guide/environment-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Installation
+    Environment Setup
   </span>
   
 
@@ -788,70 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/deploy-on-mavenlocal/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Deploy on MavenLocal
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../user-guide/project-setup/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    K/N project setup
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../user-guide/hello-world/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Hello World!
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../user-guide/gradle-plugin/" class="md-nav__link">
+      <a href="../developer-guide/gradle-plugin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -872,7 +733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/logging/" class="md-nav__link">
+      <a href="../developer-guide/logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -901,6 +762,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -911,14 +780,68 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../user-guide/gtk4/" class="md-nav__link ">
+            <a href="../developer-guide/bindings/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Bindings
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Bindings
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../developer-guide/bindings/gtk4/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -929,14 +852,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
             <span class="md-nav__icon md-icon"></span>
             GTK4
           </label>
@@ -971,14 +894,12 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_8_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../user-guide/gtk4/widgets/" class="md-nav__link ">
+            <a href="../developer-guide/bindings/gtk4/widgets/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -989,14 +910,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_8_2" id="__nav_3_8_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_5_2_2" id="__nav_3_5_2_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_8_2">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2_2">
             <span class="md-nav__icon md-icon"></span>
             Widgets
           </label>
@@ -1011,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/gtk4/widgets/visual-index/" class="md-nav__link">
+      <a href="../developer-guide/bindings/gtk4/widgets/visual-index/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1050,12 +971,10 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_8_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_8_2_3" id="__nav_3_8_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_5_2_2_3" id="__nav_3_5_2_2_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1066,8 +985,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_8_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_8_2_3">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_5_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2_2_3">
             <span class="md-nav__icon md-icon"></span>
             Examples
           </label>
@@ -1080,7 +999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/gtk4/widgets/examples/label/" class="md-nav__link">
+      <a href="../developer-guide/bindings/gtk4/widgets/examples/label/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1101,7 +1020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
+      <a href="../developer-guide/bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1122,7 +1041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/gtk4/widgets/examples/spinner/" class="md-nav__link">
+      <a href="../developer-guide/bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1185,14 +1104,12 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../user-guide/gio/" class="md-nav__link ">
+            <a href="../developer-guide/bindings/gio/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1203,14 +1120,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_9">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
             <span class="md-nav__icon md-icon"></span>
             GIO
           </label>
@@ -1225,7 +1142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/gio/notifications/" class="md-nav__link">
+      <a href="../developer-guide/bindings/gio/notifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1270,14 +1187,12 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../user-guide/adwaita/" class="md-nav__link ">
+            <a href="../developer-guide/bindings/adwaita/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1289,8 +1204,8 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_10">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
             <span class="md-nav__icon md-icon"></span>
             Adwaita
           </label>
@@ -1319,9 +1234,58 @@
           
         
       
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_5" >
         
           
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../developer-guide/bindings/gtksource/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    GtkSourceView
+  </span>
+  
+
+            </a>
+            
+          </div>
         
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            GtkSourceView
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
       
         
           
@@ -1337,34 +1301,106 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_6" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../user-guide/optional-bindings/" class="md-nav__link ">
+            <a href="../developer-guide/bindings/webkitgtk/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
-    Optional bindings
+    WebKitGTK
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            WebKitGTK
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../contributor-guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Contributor Guide
   </span>
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Optional bindings
+            Contributor Guide
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1377,44 +1413,15 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-guide/optional-bindings/gtksource/" class="md-nav__link">
+      <a href="../contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    GtkSourceView
+    Deploying to MavenLocal
   </span>
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../user-guide/optional-bindings/webkitgtk/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    WebKitGTK
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -1439,26 +1446,6 @@
   
   <span class="md-ellipsis">
     FAQ
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contributing/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Contributing
   </span>
   
 
@@ -1521,7 +1508,7 @@
   <h1>Get Started</h1>
 
 <p>This guide will help you set up gtk-kn and run a Hello World GTK application using IntelliJ IDEA on Linux and macOS.</p>
-<p>For detailed installation steps, refer to the <a href="../user-guide/">User Guide</a>.</p>
+<p>For detailed installation steps, refer to the <a href="../developer-guide/">Developer Guide</a>.</p>
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <h3 id="install-system-dependencies">Install System Dependencies<a class="headerlink" href="#install-system-dependencies" title="Permanent link">&para;</a></h3>
@@ -1542,8 +1529,8 @@
 <li>Set <strong>Build System</strong> to <strong>Gradle</strong> (leave other options as default).</li>
 </ul>
 <h3 id="configure-gradle">Configure Gradle<a class="headerlink" href="#configure-gradle" title="Permanent link">&para;</a></h3>
-<p>Replace the content of <strong><code>settings.gradle.kts</code></strong> (this step won’t be needed once the artifacts are published on *
-<em>MavenCentral*</em> and <strong>Gradle Plugin Portal</strong>):</p>
+<p>Replace the content of <strong><code>settings.gradle.kts</code></strong> (this step won’t be needed once the artifacts are published on
+<strong>MavenCentral</strong> and <strong>Gradle Plugin Portal</strong>):</p>
 <div class="language-kotlin highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">pluginManagement</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">gradlePluginPortal</span><span class="p">()</span>
@@ -1637,7 +1624,7 @@
 </figure>
 <hr />
 <p>This <strong>Get Started</strong> guide provides a <strong>quick setup</strong> to help you run your first <strong>gtk-kn</strong> application.
-For more details, check out the <a href="../user-guide/">User Guide</a>. 🚀</p>
+For more details, check out the <a href="../developer-guide/">Developer Guide</a>. 🚀</p>
 
 
 
@@ -1660,7 +1647,7 @@ For more details, check out the <a href="../user-guide/">User Guide</a>. 🚀</p
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 29, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2025</span>
   </span>
 
     
@@ -1705,7 +1692,7 @@ For more details, check out the <a href="../user-guide/">User Guide</a>. 🚀</p
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Index">
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1715,20 +1702,20 @@ For more details, check out the <a href="../user-guide/">User Guide</a>. 🚀</p
                 Previous
               </span>
               <div class="md-ellipsis">
-                Index
+                Home
               </div>
             </div>
           </a>
         
         
           
-          <a href="../user-guide/" class="md-footer__link md-footer__link--next" aria-label="Next: Index">
+          <a href="../developer-guide/" class="md-footer__link md-footer__link--next" aria-label="Next: Developer Guide">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Index
+                Developer Guide
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1835,7 +1822,7 @@ For more details, check out the <a href="../user-guide/">User Guide</a>. 🚀</p
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>

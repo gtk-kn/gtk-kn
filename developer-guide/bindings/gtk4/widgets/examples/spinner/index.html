@@ -12,22 +12,28 @@
         <meta name="author" content="gtk-kn">
       
       
+        <link rel="canonical" href="https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/spinner/">
       
       
+        <link rel="prev" href="../progress-bar/">
       
-      <link rel="icon" href="/assets/favicon.ico">
+      
+        <link rel="next" href="../../../../gio/">
+      
+      
+      <link rel="icon" href="../../../../../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>gtk-kn</title>
+        <title>Spinner - gtk-kn</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,13 +52,39 @@
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Spinner - gtk-kn" >
+      
+        <meta  property="og:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
+      
+        <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/bindings/gtk4/widgets/examples/spinner.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/spinner/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Spinner - gtk-kn" >
+      
+        <meta  name="twitter:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
+      
+        <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/bindings/gtk4/widgets/examples/spinner.png" >
+      
     
     
   </head>
@@ -83,9 +115,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../../../../../.." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="/assets/logo.svg" alt="logo">
+  <img src="../../../../../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,7 +134,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Spinner
             
           </span>
         </div>
@@ -226,7 +258,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/." class="md-tabs__link">
+      <a href="../../../../../.." class="md-tabs__link">
         
   
     
@@ -243,7 +275,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/get-started/" class="md-tabs__link">
+      <a href="../../../../../../get-started/" class="md-tabs__link">
         
   
     
@@ -258,11 +290,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/developer-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../../" class="md-tabs__link">
           
   
     
@@ -282,7 +316,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/contributor-guide/" class="md-tabs__link">
+        <a href="../../../../../../contributor-guide/" class="md-tabs__link">
           
   
     
@@ -300,7 +334,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/faq/" class="md-tabs__link">
+      <a href="../../../../../../faq/" class="md-tabs__link">
         
   
     
@@ -317,7 +351,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/dokka/" class="md-tabs__link">
+      <a href="../../../../../../dokka/" class="md-tabs__link">
         
   
     
@@ -353,9 +387,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../../../../../.." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="/assets/logo.svg" alt="logo">
+  <img src="../../../../../../assets/logo.svg" alt="logo">
 
     </a>
     gtk-kn
@@ -382,7 +416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../../../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -402,7 +436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/get-started/" class="md-nav__link">
+      <a href="../../../../../../get-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -419,6 +453,8 @@
       
   
   
+    
+  
   
   
     
@@ -439,19 +475,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/" class="md-nav__link ">
+            <a href="../../../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -462,13 +501,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Developer Guide
@@ -484,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/environment-setup/" class="md-nav__link">
+      <a href="../../../../../environment-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -505,7 +544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/gradle-plugin/" class="md-nav__link">
+      <a href="../../../../../gradle-plugin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -526,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/logging/" class="md-nav__link">
+      <a href="../../../../../logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -544,6 +583,8 @@
                 
   
   
+    
+  
   
   
     
@@ -569,16 +610,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/" class="md-nav__link ">
+            <a href="../../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -595,7 +636,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
             Bindings
@@ -608,6 +649,8 @@
                 
   
   
+    
+  
   
   
     
@@ -625,16 +668,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gtk4/" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -651,7 +694,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5_2">
             <span class="md-nav__icon md-icon"></span>
             GTK4
@@ -664,6 +707,8 @@
                 
   
   
+    
+  
   
   
     
@@ -683,16 +728,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gtk4/widgets/" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -709,7 +754,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5_2_2">
             <span class="md-nav__icon md-icon"></span>
             Widgets
@@ -725,7 +770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/visual-index/" class="md-nav__link">
+      <a href="../../visual-index/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -743,8 +788,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -760,11 +807,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3_5_2_2_3" id="__nav_3_5_2_2_3_label" tabindex="0">
@@ -778,7 +825,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_5_2_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_5_2_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5_2_2_3">
             <span class="md-nav__icon md-icon"></span>
             Examples
@@ -792,7 +839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/examples/label/" class="md-nav__link">
+      <a href="../label/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -813,7 +860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
+      <a href="../progress-bar/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -831,10 +878,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -843,6 +897,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -902,7 +957,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gio/" class="md-nav__link ">
+            <a href="../../../../gio/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -935,7 +990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gio/notifications/" class="md-nav__link">
+      <a href="../../../../gio/notifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -985,7 +1040,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/adwaita/" class="md-nav__link ">
+            <a href="../../../../adwaita/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1042,7 +1097,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gtksource/" class="md-nav__link ">
+            <a href="../../../../gtksource/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1099,7 +1154,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/webkitgtk/" class="md-nav__link ">
+            <a href="../../../../webkitgtk/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1173,7 +1228,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/contributor-guide/" class="md-nav__link ">
+            <a href="../../../../../../contributor-guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1206,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
+      <a href="../../../../../../contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1234,7 +1289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/faq/" class="md-nav__link">
+      <a href="../../../../../../faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1254,7 +1309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/dokka/" class="md-nav__link">
+      <a href="../../../../../../dokka/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1279,8 +1334,108 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/edit/master/docs/developer-guide/bindings/gtk4/widgets/examples/spinner.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/raw/master/docs/developer-guide/bindings/gtk4/widgets/examples/spinner.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+  <h1>Spinner</h1>
+
+<p>The <code>Spinner</code> widget displays a small spinning animation, commonly used to indicate ongoing activity when the exact
+progress is unknown—an alternative to <code>ProgressBar</code> for indefinite loading states.</p>
+<p>To control the animation, call:</p>
+<ul>
+<li><code>Spinner.start</code> to begin spinning</li>
+<li><code>Spinner.stop</code> to halt the animation</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="language-kotlin highlight"><span class="filename">samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/Spinner.kt</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">spinner</span><span class="p">():</span><span class="w"> </span><span class="n">Widget</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">spinner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Spinner</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="n">setSizeRequest</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">toggleButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ToggleButton</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Start Spinning&quot;</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="c1">// bind the spinning property of the spinner to the active property of the toggleButton</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="n">toggleButton</span><span class="p">.</span><span class="na">bindProperty</span><span class="p">(</span><span class="s">&quot;active&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">spinner</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;spinning&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BindingFlags</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1">// update the text when the button is spinning</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="n">toggleButton</span><span class="p">.</span><span class="na">onClicked</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">toggleButton</span><span class="p">.</span><span class="na">active</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">            </span><span class="n">toggleButton</span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Stop Spinning&quot;</span><span class="p">)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">            </span><span class="n">toggleButton</span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Start Spinning&quot;</span><span class="p">)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Box</span><span class="p">(</span><span class="n">Orientation</span><span class="p">.</span><span class="na">VERTICAL</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">        </span><span class="n">setMargins</span><span class="p">(</span><span class="m">20</span><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="n">append</span><span class="p">(</span><span class="n">spinner</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="n">append</span><span class="p">(</span><span class="n">toggleButton</span><span class="p">)</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">box</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="p">}</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 30, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 29, 2023</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1298,6 +1453,44 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../progress-bar/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ProgressBar">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ProgressBar
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../../gio/" class="md-footer__link md-footer__link--next" aria-label="Next: GIO">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                GIO
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -1395,10 +1588,10 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "/assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
     
   </body>

@@ -6,28 +6,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries.">
+        <meta name="description" content="Learn how the `org.gtkkn.application` Gradle plugin simplifies building and deploying GTK applications in Kotlin/Native.">
       
       
         <meta name="author" content="gtk-kn">
       
       
+        <link rel="canonical" href="https://gtk-kn.org/developer-guide/gradle-plugin/">
       
       
+        <link rel="prev" href="../environment-setup/">
       
-      <link rel="icon" href="/assets/favicon.ico">
+      
+        <link rel="next" href="../logging/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>gtk-kn</title>
+        <title>Gradle plugin - gtk-kn</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,13 +52,39 @@
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Gradle plugin - gtk-kn" >
+      
+        <meta  property="og:description"  content="Learn how the `org.gtkkn.application` Gradle plugin simplifies building and deploying GTK applications in Kotlin/Native." >
+      
+        <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/gradle-plugin.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://gtk-kn.org/developer-guide/gradle-plugin/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Gradle plugin - gtk-kn" >
+      
+        <meta  name="twitter:description"  content="Learn how the `org.gtkkn.application` Gradle plugin simplifies building and deploying GTK applications in Kotlin/Native." >
+      
+        <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/gradle-plugin.png" >
+      
     
     
   </head>
@@ -73,6 +105,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#gradle-plugin-for-gtk-kn" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -83,9 +120,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../.." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="/assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Gradle plugin
             
           </span>
         </div>
@@ -226,7 +263,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -243,7 +280,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/get-started/" class="md-tabs__link">
+      <a href="../../get-started/" class="md-tabs__link">
         
   
     
@@ -258,11 +295,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/developer-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -282,7 +321,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/contributor-guide/" class="md-tabs__link">
+        <a href="../../contributor-guide/" class="md-tabs__link">
           
   
     
@@ -300,7 +339,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/faq/" class="md-tabs__link">
+      <a href="../../faq/" class="md-tabs__link">
         
   
     
@@ -317,7 +356,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/dokka/" class="md-tabs__link">
+      <a href="../../dokka/" class="md-tabs__link">
         
   
     
@@ -353,9 +392,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../.." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="/assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     gtk-kn
@@ -382,7 +421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -402,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/get-started/" class="md-nav__link">
+      <a href="../../get-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -419,6 +458,8 @@
       
   
   
+    
+  
   
   
     
@@ -439,19 +480,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -462,13 +506,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Developer Guide
@@ -484,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/environment-setup/" class="md-nav__link">
+      <a href="../environment-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -502,10 +546,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/developer-guide/gradle-plugin/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Gradle plugin
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -514,6 +578,101 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#binary-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Entry Point
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targeting-library-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Targeting Library Versions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Targeting Library Versions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-opt-in-without-the-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual Opt-In (Without the Plugin)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignoring-unresolved-symbols-in-object-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ignoring Unresolved Symbols in Object Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ignoring Unresolved Symbols in Object Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      macOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-gresources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embedding GResources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -526,7 +685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/logging/" class="md-nav__link">
+      <a href="../logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -578,7 +737,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/" class="md-nav__link ">
+            <a href="../bindings/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -634,7 +793,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gtk4/" class="md-nav__link ">
+            <a href="../bindings/gtk4/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -692,7 +851,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gtk4/widgets/" class="md-nav__link ">
+            <a href="../bindings/gtk4/widgets/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -725,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/visual-index/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/visual-index/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -792,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/examples/label/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/examples/label/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -813,7 +972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -834,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -902,7 +1061,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gio/" class="md-nav__link ">
+            <a href="../bindings/gio/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -935,7 +1094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/developer-guide/bindings/gio/notifications/" class="md-nav__link">
+      <a href="../bindings/gio/notifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -985,7 +1144,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/adwaita/" class="md-nav__link ">
+            <a href="../bindings/adwaita/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1042,7 +1201,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/gtksource/" class="md-nav__link ">
+            <a href="../bindings/gtksource/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1099,7 +1258,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/developer-guide/bindings/webkitgtk/" class="md-nav__link ">
+            <a href="../bindings/webkitgtk/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1173,7 +1332,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="/contributor-guide/" class="md-nav__link ">
+            <a href="../../contributor-guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1206,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
+      <a href="../../contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1234,7 +1393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1254,7 +1413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/dokka/" class="md-nav__link">
+      <a href="../../dokka/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1279,8 +1438,168 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/edit/master/docs/developer-guide/gradle-plugin.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/raw/master/docs/developer-guide/gradle-plugin.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="gradle-plugin-for-gtk-kn">Gradle Plugin for gtk-kn<a class="headerlink" href="#gradle-plugin-for-gtk-kn" title="Permanent link">&para;</a></h1>
+<p>The <code>org.gtkkn.application</code> Gradle plugin simplifies the process of building and deploying applications with <code>gtk-kn</code>.
+It automates the configuration of entry point definition, GObject library versions and resource embedding, reducing
+boilerplate code and simplifying project setup.</p>
+<h2 id="binary-entry-point">Binary Entry Point<a class="headerlink" href="#binary-entry-point" title="Permanent link">&para;</a></h2>
+<p>By default, when building a Kotlin/Native executable, you need to specify the entry point manually in your
+<code>build.gradle.kts</code> configuration. The <code>org.gtkkn.application</code> plugin provides a more convenient way to define the entry
+point, avoiding unnecessary boilerplate.</p>
+<p>You can specify the entry point directly in the <code>gtkKn</code> block:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">gtkKn</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">entryPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.example.main&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This eliminates the need to manually configure the <code>entryPoint</code> property inside the <code>binaries</code> block, reducing
+boilerplate code like:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">kotlin</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">hostOs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OperatingSystem</span><span class="p">.</span><span class="na">current</span><span class="p">()</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">isArm64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&quot;os.arch&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;aarch64&quot;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nativeTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">hostOs</span><span class="p">.</span><span class="na">isLinux</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">isArm64</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">linuxX64</span><span class="p">()</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">hostOs</span><span class="p">.</span><span class="na">isMacOsX</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">isArm64</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">macosArm64</span><span class="p">()</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">GradleException</span><span class="p">(</span><span class="s">&quot;Host OS &#39;</span><span class="si">${</span><span class="n">hostOs</span><span class="si">}</span><span class="s">&#39; is not supported by gtk-kn.&quot;</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">nativeTarget</span><span class="p">.</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="n">binaries</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">            </span><span class="n">executable</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">                </span><span class="n">entryPoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;main&quot;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>By specifying the <code>entryPoint</code> in <code>gtkKn</code>, the plugin takes care of setting the correct entry point for the executable,
+making the build configuration cleaner and more maintainable.</p>
+<h2 id="targeting-library-versions">Targeting Library Versions<a class="headerlink" href="#targeting-library-versions" title="Permanent link">&para;</a></h2>
+<p>One of the core features of the plugin is the ability to specify target versions for each GObject library. By setting a
+target version, the build process will automatically enable compatibility for all APIs up to and including the specified
+version, ensuring access to newer features while maintaining control over API level compatibility.</p>
+<p>For example, to set the target version for the <code>gio</code> and <code>gtk</code> libraries, add the following to your <code>build.gradle.kts</code>:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">gtkKn</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">targetLibraryVersions</span><span class="p">.</span><span class="na">putAll</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;gio&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;2.28&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gtk&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;4.10&quot;</span><span class="p">))</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>In this configuration, the project will opt into all <code>gtk</code> APIs up to version 4.10. This eliminates the need to manually
+specify each version, making it easier to manage version compatibility across your project.</p>
+<h3 id="manual-opt-in-without-the-plugin">Manual Opt-In (Without the Plugin)<a class="headerlink" href="#manual-opt-in-without-the-plugin" title="Permanent link">&para;</a></h3>
+<p>It’s still possible to opt into specific versions manually without using the plugin. However, in this case, each target
+version must be added individually, as shown below:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">sourceSets</span><span class="p">.</span><span class="na">configureEach</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">languageSettings</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="c1">// Opt in to the required annotations</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="n">optIn</span><span class="p">(</span><span class="s">&quot;org.gtkkn.bindings.gtk.annotations.GtkVersion4_2&quot;</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">optIn</span><span class="p">(</span><span class="s">&quot;org.gtkkn.bindings.gtk.annotations.GtkVersion4_4&quot;</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">optIn</span><span class="p">(</span><span class="s">&quot;org.gtkkn.bindings.gtk.annotations.GtkVersion4_6&quot;</span><span class="p">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">optIn</span><span class="p">(</span><span class="s">&quot;org.gtkkn.bindings.gtk.annotations.GtkVersion4_8&quot;</span><span class="p">)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="n">optIn</span><span class="p">(</span><span class="s">&quot;org.gtkkn.bindings.gtk.annotations.GtkVersion4_10&quot;</span><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>While this approach provides the same compatibility, using the Gradle plugin streamlines this process and reduces the
+maintenance effort.</p>
+<h2 id="ignoring-unresolved-symbols-in-object-files">Ignoring Unresolved Symbols in Object Files<a class="headerlink" href="#ignoring-unresolved-symbols-in-object-files" title="Permanent link">&para;</a></h2>
+<p>When including a gtk-kn dependency in your project, you may encounter linker errors such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ld.lld: error: undefined symbol: &lt;some native symbol&gt;
+</span></code></pre></div>
+<p>These errors usually occur when one of the project dependencies references symbols from a native library version
+different from the one installed on your system. If these symbols are not required for your application, they can be
+safely ignored during linking.</p>
+<p>The <code>org.gtkkn.application</code> plugin automatically applies the appropriate linker options based on your operating system:</p>
+<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3>
+<p>For Linux, the linker option <code>--unresolved-symbols=ignore-in-object-files</code> is added:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">freeCompilerArgs</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;-linker-option&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;--unresolved-symbols=ignore-in-object-files&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This instructs the linker to skip unresolved symbols in object files while still enforcing symbol resolution in shared
+libraries. This ensures the build succeeds without risking runtime issues for unused symbols.</p>
+<h3 id="macos">macOS<a class="headerlink" href="#macos" title="Permanent link">&para;</a></h3>
+<p>For macOS, where <code>--unresolved-symbols</code> is not supported, the following linker options are used:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">freeCompilerArgs</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="s">&quot;-linker-option&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-undefined&quot;</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="s">&quot;-linker-option&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dynamic_lookup&quot;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>This tells the linker to ignore unresolved symbols and defer their resolution to runtime. Symbols that are never
+accessed will not cause any issues, but if they are accessed and remain unresolved, the program will crash.</p>
+<p>These settings ensure compatibility across platforms while avoiding linker errors for unused symbols. If you&rsquo;re still
+seeing this error, the issue might lie elsewhere in your setup.</p>
+<h2 id="embedding-gresources">Embedding GResources<a class="headerlink" href="#embedding-gresources" title="Permanent link">&para;</a></h2>
+<p>The <code>org.gtkkn.application</code> plugin also supports embedding resources—such as images, CSS, and UI files—directly into the
+application binary. This feature simplifies resource management, as embedded resources become part of the application’s
+executable, accessible without external dependencies.</p>
+<p>To use this feature, place your resources in the <code>src/gresources/main</code> directory, then add the following configuration
+to your <code>build.gradle.kts</code>:</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">kotlin</span><span class="p">.</span><span class="na">linuxX64</span><span class="p">.</span><span class="na">gtk</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">gresources</span><span class="p">.</span><span class="na">main</span><span class="p">.</span><span class="na">embed</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="na">nativeTergetCompilation</span><span class="p">())</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>By embedding resources directly, your application becomes more self-contained, with all necessary files bundled within
+the binary.</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 26, 2025</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 13, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1298,6 +1617,44 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../environment-setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Environment Setup">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Environment Setup
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../logging/" class="md-footer__link md-footer__link--next" aria-label="Next: Logging">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Logging
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -1395,10 +1752,10 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "/assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
     
   </body>

@@ -12,26 +12,28 @@
         <meta name="author" content="gtk-kn">
       
       
-        <link rel="canonical" href="https://gtk-kn.org/">
+        <link rel="canonical" href="https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/progress-bar/">
       
       
+        <link rel="prev" href="../label/">
       
-        <link rel="next" href="get-started/">
+      
+        <link rel="next" href="../spinner/">
       
       
-      <link rel="icon" href="assets/favicon.ico">
+      <link rel="icon" href="../../../../../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>Home - gtk-kn</title>
+        <title>ProgressBar - gtk-kn</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -61,11 +63,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="gtk-kn" >
+        <meta  property="og:title"  content="ProgressBar - gtk-kn" >
       
         <meta  property="og:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
       
-        <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/index.png" >
+        <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/bindings/gtk4/widgets/examples/progress-bar.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -73,15 +75,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://gtk-kn.org/" >
+        <meta  property="og:url"  content="https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/progress-bar/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="gtk-kn" >
+        <meta  name="twitter:title"  content="ProgressBar - gtk-kn" >
       
         <meta  name="twitter:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
       
-        <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/index.png" >
+        <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/bindings/gtk4/widgets/examples/progress-bar.png" >
       
     
     
@@ -104,7 +106,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#powered-by" class="md-skip">
+        <a href="#percentage-mode" class="md-skip">
           Skip to content
         </a>
       
@@ -118,9 +120,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../../../../../.." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../../../../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -137,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              ProgressBar
             
           </span>
         </div>
@@ -259,11 +261,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../../../../.." class="md-tabs__link">
         
   
     
@@ -280,7 +280,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="get-started/" class="md-tabs__link">
+      <a href="../../../../../../get-started/" class="md-tabs__link">
         
   
     
@@ -295,11 +295,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="developer-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../../" class="md-tabs__link">
           
   
     
@@ -319,7 +321,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="contributor-guide/" class="md-tabs__link">
+        <a href="../../../../../../contributor-guide/" class="md-tabs__link">
           
   
     
@@ -337,7 +339,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="faq/" class="md-tabs__link">
+      <a href="../../../../../../faq/" class="md-tabs__link">
         
   
     
@@ -354,7 +356,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="dokka/" class="md-tabs__link">
+      <a href="../../../../../../dokka/" class="md-tabs__link">
         
   
     
@@ -377,9 +379,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -392,9 +392,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../../../../../.." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../../../../../assets/logo.svg" alt="logo">
 
     </a>
     gtk-kn
@@ -418,28 +418,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Home
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -448,33 +430,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#powered-by" class="md-nav__link">
-    <span class="md-ellipsis">
-      Powered by
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -486,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="get-started/" class="md-nav__link">
+      <a href="../../../../../../get-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -503,6 +458,8 @@
       
   
   
+    
+  
   
   
     
@@ -523,19 +480,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/" class="md-nav__link ">
+            <a href="../../../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -546,13 +506,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Developer Guide
@@ -568,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/environment-setup/" class="md-nav__link">
+      <a href="../../../../../environment-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -589,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/gradle-plugin/" class="md-nav__link">
+      <a href="../../../../../gradle-plugin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -610,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/logging/" class="md-nav__link">
+      <a href="../../../../../logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -628,6 +588,8 @@
                 
   
   
+    
+  
   
   
     
@@ -653,16 +615,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/" class="md-nav__link ">
+            <a href="../../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -679,7 +641,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
             Bindings
@@ -692,6 +654,8 @@
                 
   
   
+    
+  
   
   
     
@@ -709,16 +673,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gtk4/" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -735,7 +699,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5_2">
             <span class="md-nav__icon md-icon"></span>
             GTK4
@@ -748,6 +712,8 @@
                 
   
   
+    
+  
   
   
     
@@ -767,16 +733,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gtk4/widgets/" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -793,7 +759,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_5_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5_2_2">
             <span class="md-nav__icon md-icon"></span>
             Widgets
@@ -809,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/visual-index/" class="md-nav__link">
+      <a href="../../visual-index/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -827,8 +793,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -844,11 +812,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3_5_2_2_3" id="__nav_3_5_2_2_3_label" tabindex="0">
@@ -862,7 +830,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_5_2_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_5_2_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_5_2_2_3">
             <span class="md-nav__icon md-icon"></span>
             Examples
@@ -876,7 +844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/examples/label/" class="md-nav__link">
+      <a href="../label/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -894,10 +862,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    ProgressBar
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -906,6 +892,51 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#percentage-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Percentage Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#activity-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-the-progressbar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing the ProgressBar
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -918,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
+      <a href="../spinner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -986,7 +1017,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gio/" class="md-nav__link ">
+            <a href="../../../../gio/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1019,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gio/notifications/" class="md-nav__link">
+      <a href="../../../../gio/notifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1069,7 +1100,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/adwaita/" class="md-nav__link ">
+            <a href="../../../../adwaita/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1126,7 +1157,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gtksource/" class="md-nav__link ">
+            <a href="../../../../gtksource/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1183,7 +1214,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/webkitgtk/" class="md-nav__link ">
+            <a href="../../../../webkitgtk/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1257,7 +1288,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="contributor-guide/" class="md-nav__link ">
+            <a href="../../../../../../contributor-guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1290,7 +1321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
+      <a href="../../../../../../contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1318,7 +1349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="faq/" class="md-nav__link">
+      <a href="../../../../../../faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1338,7 +1369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dokka/" class="md-nav__link">
+      <a href="../../../../../../dokka/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1366,7 +1397,7 @@
                   
 
   
-    <a href="https://gitlab.com/gtk-kn/gtk-kn/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/edit/master/docs/developer-guide/bindings/gtk4/widgets/examples/progress-bar.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1375,48 +1406,99 @@
     
       
     
-    <a href="https://gitlab.com/gtk-kn/gtk-kn/raw/master/docs/index.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/raw/master/docs/developer-guide/bindings/gtk4/widgets/examples/progress-bar.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>Home</h1>
+  <h1>ProgressBar</h1>
 
-<div style="text-align: center;">
-<p><img alt="GTK-kn logo" src="assets/logo-256.png" /></p>
-<p>Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries.
-<br>
-<br>
-<a class="md-button md-button--primary" href="get-started/">Get Started</a></p>
-</div>
-<p><br>
-<br></p>
-<div class="grid cards">
+<p>The <code>ProgressBar</code> widget displays the progress of long-running operations, providing a visual cue to the user. It
+supports two modes: <em>percentage mode</em> and <em>activity mode</em>.</p>
+<h3 id="percentage-mode">Percentage Mode<a class="headerlink" href="#percentage-mode" title="Permanent link">&para;</a></h3>
+<p>Use <em>percentage mode</em> when the total work can be measured (e.g., reading a set number of bytes from a file). This mode
+shows a growing bar indicating progress. To update the bar, call <code>ProgressBar.fraction</code> periodically, passing a float
+value between 0 and 1 to represent the percentage completed.</p>
+<h3 id="activity-mode">Activity Mode<a class="headerlink" href="#activity-mode" title="Permanent link">&para;</a></h3>
+<p>For operations where the total work is unknown, use <em>activity mode</em>. This mode shows a block moving back and forth to
+indicate activity. To update, call <code>ProgressBar.pulse</code> periodically. You can also set the step size using
+<code>ProgressBar.pulseStep</code>.</p>
+<h3 id="customizing-the-progressbar">Customizing the ProgressBar<a class="headerlink" href="#customizing-the-progressbar" title="Permanent link">&para;</a></h3>
+<p>By default, the <code>ProgressBar</code> is horizontal and moves left to right, but you can customize it:</p>
 <ul>
-<li>
-<p><strong>Modern &amp; Native</strong></p>
-<hr />
-<p>A fresh, native approach to GTK development with Kotlin/Native.</p>
-</li>
-<li>
-<p><strong>GObject Introspection</strong></p>
-<hr />
-<p>Leverages GObject-Introspection for broad library compatibility and easy API access.</p>
-</li>
-<li>
-<p><strong>Linux &amp; macOS Support</strong></p>
-<hr />
-<p>Develop GTK applications across multiple platforms.</p>
-</li>
+<li><strong>Orientation</strong>: Set <code>ProgressBar.orientation</code> to switch between horizontal and vertical orientations.</li>
+<li><strong>Direction</strong>: Use <code>ProgressBar.inverted</code> to change the direction the bar fills.</li>
+<li><strong>Text</strong>: Display text inside the progress bar with <code>ProgressBar.setText</code> and control its visibility with
+  <code>ProgressBar.showText</code>.</li>
 </ul>
-</div>
-<p><br></p>
-<div style="text-align: center;">
-<h3 id="powered-by">Powered by<a class="headerlink" href="#powered-by" title="Permanent link">&para;</a></h3>
-<p><a href="https://about.gitlab.com/solutions/open-source/join/"><img alt="GitLab" src="assets/logo-gitlab.svg" /></a><a href="https://jb.gg/OpenSourceSupport"><img alt="IntelliJ IDEA" src="assets/logo-intellij-idea.svg" /></a></p>
-</div>
+<p><strong>Example</strong></p>
+<div class="language-kotlin highlight"><span class="filename">samples/gtk/widgets/src/nativeMain/kotlin/org/gtkkn/samples/gtk/widgets/ProgressBar.kt</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">activityMode</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">progressBar</span><span class="p">():</span><span class="w"> </span><span class="n">Box</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">vbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Orientation</span><span class="p">.</span><span class="na">VERTICAL</span><span class="p">,</span><span class="w"> </span><span class="n">spacing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="n">setMargins</span><span class="p">(</span><span class="m">16</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">progressBar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProgressBar</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="n">vexpand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="n">hexpand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="n">vbox</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">progressBar</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showTextButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CheckButton</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Show text&quot;</span><span class="p">)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">showTextButton</span><span class="p">.</span><span class="na">onToggled</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onShowTextToggled</span><span class="p">(</span><span class="n">showTextButton</span><span class="p">,</span><span class="w"> </span><span class="n">progressBar</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">vbox</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">showTextButton</span><span class="p">)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">activityModeButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CheckButton</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Activity mode&quot;</span><span class="p">)</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">activityModeButton</span><span class="p">.</span><span class="na">onToggled</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onActivityModeToggled</span><span class="p">(</span><span class="n">activityModeButton</span><span class="p">,</span><span class="w"> </span><span class="n">progressBar</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="n">vbox</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">activityModeButton</span><span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">rightToLeftButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CheckButton</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Right to Left&quot;</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="n">rightToLeftButton</span><span class="p">.</span><span class="na">onToggled</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">onRightToLeftToggled</span><span class="p">(</span><span class="n">rightToLeftButton</span><span class="p">,</span><span class="w"> </span><span class="n">progressBar</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="n">vbox</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">rightToLeftButton</span><span class="p">)</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">GLib</span><span class="p">.</span><span class="na">timeoutAdd</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">50.</span><span class="n">toUInt</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="n">onTimeout</span><span class="p">(</span><span class="n">progressBar</span><span class="p">)</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">vbox</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="p">}</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onShowTextToggled</span><span class="p">(</span><span class="n">button</span><span class="p">:</span><span class="w"> </span><span class="n">CheckButton</span><span class="p">,</span><span class="w"> </span><span class="n">progressBar</span><span class="p">:</span><span class="w"> </span><span class="n">ProgressBar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">showText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">active</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">showText</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;some text&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="kc">null</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="n">progressBar</span><span class="p">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="n">progressBar</span><span class="p">.</span><span class="na">showText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">showText</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="p">}</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onActivityModeToggled</span><span class="p">(</span><span class="n">button</span><span class="p">:</span><span class="w"> </span><span class="n">CheckButton</span><span class="p">,</span><span class="w"> </span><span class="n">progressBar</span><span class="p">:</span><span class="w"> </span><span class="n">ProgressBar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="n">activityMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">active</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">activityMode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">        </span><span class="n">progressBar</span><span class="p">.</span><span class="na">pulse</span><span class="p">()</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">        </span><span class="n">progressBar</span><span class="p">.</span><span class="na">fraction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.0</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="p">}</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onRightToLeftToggled</span><span class="p">(</span><span class="n">button</span><span class="p">:</span><span class="w"> </span><span class="n">CheckButton</span><span class="p">,</span><span class="w"> </span><span class="n">progressBar</span><span class="p">:</span><span class="w"> </span><span class="n">ProgressBar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="w">    </span><span class="n">progressBar</span><span class="p">.</span><span class="na">inverted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="na">active</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="p">}</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onTimeout</span><span class="p">(</span><span class="n">progressBar</span><span class="p">:</span><span class="w"> </span><span class="n">ProgressBar</span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">activityMode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">        </span><span class="n">progressBar</span><span class="p">.</span><span class="na">pulse</span><span class="p">()</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">newValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">progressBar</span><span class="p">.</span><span class="na">fraction</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.01</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">newValue</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">            </span><span class="n">newValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.0</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="w">        </span><span class="n">progressBar</span><span class="p">.</span><span class="na">fraction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newValue</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="p">}</span>
+</span></code></pre></div>
 
 
 
@@ -1439,7 +1521,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 30, 2024</span>
   </span>
 
     
@@ -1449,7 +1531,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 25, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 29, 2023</span>
   </span>
 
     
@@ -1458,8 +1540,6 @@
   </aside>
 
 
-
-  
 
 
 
@@ -1483,19 +1563,33 @@
   
     
       
-        
-      
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../label/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Label">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Label
+              </div>
+            </div>
+          </a>
         
         
           
-          <a href="get-started/" class="md-footer__link md-footer__link--next" aria-label="Next: Get Started">
+          <a href="../spinner/" class="md-footer__link md-footer__link--next" aria-label="Next: Spinner">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Get Started
+                Spinner
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1602,10 +1696,10 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
     
   </body>

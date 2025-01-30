@@ -6,32 +6,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries.">
+        <meta name="description" content="Learn how to use gtk-kn's flexible logging API.">
       
       
         <meta name="author" content="gtk-kn">
       
       
-        <link rel="canonical" href="https://gtk-kn.org/">
+        <link rel="canonical" href="https://gtk-kn.org/developer-guide/logging/">
       
       
+        <link rel="prev" href="../gradle-plugin/">
       
-        <link rel="next" href="get-started/">
+      
+        <link rel="next" href="../bindings/">
       
       
-      <link rel="icon" href="assets/favicon.ico">
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
     
     
       
-        <title>Home - gtk-kn</title>
+        <title>Logging - gtk-kn</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -61,11 +63,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="gtk-kn" >
+        <meta  property="og:title"  content="Logging - gtk-kn" >
       
-        <meta  property="og:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
+        <meta  property="og:description"  content="Learn how to use gtk-kn's flexible logging API." >
       
-        <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/index.png" >
+        <meta  property="og:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/logging.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -73,15 +75,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://gtk-kn.org/" >
+        <meta  property="og:url"  content="https://gtk-kn.org/developer-guide/logging/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="gtk-kn" >
+        <meta  name="twitter:title"  content="Logging - gtk-kn" >
       
-        <meta  name="twitter:description"  content="Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries." >
+        <meta  name="twitter:description"  content="Learn how to use gtk-kn's flexible logging API." >
       
-        <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/index.png" >
+        <meta  name="twitter:image"  content="https://gtk-kn.org/assets/images/social/developer-guide/logging.png" >
       
     
     
@@ -104,7 +106,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#powered-by" class="md-skip">
+        <a href="#logging-in-gtk-kn" class="md-skip">
           Skip to content
         </a>
       
@@ -118,9 +120,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../.." title="gtk-kn" class="md-header__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -137,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Logging
             
           </span>
         </div>
@@ -259,11 +261,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -280,7 +280,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="get-started/" class="md-tabs__link">
+      <a href="../../get-started/" class="md-tabs__link">
         
   
     
@@ -295,11 +295,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="developer-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -319,7 +321,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="contributor-guide/" class="md-tabs__link">
+        <a href="../../contributor-guide/" class="md-tabs__link">
           
   
     
@@ -337,7 +339,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="faq/" class="md-tabs__link">
+      <a href="../../faq/" class="md-tabs__link">
         
   
     
@@ -354,7 +356,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="dokka/" class="md-tabs__link">
+      <a href="../../dokka/" class="md-tabs__link">
         
   
     
@@ -377,9 +379,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -392,9 +392,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
+    <a href="../.." title="gtk-kn" class="md-nav__button md-logo" aria-label="gtk-kn" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     gtk-kn
@@ -418,28 +418,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Home
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -448,33 +430,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#powered-by" class="md-nav__link">
-    <span class="md-ellipsis">
-      Powered by
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -486,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="get-started/" class="md-nav__link">
+      <a href="../../get-started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -503,6 +458,8 @@
       
   
   
+    
+  
   
   
     
@@ -523,19 +480,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -546,13 +506,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Developer Guide
@@ -568,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/environment-setup/" class="md-nav__link">
+      <a href="../environment-setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -589,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/gradle-plugin/" class="md-nav__link">
+      <a href="../gradle-plugin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,10 +567,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="developer-guide/logging/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Logging
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -619,6 +599,221 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing a Logger
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing a Logger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-for-both-debug-and-release-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install for Both Debug and Release Builds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-only-for-debug-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install Only for Debug Builds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-only-for-release-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install Only for Release Builds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-logs-in-release-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug Logs in Release Builds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logging Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-log-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Log Domain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-log-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Log Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-outside-a-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Outside a Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Exceptions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples-of-log-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of Log Output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples of Log Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-example-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup Example Logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-logcatstylelogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using LogcatStyleLogger
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-gliblogwriter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using GLibLogWriter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logger-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logger Comparison
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logger Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glibloglogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      GLibLogLogger
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logcatstylelogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      LogcatStyleLogger
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -662,7 +857,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/" class="md-nav__link ">
+            <a href="../bindings/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -718,7 +913,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gtk4/" class="md-nav__link ">
+            <a href="../bindings/gtk4/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -776,7 +971,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gtk4/widgets/" class="md-nav__link ">
+            <a href="../bindings/gtk4/widgets/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -809,7 +1004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/visual-index/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/visual-index/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -876,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/examples/label/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/examples/label/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -897,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/examples/progress-bar/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -918,7 +1113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
+      <a href="../bindings/gtk4/widgets/examples/spinner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -986,7 +1181,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gio/" class="md-nav__link ">
+            <a href="../bindings/gio/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1019,7 +1214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="developer-guide/bindings/gio/notifications/" class="md-nav__link">
+      <a href="../bindings/gio/notifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1069,7 +1264,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/adwaita/" class="md-nav__link ">
+            <a href="../bindings/adwaita/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1126,7 +1321,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/gtksource/" class="md-nav__link ">
+            <a href="../bindings/gtksource/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1183,7 +1378,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="developer-guide/bindings/webkitgtk/" class="md-nav__link ">
+            <a href="../bindings/webkitgtk/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1257,7 +1452,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="contributor-guide/" class="md-nav__link ">
+            <a href="../../contributor-guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1290,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
+      <a href="../../contributor-guide/deploying-to-mavenlocal/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1318,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1338,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="dokka/" class="md-nav__link">
+      <a href="../../dokka/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1366,7 +1561,7 @@
                   
 
   
-    <a href="https://gitlab.com/gtk-kn/gtk-kn/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/edit/master/docs/developer-guide/logging.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1375,48 +1570,173 @@
     
       
     
-    <a href="https://gitlab.com/gtk-kn/gtk-kn/raw/master/docs/index.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://gitlab.com/gtk-kn/gtk-kn/raw/master/docs/developer-guide/logging.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-  <h1>Home</h1>
-
-<div style="text-align: center;">
-<p><img alt="GTK-kn logo" src="assets/logo-256.png" /></p>
-<p>Kotlin/Native bindings for the GTK framework and other GObject-Introspection-based libraries.
-<br>
-<br>
-<a class="md-button md-button--primary" href="get-started/">Get Started</a></p>
-</div>
-<p><br>
-<br></p>
-<div class="grid cards">
+<h1 id="logging-in-gtk-kn">Logging in <code>gtk-kn</code><a class="headerlink" href="#logging-in-gtk-kn" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The <code>gtk-kn</code> logging API is designed for flexibility and performance, providing features like:</p>
 <ul>
-<li>
-<p><strong>Modern &amp; Native</strong></p>
-<hr />
-<p>A fresh, native approach to GTK development with Kotlin/Native.</p>
-</li>
-<li>
-<p><strong>GObject Introspection</strong></p>
-<hr />
-<p>Leverages GObject-Introspection for broad library compatibility and easy API access.</p>
-</li>
-<li>
-<p><strong>Linux &amp; macOS Support</strong></p>
-<hr />
-<p>Develop GTK applications across multiple platforms.</p>
+<li><strong>Lazy Evaluation</strong>: Log messages are defined as lambdas, evaluated only if logging is enabled, avoiding unnecessary
+  computation.</li>
+<li><strong>Automatic Domain Derivation</strong>: By default, the log domain is the calling class&rsquo;s name, simplifying log organization.</li>
+<li><strong>Customizable Loggers</strong>: Choose from built-in logging backends:<ul>
+<li><strong><code>GLibLogLogger</code></strong>: Integrates with GLib&rsquo;s logging system.</li>
+<li><strong><code>LogcatStyleLogger</code></strong>: Mimics Android Logcat formatting.</li>
+</ul>
 </li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To enable logging, a logger (<code>Log</code>) must be explicitly installed. Without a logger, no logs will be generated.</p>
 </div>
-<p><br></p>
-<div style="text-align: center;">
-<h3 id="powered-by">Powered by<a class="headerlink" href="#powered-by" title="Permanent link">&para;</a></h3>
-<p><a href="https://about.gitlab.com/solutions/open-source/join/"><img alt="GitLab" src="assets/logo-gitlab.svg" /></a><a href="https://jb.gg/OpenSourceSupport"><img alt="IntelliJ IDEA" src="assets/logo-intellij-idea.svg" /></a></p>
+<hr />
+<h2 id="installing-a-logger">Installing a Logger<a class="headerlink" href="#installing-a-logger" title="Permanent link">&para;</a></h2>
+<p>You must install a logger before logs are captured. Depending on your needs, you can install a logger for debug builds,
+release builds, or both.</p>
+<h3 id="install-for-both-debug-and-release-builds">Install for Both Debug and Release Builds<a class="headerlink" href="#install-for-both-debug-and-release-builds" title="Permanent link">&para;</a></h3>
+<p>Use this method to enable logging in all build types.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installConsoleLogWriter</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installConsoleLogWriter</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+</span></code></pre></div>
+<p>The second example disables timestamps and colors for the log output.</p>
+<ul>
+<li><strong><code>time</code></strong>: Adds timestamps to each log message (default: <code>true</code>).</li>
+</ul>
+<h3 id="install-only-for-debug-builds">Install Only for Debug Builds<a class="headerlink" href="#install-only-for-debug-builds" title="Permanent link">&para;</a></h3>
+<p>Use this method to enable logging only during development.</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installConsoleLogWriterForDebugBuilds</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li>Typically used for verbose debugging information.</li>
+<li>The logger will not be installed in release builds.</li>
+</ul>
+<h3 id="install-only-for-release-builds">Install Only for Release Builds<a class="headerlink" href="#install-only-for-release-builds" title="Permanent link">&para;</a></h3>
+<p>Use this method to log messages selectively in release builds.</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installGLibLogWriterForReleaseBuilds</span><span class="p">(</span><span class="n">minLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">.</span><span class="na">MESSAGE</span><span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong><code>minLevel</code></strong>: The minimum log priority to capture (default: <code>LogPriority.MESSAGE</code>).</li>
+<li>Useful for filtering out lower-priority logs like <code>DEBUG</code> or <code>INFO</code> in production.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installGLibLogWriterForReleaseBuilds</span><span class="p">(</span><span class="n">minPriority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LogPriority</span><span class="p">.</span><span class="na">CRITICAL</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This setup logs only critical and error messages in release builds.</p>
+<h3 id="debug-logs-in-release-builds">Debug Logs in Release Builds<a class="headerlink" href="#debug-logs-in-release-builds" title="Permanent link">&para;</a></h3>
+<p>For both loggers, debug logs can still be enabled in release builds using the GLib <code>g_log</code> mechanism:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">G_MESSAGES_DEBUG</span><span class="o">=</span>all
+</span></code></pre></div>
+<p>To restrict debug logs to a specific domain (only works with <code>GLibLogWriter</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">G_MESSAGES_DEBUG</span><span class="o">=</span>my_app
+</span></code></pre></div>
+<p>To disable debug logs in release builds entirely, explicitly set <code>minLevel</code> to <code>LogLevel.MESSAGE</code> or higher.</p>
+<hr />
+<h2 id="logging-messages">Logging Messages<a class="headerlink" href="#logging-messages" title="Permanent link">&para;</a></h2>
+<p>Once a logger is installed, you can use the <code>log</code> function to create logs. It provides several options to customize
+logging.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">log</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a debug message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Default level</strong>: <code>LogLevel.DEBUG</code>.</li>
+<li><strong>Default domain</strong>: Derived automatically from the calling class name.</li>
+</ul>
+<h3 id="custom-log-domain">Custom Log Domain<a class="headerlink" href="#custom-log-domain" title="Permanent link">&para;</a></h3>
+<p>Specify a custom domain for the log using the <code>domain</code> parameter. This is helpful for grouping logs by context.</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">log</span><span class="p">(</span><span class="n">domain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;MyComponent&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a log from MyComponent&quot;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="custom-log-level">Custom Log Level<a class="headerlink" href="#custom-log-level" title="Permanent link">&para;</a></h3>
+<p>Control the log severity with the <code>level</code> parameter. Available levels:</p>
+<ul>
+<li><code>LogLevel.DEBUG</code>: Debugging information.</li>
+<li><code>LogLevel.INFO</code>: General information.</li>
+<li><code>LogLevel.MESSAGE</code>: Non-critical notifications.</li>
+<li><code>LogLevel.WARNING</code>: Warnings that do not interrupt execution.</li>
+<li><code>LogLevel.CRITICAL</code>: Critical issues requiring attention.</li>
+<li><code>LogLevel.ERROR</code>: Fatal errors (<strong>Note:</strong> it will terminate the application with a <code>SIGTRAP</code>!).</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">.</span><span class="na">WARNING</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a warning message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Use <code>LogLevel.CRITICAL</code> for critical issues that are non-fatal. Use <code>LogLevel.ERROR</code> only if termination
+is desired.</p>
 </div>
+<h3 id="logging-outside-a-class">Logging Outside a Class<a class="headerlink" href="#logging-outside-a-class" title="Permanent link">&para;</a></h3>
+<p>Use the overload of the <code>log</code> function when <code>this</code> is unavailable, such as in top-level functions or static contexts.</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">log</span><span class="p">(</span><span class="n">domain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;GlobalDomain&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LogLevel</span><span class="p">.</span><span class="na">INFO</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a global log message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="logging-exceptions">Logging Exceptions<a class="headerlink" href="#logging-exceptions" title="Permanent link">&para;</a></h3>
+<p>Log exceptions directly using the <code>org.gtkkn.extensions.glib.util.log</code> function. Choose the appropriate priority level.</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="c1">// Some operation that might fail</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">CRITICAL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Critical error: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="examples-of-log-output">Examples of Log Output<a class="headerlink" href="#examples-of-log-output" title="Permanent link">&para;</a></h2>
+<h3 id="setup-example-logs">Setup Example Logs<a class="headerlink" href="#setup-example-logs" title="Permanent link">&para;</a></h3>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">printLogs</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">DEBUG</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a debug message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">INFO</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is an info message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">MESSAGE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">WARNING</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a warning message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">CRITICAL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is a critical message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="n">log</span><span class="p">(</span><span class="n">LogLevel</span><span class="p">.</span><span class="na">ERROR</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;This is an error message&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="using-logcatstylelogger">Using <code>LogcatStyleLogger</code><a class="headerlink" href="#using-logcatstylelogger" title="Permanent link">&para;</a></h3>
+<p><strong>Setup:</strong></p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installConsoleLogWriter</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">printLogs</span><span class="p">()</span>
+</span></code></pre></div>
+<p><strong>Output:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>12-12 17:12:07.282 194173 D ApplicationWindow: This is a debug message
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>12-12 17:12:07.282 194173 I ApplicationWindow: This is an info message
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>12-12 17:12:07.282 194173 M ApplicationWindow: This is a message
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>12-12 17:12:07.282 194173 W ApplicationWindow: This is a warning message
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>12-12 17:12:07.282 194173 C ApplicationWindow: This is a critical message
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>12-12 17:12:07.282 194173 E ApplicationWindow: This is an error message
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>LogLevel.ERROR is considered fatal and will terminate the application. Use LogLevel.CRITICAL for non-fatal critical errors. Sending SIGTRAP.
+</span></code></pre></div>
+<h3 id="using-gliblogwriter">Using <code>GLibLogWriter</code><a class="headerlink" href="#using-gliblogwriter" title="Permanent link">&para;</a></h3>
+<p><strong>Setup:</strong></p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">Log</span><span class="p">.</span><span class="na">installGLibLogWriter</span><span class="p">()</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">printLogs</span><span class="p">()</span>
+</span></code></pre></div>
+<p><strong>Output:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>(myapp.kexe:195167): ApplicationWindow-DEBUG: 17:14:30.305: This is a debug message
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ApplicationWindow-INFO: 17:14:30.305: This is an info message
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>ApplicationWindow-Message: 17:14:30.305: This is a message
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>(myapp.kexe:195167): ApplicationWindow-WARNING **: 17:14:30.305: This is a warning message
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>(myapp.kexe:195167): ApplicationWindow-CRITICAL **: 17:14:30.305: This is a critical message
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>(myapp.kexe:195167): ApplicationWindow-ERROR **: 17:14:30.305: This is an error message
+</span></code></pre></div>
+<hr />
+<h2 id="logger-comparison">Logger Comparison<a class="headerlink" href="#logger-comparison" title="Permanent link">&para;</a></h2>
+<h3 id="glibloglogger"><code>GLibLogLogger</code><a class="headerlink" href="#glibloglogger" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Integrates with GLib&rsquo;s native logging system.</li>
+<li>Respects <code>G_MESSAGES_DEBUG</code> environment variable for enabling debug logs with specific log domains in release builds.</li>
+</ul>
+<h3 id="logcatstylelogger"><code>LogcatStyleLogger</code><a class="headerlink" href="#logcatstylelogger" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Mimics Android&rsquo;s Logcat formatting.</li>
+<li>Supports optional timestamps (<code>time</code>) and ANSI color coding (<code>color</code>).</li>
+<li>Ideal for debugging in console or file-based logs.</li>
+</ul>
 
 
 
@@ -1439,7 +1759,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 12, 2024</span>
   </span>
 
     
@@ -1449,7 +1769,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 25, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 12, 2024</span>
   </span>
 
     
@@ -1458,8 +1778,6 @@
   </aside>
 
 
-
-  
 
 
 
@@ -1483,19 +1801,33 @@
   
     
       
-        
-      
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../gradle-plugin/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Gradle plugin">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Gradle plugin
+              </div>
+            </div>
+          </a>
         
         
           
-          <a href="get-started/" class="md-footer__link md-footer__link--next" aria-label="Next: Get Started">
+          <a href="../bindings/" class="md-footer__link md-footer__link--next" aria-label="Next: Bindings Overview">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Get Started
+                Bindings Overview
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1602,10 +1934,10 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.60a45f97.min.js"></script>
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
       
     
   </body>
