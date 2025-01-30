@@ -26,6 +26,7 @@ apt-get update
 
 # Install packages without prompts
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  git \
   apt-utils \
   openjdk-17-jdk-headless \
   python3-pip \

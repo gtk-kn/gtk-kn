@@ -26,6 +26,7 @@ dnf check-update || true
 
 # Install packages without prompts
 dnf install -y \
+  git \
   libxcrypt-compat \
   java-17-openjdk-devel \
   python3-pip \
