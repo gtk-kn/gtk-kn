@@ -26,6 +26,7 @@ zypper refresh
 
 # Install packages without prompts
 zypper install -y \
+  git \
   java-17-openjdk-devel \
   python3-pip \
   gcc \

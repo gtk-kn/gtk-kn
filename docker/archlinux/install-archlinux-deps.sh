@@ -26,6 +26,7 @@ pacman -Syu --noconfirm
 
 # Install packages without prompts
 pacman -S --noconfirm \
+  git \
   libxcrypt-compat \
   pkgconf \
   jdk17-openjdk \
