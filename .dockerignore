@@ -3,6 +3,7 @@ build/
 out/
 .gradle/
 .kotlin/
+venv/
 .~lock*
 
 # Exclude configuration files with sensitive information
@@ -17,5 +18,6 @@ local.properties
 .idea/
 
 # Exclude documentation and site files
+.cache
 docs/dokka/
 public/
