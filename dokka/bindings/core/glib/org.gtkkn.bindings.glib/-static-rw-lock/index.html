@@ -1,0 +1,341 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>StaticRwLock</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/StaticRwLock///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">StaticRwLock</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Static</span><wbr><span>Rw</span><wbr><span><span>Lock</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">StaticRwLock</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibStaticRwLockPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a></div><p class="paragraph">The #GStaticRWLock struct represents a read-write lock. A read-write lock can be used for protecting data that some portions of code only read from, while others also write. In such situations it is desirable that several readers can read at once, whereas of course only one writer may write at a time.</p><p class="paragraph">Take a look at the following example: |[ GStaticRWLock rwlock = G_STATIC_RW_LOCK_INIT; GPtrArray *array;</p><p class="paragraph">gpointer my_array_get (guint index) {     gpointer retval = NULL;</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">if (!array)
+  return NULL;
+
+g_static_rw_lock_reader_lock (&amp;rwlock);
+if (index &lt; array-&gt;len)
+  retval = g_ptr_array_index (array, index);
+g_static_rw_lock_reader_unlock (&amp;rwlock);
+
+return retval;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">}</p><p class="paragraph">void my_array_set (guint index, gpointer data) {     g_static_rw_lock_writer_lock (&amp;rwlock);</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">if (!array)
+  array = g_ptr_array_new ();
+
+if (index &gt;= array-&gt;len)
+  g_ptr_array_set_size (array, index + 1);
+g_ptr_array_index (array, index) = data;
+
+g_static_rw_lock_writer_unlock (&amp;rwlock);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">} ]|</p><p class="paragraph">This example shows an array which can be accessed by many readers (the my_array_get() function) simultaneously, whereas the writers (the my_array_set() function) will only be allowed once at a time and only if no readers currently access the array. This is because of the potentially dangerous resizing of the array. Using these functions is fully multi-thread safe now.</p><p class="paragraph">Most of the time, writers should have precedence over readers. That means, for this implementation, that as soon as a writer wants to lock the data, no other reader is allowed to lock the data, whereas, of course, the readers that already have locked the data are allowed to finish their operation. As soon as the last reader unlocks the data, the writer will lock it.</p><p class="paragraph">Even though #GStaticRWLock is not opaque, it should only be used with the following functions.</p><p class="paragraph">All of the g_static_rw_lock_* functions can be used even if g_thread_init() has not been called. Then they do nothing, apart from g_static_rw_lock_*_trylock, which does nothing but returning true.</p><p class="paragraph">A read-write lock has a higher overhead than a mutex. For example, both g_static_rw_lock_reader_lock() and g_static_rw_lock_reader_unlock() have to lock and unlock a #GStaticMutex, so it takes at least twice the time to lock and unlock a #GStaticRWLock that it does to lock and unlock a #GStaticMutex. So only data structures that are accessed by multiple readers, and which keep the lock for a considerable time justify a #GStaticRWLock. The above example most probably would fare better with a #GStaticMutex.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="899063485%2FConstructors%2F-2021666004" anchor-label="StaticRwLock" id="899063485%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-static-rw-lock.html"><span>Static</span><wbr><span>Rw</span><wbr><span><span>Lock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="899063485%2FConstructors%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new StaticRwLock.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new StaticRwLock using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibStaticRwLockPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1409025989%2FProperties%2F-2021666004" anchor-label="glibStaticRwLockPointer" id="1409025989%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="glib-static-rw-lock-pointer.html"><span>glib</span><wbr><span>Static</span><wbr><span>Rw</span><wbr><span>Lock</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1409025989%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="glib-static-rw-lock-pointer.html">glibStaticRwLockPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2133180191%2FProperties%2F-2021666004" anchor-label="handle" id="-2133180191%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/handle.html"><span><span>handle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2133180191%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/handle.html">handle</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2059056792%2FFunctions%2F-2021666004" anchor-label="equals" id="2059056792%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/equals.html"><span><span>equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2059056792%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/equals.html"><span class="token function">equals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Compare two proxy instances for equality. This will compare both the type of the instances, and their memory addresses.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1400769256%2FFunctions%2F-2021666004" anchor-label="free" id="1400769256%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1400769256%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases all resources allocated to @lock.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="514664270%2FFunctions%2F-2021666004" anchor-label="hashCode" id="514664270%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/hash-code.html"><span>hash</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="514664270%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/hash-code.html"><span class="token function">hashCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="220839108%2FFunctions%2F-2021666004" anchor-label="init" id="220839108%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init.html"><span><span>init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="220839108%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A #GStaticRWLock must be initialized with this function before it can be used. Alternatively you can initialize it with %G_STATIC_RW_LOCK_INIT.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-423475770%2FFunctions%2F-2021666004" anchor-label="readerLock" id="-423475770%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reader-lock.html"><span>reader</span><wbr><span><span>Lock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-423475770%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-lock.html"><span class="token function">readerLock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Locks @lock for reading. There may be unlimited concurrent locks for reading of a #GStaticRWLock at the same time.  If @lock is already locked for writing by another thread or if another thread is already waiting to lock @lock for writing, this function will block until</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="428490691%2FFunctions%2F-2021666004" anchor-label="readerTrylock" id="428490691%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reader-trylock.html"><span>reader</span><wbr><span><span>Trylock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="428490691%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-trylock.html"><span class="token function">readerTrylock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tries to lock @lock for reading. If @lock is already locked for writing by another thread or if another thread is already waiting to lock @lock for writing, immediately returns false. Otherwise locks</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="963028173%2FFunctions%2F-2021666004" anchor-label="readerUnlock" id="963028173%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reader-unlock.html"><span>reader</span><wbr><span><span>Unlock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="963028173%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reader-unlock.html"><span class="token function">readerUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unlocks @lock. If a thread waits to lock @lock for writing and all locks for reading have been unlocked, the waiting thread is woken up and can lock @lock for writing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1969018902%2FFunctions%2F-2021666004" anchor-label="writerLock" id="1969018902%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="writer-lock.html"><span>writer</span><wbr><span><span>Lock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1969018902%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-lock.html"><span class="token function">writerLock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Locks @lock for writing. If @lock is already locked for writing or reading by other threads, this function will block until @lock is completely unlocked and then lock @lock for writing. While this functions waits to lock @lock, no other thread can lock @lock for reading. When @lock is locked for writing, no other thread can lock</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="254987123%2FFunctions%2F-2021666004" anchor-label="writerTrylock" id="254987123%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="writer-trylock.html"><span>writer</span><wbr><span><span>Trylock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="254987123%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-trylock.html"><span class="token function">writerTrylock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tries to lock @lock for writing. If @lock is already locked (for either reading or writing) by another thread, it immediately returns false. Otherwise it locks @lock for writing and returns true. This lock has to be unlocked by g_static_rw_lock_writer_unlock().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1952062691%2FFunctions%2F-2021666004" anchor-label="writerUnlock" id="-1952062691%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="writer-unlock.html"><span>writer</span><wbr><span><span>Unlock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1952062691%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="writer-unlock.html"><span class="token function">writerUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unlocks @lock. If a thread is waiting to lock @lock for writing and all locks for reading have been unlocked, the waiting thread is woken up and can lock @lock for writing. If no thread is waiting to lock @lock for writing, and some thread or threads are waiting to lock @lock for reading, the waiting threads are woken up and can lock @lock for reading.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

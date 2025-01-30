@@ -1,0 +1,270 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SizeGroup</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/SizeGroup///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">SizeGroup</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Size</span><wbr><span><span>Group</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SizeGroup</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkSizeGroupPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-buildable/index.html">Buildable</a></div><p class="paragraph"><code class="lang-kotlin">GtkSizeGroup</code> groups widgets together so they all request the same size.</p><p class="paragraph">This is typically useful when you want a column of widgets to have the same size, but you can’t use a <code class="lang-kotlin">GtkGrid</code>.</p><p class="paragraph">In detail, the size requested for each widget in a <code class="lang-kotlin">GtkSizeGroup</code> is the maximum of the sizes that would have been requested for each widget in the size group if they were not in the size group. The mode of the size group (see method@Gtk.SizeGroup.set_mode) determines whether this applies to the horizontal size, the vertical size, or both sizes.</p><p class="paragraph">Note that size groups only affect the amount of space requested, not the size that the widgets finally receive. If you want the widgets in a <code class="lang-kotlin">GtkSizeGroup</code> to actually be the same size, you need to pack them in such a way that they get the size they request and not more.</p><p class="paragraph"><code class="lang-kotlin">GtkSizeGroup</code> objects are referenced by each widget in the size group, so once you have added all widgets to a <code class="lang-kotlin">GtkSizeGroup</code>, you can drop the initial reference to the size group with g_object_unref(). If the widgets in the size group are subsequently destroyed, then they will be removed from the size group and drop their references on the size group; when all widgets have been removed, the size group will be freed.</p><p class="paragraph">Widgets can be part of multiple size groups; GTK will compute the horizontal size of a widget from the horizontal requisition of all widgets that can be reached from the widget by a chain of size groups of type %GTK_SIZE_GROUP_HORIZONTAL or %GTK_SIZE_GROUP_BOTH, and the vertical size from the vertical requisition of all widgets that can be reached from the widget by a chain of size groups of type %GTK_SIZE_GROUP_VERTICAL or %GTK_SIZE_GROUP_BOTH.</p><p class="paragraph">Note that only non-contextual sizes of every widget are ever consulted by size groups (since size groups have no knowledge of what size a widget will be allocated in one dimension, it cannot derive how much height a widget will receive for a given width). When grouping widgets that trade height for width in mode %GTK_SIZE_GROUP_VERTICAL or %GTK_SIZE_GROUP_BOTH: the height for the minimum width will be the requested height for all widgets in the group. The same is of course true when horizontally grouping width for height widgets.</p><p class="paragraph">Widgets that trade height-for-width should set a reasonably large minimum width by way of property@Gtk.Label:width-chars for instance. Widgets with static sizes as well as widgets that grow (such as ellipsizing text) need no such considerations.</p><h1 class="">GtkSizeGroup as GtkBuildable</h1><p class="paragraph">Size groups can be specified in a UI definition by placing an <code class="lang-kotlin">&lt;object&gt;</code> element with <code class="lang-kotlin">class="GtkSizeGroup"</code> somewhere in the UI definition. The widgets that belong to the size group are specified by a <code class="lang-kotlin">&lt;widgets&gt;</code> element that may contain multiple <code class="lang-kotlin">&lt;widget&gt;</code> elements, one for each member of the size group. The ”name” attribute gives the id of the widget.</p><p class="paragraph">An example of a UI definition fragment with <code class="lang-kotlin">GtkSizeGroup</code>:</p><div class="sample-container"><pre><code class="block lang-xml" theme="idea">&lt;object class="GtkSizeGroup"&gt;<br>  &lt;property name="mode"&gt;horizontal&lt;/property&gt;<br>  &lt;widgets&gt;<br>    &lt;widget name="radio1"/&gt;<br>    &lt;widget name="radio2"/&gt;<br>  &lt;/widgets&gt;<br>&lt;/object&gt;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1065166294%2FConstructors%2F1170399019" anchor-label="SizeGroup" id="-1065166294%2FConstructors%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-size-group.html"><span>Size</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1065166294%2FConstructors%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mode<span class="token operator">: </span><a href="../-size-group-mode/index.html">SizeGroupMode</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new <code class="lang-kotlin">GtkSizeGroup</code>.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtkSizeGroupPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-296599857%2FClasslikes%2F1170399019" anchor-label="Companion" id="-296599857%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-296599857%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1523122795%2FProperties%2F1170399019" anchor-label="gtkBuildablePointer" id="-1523122795%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-buildable-pointer.html"><span>gtk</span><wbr><span>Buildable</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1523122795%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-buildable-pointer.html">gtkBuildablePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-606785589%2FProperties%2F1170399019" anchor-label="gtkSizeGroupPointer" id="-606785589%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-size-group-pointer.html"><span>gtk</span><wbr><span>Size</span><wbr><span>Group</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-606785589%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-size-group-pointer.html">gtkSizeGroupPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="209615567%2FProperties%2F1170399019" anchor-label="mode" id="209615567%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mode.html"><span><span>mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="209615567%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="mode.html">mode</a><span class="token operator">: </span><a href="../-size-group-mode/index.html">SizeGroupMode</a></div><div class="brief "><p class="paragraph">The direction in which the size group affects requested sizes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1708073406%2FFunctions%2F1170399019" anchor-label="addWidget" id="-1708073406%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-widget.html"><span>add</span><wbr><span><span>Widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1708073406%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-widget.html"><span class="token function">addWidget</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a widget to a <code class="lang-kotlin">GtkSizeGroup</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2122399121%2FFunctions%2F1170399019" anchor-label="getBuildableId" id="-2122399121%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-buildable/get-buildable-id.html"><span>get</span><wbr><span>Buildable</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2122399121%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-buildable/get-buildable-id.html"><span class="token function">getBuildableId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the ID of the @buildable object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-262311175%2FFunctions%2F1170399019" anchor-label="getWidgets" id="-262311175%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-widgets.html"><span>get</span><wbr><span><span>Widgets</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-262311175%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-widgets.html"><span class="token function">getWidgets</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the list of widgets associated with @size_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1069817691%2FFunctions%2F1170399019" anchor-label="removeWidget" id="1069817691%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-widget.html"><span>remove</span><wbr><span><span>Widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1069817691%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove-widget.html"><span class="token function">removeWidget</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes a widget from a <code class="lang-kotlin">GtkSizeGroup</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

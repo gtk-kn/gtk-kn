@@ -1,0 +1,720 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>String</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/String///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">String</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>String</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">String</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibStringPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a></div><p class="paragraph">A <code class="lang-kotlin">GString</code> is an object that handles the memory management of a C string.</p><p class="paragraph">The emphasis of <code class="lang-kotlin">GString</code> is on text, typically UTF-8. Crucially, the "str" member of a <code class="lang-kotlin">GString</code> is guaranteed to have a trailing nul character, and it is therefore always safe to call functions such as <code class="lang-kotlin">strchr()</code> or <code class="lang-kotlin">strdup()</code> on it.</p><p class="paragraph">However, a <code class="lang-kotlin">GString</code> can also hold arbitrary binary data, because it has a "len" member, which includes any possible embedded nul characters in the data. Conceptually then, <code class="lang-kotlin">GString</code> is like a <code class="lang-kotlin">GByteArray</code> with the addition of many convenience methods for text, and a guaranteed nul terminator.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">append_printf</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">args</code>: va_list type is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">printf</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">args</code>: va_list type is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="323683258%2FConstructors%2F-2021666004" anchor-label="String" id="323683258%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-string.html"><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="323683258%2FConstructors%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibStringPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1705109126%2FClasslikes%2F-2021666004" anchor-label="Companion" id="-1705109126%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1705109126%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-2124669063%2FProperties%2F-2021666004" anchor-label="allocatedLen" id="-2124669063%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="allocated-len.html"><span>allocated</span><wbr><span><span>Len</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124669063%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="allocated-len.html">allocatedLen</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">the number of bytes that can be stored in the string before it needs to be reallocated. May be larger than @len.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1502477019%2FProperties%2F-2021666004" anchor-label="glibStringPointer" id="-1502477019%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="glib-string-pointer.html"><span>glib</span><wbr><span>String</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1502477019%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="glib-string-pointer.html">glibStringPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2133180191%2FProperties%2F-2021666004" anchor-label="handle" id="-2133180191%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/handle.html"><span><span>handle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2133180191%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/handle.html">handle</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1312307138%2FProperties%2F-2021666004" anchor-label="len" id="-1312307138%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="len.html"><span><span>len</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1312307138%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="len.html">len</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">contains the length of the string, not including the terminating nul byte.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1432075358%2FProperties%2F-2021666004" anchor-label="str" id="-1432075358%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="str.html"><span><span>str</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1432075358%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="str.html">str</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">points to the character data. It may move as text is added. The @str field is null-terminated and so can be used as an ordinary C string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="308600055%2FFunctions%2F-2021666004" anchor-label="append" id="308600055%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append.html"><span><span>append</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="308600055%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append.html"><span class="token function">append</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Adds a string onto the end of a #GString, expanding it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2012012171%2FFunctions%2F-2021666004" anchor-label="appendC" id="-2012012171%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append-c.html"><span>append</span><wbr><span><span>C</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2012012171%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append-c.html"><span class="token function">appendC</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">c<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char/index.html">Char</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Adds a byte onto the end of a #GString, expanding it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="232583526%2FFunctions%2F-2021666004" anchor-label="appendLen" id="232583526%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append-len.html"><span>append</span><wbr><span><span>Len</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="232583526%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append-len.html"><span class="token function">appendLen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">len<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Appends @len bytes of @val to @string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-921555254%2FFunctions%2F-2021666004" anchor-label="appendUnichar" id="-921555254%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append-unichar.html"><span>append</span><wbr><span><span>Unichar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-921555254%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append-unichar.html"><span class="token function">appendUnichar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">wc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts a Unicode character into UTF-8, and appends it to the string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1397742065%2FFunctions%2F-2021666004" anchor-label="appendUriEscaped" id="1397742065%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append-uri-escaped.html"><span>append</span><wbr><span>Uri</span><wbr><span><span>Escaped</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1397742065%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append-uri-escaped.html"><span class="token function">appendUriEscaped</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">unescaped<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">reservedCharsAllowed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">allowUtf8<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Appends @unescaped to @string, escaping any characters that are reserved in URIs using URI-style escape sequences.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="464825344%2FFunctions%2F-2021666004" anchor-label="asciiDown" id="464825344%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ascii-down.html"><span>ascii</span><wbr><span><span>Down</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="464825344%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ascii-down.html"><span class="token function">asciiDown</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts all uppercase ASCII letters to lowercase ASCII letters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="233578855%2FFunctions%2F-2021666004" anchor-label="asciiUp" id="233578855%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ascii-up.html"><span>ascii</span><wbr><span><span>Up</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="233578855%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ascii-up.html"><span class="token function">asciiUp</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts all lowercase ASCII letters to uppercase ASCII letters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2096003316%2FFunctions%2F-2021666004" anchor-label="assign" id="-2096003316%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assign.html"><span><span>assign</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2096003316%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="assign.html"><span class="token function">assign</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rval<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Copies the bytes from a string into a #GString, destroying any previous contents. It is rather like the standard strcpy() function, except that you do not have to worry about having enough space to copy the string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-53312731%2FFunctions%2F-2021666004" anchor-label="down" id="-53312731%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="down.html"><span><span>down</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-53312731%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="down.html"><span class="token function">down</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts a #GString to lowercase.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2011967719%2FFunctions%2F-2021666004" anchor-label="equal" id="2011967719%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2011967719%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">v2<span class="token operator">: </span><a href="index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Compares two strings for equality, returning true if they are equal. For use with #GHashTable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2059056792%2FFunctions%2F-2021666004" anchor-label="equals" id="2059056792%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/equals.html"><span><span>equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2059056792%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/equals.html"><span class="token function">equals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Compare two proxy instances for equality. This will compare both the type of the instances, and their memory addresses.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1922101466%2FFunctions%2F-2021666004" anchor-label="erase" id="-1922101466%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="erase.html"><span><span>erase</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1922101466%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="erase.html"><span class="token function">erase</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">len<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Removes @len bytes from a #GString, starting at position @pos. The rest of the #GString is shifted down to fill the gap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-88767328%2FFunctions%2F-2021666004" anchor-label="free" id="-88767328%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-88767328%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">freeSegment<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Frees the memory allocated for the #GString. If @free_segment is true it also frees the character data.  If it's false, the caller gains ownership of the buffer and must free it after use with g_free().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1937798083%2FFunctions%2F-2021666004" anchor-label="freeAndSteal" id="1937798083%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-and-steal.html"><span>free</span><wbr><span>And</span><wbr><span><span>Steal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1937798083%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free-and-steal.html"><span class="token function">freeAndSteal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Frees the memory allocated for the #GString.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="465812623%2FFunctions%2F-2021666004" anchor-label="freeToBytes" id="465812623%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-to-bytes.html"><span>free</span><wbr><span>To</span><wbr><span><span>Bytes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="465812623%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free-to-bytes.html"><span class="token function">freeToBytes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-bytes/index.html">Bytes</a></div><div class="brief "><p class="paragraph">Transfers ownership of the contents of @string to a newly allocated #GBytes.  The #GString structure itself is deallocated, and it is therefore invalid to use @string after invoking this function.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2042136519%2FFunctions%2F-2021666004" anchor-label="hash" id="-2042136519%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash.html"><span><span>hash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2042136519%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="hash.html"><span class="token function">hash</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Creates a hash code for @str; for use with #GHashTable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="514664270%2FFunctions%2F-2021666004" anchor-label="hashCode" id="514664270%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/hash-code.html"><span>hash</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="514664270%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/hash-code.html"><span class="token function">hashCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1954526800%2FFunctions%2F-2021666004" anchor-label="insert" id="-1954526800%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert.html"><span><span>insert</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1954526800%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="insert.html"><span class="token function">insert</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Inserts a copy of a string into a #GString, expanding it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-368898928%2FFunctions%2F-2021666004" anchor-label="insertC" id="-368898928%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert-c.html"><span>insert</span><wbr><span><span>C</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-368898928%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="insert-c.html"><span class="token function">insertC</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">c<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char/index.html">Char</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Inserts a byte into a #GString, expanding it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1840612863%2FFunctions%2F-2021666004" anchor-label="insertLen" id="-1840612863%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert-len.html"><span>insert</span><wbr><span><span>Len</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1840612863%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="insert-len.html"><span class="token function">insertLen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">len<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Inserts @len bytes of @val into @string at @pos.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="599374223%2FFunctions%2F-2021666004" anchor-label="insertUnichar" id="599374223%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert-unichar.html"><span>insert</span><wbr><span><span>Unichar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="599374223%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="insert-unichar.html"><span class="token function">insertUnichar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">wc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts a Unicode character into UTF-8, and insert it into the string at the given position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-187144375%2FFunctions%2F-2021666004" anchor-label="overwrite" id="-187144375%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="overwrite.html"><span><span>overwrite</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-187144375%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="overwrite.html"><span class="token function">overwrite</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Overwrites part of a string, lengthening it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1753230706%2FFunctions%2F-2021666004" anchor-label="overwriteLen" id="-1753230706%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="overwrite-len.html"><span>overwrite</span><wbr><span><span>Len</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1753230706%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="overwrite-len.html"><span class="token function">overwriteLen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">len<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Overwrites part of a string, lengthening it if necessary. This function will work with embedded nuls.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="772816703%2FFunctions%2F-2021666004" anchor-label="prepend" id="772816703%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="prepend.html"><span><span>prepend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="772816703%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="prepend.html"><span class="token function">prepend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Adds a string on to the start of a #GString, expanding it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-473016787%2FFunctions%2F-2021666004" anchor-label="prependC" id="-473016787%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="prepend-c.html"><span>prepend</span><wbr><span><span>C</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-473016787%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="prepend-c.html"><span class="token function">prependC</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">c<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char/index.html">Char</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Adds a byte onto the start of a #GString, expanding it if necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="247969310%2FFunctions%2F-2021666004" anchor-label="prependLen" id="247969310%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="prepend-len.html"><span>prepend</span><wbr><span><span>Len</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="247969310%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="prepend-len.html"><span class="token function">prependLen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">val<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">len<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Prepends @len bytes of @val to @string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1902644498%2FFunctions%2F-2021666004" anchor-label="prependUnichar" id="1902644498%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="prepend-unichar.html"><span>prepend</span><wbr><span><span>Unichar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1902644498%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="prepend-unichar.html"><span class="token function">prependUnichar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">wc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts a Unicode character into UTF-8, and prepends it to the string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1120469616%2FFunctions%2F-2021666004" anchor-label="replace" id="1120469616%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="replace.html"><span><span>replace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1120469616%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="replace.html"><span class="token function">replace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">find<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">replace<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Replaces the string @find with the string @replace in a #GString up to</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="410370012%2FFunctions%2F-2021666004" anchor-label="setSize" id="410370012%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-size.html"><span>set</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="410370012%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-size.html"><span class="token function">setSize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">len<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Sets the length of a #GString. If the length is less than the current length, the string will be truncated. If the length is greater than the current length, the contents of the newly added area are undefined. (However, as always, string-&gt;strstring-&gt;len will be a nul byte.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1218078821%2FFunctions%2F-2021666004" anchor-label="toString" id="-1218078821%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1218078821%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1659440021%2FFunctions%2F-2021666004" anchor-label="truncate" id="-1659440021%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="truncate.html"><span><span>truncate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1659440021%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="truncate.html"><span class="token function">truncate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">len<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Cuts off the end of the GString, leaving the first @len bytes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="40861132%2FFunctions%2F-2021666004" anchor-label="up" id="40861132%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="up.html"><span><span>up</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="40861132%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="up.html"><span class="token function">up</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">String</a></div><div class="brief "><p class="paragraph">Converts a #GString to uppercase.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

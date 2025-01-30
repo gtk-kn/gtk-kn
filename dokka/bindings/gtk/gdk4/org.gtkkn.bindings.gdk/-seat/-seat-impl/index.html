@@ -1,0 +1,371 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SeatImpl</title>
+<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gdk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gdk4/nativeMain" data-filter=":bindings:gtk:gdk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gdk4::org.gtkkn.bindings.gdk/Seat.SeatImpl///PointingToDeclaration//-299861221">
+  <div class="breadcrumbs"><a href="../../../index.html">gdk4</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.gdk</a><span class="delimiter">/</span><a href="../index.html">Seat</a><span class="delimiter">/</span><span class="current">SeatImpl</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Seat</span><wbr><span><span>Impl</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SeatImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../index.html">Seat</a></div><p class="paragraph">The SeatImpl type represents a native instance of the abstract Seat class.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1863117199%2FConstructors%2F-299861221" anchor-label="SeatImpl" id="-1863117199%2FConstructors%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-seat-impl.html"><span>Seat</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1863117199%2FConstructors%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new instance of Seat for the provided CPointer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="37456443%2FProperties%2F-299861221" anchor-label="display" id="37456443%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../display.html"><span><span>display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="37456443%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../display.html">display</a><span class="token operator">: </span><a href="../../-display/index.html">Display</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">GdkDisplay</code> of this seat.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="666260883%2FProperties%2F-299861221" anchor-label="gdkSeatPointer" id="666260883%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../gdk-seat-pointer.html"><span>gdk</span><wbr><span>Seat</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="666260883%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../gdk-seat-pointer.html">gdkSeatPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="4676509%2FFunctions%2F-299861221" anchor-label="emitDeviceAdded" id="4676509%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../emit-device-added.html"><span>emit</span><wbr><span>Device</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="4676509%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../emit-device-added.html"><span class="token function">emitDeviceAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">device<span class="token operator">: </span><a href="../../-device/index.html">Device</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "device-added" signal. See <a href="../on-device-added.html">onDeviceAdded</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-411313859%2FFunctions%2F-299861221" anchor-label="emitDeviceRemoved" id="-411313859%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../emit-device-removed.html"><span>emit</span><wbr><span>Device</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-411313859%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../emit-device-removed.html"><span class="token function">emitDeviceRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">device<span class="token operator">: </span><a href="../../-device/index.html">Device</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "device-removed" signal. See <a href="../on-device-removed.html">onDeviceRemoved</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-168749917%2FFunctions%2F-299861221" anchor-label="emitToolAdded" id="-168749917%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../emit-tool-added.html"><span>emit</span><wbr><span>Tool</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-168749917%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../emit-tool-added.html"><span class="token function">emitToolAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tool<span class="token operator">: </span><a href="../../-device-tool/index.html">DeviceTool</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "tool-added" signal. See <a href="../on-tool-added.html">onToolAdded</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-233715005%2FFunctions%2F-299861221" anchor-label="emitToolRemoved" id="-233715005%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../emit-tool-removed.html"><span>emit</span><wbr><span>Tool</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-233715005%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../emit-tool-removed.html"><span class="token function">emitToolRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tool<span class="token operator">: </span><a href="../../-device-tool/index.html">DeviceTool</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "tool-removed" signal. See <a href="../on-tool-removed.html">onToolRemoved</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1866429423%2FFunctions%2F-299861221" anchor-label="getCapabilities" id="-1866429423%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-capabilities.html"><span>get</span><wbr><span><span>Capabilities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1866429423%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-capabilities.html"><span class="token function">getCapabilities</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-seat-capabilities/index.html">SeatCapabilities</a></div><div class="brief "><p class="paragraph">Returns the capabilities this <code class="lang-kotlin">GdkSeat</code> currently has.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1007682648%2FFunctions%2F-299861221" anchor-label="getDevices" id="-1007682648%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-devices.html"><span>get</span><wbr><span><span>Devices</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1007682648%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-devices.html"><span class="token function">getDevices</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">capabilities<span class="token operator">: </span><a href="../../-seat-capabilities/index.html">SeatCapabilities</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the devices that match the given capabilities.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="736609792%2FFunctions%2F-299861221" anchor-label="getKeyboard" id="736609792%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-keyboard.html"><span>get</span><wbr><span><span>Keyboard</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="736609792%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-keyboard.html"><span class="token function">getKeyboard</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-device/index.html">Device</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the device that routes keyboard events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-278851946%2FFunctions%2F-299861221" anchor-label="getPointer" id="-278851946%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-pointer.html"><span>get</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-278851946%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-pointer.html"><span class="token function">getPointer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-device/index.html">Device</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the device that routes pointer events.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1147316680%2FFunctions%2F-299861221" anchor-label="getTools" id="-1147316680%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-tools.html"><span>get</span><wbr><span><span>Tools</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1147316680%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-tools.html"><span class="token function">getTools</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns all <code class="lang-kotlin">GdkDeviceTools</code> that are known to the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-819907826%2FFunctions%2F-299861221" anchor-label="onDeviceAdded" id="-819907826%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-device-added.html"><span>on</span><wbr><span>Device</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-819907826%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../on-device-added.html"><span class="token function">onDeviceAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>device<span class="token operator">: </span><a href="../../-device/index.html">Device</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when a new input device is related to this seat.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="316720750%2FFunctions%2F-299861221" anchor-label="onDeviceRemoved" id="316720750%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-device-removed.html"><span>on</span><wbr><span>Device</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="316720750%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../on-device-removed.html"><span class="token function">onDeviceRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>device<span class="token operator">: </span><a href="../../-device/index.html">Device</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when an input device is removed (e.g. unplugged).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2018184776%2FFunctions%2F-299861221" anchor-label="onToolAdded" id="2018184776%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-tool-added.html"><span>on</span><wbr><span>Tool</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2018184776%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../on-tool-added.html"><span class="token function">onToolAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>tool<span class="token operator">: </span><a href="../../-device-tool/index.html">DeviceTool</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted whenever a new tool is made known to the seat.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="391837992%2FFunctions%2F-299861221" anchor-label="onToolRemoved" id="391837992%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-tool-removed.html"><span>on</span><wbr><span>Tool</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="391837992%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../on-tool-removed.html"><span class="token function">onToolRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>tool<span class="token operator">: </span><a href="../../-device-tool/index.html">DeviceTool</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted whenever a tool is no longer known to this @seat.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

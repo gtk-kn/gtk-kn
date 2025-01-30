@@ -1,0 +1,990 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CellArea</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/CellArea///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">CellArea</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Cell</span><wbr><span><span>Area</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">CellArea</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkCellAreaPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-buildable/index.html">Buildable</a>, <a href="../-cell-layout/index.html">CellLayout</a></div><p class="paragraph">An abstract class for laying out <code class="lang-kotlin">GtkCellRenderer</code>s</p><p class="paragraph">The <code class="lang-kotlin">GtkCellArea</code> is an abstract class for iface@Gtk.CellLayout widgets (also referred to as "layouting widgets") to interface with an arbitrary number of class@Gtk.CellRenderers and interact with the user for a given iface@Gtk.TreeModel row.</p><p class="paragraph">The cell area handles events, focus navigation, drawing and size requests and allocations for a given row of data.</p><p class="paragraph">Usually users dont have to interact with the <code class="lang-kotlin">GtkCellArea</code> directly unless they are implementing a cell-layouting widget themselves.</p><h2 class="">Requesting area sizes</h2><p class="paragraph">As outlined in class.Widget.html#height-for-width-geometry-management, GTK uses a height-for-width geometry management system to compute the sizes of widgets and user interfaces. <code class="lang-kotlin">GtkCellArea</code> uses the same semantics to calculate the size of an area for an arbitrary number of <code class="lang-kotlin">GtkTreeModel</code> rows.</p><p class="paragraph">When requesting the size of a cell area one needs to calculate the size for a handful of rows, and this will be done differently by different layouting widgets. For instance a class@Gtk.TreeViewColumn always lines up the areas from top to bottom while a class@Gtk.IconView on the other hand might enforce that all areas received the same width and wrap the areas around, requesting height for more cell areas when allocated less width.</p><p class="paragraph">It’s also important for areas to maintain some cell alignments with areas rendered for adjacent rows (cells can appear “columnized” inside an area even when the size of cells are different in each row). For this reason the <code class="lang-kotlin">GtkCellArea</code> uses a class@Gtk.CellAreaContext object to store the alignments and sizes along the way (as well as the overall largest minimum and natural size for all the rows which have been calculated with the said context).</p><p class="paragraph">The class@Gtk.CellAreaContext is an opaque object specific to the <code class="lang-kotlin">GtkCellArea</code> which created it (see method@Gtk.CellArea.create_context).</p><p class="paragraph">The owning cell-layouting widget can create as many contexts as it wishes to calculate sizes of rows which should receive the same size in at least one orientation (horizontally or vertically), However, it’s important that the same class@Gtk.CellAreaContext which was used to request the sizes for a given <code class="lang-kotlin">GtkTreeModel</code> row be used when rendering or processing events for that row.</p><p class="paragraph">In order to request the width of all the rows at the root level of a <code class="lang-kotlin">GtkTreeModel</code> one would do the following:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">GtkTreeIter iter;<br>int minimum_width;<br>int natural_width;<br><br>valid = gtk_tree_model_get_iter_first (model, &amp;iter);<br>while (valid)<br>  {<br>    gtk_cell_area_apply_attributes (area, model, &amp;iter, FALSE, FALSE);<br>    gtk_cell_area_get_preferred_width (area, context, widget, NULL, NULL);<br><br>    valid = gtk_tree_model_iter_next (model, &amp;iter);<br>  }<br><br>gtk_cell_area_context_get_preferred_width (context, &amp;minimum_width, &amp;natural_width);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note that in this example it’s not important to observe the returned minimum and natural width of the area for each row unless the cell-layouting object is actually interested in the widths of individual rows. The overall width is however stored in the accompanying <code class="lang-kotlin">GtkCellAreaContext</code> object and can be consulted at any time.</p><p class="paragraph">This can be useful since <code class="lang-kotlin">GtkCellLayout</code> widgets usually have to support requesting and rendering rows in treemodels with an exceedingly large amount of rows. The <code class="lang-kotlin">GtkCellLayout</code> widget in that case would calculate the required width of the rows in an idle or timeout source (see func@GLib.timeout_add) and when the widget is requested its actual width in vfunc@Gtk.Widget.measure it can simply consult the width accumulated so far in the <code class="lang-kotlin">GtkCellAreaContext</code> object.</p><p class="paragraph">A simple example where rows are rendered from top to bottom and take up the full width of the layouting widget would look like:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>foo_get_preferred_width (GtkWidget *widget,<br>                         int       *minimum_size,<br>                         int       *natural_size)<br>{<br>  Foo *self = FOO (widget);<br>  FooPrivate *priv = foo_get_instance_private (self);<br><br>  foo_ensure_at_least_one_handfull_of_rows_have_been_requested (self);<br><br>  gtk_cell_area_context_get_preferred_width (priv-&gt;context, minimum_size, natural_size);<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">In the above example the <code class="lang-kotlin">Foo</code> widget has to make sure that some row sizes have been calculated (the amount of rows that <code class="lang-kotlin">Foo</code> judged was appropriate to request space for in a single timeout iteration) before simply returning the amount of space required by the area via the <code class="lang-kotlin">GtkCellAreaContext</code>.</p><p class="paragraph">Requesting the height for width (or width for height) of an area is a similar task except in this case the <code class="lang-kotlin">GtkCellAreaContext</code> does not store the data (actually, it does not know how much space the layouting widget plans to allocate it for every row. It’s up to the layouting widget to render each row of data with the appropriate height and width which was requested by the <code class="lang-kotlin">GtkCellArea</code>).</p><p class="paragraph">In order to request the height for width of all the rows at the root level of a <code class="lang-kotlin">GtkTreeModel</code> one would do the following:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">GtkTreeIter iter;<br>int minimum_height;<br>int natural_height;<br>int full_minimum_height = 0;<br>int full_natural_height = 0;<br><br>valid = gtk_tree_model_get_iter_first (model, &amp;iter);<br>while (valid)<br>  {<br>    gtk_cell_area_apply_attributes (area, model, &amp;iter, FALSE, FALSE);<br>    gtk_cell_area_get_preferred_height_for_width (area, context, widget,<br>                                                  width, &amp;minimum_height, &amp;natural_height);<br><br>    if (width_is_for_allocation)<br>       cache_row_height (&amp;iter, minimum_height, natural_height);<br><br>    full_minimum_height += minimum_height;<br>    full_natural_height += natural_height;<br><br>    valid = gtk_tree_model_iter_next (model, &amp;iter);<br>  }</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note that in the above example we would need to cache the heights returned for each row so that we would know what sizes to render the areas for each row. However we would only want to really cache the heights if the request is intended for the layouting widgets real allocation.</p><p class="paragraph">In some cases the layouting widget is requested the height for an arbitrary for_width, this is a special case for layouting widgets who need to request size for tens of thousands  of rows. For this case it’s only important that the layouting widget calculate one reasonably sized chunk of rows and return that height synchronously. The reasoning here is that any layouting widget is at least capable of synchronously calculating enough height to fill the screen height (or scrolled window height) in response to a single call to vfunc@Gtk.Widget.measure. Returning a perfect height for width that is larger than the screen area is inconsequential since after the layouting receives an allocation from a scrolled window it simply continues to drive the scrollbar values while more and more height is required for the row heights that are calculated in the background.</p><h2 class="">Rendering Areas</h2><p class="paragraph">Once area sizes have been acquired at least for the rows in the visible area of the layouting widget they can be rendered at vfunc@Gtk.Widget.snapshot time.</p><p class="paragraph">A crude example of how to render all the rows at the root level runs as follows:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">GtkAllocation allocation;<br>GdkRectangle cell_area = { 0, };<br>GtkTreeIter iter;<br>int minimum_width;<br>int natural_width;<br><br>gtk_widget_get_allocation (widget, &amp;allocation);<br>cell_area.width = allocation.width;<br><br>valid = gtk_tree_model_get_iter_first (model, &amp;iter);<br>while (valid)<br>  {<br>    cell_area.height = get_cached_height_for_row (&amp;iter);<br><br>    gtk_cell_area_apply_attributes (area, model, &amp;iter, FALSE, FALSE);<br>    gtk_cell_area_render (area, context, widget, cr,<br>                          &amp;cell_area, &amp;cell_area, state_flags, FALSE);<br><br>    cell_area.y += cell_area.height;<br><br>    valid = gtk_tree_model_iter_next (model, &amp;iter);<br>  }</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note that the cached height in this example really depends on how the layouting widget works. The layouting widget might decide to give every row its minimum or natural height or, if the model content is expected to fit inside the layouting widget without scrolling, it would make sense to calculate the allocation for each row at the time the widget is allocated using func@Gtk.distribute_natural_allocation.</p><h2 class="">Handling Events and Driving Keyboard Focus</h2><p class="paragraph">Passing events to the area is as simple as handling events on any normal widget and then passing them to the method@Gtk.CellArea.event API as they come in. Usually <code class="lang-kotlin">GtkCellArea</code> is only interested in button events, however some customized derived areas can be implemented who are interested in handling other events. Handling an event can trigger the signal@Gtk.CellArea::focus-changed signal to fire; as well as signal@Gtk.CellArea::add-editable in the case that an editable cell was clicked and needs to start editing. You can call method@Gtk.CellArea.stop_editing at any time to cancel any cell editing that is currently in progress.</p><p class="paragraph">The <code class="lang-kotlin">GtkCellArea</code> drives keyboard focus from cell to cell in a way similar to <code class="lang-kotlin">GtkWidget</code>. For layouting widgets that support giving focus to cells it’s important to remember to pass <code class="lang-kotlin">GTK_CELL_RENDERER_FOCUSED</code> to the area functions for the row that has focus and to tell the area to paint the focus at render time.</p><p class="paragraph">Layouting widgets that accept focus on cells should implement the vfunc@Gtk.Widget.focus virtual method. The layouting widget is always responsible for knowing where <code class="lang-kotlin">GtkTreeModel</code> rows are rendered inside the widget, so at vfunc@Gtk.Widget.focus time the layouting widget should use the <code class="lang-kotlin">GtkCellArea</code> methods to navigate focus inside the area and then observe the enum@Gtk.DirectionType to pass the focus to adjacent rows and areas.</p><p class="paragraph">A basic example of how the vfunc@Gtk.Widget.focus virtual method should be implemented:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">static gboolean<br>foo_focus (GtkWidget       *widget,<br>           GtkDirectionType direction)<br>{<br>  Foo *self = FOO (widget);<br>  FooPrivate *priv = foo_get_instance_private (self);<br>  int focus_row = priv-&gt;focus_row;<br>  gboolean have_focus = FALSE;<br><br>  if (!gtk_widget_has_focus (widget))<br>    gtk_widget_grab_focus (widget);<br><br>  valid = gtk_tree_model_iter_nth_child (priv-&gt;model, &amp;iter, NULL, priv-&gt;focus_row);<br>  while (valid)<br>    {<br>      gtk_cell_area_apply_attributes (priv-&gt;area, priv-&gt;model, &amp;iter, FALSE, FALSE);<br><br>      if (gtk_cell_area_focus (priv-&gt;area, direction))<br>        {<br>           priv-&gt;focus_row = focus_row;<br>           have_focus = TRUE;<br>           break;<br>        }<br>      else<br>        {<br>          if (direction == GTK_DIR_RIGHT ||<br>              direction == GTK_DIR_LEFT)<br>            break;<br>          else if (direction == GTK_DIR_UP ||<br>                   direction == GTK_DIR_TAB_BACKWARD)<br>           {<br>              if (focus_row == 0)<br>                break;<br>              else<br>               {<br>                  focus_row--;<br>                  valid = gtk_tree_model_iter_nth_child (priv-&gt;model, &amp;iter, NULL, focus_row);<br>               }<br>            }<br>          else<br>            {<br>              if (focus_row == last_row)<br>                break;<br>              else<br>                {<br>                  focus_row++;<br>                  valid = gtk_tree_model_iter_next (priv-&gt;model, &amp;iter);<br>                }<br>            }<br>        }<br>    }<br>    return have_focus;<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note that the layouting widget is responsible for matching the <code class="lang-kotlin">GtkDirectionType</code> values to the way it lays out its cells.</p><h2 class="">Cell Properties</h2><p class="paragraph">The <code class="lang-kotlin">GtkCellArea</code> introduces cell properties for <code class="lang-kotlin">GtkCellRenderer</code>s. This provides some general interfaces for defining the relationship cell areas have with their cells. For instance in a class@Gtk.CellAreaBox a cell might “expand” and receive extra space when the area is allocated more than its full natural request, or a cell might be configured to “align” with adjacent rows which were requested and rendered with the same <code class="lang-kotlin">GtkCellAreaContext</code>.</p><p class="paragraph">Use method@Gtk.CellAreaClass.install_cell_property to install cell properties for a cell area class and method@Gtk.CellAreaClass.find_cell_property or method@Gtk.CellAreaClass.list_cell_properties to get information about existing cell properties.</p><p class="paragraph">To set the value of a cell property, use method@Gtk.CellArea.cell_set_property, method@Gtk.CellArea.cell_set or method@Gtk.CellArea.cell_set_valist. To obtain the value of a cell property, use method@Gtk.CellArea.cell_get or method@Gtk.CellArea.cell_get_valist.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">add_with_properties</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">cell_get</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">var_args</code>: va_list type is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">cell_set</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">var_args</code>: va_list type is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">minimum_height</code>: minimum_height: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">minimum_height</code>: minimum_height: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">minimum_width</code>: minimum_width: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">minimum_width</code>: minimum_width: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">minimum_size</code>: minimum_size: Out parameter is not supported</p></li></ul><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-cell-area-impl/index.html">CellAreaImpl</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-cell-area-box/index.html">CellAreaBox</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1699319700%2FConstructors%2F1170399019" anchor-label="CellArea" id="-1699319700%2FConstructors%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cell-area.html"><span>Cell</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1699319700%2FConstructors%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtkCellAreaPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1106128413%2FClasslikes%2F1170399019" anchor-label="CellAreaImpl" id="1106128413%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cell-area-impl/index.html"><span>Cell</span><wbr><span>Area</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1106128413%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-cell-area-impl/index.html">CellAreaImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="index.html">CellArea</a></div><div class="brief "><p class="paragraph">The CellAreaImpl type represents a native instance of the abstract CellArea class.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-236840534%2FClasslikes%2F1170399019" anchor-label="Companion" id="-236840534%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-236840534%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1590741260%2FProperties%2F1170399019" anchor-label="editedCell" id="1590741260%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="edited-cell.html"><span>edited</span><wbr><span><span>Cell</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1590741260%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="edited-cell.html">editedCell</a><span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The cell in the area that is currently edited</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-269035863%2FProperties%2F1170399019" anchor-label="editWidget" id="-269035863%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="edit-widget.html"><span>edit</span><wbr><span><span>Widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-269035863%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="edit-widget.html">editWidget</a><span class="token operator">: </span><a href="../-cell-editable/index.html">CellEditable</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The widget currently editing the edited cell</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1552409783%2FProperties%2F1170399019" anchor-label="focusCell" id="-1552409783%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="focus-cell.html"><span>focus</span><wbr><span><span>Cell</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1552409783%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="focus-cell.html">focusCell</a><span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The cell in the area that currently has focus</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-505199952%2FProperties%2F1170399019" anchor-label="gtkBuildablePointer" id="-505199952%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-buildable-pointer.html"><span>gtk</span><wbr><span>Buildable</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-505199952%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-buildable-pointer.html">gtkBuildablePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561970855%2FProperties%2F1170399019" anchor-label="gtkCellAreaPointer" id="561970855%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-cell-area-pointer.html"><span>gtk</span><wbr><span>Cell</span><wbr><span>Area</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561970855%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-cell-area-pointer.html">gtkCellAreaPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="990865092%2FProperties%2F1170399019" anchor-label="gtkCellLayoutPointer" id="990865092%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-cell-layout-pointer.html"><span>gtk</span><wbr><span>Cell</span><wbr><span>Layout</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="990865092%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gtk-cell-layout-pointer.html">gtkCellLayoutPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1190828111%2FFunctions%2F1170399019" anchor-label="activate" id="1190828111%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="activate.html"><span><span>activate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1190828111%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="activate.html"><span class="token function">activate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a><span class="token punctuation">, </span></span><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-cell-renderer-state/index.html">CellRendererState</a><span class="token punctuation">, </span></span><span class="parameter ">editOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Activates @area, usually by activating the currently focused cell, however some subclasses which embed widgets in the area can also activate a widget if it currently has the focus.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1315436753%2FFunctions%2F1170399019" anchor-label="activateCell" id="1315436753%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="activate-cell.html"><span>activate</span><wbr><span><span>Cell</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1315436753%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="activate-cell.html"><span class="token function">activateCell</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">event<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-cell-renderer-state/index.html">CellRendererState</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">This is used by <code class="lang-kotlin">GtkCellArea</code> subclasses when handling events to activate cells, the base <code class="lang-kotlin">GtkCellArea</code> class activates cells for keyboard events for free in its own GtkCellArea-&gt;activate() implementation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1347391106%2FFunctions%2F1170399019" anchor-label="add" id="1347391106%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add.html"><span><span>add</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1347391106%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add.html"><span class="token function">add</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @renderer to @area with the default child cell properties.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="811992955%2FFunctions%2F1170399019" anchor-label="addAttribute" id="811992955%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/add-attribute.html"><span>add</span><wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="811992955%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/add-attribute.html"><span class="token function">addAttribute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cell<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">attribute<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">column<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds an attribute mapping to the list in @cell_layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1565785649%2FFunctions%2F1170399019" anchor-label="addFocusSibling" id="1565785649%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-focus-sibling.html"><span>add</span><wbr><span>Focus</span><wbr><span><span>Sibling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1565785649%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-focus-sibling.html"><span class="token function">addFocusSibling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">sibling<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @sibling to @renderer’s focusable area, focus will be drawn around @renderer and all of its siblings if @renderer can focus for a given row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1942871744%2FFunctions%2F1170399019" anchor-label="applyAttributes" id="-1942871744%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="apply-attributes.html"><span>apply</span><wbr><span><span>Attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1942871744%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="apply-attributes.html"><span class="token function">applyAttributes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">treeModel<span class="token operator">: </span><a href="../-tree-model/index.html">TreeModel</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">isExpander<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">isExpanded<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Applies any connected attributes to the renderers in</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="461200459%2FFunctions%2F1170399019" anchor-label="attributeConnect" id="461200459%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="attribute-connect.html"><span>attribute</span><wbr><span><span>Connect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="461200459%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="attribute-connect.html"><span class="token function">attributeConnect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">attribute<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">column<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Connects an @attribute to apply values from @column for the <code class="lang-kotlin">GtkTreeModel</code> in use.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1345622750%2FFunctions%2F1170399019" anchor-label="attributeDisconnect" id="1345622750%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="attribute-disconnect.html"><span>attribute</span><wbr><span><span>Disconnect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1345622750%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="attribute-disconnect.html"><span class="token function">attributeDisconnect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">attribute<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Disconnects @attribute for the @renderer in @area so that attribute will no longer be updated with values from the model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1823263010%2FFunctions%2F1170399019" anchor-label="attributeGetColumn" id="1823263010%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="attribute-get-column.html"><span>attribute</span><wbr><span>Get</span><wbr><span><span>Column</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1823263010%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="attribute-get-column.html"><span class="token function">attributeGetColumn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">attribute<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the model column that an attribute has been mapped to, or -1 if the attribute is not mapped.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2118085819%2FFunctions%2F1170399019" anchor-label="cellGetProperty" id="-2118085819%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cell-get-property.html"><span>cell</span><wbr><span>Get</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2118085819%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="cell-get-property.html"><span class="token function">cellGetProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gets the value of a cell property for @renderer in @area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2062698159%2FFunctions%2F1170399019" anchor-label="cellSetProperty" id="-2062698159%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cell-set-property.html"><span>cell</span><wbr><span>Set</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2062698159%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="cell-set-property.html"><span class="token function">cellSetProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a cell property for @renderer in @area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1452708231%2FFunctions%2F1170399019" anchor-label="clear" id="-1452708231%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/clear.html"><span><span>clear</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1452708231%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets all the mappings on all renderers on @cell_layout and removes all renderers from @cell_layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1816532994%2FFunctions%2F1170399019" anchor-label="clearAttributes" id="1816532994%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/clear-attributes.html"><span>clear</span><wbr><span><span>Attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1816532994%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/clear-attributes.html"><span class="token function">clearAttributes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cell<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears all existing attributes previously set with gtk_cell_layout_set_attributes().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="164009314%2FFunctions%2F1170399019" anchor-label="copyContext" id="164009314%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-context.html"><span>copy</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="164009314%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="copy-context.html"><span class="token function">copyContext</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a></div><div class="brief "><p class="paragraph">This is sometimes needed for cases where rows need to share alignments in one orientation but may be separately grouped in the opposing orientation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-348162128%2FFunctions%2F1170399019" anchor-label="createContext" id="-348162128%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-context.html"><span>create</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-348162128%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-context.html"><span class="token function">createContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a></div><div class="brief "><p class="paragraph">Creates a <code class="lang-kotlin">GtkCellArea</code>Context to be used with @area for all purposes. <code class="lang-kotlin">GtkCellArea</code>Context stores geometry information for rows for which it was operated on, it is important to use the same context for the same row of data at all times (i.e. one should render and handle events with the same <code class="lang-kotlin">GtkCellArea</code>Context which was used to request the size of those rows of data).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1028758064%2FFunctions%2F1170399019" anchor-label="emitAddEditable" id="-1028758064%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-add-editable.html"><span>emit</span><wbr><span>Add</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1028758064%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-add-editable.html"><span class="token function">emitAddEditable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">editable<span class="token operator">: </span><a href="../-cell-editable/index.html">CellEditable</a><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "add-editable" signal. See <a href="on-add-editable.html">onAddEditable</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1040367603%2FFunctions%2F1170399019" anchor-label="emitApplyAttributes" id="1040367603%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-apply-attributes.html"><span>emit</span><wbr><span>Apply</span><wbr><span><span>Attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1040367603%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-apply-attributes.html"><span class="token function">emitApplyAttributes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">model<span class="token operator">: </span><a href="../-tree-model/index.html">TreeModel</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">isExpander<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">isExpanded<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "apply-attributes" signal. See <a href="on-apply-attributes.html">onApplyAttributes</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="983527169%2FFunctions%2F1170399019" anchor-label="emitFocusChanged" id="983527169%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-focus-changed.html"><span>emit</span><wbr><span>Focus</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="983527169%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-focus-changed.html"><span class="token function">emitFocusChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "focus-changed" signal. See <a href="on-focus-changed.html">onFocusChanged</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561542828%2FFunctions%2F1170399019" anchor-label="emitRemoveEditable" id="561542828%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-remove-editable.html"><span>emit</span><wbr><span>Remove</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561542828%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-remove-editable.html"><span class="token function">emitRemoveEditable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">editable<span class="token operator">: </span><a href="../-cell-editable/index.html">CellEditable</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "remove-editable" signal. See <a href="on-remove-editable.html">onRemoveEditable</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-996704079%2FFunctions%2F1170399019" anchor-label="event" id="-996704079%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="event.html"><span><span>event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-996704079%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="event.html"><span class="token function">event</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a><span class="token punctuation">, </span></span><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">event<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-cell-renderer-state/index.html">CellRendererState</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Delegates event handling to a <code class="lang-kotlin">GtkCellArea</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-822310741%2FFunctions%2F1170399019" anchor-label="focus" id="-822310741%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="focus.html"><span><span>focus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-822310741%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="focus.html"><span class="token function">focus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">direction<span class="token operator">: </span><a href="../-direction-type/index.html">DirectionType</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">This should be called by the @area’s owning layout widget when focus is to be passed to @area, or moved within @area for a given @direction and row data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1776596972%2FFunctions%2F1170399019" anchor-label="foreach" id="-1776596972%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="foreach.html"><span><span>foreach</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1776596972%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="foreach.html"><span class="token function">foreach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">callback<span class="token operator">: </span><a href="../-cell-callback/index.html">CellCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls @callback for every <code class="lang-kotlin">GtkCellRenderer</code> in @area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1408486433%2FFunctions%2F1170399019" anchor-label="foreachAlloc" id="-1408486433%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="foreach-alloc.html"><span>foreach</span><wbr><span><span>Alloc</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1408486433%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="foreach-alloc.html"><span class="token function">foreachAlloc</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a><span class="token punctuation">, </span></span><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">backgroundArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-cell-alloc-callback/index.html">CellAllocCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls @callback for every <code class="lang-kotlin">GtkCellRenderer</code> in @area with the allocated rectangle inside @cell_area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-889532861%2FFunctions%2F1170399019" anchor-label="getArea" id="-889532861%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/get-area.html"><span>get</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-889532861%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/get-area.html"><span class="token function">getArea</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">CellArea</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the underlying <code class="lang-kotlin">GtkCellArea</code> which might be @cell_layout if called on a <code class="lang-kotlin">GtkCellArea</code> or might be null if no <code class="lang-kotlin">GtkCellArea</code> is used by @cell_layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2122399121%2FFunctions%2F1170399019" anchor-label="getBuildableId" id="-2122399121%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-buildable/get-buildable-id.html"><span>get</span><wbr><span>Buildable</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2122399121%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-buildable/get-buildable-id.html"><span class="token function">getBuildableId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the ID of the @buildable object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1331384809%2FFunctions%2F1170399019" anchor-label="getCellAllocation" id="-1331384809%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cell-allocation.html"><span>get</span><wbr><span>Cell</span><wbr><span><span>Allocation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1331384809%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-cell-allocation.html"><span class="token function">getCellAllocation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a><span class="token punctuation">, </span></span><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">allocation<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Derives the allocation of @renderer inside @area if @area were to be rendered in @cell_area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1534934067%2FFunctions%2F1170399019" anchor-label="getCellAtPosition" id="-1534934067%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cell-at-position.html"><span>get</span><wbr><span>Cell</span><wbr><span>At</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1534934067%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-cell-at-position.html"><span class="token function">getCellAtPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a><span class="token punctuation">, </span></span><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">allocArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></div><div class="brief "><p class="paragraph">Gets the <code class="lang-kotlin">GtkCellRenderer</code> at @x and @y coordinates inside @area and optionally returns the full cell allocation for it inside @cell_area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-432551559%2FFunctions%2F1170399019" anchor-label="getCells" id="-432551559%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/get-cells.html"><span>get</span><wbr><span><span>Cells</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-432551559%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/get-cells.html"><span class="token function">getCells</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the cell renderers which have been added to @cell_layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="673275710%2FFunctions%2F1170399019" anchor-label="getCurrentPathString" id="673275710%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-current-path-string.html"><span>get</span><wbr><span>Current</span><wbr><span>Path</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="673275710%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-current-path-string.html"><span class="token function">getCurrentPathString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the current <code class="lang-kotlin">GtkTreePath</code> string for the currently applied <code class="lang-kotlin">GtkTreeIter</code>, this is implicitly updated when gtk_cell_area_apply_attributes() is called and can be used to interact with renderers from <code class="lang-kotlin">GtkCellArea</code> subclasses.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="244016023%2FFunctions%2F1170399019" anchor-label="getFocusFromSibling" id="244016023%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-focus-from-sibling.html"><span>get</span><wbr><span>Focus</span><wbr><span>From</span><wbr><span><span>Sibling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="244016023%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-focus-from-sibling.html"><span class="token function">getFocusFromSibling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the <code class="lang-kotlin">GtkCellRenderer</code> which is expected to be focusable for which @renderer is, or may be a sibling.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1976975840%2FFunctions%2F1170399019" anchor-label="getFocusSiblings" id="-1976975840%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-focus-siblings.html"><span>get</span><wbr><span>Focus</span><wbr><span><span>Siblings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1976975840%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-focus-siblings.html"><span class="token function">getFocusSiblings</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the focus sibling cell renderers for @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-540444997%2FFunctions%2F1170399019" anchor-label="getRequestMode" id="-540444997%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-request-mode.html"><span>get</span><wbr><span>Request</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-540444997%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-request-mode.html"><span class="token function">getRequestMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-size-request-mode/index.html">SizeRequestMode</a></div><div class="brief "><p class="paragraph">Gets whether the area prefers a height-for-width layout or a width-for-height layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-486914210%2FFunctions%2F1170399019" anchor-label="hasRenderer" id="-486914210%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-renderer.html"><span>has</span><wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-486914210%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="has-renderer.html"><span class="token function">hasRenderer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if @area contains @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="916782703%2FFunctions%2F1170399019" anchor-label="innerCellArea" id="916782703%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inner-cell-area.html"><span>inner</span><wbr><span>Cell</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="916782703%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="inner-cell-area.html"><span class="token function">innerCellArea</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">innerArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is a convenience function for <code class="lang-kotlin">GtkCellArea</code> implementations to get the inner area where a given <code class="lang-kotlin">GtkCellRenderer</code> will be rendered. It removes any padding previously added by gtk_cell_area_request_renderer().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="84381985%2FFunctions%2F1170399019" anchor-label="isActivatable" id="84381985%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-activatable.html"><span>is</span><wbr><span><span>Activatable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="84381985%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-activatable.html"><span class="token function">isActivatable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether the area can do anything when activated, after applying new attributes to @area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="267764678%2FFunctions%2F1170399019" anchor-label="isFocusSibling" id="267764678%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-focus-sibling.html"><span>is</span><wbr><span>Focus</span><wbr><span><span>Sibling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="267764678%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-focus-sibling.html"><span class="token function">isFocusSibling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">sibling<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether @sibling is one of @renderer’s focus siblings (see gtk_cell_area_add_focus_sibling()).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1582810947%2FFunctions%2F1170399019" anchor-label="onAddEditable" id="1582810947%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-add-editable.html"><span>on</span><wbr><span>Add</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1582810947%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-add-editable.html"><span class="token function">onAddEditable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span>editable<span class="token operator">: </span><a href="../-cell-editable/index.html">CellEditable</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span>path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Indicates that editing has started on @renderer and that @editable should be added to the owning cell-layouting widget at @cell_area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1016371798%2FFunctions%2F1170399019" anchor-label="onApplyAttributes" id="-1016371798%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-apply-attributes.html"><span>on</span><wbr><span>Apply</span><wbr><span><span>Attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1016371798%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-apply-attributes.html"><span class="token function">onApplyAttributes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>model<span class="token operator">: </span><a href="../-tree-model/index.html">TreeModel</a><span class="token punctuation">, </span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span>isExpander<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span>isExpanded<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted whenever applying attributes to @area from @model</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-889087510%2FFunctions%2F1170399019" anchor-label="onFocusChanged" id="-889087510%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-focus-changed.html"><span>on</span><wbr><span>Focus</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-889087510%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-focus-changed.html"><span class="token function">onFocusChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span>path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Indicates that focus changed on this @area. This signal is emitted either as a result of focus handling or event handling.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="636873823%2FFunctions%2F1170399019" anchor-label="onRemoveEditable" id="636873823%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-remove-editable.html"><span>on</span><wbr><span>Remove</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="636873823%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-remove-editable.html"><span class="token function">onRemoveEditable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span>editable<span class="token operator">: </span><a href="../-cell-editable/index.html">CellEditable</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Indicates that editing finished on @renderer and that @editable should be removed from the owning cell-layouting widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1551546628%2FFunctions%2F1170399019" anchor-label="packEnd" id="1551546628%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/pack-end.html"><span>pack</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1551546628%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/pack-end.html"><span class="token function">packEnd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cell<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">expand<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds the @cell to the end of @cell_layout. If @expand is false, then the</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="859568797%2FFunctions%2F1170399019" anchor-label="packStart" id="859568797%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/pack-start.html"><span>pack</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="859568797%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/pack-start.html"><span class="token function">packStart</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cell<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">expand<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Packs the @cell into the beginning of @cell_layout. If @expand is false, then the @cell is allocated no more space than it needs. Any unused space is divided evenly between cells for which @expand is true.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="40585073%2FFunctions%2F1170399019" anchor-label="remove" id="40585073%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove.html"><span><span>remove</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="40585073%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes @renderer from @area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-979993312%2FFunctions%2F1170399019" anchor-label="removeFocusSibling" id="-979993312%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-focus-sibling.html"><span>remove</span><wbr><span>Focus</span><wbr><span><span>Sibling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-979993312%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove-focus-sibling.html"><span class="token function">removeFocusSibling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">sibling<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes @sibling from @renderer’s focus sibling list (see gtk_cell_area_add_focus_sibling()).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="805094130%2FFunctions%2F1170399019" anchor-label="reorder" id="805094130%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/reorder.html"><span><span>reorder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="805094130%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/reorder.html"><span class="token function">reorder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cell<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">position<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Re-inserts @cell at @position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="254123222%2FFunctions%2F1170399019" anchor-label="setCellDataFunc" id="254123222%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-cell-layout/set-cell-data-func.html"><span>set</span><wbr><span>Cell</span><wbr><span>Data</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="254123222%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-cell-layout/set-cell-data-func.html"><span class="token function">setCellDataFunc</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cell<span class="token operator">: </span><a href="../-cell-renderer/index.html">CellRenderer</a><span class="token punctuation">, </span></span><span class="parameter ">func<span class="token operator">: </span><a href="../-cell-layout-data-func/index.html">CellLayoutDataFunc</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the <code class="lang-kotlin">GtkCellLayout</code>DataFunc to use for @cell_layout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1335259144%2FFunctions%2F1170399019" anchor-label="snapshot" id="-1335259144%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="snapshot.html"><span><span>snapshot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1335259144%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="snapshot.html"><span class="token function">snapshot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-cell-area-context/index.html">CellAreaContext</a><span class="token punctuation">, </span></span><span class="parameter ">widget<span class="token operator">: </span><a href="../-widget/index.html">Widget</a><span class="token punctuation">, </span></span><span class="parameter ">snapshot<span class="token operator">: </span><a href="../-snapshot/index.html">Snapshot</a><span class="token punctuation">, </span></span><span class="parameter ">backgroundArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cellArea<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-cell-renderer-state/index.html">CellRendererState</a><span class="token punctuation">, </span></span><span class="parameter ">paintFocus<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Snapshots @area’s cells according to @area’s layout onto at the given coordinates.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2081200910%2FFunctions%2F1170399019" anchor-label="stopEditing" id="-2081200910%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stop-editing.html"><span>stop</span><wbr><span><span>Editing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2081200910%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="stop-editing.html"><span class="token function">stopEditing</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">canceled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Explicitly stops the editing of the currently edited cell.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

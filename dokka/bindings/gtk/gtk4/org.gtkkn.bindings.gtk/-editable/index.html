@@ -1,0 +1,611 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Editable</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/Editable///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">Editable</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Editable</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Editable</a></div><p class="paragraph"><code class="lang-kotlin">GtkEditable</code> is an interface for text editing widgets.</p><p class="paragraph">Typical examples of editable widgets are class@Gtk.Entry and class@Gtk.SpinButton. It contains functions for generically manipulating an editable widget, a large number of action signals used for key bindings, and several signals that an application can connect to modify the behavior of a widget.</p><p class="paragraph">As an example of the latter usage, by connecting the following handler to signal@Gtk.Editable::insert-text, an application can convert all entry into a widget into uppercase.</p><h2 class="">Forcing entry to uppercase.</h2><div class="sample-container"><pre><code class="block lang-c" theme="idea">#include &lt;ctype.h&gt;<br><br>void<br>insert_text_handler (GtkEditable *editable,<br>                     const char  *text,<br>                     int          length,<br>                     int         *position,<br>                     gpointer     data)<br>{<br>  char *result = g_utf8_strup (text, length);<br><br>  g_signal_handlers_block_by_func (editable,<br>                               (gpointer) insert_text_handler, data);<br>  gtk_editable_insert_text (editable, result, length, position);<br>  g_signal_handlers_unblock_by_func (editable,<br>                                     (gpointer) insert_text_handler, data);<br><br>  g_signal_stop_emission_by_name (editable, "insert_text");<br><br>  g_free (result);<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class="">Implementing GtkEditable</h2><p class="paragraph">The most likely scenario for implementing <code class="lang-kotlin">GtkEditable</code> on your own widget is that you will embed a <code class="lang-kotlin">GtkText</code> inside a complex widget, and want to delegate the editable functionality to that text widget. <code class="lang-kotlin">GtkEditable</code> provides some utility functions to make this easy.</p><p class="paragraph">In your class_init function, call func@Gtk.Editable.install_properties, passing the first available property ID:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>my_class_init (MyClass *class)<br>{<br>  ...<br>  g_object_class_install_properties (object_class, NUM_PROPERTIES, props);<br>  gtk_editable_install_properties (object_clas, NUM_PROPERTIES);<br>  ...<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">In your interface_init function for the <code class="lang-kotlin">GtkEditable</code> interface, provide an implementation for the get_delegate vfunc that returns your text widget:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">GtkEditable *<br>get_editable_delegate (GtkEditable *editable)<br>{<br>  return GTK_EDITABLE (MY_WIDGET (editable)-&gt;text_widget);<br>}<br><br>static void<br>my_editable_init (GtkEditableInterface *iface)<br>{<br>  iface-&gt;get_delegate = get_editable_delegate;<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">You don't need to provide any other vfuncs. The default implementations work by forwarding to the delegate that the GtkEditableInterface.get_delegate() vfunc returns.</p><p class="paragraph">In your instance_init function, create your text widget, and then call method@Gtk.Editable.init_delegate:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>my_widget_init (MyWidget *self)<br>{<br>  ...<br>  self-&gt;text_widget = gtk_text_new ();<br>  gtk_editable_init_delegate (GTK_EDITABLE (self));<br>  ...<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">In your dispose function, call method@Gtk.Editable.finish_delegate before destroying your text widget:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>my_widget_dispose (GObject *object)<br>{<br>  ...<br>  gtk_editable_finish_delegate (GTK_EDITABLE (self));<br>  g_clear_pointer (&amp;self-&gt;text_widget, gtk_widget_unparent);<br>  ...<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Finally, use func@Gtk.Editable.delegate_set_property in your <code class="lang-kotlin">set_property</code> function (and similar for <code class="lang-kotlin">get_property</code>), to set the editable properties:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">...<br>if (gtk_editable_delegate_set_property (object, prop_id, value, pspec))<br>  return;<br><br>switch (prop_id)<br>...</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">It is important to note that if you create a <code class="lang-kotlin">GtkEditable</code> that uses a delegate, the low level signal@Gtk.Editable::insert-text and signal@Gtk.Editable::delete-text signals will be propagated from the "wrapper" editable to the delegate, but they will not be propagated from the delegate to the "wrapper" editable, as they would cause an infinite recursion. If you wish to connect to the signal@Gtk.Editable::insert-text and signal@Gtk.Editable::delete-text signals, you will need to connect to them on the delegate obtained via method@Gtk.Editable.get_delegate.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">start_pos</code>: start_pos: Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">insert_text</code>: In/Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">cursor-position</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">selection-bound</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">xalign</code>: Property has no getter nor setter</p></li><li><p class="paragraph">signal <code class="lang-kotlin">insert-text</code>: Unsupported parameter <code class="lang-kotlin">position</code> : position: In/Out parameter is not supported</p></li></ul><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-editable-impl/index.html">EditableImpl</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-editable-label/index.html">EditableLabel</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-entry/index.html">Entry</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-password-entry/index.html">PasswordEntry</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-search-entry/index.html">SearchEntry</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-spin-button/index.html">SpinButton</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-text/index.html">Text</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="764907573%2FClasslikes%2F1170399019" anchor-label="Companion" id="764907573%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="764907573%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-662429059%2FClasslikes%2F1170399019" anchor-label="EditableImpl" id="-662429059%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-editable-impl/index.html"><span>Editable</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-662429059%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-editable-impl/index.html">EditableImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkEditablePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-widget/index.html">Widget</a>, <a href="index.html">Editable</a></div><div class="brief "><p class="paragraph">The EditableImpl type represents a native instance of the Editable interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1107634312%2FProperties%2F1170399019" anchor-label="editable" id="1107634312%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="editable.html"><span><span>editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1107634312%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="editable.html">editable</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the entry contents can be edited.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1477813371%2FProperties%2F1170399019" anchor-label="enableUndo" id="-1477813371%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-undo.html"><span>enable</span><wbr><span><span>Undo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1477813371%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="enable-undo.html">enableUndo</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">If undo/redo should be enabled for the editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-611794479%2FProperties%2F1170399019" anchor-label="gtkEditablePointer" id="-611794479%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-editable-pointer.html"><span>gtk</span><wbr><span>Editable</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-611794479%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="gtk-editable-pointer.html">gtkEditablePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="489008275%2FProperties%2F1170399019" anchor-label="maxWidthChars" id="489008275%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-width-chars.html"><span>max</span><wbr><span>Width</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="489008275%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="max-width-chars.html">maxWidthChars</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The desired maximum width of the entry, in characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1154513569%2FProperties%2F1170399019" anchor-label="text" id="-1154513569%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="text.html"><span><span>text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1154513569%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="text.html">text</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The contents of the entry.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1409782997%2FProperties%2F1170399019" anchor-label="widthChars" id="1409782997%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="width-chars.html"><span>width</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1409782997%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="width-chars.html">widthChars</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Number of characters to leave space for in the entry.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="286849318%2FFunctions%2F1170399019" anchor-label="delegateGetAccessiblePlatformState" id="286849318%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delegate-get-accessible-platform-state.html"><span>delegate</span><wbr><span>Get</span><wbr><span>Accessible</span><wbr><span>Platform</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="286849318%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="delegate-get-accessible-platform-state.html"><span class="token function">delegateGetAccessiblePlatformState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="../-accessible-platform-state/index.html">AccessiblePlatformState</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Retrieves the accessible platform state from the editable delegate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1179832621%2FFunctions%2F1170399019" anchor-label="deleteSelection" id="1179832621%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-selection.html"><span>delete</span><wbr><span><span>Selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1179832621%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="delete-selection.html"><span class="token function">deleteSelection</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Deletes the currently selected text of the editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="169636363%2FFunctions%2F1170399019" anchor-label="deleteText" id="169636363%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-text.html"><span>delete</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="169636363%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="delete-text.html"><span class="token function">deleteText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startPos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">endPos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Deletes a sequence of characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="285074164%2FFunctions%2F1170399019" anchor-label="finishDelegate" id="285074164%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="finish-delegate.html"><span>finish</span><wbr><span><span>Delegate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="285074164%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="finish-delegate.html"><span class="token function">finishDelegate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Undoes the setup done by method@Gtk.Editable.init_delegate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1547884639%2FFunctions%2F1170399019" anchor-label="getAlignment" id="1547884639%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-alignment.html"><span>get</span><wbr><span><span>Alignment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1547884639%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-alignment.html"><span class="token function">getAlignment</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the alignment of the editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1264268218%2FFunctions%2F1170399019" anchor-label="getChars" id="1264268218%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-chars.html"><span>get</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1264268218%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-chars.html"><span class="token function">getChars</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startPos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">endPos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Retrieves a sequence of characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1130996717%2FFunctions%2F1170399019" anchor-label="getDelegate" id="-1130996717%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-delegate.html"><span>get</span><wbr><span><span>Delegate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1130996717%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-delegate.html"><span class="token function">getDelegate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Editable</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the <code class="lang-kotlin">GtkEditable</code> that @editable is delegating its implementation to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1408584684%2FFunctions%2F1170399019" anchor-label="getEditable" id="-1408584684%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-editable.html"><span>get</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1408584684%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-editable.html"><span class="token function">getEditable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Retrieves whether @editable is editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1497680879%2FFunctions%2F1170399019" anchor-label="getEnableUndo" id="-1497680879%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-enable-undo.html"><span>get</span><wbr><span>Enable</span><wbr><span><span>Undo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1497680879%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-enable-undo.html"><span class="token function">getEnableUndo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets if undo/redo actions are enabled for @editable</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1321564295%2FFunctions%2F1170399019" anchor-label="getMaxWidthChars" id="1321564295%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-max-width-chars.html"><span>get</span><wbr><span>Max</span><wbr><span>Width</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1321564295%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-max-width-chars.html"><span class="token function">getMaxWidthChars</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the desired maximum width of @editable, in characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="457916655%2FFunctions%2F1170399019" anchor-label="getPosition" id="457916655%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-position.html"><span>get</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="457916655%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-position.html"><span class="token function">getPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the current position of the cursor relative to the start of the content of the editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-75450645%2FFunctions%2F1170399019" anchor-label="getText" id="-75450645%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-text.html"><span>get</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-75450645%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-text.html"><span class="token function">getText</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Retrieves the contents of @editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1389915489%2FFunctions%2F1170399019" anchor-label="getWidthChars" id="1389915489%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-width-chars.html"><span>get</span><wbr><span>Width</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1389915489%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-width-chars.html"><span class="token function">getWidthChars</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the number of characters of space reserved for the contents of the editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1960435159%2FFunctions%2F1170399019" anchor-label="initDelegate" id="1960435159%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-delegate.html"><span>init</span><wbr><span><span>Delegate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1960435159%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="init-delegate.html"><span class="token function">initDelegate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets up a delegate for <code class="lang-kotlin">GtkEditable</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1075926623%2FFunctions%2F1170399019" anchor-label="onChanged" id="-1075926623%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-changed.html"><span>on</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1075926623%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-changed.html"><span class="token function">onChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted at the end of a single user-visible operation on the contents.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1701319297%2FFunctions%2F1170399019" anchor-label="onDeleteText" id="-1701319297%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-delete-text.html"><span>on</span><wbr><span>Delete</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1701319297%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-delete-text.html"><span class="token function">onDeleteText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when text is deleted from the widget by the user.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="352670051%2FFunctions%2F1170399019" anchor-label="selectRegion" id="352670051%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="select-region.html"><span>select</span><wbr><span><span>Region</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="352670051%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="select-region.html"><span class="token function">selectRegion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">startPos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">endPos<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Selects a region of text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1041779100%2FFunctions%2F1170399019" anchor-label="setAlignment" id="-1041779100%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-alignment.html"><span>set</span><wbr><span><span>Alignment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1041779100%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-alignment.html"><span class="token function">setAlignment</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">xalign<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the alignment for the contents of the editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="373535181%2FFunctions%2F1170399019" anchor-label="setEditable" id="373535181%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-editable.html"><span>set</span><wbr><span><span>Editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="373535181%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-editable.html"><span class="token function">setEditable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isEditable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Determines if the user can edit the text in the editable widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="380986890%2FFunctions%2F1170399019" anchor-label="setEnableUndo" id="380986890%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-enable-undo.html"><span>set</span><wbr><span>Enable</span><wbr><span><span>Undo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="380986890%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-enable-undo.html"><span class="token function">setEnableUndo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enableUndo<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">If enabled, changes to @editable will be saved for undo/redo actions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1550980065%2FFunctions%2F1170399019" anchor-label="setMaxWidthChars" id="-1550980065%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-max-width-chars.html"><span>set</span><wbr><span>Max</span><wbr><span>Width</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1550980065%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-max-width-chars.html"><span class="token function">setMaxWidthChars</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">nChars<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the desired maximum width in characters of @editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="893597935%2FFunctions%2F1170399019" anchor-label="setPosition" id="893597935%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-position.html"><span>set</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="893597935%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-position.html"><span class="token function">setPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">position<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the cursor position in the editable to the given value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1894494715%2FFunctions%2F1170399019" anchor-label="setText" id="-1894494715%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-text.html"><span>set</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1894494715%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-text.html"><span class="token function">setText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">text<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the text in the editable to the given value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-473435423%2FFunctions%2F1170399019" anchor-label="setWidthChars" id="-473435423%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-width-chars.html"><span>set</span><wbr><span>Width</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-473435423%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-width-chars.html"><span class="token function">setWidthChars</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">nChars<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Changes the size request of the editable to be about the right size for @n_chars characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

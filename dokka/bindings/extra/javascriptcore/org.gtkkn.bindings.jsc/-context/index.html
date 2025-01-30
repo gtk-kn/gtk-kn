@@ -1,0 +1,375 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Context</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:javascriptcore/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:javascriptcore/nativeMain" data-filter=":bindings:extra:javascriptcore/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="javascriptcore::org.gtkkn.bindings.jsc/Context///PointingToDeclaration//176874543">
+  <div class="breadcrumbs"><a href="../../index.html">javascriptcore</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.jsc</a><span class="delimiter">/</span><span class="current">Context</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Context</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>jscContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">JSCContext represents a JavaScript execution context, where all operations take place and where the values will be associated.</p><p class="paragraph">When a new context is created, a global object is allocated and the built-in JavaScript objects (Object, Function, String, Array) are populated. You can execute JavaScript in the context by using jsc_context_evaluate() or jsc_context_evaluate_with_source_uri(). It's also possible to register custom objects in the context with jsc_context_register_class().</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">exception</code>: exception: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">object</code>: object: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">destroy_notify</code>: GLib.DestroyNotify</p></li><li><p class="paragraph">method <code class="lang-kotlin">throw_printf</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">throw_with_name_printf</code>: Varargs parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="245967789%2FConstructors%2F176874543" anchor-label="Context" id="245967789%2FConstructors%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-context.html"><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="245967789%2FConstructors%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCContext. The context is created in a new #JSCVirtualMachine. Use jsc_context_new_with_virtual_machine() to create a new #JSCContext in an existing #JSCVirtualMachine.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">vm<span class="token operator">: </span><a href="../-virtual-machine/index.html">VirtualMachine</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCContext in @virtual_machine.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">jscContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1724603490%2FClasslikes%2F176874543" anchor-label="Companion" id="1724603490%2FClasslikes%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1724603490%2FClasslikes%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-2002196045%2FProperties%2F176874543" anchor-label="jscContextPointer" id="-2002196045%2FProperties%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="jsc-context-pointer.html"><span>jsc</span><wbr><span>Context</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2002196045%2FProperties%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="jsc-context-pointer.html">jscContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1578379235%2FProperties%2F176874543" anchor-label="virtualMachine" id="1578379235%2FProperties%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="virtual-machine.html"><span>virtual</span><wbr><span><span>Machine</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1578379235%2FProperties%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="virtual-machine.html">virtualMachine</a><span class="token operator">: </span><a href="../-virtual-machine/index.html">VirtualMachine</a></div><div class="brief "><p class="paragraph">The #JSCVirtualMachine in which the context was created.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1125965021%2FFunctions%2F176874543" anchor-label="clearException" id="1125965021%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-exception.html"><span>clear</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1125965021%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="clear-exception.html"><span class="token function">clearException</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clear the uncaught exception in @context if any.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1604544776%2FFunctions%2F176874543" anchor-label="evaluate" id="-1604544776%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="evaluate.html"><span><span>evaluate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1604544776%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="evaluate.html"><span class="token function">evaluate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">code<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">length<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-value/index.html">Value</a></div><div class="brief "><p class="paragraph">Evaluate @code in @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1093829056%2FFunctions%2F176874543" anchor-label="evaluateWithSourceUri" id="1093829056%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="evaluate-with-source-uri.html"><span>evaluate</span><wbr><span>With</span><wbr><span>Source</span><wbr><span><span>Uri</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1093829056%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="evaluate-with-source-uri.html"><span class="token function">evaluateWithSourceUri</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">code<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">length<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">uri<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">lineNumber<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-value/index.html">Value</a></div><div class="brief "><p class="paragraph">Evaluate @code in @context using @uri as the source URI. The @line_number is the starting line number in @uri; the value is one-based so the first line is 1. @uri and @line_number will be shown in exceptions and they don't affect the behavior of the script.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1565613018%2FFunctions%2F176874543" anchor-label="getException" id="-1565613018%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-exception.html"><span>get</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1565613018%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-exception.html"><span class="token function">getException</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-exception/index.html">Exception</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the last unhandled exception thrown in @context by API functions calls.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1097825379%2FFunctions%2F176874543" anchor-label="getGlobalObject" id="1097825379%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-global-object.html"><span>get</span><wbr><span>Global</span><wbr><span><span>Object</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1097825379%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-global-object.html"><span class="token function">getGlobalObject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-value/index.html">Value</a></div><div class="brief "><p class="paragraph">Get a #JSCValue referencing the @context global object</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1546549696%2FFunctions%2F176874543" anchor-label="getValue" id="-1546549696%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value.html"><span>get</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1546549696%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-value.html"><span class="token function">getValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-value/index.html">Value</a></div><div class="brief "><p class="paragraph">Get a property of @context global object with @name.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-857484625%2FFunctions%2F176874543" anchor-label="popExceptionHandler" id="-857484625%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pop-exception-handler.html"><span>pop</span><wbr><span>Exception</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-857484625%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="pop-exception-handler.html"><span class="token function">popExceptionHandler</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Remove the last #JSCExceptionHandler previously pushed to @context with jsc_context_push_exception_handler().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="148762014%2FFunctions%2F176874543" anchor-label="pushExceptionHandler" id="148762014%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="push-exception-handler.html"><span>push</span><wbr><span>Exception</span><wbr><span><span>Handler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="148762014%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="push-exception-handler.html"><span class="token function">pushExceptionHandler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">handler<span class="token operator">: </span><a href="../-exception-handler/index.html">ExceptionHandler</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Push an exception handler in @context. Whenever a JavaScript exception happens in the #JSCContext, the given @handler will be called. The default #JSCExceptionHandler simply calls jsc_context_throw_exception() to throw the exception to the #JSCContext. If you don't want to catch the exception, but only get notified about it, call jsc_context_throw_exception() in @handler like the default one does. The last exception handler pushed is the only one used by the #JSCContext, use jsc_context_pop_exception_handler() to remove it and set the previous one. When @handler is removed from the context, @destroy_notify i called with @user_data as parameter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-35080521%2FFunctions%2F176874543" anchor-label="setValue" id="-35080521%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-value.html"><span>set</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-35080521%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-value.html"><span class="token function">setValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="../-value/index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set a property of @context global object with @name and @value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-90376913%2FFunctions%2F176874543" anchor-label="throw" id="-90376913%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="throw.html"><span><span>throw</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-90376913%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="throw.html"><span class="token function">throw</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">errorMessage<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Throw an exception to @context using the given error message. The created #JSCException can be retrieved with jsc_context_get_exception().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2122734972%2FFunctions%2F176874543" anchor-label="throwException" id="-2122734972%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="throw-exception.html"><span>throw</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2122734972%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="throw-exception.html"><span class="token function">throwException</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">exception<span class="token operator">: </span><a href="../-exception/index.html">Exception</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Throw @exception to @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1895729637%2FFunctions%2F176874543" anchor-label="throwWithName" id="1895729637%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="throw-with-name.html"><span>throw</span><wbr><span>With</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1895729637%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="throw-with-name.html"><span class="token function">throwWithName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">errorName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">errorMessage<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Throw an exception to @context using the given error name and message. The created #JSCException can be retrieved with jsc_context_get_exception().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

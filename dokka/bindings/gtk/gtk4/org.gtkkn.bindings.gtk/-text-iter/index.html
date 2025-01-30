@@ -1,0 +1,1530 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TextIter</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/TextIter///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">TextIter</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Text</span><wbr><span><span>Iter</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TextIter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkTextIterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">An iterator for the contents of a <code class="lang-kotlin">GtkTextBuffer</code>.</p><p class="paragraph">You may wish to begin by reading the section-text-widget.html, which gives an overview of all the objects and data types related to the text widget and how they work together.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="895007009%2FConstructors%2F1170399019" anchor-label="TextIter" id="895007009%2FConstructors%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-iter.html"><span>Text</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="895007009%2FConstructors%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new TextIter.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new TextIter using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtkTextIterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1049342228%2FClasslikes%2F1170399019" anchor-label="Companion" id="1049342228%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1049342228%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1009897299%2FProperties%2F1170399019" anchor-label="gtkTextIterPointer" id="1009897299%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-text-iter-pointer.html"><span>gtk</span><wbr><span>Text</span><wbr><span>Iter</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1009897299%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-text-iter-pointer.html">gtkTextIterPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="832943142%2FFunctions%2F1170399019" anchor-label="assign" id="832943142%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assign.html"><span><span>assign</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="832943142%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="assign.html"><span class="token function">assign</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Assigns the value of @other to @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1775868404%2FFunctions%2F1170399019" anchor-label="backwardChar" id="1775868404%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-char.html"><span>backward</span><wbr><span><span>Char</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1775868404%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-char.html"><span class="token function">backwardChar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves backward by one character offset.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1045048031%2FFunctions%2F1170399019" anchor-label="backwardChars" id="1045048031%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-chars.html"><span>backward</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1045048031%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-chars.html"><span class="token function">backwardChars</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @count characters backward, if possible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1872131445%2FFunctions%2F1170399019" anchor-label="backwardCursorPosition" id="-1872131445%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-cursor-position.html"><span>backward</span><wbr><span>Cursor</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1872131445%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-cursor-position.html"><span class="token function">backwardCursorPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Like method@Gtk.TextIter.forward_cursor_position, but moves backward.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1498762856%2FFunctions%2F1170399019" anchor-label="backwardCursorPositions" id="1498762856%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-cursor-positions.html"><span>backward</span><wbr><span>Cursor</span><wbr><span><span>Positions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1498762856%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-cursor-positions.html"><span class="token function">backwardCursorPositions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves up to @count cursor positions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1402024473%2FFunctions%2F1170399019" anchor-label="backwardFindChar" id="1402024473%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-find-char.html"><span>backward</span><wbr><span>Find</span><wbr><span><span>Char</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1402024473%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-find-char.html"><span class="token function">backwardFindChar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pred<span class="token operator">: </span><a href="../-text-char-predicate/index.html">TextCharPredicate</a><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Same as method@Gtk.TextIter.forward_find_char, but goes backward from @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1618064618%2FFunctions%2F1170399019" anchor-label="backwardLine" id="-1618064618%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-line.html"><span>backward</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1618064618%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-line.html"><span class="token function">backwardLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter to the start of the previous line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="194664317%2FFunctions%2F1170399019" anchor-label="backwardLines" id="194664317%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-lines.html"><span>backward</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="194664317%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-lines.html"><span class="token function">backwardLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @count lines backward, if possible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="102616890%2FFunctions%2F1170399019" anchor-label="backwardSearch" id="102616890%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-search.html"><span>backward</span><wbr><span><span>Search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="102616890%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-search.html"><span class="token function">backwardSearch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">str<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-text-search-flags/index.html">TextSearchFlags</a><span class="token punctuation">, </span></span><span class="parameter ">matchStart<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">matchEnd<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Same as method@Gtk.TextIter.forward_search, but moves backward.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="255614641%2FFunctions%2F1170399019" anchor-label="backwardSentenceStart" id="255614641%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-sentence-start.html"><span>backward</span><wbr><span>Sentence</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="255614641%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-sentence-start.html"><span class="token function">backwardSentenceStart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves backward to the previous sentence start.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1814936450%2FFunctions%2F1170399019" anchor-label="backwardSentenceStarts" id="1814936450%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-sentence-starts.html"><span>backward</span><wbr><span>Sentence</span><wbr><span><span>Starts</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1814936450%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-sentence-starts.html"><span class="token function">backwardSentenceStarts</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls method@Gtk.TextIter.backward_sentence_start up to @count times.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1969755674%2FFunctions%2F1170399019" anchor-label="backwardToTagToggle" id="1969755674%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-to-tag-toggle.html"><span>backward</span><wbr><span>To</span><wbr><span>Tag</span><wbr><span><span>Toggle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1969755674%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-to-tag-toggle.html"><span class="token function">backwardToTagToggle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tag<span class="token operator">: </span><a href="../-text-tag/index.html">TextTag</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves backward to the next toggle (on or off) of the</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1073933311%2FFunctions%2F1170399019" anchor-label="backwardVisibleCursorPosition" id="1073933311%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-visible-cursor-position.html"><span>backward</span><wbr><span>Visible</span><wbr><span>Cursor</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1073933311%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-visible-cursor-position.html"><span class="token function">backwardVisibleCursorPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter backward to the previous visible cursor position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1854803340%2FFunctions%2F1170399019" anchor-label="backwardVisibleCursorPositions" id="-1854803340%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-visible-cursor-positions.html"><span>backward</span><wbr><span>Visible</span><wbr><span>Cursor</span><wbr><span><span>Positions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1854803340%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-visible-cursor-positions.html"><span class="token function">backwardVisibleCursorPositions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves up to @count visible cursor positions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1103549046%2FFunctions%2F1170399019" anchor-label="backwardVisibleLine" id="-1103549046%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-visible-line.html"><span>backward</span><wbr><span>Visible</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1103549046%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-visible-line.html"><span class="token function">backwardVisibleLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter to the start of the previous visible line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="166091401%2FFunctions%2F1170399019" anchor-label="backwardVisibleLines" id="166091401%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-visible-lines.html"><span>backward</span><wbr><span>Visible</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="166091401%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-visible-lines.html"><span class="token function">backwardVisibleLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @count visible lines backward, if possible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-351315804%2FFunctions%2F1170399019" anchor-label="backwardVisibleWordStart" id="-351315804%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-visible-word-start.html"><span>backward</span><wbr><span>Visible</span><wbr><span>Word</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-351315804%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-visible-word-start.html"><span class="token function">backwardVisibleWordStart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves backward to the previous visible word start.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1731181009%2FFunctions%2F1170399019" anchor-label="backwardVisibleWordStarts" id="-1731181009%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-visible-word-starts.html"><span>backward</span><wbr><span>Visible</span><wbr><span>Word</span><wbr><span><span>Starts</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1731181009%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-visible-word-starts.html"><span class="token function">backwardVisibleWordStarts</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls method@Gtk.TextIter.backward_visible_word_start up to @count times.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="38458008%2FFunctions%2F1170399019" anchor-label="backwardWordStart" id="38458008%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-word-start.html"><span>backward</span><wbr><span>Word</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="38458008%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-word-start.html"><span class="token function">backwardWordStart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves backward to the previous word start.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1419264443%2FFunctions%2F1170399019" anchor-label="backwardWordStarts" id="1419264443%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="backward-word-starts.html"><span>backward</span><wbr><span>Word</span><wbr><span><span>Starts</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1419264443%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="backward-word-starts.html"><span class="token function">backwardWordStarts</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls method@Gtk.TextIter.backward_word_start up to @count times.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="660884873%2FFunctions%2F1170399019" anchor-label="canInsert" id="660884873%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="can-insert.html"><span>can</span><wbr><span><span>Insert</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="660884873%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="can-insert.html"><span class="token function">canInsert</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultEditability<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Considering the default editability of the buffer, and tags that affect editability, determines whether text inserted at @iter would be editable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="385454076%2FFunctions%2F1170399019" anchor-label="compare" id="385454076%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="compare.html"><span><span>compare</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="385454076%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="compare.html"><span class="token function">compare</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rhs<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">A qsort()-style function that returns negative if @lhs is less than</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1348056104%2FFunctions%2F1170399019" anchor-label="copy" id="-1348056104%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1348056104%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">TextIter</a></div><div class="brief "><p class="paragraph">Creates a dynamically-allocated copy of an iterator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="323879758%2FFunctions%2F1170399019" anchor-label="editable" id="323879758%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="editable.html"><span><span>editable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="323879758%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="editable.html"><span class="token function">editable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">defaultSetting<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether the character at @iter is within an editable region of text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="857698337%2FFunctions%2F1170399019" anchor-label="endsLine" id="857698337%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ends-line.html"><span>ends</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="857698337%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ends-line.html"><span class="token function">endsLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter points to the start of the paragraph delimiter characters for a line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2106288274%2FFunctions%2F1170399019" anchor-label="endsSentence" id="2106288274%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ends-sentence.html"><span>ends</span><wbr><span><span>Sentence</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2106288274%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ends-sentence.html"><span class="token function">endsSentence</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether @iter ends a sentence.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="727497260%2FFunctions%2F1170399019" anchor-label="endsTag" id="727497260%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ends-tag.html"><span>ends</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="727497260%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ends-tag.html"><span class="token function">endsTag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tag<span class="token operator">: </span><a href="../-text-tag/index.html">TextTag</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @tag is toggled off at exactly this point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2116067893%2FFunctions%2F1170399019" anchor-label="endsWord" id="-2116067893%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ends-word.html"><span>ends</span><wbr><span><span>Word</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2116067893%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ends-word.html"><span class="token function">endsWord</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether @iter ends a natural-language word.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="155598155%2FFunctions%2F1170399019" anchor-label="equal" id="155598155%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="155598155%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rhs<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether two iterators are equal, using the fastest possible mechanism.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2105539470%2FFunctions%2F1170399019" anchor-label="forwardChar" id="-2105539470%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-char.html"><span>forward</span><wbr><span><span>Char</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2105539470%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-char.html"><span class="token function">forwardChar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter forward by one character offset.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1654845791%2FFunctions%2F1170399019" anchor-label="forwardChars" id="-1654845791%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-chars.html"><span>forward</span><wbr><span><span>Chars</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1654845791%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-chars.html"><span class="token function">forwardChars</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @count characters if possible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1943834743%2FFunctions%2F1170399019" anchor-label="forwardCursorPosition" id="-1943834743%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-cursor-position.html"><span>forward</span><wbr><span>Cursor</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1943834743%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-cursor-position.html"><span class="token function">forwardCursorPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter forward by a single cursor position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="699918250%2FFunctions%2F1170399019" anchor-label="forwardCursorPositions" id="699918250%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-cursor-positions.html"><span>forward</span><wbr><span>Cursor</span><wbr><span><span>Positions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="699918250%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-cursor-positions.html"><span class="token function">forwardCursorPositions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves up to @count cursor positions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1891469161%2FFunctions%2F1170399019" anchor-label="forwardFindChar" id="-1891469161%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-find-char.html"><span>forward</span><wbr><span>Find</span><wbr><span><span>Char</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1891469161%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-find-char.html"><span class="token function">forwardFindChar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pred<span class="token operator">: </span><a href="../-text-char-predicate/index.html">TextCharPredicate</a><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Advances @iter, calling @pred on each character.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1204505196%2FFunctions%2F1170399019" anchor-label="forwardLine" id="-1204505196%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-line.html"><span>forward</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1204505196%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-line.html"><span class="token function">forwardLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter to the start of the next line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1789737791%2FFunctions%2F1170399019" anchor-label="forwardLines" id="1789737791%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-lines.html"><span>forward</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1789737791%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-lines.html"><span class="token function">forwardLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @count lines forward, if possible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="904097404%2FFunctions%2F1170399019" anchor-label="forwardSearch" id="904097404%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-search.html"><span>forward</span><wbr><span><span>Search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="904097404%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-search.html"><span class="token function">forwardSearch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">str<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-text-search-flags/index.html">TextSearchFlags</a><span class="token punctuation">, </span></span><span class="parameter ">matchStart<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">matchEnd<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Searches forward for @str.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1163468186%2FFunctions%2F1170399019" anchor-label="forwardSentenceEnd" id="1163468186%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-sentence-end.html"><span>forward</span><wbr><span>Sentence</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1163468186%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-sentence-end.html"><span class="token function">forwardSentenceEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves forward to the next sentence end.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1368881273%2FFunctions%2F1170399019" anchor-label="forwardSentenceEnds" id="1368881273%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-sentence-ends.html"><span>forward</span><wbr><span>Sentence</span><wbr><span><span>Ends</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1368881273%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-sentence-ends.html"><span class="token function">forwardSentenceEnds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls method@Gtk.TextIter.forward_sentence_end @count times.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-5937806%2FFunctions%2F1170399019" anchor-label="forwardToEnd" id="-5937806%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-to-end.html"><span>forward</span><wbr><span>To</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-5937806%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-to-end.html"><span class="token function">forwardToEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves @iter forward to the “end iterator”, which points one past the last valid character in the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-521282682%2FFunctions%2F1170399019" anchor-label="forwardToLineEnd" id="-521282682%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-to-line-end.html"><span>forward</span><wbr><span>To</span><wbr><span>Line</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-521282682%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-to-line-end.html"><span class="token function">forwardToLineEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves the iterator to point to the paragraph delimiter characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="912831000%2FFunctions%2F1170399019" anchor-label="forwardToTagToggle" id="912831000%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-to-tag-toggle.html"><span>forward</span><wbr><span>To</span><wbr><span>Tag</span><wbr><span><span>Toggle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="912831000%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-to-tag-toggle.html"><span class="token function">forwardToTagToggle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tag<span class="token operator">: </span><a href="../-text-tag/index.html">TextTag</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves forward to the next toggle (on or off) of the</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-276099775%2FFunctions%2F1170399019" anchor-label="forwardVisibleCursorPosition" id="-276099775%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-visible-cursor-position.html"><span>forward</span><wbr><span>Visible</span><wbr><span>Cursor</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-276099775%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-visible-cursor-position.html"><span class="token function">forwardVisibleCursorPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter forward to the next visible cursor position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1252969202%2FFunctions%2F1170399019" anchor-label="forwardVisibleCursorPositions" id="1252969202%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-visible-cursor-positions.html"><span>forward</span><wbr><span>Visible</span><wbr><span>Cursor</span><wbr><span><span>Positions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1252969202%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-visible-cursor-positions.html"><span class="token function">forwardVisibleCursorPositions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves up to @count visible cursor positions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="473667916%2FFunctions%2F1170399019" anchor-label="forwardVisibleLine" id="473667916%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-visible-line.html"><span>forward</span><wbr><span>Visible</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="473667916%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-visible-line.html"><span class="token function">forwardVisibleLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @iter to the start of the next visible line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1442977927%2FFunctions%2F1170399019" anchor-label="forwardVisibleLines" id="1442977927%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-visible-lines.html"><span>forward</span><wbr><span>Visible</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1442977927%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-visible-lines.html"><span class="token function">forwardVisibleLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves @count visible lines forward, if possible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1261400457%2FFunctions%2F1170399019" anchor-label="forwardVisibleWordEnd" id="1261400457%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-visible-word-end.html"><span>forward</span><wbr><span>Visible</span><wbr><span>Word</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1261400457%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-visible-word-end.html"><span class="token function">forwardVisibleWordEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves forward to the next visible word end.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="286107050%2FFunctions%2F1170399019" anchor-label="forwardVisibleWordEnds" id="286107050%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-visible-word-ends.html"><span>forward</span><wbr><span>Visible</span><wbr><span>Word</span><wbr><span><span>Ends</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="286107050%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-visible-word-ends.html"><span class="token function">forwardVisibleWordEnds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls method@Gtk.TextIter.forward_visible_word_end up to @count times.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="225546305%2FFunctions%2F1170399019" anchor-label="forwardWordEnd" id="225546305%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-word-end.html"><span>forward</span><wbr><span>Word</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="225546305%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-word-end.html"><span class="token function">forwardWordEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Moves forward to the next word end.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1212868594%2FFunctions%2F1170399019" anchor-label="forwardWordEnds" id="1212868594%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="forward-word-ends.html"><span>forward</span><wbr><span>Word</span><wbr><span><span>Ends</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1212868594%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="forward-word-ends.html"><span class="token function">forwardWordEnds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls method@Gtk.TextIter.forward_word_end up to @count times.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1653790913%2FFunctions%2F1170399019" anchor-label="free" id="1653790913%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1653790913%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Free an iterator allocated on the heap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="899649879%2FFunctions%2F1170399019" anchor-label="getBuffer" id="899649879%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-buffer.html"><span>get</span><wbr><span><span>Buffer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="899649879%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-buffer.html"><span class="token function">getBuffer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-text-buffer/index.html">TextBuffer</a></div><div class="brief "><p class="paragraph">Returns the <code class="lang-kotlin">GtkTextBuffer</code> this iterator is associated with.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2086525025%2FFunctions%2F1170399019" anchor-label="getBytesInLine" id="-2086525025%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-bytes-in-line.html"><span>get</span><wbr><span>Bytes</span><wbr><span>In</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2086525025%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-bytes-in-line.html"><span class="token function">getBytesInLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the number of bytes in the line containing @iter, including the paragraph delimiters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-526432895%2FFunctions%2F1170399019" anchor-label="getChar" id="-526432895%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-char.html"><span>get</span><wbr><span><span>Char</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-526432895%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-char.html"><span class="token function">getChar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The Unicode character at this iterator is returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-32136723%2FFunctions%2F1170399019" anchor-label="getCharsInLine" id="-32136723%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-chars-in-line.html"><span>get</span><wbr><span>Chars</span><wbr><span>In</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-32136723%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-chars-in-line.html"><span class="token function">getCharsInLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the number of characters in the line containing @iter, including the paragraph delimiters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1755456594%2FFunctions%2F1170399019" anchor-label="getChildAnchor" id="1755456594%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-child-anchor.html"><span>get</span><wbr><span>Child</span><wbr><span><span>Anchor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1755456594%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-child-anchor.html"><span class="token function">getChildAnchor</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-text-child-anchor/index.html">TextChildAnchor</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">If the location at @iter contains a child anchor, the anchor is returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1284624705%2FFunctions%2F1170399019" anchor-label="getLanguage" id="-1284624705%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-language.html"><span>get</span><wbr><span><span>Language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1284624705%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-language.html"><span class="token function">getLanguage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the language in effect at @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="374601379%2FFunctions%2F1170399019" anchor-label="getLine" id="374601379%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line.html"><span>get</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="374601379%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-line.html"><span class="token function">getLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the line number containing the iterator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="248235045%2FFunctions%2F1170399019" anchor-label="getLineIndex" id="248235045%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-index.html"><span>get</span><wbr><span>Line</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="248235045%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-line-index.html"><span class="token function">getLineIndex</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the byte index of the iterator, counting from the start of a newline-terminated line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-554008368%2FFunctions%2F1170399019" anchor-label="getLineOffset" id="-554008368%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-offset.html"><span>get</span><wbr><span>Line</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-554008368%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-line-offset.html"><span class="token function">getLineOffset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the character offset of the iterator, counting from the start of a newline-terminated line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-488763875%2FFunctions%2F1170399019" anchor-label="getMarks" id="-488763875%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-marks.html"><span>get</span><wbr><span><span>Marks</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-488763875%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-marks.html"><span class="token function">getMarks</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns a list of all <code class="lang-kotlin">GtkTextMark</code> at this location.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2040771684%2FFunctions%2F1170399019" anchor-label="getOffset" id="2040771684%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-offset.html"><span>get</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2040771684%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-offset.html"><span class="token function">getOffset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the character offset of an iterator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1204734997%2FFunctions%2F1170399019" anchor-label="getPaintable" id="-1204734997%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-paintable.html"><span>get</span><wbr><span><span>Paintable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1204734997%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-paintable.html"><span class="token function">getPaintable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">If the element at @iter is a paintable, the paintable is returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1587042285%2FFunctions%2F1170399019" anchor-label="getSlice" id="-1587042285%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-slice.html"><span>get</span><wbr><span><span>Slice</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1587042285%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-slice.html"><span class="token function">getSlice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">end<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the text in the given range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1660286494%2FFunctions%2F1170399019" anchor-label="getTags" id="1660286494%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tags.html"><span>get</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1660286494%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-tags.html"><span class="token function">getTags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns a list of tags that apply to @iter, in ascending order of priority.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1336323770%2FFunctions%2F1170399019" anchor-label="getText" id="1336323770%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-text.html"><span>get</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1336323770%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-text.html"><span class="token function">getText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">end<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns text in the given range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1928634431%2FFunctions%2F1170399019" anchor-label="getToggledTags" id="1928634431%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-toggled-tags.html"><span>get</span><wbr><span>Toggled</span><wbr><span><span>Tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1928634431%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-toggled-tags.html"><span class="token function">getToggledTags</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toggledOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns a list of <code class="lang-kotlin">GtkTextTag</code> that are toggled on or off at this point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1733327445%2FFunctions%2F1170399019" anchor-label="getVisibleLineIndex" id="-1733327445%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-visible-line-index.html"><span>get</span><wbr><span>Visible</span><wbr><span>Line</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1733327445%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-visible-line-index.html"><span class="token function">getVisibleLineIndex</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the number of bytes from the start of the line to the given @iter, not counting bytes that are invisible due to tags with the “invisible” flag toggled on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1852903414%2FFunctions%2F1170399019" anchor-label="getVisibleLineOffset" id="-1852903414%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-visible-line-offset.html"><span>get</span><wbr><span>Visible</span><wbr><span>Line</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1852903414%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-visible-line-offset.html"><span class="token function">getVisibleLineOffset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the offset in characters from the start of the line to the given @iter, not counting characters that are invisible due to tags with the “invisible” flag toggled on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1516428595%2FFunctions%2F1170399019" anchor-label="getVisibleSlice" id="-1516428595%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-visible-slice.html"><span>get</span><wbr><span>Visible</span><wbr><span><span>Slice</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1516428595%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-visible-slice.html"><span class="token function">getVisibleSlice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">end<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns visible text in the given range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1847987008%2FFunctions%2F1170399019" anchor-label="getVisibleText" id="-1847987008%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-visible-text.html"><span>get</span><wbr><span>Visible</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1847987008%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-visible-text.html"><span class="token function">getVisibleText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">end<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns visible text in the given range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1433884313%2FFunctions%2F1170399019" anchor-label="hasTag" id="1433884313%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-tag.html"><span>has</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1433884313%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="has-tag.html"><span class="token function">hasTag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tag<span class="token operator">: </span><a href="../-text-tag/index.html">TextTag</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter points to a character that is part of a range tagged with @tag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1646783060%2FFunctions%2F1170399019" anchor-label="inRange" id="1646783060%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="in-range.html"><span>in</span><wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1646783060%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="in-range.html"><span class="token function">inRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><a href="index.html">TextIter</a><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether @iter falls in the range [@start, @end).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="589963278%2FFunctions%2F1170399019" anchor-label="insideSentence" id="589963278%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inside-sentence.html"><span>inside</span><wbr><span><span>Sentence</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="589963278%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="inside-sentence.html"><span class="token function">insideSentence</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether @iter is inside a sentence (as opposed to in between two sentences, e.g. after a period and before the first letter of the next sentence).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1919077561%2FFunctions%2F1170399019" anchor-label="insideWord" id="-1919077561%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inside-word.html"><span>inside</span><wbr><span><span>Word</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1919077561%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="inside-word.html"><span class="token function">insideWord</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether the character pointed by @iter is part of a natural-language word (as opposed to say inside some whitespace).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1425288036%2FFunctions%2F1170399019" anchor-label="isCursorPosition" id="1425288036%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-cursor-position.html"><span>is</span><wbr><span>Cursor</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1425288036%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-cursor-position.html"><span class="token function">isCursorPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determine if @iter is at a cursor position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1182144924%2FFunctions%2F1170399019" anchor-label="isEnd" id="1182144924%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-end.html"><span>is</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1182144924%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-end.html"><span class="token function">isEnd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter is the end iterator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="606135669%2FFunctions%2F1170399019" anchor-label="isStart" id="606135669%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-start.html"><span>is</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="606135669%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-start.html"><span class="token function">isStart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter is the first iterator in the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1358710629%2FFunctions%2F1170399019" anchor-label="order" id="1358710629%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="order.html"><span><span>order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358710629%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="order.html"><span class="token function">order</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">second<span class="token operator">: </span><a href="index.html">TextIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Swaps the value of @first and @second if @second comes before</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="453173667%2FFunctions%2F1170399019" anchor-label="setLine" id="453173667%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line.html"><span>set</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="453173667%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line.html"><span class="token function">setLine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lineNumber<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves iterator @iter to the start of the line @line_number.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1671694531%2FFunctions%2F1170399019" anchor-label="setLineIndex" id="-1671694531%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line-index.html"><span>set</span><wbr><span>Line</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1671694531%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line-index.html"><span class="token function">setLineIndex</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">byteOnLine<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Same as method@Gtk.TextIter.set_line_offset, but works with a byte index. The given byte index must be at the start of a character, it can’t be in the middle of a UTF-8 encoded character.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2144404720%2FFunctions%2F1170399019" anchor-label="setLineOffset" id="-2144404720%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line-offset.html"><span>set</span><wbr><span>Line</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2144404720%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line-offset.html"><span class="token function">setLineOffset</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">charOnLine<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves @iter within a line, to a new character (not byte) offset.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1012087204%2FFunctions%2F1170399019" anchor-label="setOffset" id="1012087204%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-offset.html"><span>set</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1012087204%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-offset.html"><span class="token function">setOffset</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">charOffset<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets @iter to point to @char_offset.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1494178987%2FFunctions%2F1170399019" anchor-label="setVisibleLineIndex" id="1494178987%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-visible-line-index.html"><span>set</span><wbr><span>Visible</span><wbr><span>Line</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1494178987%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-visible-line-index.html"><span class="token function">setVisibleLineIndex</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">byteOnLine<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Like method@Gtk.TextIter.set_line_index, but the index is in visible bytes, i.e. text with a tag making it invisible is not counted in the index.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1508393826%2FFunctions%2F1170399019" anchor-label="setVisibleLineOffset" id="1508393826%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-visible-line-offset.html"><span>set</span><wbr><span>Visible</span><wbr><span>Line</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1508393826%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-visible-line-offset.html"><span class="token function">setVisibleLineOffset</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">charOnLine<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Like method@Gtk.TextIter.set_line_offset, but the offset is in visible characters, i.e. text with a tag making it invisible is not counted in the offset.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-90683032%2FFunctions%2F1170399019" anchor-label="startsLine" id="-90683032%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="starts-line.html"><span>starts</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-90683032%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="starts-line.html"><span class="token function">startsLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter begins a paragraph.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1093122471%2FFunctions%2F1170399019" anchor-label="startsSentence" id="-1093122471%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="starts-sentence.html"><span>starts</span><wbr><span><span>Sentence</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1093122471%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="starts-sentence.html"><span class="token function">startsSentence</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether @iter begins a sentence.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1356636877%2FFunctions%2F1170399019" anchor-label="startsTag" id="-1356636877%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="starts-tag.html"><span>starts</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1356636877%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="starts-tag.html"><span class="token function">startsTag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tag<span class="token operator">: </span><a href="../-text-tag/index.html">TextTag</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @tag is toggled on at exactly this point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1230518034%2FFunctions%2F1170399019" anchor-label="startsWord" id="1230518034%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="starts-word.html"><span>starts</span><wbr><span><span>Word</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1230518034%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="starts-word.html"><span class="token function">startsWord</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether @iter begins a natural-language word.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-392050875%2FFunctions%2F1170399019" anchor-label="togglesTag" id="-392050875%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toggles-tag.html"><span>toggles</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-392050875%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="toggles-tag.html"><span class="token function">togglesTag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tag<span class="token operator">: </span><a href="../-text-tag/index.html">TextTag</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether a range with @tag applied to it begins or ends at @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

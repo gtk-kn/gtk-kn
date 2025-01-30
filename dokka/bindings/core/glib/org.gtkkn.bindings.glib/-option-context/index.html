@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>OptionContext</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/OptionContext///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">OptionContext</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Option</span><wbr><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">OptionContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>glibOptionContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/index.html">ProxyInstance</a></div><p class="paragraph">A <code class="lang-kotlin">GOptionContext</code> struct defines which options are accepted by the commandline option parser. The struct has only private fields and should not be directly accessed.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">entries</code>: Array parameter of type OptionEntry is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">parse</code>: In/Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">parse_strv</code>: In/Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="88642516%2FConstructors%2F-2021666004" anchor-label="OptionContext" id="88642516%2FConstructors%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-option-context.html"><span>Option</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="88642516%2FConstructors%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">glibOptionContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-375165183%2FClasslikes%2F-2021666004" anchor-label="Companion" id="-375165183%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-375165183%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-6595585%2FProperties%2F-2021666004" anchor-label="glibOptionContextPointer" id="-6595585%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="glib-option-context-pointer.html"><span>glib</span><wbr><span>Option</span><wbr><span>Context</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-6595585%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="glib-option-context-pointer.html">glibOptionContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2133180191%2FProperties%2F-2021666004" anchor-label="handle" id="-2133180191%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/handle.html"><span><span>handle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2133180191%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/handle.html">handle</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1646549955%2FFunctions%2F-2021666004" anchor-label="addGroup" id="-1646549955%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-group.html"><span>add</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1646549955%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-group.html"><span class="token function">addGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">group<span class="token operator">: </span><a href="../-option-group/index.html">OptionGroup</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a #GOptionGroup to the @context, so that parsing with @context will recognize the options in the group. Note that this will take ownership of the @group and thus the @group should not be freed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2059056792%2FFunctions%2F-2021666004" anchor-label="equals" id="2059056792%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/equals.html"><span><span>equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2059056792%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/equals.html"><span class="token function">equals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Compare two proxy instances for equality. This will compare both the type of the instances, and their memory addresses.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="59595444%2FFunctions%2F-2021666004" anchor-label="free" id="59595444%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="59595444%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Frees context and all the groups which have been added to it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1028120614%2FFunctions%2F-2021666004" anchor-label="getDescription" id="-1028120614%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-description.html"><span>get</span><wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1028120614%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-description.html"><span class="token function">getDescription</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the description. See g_option_context_set_description().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="825893531%2FFunctions%2F-2021666004" anchor-label="getHelp" id="825893531%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-help.html"><span>get</span><wbr><span><span>Help</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="825893531%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-help.html"><span class="token function">getHelp</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mainHelp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">group<span class="token operator">: </span><a href="../-option-group/index.html">OptionGroup</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns a formatted, translated help text for the given context. To obtain the text produced by <code class="lang-kotlin">--help</code>, call <code class="lang-kotlin">g_option_context_get_help (context, TRUE, NULL)</code>. To obtain the text produced by <code class="lang-kotlin">--help-all</code>, call <code class="lang-kotlin">g_option_context_get_help (context, FALSE, NULL)</code>. To obtain the help text for an option group, call <code class="lang-kotlin">g_option_context_get_help (context, FALSE, group)</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1424682902%2FFunctions%2F-2021666004" anchor-label="getHelpEnabled" id="1424682902%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-help-enabled.html"><span>get</span><wbr><span>Help</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1424682902%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-help-enabled.html"><span class="token function">getHelpEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether automatic <code class="lang-kotlin">--help</code> generation is turned on for @context. See g_option_context_set_help_enabled().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1321429858%2FFunctions%2F-2021666004" anchor-label="getIgnoreUnknownOptions" id="-1321429858%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-ignore-unknown-options.html"><span>get</span><wbr><span>Ignore</span><wbr><span>Unknown</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1321429858%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-ignore-unknown-options.html"><span class="token function">getIgnoreUnknownOptions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether unknown options are ignored or not. See g_option_context_set_ignore_unknown_options().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="863129872%2FFunctions%2F-2021666004" anchor-label="getMainGroup" id="863129872%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-main-group.html"><span>get</span><wbr><span>Main</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="863129872%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-main-group.html"><span class="token function">getMainGroup</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-option-group/index.html">OptionGroup</a></div><div class="brief "><p class="paragraph">Returns a pointer to the main group of @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2027381852%2FFunctions%2F-2021666004" anchor-label="getStrictPosix" id="2027381852%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-strict-posix.html"><span>get</span><wbr><span>Strict</span><wbr><span><span>Posix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2027381852%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-strict-posix.html"><span class="token function">getStrictPosix</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether strict POSIX code is enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="209568752%2FFunctions%2F-2021666004" anchor-label="getSummary" id="209568752%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-summary.html"><span>get</span><wbr><span><span>Summary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="209568752%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-summary.html"><span class="token function">getSummary</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the summary. See g_option_context_set_summary().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="514664270%2FFunctions%2F-2021666004" anchor-label="hashCode" id="514664270%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/hash-code.html"><span>hash</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="514664270%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../org.gtkkn.extensions.glib.cinterop/-proxy-instance/hash-code.html"><span class="token function">hashCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-534916411%2FFunctions%2F-2021666004" anchor-label="setDescription" id="-534916411%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-description.html"><span>set</span><wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-534916411%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-description.html"><span class="token function">setDescription</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a string to be displayed in <code class="lang-kotlin">--help</code> output after the list of options. This text often includes a bug reporting address.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="886647399%2FFunctions%2F-2021666004" anchor-label="setHelpEnabled" id="886647399%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-help-enabled.html"><span>set</span><wbr><span>Help</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="886647399%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-help-enabled.html"><span class="token function">setHelpEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">helpEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enables or disables automatic generation of <code class="lang-kotlin">--help</code> output. By default, g_option_context_parse() recognizes <code class="lang-kotlin">--help</code>, <code class="lang-kotlin">-h</code>, <code class="lang-kotlin">-?</code>, <code class="lang-kotlin">--help-all</code> and <code class="lang-kotlin">--help-groupname</code> and creates suitable output to stdout.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1108456745%2FFunctions%2F-2021666004" anchor-label="setIgnoreUnknownOptions" id="-1108456745%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-ignore-unknown-options.html"><span>set</span><wbr><span>Ignore</span><wbr><span>Unknown</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1108456745%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-ignore-unknown-options.html"><span class="token function">setIgnoreUnknownOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ignoreUnknown<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether to ignore unknown options or not. If an argument is ignored, it is left in the @argv array after parsing. By default, g_option_context_parse() treats unknown options as error.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="439985251%2FFunctions%2F-2021666004" anchor-label="setMainGroup" id="439985251%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-main-group.html"><span>set</span><wbr><span>Main</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="439985251%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-main-group.html"><span class="token function">setMainGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">group<span class="token operator">: </span><a href="../-option-group/index.html">OptionGroup</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a #GOptionGroup as main group of the @context. This has the same effect as calling g_option_context_add_group(), the only difference is that the options in the main group are treated differently when generating <code class="lang-kotlin">--help</code> output.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-140587859%2FFunctions%2F-2021666004" anchor-label="setStrictPosix" id="-140587859%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-strict-posix.html"><span>set</span><wbr><span>Strict</span><wbr><span><span>Posix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-140587859%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-strict-posix.html"><span class="token function">setStrictPosix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">strictPosix<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets strict POSIX mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-775782821%2FFunctions%2F-2021666004" anchor-label="setSummary" id="-775782821%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-summary.html"><span>set</span><wbr><span><span>Summary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-775782821%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-summary.html"><span class="token function">setSummary</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">summary<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a string to be displayed in <code class="lang-kotlin">--help</code> output before the list of options. This is typically a summary of the program functionality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="289715647%2FFunctions%2F-2021666004" anchor-label="setTranslateFunc" id="289715647%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-translate-func.html"><span>set</span><wbr><span>Translate</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="289715647%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-translate-func.html"><span class="token function">setTranslateFunc</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">func<span class="token operator">: </span><a href="../-translate-func/index.html">TranslateFunc</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the function which is used to translate the contexts user-visible strings, for <code class="lang-kotlin">--help</code> output. If @func is null, strings are not translated.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1528918967%2FFunctions%2F-2021666004" anchor-label="setTranslationDomain" id="1528918967%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-translation-domain.html"><span>set</span><wbr><span>Translation</span><wbr><span><span>Domain</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1528918967%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-translation-domain.html"><span class="token function">setTranslationDomain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">domain<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A convenience function to use gettext() for translating user-visible strings.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

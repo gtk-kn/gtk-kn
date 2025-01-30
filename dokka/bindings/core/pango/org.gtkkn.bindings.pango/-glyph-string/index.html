@@ -1,0 +1,300 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GlyphString</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:pango/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:pango/nativeMain" data-filter=":bindings:core:pango/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="pango::org.gtkkn.bindings.pango/GlyphString///PointingToDeclaration//1803427171">
+  <div class="breadcrumbs"><a href="../../index.html">pango</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.pango</a><span class="delimiter">/</span><span class="current">GlyphString</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Glyph</span><wbr><span><span>String</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">GlyphString</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>pangoGlyphStringPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">PangoGlyphString</code> is used to store strings of glyphs with geometry and visual attribute information.</p><p class="paragraph">The storage for the glyph information is owned by the structure which simplifies memory management.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">logical_widths</code>: Array parameter of type gint is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x_pos</code>: x_pos: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x_pos</code>: x_pos: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">index</code>: index: Out parameter is not supported</p></li><li><p class="paragraph">field <code class="lang-kotlin">glyphs</code>: Array parameter of type GlyphInfo is not supported</p></li><li><p class="paragraph">field <code class="lang-kotlin">log_clusters</code>: Unsupported pointer to primitive type</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-573003121%2FConstructors%2F1803427171" anchor-label="GlyphString" id="-573003121%2FConstructors%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-glyph-string.html"><span>Glyph</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-573003121%2FConstructors%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pangoGlyphStringPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1987471433%2FClasslikes%2F1803427171" anchor-label="Companion" id="1987471433%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1987471433%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-957264971%2FProperties%2F1803427171" anchor-label="numGlyphs" id="-957264971%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="num-glyphs.html"><span>num</span><wbr><span><span>Glyphs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-957264971%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="num-glyphs.html">numGlyphs</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">number of glyphs in this glyph string</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-877069411%2FProperties%2F1803427171" anchor-label="pangoGlyphStringPointer" id="-877069411%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pango-glyph-string-pointer.html"><span>pango</span><wbr><span>Glyph</span><wbr><span>String</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-877069411%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="pango-glyph-string-pointer.html">pangoGlyphStringPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-937875581%2FFunctions%2F1803427171" anchor-label="copy" id="-937875581%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-937875581%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">GlyphString</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Copy a glyph string and associated storage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="326121098%2FFunctions%2F1803427171" anchor-label="extents" id="326121098%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="extents.html"><span><span>extents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="326121098%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="extents.html"><span class="token function">extents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">font<span class="token operator">: </span><a href="../-font/index.html">Font</a><span class="token punctuation">, </span></span><span class="parameter ">inkRect<span class="token operator">: </span><a href="../-rectangle/index.html">Rectangle</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">logicalRect<span class="token operator">: </span><a href="../-rectangle/index.html">Rectangle</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Compute the logical and ink extents of a glyph string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-112799489%2FFunctions%2F1803427171" anchor-label="extentsRange" id="-112799489%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="extents-range.html"><span>extents</span><wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-112799489%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="extents-range.html"><span class="token function">extentsRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">font<span class="token operator">: </span><a href="../-font/index.html">Font</a><span class="token punctuation">, </span></span><span class="parameter ">inkRect<span class="token operator">: </span><a href="../-rectangle/index.html">Rectangle</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">logicalRect<span class="token operator">: </span><a href="../-rectangle/index.html">Rectangle</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Computes the extents of a sub-portion of a glyph string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2063971436%2FFunctions%2F1803427171" anchor-label="free" id="2063971436%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2063971436%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Free a glyph string and associated storage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1624796728%2FFunctions%2F1803427171" anchor-label="getWidth" id="-1624796728%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-width.html"><span>get</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1624796728%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-width.html"><span class="token function">getWidth</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Computes the logical width of the glyph string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-685710165%2FFunctions%2F1803427171" anchor-label="setSize" id="-685710165%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-size.html"><span>set</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-685710165%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-size.html"><span class="token function">setSize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newLen<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resize a glyph string to the given length.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2068794644%2FFunctions%2F1803427171" anchor-label="toString" id="-2068794644%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068794644%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

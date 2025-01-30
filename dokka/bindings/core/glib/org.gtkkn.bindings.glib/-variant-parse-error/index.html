@@ -1,0 +1,510 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>VariantParseError</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/VariantParseError///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">VariantParseError</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Variant</span><wbr><span>Parse</span><wbr><span><span>Error</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">VariantParseError</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">VariantParseError</a><span class="token operator">&gt; </span></div><p class="paragraph">Error codes returned by parsing text-format GVariants.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="1562019917%2FClasslikes%2F-2021666004" anchor-label="FAILED" id="1562019917%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-a-i-l-e-d/index.html">FAILED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1562019917%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-a-i-l-e-d/index.html">FAILED</a></div></div><div class="brief "><p class="paragraph">generic error (unused)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="74585732%2FClasslikes%2F-2021666004" anchor-label="BASIC_TYPE_EXPECTED" id="74585732%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-s-i-c_-t-y-p-e_-e-x-p-e-c-t-e-d/index.html">BASIC_TYPE_EXPECTED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="74585732%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-a-s-i-c_-t-y-p-e_-e-x-p-e-c-t-e-d/index.html">BASIC_TYPE_EXPECTED</a></div></div><div class="brief "><p class="paragraph">a non-basic #GVariantType was given where a basic type was expected</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1643300863%2FClasslikes%2F-2021666004" anchor-label="CANNOT_INFER_TYPE" id="1643300863%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-a-n-n-o-t_-i-n-f-e-r_-t-y-p-e/index.html">CANNOT_INFER_TYPE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1643300863%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-a-n-n-o-t_-i-n-f-e-r_-t-y-p-e/index.html">CANNOT_INFER_TYPE</a></div></div><div class="brief "><p class="paragraph">cannot infer the #GVariantType</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1269044002%2FClasslikes%2F-2021666004" anchor-label="DEFINITE_TYPE_EXPECTED" id="-1269044002%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-i-n-i-t-e_-t-y-p-e_-e-x-p-e-c-t-e-d/index.html">DEFINITE_TYPE_EXPECTED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1269044002%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-e-f-i-n-i-t-e_-t-y-p-e_-e-x-p-e-c-t-e-d/index.html">DEFINITE_TYPE_EXPECTED</a></div></div><div class="brief "><p class="paragraph">an indefinite #GVariantType was given where a definite type was expected</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-665391296%2FClasslikes%2F-2021666004" anchor-label="INPUT_NOT_AT_END" id="-665391296%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-p-u-t_-n-o-t_-a-t_-e-n-d/index.html">INPUT_NOT_AT_END</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-665391296%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-p-u-t_-n-o-t_-a-t_-e-n-d/index.html">INPUT_NOT_AT_END</a></div></div><div class="brief "><p class="paragraph">extra data after parsing finished</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="770737081%2FClasslikes%2F-2021666004" anchor-label="INVALID_CHARACTER" id="770737081%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-a-l-i-d_-c-h-a-r-a-c-t-e-r/index.html">INVALID_CHARACTER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="770737081%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-v-a-l-i-d_-c-h-a-r-a-c-t-e-r/index.html">INVALID_CHARACTER</a></div></div><div class="brief "><p class="paragraph">invalid character in number or unicode escape</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-600993783%2FClasslikes%2F-2021666004" anchor-label="INVALID_FORMAT_STRING" id="-600993783%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-a-l-i-d_-f-o-r-m-a-t_-s-t-r-i-n-g/index.html">INVALID_FORMAT_STRING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-600993783%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-v-a-l-i-d_-f-o-r-m-a-t_-s-t-r-i-n-g/index.html">INVALID_FORMAT_STRING</a></div></div><div class="brief "><p class="paragraph">not a valid #GVariant format string</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1153545685%2FClasslikes%2F-2021666004" anchor-label="INVALID_OBJECT_PATH" id="1153545685%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-a-l-i-d_-o-b-j-e-c-t_-p-a-t-h/index.html">INVALID_OBJECT_PATH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1153545685%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-v-a-l-i-d_-o-b-j-e-c-t_-p-a-t-h/index.html">INVALID_OBJECT_PATH</a></div></div><div class="brief "><p class="paragraph">not a valid object path</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="922126600%2FClasslikes%2F-2021666004" anchor-label="INVALID_SIGNATURE" id="922126600%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-a-l-i-d_-s-i-g-n-a-t-u-r-e/index.html">INVALID_SIGNATURE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922126600%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-v-a-l-i-d_-s-i-g-n-a-t-u-r-e/index.html">INVALID_SIGNATURE</a></div></div><div class="brief "><p class="paragraph">not a valid type signature</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-54182490%2FClasslikes%2F-2021666004" anchor-label="INVALID_TYPE_STRING" id="-54182490%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-a-l-i-d_-t-y-p-e_-s-t-r-i-n-g/index.html">INVALID_TYPE_STRING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-54182490%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-v-a-l-i-d_-t-y-p-e_-s-t-r-i-n-g/index.html">INVALID_TYPE_STRING</a></div></div><div class="brief "><p class="paragraph">not a valid #GVariant type string</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1024751712%2FClasslikes%2F-2021666004" anchor-label="NO_COMMON_TYPE" id="1024751712%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o_-c-o-m-m-o-n_-t-y-p-e/index.html">NO_COMMON_TYPE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1024751712%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-o_-c-o-m-m-o-n_-t-y-p-e/index.html">NO_COMMON_TYPE</a></div></div><div class="brief "><p class="paragraph">could not find a common type for array entries</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1118723764%2FClasslikes%2F-2021666004" anchor-label="NUMBER_OUT_OF_RANGE" id="1118723764%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-u-m-b-e-r_-o-u-t_-o-f_-r-a-n-g-e/index.html">NUMBER_OUT_OF_RANGE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1118723764%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-u-m-b-e-r_-o-u-t_-o-f_-r-a-n-g-e/index.html">NUMBER_OUT_OF_RANGE</a></div></div><div class="brief "><p class="paragraph">the numerical value is out of range of the given type</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1865637103%2FClasslikes%2F-2021666004" anchor-label="NUMBER_TOO_BIG" id="1865637103%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-u-m-b-e-r_-t-o-o_-b-i-g/index.html">NUMBER_TOO_BIG</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1865637103%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-u-m-b-e-r_-t-o-o_-b-i-g/index.html">NUMBER_TOO_BIG</a></div></div><div class="brief "><p class="paragraph">the numerical value is out of range for any type</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="782857267%2FClasslikes%2F-2021666004" anchor-label="TYPE_ERROR" id="782857267%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-y-p-e_-e-r-r-o-r/index.html">TYPE_ERROR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="782857267%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-y-p-e_-e-r-r-o-r/index.html">TYPE_ERROR</a></div></div><div class="brief "><p class="paragraph">cannot parse as variant of the specified type</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-512985861%2FClasslikes%2F-2021666004" anchor-label="UNEXPECTED_TOKEN" id="-512985861%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-e-x-p-e-c-t-e-d_-t-o-k-e-n/index.html">UNEXPECTED_TOKEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-512985861%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-e-x-p-e-c-t-e-d_-t-o-k-e-n/index.html">UNEXPECTED_TOKEN</a></div></div><div class="brief "><p class="paragraph">an unexpected token was encountered</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-224503412%2FClasslikes%2F-2021666004" anchor-label="UNKNOWN_KEYWORD" id="-224503412%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-k-n-o-w-n_-k-e-y-w-o-r-d/index.html">UNKNOWN_KEYWORD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-224503412%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-k-n-o-w-n_-k-e-y-w-o-r-d/index.html">UNKNOWN_KEYWORD</a></div></div><div class="brief "><p class="paragraph">an unknown keyword was encountered</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="759141087%2FClasslikes%2F-2021666004" anchor-label="UNTERMINATED_STRING_CONSTANT" id="759141087%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-t-e-r-m-i-n-a-t-e-d_-s-t-r-i-n-g_-c-o-n-s-t-a-n-t/index.html">UNTERMINATED_STRING_CONSTANT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="759141087%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-t-e-r-m-i-n-a-t-e-d_-s-t-r-i-n-g_-c-o-n-s-t-a-n-t/index.html">UNTERMINATED_STRING_CONSTANT</a></div></div><div class="brief "><p class="paragraph">unterminated string constant</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-133594058%2FClasslikes%2F-2021666004" anchor-label="VALUE_EXPECTED" id="-133594058%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-v-a-l-u-e_-e-x-p-e-c-t-e-d/index.html">VALUE_EXPECTED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-133594058%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-v-a-l-u-e_-e-x-p-e-c-t-e-d/index.html">VALUE_EXPECTED</a></div></div><div class="brief "><p class="paragraph">no value given</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="639433882%2FClasslikes%2F-2021666004" anchor-label="RECURSION" id="639433882%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-c-u-r-s-i-o-n/index.html">RECURSION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="639433882%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-e-c-u-r-s-i-o-n/index.html">RECURSION</a></div></div><div class="brief "><p class="paragraph">variant was too deeply nested; #GVariant is only guaranteed to handle nesting up to 64 levels (Since: 2.64)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1047017215%2FClasslikes%2F-2021666004" anchor-label="Companion" id="-1047017215%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1047017215%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-2021666004" anchor-label="name" id="-372974862%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-372974862%2FProperties%2F-2021666004"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-372974862%2FProperties%2F-2021666004">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="488048160%2FProperties%2F-2021666004" anchor-label="nativeValue" id="488048160%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="488048160%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-2021666004" anchor-label="ordinal" id="-739389684%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-739389684%2FProperties%2F-2021666004"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-739389684%2FProperties%2F-2021666004">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="354994546%2FFunctions%2F-2021666004" anchor-label="valueOf" id="354994546%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="354994546%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">VariantParseError</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1910908414%2FFunctions%2F-2021666004" anchor-label="values" id="1910908414%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1910908414%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">VariantParseError</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

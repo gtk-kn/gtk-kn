@@ -1,0 +1,318 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Companion</title>
+<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/SpawnFlags.Companion///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../../index.html">glib</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><a href="../index.html">SpawnFlags</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Companion</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1265571532%2FProperties%2F-2021666004" anchor-label="CHILD_INHERITS_STDERR" id="-1265571532%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-i-l-d_-i-n-h-e-r-i-t-s_-s-t-d-e-r-r.html"><span>CHILD_</span><wbr><span>INHERITS_</span><wbr><span>STDERR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1265571532%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-h-i-l-d_-i-n-h-e-r-i-t-s_-s-t-d-e-r-r.html">CHILD_INHERITS_STDERR</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">The child will inherit the parent's standard error.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1323655268%2FProperties%2F-2021666004" anchor-label="CHILD_INHERITS_STDIN" id="-1323655268%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-i-l-d_-i-n-h-e-r-i-t-s_-s-t-d-i-n.html"><span>CHILD_</span><wbr><span>INHERITS_</span><wbr><span>STDIN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1323655268%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-h-i-l-d_-i-n-h-e-r-i-t-s_-s-t-d-i-n.html">CHILD_INHERITS_STDIN</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">the child will inherit the parent's standard     input (by default, the child's standard input is attached to <code class="lang-kotlin">/dev/null</code>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-866055317%2FProperties%2F-2021666004" anchor-label="CHILD_INHERITS_STDOUT" id="-866055317%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-i-l-d_-i-n-h-e-r-i-t-s_-s-t-d-o-u-t.html"><span>CHILD_</span><wbr><span>INHERITS_</span><wbr><span>STDOUT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-866055317%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-h-i-l-d_-i-n-h-e-r-i-t-s_-s-t-d-o-u-t.html">CHILD_INHERITS_STDOUT</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">The child will inherit the parent's standard output.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="224747453%2FProperties%2F-2021666004" anchor-label="CLOEXEC_PIPES" id="224747453%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-o-e-x-e-c_-p-i-p-e-s.html"><span>CLOEXEC_</span><wbr><span>PIPES</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="224747453%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-l-o-e-x-e-c_-p-i-p-e-s.html">CLOEXEC_PIPES</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">create all pipes with the <code class="lang-kotlin">O_CLOEXEC</code> flag set.     Since: 2.40</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-217348967%2FProperties%2F-2021666004" anchor-label="DEFAULT" id="-217348967%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t.html"><span><span>DEFAULT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-217348967%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-f-a-u-l-t.html">DEFAULT</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">no flags, default behaviour</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1832394533%2FProperties%2F-2021666004" anchor-label="DO_NOT_REAP_CHILD" id="-1832394533%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-o_-n-o-t_-r-e-a-p_-c-h-i-l-d.html"><span>DO_</span><wbr><span>NOT_</span><wbr><span>REAP_</span><wbr><span>CHILD</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1832394533%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-o_-n-o-t_-r-e-a-p_-c-h-i-l-d.html">DO_NOT_REAP_CHILD</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">the child will not be automatically reaped;     you must use g_child_watch_add() yourself (or call waitpid() or handle     <code class="lang-kotlin">SIGCHLD</code> yourself), or the child will become a zombie.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1032026788%2FProperties%2F-2021666004" anchor-label="FILE_AND_ARGV_ZERO" id="1032026788%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-i-l-e_-a-n-d_-a-r-g-v_-z-e-r-o.html"><span>FILE_</span><wbr><span>AND_</span><wbr><span>ARGV_</span><wbr><span>ZERO</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1032026788%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-f-i-l-e_-a-n-d_-a-r-g-v_-z-e-r-o.html">FILE_AND_ARGV_ZERO</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">the first element of <code class="lang-kotlin">argv</code> is the file to     execute, while the remaining elements are the actual argument vector     to pass to the file. Normally g_spawn_async_with_pipes() uses <code class="lang-kotlin">argv[0]</code>     as the file to execute, and passes all of <code class="lang-kotlin">argv</code> to the child.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1244742829%2FProperties%2F-2021666004" anchor-label="LEAVE_DESCRIPTORS_OPEN" id="-1244742829%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-e-a-v-e_-d-e-s-c-r-i-p-t-o-r-s_-o-p-e-n.html"><span>LEAVE_</span><wbr><span>DESCRIPTORS_</span><wbr><span>OPEN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1244742829%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-l-e-a-v-e_-d-e-s-c-r-i-p-t-o-r-s_-o-p-e-n.html">LEAVE_DESCRIPTORS_OPEN</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">the parent's open file descriptors will     be inherited by the child; otherwise all descriptors except stdin,     stdout and stderr will be closed before calling exec() in the child.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-37252034%2FProperties%2F-2021666004" anchor-label="SEARCH_PATH" id="-37252034%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-a-r-c-h_-p-a-t-h.html"><span>SEARCH_</span><wbr><span>PATH</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-37252034%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-e-a-r-c-h_-p-a-t-h.html">SEARCH_PATH</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">argv[0]</code> need not be an absolute path, it will be     looked for in the user's <code class="lang-kotlin">PATH</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1502823931%2FProperties%2F-2021666004" anchor-label="SEARCH_PATH_FROM_ENVP" id="-1502823931%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-a-r-c-h_-p-a-t-h_-f-r-o-m_-e-n-v-p.html"><span>SEARCH_</span><wbr><span>PATH_</span><wbr><span>FROM_</span><wbr><span>ENVP</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1502823931%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-e-a-r-c-h_-p-a-t-h_-f-r-o-m_-e-n-v-p.html">SEARCH_PATH_FROM_ENVP</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">if <code class="lang-kotlin">argv[0]</code> is not an absolute path,     it will be looked for in the <code class="lang-kotlin">PATH</code> from the passed child environment.     Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="731254344%2FProperties%2F-2021666004" anchor-label="STDERR_TO_DEV_NULL" id="731254344%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-d-e-r-r_-t-o_-d-e-v_-n-u-l-l.html"><span>STDERR_</span><wbr><span>TO_</span><wbr><span>DEV_</span><wbr><span>NULL</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="731254344%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-t-d-e-r-r_-t-o_-d-e-v_-n-u-l-l.html">STDERR_TO_DEV_NULL</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">the child's standard error will be discarded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="312628235%2FProperties%2F-2021666004" anchor-label="STDIN_FROM_DEV_NULL" id="312628235%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-d-i-n_-f-r-o-m_-d-e-v_-n-u-l-l.html"><span>STDIN_</span><wbr><span>FROM_</span><wbr><span>DEV_</span><wbr><span>NULL</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="312628235%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-t-d-i-n_-f-r-o-m_-d-e-v_-n-u-l-l.html">STDIN_FROM_DEV_NULL</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">The child's standard input is attached to <code class="lang-kotlin">/dev/null</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1335257601%2FProperties%2F-2021666004" anchor-label="STDOUT_TO_DEV_NULL" id="-1335257601%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-d-o-u-t_-t-o_-d-e-v_-n-u-l-l.html"><span>STDOUT_</span><wbr><span>TO_</span><wbr><span>DEV_</span><wbr><span>NULL</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1335257601%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-s-t-d-o-u-t_-t-o_-d-e-v_-n-u-l-l.html">STDOUT_TO_DEV_NULL</a><span class="token operator">: </span><a href="../index.html">SpawnFlags</a></div><div class="brief "><p class="paragraph">the child's standard output will be discarded,     instead of going to the same location as the parent's standard output.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

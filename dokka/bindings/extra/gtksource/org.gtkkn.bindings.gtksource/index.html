@@ -1,0 +1,1191 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>org.gtkkn.bindings.gtksource</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:gtksource/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:gtksource/nativeMain" data-filter=":bindings:extra:gtksource/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="gtksource::org.gtkkn.bindings.gtksource////PointingToDeclaration//-1723413374">
+  <div class="breadcrumbs"><a href="../index.html">gtksource</a><span class="delimiter">/</span><span class="current">org.gtkkn.bindings.gtksource</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-856452684%2FClasslikes%2F-1723413374" anchor-label="BackgroundPatternType" id="-856452684%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-background-pattern-type/index.html"><span>Background</span><wbr><span>Pattern</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-856452684%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-background-pattern-type/index.html">BackgroundPatternType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-background-pattern-type/index.html">BackgroundPatternType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1706268411%2FClasslikes%2F-1723413374" anchor-label="BracketMatchType" id="1706268411%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-bracket-match-type/index.html"><span>Bracket</span><wbr><span>Match</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1706268411%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-bracket-match-type/index.html">BracketMatchType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-bracket-match-type/index.html">BracketMatchType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="258697970%2FClasslikes%2F-1723413374" anchor-label="Buffer" id="258697970%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-buffer/index.html"><span><span>Buffer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="258697970%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-buffer/index.html">Buffer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceBufferPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Subclass of class@Gtk.TextBuffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1257107736%2FClasslikes%2F-1723413374" anchor-label="ChangeCaseType" id="1257107736%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-change-case-type/index.html"><span>Change</span><wbr><span>Case</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1257107736%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-change-case-type/index.html">ChangeCaseType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-change-case-type/index.html">ChangeCaseType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-212583850%2FClasslikes%2F-1723413374" anchor-label="Completion" id="-212583850%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion/index.html"><span><span>Completion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-212583850%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-completion/index.html">Completion</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceCompletionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Main Completion Object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-496837728%2FClasslikes%2F-1723413374" anchor-label="CompletionActivation" id="-496837728%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-activation/index.html"><span>Completion</span><wbr><span><span>Activation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-496837728%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-completion-activation/index.html">CompletionActivation</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-completion-activation/index.html">CompletionActivation</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1846442132%2FClasslikes%2F-1723413374" anchor-label="CompletionCell" id="1846442132%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-cell/index.html"><span>Completion</span><wbr><span><span>Cell</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1846442132%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-completion-cell/index.html">CompletionCell</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceCompletionCellPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Widget for single cell of completion proposal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1500693536%2FClasslikes%2F-1723413374" anchor-label="CompletionColumn" id="-1500693536%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-column/index.html"><span>Completion</span><wbr><span><span>Column</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1500693536%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-completion-column/index.html">CompletionColumn</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-completion-column/index.html">CompletionColumn</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1228296259%2FClasslikes%2F-1723413374" anchor-label="CompletionContext" id="-1228296259%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-context/index.html"><span>Completion</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1228296259%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-completion-context/index.html">CompletionContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceCompletionContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The context of a completion.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-949604732%2FClasslikes%2F-1723413374" anchor-label="CompletionProposal" id="-949604732%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-proposal/index.html"><span>Completion</span><wbr><span><span>Proposal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-949604732%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-completion-proposal/index.html">CompletionProposal</a></div><div class="brief "><p class="paragraph">Interface for completion proposals.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1481662363%2FClasslikes%2F-1723413374" anchor-label="CompletionProvider" id="-1481662363%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-provider/index.html"><span>Completion</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1481662363%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-completion-provider/index.html">CompletionProvider</a></div><div class="brief "><p class="paragraph">Completion provider interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-292637952%2FClasslikes%2F-1723413374" anchor-label="CompletionSnippets" id="-292637952%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-snippets/index.html"><span>Completion</span><wbr><span><span>Snippets</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-292637952%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-completion-snippets/index.html">CompletionSnippets</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceCompletionSnippetsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-completion-provider/index.html">CompletionProvider</a></div><div class="brief "><p class="paragraph">A iface@CompletionProvider for the completion of snippets.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739978557%2FClasslikes%2F-1723413374" anchor-label="CompletionWords" id="-739978557%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-completion-words/index.html"><span>Completion</span><wbr><span><span>Words</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739978557%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-completion-words/index.html">CompletionWords</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceCompletionWordsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-completion-provider/index.html">CompletionProvider</a></div><div class="brief "><p class="paragraph">A iface@CompletionProvider for the completion of words.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-30620528%2FClasslikes%2F-1723413374" anchor-label="CompressionType" id="-30620528%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compression-type/index.html"><span>Compression</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-30620528%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-compression-type/index.html">CompressionType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-compression-type/index.html">CompressionType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-106766081%2FClasslikes%2F-1723413374" anchor-label="Encoding" id="-106766081%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-encoding/index.html"><span><span>Encoding</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106766081%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-encoding/index.html">Encoding</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceEncodingPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Character encoding.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1077670262%2FClasslikes%2F-1723413374" anchor-label="File" id="1077670262%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file/index.html"><span><span>File</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1077670262%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-file/index.html">File</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceFilePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">On-disk representation of a class@Buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-804086557%2FClasslikes%2F-1723413374" anchor-label="FileLoader" id="-804086557%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-loader/index.html"><span>File</span><wbr><span><span>Loader</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-804086557%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-file-loader/index.html">FileLoader</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceFileLoaderPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Load a file into a GtkSourceBuffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1306329559%2FClasslikes%2F-1723413374" anchor-label="FileLoaderError" id="1306329559%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-loader-error/index.html"><span>File</span><wbr><span>Loader</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1306329559%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-file-loader-error/index.html">FileLoaderError</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-file-loader-error/index.html">FileLoaderError</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">An error code used with the %GTK_SOURCE_FILE_LOADER_ERROR domain.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1399212036%2FClasslikes%2F-1723413374" anchor-label="FileLoaderErrorException" id="-1399212036%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-loader-error-exception/index.html"><span>File</span><wbr><span>Loader</span><wbr><span>Error</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1399212036%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-file-loader-error-exception/index.html">FileLoaderErrorException</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>code<span class="token operator">: </span><a href="-file-loader-error/index.html">FileLoaderError</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1300415177%2FClasslikes%2F-1723413374" anchor-label="FileSaver" id="-1300415177%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-saver/index.html"><span>File</span><wbr><span><span>Saver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1300415177%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-file-saver/index.html">FileSaver</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceFileSaverPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Save a class@Buffer into a file.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-194152957%2FClasslikes%2F-1723413374" anchor-label="FileSaverError" id="-194152957%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-saver-error/index.html"><span>File</span><wbr><span>Saver</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-194152957%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-file-saver-error/index.html">FileSaverError</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-file-saver-error/index.html">FileSaverError</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">An error code used with the %GTK_SOURCE_FILE_SAVER_ERROR domain.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1410648752%2FClasslikes%2F-1723413374" anchor-label="FileSaverErrorException" id="-1410648752%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-saver-error-exception/index.html"><span>File</span><wbr><span>Saver</span><wbr><span>Error</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1410648752%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-file-saver-error-exception/index.html">FileSaverErrorException</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>code<span class="token operator">: </span><a href="-file-saver-error/index.html">FileSaverError</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="917116516%2FClasslikes%2F-1723413374" anchor-label="FileSaverFlags" id="917116516%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-file-saver-flags/index.html"><span>File</span><wbr><span>Saver</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="917116516%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-file-saver-flags/index.html">FileSaverFlags</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>mask<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Flags to define the behavior of a flags@FileSaverFlags.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1451550935%2FClasslikes%2F-1723413374" anchor-label="GtkSource" id="1451550935%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gtk-source/index.html"><span>Gtk</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1451550935%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-gtk-source/index.html">GtkSource</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1740070164%2FClasslikes%2F-1723413374" anchor-label="GtksourceTypeProvider" id="-1740070164%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gtksource-type-provider/index.html"><span>Gtksource</span><wbr><span>Type</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1740070164%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-gtksource-type-provider/index.html">GtksourceTypeProvider</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-440124809%2FClasslikes%2F-1723413374" anchor-label="Gutter" id="-440124809%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gutter/index.html"><span><span>Gutter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-440124809%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-gutter/index.html">Gutter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceGutterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gutter object for class@View.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1769539668%2FClasslikes%2F-1723413374" anchor-label="GutterLines" id="-1769539668%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gutter-lines/index.html"><span>Gutter</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1769539668%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-gutter-lines/index.html">GutterLines</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceGutterLinesPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Collected information about visible lines.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1118821132%2FClasslikes%2F-1723413374" anchor-label="GutterRenderer" id="-1118821132%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gutter-renderer/index.html"><span>Gutter</span><wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1118821132%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-gutter-renderer/index.html">GutterRenderer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceGutterRendererPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gutter cell renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2057222408%2FClasslikes%2F-1723413374" anchor-label="GutterRendererAlignmentMode" id="2057222408%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gutter-renderer-alignment-mode/index.html"><span>Gutter</span><wbr><span>Renderer</span><wbr><span>Alignment</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2057222408%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-gutter-renderer-alignment-mode/index.html">GutterRendererAlignmentMode</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-gutter-renderer-alignment-mode/index.html">GutterRendererAlignmentMode</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">The alignment mode of the renderer, when a cell spans multiple lines (due to text wrapping).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1203145568%2FClasslikes%2F-1723413374" anchor-label="GutterRendererPixbuf" id="-1203145568%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gutter-renderer-pixbuf/index.html"><span>Gutter</span><wbr><span>Renderer</span><wbr><span><span>Pixbuf</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1203145568%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-gutter-renderer-pixbuf/index.html">GutterRendererPixbuf</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceGutterRendererPixbufPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-gutter-renderer/index.html">GutterRenderer</a></div><div class="brief "><p class="paragraph">Renders a pixbuf in the gutter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="698184391%2FClasslikes%2F-1723413374" anchor-label="GutterRendererText" id="698184391%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gutter-renderer-text/index.html"><span>Gutter</span><wbr><span>Renderer</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="698184391%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-gutter-renderer-text/index.html">GutterRendererText</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceGutterRendererTextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-gutter-renderer/index.html">GutterRenderer</a></div><div class="brief "><p class="paragraph">Renders text in the gutter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="569779028%2FClasslikes%2F-1723413374" anchor-label="Hover" id="569779028%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hover/index.html"><span><span>Hover</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="569779028%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-hover/index.html">Hover</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceHoverPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Interactive tooltips.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="589122815%2FClasslikes%2F-1723413374" anchor-label="HoverContext" id="589122815%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hover-context/index.html"><span>Hover</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="589122815%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-hover-context/index.html">HoverContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceHoverContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Context for populating class@HoverDisplay contents.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="77985100%2FClasslikes%2F-1723413374" anchor-label="HoverDisplay" id="77985100%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hover-display/index.html"><span>Hover</span><wbr><span><span>Display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="77985100%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-hover-display/index.html">HoverDisplay</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceHoverDisplayPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Display for interactive tooltips.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-976245917%2FClasslikes%2F-1723413374" anchor-label="HoverProvider" id="-976245917%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hover-provider/index.html"><span>Hover</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-976245917%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-hover-provider/index.html">HoverProvider</a></div><div class="brief "><p class="paragraph">Interface to populate interactive tooltips.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="96673465%2FClasslikes%2F-1723413374" anchor-label="Indenter" id="96673465%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-indenter/index.html"><span><span>Indenter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="96673465%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-indenter/index.html">Indenter</a></div><div class="brief "><p class="paragraph">Auto-indentation interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="59562650%2FClasslikes%2F-1723413374" anchor-label="Language" id="59562650%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-language/index.html"><span><span>Language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="59562650%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-language/index.html">Language</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceLanguagePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Represents a syntax highlighted language.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2070824261%2FClasslikes%2F-1723413374" anchor-label="LanguageManager" id="-2070824261%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-language-manager/index.html"><span>Language</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2070824261%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-language-manager/index.html">LanguageManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceLanguageManagerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Provides access to class@Languages.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1921734388%2FClasslikes%2F-1723413374" anchor-label="Map" id="1921734388%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-map/index.html"><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1921734388%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-map/index.html">Map</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceMapPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-view/index.html">View</a></div><div class="brief "><p class="paragraph">Widget that displays a map for a specific class@View.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1038175557%2FClasslikes%2F-1723413374" anchor-label="Mark" id="1038175557%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mark/index.html"><span><span>Mark</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1038175557%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-mark/index.html">Mark</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceMarkPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Mark object for class@Buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1322009262%2FClasslikes%2F-1723413374" anchor-label="MarkAttributes" id="1322009262%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mark-attributes/index.html"><span>Mark</span><wbr><span><span>Attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1322009262%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-mark-attributes/index.html">MarkAttributes</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceMarkAttributesPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The source mark attributes object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1315474764%2FClasslikes%2F-1723413374" anchor-label="MountOperationFactory" id="-1315474764%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mount-operation-factory/index.html"><span>Mount</span><wbr><span>Operation</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1315474764%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-mount-operation-factory/index.html">MountOperationFactory</a><span class="token operator"> = </span><span class="token punctuation">(</span>file<span class="token operator">: </span><a href="-file/index.html">File</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Type definition for a function that will be called to create a class@Gio.MountOperation. This is useful for creating a class@Gtk.MountOperation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1331188386%2FClasslikes%2F-1723413374" anchor-label="NewlineType" id="1331188386%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-newline-type/index.html"><span>Newline</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1331188386%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-newline-type/index.html">NewlineType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-newline-type/index.html">NewlineType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1138481278%2FClasslikes%2F-1723413374" anchor-label="PrintCompositor" id="-1138481278%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-print-compositor/index.html"><span>Print</span><wbr><span><span>Compositor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1138481278%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-print-compositor/index.html">PrintCompositor</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourcePrintCompositorPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Compose a class@Buffer for printing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2068477250%2FClasslikes%2F-1723413374" anchor-label="Region" id="-2068477250%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-region/index.html"><span><span>Region</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068477250%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-region/index.html">Region</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceRegionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Region utility.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1644207110%2FClasslikes%2F-1723413374" anchor-label="RegionIter" id="1644207110%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-region-iter/index.html"><span>Region</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1644207110%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-region-iter/index.html">RegionIter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceRegionIterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">An opaque datatype.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="202392688%2FClasslikes%2F-1723413374" anchor-label="SchedulerCallback" id="202392688%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scheduler-callback/index.html"><span>Scheduler</span><wbr><span><span>Callback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="202392688%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-scheduler-callback/index.html">SchedulerCallback</a><span class="token operator"> = </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">This function is called incrementally to process additional background work. A deadline is provided which can be checked using func@GLib.get_monotonic_time so that additional work can be processed each frame.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="213059849%2FClasslikes%2F-1723413374" anchor-label="SearchContext" id="213059849%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-search-context/index.html"><span>Search</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="213059849%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-search-context/index.html">SearchContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSearchContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Search context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-505563481%2FClasslikes%2F-1723413374" anchor-label="SearchSettings" id="-505563481%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-search-settings/index.html"><span>Search</span><wbr><span><span>Settings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-505563481%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-search-settings/index.html">SearchSettings</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSearchSettingsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Search settings.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1109205179%2FClasslikes%2F-1723413374" anchor-label="SmartHomeEndType" id="-1109205179%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-smart-home-end-type/index.html"><span>Smart</span><wbr><span>Home</span><wbr><span>End</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1109205179%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-smart-home-end-type/index.html">SmartHomeEndType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-smart-home-end-type/index.html">SmartHomeEndType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1658760915%2FClasslikes%2F-1723413374" anchor-label="Snippet" id="1658760915%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-snippet/index.html"><span><span>Snippet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1658760915%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-snippet/index.html">Snippet</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSnippetPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Quick insertion code snippets.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="607592738%2FClasslikes%2F-1723413374" anchor-label="SnippetChunk" id="607592738%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-snippet-chunk/index.html"><span>Snippet</span><wbr><span><span>Chunk</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="607592738%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-snippet-chunk/index.html">SnippetChunk</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSnippetChunkPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A chunk of text within the source snippet.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1497867424%2FClasslikes%2F-1723413374" anchor-label="SnippetContext" id="1497867424%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-snippet-context/index.html"><span>Snippet</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1497867424%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-snippet-context/index.html">SnippetContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSnippetContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Context for expanding class@SnippetChunk.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="309093474%2FClasslikes%2F-1723413374" anchor-label="SnippetManager" id="309093474%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-snippet-manager/index.html"><span>Snippet</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="309093474%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-snippet-manager/index.html">SnippetManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSnippetManagerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Provides access to class@Snippet.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1678915033%2FClasslikes%2F-1723413374" anchor-label="SortFlags" id="-1678915033%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sort-flags/index.html"><span>Sort</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1678915033%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-sort-flags/index.html">SortFlags</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>mask<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1520362471%2FClasslikes%2F-1723413374" anchor-label="SpaceDrawer" id="-1520362471%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-space-drawer/index.html"><span>Space</span><wbr><span><span>Drawer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1520362471%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-space-drawer/index.html">SpaceDrawer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSpaceDrawerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Represent white space characters with symbols.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1281216198%2FClasslikes%2F-1723413374" anchor-label="SpaceLocationFlags" id="1281216198%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-space-location-flags/index.html"><span>Space</span><wbr><span>Location</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1281216198%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-space-location-flags/index.html">SpaceLocationFlags</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>mask<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">#GtkSourceSpaceLocationFlags contains flags for white space locations.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1196641525%2FClasslikes%2F-1723413374" anchor-label="SpaceTypeFlags" id="-1196641525%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-space-type-flags/index.html"><span>Space</span><wbr><span>Type</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1196641525%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-space-type-flags/index.html">SpaceTypeFlags</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>mask<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">#GtkSourceSpaceTypeFlags contains flags for white space types.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1133661311%2FClasslikes%2F-1723413374" anchor-label="Style" id="1133661311%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style/index.html"><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1133661311%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-style/index.html">Style</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceStylePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Represents a style.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2094387162%2FClasslikes%2F-1723413374" anchor-label="StyleScheme" id="2094387162%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-scheme/index.html"><span>Style</span><wbr><span><span>Scheme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2094387162%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-style-scheme/index.html">StyleScheme</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceStyleSchemePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Controls the appearance of class@View.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-807871571%2FClasslikes%2F-1723413374" anchor-label="StyleSchemeChooser" id="-807871571%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-scheme-chooser/index.html"><span>Style</span><wbr><span>Scheme</span><wbr><span><span>Chooser</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-807871571%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-style-scheme-chooser/index.html">StyleSchemeChooser</a></div><div class="brief "><p class="paragraph">Interface implemented by widgets for choosing style schemes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1861829733%2FClasslikes%2F-1723413374" anchor-label="StyleSchemeChooserButton" id="-1861829733%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-scheme-chooser-button/index.html"><span>Style</span><wbr><span>Scheme</span><wbr><span>Chooser</span><wbr><span><span>Button</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1861829733%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-style-scheme-chooser-button/index.html">StyleSchemeChooserButton</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceStyleSchemeChooserButtonPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-style-scheme-chooser/index.html">StyleSchemeChooser</a></div><div class="brief "><p class="paragraph">A button to launch a style scheme selection dialog.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1046003913%2FClasslikes%2F-1723413374" anchor-label="StyleSchemeChooserWidget" id="1046003913%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-scheme-chooser-widget/index.html"><span>Style</span><wbr><span>Scheme</span><wbr><span>Chooser</span><wbr><span><span>Widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1046003913%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-style-scheme-chooser-widget/index.html">StyleSchemeChooserWidget</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceStyleSchemeChooserWidgetPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-style-scheme-chooser/index.html">StyleSchemeChooser</a></div><div class="brief "><p class="paragraph">A widget for choosing style schemes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="42360187%2FClasslikes%2F-1723413374" anchor-label="StyleSchemeManager" id="42360187%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-scheme-manager/index.html"><span>Style</span><wbr><span>Scheme</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="42360187%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-style-scheme-manager/index.html">StyleSchemeManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceStyleSchemeManagerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Provides access to class@StyleSchemes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1189662144%2FClasslikes%2F-1723413374" anchor-label="StyleSchemePreview" id="1189662144%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-scheme-preview/index.html"><span>Style</span><wbr><span>Scheme</span><wbr><span><span>Preview</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1189662144%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-style-scheme-preview/index.html">StyleSchemePreview</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceStyleSchemePreviewPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A preview widget for class@StyleScheme.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-140599690%2FClasslikes%2F-1723413374" anchor-label="Tag" id="-140599690%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tag/index.html"><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-140599690%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-tag/index.html">Tag</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceTagPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A tag that can be applied to text in a class@Buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1699388525%2FClasslikes%2F-1723413374" anchor-label="View" id="1699388525%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-view/index.html"><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1699388525%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-view/index.html">View</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceViewPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Subclass of class@Gtk.TextView.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-715661207%2FClasslikes%2F-1723413374" anchor-label="ViewGutterPosition" id="-715661207%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-view-gutter-position/index.html"><span>View</span><wbr><span>Gutter</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-715661207%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-view-gutter-position/index.html">ViewGutterPosition</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-view-gutter-position/index.html">ViewGutterPosition</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1165971807%2FClasslikes%2F-1723413374" anchor-label="VimImContext" id="-1165971807%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-vim-im-context/index.html"><span>Vim</span><wbr><span>Im</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1165971807%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-vim-im-context/index.html">VimImContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceVimImContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Vim emulation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1977377837%2FProperties%2F-1723413374" anchor-label="MountOperationFactoryFunc" id="1977377837%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mount-operation-factory-func.html"><span>Mount</span><wbr><span>Operation</span><wbr><span>Factory</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1977377837%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-mount-operation-factory-func.html">MountOperationFactoryFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="122062953%2FProperties%2F-1723413374" anchor-label="SchedulerCallbackFunc" id="122062953%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scheduler-callback-func.html"><span>Scheduler</span><wbr><span>Callback</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="122062953%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-scheduler-callback-func.html">SchedulerCallbackFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

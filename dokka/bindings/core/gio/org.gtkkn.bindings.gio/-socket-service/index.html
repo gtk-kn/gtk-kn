@@ -1,0 +1,390 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SocketService</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gio/nativeMain" data-filter=":bindings:core:gio/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/SocketService///PointingToDeclaration//-726360853">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">SocketService</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Socket</span><wbr><span><span>Service</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SocketService</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioSocketServicePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-socket-listener/index.html">SocketListener</a></div><p class="paragraph">A <code class="lang-kotlin">GSocketService</code> is an object that represents a service that is provided to the network or over local sockets.  When a new connection is made to the service the signal@Gio.SocketService::incoming signal is emitted.</p><p class="paragraph">A <code class="lang-kotlin">GSocketService</code> is a subclass of class@Gio.SocketListener and you need to add the addresses you want to accept connections on with the class@Gio.SocketListener APIs.</p><p class="paragraph">There are two options for implementing a network service based on <code class="lang-kotlin">GSocketService</code>. The first is to create the service using ctor@Gio.SocketService.new and to connect to the signal@Gio.SocketService::incoming signal. The second is to subclass <code class="lang-kotlin">GSocketService</code> and override the default signal handler implementation.</p><p class="paragraph">In either case, the handler must immediately return, or else it will block additional incoming connections from being serviced. If you are interested in writing connection handlers that contain blocking code then see class@Gio.ThreadedSocketService.</p><p class="paragraph">The socket service runs on the main loop of the thread-default context (see method@GLib.MainContext.push_thread_default) of the thread it is created in, and is not threadsafe in general. However, the calls to start and stop the service are thread-safe so these can be used from threads that handle incoming clients.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">active</code>: Property has no getter nor setter</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.22</p></span><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-threaded-socket-service/index.html">ThreadedSocketService</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1259926800%2FConstructors%2F-726360853" anchor-label="SocketService" id="1259926800%2FConstructors%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-socket-service.html"><span>Socket</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1259926800%2FConstructors%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #GSocketService with no sockets to listen for. New listeners can be added with e.g. g_socket_listener_add_address() or g_socket_listener_add_inet_port().</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gioSocketServicePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="338367420%2FClasslikes%2F-726360853" anchor-label="Companion" id="338367420%2FClasslikes%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="338367420%2FClasslikes%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-490551497%2FProperties%2F-726360853" anchor-label="gioSocketListenerPointer" id="-490551497%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/gio-socket-listener-pointer.html"><span>gio</span><wbr><span>Socket</span><wbr><span>Listener</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-490551497%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-socket-listener/gio-socket-listener-pointer.html">gioSocketListenerPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1755536877%2FProperties%2F-726360853" anchor-label="gioSocketServicePointer" id="1755536877%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-socket-service-pointer.html"><span>gio</span><wbr><span>Socket</span><wbr><span>Service</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1755536877%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gio-socket-service-pointer.html">gioSocketServicePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1576260648%2FFunctions%2F-726360853" anchor-label="acceptAsync" id="1576260648%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/accept-async.html"><span>accept</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1576260648%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/accept-async.html"><span class="token function">acceptAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is the asynchronous version of g_socket_listener_accept().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1074424907%2FFunctions%2F-726360853" anchor-label="acceptSocketAsync" id="-1074424907%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/accept-socket-async.html"><span>accept</span><wbr><span>Socket</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1074424907%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/accept-socket-async.html"><span class="token function">acceptSocketAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This is the asynchronous version of g_socket_listener_accept_socket().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1448746208%2FFunctions%2F-726360853" anchor-label="addAnyInetPort" id="-1448746208%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/add-any-inet-port.html"><span>add</span><wbr><span>Any</span><wbr><span>Inet</span><wbr><span><span>Port</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1448746208%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/add-any-inet-port.html"><span class="token function">addAnyInetPort</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceObject<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Listens for TCP connections on any available port number for both IPv6 and IPv4 (if each is available).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1700286681%2FFunctions%2F-726360853" anchor-label="addInetPort" id="-1700286681%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/add-inet-port.html"><span>add</span><wbr><span>Inet</span><wbr><span><span>Port</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1700286681%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/add-inet-port.html"><span class="token function">addInetPort</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">port<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">sourceObject<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Helper function for g_socket_listener_add_address() that creates a TCP/IP socket listening on IPv4 and IPv6 (if supported) on the specified port on all interfaces.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1835002208%2FFunctions%2F-726360853" anchor-label="addSocket" id="-1835002208%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/add-socket.html"><span>add</span><wbr><span><span>Socket</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1835002208%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/add-socket.html"><span class="token function">addSocket</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">socket<span class="token operator">: </span><a href="../-socket/index.html">Socket</a><span class="token punctuation">, </span></span><span class="parameter ">sourceObject<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Adds @socket to the set of sockets that we try to accept new clients from. The socket must be bound to a local address and listened to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1718188766%2FFunctions%2F-726360853" anchor-label="close" id="-1718188766%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/close.html"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1718188766%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Closes all the sockets in the listener.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1789912400%2FFunctions%2F-726360853" anchor-label="emitEvent" id="1789912400%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/emit-event.html"><span>emit</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1789912400%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-socket-listener/emit-event.html"><span class="token function">emitEvent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">event<span class="token operator">: </span><a href="../-socket-listener-event/index.html">SocketListenerEvent</a><span class="token punctuation">, </span></span><span class="parameter ">socket<span class="token operator">: </span><a href="../-socket/index.html">Socket</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "event" signal. See <a href="../-socket-listener/on-event.html">onEvent</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-118790347%2FFunctions%2F-726360853" anchor-label="isActive" id="-118790347%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-active.html"><span>is</span><wbr><span><span>Active</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-118790347%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-active.html"><span class="token function">isActive</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check whether the service is active or not. An active service will accept new clients that connect, while a non-active service will let connecting clients queue up until the service is started.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-987338865%2FFunctions%2F-726360853" anchor-label="onEvent" id="-987338865%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/on-event.html"><span>on</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-987338865%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-socket-listener/on-event.html"><span class="token function">onEvent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>event<span class="token operator">: </span><a href="../-socket-listener-event/index.html">SocketListenerEvent</a><span class="token punctuation">, </span>socket<span class="token operator">: </span><a href="../-socket/index.html">Socket</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when @listener's activity on @socket changes state. Note that when @listener is used to listen on both IPv4 and IPv6, a separate set of signals will be emitted for each, and the order they happen in is undefined.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1269749477%2FFunctions%2F-726360853" anchor-label="onIncoming" id="1269749477%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-incoming.html"><span>on</span><wbr><span><span>Incoming</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1269749477%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-incoming.html"><span class="token function">onIncoming</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>connection<span class="token operator">: </span><a href="../-socket-connection/index.html">SocketConnection</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::incoming signal is emitted when a new incoming connection to @service needs to be handled. The handler must initiate the handling of @connection, but may not block; in essence, asynchronous operations must be used.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1137898063%2FFunctions%2F-726360853" anchor-label="setBacklog" id="-1137898063%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-socket-listener/set-backlog.html"><span>set</span><wbr><span><span>Backlog</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1137898063%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-socket-listener/set-backlog.html"><span class="token function">setBacklog</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">listenBacklog<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the listen backlog on the sockets in the listener. This must be called before adding any sockets, addresses or ports to the #GSocketListener (for example, by calling g_socket_listener_add_inet_port()) to be effective.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2029654957%2FFunctions%2F-726360853" anchor-label="start" id="-2029654957%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start.html"><span><span>start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2029654957%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Restarts the service, i.e. start accepting connections from the added sockets when the mainloop runs. This only needs to be called after the service has been stopped from g_socket_service_stop().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1125363645%2FFunctions%2F-726360853" anchor-label="stop" id="-1125363645%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stop.html"><span><span>stop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1125363645%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="stop.html"><span class="token function">stop</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Stops the service, i.e. stops accepting connections from the added sockets when the mainloop runs.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

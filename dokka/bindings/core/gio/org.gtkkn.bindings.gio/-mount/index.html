@@ -1,0 +1,701 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Mount</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gio/nativeMain" data-filter=":bindings:core:gio/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/Mount///PointingToDeclaration//-726360853">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">Mount</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Mount</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Mount</a> : <a href="../-proxy/index.html">Proxy</a></div><p class="paragraph">The <code class="lang-kotlin">GMount</code> interface represents user-visible mounts. Note, when migrating-gnome-vfs.html, <code class="lang-kotlin">GMount</code> is the moral equivalent of <code class="lang-kotlin">GnomeVFSVolume</code>.</p><p class="paragraph"><code class="lang-kotlin">GMount</code> is a ‘mounted’ filesystem that you can access. Mounted is in quotes because it’s not the same as a UNIX mount, it might be a GVFS mount, but you can still access the files on it if you use GIO. Might or might not be related to a volume object.</p><p class="paragraph">Unmounting a <code class="lang-kotlin">GMount</code> instance is an asynchronous operation. For more information about asynchronous operations, see iface@Gio.AsyncResult and class@Gio.Task. To unmount a <code class="lang-kotlin">GMount</code> instance, first call method@Gio.Mount.unmount_with_operation with (at least) the <code class="lang-kotlin">GMount</code> instance and a type@Gio.AsyncReadyCallback.  The callback will be fired when the operation has resolved (either with success or failure), and a iface@Gio.AsyncResult structure will be passed to the callback.  That callback should then call method@Gio.Mount.unmount_with_operation_finish with the <code class="lang-kotlin">GMount</code> and the iface@Gio.AsyncResult data to see if the operation was completed successfully.  If an <code class="lang-kotlin">error</code> is present when method@Gio.Mount.unmount_with_operation_finish is called, then it will be filled with any error information.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mount-impl/index.html">MountImpl</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-2142731515%2FClasslikes%2F-726360853" anchor-label="Companion" id="-2142731515%2FClasslikes%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2142731515%2FClasslikes%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="140368088%2FClasslikes%2F-726360853" anchor-label="MountImpl" id="140368088%2FClasslikes%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mount-impl/index.html"><span>Mount</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="140368088%2FClasslikes%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-mount-impl/index.html">MountImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioMountPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="index.html">Mount</a></div><div class="brief "><p class="paragraph">The MountImpl type represents a native instance of the Mount interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-13556275%2FProperties%2F-726360853" anchor-label="gioMountPointer" id="-13556275%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-mount-pointer.html"><span>gio</span><wbr><span>Mount</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-13556275%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="gio-mount-pointer.html">gioMountPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1970473619%2FProperties%2F-726360853" anchor-label="gioProxyPointer" id="-1970473619%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/gio-proxy-pointer.html"><span>gio</span><wbr><span>Proxy</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970473619%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="../-proxy/gio-proxy-pointer.html">gioProxyPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1581305381%2FFunctions%2F-726360853" anchor-label="canEject" id="-1581305381%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="can-eject.html"><span>can</span><wbr><span><span>Eject</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1581305381%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="can-eject.html"><span class="token function">canEject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if @mount can be ejected.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2046769324%2FFunctions%2F-726360853" anchor-label="canUnmount" id="2046769324%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="can-unmount.html"><span>can</span><wbr><span><span>Unmount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2046769324%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="can-unmount.html"><span class="token function">canUnmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if @mount can be unmounted.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1673176468%2FFunctions%2F-726360853" anchor-label="connect" id="-1673176468%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/connect.html"><span><span>connect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1673176468%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/connect.html"><span class="token function">connect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connection<span class="token operator">: </span><a href="../-io-stream/index.html">IoStream</a><span class="token punctuation">, </span></span><span class="parameter ">proxyAddress<span class="token operator">: </span><a href="../-proxy-address/index.html">ProxyAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-io-stream/index.html">IoStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Given @connection to communicate with a proxy (eg, a #GSocketConnection that is connected to the proxy server), this does the necessary handshake to connect to @proxy_address, and if required, wraps the #GIOStream to handle proxy payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1930800491%2FFunctions%2F-726360853" anchor-label="connectAsync" id="-1930800491%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/connect-async.html"><span>connect</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1930800491%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/connect-async.html"><span class="token function">connectAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connection<span class="token operator">: </span><a href="../-io-stream/index.html">IoStream</a><span class="token punctuation">, </span></span><span class="parameter ">proxyAddress<span class="token operator">: </span><a href="../-proxy-address/index.html">ProxyAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronous version of g_proxy_connect().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1679411715%2FFunctions%2F-726360853" anchor-label="connectFinish" id="-1679411715%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/connect-finish.html"><span>connect</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1679411715%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/connect-finish.html"><span class="token function">connectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-io-stream/index.html">IoStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">See g_proxy_connect().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2067646490%2FFunctions%2F-726360853" anchor-label="eject" id="-2067646490%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="eject.html"><span><span>eject</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2067646490%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="eject.html"><span class="token function">eject</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-mount-unmount-flags/index.html">MountUnmountFlags</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Ejects a mount. This is an asynchronous operation, and is finished by calling g_mount_eject_finish() with the @mount and #GAsyncResult data returned in the @callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1102141931%2FFunctions%2F-726360853" anchor-label="ejectFinish" id="1102141931%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="eject-finish.html"><span>eject</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1102141931%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="eject-finish.html"><span class="token function">ejectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes ejecting a mount. If any errors occurred during the operation,</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1744898961%2FFunctions%2F-726360853" anchor-label="ejectWithOperation" id="1744898961%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="eject-with-operation.html"><span>eject</span><wbr><span>With</span><wbr><span><span>Operation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1744898961%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="eject-with-operation.html"><span class="token function">ejectWithOperation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-mount-unmount-flags/index.html">MountUnmountFlags</a><span class="token punctuation">, </span></span><span class="parameter ">mountOperation<span class="token operator">: </span><a href="../-mount-operation/index.html">MountOperation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Ejects a mount. This is an asynchronous operation, and is finished by calling g_mount_eject_with_operation_finish() with the @mount and #GAsyncResult data returned in the @callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1516951370%2FFunctions%2F-726360853" anchor-label="ejectWithOperationFinish" id="1516951370%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="eject-with-operation-finish.html"><span>eject</span><wbr><span>With</span><wbr><span>Operation</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1516951370%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="eject-with-operation-finish.html"><span class="token function">ejectWithOperationFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes ejecting a mount. If any errors occurred during the operation,</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-584783876%2FFunctions%2F-726360853" anchor-label="getDefaultLocation" id="-584783876%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-default-location.html"><span>get</span><wbr><span>Default</span><wbr><span><span>Location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-584783876%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-default-location.html"><span class="token function">getDefaultLocation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-file/index.html">File</a></div><div class="brief "><p class="paragraph">Gets the default location of @mount. The default location of the given</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1773324360%2FFunctions%2F-726360853" anchor-label="getDrive" id="1773324360%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-drive.html"><span>get</span><wbr><span><span>Drive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1773324360%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-drive.html"><span class="token function">getDrive</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-drive/index.html">Drive</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the drive for the @mount.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="359511023%2FFunctions%2F-726360853" anchor-label="getIcon" id="359511023%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-icon.html"><span>get</span><wbr><span><span>Icon</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="359511023%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-icon.html"><span class="token function">getIcon</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-icon/index.html">Icon</a></div><div class="brief "><p class="paragraph">Gets the icon for @mount.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2132086301%2FFunctions%2F-726360853" anchor-label="getName" id="2132086301%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-name.html"><span>get</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2132086301%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the name of @mount.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-568260698%2FFunctions%2F-726360853" anchor-label="getRoot" id="-568260698%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-root.html"><span>get</span><wbr><span><span>Root</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-568260698%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-root.html"><span class="token function">getRoot</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-file/index.html">File</a></div><div class="brief "><p class="paragraph">Gets the root directory on @mount.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1451269265%2FFunctions%2F-726360853" anchor-label="getSortKey" id="1451269265%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-sort-key.html"><span>get</span><wbr><span>Sort</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1451269265%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-sort-key.html"><span class="token function">getSortKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the sort key for @mount, if any.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-606748323%2FFunctions%2F-726360853" anchor-label="getSymbolicIcon" id="-606748323%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-symbolic-icon.html"><span>get</span><wbr><span>Symbolic</span><wbr><span><span>Icon</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-606748323%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-symbolic-icon.html"><span class="token function">getSymbolicIcon</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-icon/index.html">Icon</a></div><div class="brief "><p class="paragraph">Gets the symbolic icon for @mount.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1988408595%2FFunctions%2F-726360853" anchor-label="getUuid" id="-1988408595%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-uuid.html"><span>get</span><wbr><span><span>Uuid</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1988408595%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-uuid.html"><span class="token function">getUuid</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the UUID for the @mount. The reference is typically based on the file system UUID for the mount in question and should be considered an opaque string. Returns null if there is no UUID available.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-602007122%2FFunctions%2F-726360853" anchor-label="getVolume" id="-602007122%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-volume.html"><span>get</span><wbr><span><span>Volume</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-602007122%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-volume.html"><span class="token function">getVolume</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-volume/index.html">Volume</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the volume for the @mount.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1047454860%2FFunctions%2F-726360853" anchor-label="guessContentType" id="-1047454860%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guess-content-type.html"><span>guess</span><wbr><span>Content</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1047454860%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="guess-content-type.html"><span class="token function">guessContentType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">forceRescan<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Tries to guess the type of content stored on @mount. Returns one or more textual identifiers of well-known content types (typically prefixed with "x-content/"), e.g. x-content/image-dcf for camera memory cards. See the <a href="http://www.freedesktop.org/wiki/Specifications/shared-mime-info-spec">shared-mime-info</a> specification for more on x-content types.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-355789442%2FFunctions%2F-726360853" anchor-label="guessContentTypeFinish" id="-355789442%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guess-content-type-finish.html"><span>guess</span><wbr><span>Content</span><wbr><span>Type</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-355789442%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="guess-content-type-finish.html"><span class="token function">guessContentTypeFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes guessing content types of @mount. If any errors occurred during the operation, @error will be set to contain the errors and false will be returned. In particular, you may get an %G_IO_ERROR_NOT_SUPPORTED if the mount does not support content guessing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="904030352%2FFunctions%2F-726360853" anchor-label="guessContentTypeSync" id="904030352%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guess-content-type-sync.html"><span>guess</span><wbr><span>Content</span><wbr><span>Type</span><wbr><span><span>Sync</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="904030352%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="guess-content-type-sync.html"><span class="token function">guessContentTypeSync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">forceRescan<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Tries to guess the type of content stored on @mount. Returns one or more textual identifiers of well-known content types (typically prefixed with "x-content/"), e.g. x-content/image-dcf for camera memory cards. See the <a href="http://www.freedesktop.org/wiki/Specifications/shared-mime-info-spec">shared-mime-info</a> specification for more on x-content types.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1351451405%2FFunctions%2F-726360853" anchor-label="isShadowed" id="-1351451405%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-shadowed.html"><span>is</span><wbr><span><span>Shadowed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1351451405%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-shadowed.html"><span class="token function">isShadowed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines if @mount is shadowed. Applications or libraries should avoid displaying @mount in the user interface if it is shadowed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-437558159%2FFunctions%2F-726360853" anchor-label="onChanged" id="-437558159%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-changed.html"><span>on</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-437558159%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-changed.html"><span class="token function">onChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when the mount has been changed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162960328%2FFunctions%2F-726360853" anchor-label="onPreUnmount" id="162960328%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-pre-unmount.html"><span>on</span><wbr><span>Pre</span><wbr><span><span>Unmount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162960328%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-pre-unmount.html"><span class="token function">onPreUnmount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal may be emitted when the #GMount is about to be unmounted.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-450621370%2FFunctions%2F-726360853" anchor-label="onUnmounted" id="-450621370%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-unmounted.html"><span>on</span><wbr><span><span>Unmounted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-450621370%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-unmounted.html"><span class="token function">onUnmounted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when the #GMount have been unmounted. If the recipient is holding references to the object they should release them so the object can be finalized.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1539148780%2FFunctions%2F-726360853" anchor-label="remount" id="1539148780%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remount.html"><span><span>remount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1539148780%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remount.html"><span class="token function">remount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-mount-mount-flags/index.html">MountMountFlags</a><span class="token punctuation">, </span></span><span class="parameter ">mountOperation<span class="token operator">: </span><a href="../-mount-operation/index.html">MountOperation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Remounts a mount. This is an asynchronous operation, and is finished by calling g_mount_remount_finish() with the @mount and #GAsyncResults data returned in the @callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="88877910%2FFunctions%2F-726360853" anchor-label="remountFinish" id="88877910%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remount-finish.html"><span>remount</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="88877910%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remount-finish.html"><span class="token function">remountFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes remounting a mount. If any errors occurred during the operation,</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="938035260%2FFunctions%2F-726360853" anchor-label="shadow" id="938035260%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="shadow.html"><span><span>shadow</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="938035260%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="shadow.html"><span class="token function">shadow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Increments the shadow count on @mount. Usually used by #GVolumeMonitor implementations when creating a shadow mount for</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-820383814%2FFunctions%2F-726360853" anchor-label="supportsHostname" id="-820383814%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/supports-hostname.html"><span>supports</span><wbr><span><span>Hostname</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-820383814%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/supports-hostname.html"><span class="token function">supportsHostname</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Some proxy protocols expect to be passed a hostname, which they will resolve to an IP address themselves. Others, like SOCKS4, do not allow this. This function will return false if @proxy is implementing such a protocol. When false is returned, the caller should resolve the destination hostname first, and then pass a #GProxyAddress containing the stringified IP address to g_proxy_connect() or g_proxy_connect_async().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1439608247%2FFunctions%2F-726360853" anchor-label="unmount" id="1439608247%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unmount.html"><span><span>unmount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1439608247%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unmount.html"><span class="token function">unmount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-mount-unmount-flags/index.html">MountUnmountFlags</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unmounts a mount. This is an asynchronous operation, and is finished by calling g_mount_unmount_finish() with the @mount and #GAsyncResult data returned in the @callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2001365188%2FFunctions%2F-726360853" anchor-label="unmountFinish" id="-2001365188%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unmount-finish.html"><span>unmount</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2001365188%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unmount-finish.html"><span class="token function">unmountFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes unmounting a mount. If any errors occurred during the operation,</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="722987746%2FFunctions%2F-726360853" anchor-label="unmountWithOperation" id="722987746%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unmount-with-operation.html"><span>unmount</span><wbr><span>With</span><wbr><span><span>Operation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="722987746%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unmount-with-operation.html"><span class="token function">unmountWithOperation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-mount-unmount-flags/index.html">MountUnmountFlags</a><span class="token punctuation">, </span></span><span class="parameter ">mountOperation<span class="token operator">: </span><a href="../-mount-operation/index.html">MountOperation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unmounts a mount. This is an asynchronous operation, and is finished by calling g_mount_unmount_with_operation_finish() with the @mount and #GAsyncResult data returned in the @callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-367098471%2FFunctions%2F-726360853" anchor-label="unmountWithOperationFinish" id="-367098471%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unmount-with-operation-finish.html"><span>unmount</span><wbr><span>With</span><wbr><span>Operation</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-367098471%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unmount-with-operation-finish.html"><span class="token function">unmountWithOperationFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finishes unmounting a mount. If any errors occurred during the operation,</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="910015171%2FFunctions%2F-726360853" anchor-label="unshadow" id="910015171%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unshadow.html"><span><span>unshadow</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="910015171%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unshadow.html"><span class="token function">unshadow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decrements the shadow count on @mount. Usually used by #GVolumeMonitor implementations when destroying a shadow mount for</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

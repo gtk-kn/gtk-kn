@@ -1,0 +1,405 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CookieJar</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:soup/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:soup/nativeMain" data-filter=":bindings:extra:soup/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="soup::org.gtkkn.bindings.soup/CookieJar///PointingToDeclaration//-1891832998">
+  <div class="breadcrumbs"><a href="../../index.html">soup</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.soup</a><span class="delimiter">/</span><span class="current">CookieJar</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Cookie</span><wbr><span><span>Jar</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">CookieJar</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupCookieJarPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-session-feature/index.html">SessionFeature</a></div><p class="paragraph">Automatic cookie handling for SoupSession.</p><p class="paragraph">A #SoupCookieJar stores struct@Cookies and arrange for them to be sent with the appropriate class@Messages. #SoupCookieJar implements iface@SessionFeature, so you can add a cookie jar to a session with method@Session.add_feature or method@Session.add_feature_by_type.</p><p class="paragraph">Note that the base #SoupCookieJar class does not support any form of long-term cookie persistence.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">read-only</code>: Property has no getter nor setter</p></li></ul><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-cookie-jar-db/index.html">CookieJarDb</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-cookie-jar-text/index.html">CookieJarText</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1501848238%2FConstructors%2F-1891832998" anchor-label="CookieJar" id="-1501848238%2FConstructors%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cookie-jar.html"><span>Cookie</span><wbr><span><span>Jar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1501848238%2FConstructors%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #SoupCookieJar.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">soupCookieJarPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1529866155%2FClasslikes%2F-1891832998" anchor-label="Companion" id="1529866155%2FClasslikes%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1529866155%2FClasslikes%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-755125092%2FProperties%2F-1891832998" anchor-label="acceptPolicy" id="-755125092%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="accept-policy.html"><span>accept</span><wbr><span><span>Policy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-755125092%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="accept-policy.html">acceptPolicy</a><span class="token operator">: </span><a href="../-cookie-jar-accept-policy/index.html">CookieJarAcceptPolicy</a></div><div class="brief "><p class="paragraph">The policy the jar should follow to accept or reject cookies.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="26338329%2FProperties%2F-1891832998" anchor-label="soupCookieJarPointer" id="26338329%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="soup-cookie-jar-pointer.html"><span>soup</span><wbr><span>Cookie</span><wbr><span>Jar</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="26338329%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="soup-cookie-jar-pointer.html">soupCookieJarPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-604814786%2FProperties%2F-1891832998" anchor-label="soupSessionFeaturePointer" id="-604814786%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="soup-session-feature-pointer.html"><span>soup</span><wbr><span>Session</span><wbr><span>Feature</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-604814786%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="soup-session-feature-pointer.html">soupSessionFeaturePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1124050483%2FFunctions%2F-1891832998" anchor-label="addCookie" id="-1124050483%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-cookie.html"><span>add</span><wbr><span><span>Cookie</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1124050483%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-cookie.html"><span class="token function">addCookie</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @cookie to @jar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="933764222%2FFunctions%2F-1891832998" anchor-label="addCookieFull" id="933764222%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-cookie-full.html"><span>add</span><wbr><span>Cookie</span><wbr><span><span>Full</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="933764222%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-cookie-full.html"><span class="token function">addCookieFull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a><span class="token punctuation">, </span></span><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">firstParty<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @cookie to @jar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1980833952%2FFunctions%2F-1891832998" anchor-label="addCookieWithFirstParty" id="-1980833952%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-cookie-with-first-party.html"><span>add</span><wbr><span>Cookie</span><wbr><span>With</span><wbr><span>First</span><wbr><span><span>Party</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1980833952%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-cookie-with-first-party.html"><span class="token function">addCookieWithFirstParty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">firstParty<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @cookie to @jar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1629465608%2FFunctions%2F-1891832998" anchor-label="allCookies" id="1629465608%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="all-cookies.html"><span>all</span><wbr><span><span>Cookies</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1629465608%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="all-cookies.html"><span class="token function">allCookies</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Constructs a struct@GLib.List with every cookie inside the @jar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1539830485%2FFunctions%2F-1891832998" anchor-label="deleteCookie" id="1539830485%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-cookie.html"><span>delete</span><wbr><span><span>Cookie</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1539830485%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="delete-cookie.html"><span class="token function">deleteCookie</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Deletes @cookie from @jar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-517485828%2FFunctions%2F-1891832998" anchor-label="emitChanged" id="-517485828%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-changed.html"><span>emit</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-517485828%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-changed.html"><span class="token function">emitChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">oldCookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a><span class="token punctuation">, </span></span><span class="parameter ">newCookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "changed" signal. See <a href="on-changed.html">onChanged</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="610982528%2FFunctions%2F-1891832998" anchor-label="getCookieList" id="610982528%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cookie-list.html"><span>get</span><wbr><span>Cookie</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="610982528%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-cookie-list.html"><span class="token function">getCookieList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">forHttp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the list of cookies that would be sent with a request to @uri as a struct@GLib.List of #SoupCookie objects.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1396004033%2FFunctions%2F-1891832998" anchor-label="getCookieListWithSameSiteInfo" id="-1396004033%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cookie-list-with-same-site-info.html"><span>get</span><wbr><span>Cookie</span><wbr><span>List</span><wbr><span>With</span><wbr><span>Same</span><wbr><span>Site</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1396004033%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-cookie-list-with-same-site-info.html"><span class="token function">getCookieListWithSameSiteInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">topLevel<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">siteForCookies<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">forHttp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">isSafeMethod<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">isTopLevelNavigation<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This is an extended version of method@CookieJar.get_cookie_list that provides more information required to use SameSite cookies.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1371922673%2FFunctions%2F-1891832998" anchor-label="getCookies" id="1371922673%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cookies.html"><span>get</span><wbr><span><span>Cookies</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1371922673%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-cookies.html"><span class="token function">getCookies</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">forHttp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Retrieves (in Cookie-header form) the list of cookies that would be sent with a request to @uri.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2021707915%2FFunctions%2F-1891832998" anchor-label="isPersistent" id="-2021707915%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-persistent.html"><span>is</span><wbr><span><span>Persistent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2021707915%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-persistent.html"><span class="token function">isPersistent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets whether @jar stores cookies persistenly.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="240443225%2FFunctions%2F-1891832998" anchor-label="onChanged" id="240443225%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-changed.html"><span>on</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="240443225%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-changed.html"><span class="token function">onChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>oldCookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a><span class="token punctuation">, </span>newCookie<span class="token operator">: </span><a href="../-cookie/index.html">Cookie</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when @jar changes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-11811273%2FFunctions%2F-1891832998" anchor-label="setCookie" id="-11811273%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-cookie.html"><span>set</span><wbr><span><span>Cookie</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-11811273%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-cookie.html"><span class="token function">setCookie</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cookie<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @cookie to @jar, exactly as though it had appeared in a Set-Cookie header returned from a request to @uri.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1973191676%2FFunctions%2F-1891832998" anchor-label="setCookieWithFirstParty" id="-1973191676%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-cookie-with-first-party.html"><span>set</span><wbr><span>Cookie</span><wbr><span>With</span><wbr><span>First</span><wbr><span><span>Party</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1973191676%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-cookie-with-first-party.html"><span class="token function">setCookieWithFirstParty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">firstParty<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cookie<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @cookie to @jar, exactly as though it had appeared in a Set-Cookie header returned from a request to @uri.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

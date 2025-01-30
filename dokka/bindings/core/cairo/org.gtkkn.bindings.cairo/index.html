@@ -1,0 +1,1097 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>org.gtkkn.bindings.cairo</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:cairo/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:cairo/nativeMain" data-filter=":bindings:core:cairo/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="cairo::org.gtkkn.bindings.cairo////PointingToDeclaration//507617766">
+  <div class="breadcrumbs"><a href="../index.html">cairo</a><span class="delimiter">/</span><span class="current">org.gtkkn.bindings.cairo</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-931072333%2FClasslikes%2F507617766" anchor-label="Antialias" id="-931072333%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-antialias/index.html"><span><span>Antialias</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-931072333%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-antialias/index.html">Antialias</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-antialias/index.html">Antialias</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-545056551%2FClasslikes%2F507617766" anchor-label="Cairo" id="-545056551%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cairo/index.html"><span><span>Cairo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-545056551%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-cairo/index.html">Cairo</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1515653070%2FClasslikes%2F507617766" anchor-label="CairoTypeProvider" id="1515653070%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cairo-type-provider/index.html"><span>Cairo</span><wbr><span>Type</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1515653070%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-cairo-type-provider/index.html">CairoTypeProvider</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1045199419%2FClasslikes%2F507617766" anchor-label="ColorMode" id="1045199419%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color-mode/index.html"><span>Color</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1045199419%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-color-mode/index.html">ColorMode</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-color-mode/index.html">ColorMode</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1715189960%2FClasslikes%2F507617766" anchor-label="Content" id="1715189960%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-content/index.html"><span><span>Content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1715189960%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-content/index.html">Content</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-content/index.html">Content</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1553571758%2FClasslikes%2F507617766" anchor-label="Context" id="-1553571758%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-context/index.html"><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1553571758%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-context/index.html">Context</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-72631893%2FClasslikes%2F507617766" anchor-label="Device" id="-72631893%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-device/index.html"><span><span>Device</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-72631893%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-device/index.html">Device</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoDevicePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-600702319%2FClasslikes%2F507617766" anchor-label="DeviceType" id="-600702319%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-device-type/index.html"><span>Device</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-600702319%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-device-type/index.html">DeviceType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-device-type/index.html">DeviceType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1167651291%2FClasslikes%2F507617766" anchor-label="Dither" id="1167651291%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-dither/index.html"><span><span>Dither</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1167651291%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-dither/index.html">Dither</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-dither/index.html">Dither</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2082717031%2FClasslikes%2F507617766" anchor-label="Extend" id="2082717031%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-extend/index.html"><span><span>Extend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2082717031%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-extend/index.html">Extend</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-extend/index.html">Extend</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="368218370%2FClasslikes%2F507617766" anchor-label="FillRule" id="368218370%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-fill-rule/index.html"><span>Fill</span><wbr><span><span>Rule</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="368218370%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-fill-rule/index.html">FillRule</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-fill-rule/index.html">FillRule</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1857533641%2FClasslikes%2F507617766" anchor-label="Filter" id="1857533641%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-filter/index.html"><span><span>Filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1857533641%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-filter/index.html">Filter</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-filter/index.html">Filter</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-24488665%2FClasslikes%2F507617766" anchor-label="FontExtents" id="-24488665%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-extents/index.html"><span>Font</span><wbr><span><span>Extents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-24488665%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-font-extents/index.html">FontExtents</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoFontExtentsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1302454923%2FClasslikes%2F507617766" anchor-label="FontFace" id="-1302454923%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-face/index.html"><span>Font</span><wbr><span><span>Face</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1302454923%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-font-face/index.html">FontFace</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoFontFacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-414136654%2FClasslikes%2F507617766" anchor-label="FontOptions" id="-414136654%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-options/index.html"><span>Font</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-414136654%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-font-options/index.html">FontOptions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoFontOptionsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2016136670%2FClasslikes%2F507617766" anchor-label="FontSlant" id="-2016136670%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-slant/index.html"><span>Font</span><wbr><span><span>Slant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2016136670%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-font-slant/index.html">FontSlant</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-font-slant/index.html">FontSlant</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1903372088%2FClasslikes%2F507617766" anchor-label="FontType" id="1903372088%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-type/index.html"><span>Font</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1903372088%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-font-type/index.html">FontType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-font-type/index.html">FontType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1013237382%2FClasslikes%2F507617766" anchor-label="FontWeight" id="-1013237382%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-weight/index.html"><span>Font</span><wbr><span><span>Weight</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1013237382%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-font-weight/index.html">FontWeight</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-font-weight/index.html">FontWeight</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-212187350%2FClasslikes%2F507617766" anchor-label="Format" id="-212187350%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-format/index.html"><span><span>Format</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-212187350%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-format/index.html">Format</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-format/index.html">Format</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="908175221%2FClasslikes%2F507617766" anchor-label="Glyph" id="908175221%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-glyph/index.html"><span><span>Glyph</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908175221%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-glyph/index.html">Glyph</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoGlyphPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1450072559%2FClasslikes%2F507617766" anchor-label="Gradient" id="-1450072559%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gradient/index.html"><span><span>Gradient</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1450072559%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-gradient/index.html">Gradient</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoGradientPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-926498203%2FClasslikes%2F507617766" anchor-label="HintMetrics" id="-926498203%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hint-metrics/index.html"><span>Hint</span><wbr><span><span>Metrics</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-926498203%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-hint-metrics/index.html">HintMetrics</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-hint-metrics/index.html">HintMetrics</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1589585655%2FClasslikes%2F507617766" anchor-label="HintStyle" id="1589585655%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hint-style/index.html"><span>Hint</span><wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1589585655%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-hint-style/index.html">HintStyle</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-hint-style/index.html">HintStyle</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="494559407%2FClasslikes%2F507617766" anchor-label="ImageSurface" id="494559407%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-image-surface/index.html"><span>Image</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="494559407%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-image-surface/index.html">ImageSurface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoImageSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1648639124%2FClasslikes%2F507617766" anchor-label="LinearGradient" id="-1648639124%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-linear-gradient/index.html"><span>Linear</span><wbr><span><span>Gradient</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1648639124%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-linear-gradient/index.html">LinearGradient</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoLinearGradientPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-gradient/index.html">Gradient</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1518649763%2FClasslikes%2F507617766" anchor-label="LineCap" id="1518649763%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-line-cap/index.html"><span>Line</span><wbr><span><span>Cap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1518649763%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-line-cap/index.html">LineCap</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-line-cap/index.html">LineCap</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1553645117%2FClasslikes%2F507617766" anchor-label="LineJoin" id="-1553645117%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-line-join/index.html"><span>Line</span><wbr><span><span>Join</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1553645117%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-line-join/index.html">LineJoin</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-line-join/index.html">LineJoin</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1424563872%2FClasslikes%2F507617766" anchor-label="Matrix" id="1424563872%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-matrix/index.html"><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1424563872%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-matrix/index.html">Matrix</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoMatrixPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-864440844%2FClasslikes%2F507617766" anchor-label="Mesh" id="-864440844%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-mesh/index.html"><span><span>Mesh</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-864440844%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-mesh/index.html">Mesh</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoMeshPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-329105635%2FClasslikes%2F507617766" anchor-label="Operator" id="-329105635%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-operator/index.html"><span><span>Operator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-329105635%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-operator/index.html">Operator</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-operator/index.html">Operator</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1099542852%2FClasslikes%2F507617766" anchor-label="Path" id="-1099542852%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path/index.html"><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1099542852%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-path/index.html">Path</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoPathPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="333554866%2FClasslikes%2F507617766" anchor-label="PathData" id="333554866%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path-data/index.html"><span>Path</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="333554866%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-path-data/index.html">PathData</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoPathDataPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1042476520%2FClasslikes%2F507617766" anchor-label="PathDataType" id="-1042476520%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path-data-type/index.html"><span>Path</span><wbr><span>Data</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1042476520%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-path-data-type/index.html">PathDataType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-path-data-type/index.html">PathDataType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="170678673%2FClasslikes%2F507617766" anchor-label="Pattern" id="170678673%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pattern/index.html"><span><span>Pattern</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="170678673%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-pattern/index.html">Pattern</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoPatternPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2012495735%2FClasslikes%2F507617766" anchor-label="PatternType" id="2012495735%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pattern-type/index.html"><span>Pattern</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2012495735%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-pattern-type/index.html">PatternType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-pattern-type/index.html">PatternType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="691374080%2FClasslikes%2F507617766" anchor-label="PdfMetadata" id="691374080%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pdf-metadata/index.html"><span>Pdf</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="691374080%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-pdf-metadata/index.html">PdfMetadata</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-pdf-metadata/index.html">PdfMetadata</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-878423994%2FClasslikes%2F507617766" anchor-label="PdfSurface" id="-878423994%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pdf-surface/index.html"><span>Pdf</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-878423994%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pdf-surface/index.html">PdfSurface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoPdfSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1974474363%2FClasslikes%2F507617766" anchor-label="PdfVersion" id="1974474363%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pdf-version/index.html"><span>Pdf</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1974474363%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-pdf-version/index.html">PdfVersion</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-pdf-version/index.html">PdfVersion</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="217200384%2FClasslikes%2F507617766" anchor-label="PsLevel" id="217200384%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ps-level/index.html"><span>Ps</span><wbr><span><span>Level</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="217200384%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-ps-level/index.html">PsLevel</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-ps-level/index.html">PsLevel</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="622112055%2FClasslikes%2F507617766" anchor-label="PsSurface" id="622112055%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ps-surface/index.html"><span>Ps</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="622112055%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-ps-surface/index.html">PsSurface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoPsSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-421744718%2FClasslikes%2F507617766" anchor-label="RadialGradient" id="-421744718%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-radial-gradient/index.html"><span>Radial</span><wbr><span><span>Gradient</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-421744718%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-radial-gradient/index.html">RadialGradient</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoRadialGradientPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-gradient/index.html">Gradient</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-809787831%2FClasslikes%2F507617766" anchor-label="RasterSource" id="-809787831%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-raster-source/index.html"><span>Raster</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-809787831%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-raster-source/index.html">RasterSource</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoRasterSourcePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1445287237%2FClasslikes%2F507617766" anchor-label="RecordingSurface" id="1445287237%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-recording-surface/index.html"><span>Recording</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1445287237%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-recording-surface/index.html">RecordingSurface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoRecordingSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="325756050%2FClasslikes%2F507617766" anchor-label="Rectangle" id="325756050%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rectangle/index.html"><span><span>Rectangle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="325756050%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-rectangle/index.html">Rectangle</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoRectanglePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="653612865%2FClasslikes%2F507617766" anchor-label="RectangleInt" id="653612865%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rectangle-int/index.html"><span>Rectangle</span><wbr><span><span>Int</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="653612865%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-rectangle-int/index.html">RectangleInt</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoRectangleIntPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1965620941%2FClasslikes%2F507617766" anchor-label="Region" id="1965620941%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-region/index.html"><span><span>Region</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1965620941%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-region/index.html">Region</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoRegionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-227257394%2FClasslikes%2F507617766" anchor-label="RegionOverlap" id="-227257394%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-region-overlap/index.html"><span>Region</span><wbr><span><span>Overlap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-227257394%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-region-overlap/index.html">RegionOverlap</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-region-overlap/index.html">RegionOverlap</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-700849256%2FClasslikes%2F507617766" anchor-label="ScaledFont" id="-700849256%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scaled-font/index.html"><span>Scaled</span><wbr><span><span>Font</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-700849256%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-scaled-font/index.html">ScaledFont</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoScaledFontPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1819261738%2FClasslikes%2F507617766" anchor-label="Script" id="-1819261738%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-script/index.html"><span><span>Script</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1819261738%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-script/index.html">Script</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoScriptPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-device/index.html">Device</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1376824819%2FClasslikes%2F507617766" anchor-label="ScriptMode" id="1376824819%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-script-mode/index.html"><span>Script</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1376824819%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-script-mode/index.html">ScriptMode</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-script-mode/index.html">ScriptMode</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1792971900%2FClasslikes%2F507617766" anchor-label="SolidPattern" id="1792971900%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-solid-pattern/index.html"><span>Solid</span><wbr><span><span>Pattern</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1792971900%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-solid-pattern/index.html">SolidPattern</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoSolidPatternPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1450233743%2FClasslikes%2F507617766" anchor-label="Status" id="1450233743%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-status/index.html"><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1450233743%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-status/index.html">Status</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-status/index.html">Status</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-884365959%2FClasslikes%2F507617766" anchor-label="SubpixelOrder" id="-884365959%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-subpixel-order/index.html"><span>Subpixel</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-884365959%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-subpixel-order/index.html">SubpixelOrder</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-subpixel-order/index.html">SubpixelOrder</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-779295980%2FClasslikes%2F507617766" anchor-label="Surface" id="-779295980%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-surface/index.html"><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-779295980%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-surface/index.html">Surface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="787041918%2FClasslikes%2F507617766" anchor-label="SurfacePattern" id="787041918%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-surface-pattern/index.html"><span>Surface</span><wbr><span><span>Pattern</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="787041918%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-surface-pattern/index.html">SurfacePattern</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoSurfacePatternPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="555634554%2FClasslikes%2F507617766" anchor-label="SurfaceType" id="555634554%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-surface-type/index.html"><span>Surface</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="555634554%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-surface-type/index.html">SurfaceType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-surface-type/index.html">SurfaceType</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-901638728%2FClasslikes%2F507617766" anchor-label="SvgSurface" id="-901638728%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-svg-surface/index.html"><span>Svg</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-901638728%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-svg-surface/index.html">SvgSurface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoSvgSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1951259629%2FClasslikes%2F507617766" anchor-label="SvgVersion" id="1951259629%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-svg-version/index.html"><span>Svg</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1951259629%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-svg-version/index.html">SvgVersion</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-svg-version/index.html">SvgVersion</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="642733928%2FClasslikes%2F507617766" anchor-label="TeeSurface" id="642733928%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tee-surface/index.html"><span>Tee</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="642733928%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-tee-surface/index.html">TeeSurface</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoTeeSurfacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="936623028%2FClasslikes%2F507617766" anchor-label="TextCluster" id="936623028%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-cluster/index.html"><span>Text</span><wbr><span><span>Cluster</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="936623028%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-cluster/index.html">TextCluster</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoTextClusterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1862278663%2FClasslikes%2F507617766" anchor-label="TextClusterFlags" id="1862278663%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-cluster-flags/index.html"><span>Text</span><wbr><span>Cluster</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1862278663%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-text-cluster-flags/index.html">TextClusterFlags</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-text-cluster-flags/index.html">TextClusterFlags</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1195010555%2FClasslikes%2F507617766" anchor-label="TextExtents" id="-1195010555%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-extents/index.html"><span>Text</span><wbr><span><span>Extents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1195010555%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-text-extents/index.html">TextExtents</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoTextExtentsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1059257449%2FClasslikes%2F507617766" anchor-label="ToyFontFace" id="-1059257449%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toy-font-face/index.html"><span>Toy</span><wbr><span>Font</span><wbr><span><span>Face</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1059257449%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-toy-font-face/index.html">ToyFontFace</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoToyFontFacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-font-face/index.html">FontFace</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-63018409%2FClasslikes%2F507617766" anchor-label="UserDataKey" id="-63018409%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-user-data-key/index.html"><span>User</span><wbr><span>Data</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-63018409%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-user-data-key/index.html">UserDataKey</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoUserDataKeyPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-340095254%2FClasslikes%2F507617766" anchor-label="UserFontFace" id="-340095254%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-user-font-face/index.html"><span>User</span><wbr><span>Font</span><wbr><span><span>Face</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-340095254%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-user-font-face/index.html">UserFontFace</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoUserFontFacePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-font-face/index.html">FontFace</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

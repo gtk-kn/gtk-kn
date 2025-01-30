@@ -1,0 +1,442 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>WebKit</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:webkit/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:webkit/nativeMain" data-filter=":bindings:extra:webkit/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="webkit::org.gtkkn.bindings.webkit/WebKit///PointingToDeclaration//-1693314907">
+  <div class="breadcrumbs"><a href="../../index.html">webkit</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.webkit</a><span class="delimiter">/</span><span class="current">WebKit</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Web</span><wbr><span><span>Kit</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">WebKit</a></div><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">record <code class="lang-kotlin">AuthenticationRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">AutomationSessionClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">BackForwardListClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">BackForwardListItemClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">ClipboardPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">ColorChooserRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">ContextMenuClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">ContextMenuItemClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">CookieManagerClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">DeviceInfoPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">DownloadClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">EditorStateClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">FaviconDatabaseClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">FileChooserRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">FindControllerClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">FormSubmissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">GeolocationManagerClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">GeolocationPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">HitTestResultClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">InputMethodContextClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">MediaKeySystemPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">NavigationPolicyDecisionClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">NetworkSessionClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">NotificationClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">NotificationPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">OptionMenuClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">PermissionRequestInterface</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">PointerLockPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">PolicyDecisionClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">PrintOperationClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">ResponsePolicyDecisionClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">SecurityManagerClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">SettingsClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">URIRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">URIResponseClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">URISchemeRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">URISchemeResponseClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">UserContentFilterStoreClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">UserContentManagerClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">UserMediaPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">UserMessageClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebContextClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebInspectorClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebResourceClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebViewBaseClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebViewClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebsiteDataAccessPermissionRequestClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebsiteDataManagerClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WebsitePoliciesClass</code>: glib type struct are ignored</p></li><li><p class="paragraph">record <code class="lang-kotlin">WindowPropertiesClass</code>: glib type struct are ignored</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="355150756%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_COPY" id="355150756%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-c-o-p-y.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>COPY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="355150756%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-c-o-p-y.html">EDITING_COMMAND_COPY</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The copy clipboard command. Copies the current selection inside a #WebKitWebView to the clipboard. You can check whether it's possible to execute the command with webkit_web_view_can_execute_editing_command(). In general it's possible to copy to the clipboard when there is an active selection inside the #WebKitWebView.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1589055548%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_CREATE_LINK" id="-1589055548%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-c-r-e-a-t-e_-l-i-n-k.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>CREATE_</span><wbr><span>LINK</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1589055548%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-c-r-e-a-t-e_-l-i-n-k.html">EDITING_COMMAND_CREATE_LINK</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The create link command. Creates a link element that is inserted at the current cursor position. If there's a selection, the selected text will be used as the link text, otherwise the URL itself will be used. It receives the link URL as argument. This command should be executed with webkit_web_view_execute_editing_command_with_argument()</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1877938529%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_CUT" id="-1877938529%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-c-u-t.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>CUT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1877938529%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-c-u-t.html">EDITING_COMMAND_CUT</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The cut clipboard command. Copies the current selection inside a #WebKitWebView to the clipboard and deletes the selected content. You can check whether it's possible to execute the command with webkit_web_view_can_execute_editing_command(). In general it's possible to cut to the clipboard when the #WebKitWebView content is editable and there is an active selection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1273696996%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_INSERT_IMAGE" id="1273696996%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-i-n-s-e-r-t_-i-m-a-g-e.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>INSERT_</span><wbr><span>IMAGE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1273696996%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-i-n-s-e-r-t_-i-m-a-g-e.html">EDITING_COMMAND_INSERT_IMAGE</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The insert image command. Creates an image element that is inserted at the current cursor position. It receives an URI as argument, that is used as the image source. This command should be executed with webkit_web_view_execute_editing_command_with_argument().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="315390574%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_PASTE" id="315390574%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-p-a-s-t-e.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>PASTE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="315390574%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-p-a-s-t-e.html">EDITING_COMMAND_PASTE</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The paste clipboard command. Pastes the contents of the clipboard to a #WebKitWebView. You can check whether it's possible to execute the command with webkit_web_view_can_execute_editing_command(). In general it's possible to paste from the clipboard when the #WebKitWebView content is editable and clipboard is not empty.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="720781278%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_PASTE_AS_PLAIN_TEXT" id="720781278%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-p-a-s-t-e_-a-s_-p-l-a-i-n_-t-e-x-t.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>PASTE_</span><wbr><span>AS_</span><wbr><span>PLAIN_</span><wbr><span>TEXT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="720781278%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-p-a-s-t-e_-a-s_-p-l-a-i-n_-t-e-x-t.html">EDITING_COMMAND_PASTE_AS_PLAIN_TEXT</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The paste as plaintext clipboard command. Pastes the contents of the clipboard to a #WebKitWebView, with formatting removed. You can check whether it's possible to execute the command with webkit_web_view_can_execute_editing_command(). In general it's possible to paste from the clipboard when the #WebKitWebView content is editable and clipboard is not empty.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1449475387%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_REDO" id="1449475387%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-r-e-d-o.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>REDO</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1449475387%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-r-e-d-o.html">EDITING_COMMAND_REDO</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The redo command. Redoes a previously undone editing command in a #WebKitWebView. You can check whether it's possible to execute the command with webkit_web_view_can_execute_editing_command(). It's only possible to redo a command when it has been previously undone.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1526125179%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_SELECT_ALL" id="1526125179%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-s-e-l-e-c-t_-a-l-l.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>SELECT_</span><wbr><span>ALL</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1526125179%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-s-e-l-e-c-t_-a-l-l.html">EDITING_COMMAND_SELECT_ALL</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The select all command. Selects all the content of the current text field in a #WebKitWebView. It is always possible to select all text, no matter whether the #WebKitWebView content is editable or not. You can still check it with webkit_web_view_can_execute_editing_command().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1236151573%2FProperties%2F-1693314907" anchor-label="EDITING_COMMAND_UNDO" id="1236151573%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-u-n-d-o.html"><span>EDITING_</span><wbr><span>COMMAND_</span><wbr><span>UNDO</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1236151573%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-e-d-i-t-i-n-g_-c-o-m-m-a-n-d_-u-n-d-o.html">EDITING_COMMAND_UNDO</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The undo command. Undoes the last editing command in a #WebKitWebView. You can check whether it's possible to execute the command with webkit_web_view_can_execute_editing_command(). It's only possible to undo a command after a previously executed editing operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-861090188%2FProperties%2F-1693314907" anchor-label="MAJOR_VERSION" id="-861090188%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-j-o-r_-v-e-r-s-i-o-n.html"><span>MAJOR_</span><wbr><span>VERSION</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-861090188%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-j-o-r_-v-e-r-s-i-o-n.html">MAJOR_VERSION</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span><span class="token constant">2</span></div><div class="brief "><p class="paragraph">Like webkit_get_major_version(), but from the headers used at application compile time, rather than from the library linked against at application run time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1185164599%2FProperties%2F-1693314907" anchor-label="MICRO_VERSION" id="-1185164599%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-i-c-r-o_-v-e-r-s-i-o-n.html"><span>MICRO_</span><wbr><span>VERSION</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1185164599%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-i-c-r-o_-v-e-r-s-i-o-n.html">MICRO_VERSION</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span><span class="token constant">5</span></div><div class="brief "><p class="paragraph">Like webkit_get_micro_version(), but from the headers used at application compile time, rather than from the library linked against at application run time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="988302328%2FProperties%2F-1693314907" anchor-label="MINOR_VERSION" id="988302328%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-i-n-o-r_-v-e-r-s-i-o-n.html"><span>MINOR_</span><wbr><span>VERSION</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="988302328%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-i-n-o-r_-v-e-r-s-i-o-n.html">MINOR_VERSION</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span><span class="token constant">46</span></div><div class="brief "><p class="paragraph">Like webkit_get_minor_version(), but from the headers used at application compile time, rather than from the library linked against at application run time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="991524433%2FFunctions%2F-1693314907" anchor-label="getMajorVersion" id="991524433%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-major-version.html"><span>get</span><wbr><span>Major</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="991524433%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-major-version.html"><span class="token function">getMajorVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the major version number of the WebKit library.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1258165084%2FFunctions%2F-1693314907" anchor-label="getMicroVersion" id="1258165084%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-micro-version.html"><span>get</span><wbr><span>Micro</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1258165084%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-micro-version.html"><span class="token function">getMicroVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the micro version number of the WebKit library.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2021013581%2FFunctions%2F-1693314907" anchor-label="getMinorVersion" id="2021013581%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-minor-version.html"><span>get</span><wbr><span>Minor</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2021013581%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-minor-version.html"><span class="token function">getMinorVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the minor version number of the WebKit library.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1641668849%2FFunctions%2F-1693314907" anchor-label="mediaKeySystemPermissionGetName" id="1641668849%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="media-key-system-permission-get-name.html"><span>media</span><wbr><span>Key</span><wbr><span>System</span><wbr><span>Permission</span><wbr><span>Get</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1641668849%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="media-key-system-permission-get-name.html"><span class="token function">mediaKeySystemPermissionGetName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-media-key-system-permission-request/index.html">MediaKeySystemPermissionRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the key system for which access permission is being requested.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="842400539%2FFunctions%2F-1693314907" anchor-label="resolveException" id="842400539%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resolve-exception.html"><span>resolve</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="842400539%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="resolve-exception.html"><span class="token function">resolveException</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1763993347%2FFunctions%2F-1693314907" anchor-label="uriForDisplay" id="1763993347%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="uri-for-display.html"><span>uri</span><wbr><span>For</span><wbr><span><span>Display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1763993347%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="uri-for-display.html"><span class="token function">uriForDisplay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uri<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Use this function to format a URI for display.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="721736519%2FFunctions%2F-1693314907" anchor-label="userMediaPermissionIsForAudioDevice" id="721736519%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="user-media-permission-is-for-audio-device.html"><span>user</span><wbr><span>Media</span><wbr><span>Permission</span><wbr><span>Is</span><wbr><span>For</span><wbr><span>Audio</span><wbr><span><span>Device</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="721736519%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="user-media-permission-is-for-audio-device.html"><span class="token function">userMediaPermissionIsForAudioDevice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-user-media-permission-request/index.html">UserMediaPermissionRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check whether the permission request is for an audio device.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-432105765%2FFunctions%2F-1693314907" anchor-label="userMediaPermissionIsForDisplayDevice" id="-432105765%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="user-media-permission-is-for-display-device.html"><span>user</span><wbr><span>Media</span><wbr><span>Permission</span><wbr><span>Is</span><wbr><span>For</span><wbr><span>Display</span><wbr><span><span>Device</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-432105765%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="user-media-permission-is-for-display-device.html"><span class="token function">userMediaPermissionIsForDisplayDevice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-user-media-permission-request/index.html">UserMediaPermissionRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check whether the permission request is for a display device.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="779562626%2FFunctions%2F-1693314907" anchor-label="userMediaPermissionIsForVideoDevice" id="779562626%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="user-media-permission-is-for-video-device.html"><span>user</span><wbr><span>Media</span><wbr><span>Permission</span><wbr><span>Is</span><wbr><span>For</span><wbr><span>Video</span><wbr><span><span>Device</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="779562626%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="user-media-permission-is-for-video-device.html"><span class="token function">userMediaPermissionIsForVideoDevice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">request<span class="token operator">: </span><a href="../-user-media-permission-request/index.html">UserMediaPermissionRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check whether the permission request is for a video device.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

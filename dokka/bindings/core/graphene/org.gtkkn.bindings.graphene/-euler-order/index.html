@@ -1,0 +1,690 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>EulerOrder</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:graphene/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:graphene/nativeMain" data-filter=":bindings:core:graphene/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="graphene::org.gtkkn.bindings.graphene/EulerOrder///PointingToDeclaration//-383291588">
+  <div class="breadcrumbs"><a href="../../index.html">graphene</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.graphene</a><span class="delimiter">/</span><span class="current">EulerOrder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Euler</span><wbr><span><span>Order</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">EulerOrder</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">EulerOrder</a><span class="token operator">&gt; </span></div><p class="paragraph">Specify the order of the rotations on each axis.</p><p class="paragraph">The %GRAPHENE_EULER_ORDER_DEFAULT value is special, and is used as an alias for one of the other orders.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.2</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="1323323876%2FClasslikes%2F-383291588" anchor-label="DEFAULT" id="1323323876%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t/index.html">DEFAULT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1323323876%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-e-f-a-u-l-t/index.html">DEFAULT</a></div></div><div class="brief "><p class="paragraph">Rotate in the default order; the default order is one of the following enumeration values</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="486738620%2FClasslikes%2F-383291588" anchor-label="XYZ" id="486738620%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-x-y-z/index.html">XYZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="486738620%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-x-y-z/index.html">XYZ</a></div></div><div class="brief "><p class="paragraph">Rotate in the X, Y, and Z order. Deprecated in Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SXYZ</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="154832410%2FClasslikes%2F-383291588" anchor-label="YZX" id="154832410%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-y-z-x/index.html">YZX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="154832410%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-y-z-x/index.html">YZX</a></div></div><div class="brief "><p class="paragraph">Rotate in the Y, Z, and X order. Deprecated in Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SYZX</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2099158370%2FClasslikes%2F-383291588" anchor-label="ZXY" id="-2099158370%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-z-x-y/index.html">ZXY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2099158370%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-z-x-y/index.html">ZXY</a></div></div><div class="brief "><p class="paragraph">Rotate in the Z, X, and Y order. Deprecated in Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SZXY</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1735878054%2FClasslikes%2F-383291588" anchor-label="XZY" id="-1735878054%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-x-z-y/index.html">XZY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1735878054%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-x-z-y/index.html">XZY</a></div></div><div class="brief "><p class="paragraph">Rotate in the X, Z, and Y order. Deprecated in Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SXZY</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="305098462%2FClasslikes%2F-383291588" anchor-label="YXZ" id="305098462%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-y-x-z/index.html">YXZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="305098462%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-y-x-z/index.html">YXZ</a></div></div><div class="brief "><p class="paragraph">Rotate in the Y, X, and Z order. Deprecated in Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SYXZ</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-26807748%2FClasslikes%2F-383291588" anchor-label="ZYX" id="-26807748%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-z-y-x/index.html">ZYX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-26807748%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-z-y-x/index.html">ZYX</a></div></div><div class="brief "><p class="paragraph">Rotate in the Z, Y, and X order. Deprecated in Graphene 1.10, it's an alias for %GRAPHENE_EULER_ORDER_SZYX</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="420658123%2FClasslikes%2F-383291588" anchor-label="SXYZ" id="420658123%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-x-y-z/index.html">SXYZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="420658123%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-x-y-z/index.html">SXYZ</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the X, Y, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="855163721%2FClasslikes%2F-383291588" anchor-label="SXYX" id="855163721%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-x-y-x/index.html">SXYX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855163721%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-x-y-x/index.html">SXYX</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the X, Y, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1801958551%2FClasslikes%2F-383291588" anchor-label="SXZY" id="-1801958551%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-x-z-y/index.html">SXZY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1801958551%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-x-z-y/index.html">SXZY</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the X, Z, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="562777896%2FClasslikes%2F-383291588" anchor-label="SXZX" id="562777896%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-x-z-x/index.html">SXZX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="562777896%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-x-z-x/index.html">SXZX</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the X, Z, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="88751913%2FClasslikes%2F-383291588" anchor-label="SYZX" id="88751913%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-y-z-x/index.html">SYZX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="88751913%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-y-z-x/index.html">SYZX</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Y, Z, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2018982762%2FClasslikes%2F-383291588" anchor-label="SYZY" id="2018982762%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-y-z-y/index.html">SYZY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2018982762%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-y-z-y/index.html">SYZY</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Y, Z, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="239017965%2FClasslikes%2F-383291588" anchor-label="SYXZ" id="239017965%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-y-x-z/index.html">SYXZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="239017965%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-y-x-z/index.html">SYXZ</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Y, X, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1691212884%2FClasslikes%2F-383291588" anchor-label="SYXY" id="-1691212884%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-y-x-y/index.html">SYXY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1691212884%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-y-x-y/index.html">SYXY</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Y, X, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2129728429%2FClasslikes%2F-383291588" anchor-label="SZXY" id="2129728429%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-z-x-y/index.html">SZXY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2129728429%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-z-x-y/index.html">SZXY</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Z, X, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-235008018%2FClasslikes%2F-383291588" anchor-label="SZXZ" id="-235008018%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-z-x-z/index.html">SZXZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-235008018%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-z-x-z/index.html">SZXZ</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Z, X, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-92888245%2FClasslikes%2F-383291588" anchor-label="SZYX" id="-92888245%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-z-y-x/index.html">SZYX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-92888245%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-z-y-x/index.html">SZYX</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Z, Y, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-527393843%2FClasslikes%2F-383291588" anchor-label="SZYZ" id="-527393843%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-z-y-z/index.html">SZYZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-527393843%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-z-y-z/index.html">SZYZ</a></div></div><div class="brief "><p class="paragraph">Defines a static rotation along the Z, Y, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1717015340%2FClasslikes%2F-383291588" anchor-label="RZYX" id="1717015340%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-z-y-x/index.html">RZYX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1717015340%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-z-y-x/index.html">RZYX</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Z, Y, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1629899990%2FClasslikes%2F-383291588" anchor-label="RXYX" id="-1629899990%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-x-y-x/index.html">RXYX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1629899990%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-x-y-x/index.html">RXYX</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the X, Y, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1898655498%2FClasslikes%2F-383291588" anchor-label="RYZX" id="1898655498%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-y-z-x/index.html">RYZX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1898655498%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-y-z-x/index.html">RYZX</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Y, Z, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1922285815%2FClasslikes%2F-383291588" anchor-label="RXZX" id="-1922285815%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-x-z-x/index.html">RXZX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1922285815%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-x-z-x/index.html">RXZX</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the X, Z, and X axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="7945034%2FClasslikes%2F-383291588" anchor-label="RXZY" id="7945034%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-x-z-y/index.html">RXZY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="7945034%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-x-z-y/index.html">RXZY</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the X, Z, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-466080949%2FClasslikes%2F-383291588" anchor-label="RYZY" id="-466080949%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-y-z-y/index.html">RYZY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-466080949%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-y-z-y/index.html">RYZY</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Y, Z, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-355335282%2FClasslikes%2F-383291588" anchor-label="RZXY" id="-355335282%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-z-x-y/index.html">RZXY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-355335282%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-z-x-y/index.html">RZXY</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Z, X, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="118690701%2FClasslikes%2F-383291588" anchor-label="RYXY" id="118690701%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-y-x-y/index.html">RYXY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="118690701%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-y-x-y/index.html">RYXY</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Y, X, and Y axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2048921550%2FClasslikes%2F-383291588" anchor-label="RYXZ" id="2048921550%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-y-x-z/index.html">RYXZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2048921550%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-y-x-z/index.html">RYXZ</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Y, X, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1574895567%2FClasslikes%2F-383291588" anchor-label="RZXZ" id="1574895567%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-z-x-z/index.html">RZXZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1574895567%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-z-x-z/index.html">RZXZ</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Z, X, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2064405588%2FClasslikes%2F-383291588" anchor-label="RXYZ" id="-2064405588%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-x-y-z/index.html">RXYZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2064405588%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-x-y-z/index.html">RXYZ</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the X, Y, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1282509742%2FClasslikes%2F-383291588" anchor-label="RZYZ" id="1282509742%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-z-y-z/index.html">RZYZ</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1282509742%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-z-y-z/index.html">RZYZ</a></div></div><div class="brief "><p class="paragraph">Defines a relative rotation along the Z, Y, and Z axes (Since: 1.10)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1849314506%2FClasslikes%2F-383291588" anchor-label="Companion" id="-1849314506%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1849314506%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-383291588" anchor-label="name" id="-372974862%2FProperties%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-ray-intersection-kind/-l-e-a-v-e/index.html#-372974862%2FProperties%2F-383291588"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-ray-intersection-kind/-l-e-a-v-e/index.html#-372974862%2FProperties%2F-383291588">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1720502507%2FProperties%2F-383291588" anchor-label="nativeValue" id="-1720502507%2FProperties%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1720502507%2FProperties%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-383291588" anchor-label="ordinal" id="-739389684%2FProperties%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-ray-intersection-kind/-l-e-a-v-e/index.html#-739389684%2FProperties%2F-383291588"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-ray-intersection-kind/-l-e-a-v-e/index.html#-739389684%2FProperties%2F-383291588">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1338760221%2FFunctions%2F-383291588" anchor-label="valueOf" id="1338760221%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1338760221%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">EulerOrder</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1808953321%2FFunctions%2F-383291588" anchor-label="values" id="1808953321%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1808953321%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">EulerOrder</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TimedAnimation</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:adwaita/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:adwaita/nativeMain" data-filter=":bindings:adwaita/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="adwaita::org.gtkkn.bindings.adw/TimedAnimation///PointingToDeclaration//-902881796">
+  <div class="breadcrumbs"><a href="../../index.html">adwaita</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><span class="current">TimedAnimation</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Timed</span><wbr><span><span>Animation</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TimedAnimation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwTimedAnimationPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-animation/index.html">Animation</a></div><p class="paragraph">A time-based class@Animation.</p><p class="paragraph"><code class="lang-kotlin">AdwTimedAnimation</code> implements a simple animation interpolating the given value from property@TimedAnimation:value-from to property@TimedAnimation:value-to over property@TimedAnimation:duration milliseconds using the curve described by property@TimedAnimation:easing.</p><p class="paragraph">If property@TimedAnimation:reverse is set to <code class="lang-kotlin">TRUE</code>, <code class="lang-kotlin">AdwTimedAnimation</code> will instead animate from property@TimedAnimation:value-to to property@TimedAnimation:value-from, and the easing curve will be inverted.</p><p class="paragraph">The animation can repeat a certain amount of times, or endlessly, depending on the property@TimedAnimation:repeat-count value. If property@TimedAnimation:alternate is set to <code class="lang-kotlin">TRUE</code>, it will also change the direction every other iteration.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1422157277%2FConstructors%2F-902881796" anchor-label="TimedAnimation" id="1422157277%2FConstructors%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-timed-animation.html"><span>Timed</span><wbr><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1422157277%2FConstructors%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">widget<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">from<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">to<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">duration<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../-animation-target/index.html">AnimationTarget</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">AdwTimedAnimation</code> on @widget to animate @target from @from to @to.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">adwTimedAnimationPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-371182206%2FClasslikes%2F-902881796" anchor-label="Companion" id="-371182206%2FClasslikes%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-371182206%2FClasslikes%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1165826655%2FProperties%2F-902881796" anchor-label="adwAnimationPointer" id="1165826655%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/adw-animation-pointer.html"><span>adw</span><wbr><span>Animation</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1165826655%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-animation/adw-animation-pointer.html">adwAnimationPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="565707747%2FProperties%2F-902881796" anchor-label="adwTimedAnimationPointer" id="565707747%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="adw-timed-animation-pointer.html"><span>adw</span><wbr><span>Timed</span><wbr><span>Animation</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="565707747%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="adw-timed-animation-pointer.html">adwTimedAnimationPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1760968447%2FProperties%2F-902881796" anchor-label="alternate" id="-1760968447%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="alternate.html"><span><span>alternate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1760968447%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="alternate.html">alternate</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the animation changes direction on every iteration.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-124568469%2FProperties%2F-902881796" anchor-label="duration" id="-124568469%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="duration.html"><span><span>duration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-124568469%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="duration.html">duration</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Duration of the animation, in milliseconds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-999604940%2FProperties%2F-902881796" anchor-label="easing" id="-999604940%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="easing.html"><span><span>easing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-999604940%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="easing.html">easing</a><span class="token operator">: </span><a href="../-easing/index.html">Easing</a></div><div class="brief "><p class="paragraph">Easing function used in the animation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532542753%2FProperties%2F-902881796" anchor-label="followEnableAnimationsSetting" id="-532542753%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/follow-enable-animations-setting.html"><span>follow</span><wbr><span>Enable</span><wbr><span>Animations</span><wbr><span><span>Setting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532542753%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-animation/follow-enable-animations-setting.html">followEnableAnimationsSetting</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether to skip the animation when animations are globally disabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="445784839%2FProperties%2F-902881796" anchor-label="repeatCount" id="445784839%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="repeat-count.html"><span>repeat</span><wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="445784839%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="repeat-count.html">repeatCount</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Number of times the animation will play.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="442678041%2FProperties%2F-902881796" anchor-label="reverse" id="442678041%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reverse.html"><span><span>reverse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="442678041%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="reverse.html">reverse</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the animation plays backwards.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1284847749%2FProperties%2F-902881796" anchor-label="state" id="-1284847749%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/state.html"><span><span>state</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1284847749%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-animation/state.html">state</a><span class="token operator">: </span><a href="../-animation-state/index.html">AnimationState</a></div><div class="brief "><p class="paragraph">The animation state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1528071683%2FProperties%2F-902881796" anchor-label="target" id="-1528071683%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/target.html"><span><span>target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1528071683%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../-animation/target.html">target</a><span class="token operator">: </span><a href="../-animation-target/index.html">AnimationTarget</a></div><div class="brief "><p class="paragraph">The target to animate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="919549595%2FProperties%2F-902881796" anchor-label="value" id="919549595%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="919549595%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-animation/value.html">value</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The current value of the animation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1337942048%2FProperties%2F-902881796" anchor-label="valueFrom" id="-1337942048%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-from.html"><span>value</span><wbr><span><span>From</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1337942048%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="value-from.html">valueFrom</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The value to animate from.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1557071215%2FProperties%2F-902881796" anchor-label="valueTo" id="1557071215%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-to.html"><span>value</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1557071215%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="value-to.html">valueTo</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The value to animate to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1498632022%2FProperties%2F-902881796" anchor-label="widget" id="-1498632022%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/widget.html"><span><span>widget</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1498632022%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../-animation/widget.html">widget</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The animation widget.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-759892519%2FFunctions%2F-902881796" anchor-label="emitDone" id="-759892519%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/emit-done.html"><span>emit</span><wbr><span><span>Done</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-759892519%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-animation/emit-done.html"><span class="token function">emitDone</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "done" signal. See <a href="../-animation/on-done.html">onDone</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1402686859%2FFunctions%2F-902881796" anchor-label="onDone" id="-1402686859%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/on-done.html"><span>on</span><wbr><span><span>Done</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1402686859%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-animation/on-done.html"><span class="token function">onDone</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when the animation has been completed, either on its own or via calling <a href="../-animation/skip.html">method@Animation.skip</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="930763190%2FFunctions%2F-902881796" anchor-label="pause" id="930763190%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/pause.html"><span><span>pause</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="930763190%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-animation/pause.html"><span class="token function">pause</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Pauses a playing animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1488296454%2FFunctions%2F-902881796" anchor-label="play" id="-1488296454%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/play.html"><span><span>play</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1488296454%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-animation/play.html"><span class="token function">play</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts the animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-172089219%2FFunctions%2F-902881796" anchor-label="reset" id="-172089219%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/reset.html"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-172089219%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-animation/reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resets the animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2124969247%2FFunctions%2F-902881796" anchor-label="resume" id="-2124969247%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/resume.html"><span><span>resume</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124969247%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-animation/resume.html"><span class="token function">resume</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Resumes a paused animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-330455537%2FFunctions%2F-902881796" anchor-label="skip" id="-330455537%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-animation/skip.html"><span><span>skip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-330455537%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-animation/skip.html"><span class="token function">skip</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Skips the animation for @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

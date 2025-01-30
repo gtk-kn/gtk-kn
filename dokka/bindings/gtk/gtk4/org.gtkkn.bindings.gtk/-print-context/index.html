@@ -1,0 +1,330 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PrintContext</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/PrintContext///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">PrintContext</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Print</span><wbr><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">PrintContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkPrintContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">GtkPrintContext</code> encapsulates context information that is required when drawing pages for printing.</p><p class="paragraph">This includes the cairo context and important parameters like page size and resolution. It also lets you easily create class@Pango.Layout and class@Pango.Context objects that match the font metrics of the cairo surface.</p><p class="paragraph"><code class="lang-kotlin">GtkPrintContext</code> objects get passed to the signal@Gtk.PrintOperation::begin-print, signal@Gtk.PrintOperation::end-print, signal@Gtk.PrintOperation::request-page-setup and signal@Gtk.PrintOperation::draw-page signals on the class@Gtk.PrintOperation object.</p><h2 class="">Using GtkPrintContext in a ::draw-page callback</h2><div class="sample-container"><pre><code class="block lang-c" theme="idea">static void<br>draw_page (GtkPrintOperation *operation,<br>           GtkPrintContext   *context,<br>           int                page_nr)<br>{<br>  cairo_t *cr;<br>  PangoLayout *layout;<br>  PangoFontDescription *desc;<br><br>  cr = gtk_print_context_get_cairo_context (context);<br><br>  // Draw a red rectangle, as wide as the paper (inside the margins)<br>  cairo_set_source_rgb (cr, 1.0, 0, 0);<br>  cairo_rectangle (cr, 0, 0, gtk_print_context_get_width (context), 50);<br><br>  cairo_fill (cr);<br><br>  // Draw some lines<br>  cairo_move_to (cr, 20, 10);<br>  cairo_line_to (cr, 40, 20);<br>  cairo_arc (cr, 60, 60, 20, 0, M_PI);<br>  cairo_line_to (cr, 80, 20);<br><br>  cairo_set_source_rgb (cr, 0, 0, 0);<br>  cairo_set_line_width (cr, 5);<br>  cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);<br>  cairo_set_line_join (cr, CAIRO_LINE_JOIN_ROUND);<br><br>  cairo_stroke (cr);<br><br>  // Draw some text<br>  layout = gtk_print_context_create_pango_layout (context);<br>  pango_layout_set_text (layout, "Hello World! Printing is easy", -1);<br>  desc = pango_font_description_from_string ("sans 28");<br>  pango_layout_set_font_description (layout, desc);<br>  pango_font_description_free (desc);<br><br>  cairo_move_to (cr, 30, 20);<br>  pango_cairo_layout_path (cr, layout);<br><br>  // Font Outline<br>  cairo_set_source_rgb (cr, 0.93, 1.0, 0.47);<br>  cairo_set_line_width (cr, 0.5);<br>  cairo_stroke_preserve (cr);<br><br>  // Font Fill<br>  cairo_set_source_rgb (cr, 0, 0.0, 1.0);<br>  cairo_fill (cr);<br><br>  g_object_unref (layout);<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">top</code>: top: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1502012268%2FConstructors%2F1170399019" anchor-label="PrintContext" id="1502012268%2FConstructors%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-print-context.html"><span>Print</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1502012268%2FConstructors%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtkPrintContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="520196247%2FClasslikes%2F1170399019" anchor-label="Companion" id="520196247%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="520196247%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1190648333%2FProperties%2F1170399019" anchor-label="gtkPrintContextPointer" id="1190648333%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-print-context-pointer.html"><span>gtk</span><wbr><span>Print</span><wbr><span>Context</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1190648333%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-print-context-pointer.html">gtkPrintContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="144109956%2FFunctions%2F1170399019" anchor-label="createPangoContext" id="144109956%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-pango-context.html"><span>create</span><wbr><span>Pango</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="144109956%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-pango-context.html"><span class="token function">createPangoContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">PangoContext</code> that can be used with the <code class="lang-kotlin">GtkPrintContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2122043267%2FFunctions%2F1170399019" anchor-label="createPangoLayout" id="-2122043267%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-pango-layout.html"><span>create</span><wbr><span>Pango</span><wbr><span><span>Layout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2122043267%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-pango-layout.html"><span class="token function">createPangoLayout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">PangoLayout</code> that is suitable for use with the <code class="lang-kotlin">GtkPrintContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1416784883%2FFunctions%2F1170399019" anchor-label="getCairoContext" id="1416784883%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cairo-context.html"><span>get</span><wbr><span>Cairo</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1416784883%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-cairo-context.html"><span class="token function">getCairoContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Obtains the cairo context that is associated with the <code class="lang-kotlin">GtkPrintContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1421124065%2FFunctions%2F1170399019" anchor-label="getDpiX" id="-1421124065%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dpi-x.html"><span>get</span><wbr><span>Dpi</span><wbr><span><span>X</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1421124065%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-dpi-x.html"><span class="token function">getDpiX</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Obtains the horizontal resolution of the <code class="lang-kotlin">GtkPrintContext</code>, in dots per inch.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1390104258%2FFunctions%2F1170399019" anchor-label="getDpiY" id="-1390104258%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dpi-y.html"><span>get</span><wbr><span>Dpi</span><wbr><span><span>Y</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1390104258%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-dpi-y.html"><span class="token function">getDpiY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Obtains the vertical resolution of the <code class="lang-kotlin">GtkPrintContext</code>, in dots per inch.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1524238893%2FFunctions%2F1170399019" anchor-label="getHeight" id="-1524238893%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-height.html"><span>get</span><wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1524238893%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-height.html"><span class="token function">getHeight</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Obtains the height of the <code class="lang-kotlin">GtkPrintContext</code>, in pixels.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="914823122%2FFunctions%2F1170399019" anchor-label="getPageSetup" id="914823122%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-page-setup.html"><span>get</span><wbr><span>Page</span><wbr><span><span>Setup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="914823122%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-page-setup.html"><span class="token function">getPageSetup</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-page-setup/index.html">PageSetup</a></div><div class="brief "><p class="paragraph">Obtains the <code class="lang-kotlin">GtkPageSetup</code> that determines the page dimensions of the <code class="lang-kotlin">GtkPrintContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1488869454%2FFunctions%2F1170399019" anchor-label="getPangoFontmap" id="-1488869454%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-pango-fontmap.html"><span>get</span><wbr><span>Pango</span><wbr><span><span>Fontmap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1488869454%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-pango-fontmap.html"><span class="token function">getPangoFontmap</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns a <code class="lang-kotlin">PangoFontMap</code> that is suitable for use with the <code class="lang-kotlin">GtkPrintContext</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2087770182%2FFunctions%2F1170399019" anchor-label="getWidth" id="-2087770182%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-width.html"><span>get</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2087770182%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-width.html"><span class="token function">getWidth</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Obtains the width of the <code class="lang-kotlin">GtkPrintContext</code>, in pixels.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1283333972%2FFunctions%2F1170399019" anchor-label="setCairoContext" id="-1283333972%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-cairo-context.html"><span>set</span><wbr><span>Cairo</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1283333972%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-cairo-context.html"><span class="token function">setCairoContext</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cr<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dpiX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dpiY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a new cairo context on a print context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

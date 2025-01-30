@@ -1,0 +1,836 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>DtlsConnectionImpl</title>
+<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gio/nativeMain" data-filter=":bindings:core:gio/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/DtlsConnection.DtlsConnectionImpl///PointingToDeclaration//-726360853">
+  <div class="breadcrumbs"><a href="../../../index.html">gio</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><a href="../index.html">DtlsConnection</a><span class="delimiter">/</span><span class="current">DtlsConnectionImpl</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Dtls</span><wbr><span>Connection</span><wbr><span><span>Impl</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">DtlsConnectionImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioDtlsConnectionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../index.html">DtlsConnection</a></div><p class="paragraph">The DtlsConnectionImpl type represents a native instance of the DtlsConnection interface.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1629449312%2FConstructors%2F-726360853" anchor-label="DtlsConnectionImpl" id="1629449312%2FConstructors%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-dtls-connection-impl.html"><span>Dtls</span><wbr><span>Connection</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1629449312%2FConstructors%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gioDtlsConnectionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new instance of DtlsConnection for the provided CPointer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-14540908%2FProperties%2F-726360853" anchor-label="ciphersuiteName" id="-14540908%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../ciphersuite-name.html"><span>ciphersuite</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-14540908%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../ciphersuite-name.html">ciphersuiteName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The name of the DTLS ciphersuite in use. See g_dtls_connection_get_ciphersuite_name().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1862530893%2FProperties%2F-726360853" anchor-label="database" id="-1862530893%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../database.html"><span><span>database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1862530893%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../database.html">database</a><span class="token operator">: </span><a href="../../-tls-database/index.html">TlsDatabase</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The certificate database to use when verifying this TLS connection. If no certificate database is set, then the default database will be used. See g_tls_backend_get_default_database().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2124969588%2FProperties%2F-726360853" anchor-label="gioDatagramBasedPointer" id="2124969588%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../gio-datagram-based-pointer.html"><span>gio</span><wbr><span>Datagram</span><wbr><span>Based</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2124969588%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../gio-datagram-based-pointer.html">gioDatagramBasedPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="150467382%2FProperties%2F-726360853" anchor-label="gioDtlsConnectionPointer" id="150467382%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-dtls-connection-pointer.html"><span>gio</span><wbr><span>Dtls</span><wbr><span>Connection</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="150467382%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gio-dtls-connection-pointer.html">gioDtlsConnectionPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1970473619%2FProperties%2F-726360853" anchor-label="gioProxyPointer" id="-1970473619%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-proxy/gio-proxy-pointer.html"><span>gio</span><wbr><span>Proxy</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970473619%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="../../-proxy/gio-proxy-pointer.html">gioProxyPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="585171514%2FProperties%2F-726360853" anchor-label="interaction" id="585171514%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../interaction.html"><span><span>interaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="585171514%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../interaction.html">interaction</a><span class="token operator">: </span><a href="../../-tls-interaction/index.html">TlsInteraction</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">A #GTlsInteraction object to be used when the connection or certificate database need to interact with the user. This will be used to prompt the user for passwords where necessary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="571734000%2FProperties%2F-726360853" anchor-label="negotiatedProtocol" id="571734000%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../negotiated-protocol.html"><span>negotiated</span><wbr><span><span>Protocol</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="571734000%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../negotiated-protocol.html">negotiatedProtocol</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The application-layer protocol negotiated during the TLS handshake. See g_dtls_connection_get_negotiated_protocol().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1275280215%2FProperties%2F-726360853" anchor-label="peerCertificate" id="1275280215%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../peer-certificate.html"><span>peer</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1275280215%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../peer-certificate.html">peerCertificate</a><span class="token operator">: </span><a href="../../-tls-certificate/index.html">TlsCertificate</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The connection's peer's certificate, after the TLS handshake has completed or failed. Note in particular that this is not yet set during the emission of #GDtlsConnection::accept-certificate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2043135660%2FProperties%2F-726360853" anchor-label="peerCertificateErrors" id="2043135660%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../peer-certificate-errors.html"><span>peer</span><wbr><span>Certificate</span><wbr><span><span>Errors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2043135660%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../peer-certificate-errors.html">peerCertificateErrors</a><span class="token operator">: </span><a href="../../-tls-certificate-flags/index.html">TlsCertificateFlags</a></div><div class="brief "><p class="paragraph">The errors noticed while verifying #GDtlsConnection:peer-certificate. Normally this should be 0, but it may not be if #GDtlsClientConnection:validation-flags is not %G_TLS_CERTIFICATE_VALIDATE_ALL, or if #GDtlsConnection::accept-certificate overrode the default behavior.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-539872916%2FProperties%2F-726360853" anchor-label="protocolVersion" id="-539872916%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../protocol-version.html"><span>protocol</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-539872916%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../protocol-version.html">protocolVersion</a><span class="token operator">: </span><a href="../../-tls-protocol-version/index.html">TlsProtocolVersion</a></div><div class="brief "><p class="paragraph">The DTLS protocol version in use. See g_dtls_connection_get_protocol_version().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1957791621%2FProperties%2F-726360853" anchor-label="rehandshakeMode" id="1957791621%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../rehandshake-mode.html"><span>rehandshake</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1957791621%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../rehandshake-mode.html">rehandshakeMode</a><span class="token operator">: </span><a href="../../-tls-rehandshake-mode/index.html">TlsRehandshakeMode</a></div><div class="brief "><p class="paragraph">The rehandshaking mode. See g_dtls_connection_set_rehandshake_mode().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1542740142%2FProperties%2F-726360853" anchor-label="requireCloseNotify" id="-1542740142%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../require-close-notify.html"><span>require</span><wbr><span>Close</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1542740142%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="../require-close-notify.html">requireCloseNotify</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether or not proper TLS close notification is required. See g_dtls_connection_set_require_close_notify().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1545630767%2FFunctions%2F-726360853" anchor-label="close" id="-1545630767%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../close.html"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1545630767%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Close the DTLS connection. This is equivalent to calling g_dtls_connection_shutdown() to shut down both sides of the connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-789817211%2FFunctions%2F-726360853" anchor-label="closeAsync" id="-789817211%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../close-async.html"><span>close</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-789817211%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../close-async.html"><span class="token function">closeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously close the DTLS connection. See g_dtls_connection_close() for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1605880654%2FFunctions%2F-726360853" anchor-label="closeFinish" id="-1605880654%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../close-finish.html"><span>close</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1605880654%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../close-finish.html"><span class="token function">closeFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finish an asynchronous TLS close operation. See g_dtls_connection_close() for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2032660881%2FFunctions%2F-726360853" anchor-label="conditionCheck" id="2032660881%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-datagram-based/condition-check.html"><span>condition</span><wbr><span><span>Check</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2032660881%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-datagram-based/condition-check.html"><span class="token function">conditionCheck</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">condition<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Checks on the readiness of @datagram_based to perform operations. The operations specified in @condition are checked for and masked against the currently-satisfied conditions on @datagram_based. The result is returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="476197771%2FFunctions%2F-726360853" anchor-label="conditionWait" id="476197771%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-datagram-based/condition-wait.html"><span>condition</span><wbr><span><span>Wait</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="476197771%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-datagram-based/condition-wait.html"><span class="token function">conditionWait</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">condition<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">timeout<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Waits for up to @timeout microseconds for condition to become true on</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1673176468%2FFunctions%2F-726360853" anchor-label="connect" id="-1673176468%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-proxy/connect.html"><span><span>connect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1673176468%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-proxy/connect.html"><span class="token function">connect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connection<span class="token operator">: </span><a href="../../-io-stream/index.html">IoStream</a><span class="token punctuation">, </span></span><span class="parameter ">proxyAddress<span class="token operator">: </span><a href="../../-proxy-address/index.html">ProxyAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../../-io-stream/index.html">IoStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Given @connection to communicate with a proxy (eg, a #GSocketConnection that is connected to the proxy server), this does the necessary handshake to connect to @proxy_address, and if required, wraps the #GIOStream to handle proxy payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1930800491%2FFunctions%2F-726360853" anchor-label="connectAsync" id="-1930800491%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-proxy/connect-async.html"><span>connect</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1930800491%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-proxy/connect-async.html"><span class="token function">connectAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connection<span class="token operator">: </span><a href="../../-io-stream/index.html">IoStream</a><span class="token punctuation">, </span></span><span class="parameter ">proxyAddress<span class="token operator">: </span><a href="../../-proxy-address/index.html">ProxyAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronous version of g_proxy_connect().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1679411715%2FFunctions%2F-726360853" anchor-label="connectFinish" id="-1679411715%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-proxy/connect-finish.html"><span>connect</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1679411715%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-proxy/connect-finish.html"><span class="token function">connectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../../-io-stream/index.html">IoStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">See g_proxy_connect().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-54964255%2FFunctions%2F-726360853" anchor-label="createSource" id="-54964255%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-datagram-based/create-source.html"><span>create</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-54964255%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-datagram-based/create-source.html"><span class="token function">createSource</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">condition<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Creates a #GSource that can be attached to a #GMainContext to monitor for the availability of the specified @condition on the #GDatagramBased. The #GSource keeps a reference to the @datagram_based.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-344236750%2FFunctions%2F-726360853" anchor-label="emitAcceptCertificate" id="-344236750%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../emit-accept-certificate.html"><span>emit</span><wbr><span>Accept</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-344236750%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../emit-accept-certificate.html"><span class="token function">emitAcceptCertificate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">peerCert<span class="token operator">: </span><a href="../../-tls-certificate/index.html">TlsCertificate</a><span class="token punctuation">, </span></span><span class="parameter ">errors<span class="token operator">: </span><a href="../../-tls-certificate-flags/index.html">TlsCertificateFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Used by #GDtlsConnection implementations to emit the #GDtlsConnection::accept-certificate signal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="363229133%2FFunctions%2F-726360853" anchor-label="getCertificate" id="363229133%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-certificate.html"><span>get</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="363229133%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-certificate.html"><span class="token function">getCertificate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-certificate/index.html">TlsCertificate</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets @conn's certificate, as set by g_dtls_connection_set_certificate().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1499007732%2FFunctions%2F-726360853" anchor-label="getCiphersuiteName" id="-1499007732%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-ciphersuite-name.html"><span>get</span><wbr><span>Ciphersuite</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1499007732%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-ciphersuite-name.html"><span class="token function">getCiphersuiteName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the name of the current DTLS ciphersuite, or null if the connection has not handshaked or has been closed. Beware that the TLS backend may use any of multiple different naming conventions, because OpenSSL and GnuTLS have their own ciphersuite naming conventions that are different from each other and different from the standard, IANA- registered ciphersuite names. The ciphersuite name is intended to be displayed to the user for informative purposes only, and parsing it is not recommended.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1260907067%2FFunctions%2F-726360853" anchor-label="getDatabase" id="1260907067%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-database.html"><span>get</span><wbr><span><span>Database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1260907067%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-database.html"><span class="token function">getDatabase</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-database/index.html">TlsDatabase</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the certificate database that @conn uses to verify peer certificates. See g_dtls_connection_set_database().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="458970034%2FFunctions%2F-726360853" anchor-label="getInteraction" id="458970034%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-interaction.html"><span>get</span><wbr><span><span>Interaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="458970034%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-interaction.html"><span class="token function">getInteraction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-interaction/index.html">TlsInteraction</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the object that will be used to interact with the user. It will be used for things like prompting the user for passwords. If null is returned, then no user interaction will occur for this connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2098827128%2FFunctions%2F-726360853" anchor-label="getNegotiatedProtocol" id="2098827128%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-negotiated-protocol.html"><span>get</span><wbr><span>Negotiated</span><wbr><span><span>Protocol</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2098827128%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-negotiated-protocol.html"><span class="token function">getNegotiatedProtocol</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the name of the application-layer protocol negotiated during the handshake.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-209186609%2FFunctions%2F-726360853" anchor-label="getPeerCertificate" id="-209186609%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-peer-certificate.html"><span>get</span><wbr><span>Peer</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-209186609%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-peer-certificate.html"><span class="token function">getPeerCertificate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-certificate/index.html">TlsCertificate</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets @conn's peer's certificate after the handshake has completed or failed. (It is not set during the emission of #GDtlsConnection::accept-certificate.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-914054620%2FFunctions%2F-726360853" anchor-label="getPeerCertificateErrors" id="-914054620%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-peer-certificate-errors.html"><span>get</span><wbr><span>Peer</span><wbr><span>Certificate</span><wbr><span><span>Errors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-914054620%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-peer-certificate-errors.html"><span class="token function">getPeerCertificateErrors</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-certificate-flags/index.html">TlsCertificateFlags</a></div><div class="brief "><p class="paragraph">Gets the errors associated with validating @conn's peer's certificate, after the handshake has completed or failed. (It is not set during the emission of #GDtlsConnection::accept-certificate.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2024339740%2FFunctions%2F-726360853" anchor-label="getProtocolVersion" id="-2024339740%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-protocol-version.html"><span>get</span><wbr><span>Protocol</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2024339740%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-protocol-version.html"><span class="token function">getProtocolVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-protocol-version/index.html">TlsProtocolVersion</a></div><div class="brief "><p class="paragraph">Returns the current DTLS protocol version, which may be %G_TLS_PROTOCOL_VERSION_UNKNOWN if the connection has not handshaked, or has been closed, or if the TLS backend has implemented a protocol version that is not a recognized #GTlsProtocolVersion.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="473324797%2FFunctions%2F-726360853" anchor-label="getRehandshakeMode" id="473324797%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-rehandshake-mode.html"><span>get</span><wbr><span>Rehandshake</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="473324797%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-rehandshake-mode.html"><span class="token function">getRehandshakeMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-tls-rehandshake-mode/index.html">TlsRehandshakeMode</a></div><div class="brief "><p class="paragraph">Gets @conn rehandshaking mode. See g_dtls_connection_set_rehandshake_mode() for details.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-15647014%2FFunctions%2F-726360853" anchor-label="getRequireCloseNotify" id="-15647014%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-require-close-notify.html"><span>get</span><wbr><span>Require</span><wbr><span>Close</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-15647014%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../get-require-close-notify.html"><span class="token function">getRequireCloseNotify</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests whether or not @conn expects a proper TLS close notification when the connection is closed. See g_dtls_connection_set_require_close_notify() for details.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2125994192%2FFunctions%2F-726360853" anchor-label="handshake" id="2125994192%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../handshake.html"><span><span>handshake</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2125994192%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../handshake.html"><span class="token function">handshake</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Attempts a TLS handshake on @conn.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-244980220%2FFunctions%2F-726360853" anchor-label="handshakeAsync" id="-244980220%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../handshake-async.html"><span>handshake</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-244980220%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../handshake-async.html"><span class="token function">handshakeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously performs a TLS handshake on @conn. See g_dtls_connection_handshake() for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1711992595%2FFunctions%2F-726360853" anchor-label="handshakeFinish" id="1711992595%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../handshake-finish.html"><span>handshake</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1711992595%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../handshake-finish.html"><span class="token function">handshakeFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finish an asynchronous TLS handshake operation. See g_dtls_connection_handshake() for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1155681493%2FFunctions%2F-726360853" anchor-label="onAcceptCertificate" id="1155681493%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-accept-certificate.html"><span>on</span><wbr><span>Accept</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1155681493%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../on-accept-certificate.html"><span class="token function">onAcceptCertificate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>peerCert<span class="token operator">: </span><a href="../../-tls-certificate/index.html">TlsCertificate</a><span class="token punctuation">, </span>errors<span class="token operator">: </span><a href="../../-tls-certificate-flags/index.html">TlsCertificateFlags</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted during the TLS handshake after the peer certificate has been received. You can examine @peer_cert's certification path by calling g_tls_certificate_get_issuer() on it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="567188743%2FFunctions%2F-726360853" anchor-label="setAdvertisedProtocols" id="567188743%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../set-advertised-protocols.html"><span>set</span><wbr><span>Advertised</span><wbr><span><span>Protocols</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="567188743%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../set-advertised-protocols.html"><span class="token function">setAdvertisedProtocols</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">protocols<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the list of application-layer protocols to advertise that the caller is willing to speak on this connection. The Application-Layer Protocol Negotiation (ALPN) extension will be used to negotiate a compatible protocol with the peer; use g_dtls_connection_get_negotiated_protocol() to find the negotiated protocol after the handshake.  Specifying null for the the value of @protocols will disable ALPN negotiation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2099041315%2FFunctions%2F-726360853" anchor-label="setCertificate" id="2099041315%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../set-certificate.html"><span>set</span><wbr><span><span>Certificate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2099041315%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../set-certificate.html"><span class="token function">setCertificate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">certificate<span class="token operator">: </span><a href="../../-tls-certificate/index.html">TlsCertificate</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This sets the certificate that @conn will present to its peer during the TLS handshake. For a #GDtlsServerConnection, it is mandatory to set this, and that will normally be done at construct time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1855410272%2FFunctions%2F-726360853" anchor-label="setDatabase" id="-1855410272%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../set-database.html"><span>set</span><wbr><span><span>Database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1855410272%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../set-database.html"><span class="token function">setDatabase</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">database<span class="token operator">: </span><a href="../../-tls-database/index.html">TlsDatabase</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the certificate database that is used to verify peer certificates. This is set to the default database by default. See g_tls_backend_get_default_database(). If set to null, then peer certificate validation will always set the %G_TLS_CERTIFICATE_UNKNOWN_CA error (meaning #GDtlsConnection::accept-certificate will always be emitted on client-side connections, unless that bit is not set in #GDtlsClientConnection:validation-flags).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-508353856%2FFunctions%2F-726360853" anchor-label="setInteraction" id="-508353856%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../set-interaction.html"><span>set</span><wbr><span><span>Interaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-508353856%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../set-interaction.html"><span class="token function">setInteraction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">interaction<span class="token operator">: </span><a href="../../-tls-interaction/index.html">TlsInteraction</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the object that will be used to interact with the user. It will be used for things like prompting the user for passwords.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1472514851%2FFunctions%2F-726360853" anchor-label="setRehandshakeMode" id="1472514851%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../set-rehandshake-mode.html"><span>set</span><wbr><span>Rehandshake</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1472514851%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../set-rehandshake-mode.html"><span class="token function">setRehandshakeMode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mode<span class="token operator">: </span><a href="../../-tls-rehandshake-mode/index.html">TlsRehandshakeMode</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Since GLib 2.64, changing the rehandshake mode is no longer supported and will have no effect. With TLS 1.3, rehandshaking has been removed from the TLS protocol, replaced by separate post-handshake authentication and rekey operations.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1644079379%2FFunctions%2F-726360853" anchor-label="setRequireCloseNotify" id="1644079379%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../set-require-close-notify.html"><span>set</span><wbr><span>Require</span><wbr><span>Close</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1644079379%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../set-require-close-notify.html"><span class="token function">setRequireCloseNotify</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requireCloseNotify<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets whether or not @conn expects a proper TLS close notification before the connection is closed. If this is true (the default), then @conn will expect to receive a TLS close notification from its peer before the connection is closed, and will return a %G_TLS_ERROR_EOF error if the connection is closed without proper notification (since this may indicate a network error, or man-in-the-middle attack).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1450508973%2FFunctions%2F-726360853" anchor-label="shutdown" id="1450508973%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../shutdown.html"><span><span>shutdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1450508973%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../shutdown.html"><span class="token function">shutdown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">shutdownRead<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">shutdownWrite<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Shut down part or all of a DTLS connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-231089567%2FFunctions%2F-726360853" anchor-label="shutdownAsync" id="-231089567%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../shutdown-async.html"><span>shutdown</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-231089567%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../shutdown-async.html"><span class="token function">shutdownAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">shutdownRead<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">shutdownWrite<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously shut down part or all of the DTLS connection. See g_dtls_connection_shutdown() for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="104499350%2FFunctions%2F-726360853" anchor-label="shutdownFinish" id="104499350%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../shutdown-finish.html"><span>shutdown</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="104499350%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../shutdown-finish.html"><span class="token function">shutdownFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Finish an asynchronous TLS shutdown operation. See g_dtls_connection_shutdown() for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-820383814%2FFunctions%2F-726360853" anchor-label="supportsHostname" id="-820383814%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-proxy/supports-hostname.html"><span>supports</span><wbr><span><span>Hostname</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-820383814%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../../-proxy/supports-hostname.html"><span class="token function">supportsHostname</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Some proxy protocols expect to be passed a hostname, which they will resolve to an IP address themselves. Others, like SOCKS4, do not allow this. This function will return false if @proxy is implementing such a protocol. When false is returned, the caller should resolve the destination hostname first, and then pass a #GProxyAddress containing the stringified IP address to g_proxy_connect() or g_proxy_connect_async().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

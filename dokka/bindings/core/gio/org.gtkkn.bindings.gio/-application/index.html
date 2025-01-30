@@ -1,0 +1,1185 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Application</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gio/nativeMain" data-filter=":bindings:core:gio/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/Application///PointingToDeclaration//-726360853">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">Application</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Application</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Application</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioApplicationPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-action-group/index.html">ActionGroup</a>, <a href="../-action-map/index.html">ActionMap</a></div><p class="paragraph"><code class="lang-kotlin">GApplication</code> is the core class for application support.</p><p class="paragraph">A <code class="lang-kotlin">GApplication</code> is the foundation of an application. It wraps some low-level platform-specific services and is intended to act as the foundation for higher-level application classes such as <code class="lang-kotlin">GtkApplication</code> or <code class="lang-kotlin">MxApplication</code>. In general, you should not use this class outside of a higher level framework.</p><p class="paragraph"><code class="lang-kotlin">GApplication</code> provides convenient life-cycle management by maintaining a "use count" for the primary application instance. The use count can be changed using method@Gio.Application.hold and method@Gio.Application.release. If it drops to zero, the application exits. Higher-level classes such as <code class="lang-kotlin">GtkApplication</code> employ the use count to ensure that the application stays alive as long as it has any opened windows.</p><p class="paragraph">Another feature that <code class="lang-kotlin">GApplication</code> (optionally) provides is process uniqueness. Applications can make use of this functionality by providing a unique application ID. If given, only one application with this ID can be running at a time per session. The session concept is platform-dependent, but corresponds roughly to a graphical desktop login. When your application is launched again, its arguments are passed through platform communication to the already running program. The already running instance of the program is called the "primary instance"; for non-unique applications this is always the current instance. On Linux, the D-Bus session bus is used for communication.</p><p class="paragraph">The use of <code class="lang-kotlin">GApplication</code> differs from some other commonly-used uniqueness libraries (such as libunique) in important ways. The application is not expected to manually register itself and check if it is the primary instance. Instead, the main() function of a <code class="lang-kotlin">GApplication</code> should do very little more than instantiating the application instance, possibly connecting signal handlers, then calling method@Gio.Application.run. All checks for uniqueness are done internally. If the application is the primary instance then the startup signal is emitted and the mainloop runs. If the application is not the primary instance then a signal is sent to the primary instance and method@Gio.Application.run promptly returns. See the code examples below.</p><p class="paragraph">If used, the expected form of an application identifier is the same as that of a <a href="https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus">D-Bus well-known bus name</a>. Examples include: <code class="lang-kotlin">com.example.MyApp</code>, <code class="lang-kotlin">org.example.internal_apps.Calculator</code>, <code class="lang-kotlin">org._7_zip.Archiver</code>. For details on valid application identifiers, see func@Gio.Application.id_is_valid.</p><p class="paragraph">On Linux, the application identifier is claimed as a well-known bus name on the user's session bus. This means that the uniqueness of your application is scoped to the current session. It also means that your application may provide additional services (through registration of other object paths) at that bus name. The registration of these object paths should be done with the shared GDBus session bus. Note that due to the internal architecture of GDBus, method calls can be dispatched at any time (even if a main loop is not running). For this reason, you must ensure that any object paths that you wish to register are registered before #GApplication attempts to acquire the bus name of your application (which happens in method@Gio.Application.register). Unfortunately, this means that you cannot use property@Gio.Application:is-remote to decide if you want to register object paths.</p><p class="paragraph"><code class="lang-kotlin">GApplication</code> also implements the iface@Gio.ActionGroup and iface@Gio.ActionMap interfaces and lets you easily export actions by adding them with method@Gio.ActionMap.add_action. When invoking an action by calling method@Gio.ActionGroup.activate_action on the application, it is always invoked in the primary instance. The actions are also exported on the session bus, and GIO provides the class@Gio.DBusActionGroup wrapper to conveniently access them remotely. GIO provides a class@Gio.DBusMenuModel wrapper for remote access to exported class@Gio.MenuModels.</p><p class="paragraph">Note: Due to the fact that actions are exported on the session bus, using <code class="lang-kotlin">maybe</code> parameters is not supported, since D-Bus does not support <code class="lang-kotlin">maybe</code> types.</p><p class="paragraph">There is a number of different entry points into a <code class="lang-kotlin">GApplication</code>:</p><ul><li><p class="paragraph">via 'Activate' (i.e. just starting the application)</p></li><li><p class="paragraph">via 'Open' (i.e. opening some files)</p></li><li><p class="paragraph">by handling a command-line</p></li><li><p class="paragraph">via activating an action</p></li></ul><p class="paragraph">The signal@Gio.Application::startup signal lets you handle the application initialization for all of these in a single place.</p><p class="paragraph">Regardless of which of these entry points is used to start the application, <code class="lang-kotlin">GApplication</code> passes some ‘platform data’ from the launching instance to the primary instance, in the form of a struct@GLib.Variant dictionary mapping strings to variants. To use platform data, override the vfunc@Gio.Application.before_emit or vfunc@Gio.Application.after_emit virtual functions in your <code class="lang-kotlin">GApplication</code> subclass. When dealing with class@Gio.ApplicationCommandLine objects, the platform data is directly available via method@Gio.ApplicationCommandLine.get_cwd, method@Gio.ApplicationCommandLine.get_environ and method@Gio.ApplicationCommandLine.get_platform_data.</p><p class="paragraph">As the name indicates, the platform data may vary depending on the operating system, but it always includes the current directory (key <code class="lang-kotlin">cwd</code>), and optionally the environment (ie the set of environment variables and their values) of the calling process (key <code class="lang-kotlin">environ</code>). The environment is only added to the platform data if the <code class="lang-kotlin">G_APPLICATION_SEND_ENVIRONMENT</code> flag is set. <code class="lang-kotlin">GApplication</code> subclasses can add their own platform data by overriding the vfunc@Gio.Application.add_platform_data virtual function. For instance, <code class="lang-kotlin">GtkApplication</code> adds startup notification data in this way.</p><p class="paragraph">To parse commandline arguments you may handle the signal@Gio.Application::command-line signal or override the vfunc@Gio.Application.local_command_line virtual funcion, to parse them in either the primary instance or the local instance, respectively.</p><p class="paragraph">For an example of opening files with a <code class="lang-kotlin">GApplication</code>, see <a href="https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-open.c">gapplication-example-open.c</a>.</p><p class="paragraph">For an example of using actions with <code class="lang-kotlin">GApplication</code>, see <a href="https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-actions.c">gapplication-example-actions.c</a>.</p><p class="paragraph">For an example of using extra D-Bus hooks with <code class="lang-kotlin">GApplication</code>, see <a href="https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-dbushooks.c">gapplication-example-dbushooks.c</a>.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">entries</code>: Array parameter of type GLib.OptionEntry is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">files</code>: Array parameter of type File is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">action-group</code>: Property has no getter</p></li><li><p class="paragraph">method <code class="lang-kotlin">version</code>: Property TypeInfo of getter and setter do not match</p></li><li><p class="paragraph">signal <code class="lang-kotlin">open</code>: Unsupported parameter <code class="lang-kotlin">files</code> : Array parameter of type File is not supported</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.28</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="232491941%2FConstructors%2F-726360853" anchor-label="Application" id="232491941%2FConstructors%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-application.html"><span><span>Application</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="232491941%2FConstructors%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">applicationId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-application-flags/index.html">ApplicationFlags</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #GApplication instance.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gioApplicationPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-253390290%2FClasslikes%2F-726360853" anchor-label="Companion" id="-253390290%2FClasslikes%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-253390290%2FClasslikes%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1757969476%2FProperties%2F-726360853" anchor-label="applicationId" id="-1757969476%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="application-id.html"><span>application</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1757969476%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="application-id.html">applicationId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The unique identifier for the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2097377984%2FProperties%2F-726360853" anchor-label="flags" id="-2097377984%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="flags.html"><span><span>flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2097377984%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="flags.html">flags</a><span class="token operator">: </span><a href="../-application-flags/index.html">ApplicationFlags</a></div><div class="brief "><p class="paragraph">Flags specifying the behaviour of the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="560879174%2FProperties%2F-726360853" anchor-label="gioActionGroupPointer" id="560879174%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-action-group-pointer.html"><span>gio</span><wbr><span>Action</span><wbr><span>Group</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="560879174%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gio-action-group-pointer.html">gioActionGroupPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1619363555%2FProperties%2F-726360853" anchor-label="gioActionMapPointer" id="1619363555%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-action-map-pointer.html"><span>gio</span><wbr><span>Action</span><wbr><span>Map</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1619363555%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="gio-action-map-pointer.html">gioActionMapPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2082470483%2FProperties%2F-726360853" anchor-label="gioApplicationPointer" id="-2082470483%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-application-pointer.html"><span>gio</span><wbr><span>Application</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2082470483%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gio-application-pointer.html">gioApplicationPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1970473619%2FProperties%2F-726360853" anchor-label="gioProxyPointer" id="-1970473619%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/gio-proxy-pointer.html"><span>gio</span><wbr><span>Proxy</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970473619%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="../-proxy/gio-proxy-pointer.html">gioProxyPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-177141766%2FProperties%2F-726360853" anchor-label="inactivityTimeout" id="-177141766%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inactivity-timeout.html"><span>inactivity</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-177141766%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="inactivity-timeout.html">inactivityTimeout</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Time (in milliseconds) to stay alive after becoming idle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1287849488%2FProperties%2F-726360853" anchor-label="isBusy" id="-1287849488%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-busy.html"><span>is</span><wbr><span><span>Busy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1287849488%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-busy.html">isBusy</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the application is currently marked as busy through g_application_mark_busy() or g_application_bind_busy_property().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-100962169%2FProperties%2F-726360853" anchor-label="isRegistered" id="-100962169%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-registered.html"><span>is</span><wbr><span><span>Registered</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-100962169%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-registered.html">isRegistered</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether method@Gio.Application.register has been called.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2039365309%2FProperties%2F-726360853" anchor-label="isRemote" id="-2039365309%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-remote.html"><span>is</span><wbr><span><span>Remote</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2039365309%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="is-remote.html">isRemote</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this application instance is remote.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1217371919%2FProperties%2F-726360853" anchor-label="resourceBasePath" id="1217371919%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resource-base-path.html"><span>resource</span><wbr><span>Base</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1217371919%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="resource-base-path.html">resourceBasePath</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The base resource path for the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2119904448%2FFunctions%2F-726360853" anchor-label="actionAdded" id="-2119904448%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/action-added.html"><span>action</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2119904448%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/action-added.html"><span class="token function">actionAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the #GActionGroup::action-added signal on @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1044628675%2FFunctions%2F-726360853" anchor-label="actionEnabledChanged" id="1044628675%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/action-enabled-changed.html"><span>action</span><wbr><span>Enabled</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1044628675%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/action-enabled-changed.html"><span class="token function">actionEnabledChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the #GActionGroup::action-enabled-changed signal on @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1999859808%2FFunctions%2F-726360853" anchor-label="actionRemoved" id="1999859808%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/action-removed.html"><span>action</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1999859808%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/action-removed.html"><span class="token function">actionRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the #GActionGroup::action-removed signal on @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-764157925%2FFunctions%2F-726360853" anchor-label="actionStateChanged" id="-764157925%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/action-state-changed.html"><span>action</span><wbr><span>State</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-764157925%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/action-state-changed.html"><span class="token function">actionStateChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">state<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the #GActionGroup::action-state-changed signal on @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="648924096%2FFunctions%2F-726360853" anchor-label="activate" id="648924096%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="activate.html"><span><span>activate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="648924096%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="activate.html"><span class="token function">activate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Activates the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1685649624%2FFunctions%2F-726360853" anchor-label="activateAction" id="1685649624%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/activate-action.html"><span>activate</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1685649624%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/activate-action.html"><span class="token function">activateAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">parameter<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Activate the named action within @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1163868968%2FFunctions%2F-726360853" anchor-label="addAction" id="1163868968%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-map/add-action.html"><span>add</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1163868968%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-map/add-action.html"><span class="token function">addAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">action<span class="token operator">: </span><a href="../-action/index.html">Action</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds an action to the @action_map.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1158803760%2FFunctions%2F-726360853" anchor-label="addMainOption" id="1158803760%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-main-option.html"><span>add</span><wbr><span>Main</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1158803760%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-main-option.html"><span class="token function">addMainOption</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">longName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">shortName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char/index.html">Char</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">arg<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">argDescription<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Add an option to be handled by @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1586868124%2FFunctions%2F-726360853" anchor-label="addOptionGroup" id="-1586868124%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-option-group.html"><span>add</span><wbr><span>Option</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1586868124%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-option-group.html"><span class="token function">addOptionGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">group<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a #GOptionGroup to the commandline handling of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1862377072%2FFunctions%2F-726360853" anchor-label="bindBusyProperty" id="-1862377072%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bind-busy-property.html"><span>bind</span><wbr><span>Busy</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1862377072%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="bind-busy-property.html"><span class="token function">bindBusyProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">object<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">property<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Marks @application as busy (see g_application_mark_busy()) while</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1116267019%2FFunctions%2F-726360853" anchor-label="changeActionState" id="1116267019%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/change-action-state.html"><span>change</span><wbr><span>Action</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1116267019%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/change-action-state.html"><span class="token function">changeActionState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Request for the state of the named action within @action_group to be changed to @value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1673176468%2FFunctions%2F-726360853" anchor-label="connect" id="-1673176468%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/connect.html"><span><span>connect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1673176468%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/connect.html"><span class="token function">connect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connection<span class="token operator">: </span><a href="../-io-stream/index.html">IoStream</a><span class="token punctuation">, </span></span><span class="parameter ">proxyAddress<span class="token operator">: </span><a href="../-proxy-address/index.html">ProxyAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-io-stream/index.html">IoStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Given @connection to communicate with a proxy (eg, a #GSocketConnection that is connected to the proxy server), this does the necessary handshake to connect to @proxy_address, and if required, wraps the #GIOStream to handle proxy payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1930800491%2FFunctions%2F-726360853" anchor-label="connectAsync" id="-1930800491%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/connect-async.html"><span>connect</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1930800491%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/connect-async.html"><span class="token function">connectAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connection<span class="token operator">: </span><a href="../-io-stream/index.html">IoStream</a><span class="token punctuation">, </span></span><span class="parameter ">proxyAddress<span class="token operator">: </span><a href="../-proxy-address/index.html">ProxyAddress</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-async-ready-callback/index.html">AsyncReadyCallback</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronous version of g_proxy_connect().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1679411715%2FFunctions%2F-726360853" anchor-label="connectFinish" id="-1679411715%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/connect-finish.html"><span>connect</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1679411715%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/connect-finish.html"><span class="token function">connectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-io-stream/index.html">IoStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">See g_proxy_connect().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="278038317%2FFunctions%2F-726360853" anchor-label="emitActivate" id="278038317%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-activate.html"><span>emit</span><wbr><span><span>Activate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278038317%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-activate.html"><span class="token function">emitActivate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "activate" signal. See <a href="on-activate.html">onActivate</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1351967958%2FFunctions%2F-726360853" anchor-label="emitShutdown" id="-1351967958%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-shutdown.html"><span>emit</span><wbr><span><span>Shutdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1351967958%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-shutdown.html"><span class="token function">emitShutdown</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "shutdown" signal. See <a href="on-shutdown.html">onShutdown</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="798112381%2FFunctions%2F-726360853" anchor-label="emitStartup" id="798112381%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-startup.html"><span>emit</span><wbr><span><span>Startup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="798112381%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-startup.html"><span class="token function">emitStartup</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "startup" signal. See <a href="on-startup.html">onStartup</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-900777843%2FFunctions%2F-726360853" anchor-label="getActionEnabled" id="-900777843%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/get-action-enabled.html"><span>get</span><wbr><span>Action</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-900777843%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/get-action-enabled.html"><span class="token function">getActionEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if the named action within @action_group is currently enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-63351153%2FFunctions%2F-726360853" anchor-label="getActionParameterType" id="-63351153%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/get-action-parameter-type.html"><span>get</span><wbr><span>Action</span><wbr><span>Parameter</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-63351153%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/get-action-parameter-type.html"><span class="token function">getActionParameterType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Queries the type of the parameter that must be given when activating the named action within @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-165536995%2FFunctions%2F-726360853" anchor-label="getActionState" id="-165536995%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/get-action-state.html"><span>get</span><wbr><span>Action</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-165536995%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/get-action-state.html"><span class="token function">getActionState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Queries the current state of the named action within @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1194070652%2FFunctions%2F-726360853" anchor-label="getActionStateHint" id="-1194070652%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/get-action-state-hint.html"><span>get</span><wbr><span>Action</span><wbr><span>State</span><wbr><span><span>Hint</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1194070652%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/get-action-state-hint.html"><span class="token function">getActionStateHint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Requests a hint about the valid range of values for the state of the named action within @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1027440649%2FFunctions%2F-726360853" anchor-label="getActionStateType" id="-1027440649%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/get-action-state-type.html"><span>get</span><wbr><span>Action</span><wbr><span>State</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1027440649%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/get-action-state-type.html"><span class="token function">getActionStateType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Queries the type of the state of the named action within</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-860917673%2FFunctions%2F-726360853" anchor-label="getDbusConnection" id="-860917673%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dbus-connection.html"><span>get</span><wbr><span>Dbus</span><wbr><span><span>Connection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-860917673%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-dbus-connection.html"><span class="token function">getDbusConnection</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-d-bus-connection/index.html">DBusConnection</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the #GDBusConnection being used by the application, or null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1653154289%2FFunctions%2F-726360853" anchor-label="getDbusObjectPath" id="1653154289%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dbus-object-path.html"><span>get</span><wbr><span>Dbus</span><wbr><span>Object</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1653154289%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-dbus-object-path.html"><span class="token function">getDbusObjectPath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the D-Bus object path being used by the application, or null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-117346959%2FFunctions%2F-726360853" anchor-label="getVersion" id="-117346959%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-version.html"><span>get</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-117346959%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-version.html"><span class="token function">getVersion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the version of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="317442950%2FFunctions%2F-726360853" anchor-label="hasAction" id="317442950%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/has-action.html"><span>has</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="317442950%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/has-action.html"><span class="token function">hasAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if the named action exists within @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-372374412%2FFunctions%2F-726360853" anchor-label="hold" id="-372374412%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hold.html"><span><span>hold</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372374412%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="hold.html"><span class="token function">hold</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Increases the use count of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1148723249%2FFunctions%2F-726360853" anchor-label="listActions" id="-1148723249%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/list-actions.html"><span>list</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1148723249%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/list-actions.html"><span class="token function">listActions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lists the actions contained within @action_group.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-450801941%2FFunctions%2F-726360853" anchor-label="lookupAction" id="-450801941%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-map/lookup-action.html"><span>lookup</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-450801941%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-map/lookup-action.html"><span class="token function">lookupAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-action/index.html">Action</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Looks up the action with the name @action_name in @action_map.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="733313453%2FFunctions%2F-726360853" anchor-label="markBusy" id="733313453%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mark-busy.html"><span>mark</span><wbr><span><span>Busy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="733313453%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="mark-busy.html"><span class="token function">markBusy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Increases the busy count of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-516560812%2FFunctions%2F-726360853" anchor-label="onActionAdded" id="-516560812%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/on-action-added.html"><span>on</span><wbr><span>Action</span><wbr><span><span>Added</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-516560812%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/on-action-added.html"><span class="token function">onActionAdded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">detail<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Signals that a new action was just added to the group. This signal is emitted after the action has been added and is now visible.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1166203835%2FFunctions%2F-726360853" anchor-label="onActionEnabledChanged" id="-1166203835%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/on-action-enabled-changed.html"><span>on</span><wbr><span>Action</span><wbr><span>Enabled</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1166203835%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/on-action-enabled-changed.html"><span class="token function">onActionEnabledChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">detail<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Signals that the enabled status of the named action has changed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="544207156%2FFunctions%2F-726360853" anchor-label="onActionRemoved" id="544207156%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/on-action-removed.html"><span>on</span><wbr><span>Action</span><wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="544207156%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/on-action-removed.html"><span class="token function">onActionRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">detail<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Signals that an action is just about to be removed from the group. This signal is emitted before the action is removed, so the action is still visible and can be queried from the signal handler.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1066930671%2FFunctions%2F-726360853" anchor-label="onActionStateChanged" id="-1066930671%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-group/on-action-state-changed.html"><span>on</span><wbr><span>Action</span><wbr><span>State</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1066930671%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-group/on-action-state-changed.html"><span class="token function">onActionStateChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">detail<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Signals that the state of the named action has changed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="23417097%2FFunctions%2F-726360853" anchor-label="onActivate" id="23417097%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-activate.html"><span>on</span><wbr><span><span>Activate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="23417097%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-activate.html"><span class="token function">onActivate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::activate signal is emitted on the primary instance when an activation occurs. See g_application_activate().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-105625744%2FFunctions%2F-726360853" anchor-label="onCommandLine" id="-105625744%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-command-line.html"><span>on</span><wbr><span>Command</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-105625744%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-command-line.html"><span class="token function">onCommandLine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>commandLine<span class="token operator">: </span><a href="../-application-command-line/index.html">ApplicationCommandLine</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::command-line signal is emitted on the primary instance when a commandline is not handled locally. See g_application_run() and the #GApplicationCommandLine documentation for more information.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-668793132%2FFunctions%2F-726360853" anchor-label="onHandleLocalOptions" id="-668793132%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-handle-local-options.html"><span>on</span><wbr><span>Handle</span><wbr><span>Local</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-668793132%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-handle-local-options.html"><span class="token function">onHandleLocalOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::handle-local-options signal is emitted on the local instance after the parsing of the commandline options has occurred.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1708161913%2FFunctions%2F-726360853" anchor-label="onNameLost" id="-1708161913%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-name-lost.html"><span>on</span><wbr><span>Name</span><wbr><span><span>Lost</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1708161913%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-name-lost.html"><span class="token function">onNameLost</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::name-lost signal is emitted only on the registered primary instance when a new instance has taken over. This can only happen if the application is using the %G_APPLICATION_ALLOW_REPLACEMENT flag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2075388294%2FFunctions%2F-726360853" anchor-label="onShutdown" id="2075388294%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-shutdown.html"><span>on</span><wbr><span><span>Shutdown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2075388294%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-shutdown.html"><span class="token function">onShutdown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::shutdown signal is emitted only on the registered primary instance immediately after the main loop terminates.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1037465585%2FFunctions%2F-726360853" anchor-label="onStartup" id="1037465585%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-startup.html"><span>on</span><wbr><span><span>Startup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1037465585%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-startup.html"><span class="token function">onStartup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::startup signal is emitted on the primary instance immediately after registration. See g_application_register().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1948596452%2FFunctions%2F-726360853" anchor-label="quit" id="1948596452%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="quit.html"><span><span>quit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1948596452%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="quit.html"><span class="token function">quit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Immediately quits the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1785758357%2FFunctions%2F-726360853" anchor-label="register" id="1785758357%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="register.html"><span><span>register</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1785758357%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="register.html"><span class="token function">register</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cancellable<span class="token operator">: </span><a href="../-cancellable/index.html">Cancellable</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Attempts registration of the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-577822400%2FFunctions%2F-726360853" anchor-label="release" id="-577822400%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="release.html"><span><span>release</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-577822400%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="release.html"><span class="token function">release</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decrease the use count of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="178108149%2FFunctions%2F-726360853" anchor-label="removeAction" id="178108149%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-action-map/remove-action.html"><span>remove</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="178108149%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-action-map/remove-action.html"><span class="token function">removeAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes the named action from the action map.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1949274622%2FFunctions%2F-726360853" anchor-label="run" id="-1949274622%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="run.html"><span><span>run</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1949274622%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="run.html"><span class="token function">run</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">argc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">argv<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Runs the application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="363564660%2FFunctions%2F-726360853" anchor-label="runApplication" id="363564660%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.gio/run-application.html"><span>run</span><wbr><span><span>Application</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="363564660%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Application</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.gio/run-application.html"><span class="token function">runApplication</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Run the <a href="index.html">Application</a> without arguments.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1104954611%2FFunctions%2F-726360853" anchor-label="sendNotification" id="-1104954611%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-notification.html"><span>send</span><wbr><span><span>Notification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1104954611%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-notification.html"><span class="token function">sendNotification</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">notification<span class="token operator">: </span><a href="../-notification/index.html">Notification</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sends a notification on behalf of @application to the desktop shell. There is no guarantee that the notification is displayed immediately, or even at all.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1952696310%2FFunctions%2F-726360853" anchor-label="setActionGroup" id="1952696310%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-action-group.html"><span>set</span><wbr><span>Action</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952696310%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-action-group.html"><span class="token function">setActionGroup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">actionGroup<span class="token operator">: </span><a href="../-action-group/index.html">ActionGroup</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This used to be how actions were associated with a #GApplication. Now there is #GActionMap for that.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-251598540%2FFunctions%2F-726360853" anchor-label="setDefault" id="-251598540%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-default.html"><span>set</span><wbr><span><span>Default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-251598540%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-default.html"><span class="token function">setDefault</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets or unsets the default application for the process, as returned by g_application_get_default().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1020940642%2FFunctions%2F-726360853" anchor-label="setOptionContextDescription" id="1020940642%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-option-context-description.html"><span>set</span><wbr><span>Option</span><wbr><span>Context</span><wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1020940642%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-option-context-description.html"><span class="token function">setOptionContextDescription</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a description to the @application option context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-297959036%2FFunctions%2F-726360853" anchor-label="setOptionContextParameterString" id="-297959036%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-option-context-parameter-string.html"><span>set</span><wbr><span>Option</span><wbr><span>Context</span><wbr><span>Parameter</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-297959036%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-option-context-parameter-string.html"><span class="token function">setOptionContextParameterString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameterString<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the parameter string to be used by the commandline handling of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1709649032%2FFunctions%2F-726360853" anchor-label="setOptionContextSummary" id="-1709649032%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-option-context-summary.html"><span>set</span><wbr><span>Option</span><wbr><span>Context</span><wbr><span><span>Summary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1709649032%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-option-context-summary.html"><span class="token function">setOptionContextSummary</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">summary<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a summary to the @application option context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-554083929%2FFunctions%2F-726360853" anchor-label="setVersion" id="-554083929%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-version.html"><span>set</span><wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-554083929%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-version.html"><span class="token function">setVersion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">version<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the version number of @application. This will be used to implement a <code class="lang-kotlin">--version</code> command line argument</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-820383814%2FFunctions%2F-726360853" anchor-label="supportsHostname" id="-820383814%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-proxy/supports-hostname.html"><span>supports</span><wbr><span><span>Hostname</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-820383814%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-proxy/supports-hostname.html"><span class="token function">supportsHostname</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Some proxy protocols expect to be passed a hostname, which they will resolve to an IP address themselves. Others, like SOCKS4, do not allow this. This function will return false if @proxy is implementing such a protocol. When false is returned, the caller should resolve the destination hostname first, and then pass a #GProxyAddress containing the stringified IP address to g_proxy_connect() or g_proxy_connect_async().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1540056489%2FFunctions%2F-726360853" anchor-label="unbindBusyProperty" id="-1540056489%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unbind-busy-property.html"><span>unbind</span><wbr><span>Busy</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1540056489%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unbind-busy-property.html"><span class="token function">unbindBusyProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">object<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">property<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Destroys a binding between @property and the busy state of</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1906551628%2FFunctions%2F-726360853" anchor-label="unmarkBusy" id="-1906551628%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unmark-busy.html"><span>unmark</span><wbr><span><span>Busy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1906551628%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unmark-busy.html"><span class="token function">unmarkBusy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decreases the busy count of @application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1754785562%2FFunctions%2F-726360853" anchor-label="withdrawNotification" id="-1754785562%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="withdraw-notification.html"><span>withdraw</span><wbr><span><span>Notification</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1754785562%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="withdraw-notification.html"><span class="token function">withdrawNotification</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Withdraws a notification that was sent with g_application_send_notification().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

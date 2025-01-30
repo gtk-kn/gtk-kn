@@ -1,0 +1,780 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Session</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:soup/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:soup/nativeMain" data-filter=":bindings:extra:soup/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="soup::org.gtkkn.bindings.soup/Session///PointingToDeclaration//-1891832998">
+  <div class="breadcrumbs"><a href="../../index.html">soup</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.soup</a><span class="delimiter">/</span><span class="current">Session</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Session</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Session</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupSessionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Soup session state object.</p><p class="paragraph">#SoupSession is the object that controls client-side HTTP. A #SoupSession encapsulates all of the state that libsoup is keeping on behalf of your program; cached HTTP connections, authentication information, etc. It also keeps track of various global options and features that you are using.</p><p class="paragraph">Most applications will only need a single #SoupSession; the primary reason you might need multiple sessions is if you need to have multiple independent authentication contexts. (Eg, you are connecting to a server and authenticating as two different users at different times; the easiest way to ensure that each class@Message is sent with the authentication information you intended is to use one session for the first user, and a second session for the other user.)</p><p class="paragraph">Additional #SoupSession functionality is provided by iface@SessionFeature objects, which can be added to a session with method@Session.add_feature or method@Session.add_feature_by_type For example, class@Logger provides support for logging HTTP traffic, class@ContentDecoder provides support for compressed response handling, and class@ContentSniffer provides support for HTML5-style response body content sniffing. Additionally, subtypes of class@Auth can be added as features, to add support for additional authentication types.</p><p class="paragraph">All <code class="lang-kotlin">SoupSession</code>s are created with a class@AuthManager, and support for %SOUP_TYPE_AUTH_BASIC and %SOUP_TYPE_AUTH_DIGEST. Additionally, sessions using the plain #SoupSession class (rather than one of its deprecated subtypes) have a class@ContentDecoder by default.</p><p class="paragraph">Note that all async methods will invoke their callbacks on the thread-default context at the time of the function call.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">accept-language</code>: Property TypeInfo of getter and setter do not match</p></li><li><p class="paragraph">method <code class="lang-kotlin">user-agent</code>: Property TypeInfo of getter and setter do not match</p></li><li><p class="paragraph">constructor <code class="lang-kotlin">new_with_options</code>: Varargs parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="541587958%2FConstructors%2F-1891832998" anchor-label="Session" id="541587958%2FConstructors%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-session.html"><span><span>Session</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="541587958%2FConstructors%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a #SoupSession with the default options.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">soupSessionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-103323252%2FClasslikes%2F-1891832998" anchor-label="Companion" id="-103323252%2FClasslikes%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-103323252%2FClasslikes%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1189578554%2FProperties%2F-1891832998" anchor-label="acceptLanguageAuto" id="-1189578554%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="accept-language-auto.html"><span>accept</span><wbr><span>Language</span><wbr><span><span>Auto</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1189578554%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="accept-language-auto.html">acceptLanguageAuto</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">If true, #SoupSession will automatically set the string for the "Accept-Language" header on every class@Message sent, based on the return value of func@GLib.get_language_names.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="856579064%2FProperties%2F-1891832998" anchor-label="idleTimeout" id="856579064%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="idle-timeout.html"><span>idle</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="856579064%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="idle-timeout.html">idleTimeout</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Connection lifetime (in seconds) when idle. Any connection left idle longer than this will be closed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="822835276%2FProperties%2F-1891832998" anchor-label="localAddress" id="822835276%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="local-address.html"><span>local</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="822835276%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="local-address.html">localAddress</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Sets the class@Gio.InetSocketAddress to use for the client side of the connection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2051223598%2FProperties%2F-1891832998" anchor-label="maxConns" id="-2051223598%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-conns.html"><span>max</span><wbr><span><span>Conns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2051223598%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="max-conns.html">maxConns</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The maximum number of connections that the session can open at once.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-162549405%2FProperties%2F-1891832998" anchor-label="maxConnsPerHost" id="-162549405%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-conns-per-host.html"><span>max</span><wbr><span>Conns</span><wbr><span>Per</span><wbr><span><span>Host</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-162549405%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="max-conns-per-host.html">maxConnsPerHost</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The maximum number of connections that the session can open at once to a given host.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1014430159%2FProperties%2F-1891832998" anchor-label="proxyResolver" id="-1014430159%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="proxy-resolver.html"><span>proxy</span><wbr><span><span>Resolver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1014430159%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="proxy-resolver.html">proxyResolver</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">A iface@Gio.ProxyResolver to use with this session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-402916121%2FProperties%2F-1891832998" anchor-label="remoteConnectable" id="-402916121%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remote-connectable.html"><span>remote</span><wbr><span><span>Connectable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-402916121%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="remote-connectable.html">remoteConnectable</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Sets a socket to make outgoing connections on. This will override the default behaviour of opening TCP/IP sockets to the hosts specified in the URIs.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1800130217%2FProperties%2F-1891832998" anchor-label="soupSessionPointer" id="-1800130217%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="soup-session-pointer.html"><span>soup</span><wbr><span>Session</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1800130217%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="soup-session-pointer.html">soupSessionPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2074602500%2FProperties%2F-1891832998" anchor-label="timeout" id="2074602500%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="timeout.html"><span><span>timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2074602500%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="timeout.html">timeout</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The timeout (in seconds) for socket I/O operations (including connecting to a server, and waiting for a reply to an HTTP request).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1849335663%2FProperties%2F-1891832998" anchor-label="tlsDatabase" id="1849335663%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tls-database.html"><span>tls</span><wbr><span><span>Database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1849335663%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="tls-database.html">tlsDatabase</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Sets the class@Gio.TlsDatabase to use for validating SSL/TLS certificates.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1721228802%2FProperties%2F-1891832998" anchor-label="tlsInteraction" id="-1721228802%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tls-interaction.html"><span>tls</span><wbr><span><span>Interaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1721228802%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="tls-interaction.html">tlsInteraction</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">A class@Gio.TlsInteraction object that will be passed on to any class@Gio.TlsConnections created by the session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2031218453%2FFunctions%2F-1891832998" anchor-label="abort" id="2031218453%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="abort.html"><span><span>abort</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031218453%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="abort.html"><span class="token function">abort</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Cancels all pending requests in @session and closes all idle persistent connections.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-43550830%2FFunctions%2F-1891832998" anchor-label="addFeature" id="-43550830%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-feature.html"><span>add</span><wbr><span><span>Feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-43550830%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-feature.html"><span class="token function">addFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">feature<span class="token operator">: </span><a href="../-session-feature/index.html">SessionFeature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @feature's functionality to @session. You cannot add multiple features of the same alias@GLib.Type to a session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-125890186%2FFunctions%2F-1891832998" anchor-label="addFeatureByType" id="-125890186%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-feature-by-type.html"><span>add</span><wbr><span>Feature</span><wbr><span>By</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-125890186%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="add-feature-by-type.html"><span class="token function">addFeatureByType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">If @feature_type is the type of a class that implements iface@SessionFeature, this creates a new feature of that type and adds it to @session as with method@Session.add_feature. You can use this when you don't need to customize the new feature in any way. Adding multiple features of the same @feature_type is not allowed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="152557811%2FFunctions%2F-1891832998" anchor-label="emitRequestQueued" id="152557811%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-request-queued.html"><span>emit</span><wbr><span>Request</span><wbr><span><span>Queued</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="152557811%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-request-queued.html"><span class="token function">emitRequestQueued</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "request-queued" signal. See <a href="on-request-queued.html">onRequestQueued</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="135498956%2FFunctions%2F-1891832998" anchor-label="emitRequestUnqueued" id="135498956%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-request-unqueued.html"><span>emit</span><wbr><span>Request</span><wbr><span><span>Unqueued</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="135498956%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-request-unqueued.html"><span class="token function">emitRequestUnqueued</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "request-unqueued" signal. See <a href="on-request-unqueued.html">onRequestUnqueued</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1289482353%2FFunctions%2F-1891832998" anchor-label="getAcceptLanguage" id="-1289482353%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-accept-language.html"><span>get</span><wbr><span>Accept</span><wbr><span><span>Language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1289482353%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-accept-language.html"><span class="token function">getAcceptLanguage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the value used by @session for the "Accept-Language" header on new requests.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1894491652%2FFunctions%2F-1891832998" anchor-label="getAsyncResultMessage" id="-1894491652%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-async-result-message.html"><span>get</span><wbr><span>Async</span><wbr><span>Result</span><wbr><span><span>Message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1894491652%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-async-result-message.html"><span class="token function">getAsyncResultMessage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the class@Message of the @result asynchronous operation This is useful to get the class@Message of an asynchronous operation started by @session from its callback@Gio.AsyncReadyCallback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1951995536%2FFunctions%2F-1891832998" anchor-label="getFeature" id="1951995536%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-feature.html"><span>get</span><wbr><span><span>Feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1951995536%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-feature.html"><span class="token function">getFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-session-feature/index.html">SessionFeature</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the feature in @session of type @feature_type.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="350014552%2FFunctions%2F-1891832998" anchor-label="getFeatureForMessage" id="350014552%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-feature-for-message.html"><span>get</span><wbr><span>Feature</span><wbr><span>For</span><wbr><span><span>Message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="350014552%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-feature-for-message.html"><span class="token function">getFeatureForMessage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-session-feature/index.html">SessionFeature</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the feature in @session of type @feature_type, provided that it is not disabled for @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-52988047%2FFunctions%2F-1891832998" anchor-label="getUserAgent" id="-52988047%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-user-agent.html"><span>get</span><wbr><span>User</span><wbr><span><span>Agent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-52988047%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-user-agent.html"><span class="token function">getUserAgent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the value used by @session for the "User-Agent" header on new requests.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-263209268%2FFunctions%2F-1891832998" anchor-label="hasFeature" id="-263209268%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-feature.html"><span>has</span><wbr><span><span>Feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-263209268%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="has-feature.html"><span class="token function">hasFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Tests if @session has at a feature of type @feature_type (which can be the type of either a iface@SessionFeature, or else a subtype of some class managed by another feature, such as class@Auth).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1526860744%2FFunctions%2F-1891832998" anchor-label="onRequestQueued" id="-1526860744%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-request-queued.html"><span>on</span><wbr><span>Request</span><wbr><span><span>Queued</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1526860744%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-request-queued.html"><span class="token function">onRequestQueued</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when a request is queued on @session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="412237311%2FFunctions%2F-1891832998" anchor-label="onRequestUnqueued" id="412237311%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-request-unqueued.html"><span>on</span><wbr><span>Request</span><wbr><span><span>Unqueued</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="412237311%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-request-unqueued.html"><span class="token function">onRequestUnqueued</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when a request is removed from @session's queue, indicating that @session is done with it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-172140780%2FFunctions%2F-1891832998" anchor-label="preconnectAsync" id="-172140780%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="preconnect-async.html"><span>preconnect</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-172140780%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="preconnect-async.html"><span class="token function">preconnectAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Start a preconnection to @msg.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="28977122%2FFunctions%2F-1891832998" anchor-label="preconnectFinish" id="28977122%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="preconnect-finish.html"><span>preconnect</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="28977122%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="preconnect-finish.html"><span class="token function">preconnectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Complete a preconnect async operation started with method@Session.preconnect_async.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2110262971%2FFunctions%2F-1891832998" anchor-label="removeFeature" id="-2110262971%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-feature.html"><span>remove</span><wbr><span><span>Feature</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2110262971%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove-feature.html"><span class="token function">removeFeature</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">feature<span class="token operator">: </span><a href="../-session-feature/index.html">SessionFeature</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes @feature's functionality from @session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2052511843%2FFunctions%2F-1891832998" anchor-label="removeFeatureByType" id="2052511843%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-feature-by-type.html"><span>remove</span><wbr><span>Feature</span><wbr><span>By</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2052511843%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove-feature-by-type.html"><span class="token function">removeFeatureByType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">featureType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes all features of type @feature_type (or any subclass of</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1774040586%2FFunctions%2F-1891832998" anchor-label="send" id="-1774040586%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send.html"><span><span>send</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1774040586%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send.html"><span class="token function">send</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Synchronously sends @msg and waits for the beginning of a response.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-904949879%2FFunctions%2F-1891832998" anchor-label="sendAndRead" id="-904949879%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-and-read.html"><span>send</span><wbr><span>And</span><wbr><span><span>Read</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-904949879%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-and-read.html"><span class="token function">sendAndRead</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Synchronously sends @msg and reads the response body.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1023221658%2FFunctions%2F-1891832998" anchor-label="sendAndReadAsync" id="-1023221658%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-and-read-async.html"><span>send</span><wbr><span>And</span><wbr><span>Read</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1023221658%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-and-read-async.html"><span class="token function">sendAndReadAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously sends @msg and reads the response body.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-779737776%2FFunctions%2F-1891832998" anchor-label="sendAndReadFinish" id="-779737776%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-and-read-finish.html"><span>send</span><wbr><span>And</span><wbr><span>Read</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-779737776%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-and-read-finish.html"><span class="token function">sendAndReadFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the response to a method@Session.send_and_read_async.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="479734798%2FFunctions%2F-1891832998" anchor-label="sendAndSplice" id="479734798%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-and-splice.html"><span>send</span><wbr><span>And</span><wbr><span><span>Splice</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="479734798%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-and-splice.html"><span class="token function">sendAndSplice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">outStream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Synchronously sends @msg and splices the response body stream into @out_stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-550112311%2FFunctions%2F-1891832998" anchor-label="sendAndSpliceAsync" id="-550112311%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-and-splice-async.html"><span>send</span><wbr><span>And</span><wbr><span>Splice</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-550112311%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-and-splice-async.html"><span class="token function">sendAndSpliceAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">outStream<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously sends @msg and splices the response body stream into @out_stream. When @callback is called, then either @msg has been sent and its response body spliced, or else an error has occurred.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1791171722%2FFunctions%2F-1891832998" anchor-label="sendAndSpliceFinish" id="-1791171722%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-and-splice-finish.html"><span>send</span><wbr><span>And</span><wbr><span>Splice</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1791171722%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-and-splice-finish.html"><span class="token function">sendAndSpliceFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the response to a method@Session.send_and_splice_async.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-729753709%2FFunctions%2F-1891832998" anchor-label="sendAsync" id="-729753709%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-async.html"><span>send</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-729753709%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-async.html"><span class="token function">sendAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously sends @msg and waits for the beginning of a response.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2037157117%2FFunctions%2F-1891832998" anchor-label="sendFinish" id="-2037157117%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-finish.html"><span>send</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2037157117%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="send-finish.html"><span class="token function">sendFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the response to a method@Session.send_async call.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="941621473%2FFunctions%2F-1891832998" anchor-label="setAcceptLanguage" id="941621473%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-accept-language.html"><span>set</span><wbr><span>Accept</span><wbr><span><span>Language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="941621473%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-accept-language.html"><span class="token function">setAcceptLanguage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">acceptLanguage<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the value to use for the "Accept-Language" header on class@Messages sent from @session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1892171097%2FFunctions%2F-1891832998" anchor-label="setUserAgent" id="-1892171097%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-user-agent.html"><span>set</span><wbr><span>User</span><wbr><span><span>Agent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1892171097%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-user-agent.html"><span class="token function">setUserAgent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">userAgent<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the value to use for the "User-Agent" header on class@Messages sent from @session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1951928874%2FFunctions%2F-1891832998" anchor-label="websocketConnectAsync" id="-1951928874%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="websocket-connect-async.html"><span>websocket</span><wbr><span>Connect</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1951928874%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="websocket-connect-async.html"><span class="token function">websocketConnectAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">msg<span class="token operator">: </span><a href="../-message/index.html">Message</a><span class="token punctuation">, </span></span><span class="parameter ">origin<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">protocols<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">ioPriority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cancellable<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asynchronously creates a class@WebsocketConnection to communicate with a remote server.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1559386594%2FFunctions%2F-1891832998" anchor-label="websocketConnectFinish" id="-1559386594%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="websocket-connect-finish.html"><span>websocket</span><wbr><span>Connect</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1559386594%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="websocket-connect-finish.html"><span class="token function">websocketConnectFinish</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-websocket-connection/index.html">WebsocketConnection</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Gets the class@WebsocketConnection response to a method@Session.websocket_connect_async call.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

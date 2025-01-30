@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  - Copyright (c) 2025 gtk-kn
+  -
+  - SPDX-License-Identifier: CC-BY-SA-4.0
+  -
+  - Creative Commons Attribution-ShareAlike 4.0 International License.
+  -
+  - You should have received a copy of the license along with this
+  - work. If not, see http://creativecommons.org/licenses/by-sa/4.0/
+  -->
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 1024 1024"
+   style="enable-background:new 0 0 1024 1024;"
+   xml:space="preserve"
+   sodipodi:docname="logo-square-no-background.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:export-filename="/home/rleinardi/Workspace/My/gtk-kn/docs/assets/logo-square-no-background-256.png"
+   inkscape:export-xdpi="24"
+   inkscape:export-ydpi="24"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs47" /><sodipodi:namedview
+   id="namedview45"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="0.60283615"
+   inkscape:cx="462.81232"
+   inkscape:cy="596.34778"
+   inkscape:window-width="3366"
+   inkscape:window-height="1376"
+   inkscape:window-x="74"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g42" />
+<style
+   type="text/css"
+   id="style2">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#7F52FF;}
+	.st2{fill:#E24462;}
+	.st3{fill:#B125EA;}
+	.st4{fill:#E44857;}
+</style>
+<g
+   id="g42">
+
+
+
+
+
+
+
+
+
+
+
+
+	<g
+   id="g2510"
+   transform="matrix(0.81582704,0,0,0.81582704,94.296556,94.296556)"><path
+     class="st0"
+     d="m 811.9,464.7 -84.2,-37.6 c 17.1,-22.9 26.6,-51.1 26.6,-80.1 0,-5.6 -0.4,-11.4 -1.1,-17.3 V 21.7 L 512,199.9 270.8,21.7 v 320.2 3.3 c 0,0.6 0,1.2 0,1.8 0,1.3 0,2.7 0.1,4 l 0.1,8.5 h 0.4 c 2.3,24.4 11.3,47.6 25.8,67.2 l -85.1,38 -7.8,3.5 v 12.3 344.2 l 298.9,172.5 8.8,5.1 8.8,-5.1 298.9,-172.5 V 480.5 468.2 Z"
+     id="path4" /><polygon
+     class="st1"
+     points="503.2,976.9 503.2,653.1 221.9,490.7 221.9,814.5 "
+     id="polygon6"
+     style="fill:#e24462;fill-opacity:1" /><polygon
+     class="st2"
+     points="230.9,475.6 512,637.8 793.1,475.6 512,350 "
+     id="polygon8" /><polygon
+     class="st3"
+     points="802.1,490.7 520.8,653.1 520.8,976.9 802.1,814.5 "
+     id="polygon10"
+     style="fill:#e24462;fill-opacity:1" /><polygon
+     class="st2"
+     points="512,221.7 735.6,56.5 735.6,341.9 288.4,341.9 288.4,56.5 "
+     id="polygon12" /><g
+     id="g20">
+		<path
+   class="st0"
+   d="m 620.4,240.8 c -49.1,0 -90.6,33.6 -102.6,78.9 v 0 c -2.3,8.7 -3.6,17.8 -3.6,27.2 0,9.4 1.2,18.5 3.6,27.2 v 0 c 12,45.4 53.5,78.9 102.6,78.9 58.5,0 106.2,-47.6 106.2,-106.2 0,-58.6 -47.6,-106 -106.2,-106 z m 0,202.3 c -53,0 -96.1,-43.1 -96.1,-96.1 0,-53 43.1,-96.1 96.1,-96.1 53,0 96.1,43.1 96.1,96.1 0,53 -43.1,96.1 -96.1,96.1 z"
+   id="path14" />
+		<path
+   class="st2"
+   d="m 620.4,230.7 c -48.9,0 -90.7,30.1 -107.9,72.8 -2.1,5.3 -3.9,10.7 -5.2,16.3 v 0 c -2.1,8.7 -3.2,17.8 -3.2,27.2 0,9.4 1.1,18.5 3.2,27.2 v 0 c 1.3,5.6 3.1,11.1 5.2,16.3 17.2,42.7 59,72.8 107.9,72.8 64.2,0 116.3,-52.1 116.3,-116.3 0,-64.2 -52,-116.3 -116.3,-116.3 z m 0,212.4 c -53,0 -96.1,-43.1 -96.1,-96.1 0,-53 43.1,-96.1 96.1,-96.1 53,0 96.1,43.1 96.1,96.1 0,53 -43.1,96.1 -96.1,96.1 z"
+   id="path16" />
+		<circle
+   class="st0"
+   cx="620.40002"
+   cy="347"
+   r="96.099998"
+   id="circle18" />
+	</g><g
+     id="g28">
+		<path
+   class="st0"
+   d="m 507.3,319.8 c -12,-45.4 -53.5,-79 -102.6,-79 -58.6,0 -106.2,47.6 -106.2,106.2 0,58.6 47.6,106.2 106.2,106.2 49.1,0 90.6,-33.6 102.6,-79 2.3,-8.7 3.6,-17.8 3.6,-27.2 0,-9.4 -1.2,-18.5 -3.6,-27.2 z M 404.7,443.1 c -53,0 -96.1,-43.1 -96.1,-96.1 0,-53 43.1,-96.1 96.1,-96.1 53,0 96.1,43.1 96.1,96.1 0,53 -43.1,96.1 -96.1,96.1 z"
+   id="path22" />
+		<path
+   class="st2"
+   d="m 517.8,319.8 c -1.3,-5.6 -3.1,-11.1 -5.2,-16.3 -17.2,-42.7 -59,-72.8 -107.9,-72.8 -64.2,0 -116.3,52.1 -116.3,116.3 0,64.2 52,116.3 116.3,116.3 48.8,0 90.6,-30.1 107.9,-72.8 2.1,-5.3 3.9,-10.7 5.2,-16.3 2.1,-8.7 3.2,-17.8 3.2,-27.2 0,-9.4 -1.1,-18.5 -3.2,-27.2 z M 404.7,443.1 c -53,0 -96.1,-43.1 -96.1,-96.1 0,-53 43.1,-96.1 96.1,-96.1 53,0 96.1,43.1 96.1,96.1 0,53 -43.1,96.1 -96.1,96.1 z"
+   id="path24" />
+		<circle
+   class="st0"
+   cx="404.70001"
+   cy="347"
+   r="96.099998"
+   id="circle26" />
+	</g><circle
+     class="st2"
+     cx="404.70001"
+     cy="346.29999"
+     r="79.699997"
+     id="circle30" /><circle
+     class="st0"
+     cx="416.5"
+     cy="327.5"
+     r="30.5"
+     id="circle32" /><circle
+     class="st2"
+     cx="620.40002"
+     cy="347"
+     r="79.699997"
+     id="circle34" /><rect
+     x="501.39999"
+     y="373.39999"
+     class="st4"
+     width="20.700001"
+     height="103.4"
+     id="rect36" /><path
+     class="st0"
+     d="m 545.1,441.3 c 3.9,27 -8.8,57.2 -32.2,72.4 -24.3,-14.6 -37.7,-45.2 -33.9,-72.4 2.7,-19.5 15.3,-37.4 33,-37.3 17.9,-0.1 30.3,17.9 33.1,37.3 z"
+     id="path38" /><circle
+     class="st0"
+     cx="633.40002"
+     cy="327.5"
+     r="30.5"
+     id="circle40" /></g>
+</g>
+</svg>

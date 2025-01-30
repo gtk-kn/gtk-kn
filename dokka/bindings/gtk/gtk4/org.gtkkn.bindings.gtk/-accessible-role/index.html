@@ -1,0 +1,1500 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AccessibleRole</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/AccessibleRole///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">AccessibleRole</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Accessible</span><wbr><span><span>Role</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">AccessibleRole</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">AccessibleRole</a><span class="token operator">&gt; </span></div><p class="paragraph">The accessible role for a iface@Accessible implementation.</p><p class="paragraph">Abstract roles are only used as part of the ontology; application developers must not use abstract roles in their code.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="-283088440%2FClasslikes%2F1170399019" anchor-label="ALERT" id="-283088440%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-l-e-r-t/index.html">ALERT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-283088440%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-l-e-r-t/index.html">ALERT</a></div></div><div class="brief "><p class="paragraph">An element with important, and usually time-sensitive, information</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1234444537%2FClasslikes%2F1170399019" anchor-label="ALERT_DIALOG" id="-1234444537%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-l-e-r-t_-d-i-a-l-o-g/index.html">ALERT_DIALOG</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1234444537%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-l-e-r-t_-d-i-a-l-o-g/index.html">ALERT_DIALOG</a></div></div><div class="brief "><p class="paragraph">A type of dialog that contains an alert message</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="266785480%2FClasslikes%2F1170399019" anchor-label="BANNER" id="266785480%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-n-n-e-r/index.html">BANNER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="266785480%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-a-n-n-e-r/index.html">BANNER</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="534471758%2FClasslikes%2F1170399019" anchor-label="BUTTON" id="534471758%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-u-t-t-o-n/index.html">BUTTON</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="534471758%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-u-t-t-o-n/index.html">BUTTON</a></div></div><div class="brief "><p class="paragraph">An input element that allows for user-triggered actions when clicked or pressed</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-78488878%2FClasslikes%2F1170399019" anchor-label="CAPTION" id="-78488878%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-a-p-t-i-o-n/index.html">CAPTION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-78488878%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-a-p-t-i-o-n/index.html">CAPTION</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-29083522%2FClasslikes%2F1170399019" anchor-label="CELL" id="-29083522%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-e-l-l/index.html">CELL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-29083522%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-e-l-l/index.html">CELL</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1557205791%2FClasslikes%2F1170399019" anchor-label="CHECKBOX" id="1557205791%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-e-c-k-b-o-x/index.html">CHECKBOX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1557205791%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-h-e-c-k-b-o-x/index.html">CHECKBOX</a></div></div><div class="brief "><p class="paragraph">A checkable input element that has three possible values: <code class="lang-kotlin">true</code>, <code class="lang-kotlin">false</code>, or <code class="lang-kotlin">mixed</code></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1132671326%2FClasslikes%2F1170399019" anchor-label="COLUMN_HEADER" id="-1132671326%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-l-u-m-n_-h-e-a-d-e-r/index.html">COLUMN_HEADER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1132671326%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-l-u-m-n_-h-e-a-d-e-r/index.html">COLUMN_HEADER</a></div></div><div class="brief "><p class="paragraph">A header in a columned list.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1288687770%2FClasslikes%2F1170399019" anchor-label="COMBO_BOX" id="-1288687770%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-m-b-o_-b-o-x/index.html">COMBO_BOX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1288687770%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-m-b-o_-b-o-x/index.html">COMBO_BOX</a></div></div><div class="brief "><p class="paragraph">An input that controls another element, such as a list or a grid, that can dynamically pop up to help the user set the value of the input</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="212166007%2FClasslikes%2F1170399019" anchor-label="COMMAND" id="212166007%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-m-m-a-n-d/index.html">COMMAND</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212166007%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-m-m-a-n-d/index.html">COMMAND</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1822736973%2FClasslikes%2F1170399019" anchor-label="COMPOSITE" id="-1822736973%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-m-p-o-s-i-t-e/index.html">COMPOSITE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1822736973%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-m-p-o-s-i-t-e/index.html">COMPOSITE</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1303484444%2FClasslikes%2F1170399019" anchor-label="DIALOG" id="-1303484444%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-i-a-l-o-g/index.html">DIALOG</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1303484444%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-i-a-l-o-g/index.html">DIALOG</a></div></div><div class="brief "><p class="paragraph">A dialog is a window that is designed to interrupt the current processing of an application in order to prompt the user to enter information or require a response.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-610091401%2FClasslikes%2F1170399019" anchor-label="DOCUMENT" id="-610091401%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-o-c-u-m-e-n-t/index.html">DOCUMENT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-610091401%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-o-c-u-m-e-n-t/index.html">DOCUMENT</a></div></div><div class="brief "><p class="paragraph">Content that assistive technology users may want to browse in a reading mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1674071110%2FClasslikes%2F1170399019" anchor-label="FEED" id="-1674071110%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-e-e-d/index.html">FEED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1674071110%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-e-e-d/index.html">FEED</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1433203616%2FClasslikes%2F1170399019" anchor-label="FORM" id="-1433203616%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-r-m/index.html">FORM</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1433203616%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-r-m/index.html">FORM</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="880083715%2FClasslikes%2F1170399019" anchor-label="GENERIC" id="880083715%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-e-n-e-r-i-c/index.html">GENERIC</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="880083715%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-e-n-e-r-i-c/index.html">GENERIC</a></div></div><div class="brief "><p class="paragraph">A nameless container that has no semantic meaning of its own. This is the role that GTK uses by default for widgets.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2069046114%2FClasslikes%2F1170399019" anchor-label="GRID" id="2069046114%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-i-d/index.html">GRID</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2069046114%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-r-i-d/index.html">GRID</a></div></div><div class="brief "><p class="paragraph">A grid of items.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1928221447%2FClasslikes%2F1170399019" anchor-label="GRID_CELL" id="1928221447%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-i-d_-c-e-l-l/index.html">GRID_CELL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1928221447%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-r-i-d_-c-e-l-l/index.html">GRID_CELL</a></div></div><div class="brief "><p class="paragraph">An item in a grid or tree grid.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-345664597%2FClasslikes%2F1170399019" anchor-label="GROUP" id="-345664597%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-o-u-p/index.html">GROUP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-345664597%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-r-o-u-p/index.html">GROUP</a></div></div><div class="brief "><p class="paragraph">An element that groups multiple related widgets. GTK uses this role for various containers, like class@Gtk.HeaderBar or class@Gtk.Notebook.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-241248786%2FClasslikes%2F1170399019" anchor-label="HEADING" id="-241248786%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-e-a-d-i-n-g/index.html">HEADING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-241248786%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-h-e-a-d-i-n-g/index.html">HEADING</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="542380015%2FClasslikes%2F1170399019" anchor-label="IMG" id="542380015%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-m-g/index.html">IMG</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="542380015%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-m-g/index.html">IMG</a></div></div><div class="brief "><p class="paragraph">An image.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="711072694%2FClasslikes%2F1170399019" anchor-label="INPUT" id="711072694%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-p-u-t/index.html">INPUT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="711072694%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-p-u-t/index.html">INPUT</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2115331424%2FClasslikes%2F1170399019" anchor-label="LABEL" id="2115331424%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-a-b-e-l/index.html">LABEL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2115331424%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-a-b-e-l/index.html">LABEL</a></div></div><div class="brief "><p class="paragraph">A visible name or caption for a user interface component.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1425124308%2FClasslikes%2F1170399019" anchor-label="LANDMARK" id="1425124308%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-a-n-d-m-a-r-k/index.html">LANDMARK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1425124308%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-a-n-d-m-a-r-k/index.html">LANDMARK</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="786893801%2FClasslikes%2F1170399019" anchor-label="LEGEND" id="786893801%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-e-g-e-n-d/index.html">LEGEND</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="786893801%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-e-g-e-n-d/index.html">LEGEND</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="745514262%2FClasslikes%2F1170399019" anchor-label="LINK" id="745514262%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-n-k/index.html">LINK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="745514262%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-n-k/index.html">LINK</a></div></div><div class="brief "><p class="paragraph">A clickable link.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-524206406%2FClasslikes%2F1170399019" anchor-label="LIST" id="-524206406%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-s-t/index.html">LIST</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-524206406%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-s-t/index.html">LIST</a></div></div><div class="brief "><p class="paragraph">A list of items.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="749860774%2FClasslikes%2F1170399019" anchor-label="LIST_BOX" id="749860774%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-s-t_-b-o-x/index.html">LIST_BOX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="749860774%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-s-t_-b-o-x/index.html">LIST_BOX</a></div></div><div class="brief "><p class="paragraph">Unused.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1455871840%2FClasslikes%2F1170399019" anchor-label="LIST_ITEM" id="-1455871840%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-s-t_-i-t-e-m/index.html">LIST_ITEM</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1455871840%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-s-t_-i-t-e-m/index.html">LIST_ITEM</a></div></div><div class="brief "><p class="paragraph">An item in a list.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1464469584%2FClasslikes%2F1170399019" anchor-label="LOG" id="-1464469584%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-o-g/index.html">LOG</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1464469584%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-o-g/index.html">LOG</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1390505621%2FClasslikes%2F1170399019" anchor-label="MAIN" id="1390505621%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-i-n/index.html">MAIN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1390505621%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-a-i-n/index.html">MAIN</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-627947506%2FClasslikes%2F1170399019" anchor-label="MARQUEE" id="-627947506%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-r-q-u-e-e/index.html">MARQUEE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-627947506%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-a-r-q-u-e-e/index.html">MARQUEE</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-522221660%2FClasslikes%2F1170399019" anchor-label="MATH" id="-522221660%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-h/index.html">MATH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-522221660%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-a-t-h/index.html">MATH</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1947165493%2FClasslikes%2F1170399019" anchor-label="METER" id="1947165493%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-t-e-r/index.html">METER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1947165493%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-t-e-r/index.html">METER</a></div></div><div class="brief "><p class="paragraph">An element that represents a value within a known range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1340813381%2FClasslikes%2F1170399019" anchor-label="MENU" id="-1340813381%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-n-u/index.html">MENU</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1340813381%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-n-u/index.html">MENU</a></div></div><div class="brief "><p class="paragraph">A menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1469157487%2FClasslikes%2F1170399019" anchor-label="MENU_BAR" id="1469157487%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-n-u_-b-a-r/index.html">MENU_BAR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1469157487%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-n-u_-b-a-r/index.html">MENU_BAR</a></div></div><div class="brief "><p class="paragraph">A menubar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-433254337%2FClasslikes%2F1170399019" anchor-label="MENU_ITEM" id="-433254337%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-n-u_-i-t-e-m/index.html">MENU_ITEM</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-433254337%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-n-u_-i-t-e-m/index.html">MENU_ITEM</a></div></div><div class="brief "><p class="paragraph">An item in a menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="861863147%2FClasslikes%2F1170399019" anchor-label="MENU_ITEM_CHECKBOX" id="861863147%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-n-u_-i-t-e-m_-c-h-e-c-k-b-o-x/index.html">MENU_ITEM_CHECKBOX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="861863147%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-n-u_-i-t-e-m_-c-h-e-c-k-b-o-x/index.html">MENU_ITEM_CHECKBOX</a></div></div><div class="brief "><p class="paragraph">A check item in a menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="631859675%2FClasslikes%2F1170399019" anchor-label="MENU_ITEM_RADIO" id="631859675%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-n-u_-i-t-e-m_-r-a-d-i-o/index.html">MENU_ITEM_RADIO</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="631859675%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-n-u_-i-t-e-m_-r-a-d-i-o/index.html">MENU_ITEM_RADIO</a></div></div><div class="brief "><p class="paragraph">A radio item in a menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-922637392%2FClasslikes%2F1170399019" anchor-label="NAVIGATION" id="-922637392%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-a-v-i-g-a-t-i-o-n/index.html">NAVIGATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-922637392%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-a-v-i-g-a-t-i-o-n/index.html">NAVIGATION</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-119964716%2FClasslikes%2F1170399019" anchor-label="NONE" id="-119964716%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-n-e/index.html">NONE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-119964716%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-o-n-e/index.html">NONE</a></div></div><div class="brief "><p class="paragraph">An element that is not represented to accessibility technologies. This role is synonymous to @GTK_ACCESSIBLE_ROLE_PRESENTATION.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1874279666%2FClasslikes%2F1170399019" anchor-label="NOTE" id="-1874279666%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-t-e/index.html">NOTE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1874279666%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-o-t-e/index.html">NOTE</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="398330449%2FClasslikes%2F1170399019" anchor-label="OPTION" id="398330449%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-t-i-o-n/index.html">OPTION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="398330449%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-t-i-o-n/index.html">OPTION</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1354081334%2FClasslikes%2F1170399019" anchor-label="PRESENTATION" id="1354081334%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-r-e-s-e-n-t-a-t-i-o-n/index.html">PRESENTATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1354081334%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-r-e-s-e-n-t-a-t-i-o-n/index.html">PRESENTATION</a></div></div><div class="brief "><p class="paragraph">An element that is not represented to accessibility technologies. This role is synonymous to @GTK_ACCESSIBLE_ROLE_NONE.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="993433021%2FClasslikes%2F1170399019" anchor-label="PROGRESS_BAR" id="993433021%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-r-o-g-r-e-s-s_-b-a-r/index.html">PROGRESS_BAR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="993433021%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-r-o-g-r-e-s-s_-b-a-r/index.html">PROGRESS_BAR</a></div></div><div class="brief "><p class="paragraph">An element that displays the progress status for tasks that take a long time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-141156313%2FClasslikes%2F1170399019" anchor-label="RADIO" id="-141156313%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-a-d-i-o/index.html">RADIO</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-141156313%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-a-d-i-o/index.html">RADIO</a></div></div><div class="brief "><p class="paragraph">A checkable input in a group of radio roles, only one of which can be checked at a time.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="641752903%2FClasslikes%2F1170399019" anchor-label="RADIO_GROUP" id="641752903%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-a-d-i-o_-g-r-o-u-p/index.html">RADIO_GROUP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="641752903%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-a-d-i-o_-g-r-o-u-p/index.html">RADIO_GROUP</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2124116503%2FClasslikes%2F1170399019" anchor-label="RANGE" id="-2124116503%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-a-n-g-e/index.html">RANGE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2124116503%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-a-n-g-e/index.html">RANGE</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1587301520%2FClasslikes%2F1170399019" anchor-label="REGION" id="1587301520%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-g-i-o-n/index.html">REGION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1587301520%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-e-g-i-o-n/index.html">REGION</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="805264326%2FClasslikes%2F1170399019" anchor-label="ROW" id="805264326%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-o-w/index.html">ROW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="805264326%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-o-w/index.html">ROW</a></div></div><div class="brief "><p class="paragraph">A row in a columned list.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1768937562%2FClasslikes%2F1170399019" anchor-label="ROW_GROUP" id="-1768937562%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-o-w_-g-r-o-u-p/index.html">ROW_GROUP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1768937562%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-o-w_-g-r-o-u-p/index.html">ROW_GROUP</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1370912206%2FClasslikes%2F1170399019" anchor-label="ROW_HEADER" id="1370912206%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-o-w_-h-e-a-d-e-r/index.html">ROW_HEADER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1370912206%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-o-w_-h-e-a-d-e-r/index.html">ROW_HEADER</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1428538094%2FClasslikes%2F1170399019" anchor-label="SCROLLBAR" id="-1428538094%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-c-r-o-l-l-b-a-r/index.html">SCROLLBAR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1428538094%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-c-r-o-l-l-b-a-r/index.html">SCROLLBAR</a></div></div><div class="brief "><p class="paragraph">A graphical object that controls the scrolling of content within a viewing area, regardless of whether the content is fully displayed within the viewing area.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="252143684%2FClasslikes%2F1170399019" anchor-label="SEARCH" id="252143684%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-a-r-c-h/index.html">SEARCH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="252143684%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-a-r-c-h/index.html">SEARCH</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="290737200%2FClasslikes%2F1170399019" anchor-label="SEARCH_BOX" id="290737200%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-a-r-c-h_-b-o-x/index.html">SEARCH_BOX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="290737200%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-a-r-c-h_-b-o-x/index.html">SEARCH_BOX</a></div></div><div class="brief "><p class="paragraph">A type of textbox intended for specifying search criteria.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1641380975%2FClasslikes%2F1170399019" anchor-label="SECTION" id="-1641380975%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-c-t-i-o-n/index.html">SECTION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1641380975%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-c-t-i-o-n/index.html">SECTION</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1412553674%2FClasslikes%2F1170399019" anchor-label="SECTION_HEAD" id="-1412553674%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-c-t-i-o-n_-h-e-a-d/index.html">SECTION_HEAD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1412553674%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-c-t-i-o-n_-h-e-a-d/index.html">SECTION_HEAD</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1078377624%2FClasslikes%2F1170399019" anchor-label="SELECT" id="1078377624%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-l-e-c-t/index.html">SELECT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1078377624%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-l-e-c-t/index.html">SELECT</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="217271697%2FClasslikes%2F1170399019" anchor-label="SEPARATOR" id="217271697%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-p-a-r-a-t-o-r/index.html">SEPARATOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="217271697%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-p-a-r-a-t-o-r/index.html">SEPARATOR</a></div></div><div class="brief "><p class="paragraph">A divider that separates and distinguishes sections of content or groups of menuitems.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="629827005%2FClasslikes%2F1170399019" anchor-label="SLIDER" id="629827005%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-l-i-d-e-r/index.html">SLIDER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="629827005%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-l-i-d-e-r/index.html">SLIDER</a></div></div><div class="brief "><p class="paragraph">A user input where the user selects a value from within a given range.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="811602203%2FClasslikes%2F1170399019" anchor-label="SPIN_BUTTON" id="811602203%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-p-i-n_-b-u-t-t-o-n/index.html">SPIN_BUTTON</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="811602203%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-p-i-n_-b-u-t-t-o-n/index.html">SPIN_BUTTON</a></div></div><div class="brief "><p class="paragraph">A form of range that expects the user to select from among discrete choices.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1697759986%2FClasslikes%2F1170399019" anchor-label="STATUS" id="-1697759986%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-a-t-u-s/index.html">STATUS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1697759986%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-a-t-u-s/index.html">STATUS</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1164313503%2FClasslikes%2F1170399019" anchor-label="STRUCTURE" id="1164313503%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-r-u-c-t-u-r-e/index.html">STRUCTURE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1164313503%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-r-u-c-t-u-r-e/index.html">STRUCTURE</a></div></div><div class="brief "><p class="paragraph">Abstract role.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1395846352%2FClasslikes%2F1170399019" anchor-label="SWITCH" id="1395846352%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-w-i-t-c-h/index.html">SWITCH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1395846352%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-w-i-t-c-h/index.html">SWITCH</a></div></div><div class="brief "><p class="paragraph">A type of checkbox that represents on/off values, as opposed to checked/unchecked values.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2070471745%2FClasslikes%2F1170399019" anchor-label="TAB" id="2070471745%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-b/index.html">TAB</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2070471745%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-a-b/index.html">TAB</a></div></div><div class="brief "><p class="paragraph">An item in a list of tab used for switching pages.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1557393594%2FClasslikes%2F1170399019" anchor-label="TABLE" id="1557393594%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-b-l-e/index.html">TABLE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1557393594%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-a-b-l-e/index.html">TABLE</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="964053956%2FClasslikes%2F1170399019" anchor-label="TAB_LIST" id="964053956%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-b_-l-i-s-t/index.html">TAB_LIST</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="964053956%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-a-b_-l-i-s-t/index.html">TAB_LIST</a></div></div><div class="brief "><p class="paragraph">A list of tabs for switching pages.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1476327258%2FClasslikes%2F1170399019" anchor-label="TAB_PANEL" id="-1476327258%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-b_-p-a-n-e-l/index.html">TAB_PANEL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1476327258%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-a-b_-p-a-n-e-l/index.html">TAB_PANEL</a></div></div><div class="brief "><p class="paragraph">A page in a notebook or stack.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1429818251%2FClasslikes%2F1170399019" anchor-label="TEXT_BOX" id="-1429818251%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-e-x-t_-b-o-x/index.html">TEXT_BOX</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1429818251%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-e-x-t_-b-o-x/index.html">TEXT_BOX</a></div></div><div class="brief "><p class="paragraph">A type of input that allows free-form text as its value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="747090089%2FClasslikes%2F1170399019" anchor-label="TIME" id="747090089%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-i-m-e/index.html">TIME</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="747090089%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-i-m-e/index.html">TIME</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="413646321%2FClasslikes%2F1170399019" anchor-label="TIMER" id="413646321%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-i-m-e-r/index.html">TIMER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="413646321%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-i-m-e-r/index.html">TIMER</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="557145511%2FClasslikes%2F1170399019" anchor-label="TOOLBAR" id="557145511%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-o-o-l-b-a-r/index.html">TOOLBAR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="557145511%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-o-o-l-b-a-r/index.html">TOOLBAR</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1289968593%2FClasslikes%2F1170399019" anchor-label="TOOLTIP" id="-1289968593%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-o-o-l-t-i-p/index.html">TOOLTIP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1289968593%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-o-o-l-t-i-p/index.html">TOOLTIP</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1180057158%2FClasslikes%2F1170399019" anchor-label="TREE" id="-1180057158%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-r-e-e/index.html">TREE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1180057158%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-r-e-e/index.html">TREE</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1799607955%2FClasslikes%2F1170399019" anchor-label="TREE_GRID" id="1799607955%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-r-e-e_-g-r-i-d/index.html">TREE_GRID</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1799607955%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-r-e-e_-g-r-i-d/index.html">TREE_GRID</a></div></div><div class="brief "><p class="paragraph">A treeview-like, columned list.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1406499424%2FClasslikes%2F1170399019" anchor-label="TREE_ITEM" id="-1406499424%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-r-e-e_-i-t-e-m/index.html">TREE_ITEM</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1406499424%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-r-e-e_-i-t-e-m/index.html">TREE_ITEM</a></div></div><div class="brief "><p class="paragraph">Unused</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="627774432%2FClasslikes%2F1170399019" anchor-label="WIDGET" id="627774432%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-i-d-g-e-t/index.html">WIDGET</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="627774432%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-w-i-d-g-e-t/index.html">WIDGET</a></div></div><div class="brief "><p class="paragraph">Abstract role for interactive components of a graphical user interface</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-297447284%2FClasslikes%2F1170399019" anchor-label="WINDOW" id="-297447284%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-i-n-d-o-w/index.html">WINDOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-297447284%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-w-i-n-d-o-w/index.html">WINDOW</a></div></div><div class="brief "><p class="paragraph">Abstract role for windows.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1973227703%2FClasslikes%2F1170399019" anchor-label="TOGGLE_BUTTON" id="-1973227703%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-o-g-g-l-e_-b-u-t-t-o-n/index.html">TOGGLE_BUTTON</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1973227703%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-o-g-g-l-e_-b-u-t-t-o-n/index.html">TOGGLE_BUTTON</a></div></div><div class="brief "><p class="paragraph">A type of push button which stays pressed until depressed by a second activation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1524546372%2FClasslikes%2F1170399019" anchor-label="APPLICATION" id="-1524546372%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-p-p-l-i-c-a-t-i-o-n/index.html">APPLICATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1524546372%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-p-p-l-i-c-a-t-i-o-n/index.html">APPLICATION</a></div></div><div class="brief "><p class="paragraph">A toplevel element of a graphical user interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-135351718%2FClasslikes%2F1170399019" anchor-label="PARAGRAPH" id="-135351718%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-r-a-g-r-a-p-h/index.html">PARAGRAPH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-135351718%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-a-r-a-g-r-a-p-h/index.html">PARAGRAPH</a></div></div><div class="brief "><p class="paragraph">A paragraph of content.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2006734314%2FClasslikes%2F1170399019" anchor-label="BLOCK_QUOTE" id="-2006734314%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-l-o-c-k_-q-u-o-t-e/index.html">BLOCK_QUOTE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2006734314%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-l-o-c-k_-q-u-o-t-e/index.html">BLOCK_QUOTE</a></div></div><div class="brief "><p class="paragraph">A section of content that is quoted from another source.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1408495134%2FClasslikes%2F1170399019" anchor-label="ARTICLE" id="-1408495134%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-r-t-i-c-l-e/index.html">ARTICLE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1408495134%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-r-t-i-c-l-e/index.html">ARTICLE</a></div></div><div class="brief "><p class="paragraph">A section of a page that consists of a composition that forms an independent part of a document, page, or site.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-865015413%2FClasslikes%2F1170399019" anchor-label="COMMENT" id="-865015413%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-m-m-e-n-t/index.html">COMMENT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865015413%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-m-m-e-n-t/index.html">COMMENT</a></div></div><div class="brief "><p class="paragraph">A comment contains content expressing reaction to other content.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1786074136%2FClasslikes%2F1170399019" anchor-label="TERMINAL" id="1786074136%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-e-r-m-i-n-a-l/index.html">TERMINAL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1786074136%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-e-r-m-i-n-a-l/index.html">TERMINAL</a></div></div><div class="brief "><p class="paragraph">A virtual terminal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1953809459%2FClasslikes%2F1170399019" anchor-label="Companion" id="-1953809459%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1953809459%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F1170399019" anchor-label="name" id="-372974862%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-372974862%2FProperties%2F1170399019"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-372974862%2FProperties%2F1170399019">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="939062764%2FProperties%2F1170399019" anchor-label="nativeValue" id="939062764%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="939062764%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F1170399019" anchor-label="ordinal" id="-739389684%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-739389684%2FProperties%2F1170399019"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-739389684%2FProperties%2F1170399019">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-494280922%2FFunctions%2F1170399019" anchor-label="valueOf" id="-494280922%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-494280922%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">AccessibleRole</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-995588430%2FFunctions%2F1170399019" anchor-label="values" id="-995588430%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-995588430%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">AccessibleRole</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

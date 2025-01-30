@@ -1,0 +1,390 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ContextMenu</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:webkit/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:webkit/nativeMain" data-filter=":bindings:extra:webkit/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="webkit::org.gtkkn.bindings.webkit/ContextMenu///PointingToDeclaration//-1693314907">
+  <div class="breadcrumbs"><a href="../../index.html">webkit</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.webkit</a><span class="delimiter">/</span><span class="current">ContextMenu</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Context</span><wbr><span><span>Menu</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ContextMenu</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>webkitContextMenuPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Represents the context menu in a #WebKitWebView.</p><p class="paragraph">#WebKitContextMenu represents a context menu containing #WebKitContextMenuItem<!-- -->s in a #WebKitWebView.</p><p class="paragraph">When a #WebKitWebView is about to display the context menu, it emits the #WebKitWebView::context-menu signal, which has the #WebKitContextMenu as an argument. You can modify it, adding new submenus that you can create with webkit_context_menu_new(), adding new #WebKitContextMenuItem<!-- -->s with webkit_context_menu_prepend(), webkit_context_menu_append() or webkit_context_menu_insert(), maybe after having removed the existing ones with webkit_context_menu_remove_all().</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-434100968%2FConstructors%2F-1693314907" anchor-label="ContextMenu" id="-434100968%2FConstructors%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-context-menu.html"><span>Context</span><wbr><span><span>Menu</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-434100968%2FConstructors%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #WebKitContextMenu object.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">items<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #WebKitContextMenu object with the given items.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">webkitContextMenuPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1389235145%2FClasslikes%2F-1693314907" anchor-label="Companion" id="1389235145%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1389235145%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="791178791%2FProperties%2F-1693314907" anchor-label="webkitContextMenuPointer" id="791178791%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="webkit-context-menu-pointer.html"><span>webkit</span><wbr><span>Context</span><wbr><span>Menu</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="791178791%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="webkit-context-menu-pointer.html">webkitContextMenuPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1271586298%2FFunctions%2F-1693314907" anchor-label="append" id="-1271586298%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append.html"><span><span>append</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1271586298%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append.html"><span class="token function">append</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">item<span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @item at the end of the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-220727214%2FFunctions%2F-1693314907" anchor-label="first" id="-220727214%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="first.html"><span><span>first</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-220727214%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="first.html"><span class="token function">first</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a></div><div class="brief "><p class="paragraph">Gets the first item in the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1953329164%2FFunctions%2F-1693314907" anchor-label="getEvent" id="-1953329164%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-event.html"><span>get</span><wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1953329164%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-event.html"><span class="token function">getEvent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the #GdkEvent that triggered the context menu. This function only returns a valid #GdkEvent when called for a #WebKitContextMenu passed to #WebKitWebView::context-menu signal; in all other cases, null is returned.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="820463848%2FFunctions%2F-1693314907" anchor-label="getItemAtPosition" id="820463848%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-item-at-position.html"><span>get</span><wbr><span>Item</span><wbr><span>At</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="820463848%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-item-at-position.html"><span class="token function">getItemAtPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">position<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a></div><div class="brief "><p class="paragraph">Gets the item at the given position in the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="8065422%2FFunctions%2F-1693314907" anchor-label="getItems" id="8065422%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-items.html"><span>get</span><wbr><span><span>Items</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="8065422%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-items.html"><span class="token function">getItems</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the item list of @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1158488218%2FFunctions%2F-1693314907" anchor-label="getNItems" id="1158488218%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-n-items.html"><span>get</span><wbr><span><span>NItems</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1158488218%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-n-items.html"><span class="token function">getNItems</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the length of the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="86568983%2FFunctions%2F-1693314907" anchor-label="getUserData" id="86568983%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-user-data.html"><span>get</span><wbr><span>User</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="86568983%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-user-data.html"><span class="token function">getUserData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the user data of @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-805028986%2FFunctions%2F-1693314907" anchor-label="insert" id="-805028986%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="insert.html"><span><span>insert</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-805028986%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="insert.html"><span class="token function">insert</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">item<span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a><span class="token punctuation">, </span></span><span class="parameter ">position<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Inserts @item into the @menu at the given position.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1736538110%2FFunctions%2F-1693314907" anchor-label="last" id="-1736538110%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="last.html"><span><span>last</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1736538110%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="last.html"><span class="token function">last</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a></div><div class="brief "><p class="paragraph">Gets the last item in the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-378400421%2FFunctions%2F-1693314907" anchor-label="moveItem" id="-378400421%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="move-item.html"><span>move</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-378400421%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="move-item.html"><span class="token function">moveItem</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">item<span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a><span class="token punctuation">, </span></span><span class="parameter ">position<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves @item to the given position in the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="800861200%2FFunctions%2F-1693314907" anchor-label="prepend" id="800861200%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="prepend.html"><span><span>prepend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="800861200%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="prepend.html"><span class="token function">prepend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">item<span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds @item at the beginning of the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="436881648%2FFunctions%2F-1693314907" anchor-label="remove" id="436881648%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove.html"><span><span>remove</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="436881648%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">item<span class="token operator">: </span><a href="../-context-menu-item/index.html">ContextMenuItem</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes @item from the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1830749861%2FFunctions%2F-1693314907" anchor-label="removeAll" id="1830749861%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-all.html"><span>remove</span><wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1830749861%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="remove-all.html"><span class="token function">removeAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes all items of the @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1512471998%2FFunctions%2F-1693314907" anchor-label="setUserData" id="1512471998%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-user-data.html"><span>set</span><wbr><span>User</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1512471998%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-user-data.html"><span class="token function">setUserData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">userData<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets user data to @menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

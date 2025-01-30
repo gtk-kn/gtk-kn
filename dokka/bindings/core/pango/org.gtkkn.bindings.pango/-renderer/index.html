@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Renderer</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:pango/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:pango/nativeMain" data-filter=":bindings:core:pango/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="pango::org.gtkkn.bindings.pango/Renderer///PointingToDeclaration//1803427171">
+  <div class="breadcrumbs"><a href="../../index.html">pango</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.pango</a><span class="delimiter">/</span><span class="current">Renderer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Renderer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">Renderer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>pangoRendererPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph"><code class="lang-kotlin">PangoRenderer</code> is a base class for objects that can render text provided as <code class="lang-kotlin">PangoGlyphString</code> or <code class="lang-kotlin">PangoLayout</code>.</p><p class="paragraph">By subclassing <code class="lang-kotlin">PangoRenderer</code> and overriding operations such as</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.8</p></span><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-renderer-impl/index.html">RendererImpl</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="720200709%2FConstructors%2F1803427171" anchor-label="Renderer" id="720200709%2FConstructors%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-renderer.html"><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="720200709%2FConstructors%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pangoRendererPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="421565021%2FClasslikes%2F1803427171" anchor-label="Companion" id="421565021%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="421565021%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-366695082%2FClasslikes%2F1803427171" anchor-label="RendererImpl" id="-366695082%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-renderer-impl/index.html"><span>Renderer</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-366695082%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-renderer-impl/index.html">RendererImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="index.html">Renderer</a></div><div class="brief "><p class="paragraph">The RendererImpl type represents a native instance of the abstract Renderer class.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1175047313%2FProperties%2F1803427171" anchor-label="pangoRendererPointer" id="-1175047313%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pango-renderer-pointer.html"><span>pango</span><wbr><span>Renderer</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1175047313%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="pango-renderer-pointer.html">pangoRendererPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1779075505%2FFunctions%2F1803427171" anchor-label="activate" id="1779075505%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="activate.html"><span><span>activate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1779075505%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="activate.html"><span class="token function">activate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Does initial setup before rendering operations on @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1844906896%2FFunctions%2F1803427171" anchor-label="deactivate" id="1844906896%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="deactivate.html"><span><span>deactivate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1844906896%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="deactivate.html"><span class="token function">deactivate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Cleans up after rendering operations on @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-989370333%2FFunctions%2F1803427171" anchor-label="drawErrorUnderline" id="-989370333%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-error-underline.html"><span>draw</span><wbr><span>Error</span><wbr><span><span>Underline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-989370333%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-error-underline.html"><span class="token function">drawErrorUnderline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draw a squiggly line that approximately covers the given rectangle in the style of an underline used to indicate a spelling error.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1192813523%2FFunctions%2F1803427171" anchor-label="drawGlyph" id="1192813523%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-glyph.html"><span>draw</span><wbr><span><span>Glyph</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1192813523%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-glyph.html"><span class="token function">drawGlyph</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">font<span class="token operator">: </span><a href="../-font/index.html">Font</a><span class="token punctuation">, </span></span><span class="parameter ">glyph<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws a single glyph with coordinates in device space.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2069061096%2FFunctions%2F1803427171" anchor-label="drawGlyphItem" id="-2069061096%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-glyph-item.html"><span>draw</span><wbr><span>Glyph</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2069061096%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-glyph-item.html"><span class="token function">drawGlyphItem</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">text<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">glyphItem<span class="token operator">: </span><a href="../-glyph-item/index.html">GlyphItem</a><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws the glyphs in @glyph_item with the specified <code class="lang-kotlin">PangoRenderer</code>, embedding the text associated with the glyphs in the output if the output format supports it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-109802804%2FFunctions%2F1803427171" anchor-label="drawGlyphs" id="-109802804%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-glyphs.html"><span>draw</span><wbr><span><span>Glyphs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-109802804%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-glyphs.html"><span class="token function">drawGlyphs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">font<span class="token operator">: </span><a href="../-font/index.html">Font</a><span class="token punctuation">, </span></span><span class="parameter ">glyphs<span class="token operator">: </span><a href="../-glyph-string/index.html">GlyphString</a><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws the glyphs in @glyphs with the specified <code class="lang-kotlin">PangoRenderer</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1638820528%2FFunctions%2F1803427171" anchor-label="drawLayout" id="1638820528%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-layout.html"><span>draw</span><wbr><span><span>Layout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1638820528%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-layout.html"><span class="token function">drawLayout</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layout<span class="token operator">: </span><a href="../-layout/index.html">Layout</a><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws @layout with the specified <code class="lang-kotlin">PangoRenderer</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1008657616%2FFunctions%2F1803427171" anchor-label="drawLayoutLine" id="-1008657616%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-layout-line.html"><span>draw</span><wbr><span>Layout</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1008657616%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-layout-line.html"><span class="token function">drawLayoutLine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">line<span class="token operator">: </span><a href="../-layout-line/index.html">LayoutLine</a><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws @line with the specified <code class="lang-kotlin">PangoRenderer</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="537541788%2FFunctions%2F1803427171" anchor-label="drawRectangle" id="537541788%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-rectangle.html"><span>draw</span><wbr><span><span>Rectangle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="537541788%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-rectangle.html"><span class="token function">drawRectangle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws an axis-aligned rectangle in user space coordinates with the specified <code class="lang-kotlin">PangoRenderer</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1170525763%2FFunctions%2F1803427171" anchor-label="drawTrapezoid" id="1170525763%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="draw-trapezoid.html"><span>draw</span><wbr><span><span>Trapezoid</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1170525763%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="draw-trapezoid.html"><span class="token function">drawTrapezoid</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a><span class="token punctuation">, </span></span><span class="parameter ">y1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x11<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x21<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x12<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x22<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Draws a trapezoid with the parallel sides aligned with the X axis using the given <code class="lang-kotlin">PangoRenderer</code>; coordinates are in device space.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1062175627%2FFunctions%2F1803427171" anchor-label="getAlpha" id="1062175627%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-alpha.html"><span>get</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1062175627%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-alpha.html"><span class="token function">getAlpha</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the current alpha for the specified part.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-147315696%2FFunctions%2F1803427171" anchor-label="getColor" id="-147315696%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-color.html"><span>get</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-147315696%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-color.html"><span class="token function">getColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-color/index.html">Color</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the current rendering color for the specified part.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-187054346%2FFunctions%2F1803427171" anchor-label="getLayout" id="-187054346%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-layout.html"><span>get</span><wbr><span><span>Layout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-187054346%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-layout.html"><span class="token function">getLayout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-layout/index.html">Layout</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the layout currently being rendered using @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-113615646%2FFunctions%2F1803427171" anchor-label="getLayoutLine" id="-113615646%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-layout-line.html"><span>get</span><wbr><span>Layout</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-113615646%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-layout-line.html"><span class="token function">getLayoutLine</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-layout-line/index.html">LayoutLine</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the layout line currently being rendered using @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1698607679%2FFunctions%2F1803427171" anchor-label="getMatrix" id="1698607679%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-matrix.html"><span>get</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1698607679%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-matrix.html"><span class="token function">getMatrix</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the transformation matrix that will be applied when rendering.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-872196398%2FFunctions%2F1803427171" anchor-label="partChanged" id="-872196398%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="part-changed.html"><span>part</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-872196398%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="part-changed.html"><span class="token function">partChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Informs Pango that the way that the rendering is done for @part has changed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1812340150%2FFunctions%2F1803427171" anchor-label="setAlpha" id="-1812340150%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-alpha.html"><span>set</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1812340150%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-alpha.html"><span class="token function">setAlpha</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a><span class="token punctuation">, </span></span><span class="parameter ">alpha<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the alpha for part of the rendering.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1568869209%2FFunctions%2F1803427171" anchor-label="setColor" id="1568869209%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-color.html"><span>set</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1568869209%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-color.html"><span class="token function">setColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">part<span class="token operator">: </span><a href="../-render-part/index.html">RenderPart</a><span class="token punctuation">, </span></span><span class="parameter ">color<span class="token operator">: </span><a href="../-color/index.html">Color</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the color for part of the rendering.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1480800409%2FFunctions%2F1803427171" anchor-label="setMatrix" id="-1480800409%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-matrix.html"><span>set</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1480800409%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-matrix.html"><span class="token function">setMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the transformation matrix that will be applied when rendering.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

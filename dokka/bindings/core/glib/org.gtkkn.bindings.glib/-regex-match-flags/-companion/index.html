@@ -1,0 +1,363 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Companion</title>
+<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/RegexMatchFlags.Companion///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../../index.html">glib</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><a href="../index.html">RegexMatchFlags</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Companion</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-75012487%2FProperties%2F-2021666004" anchor-label="ANCHORED" id="-75012487%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-n-c-h-o-r-e-d.html"><span><span>ANCHORED</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-75012487%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-n-c-h-o-r-e-d.html">ANCHORED</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">The pattern is forced to be "anchored", that is,     it is constrained to match only at the first matching point in the     string that is being searched. This effect can also be achieved by     appropriate constructs in the pattern itself such as the "^"     metacharacter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-159270785%2FProperties%2F-2021666004" anchor-label="BSR_ANY" id="-159270785%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-s-r_-a-n-y.html"><span>BSR_</span><wbr><span>ANY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-159270785%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-b-s-r_-a-n-y.html">BSR_ANY</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition for "\R" set when     creating a new #GRegex; any Unicode newline character or character sequence     are recognized as a newline by "\R". These are '\r', '\n' and '\rn', and the     single characters U+000B LINE TABULATION, U+000C FORM FEED (FF),     U+0085 NEXT LINE (NEL), U+2028 LINE SEPARATOR and     U+2029 PARAGRAPH SEPARATOR. Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="778069366%2FProperties%2F-2021666004" anchor-label="BSR_ANYCRLF" id="778069366%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-s-r_-a-n-y-c-r-l-f.html"><span>BSR_</span><wbr><span>ANYCRLF</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="778069366%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-b-s-r_-a-n-y-c-r-l-f.html">BSR_ANYCRLF</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition for "\R" set when     creating a new #GRegex; only '\r', '\n', or '\r\n' character sequences     are recognized as a newline by "\R". Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1462125676%2FProperties%2F-2021666004" anchor-label="DEFAULT" id="1462125676%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t.html"><span><span>DEFAULT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1462125676%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-f-a-u-l-t.html">DEFAULT</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">No special options set. Since: 2.74</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="750506508%2FProperties%2F-2021666004" anchor-label="NEWLINE_ANY" id="750506508%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-e-w-l-i-n-e_-a-n-y.html"><span>NEWLINE_</span><wbr><span>ANY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="750506508%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-e-w-l-i-n-e_-a-n-y.html">NEWLINE_ANY</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition set when     creating a new #GRegex, any Unicode newline sequence     is recognised as a newline. These are '\r', '\n' and '\rn', and the     single characters U+000B LINE TABULATION, U+000C FORM FEED (FF),     U+0085 NEXT LINE (NEL), U+2028 LINE SEPARATOR and     U+2029 PARAGRAPH SEPARATOR.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="531165315%2FProperties%2F-2021666004" anchor-label="NEWLINE_ANYCRLF" id="531165315%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-e-w-l-i-n-e_-a-n-y-c-r-l-f.html"><span>NEWLINE_</span><wbr><span>ANYCRLF</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="531165315%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-e-w-l-i-n-e_-a-n-y-c-r-l-f.html">NEWLINE_ANYCRLF</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition set when     creating a new #GRegex; any '\r', '\n', or '\r\n' character sequence     is recognized as a newline. Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-723937229%2FProperties%2F-2021666004" anchor-label="NEWLINE_CR" id="-723937229%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-e-w-l-i-n-e_-c-r.html"><span>NEWLINE_</span><wbr><span>CR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-723937229%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-e-w-l-i-n-e_-c-r.html">NEWLINE_CR</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition set when     creating a new #GRegex, setting the '\r' character as line terminator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1582561671%2FProperties%2F-2021666004" anchor-label="NEWLINE_CRLF" id="-1582561671%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-e-w-l-i-n-e_-c-r-l-f.html"><span>NEWLINE_</span><wbr><span>CRLF</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1582561671%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-e-w-l-i-n-e_-c-r-l-f.html">NEWLINE_CRLF</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition set when     creating a new #GRegex, setting the '\r\n' characters sequence as line terminator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1031583352%2FProperties%2F-2021666004" anchor-label="NEWLINE_LF" id="-1031583352%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-e-w-l-i-n-e_-l-f.html"><span>NEWLINE_</span><wbr><span>LF</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1031583352%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-e-w-l-i-n-e_-l-f.html">NEWLINE_LF</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Overrides the newline definition set when     creating a new #GRegex, setting the '\n' character as line terminator.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1647383937%2FProperties%2F-2021666004" anchor-label="NOTBOL" id="1647383937%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-t-b-o-l.html"><span><span>NOTBOL</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1647383937%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o-t-b-o-l.html">NOTBOL</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Specifies that first character of the string is     not the beginning of a line, so the circumflex metacharacter should     not match before it. Setting this without %G_REGEX_MULTILINE (at     compile time) causes circumflex never to match. This option affects     only the behaviour of the circumflex metacharacter, it does not     affect "\A".</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1754435341%2FProperties%2F-2021666004" anchor-label="NOTEMPTY" id="-1754435341%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-t-e-m-p-t-y.html"><span><span>NOTEMPTY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1754435341%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o-t-e-m-p-t-y.html">NOTEMPTY</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">An empty string is not considered to be a valid     match if this option is set. If there are alternatives in the pattern,     they are tried. If all the alternatives match the empty string, the     entire match fails. For example, if the pattern "a?b?" is applied to     a string not beginning with "a" or "b", it matches the empty string     at the start of the string. With this flag set, this match is not     valid, so GRegex searches further into the string for occurrences     of "a" or "b".</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1274850883%2FProperties%2F-2021666004" anchor-label="NOTEMPTY_ATSTART" id="1274850883%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-t-e-m-p-t-y_-a-t-s-t-a-r-t.html"><span>NOTEMPTY_</span><wbr><span>ATSTART</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1274850883%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o-t-e-m-p-t-y_-a-t-s-t-a-r-t.html">NOTEMPTY_ATSTART</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Like %G_REGEX_MATCH_NOTEMPTY, but only applied to     the start of the matched string. For anchored     patterns this can only happen for pattern containing "\K". Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="883174302%2FProperties%2F-2021666004" anchor-label="NOTEOL" id="883174302%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-t-e-o-l.html"><span><span>NOTEOL</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="883174302%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o-t-e-o-l.html">NOTEOL</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Specifies that the end of the subject string is     not the end of a line, so the dollar metacharacter should not match     it nor (except in multiline mode) a newline immediately before it.     Setting this without %G_REGEX_MULTILINE (at compile time) causes     dollar never to match. This option affects only the behaviour of     the dollar metacharacter, it does not affect "\Z" or "\z".</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1346799316%2FProperties%2F-2021666004" anchor-label="PARTIAL" id="-1346799316%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-r-t-i-a-l.html"><span><span>PARTIAL</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1346799316%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-a-r-t-i-a-l.html">PARTIAL</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Turns on the partial matching feature, for more     documentation on partial matching see g_match_info_is_partial_match().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1416814300%2FProperties%2F-2021666004" anchor-label="PARTIAL_HARD" id="-1416814300%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-r-t-i-a-l_-h-a-r-d.html"><span>PARTIAL_</span><wbr><span>HARD</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1416814300%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-a-r-t-i-a-l_-h-a-r-d.html">PARTIAL_HARD</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">Turns on the partial matching feature. In contrast to     to %G_REGEX_MATCH_PARTIAL_SOFT, this stops matching as soon as a partial match     is found, without continuing to search for a possible complete match. See     g_match_info_is_partial_match() for more information. Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="187876037%2FProperties%2F-2021666004" anchor-label="PARTIAL_SOFT" id="187876037%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-r-t-i-a-l_-s-o-f-t.html"><span>PARTIAL_</span><wbr><span>SOFT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="187876037%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-p-a-r-t-i-a-l_-s-o-f-t.html">PARTIAL_SOFT</a><span class="token operator">: </span><a href="../index.html">RegexMatchFlags</a></div><div class="brief "><p class="paragraph">An alias for %G_REGEX_MATCH_PARTIAL. Since: 2.34</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

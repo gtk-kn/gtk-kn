@@ -1,0 +1,611 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TreeModel</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/TreeModel///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">TreeModel</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tree</span><wbr><span><span>Model</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TreeModel</a></div><p class="paragraph">The tree interface used by GtkTreeView</p><p class="paragraph">The <code class="lang-kotlin">GtkTreeModel</code> interface defines a generic tree interface for use by the <code class="lang-kotlin">GtkTreeView</code> widget. It is an abstract interface, and is designed to be usable with any appropriate data structure. The programmer just has to implement this interface on their own data type for it to be viewable by a <code class="lang-kotlin">GtkTreeView</code> widget.</p><p class="paragraph">The model is represented as a hierarchical tree of strongly-typed, columned data. In other words, the model can be seen as a tree where every node has different values depending on which column is being queried. The type of data found in a column is determined by using the GType system (ie. %G_TYPE_INT, %GTK_TYPE_BUTTON, %G_TYPE_POINTER, etc). The types are homogeneous per column across all nodes. It is important to note that this interface only provides a way of examining a model and observing changes. The implementation of each individual model decides how and if changes are made.</p><p class="paragraph">In order to make life simpler for programmers who do not need to write their own specialized model, two generic models are provided — the <code class="lang-kotlin">GtkTreeStore</code> and the <code class="lang-kotlin">GtkListStore</code>. To use these, the developer simply pushes data into these models as necessary. These models provide the data structure as well as all appropriate tree interfaces. As a result, implementing drag and drop, sorting, and storing data is trivial. For the vast majority of trees and lists, these two models are sufficient.</p><p class="paragraph">Models are accessed on a node/column level of granularity. One can query for the value of a model at a certain node and a certain column on that node. There are two structures used to reference a particular node in a model. They are the struct@Gtk.TreePath and the struct@Gtk.TreeIter (“iter” is short for iterator). Most of the interface consists of operations on a struct@Gtk.TreeIter.</p><p class="paragraph">A path is essentially a potential node. It is a location on a model that may or may not actually correspond to a node on a specific model. A struct@Gtk.TreePath can be converted into either an array of unsigned integers or a string. The string form is a list of numbers separated by a colon. Each number refers to the offset at that level. Thus, the path <code class="lang-kotlin">0</code> refers to the root node and the path <code class="lang-kotlin">2:4</code> refers to the fifth child of the third node.</p><p class="paragraph">By contrast, a struct@Gtk.TreeIter is a reference to a specific node on a specific model. It is a generic struct with an integer and three generic pointers. These are filled in by the model in a model-specific way. One can convert a path to an iterator by calling gtk_tree_model_get_iter(). These iterators are the primary way of accessing a model and are similar to the iterators used by <code class="lang-kotlin">GtkTextBuffer</code>. They are generally statically allocated on the stack and only used for a short time. The model interface defines a set of operations using them for navigating the model.</p><p class="paragraph">It is expected that models fill in the iterator with private data. For example, the <code class="lang-kotlin">GtkListStore</code> model, which is internally a simple linked list, stores a list node in one of the pointers. The <code class="lang-kotlin">GtkTreeModel</code>Sort stores an array and an offset in two of the pointers. Additionally, there is an integer field. This field is generally filled with a unique stamp per model. This stamp is for catching errors resulting from using invalid iterators with a model.</p><p class="paragraph">The lifecycle of an iterator can be a little confusing at first. Iterators are expected to always be valid for as long as the model is unchanged (and doesn’t emit a signal). The model is considered to own all outstanding iterators and nothing needs to be done to free them from the user’s point of view. Additionally, some models guarantee that an iterator is valid for as long as the node it refers to is valid (most notably the <code class="lang-kotlin">GtkTreeStore</code> and <code class="lang-kotlin">GtkListStore</code>). Although generally uninteresting, as one always has to allow for the case where iterators do not persist beyond a signal, some very important performance enhancements were made in the sort model. As a result, the %GTK_TREE_MODEL_ITERS_PERSIST flag was added to indicate this behavior.</p><p class="paragraph">To help show some common operation of a model, some examples are provided. The first example shows three ways of getting the iter at the location <code class="lang-kotlin">3:2:5</code>. While the first method shown is easier, the second is much more common, as you often get paths from callbacks.</p><h2 class="">Acquiring a <code class="lang-kotlin">GtkTreeIter</code></h2><div class="sample-container"><pre><code class="block lang-c" theme="idea">// Three ways of getting the iter pointing to the location<br>GtkTreePath *path;<br>GtkTreeIter iter;<br>GtkTreeIter parent_iter;<br><br>// get the iterator from a string<br>gtk_tree_model_get_iter_from_string (model,<br>                                     &amp;iter,<br>                                     "3:2:5");<br><br>// get the iterator from a path<br>path = gtk_tree_path_new_from_string ("3:2:5");<br>gtk_tree_model_get_iter (model, &amp;iter, path);<br>gtk_tree_path_free (path);<br><br>// walk the tree to find the iterator<br>gtk_tree_model_iter_nth_child (model, &amp;iter,<br>                               NULL, 3);<br>parent_iter = iter;<br>gtk_tree_model_iter_nth_child (model, &amp;iter,<br>                               &amp;parent_iter, 2);<br>parent_iter = iter;<br>gtk_tree_model_iter_nth_child (model, &amp;iter,<br>                               &amp;parent_iter, 5);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">This second example shows a quick way of iterating through a list and getting a string and an integer from each row. The populate_model() function used below is not shown, as it is specific to the <code class="lang-kotlin">GtkListStore</code>. For information on how to write such a function, see the <code class="lang-kotlin">GtkListStore</code> documentation.</p><h2 class="">Reading data from a <code class="lang-kotlin">GtkTreeModel</code></h2><div class="sample-container"><pre><code class="block lang-c" theme="idea">enum<br>{<br>  STRING_COLUMN,<br>  INT_COLUMN,<br>  N_COLUMNS<br>};<br><br>...<br><br>GtkTreeModel *list_store;<br>GtkTreeIter iter;<br>gboolean valid;<br>int row_count = 0;<br><br>// make a new list_store<br>list_store = gtk_list_store_new (N_COLUMNS,<br>                                 G_TYPE_STRING,<br>                                 G_TYPE_INT);<br><br>// Fill the list store with data<br>populate_model (list_store);<br><br>// Get the first iter in the list, check it is valid and walk<br>// through the list, reading each row.<br><br>valid = gtk_tree_model_get_iter_first (list_store,<br>                                       &amp;iter);<br>while (valid)<br> {<br>   char *str_data;<br>   int    int_data;<br><br>   // Make sure you terminate calls to gtk_tree_model_get() with a “-1” value<br>   gtk_tree_model_get (list_store, &amp;iter,<br>                       STRING_COLUMN, &amp;str_data,<br>                       INT_COLUMN, &amp;int_data,<br>                       -1);<br><br>   // Do something with the data<br>   g_print ("Row %d: (%s,%d)\n",<br>            row_count, str_data, int_data);<br>   g_free (str_data);<br><br>   valid = gtk_tree_model_iter_next (list_store,<br>                                     &amp;iter);<br>   row_count++;<br> }</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The <code class="lang-kotlin">GtkTreeModel</code> interface contains two methods for reference counting: gtk_tree_model_ref_node() and gtk_tree_model_unref_node(). These two methods are optional to implement. The reference counting is meant as a way for views to let models know when nodes are being displayed. <code class="lang-kotlin">GtkTreeView</code> will take a reference on a node when it is visible, which means the node is either in the toplevel or expanded. Being displayed does not mean that the node is currently directly visible to the user in the viewport. Based on this reference counting scheme a caching model, for example, can decide whether or not to cache a node based on the reference count. A file-system based model would not want to keep the entire file hierarchy in memory, but just the folders that are currently expanded in every current view.</p><p class="paragraph">When working with reference counting, the following rules must be taken into account:</p><ul><li><p class="paragraph">Never take a reference on a node without owning a reference on its parent. This means that all parent nodes of a referenced node must be referenced as well.</p></li><li><p class="paragraph">Outstanding references on a deleted node are not released. This is not possible because the node has already been deleted by the time the row-deleted signal is received.</p></li><li><p class="paragraph">Models are not obligated to emit a signal on rows of which none of its siblings are referenced. To phrase this differently, signals are only required for levels in which nodes are referenced. For the root level however, signals must be emitted at all times (however the root level is always referenced when any view is attached).</p></li></ul><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">get</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">var_args</code>: va_list type is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">new_order</code>: Array parameter of type gint is not supported</p></li></ul><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-list-store/index.html">ListStore</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-tree-model-impl/index.html">TreeModelImpl</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tree-model-filter/index.html">TreeModelFilter</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tree-model-sort/index.html">TreeModelSort</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tree-sortable/index.html">TreeSortable</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tree-store/index.html">TreeStore</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1696064382%2FClasslikes%2F1170399019" anchor-label="Companion" id="-1696064382%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1696064382%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-887283965%2FClasslikes%2F1170399019" anchor-label="TreeModelImpl" id="-887283965%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tree-model-impl/index.html"><span>Tree</span><wbr><span>Model</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-887283965%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-tree-model-impl/index.html">TreeModelImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkTreeModelPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="index.html">TreeModel</a></div><div class="brief "><p class="paragraph">The TreeModelImpl type represents a native instance of the TreeModel interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="545456363%2FProperties%2F1170399019" anchor-label="gtkTreeModelPointer" id="545456363%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-tree-model-pointer.html"><span>gtk</span><wbr><span>Tree</span><wbr><span>Model</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="545456363%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="gtk-tree-model-pointer.html">gtkTreeModelPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-765270512%2FFunctions%2F1170399019" anchor-label="filterNew" id="-765270512%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="filter-new.html"><span>filter</span><wbr><span><span>New</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765270512%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="filter-new.html"><span class="token function">filterNew</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">root<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">TreeModel</a></div><div class="brief "><p class="paragraph">Creates a new <code class="lang-kotlin">GtkTreeModel</code>, with @child_model as the child_model and @root as the virtual root.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-631683031%2FFunctions%2F1170399019" anchor-label="foreach" id="-631683031%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="foreach.html"><span><span>foreach</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-631683031%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="foreach.html"><span class="token function">foreach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">func<span class="token operator">: </span><a href="../-tree-model-foreach-func/index.html">TreeModelForeachFunc</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls @func on each node in model in a depth-first fashion.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1710030177%2FFunctions%2F1170399019" anchor-label="getColumnType" id="1710030177%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-column-type.html"><span>get</span><wbr><span>Column</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1710030177%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-column-type.html"><span class="token function">getColumnType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">index<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the type of the column.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="524278990%2FFunctions%2F1170399019" anchor-label="getFlags" id="524278990%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-flags.html"><span>get</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="524278990%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-flags.html"><span class="token function">getFlags</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-model-flags/index.html">TreeModelFlags</a></div><div class="brief "><p class="paragraph">Returns a set of flags supported by this interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-154485171%2FFunctions%2F1170399019" anchor-label="getIter" id="-154485171%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-iter.html"><span>get</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-154485171%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-iter.html"><span class="token function">getIter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to a valid iterator pointing to @path.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1395375318%2FFunctions%2F1170399019" anchor-label="getIterFirst" id="1395375318%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-iter-first.html"><span>get</span><wbr><span>Iter</span><wbr><span><span>First</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1395375318%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-iter-first.html"><span class="token function">getIterFirst</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Initializes @iter with the first iterator in the tree (the one at the path "0").</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1891043194%2FFunctions%2F1170399019" anchor-label="getIterFromString" id="-1891043194%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-iter-from-string.html"><span>get</span><wbr><span>Iter</span><wbr><span>From</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1891043194%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-iter-from-string.html"><span class="token function">getIterFromString</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">pathString<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to a valid iterator pointing to @path_string, if it exists.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2106846806%2FFunctions%2F1170399019" anchor-label="getNColumns" id="2106846806%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-n-columns.html"><span>get</span><wbr><span><span>NColumns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2106846806%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-n-columns.html"><span class="token function">getNColumns</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the number of columns supported by @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="549719027%2FFunctions%2F1170399019" anchor-label="getPath" id="549719027%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-path.html"><span>get</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="549719027%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-path.html"><span class="token function">getPath</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></div><div class="brief "><p class="paragraph">Returns a newly-created <code class="lang-kotlin">GtkTreePath</code> referenced by @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1060373729%2FFunctions%2F1170399019" anchor-label="getStringFromIter" id="1060373729%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-string-from-iter.html"><span>get</span><wbr><span>String</span><wbr><span>From</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1060373729%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-string-from-iter.html"><span class="token function">getStringFromIter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Generates a string representation of the iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1559889106%2FFunctions%2F1170399019" anchor-label="getValue" id="1559889106%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value.html"><span>get</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1559889106%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-value.html"><span class="token function">getValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">column<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Initializes and sets @value to that at @column.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2078406812%2FFunctions%2F1170399019" anchor-label="iterChildren" id="-2078406812%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-children.html"><span>iter</span><wbr><span><span>Children</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2078406812%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-children.html"><span class="token function">iterChildren</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">parent<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to point to the first child of @parent.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1257384210%2FFunctions%2F1170399019" anchor-label="iterHasChild" id="-1257384210%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-has-child.html"><span>iter</span><wbr><span>Has</span><wbr><span><span>Child</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1257384210%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-has-child.html"><span class="token function">iterHasChild</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if @iter has children, false otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1769260970%2FFunctions%2F1170399019" anchor-label="iterNChildren" id="-1769260970%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-n-children.html"><span>iter</span><wbr><span><span>NChildren</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1769260970%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-n-children.html"><span class="token function">iterNChildren</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the number of children that @iter has.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="178996031%2FFunctions%2F1170399019" anchor-label="iterNext" id="178996031%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-next.html"><span>iter</span><wbr><span><span>Next</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="178996031%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-next.html"><span class="token function">iterNext</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to point to the node following it at the current level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1928765950%2FFunctions%2F1170399019" anchor-label="iterNthChild" id="-1928765950%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-nth-child.html"><span>iter</span><wbr><span>Nth</span><wbr><span><span>Child</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1928765950%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-nth-child.html"><span class="token function">iterNthChild</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">parent<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">n<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to be the child of @parent, using the given index.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-544468342%2FFunctions%2F1170399019" anchor-label="iterParent" id="-544468342%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-parent.html"><span>iter</span><wbr><span><span>Parent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-544468342%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-parent.html"><span class="token function">iterParent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span></span><span class="parameter ">child<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to be the parent of @child.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1894485059%2FFunctions%2F1170399019" anchor-label="iterPrevious" id="1894485059%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-previous.html"><span>iter</span><wbr><span><span>Previous</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1894485059%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-previous.html"><span class="token function">iterPrevious</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Sets @iter to point to the previous node at the current level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1011892893%2FFunctions%2F1170399019" anchor-label="onRowChanged" id="-1011892893%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-row-changed.html"><span>on</span><wbr><span>Row</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1011892893%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-row-changed.html"><span class="token function">onRowChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a row in the model has changed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2025426982%2FFunctions%2F1170399019" anchor-label="onRowDeleted" id="-2025426982%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-row-deleted.html"><span>on</span><wbr><span>Row</span><wbr><span><span>Deleted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2025426982%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-row-deleted.html"><span class="token function">onRowDeleted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a row has been deleted.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1365829833%2FFunctions%2F1170399019" anchor-label="onRowHasChildToggled" id="1365829833%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-row-has-child-toggled.html"><span>on</span><wbr><span>Row</span><wbr><span>Has</span><wbr><span>Child</span><wbr><span><span>Toggled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1365829833%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-row-has-child-toggled.html"><span class="token function">onRowHasChildToggled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a row has gotten the first child row or lost its last child row.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-104491675%2FFunctions%2F1170399019" anchor-label="onRowInserted" id="-104491675%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-row-inserted.html"><span>on</span><wbr><span>Row</span><wbr><span><span>Inserted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-104491675%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-row-inserted.html"><span class="token function">onRowInserted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a new row has been inserted in the model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-103165948%2FFunctions%2F1170399019" anchor-label="onRowsReordered" id="-103165948%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-rows-reordered.html"><span>on</span><wbr><span>Rows</span><wbr><span><span>Reordered</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-103165948%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="on-rows-reordered.html"><span class="token function">onRowsReordered</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span>iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when the children of a node in the <code class="lang-kotlin">GtkTreeModel</code> have been reordered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="64750221%2FFunctions%2F1170399019" anchor-label="refNode" id="64750221%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref-node.html"><span>ref</span><wbr><span><span>Node</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="64750221%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="ref-node.html"><span class="token function">refNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Lets the tree ref the node.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-23801739%2FFunctions%2F1170399019" anchor-label="rowChanged" id="-23801739%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="row-changed.html"><span>row</span><wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-23801739%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="row-changed.html"><span class="token function">rowChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-changed signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1918697158%2FFunctions%2F1170399019" anchor-label="rowDeleted" id="1918697158%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="row-deleted.html"><span>row</span><wbr><span><span>Deleted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1918697158%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="row-deleted.html"><span class="token function">rowDeleted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-deleted signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-566094257%2FFunctions%2F1170399019" anchor-label="rowHasChildToggled" id="-566094257%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="row-has-child-toggled.html"><span>row</span><wbr><span>Has</span><wbr><span>Child</span><wbr><span><span>Toggled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-566094257%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="row-has-child-toggled.html"><span class="token function">rowHasChildToggled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-has-child-toggled signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-843015471%2FFunctions%2F1170399019" anchor-label="rowInserted" id="-843015471%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="row-inserted.html"><span>row</span><wbr><span><span>Inserted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-843015471%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="row-inserted.html"><span class="token function">rowInserted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-tree-path/index.html">TreePath</a><span class="token punctuation">, </span></span><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the ::row-inserted signal on @tree_model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2092549036%2FFunctions%2F1170399019" anchor-label="unrefNode" id="-2092549036%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref-node.html"><span>unref</span><wbr><span><span>Node</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2092549036%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unref-node.html"><span class="token function">unrefNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><a href="../-tree-iter/index.html">TreeIter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Lets the tree unref the node.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

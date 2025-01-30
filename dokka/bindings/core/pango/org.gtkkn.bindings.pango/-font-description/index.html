@@ -1,0 +1,660 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FontDescription</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:pango/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:pango/nativeMain" data-filter=":bindings:core:pango/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="pango::org.gtkkn.bindings.pango/FontDescription///PointingToDeclaration//1803427171">
+  <div class="breadcrumbs"><a href="../../index.html">pango</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.pango</a><span class="delimiter">/</span><span class="current">FontDescription</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Font</span><wbr><span><span>Description</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FontDescription</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>pangoFontDescriptionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">PangoFontDescription</code> describes a font in an implementation-independent manner.</p><p class="paragraph"><code class="lang-kotlin">PangoFontDescription</code> structures are used both to list what fonts are available on the system and also for specifying the characteristics of a font to load.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1991789105%2FConstructors%2F1803427171" anchor-label="FontDescription" id="-1991789105%2FConstructors%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-description.html"><span>Font</span><wbr><span><span>Description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1991789105%2FConstructors%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pangoFontDescriptionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-397514503%2FClasslikes%2F1803427171" anchor-label="Companion" id="-397514503%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-397514503%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-978387939%2FProperties%2F1803427171" anchor-label="pangoFontDescriptionPointer" id="-978387939%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pango-font-description-pointer.html"><span>pango</span><wbr><span>Font</span><wbr><span>Description</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-978387939%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="pango-font-description-pointer.html">pangoFontDescriptionPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1513720989%2FFunctions%2F1803427171" anchor-label="betterMatch" id="-1513720989%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="better-match.html"><span>better</span><wbr><span><span>Match</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1513720989%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="better-match.html"><span class="token function">betterMatch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">oldMatch<span class="token operator">: </span><a href="index.html">FontDescription</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">newMatch<span class="token operator">: </span><a href="index.html">FontDescription</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines if the style attributes of @new_match are a closer match for @desc than those of @old_match are, or if @old_match is null, determines if @new_match is a match at all.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1091533011%2FFunctions%2F1803427171" anchor-label="copy" id="1091533011%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1091533011%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FontDescription</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Make a copy of a <code class="lang-kotlin">PangoFontDescription</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-337415803%2FFunctions%2F1803427171" anchor-label="copyStatic" id="-337415803%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-static.html"><span>copy</span><wbr><span><span>Static</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-337415803%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy-static.html"><span class="token function">copyStatic</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FontDescription</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Make a copy of a <code class="lang-kotlin">PangoFontDescription</code>, but don't duplicate allocated fields.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-519313981%2FFunctions%2F1803427171" anchor-label="equal" id="-519313981%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-519313981%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">desc2<span class="token operator">: </span><a href="index.html">FontDescription</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Compares two font descriptions for equality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-201587268%2FFunctions%2F1803427171" anchor-label="free" id="-201587268%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-201587268%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Frees a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1219292520%2FFunctions%2F1803427171" anchor-label="getFamily" id="-1219292520%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-family.html"><span>get</span><wbr><span><span>Family</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1219292520%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-family.html"><span class="token function">getFamily</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the family name field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1491727536%2FFunctions%2F1803427171" anchor-label="getGravity" id="-1491727536%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-gravity.html"><span>get</span><wbr><span><span>Gravity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1491727536%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-gravity.html"><span class="token function">getGravity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-gravity/index.html">Gravity</a></div><div class="brief "><p class="paragraph">Gets the gravity field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1936627645%2FFunctions%2F1803427171" anchor-label="getSetFields" id="-1936627645%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-set-fields.html"><span>get</span><wbr><span>Set</span><wbr><span><span>Fields</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1936627645%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-set-fields.html"><span class="token function">getSetFields</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-font-mask/index.html">FontMask</a></div><div class="brief "><p class="paragraph">Determines which fields in a font description have been set.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2051445669%2FFunctions%2F1803427171" anchor-label="getSize" id="-2051445669%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-size.html"><span>get</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2051445669%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-size.html"><span class="token function">getSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the size field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="817839386%2FFunctions%2F1803427171" anchor-label="getSizeIsAbsolute" id="817839386%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-size-is-absolute.html"><span>get</span><wbr><span>Size</span><wbr><span>Is</span><wbr><span><span>Absolute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="817839386%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-size-is-absolute.html"><span class="token function">getSizeIsAbsolute</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether the size of the font is in points (not absolute) or device units (absolute).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-344030599%2FFunctions%2F1803427171" anchor-label="getStretch" id="-344030599%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-stretch.html"><span>get</span><wbr><span><span>Stretch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-344030599%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-stretch.html"><span class="token function">getStretch</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-stretch/index.html">Stretch</a></div><div class="brief "><p class="paragraph">Gets the stretch field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-608044659%2FFunctions%2F1803427171" anchor-label="getStyle" id="-608044659%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-style.html"><span>get</span><wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-608044659%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-style.html"><span class="token function">getStyle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-style/index.html">Style</a></div><div class="brief "><p class="paragraph">Gets the style field of a <code class="lang-kotlin">PangoFontDescription</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1227884793%2FFunctions%2F1803427171" anchor-label="getVariant" id="1227884793%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-variant.html"><span>get</span><wbr><span><span>Variant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1227884793%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-variant.html"><span class="token function">getVariant</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-variant/index.html">Variant</a></div><div class="brief "><p class="paragraph">Gets the variant field of a <code class="lang-kotlin">PangoFontDescription</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1731810620%2FFunctions%2F1803427171" anchor-label="getVariations" id="1731810620%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-variations.html"><span>get</span><wbr><span><span>Variations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1731810620%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-variations.html"><span class="token function">getVariations</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets the variations field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1474917884%2FFunctions%2F1803427171" anchor-label="getWeight" id="-1474917884%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-weight.html"><span>get</span><wbr><span><span>Weight</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1474917884%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-weight.html"><span class="token function">getWeight</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-weight/index.html">Weight</a></div><div class="brief "><p class="paragraph">Gets the weight field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1890923866%2FFunctions%2F1803427171" anchor-label="hash" id="1890923866%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash.html"><span><span>hash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1890923866%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="hash.html"><span class="token function">hash</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Computes a hash of a <code class="lang-kotlin">PangoFontDescription</code> structure.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2049344896%2FFunctions%2F1803427171" anchor-label="merge" id="2049344896%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="merge.html"><span><span>merge</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2049344896%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="merge.html"><span class="token function">merge</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">descToMerge<span class="token operator">: </span><a href="index.html">FontDescription</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">replaceExisting<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Merges the fields that are set in @desc_to_merge into the fields in</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1741466803%2FFunctions%2F1803427171" anchor-label="mergeStatic" id="1741466803%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="merge-static.html"><span>merge</span><wbr><span><span>Static</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1741466803%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="merge-static.html"><span class="token function">mergeStatic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">descToMerge<span class="token operator">: </span><a href="index.html">FontDescription</a><span class="token punctuation">, </span></span><span class="parameter ">replaceExisting<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Merges the fields that are set in @desc_to_merge into the fields in</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561001700%2FFunctions%2F1803427171" anchor-label="setAbsoluteSize" id="561001700%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-absolute-size.html"><span>set</span><wbr><span>Absolute</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561001700%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-absolute-size.html"><span class="token function">setAbsoluteSize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">size<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the size field of a font description, in device units.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-734019464%2FFunctions%2F1803427171" anchor-label="setFamily" id="-734019464%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-family.html"><span>set</span><wbr><span><span>Family</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-734019464%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-family.html"><span class="token function">setFamily</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">family<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the family name field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="244846534%2FFunctions%2F1803427171" anchor-label="setFamilyStatic" id="244846534%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-family-static.html"><span>set</span><wbr><span>Family</span><wbr><span><span>Static</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="244846534%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-family-static.html"><span class="token function">setFamilyStatic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">family<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the family name field of a font description, without copying the string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1136070752%2FFunctions%2F1803427171" anchor-label="setGravity" id="1136070752%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-gravity.html"><span>set</span><wbr><span><span>Gravity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1136070752%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-gravity.html"><span class="token function">setGravity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gravity<span class="token operator">: </span><a href="../-gravity/index.html">Gravity</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the gravity field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1067823781%2FFunctions%2F1803427171" anchor-label="setSize" id="-1067823781%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-size.html"><span>set</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1067823781%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-size.html"><span class="token function">setSize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">size<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the size field of a font description in fractional points.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1934545138%2FFunctions%2F1803427171" anchor-label="setStretch" id="1934545138%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-stretch.html"><span>set</span><wbr><span><span>Stretch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1934545138%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-stretch.html"><span class="token function">setStretch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stretch<span class="token operator">: </span><a href="../-stretch/index.html">Stretch</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the stretch field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-315297446%2FFunctions%2F1803427171" anchor-label="setStyle" id="-315297446%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-style.html"><span>set</span><wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-315297446%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-style.html"><span class="token function">setStyle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">style<span class="token operator">: </span><a href="../-style/index.html">Style</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the style field of a <code class="lang-kotlin">PangoFontDescription</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-693666318%2FFunctions%2F1803427171" anchor-label="setVariant" id="-693666318%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-variant.html"><span>set</span><wbr><span><span>Variant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-693666318%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-variant.html"><span class="token function">setVariant</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">variant<span class="token operator">: </span><a href="../-variant/index.html">Variant</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the variant field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1766055695%2FFunctions%2F1803427171" anchor-label="setVariations" id="1766055695%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-variations.html"><span>set</span><wbr><span><span>Variations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1766055695%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-variations.html"><span class="token function">setVariations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">variations<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the variations field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-636224350%2FFunctions%2F1803427171" anchor-label="setVariationsStatic" id="-636224350%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-variations-static.html"><span>set</span><wbr><span>Variations</span><wbr><span><span>Static</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-636224350%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-variations-static.html"><span class="token function">setVariationsStatic</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">variations<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the variations field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1853543936%2FFunctions%2F1803427171" anchor-label="setWeight" id="1853543936%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-weight.html"><span>set</span><wbr><span><span>Weight</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1853543936%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-weight.html"><span class="token function">setWeight</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">weight<span class="token operator">: </span><a href="../-weight/index.html">Weight</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the weight field of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1157705978%2FFunctions%2F1803427171" anchor-label="toFilename" id="-1157705978%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-filename.html"><span>to</span><wbr><span><span>Filename</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1157705978%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-filename.html"><span class="token function">toFilename</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Creates a filename representation of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="209574972%2FFunctions%2F1803427171" anchor-label="toString" id="209574972%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="209574972%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Creates a string representation of a font description.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="414381189%2FFunctions%2F1803427171" anchor-label="unsetFields" id="414381189%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unset-fields.html"><span>unset</span><wbr><span><span>Fields</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="414381189%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unset-fields.html"><span class="token function">unsetFields</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toUnset<span class="token operator">: </span><a href="../-font-mask/index.html">FontMask</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets some of the fields in a <code class="lang-kotlin">PangoFontDescription</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

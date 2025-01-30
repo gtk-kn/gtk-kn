@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FontOptions</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:cairo/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:cairo/nativeMain" data-filter=":bindings:core:cairo/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="cairo::org.gtkkn.bindings.cairo/FontOptions///PointingToDeclaration//507617766">
+  <div class="breadcrumbs"><a href="../../index.html">cairo</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.cairo</a><span class="delimiter">/</span><span class="current">FontOptions</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Font</span><wbr><span><span>Options</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FontOptions</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoFontOptionsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">red_out</code>: red_out: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-727044988%2FConstructors%2F507617766" anchor-label="FontOptions" id="-727044988%2FConstructors%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-options.html"><span>Font</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-727044988%2FConstructors%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cairoFontOptionsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1887949644%2FClasslikes%2F507617766" anchor-label="Companion" id="-1887949644%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1887949644%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1376882391%2FProperties%2F507617766" anchor-label="cairoFontOptionsPointer" id="1376882391%2FProperties%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cairo-font-options-pointer.html"><span>cairo</span><wbr><span>Font</span><wbr><span>Options</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1376882391%2FProperties%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="cairo-font-options-pointer.html">cairoFontOptionsPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1904014280%2FFunctions%2F507617766" anchor-label="copy" id="-1904014280%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1904014280%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FontOptions</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-489769031%2FFunctions%2F507617766" anchor-label="equal" id="-489769031%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489769031%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="index.html">FontOptions</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="458396565%2FFunctions%2F507617766" anchor-label="getAntialias" id="458396565%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-antialias.html"><span>get</span><wbr><span><span>Antialias</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="458396565%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-antialias.html"><span class="token function">getAntialias</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-antialias/index.html">Antialias</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1860298979%2FFunctions%2F507617766" anchor-label="getColorMode" id="-1860298979%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-color-mode.html"><span>get</span><wbr><span>Color</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1860298979%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-color-mode.html"><span class="token function">getColorMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-color-mode/index.html">ColorMode</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="615503647%2FFunctions%2F507617766" anchor-label="getColorPalette" id="615503647%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-color-palette.html"><span>get</span><wbr><span>Color</span><wbr><span><span>Palette</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="615503647%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-color-palette.html"><span class="token function">getColorPalette</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-205397561%2FFunctions%2F507617766" anchor-label="getHintMetrics" id="-205397561%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-hint-metrics.html"><span>get</span><wbr><span>Hint</span><wbr><span><span>Metrics</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-205397561%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-hint-metrics.html"><span class="token function">getHintMetrics</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-hint-metrics/index.html">HintMetrics</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1315912743%2FFunctions%2F507617766" anchor-label="getHintStyle" id="-1315912743%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-hint-style.html"><span>get</span><wbr><span>Hint</span><wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1315912743%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-hint-style.html"><span class="token function">getHintStyle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-hint-style/index.html">HintStyle</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1779935067%2FFunctions%2F507617766" anchor-label="getSubpixelOrder" id="1779935067%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-subpixel-order.html"><span>get</span><wbr><span>Subpixel</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1779935067%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-subpixel-order.html"><span class="token function">getSubpixelOrder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-subpixel-order/index.html">SubpixelOrder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="404013943%2FFunctions%2F507617766" anchor-label="getVariations" id="404013943%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-variations.html"><span>get</span><wbr><span><span>Variations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="404013943%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-variations.html"><span class="token function">getVariations</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1104623425%2FFunctions%2F507617766" anchor-label="hash" id="-1104623425%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hash.html"><span><span>hash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1104623425%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="hash.html"><span class="token function">hash</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1143580363%2FFunctions%2F507617766" anchor-label="merge" id="-1143580363%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="merge.html"><span><span>merge</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1143580363%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="merge.html"><span class="token function">merge</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="index.html">FontOptions</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1896625826%2FFunctions%2F507617766" anchor-label="setAntialias" id="1896625826%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-antialias.html"><span>set</span><wbr><span><span>Antialias</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1896625826%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-antialias.html"><span class="token function">setAntialias</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">antialias<span class="token operator">: </span><a href="../-antialias/index.html">Antialias</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="902012338%2FFunctions%2F507617766" anchor-label="setColorMode" id="902012338%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-color-mode.html"><span>set</span><wbr><span>Color</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="902012338%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-color-mode.html"><span class="token function">setColorMode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">colorMode<span class="token operator">: </span><a href="../-color-mode/index.html">ColorMode</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-236051246%2FFunctions%2F507617766" anchor-label="setColorPalette" id="-236051246%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-color-palette.html"><span>set</span><wbr><span>Color</span><wbr><span><span>Palette</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-236051246%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-color-palette.html"><span class="token function">setColorPalette</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">paletteIndex<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-950812569%2FFunctions%2F507617766" anchor-label="setCustomPaletteColor" id="-950812569%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-custom-palette-color.html"><span>set</span><wbr><span>Custom</span><wbr><span>Palette</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-950812569%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-custom-palette-color.html"><span class="token function">setCustomPaletteColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">index<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">red<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">green<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">blue<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">alpha<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1184164166%2FFunctions%2F507617766" anchor-label="setHintMetrics" id="1184164166%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-hint-metrics.html"><span>set</span><wbr><span>Hint</span><wbr><span><span>Metrics</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1184164166%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-hint-metrics.html"><span class="token function">setHintMetrics</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hintMetrics<span class="token operator">: </span><a href="../-hint-metrics/index.html">HintMetrics</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1557739734%2FFunctions%2F507617766" anchor-label="setHintStyle" id="-1557739734%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-hint-style.html"><span>set</span><wbr><span>Hint</span><wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1557739734%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-hint-style.html"><span class="token function">setHintStyle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hintStyle<span class="token operator">: </span><a href="../-hint-style/index.html">HintStyle</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-22992722%2FFunctions%2F507617766" anchor-label="setSubpixelOrder" id="-22992722%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-subpixel-order.html"><span>set</span><wbr><span>Subpixel</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-22992722%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-subpixel-order.html"><span class="token function">setSubpixelOrder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">subpixelOrder<span class="token operator">: </span><a href="../-subpixel-order/index.html">SubpixelOrder</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1488604153%2FFunctions%2F507617766" anchor-label="setVariations" id="1488604153%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-variations.html"><span>set</span><wbr><span><span>Variations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1488604153%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-variations.html"><span class="token function">setVariations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">variations<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1243623003%2FFunctions%2F507617766" anchor-label="status" id="1243623003%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="status.html"><span><span>status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1243623003%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="status.html"><span class="token function">status</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-status/index.html">Status</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

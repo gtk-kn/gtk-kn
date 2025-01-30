@@ -1,0 +1,225 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TextTag</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gtk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gtk4/nativeMain" data-filter=":bindings:gtk:gtk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtk4::org.gtkkn.bindings.gtk/TextTag///PointingToDeclaration//1170399019">
+  <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">TextTag</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Text</span><wbr><span><span>Tag</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">TextTag</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkTextTagPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A tag that can be applied to text contained in a <code class="lang-kotlin">GtkTextBuffer</code>.</p><p class="paragraph">You may wish to begin by reading the section-text-widget.html, which gives an overview of all the objects and data types related to the text widget and how they work together.</p><p class="paragraph">Tags should be in the class@Gtk.TextTagTable for a given <code class="lang-kotlin">GtkTextBuffer</code> before using them with that buffer.</p><p class="paragraph">method@Gtk.TextBuffer.create_tag is the best way to create tags. See “gtk4-demo” for numerous examples.</p><p class="paragraph">For each property of <code class="lang-kotlin">GtkTextTag</code>, there is a “set” property, e.g. “font-set” corresponds to “font”. These “set” properties reflect whether a property has been set or not.</p><p class="paragraph">They are maintained by GTK and you should not set them independently.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">accumulative-margin</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-breaks</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">allow-breaks-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">background</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">background-full-height</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">background-full-height-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">background-rgba</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">background-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">direction</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">editable</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">editable-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">fallback</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">fallback-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">family</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">family-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">font</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">font-desc</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">font-features</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">font-features-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">foreground</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">foreground-rgba</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">foreground-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">indent</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">indent-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">insert-hyphens</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">insert-hyphens-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">invisible</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">invisible-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">justification</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">justification-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">language</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">language-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">left-margin</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">left-margin-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">letter-spacing</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">letter-spacing-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">line-height</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">line-height-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">name</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">overline</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">overline-rgba</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">overline-rgba-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">overline-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">paragraph-background</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">paragraph-background-rgba</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">paragraph-background-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels-above-lines</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels-above-lines-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels-below-lines</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels-below-lines-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels-inside-wrap</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">pixels-inside-wrap-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">right-margin</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">right-margin-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">rise</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">rise-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">scale</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">scale-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">sentence</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">sentence-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">show-spaces</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">show-spaces-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">size</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">size-points</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">size-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">stretch</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">stretch-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">strikethrough</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">strikethrough-rgba</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">strikethrough-rgba-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">strikethrough-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">style</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">style-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">tabs</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">tabs-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">text-transform</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">text-transform-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">underline</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">underline-rgba</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">underline-rgba-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">underline-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">variant</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">variant-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">weight</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">weight-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">word</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">word-set</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">wrap-mode</code>: Property has no getter nor setter</p></li><li><p class="paragraph">method <code class="lang-kotlin">wrap-mode-set</code>: Property has no getter nor setter</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1337021551%2FConstructors%2F1170399019" anchor-label="TextTag" id="1337021551%2FConstructors%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-tag.html"><span>Text</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1337021551%2FConstructors%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a <code class="lang-kotlin">GtkTextTag</code>.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtkTextTagPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="826588864%2FClasslikes%2F1170399019" anchor-label="Companion" id="826588864%2FClasslikes%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="826588864%2FClasslikes%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="928107051%2FProperties%2F1170399019" anchor-label="gtkTextTagPointer" id="928107051%2FProperties%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtk-text-tag-pointer.html"><span>gtk</span><wbr><span>Text</span><wbr><span>Tag</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="928107051%2FProperties%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtk-text-tag-pointer.html">gtkTextTagPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-704444726%2FFunctions%2F1170399019" anchor-label="changed" id="-704444726%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="changed.html"><span><span>changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-704444726%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="changed.html"><span class="token function">changed</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sizeChanged<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the signal@Gtk.TextTagTable::tag-changed signal on the <code class="lang-kotlin">GtkTextTagTable</code> where the tag is included.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1808267105%2FFunctions%2F1170399019" anchor-label="getPriority" id="-1808267105%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-priority.html"><span>get</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1808267105%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-priority.html"><span class="token function">getPriority</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Get the tag priority.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1911767905%2FFunctions%2F1170399019" anchor-label="setPriority" id="-1911767905%2FFunctions%2F1170399019" data-filterable-set=":bindings:gtk:gtk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-priority.html"><span>set</span><wbr><span><span>Priority</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1911767905%2FFunctions%2F1170399019"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-priority.html"><span class="token function">setPriority</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">priority<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the priority of a <code class="lang-kotlin">GtkTextTag</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

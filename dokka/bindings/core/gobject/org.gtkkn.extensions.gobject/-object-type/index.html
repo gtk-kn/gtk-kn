@@ -1,0 +1,266 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ObjectType</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gobject/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gobject/nativeMain" data-filter=":bindings:core:gobject/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gobject::org.gtkkn.extensions.gobject/ObjectType///PointingToDeclaration//-793642492">
+  <div class="breadcrumbs"><a href="../../index.html">gobject</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.extensions.gobject</a><span class="delimiter">/</span><span class="current">ObjectType</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Object</span><wbr><span><span>Type</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">ObjectType</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator"> : </span><a href="../../org.gtkkn.bindings.gobject/-object/index.html">Object</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">typeClass<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">parentType<span class="token operator">: </span><a href="../-k-g-type/index.html">KGType</a><span class="token operator">&lt;</span><a href="../../org.gtkkn.bindings.gobject/-object/index.html">Object</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-type-companion/index.html">TypeCompanion</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span></div><p class="paragraph">Companion object base class used for declaring Kotlin classes that are registered in the GObject type system.</p><h2 class="">Subclassing Object and other native types</h2><p class="paragraph">When defining custom GObject classes:</p><ul><li><p class="paragraph">Extend from <a href="../../org.gtkkn.bindings.gobject/-object/index.html">Object</a> or another non-final class.</p></li><li><p class="paragraph">Use <a href="new-instance-pointer.html">newInstancePointer</a> when calling through to the superclass constructor.</p></li><li><p class="paragraph">Add a companion object that extends from <a href="index.html">ObjectType</a> and pass in your class, typeName and parent type.</p></li></ul><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">// MyClass with a no-arg constructor, calling through to Object using newInstancePointer<br>class MyClass() : Object(newInstancePointer()) {<br><br>    // companion object that holds the type information<br>    companion object : ObjectType&lt;MyClass&gt;("MyClass", Object.type) {<br>    }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note that you should always use the pointer constructor from the parent class and not a utility constructor.</p><h2 class="">Subclassing Kotlin types</h2><p class="paragraph">When extending from a parent Kotlin class that is already a Kotlin Object subclass, some extra restrictions apply.</p><p class="paragraph">Simply extending from the parent class and calling its Kotlin constructor is not enough as this will end up calling <a href="new-instance-pointer.html">newInstancePointer</a> from the parent type.</p><p class="paragraph">Instead, the Parent class should have a primary constructor taking a CPointer as an argument, which is passed along to the constructor of its parent native class. And then the child class can have the same setup as mentioned above where the primary constructor uses its own <a href="new-instance-pointer.html">newInstancePointer</a> method before passing the pointer along to the Parent constructor.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">// Parent class that extends from Object<br>// primary constructor takes an instance pointer and passes it to the native constructor<br>open class ParentClass(pointer: CPointer&lt;CPointed&gt;) : Object(pointer.reinterpret()) {<br><br>    // utility no-arg constructor<br>    constructor() : this(newInstancePointer())<br><br>    companion object : ObjectType&lt;ParentClass&gt;("ParentClass", Object.type) {<br>    }<br>}<br><br>// Child class that extends from Parent<br>// primary constructor uses newInstancePointer and passes it to Parent primary constructor<br>class ChildClass() : ParentClass(newInstancePointer()) {<br><br>    companion object : ObjectType&lt;ChildClass&gt;("ChildClass", ParentClass.type) {<br>    }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">When your Parent class has additional constructor overloads with other arguments, you need to make sure that each additional constructor that is used by Child classes also has a pointer argument.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="977430967%2FConstructors%2F-793642492" anchor-label="ObjectType" id="977430967%2FConstructors%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-object-type.html"><span>Object</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="977430967%2FConstructors%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">typeClass<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">parentType<span class="token operator">: </span><a href="../-k-g-type/index.html">KGType</a><span class="token operator">&lt;</span><a href="../../org.gtkkn.bindings.gobject/-object/index.html">Object</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1184696442%2FProperties%2F-793642492" anchor-label="gType" id="-1184696442%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="g-type.html"><span>g</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1184696442%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="g-type.html">gType</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">GType of the registered class.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-618376295%2FProperties%2F-793642492" anchor-label="type" id="-618376295%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="type.html"><span><span>type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-618376295%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="type.html">type</a><span class="token operator">: </span><a href="../-user-defined-k-g-type/index.html">UserDefinedKGType</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Type information of the registered class.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2077234707%2FFunctions%2F-793642492" anchor-label="booleanProperty" id="2077234707%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="boolean-property.html"><span>boolean</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2077234707%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="boolean-property.html"><span class="token function">booleanProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">nick<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">blurb<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">defaultValue<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../../org.gtkkn.bindings.gobject/-param-flags/index.html">ParamFlags</a><span class="token operator"> = </span>ParamFlags.READWRITE</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../org.gtkkn.extensions.gobject.properties/-class-property-delegate-provider/index.html">ClassPropertyDelegateProvider</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Registers a Boolean property on the type.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1308456459%2FFunctions%2F-793642492" anchor-label="classInit" id="-1308456459%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="class-init.html"><span>class</span><wbr><span><span>Init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1308456459%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="class-init.html"><span class="token function">classInit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">objectClass<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1883161657%2FFunctions%2F-793642492" anchor-label="instanceFromPointer" id="1883161657%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="instance-from-pointer.html"><span>instance</span><wbr><span>From</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1883161657%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="instance-from-pointer.html"><span class="token function">instanceFromPointer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword">out </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">T</a></div><div class="brief "><p class="paragraph">Convert a CPointer pointing to a g_object of this <a href="../../../../../bindings/core/gobject/org.gtkkn.extensions.gobject/index.html">gType</a> back into the associated Kotlin instance.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="640602835%2FFunctions%2F-793642492" anchor-label="intProperty" id="640602835%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="int-property.html"><span>int</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="640602835%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="int-property.html"><span class="token function">intProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">nick<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">blurb<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">minimum<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>Int.MIN_VALUE<span class="token punctuation">, </span></span><span class="parameter ">maximum<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>Int.MAX_VALUE<span class="token punctuation">, </span></span><span class="parameter ">defaultValue<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../../org.gtkkn.bindings.gobject/-param-flags/index.html">ParamFlags</a><span class="token operator"> = </span>ParamFlags.READWRITE</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../org.gtkkn.extensions.gobject.properties/-class-property-delegate-provider/index.html">ClassPropertyDelegateProvider</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Registers an Int property on the type.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-189660693%2FFunctions%2F-793642492" anchor-label="newInstancePointer" id="-189660693%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-instance-pointer.html"><span>new</span><wbr><span>Instance</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-189660693%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="new-instance-pointer.html">T</a><span class="token operator">&gt; </span><a href="new-instance-pointer.html"><span class="token function">newInstancePointer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="new-instance-pointer.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Initialize a new g_object with <a href="../../../../../bindings/core/gobject/org.gtkkn.extensions.gobject/index.html">gType</a> and return a CPointer to it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2068455369%2FFunctions%2F-793642492" anchor-label="stringProperty" id="2068455369%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="string-property.html"><span>string</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2068455369%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="string-property.html"><span class="token function">stringProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">nick<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">blurb<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">defaultValue<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">""</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../../org.gtkkn.bindings.gobject/-param-flags/index.html">ParamFlags</a><span class="token operator"> = </span>ParamFlags.READWRITE</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../org.gtkkn.extensions.gobject.properties/-class-property-delegate-provider/index.html">ClassPropertyDelegateProvider</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Registers a String property on the type.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

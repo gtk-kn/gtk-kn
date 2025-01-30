@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Transform</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gsk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gsk4/nativeMain" data-filter=":bindings:gtk:gsk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gsk4::org.gtkkn.bindings.gsk/Transform///PointingToDeclaration//-800540438">
+  <div class="breadcrumbs"><a href="../../index.html">gsk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gsk</a><span class="delimiter">/</span><span class="current">Transform</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Transform</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Transform</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gskTransformPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph"><code class="lang-kotlin">GskTransform</code> is an object to describe transform matrices.</p><p class="paragraph">Unlike <code class="lang-kotlin">graphene_matrix_t</code>, <code class="lang-kotlin">GskTransform</code> retains the steps in how a transform was constructed, and allows inspecting them. It is modeled after the way CSS describes transforms.</p><p class="paragraph"><code class="lang-kotlin">GskTransform</code> objects are immutable and cannot be changed after creation. This means code can safely expose them as properties of objects without having to worry about others changing them.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">out_xx</code>: out_xx: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">out_skew_x</code>: out_skew_x: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">out_scale_x</code>: out_scale_x: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">out_dx</code>: out_dx: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">out_transform</code>: out_transform: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-480740915%2FConstructors%2F-800540438" anchor-label="Transform" id="-480740915%2FConstructors%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-transform.html"><span><span>Transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-480740915%2FConstructors%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gskTransformPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="2033542496%2FClasslikes%2F-800540438" anchor-label="Companion" id="2033542496%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2033542496%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-297739575%2FProperties%2F-800540438" anchor-label="gskTransformPointer" id="-297739575%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gsk-transform-pointer.html"><span>gsk</span><wbr><span>Transform</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-297739575%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gsk-transform-pointer.html">gskTransformPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1703393230%2FFunctions%2F-800540438" anchor-label="equal" id="-1703393230%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1703393230%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">second<span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks two transforms for equality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2122833189%2FFunctions%2F-800540438" anchor-label="getCategory" id="2122833189%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-category.html"><span>get</span><wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2122833189%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-category.html"><span class="token function">getCategory</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-transform-category/index.html">TransformCategory</a></div><div class="brief "><p class="paragraph">Returns the category this transform belongs to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1334980043%2FFunctions%2F-800540438" anchor-label="invert" id="1334980043%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="invert.html"><span><span>invert</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1334980043%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="invert.html"><span class="token function">invert</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Inverts the given transform.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1954679611%2FFunctions%2F-800540438" anchor-label="matrix" id="-1954679611%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="matrix.html"><span><span>matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1954679611%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="matrix.html"><span class="token function">matrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a></div><div class="brief "><p class="paragraph">Multiplies @next with the given @matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1054472106%2FFunctions%2F-800540438" anchor-label="perspective" id="-1054472106%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="perspective.html"><span><span>perspective</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1054472106%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="perspective.html"><span class="token function">perspective</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">depth<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a></div><div class="brief "><p class="paragraph">Applies a perspective projection transform.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="229370687%2FFunctions%2F-800540438" anchor-label="print" id="229370687%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print.html"><span><span>print</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="229370687%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="print.html"><span class="token function">print</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">string<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Converts @self into a human-readable string representation suitable for printing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1115485210%2FFunctions%2F-800540438" anchor-label="ref" id="-1115485210%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1115485210%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires a reference on the given <code class="lang-kotlin">GskTransform</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-768942881%2FFunctions%2F-800540438" anchor-label="rotate" id="-768942881%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate.html"><span><span>rotate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-768942881%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate.html"><span class="token function">rotate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Rotates @next @angle degrees in 2D - or in 3D-speak, around the Z axis. The rotation happens around the origin point of (0, 0).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1708831540%2FFunctions%2F-800540438" anchor-label="rotate3d" id="1708831540%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate3d.html"><span><span>rotate3d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1708831540%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate3d.html"><span class="token function">rotate3d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">axis<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Rotates @next @angle degrees around @axis.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-692998288%2FFunctions%2F-800540438" anchor-label="scale" id="-692998288%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale.html"><span><span>scale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-692998288%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale.html"><span class="token function">scale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factorX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">factorY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Scales @next in 2-dimensional space by the given factors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1900920407%2FFunctions%2F-800540438" anchor-label="scale3d" id="1900920407%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale3d.html"><span><span>scale3d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1900920407%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale3d.html"><span class="token function">scale3d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factorX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">factorY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">factorZ<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Scales @next by the given factors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="520608872%2FFunctions%2F-800540438" anchor-label="skew" id="520608872%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="skew.html"><span><span>skew</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="520608872%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="skew.html"><span class="token function">skew</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">skewX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">skewY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Applies a skew transform.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="31386826%2FFunctions%2F-800540438" anchor-label="toMatrix" id="31386826%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-matrix.html"><span>to</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="31386826%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-matrix.html"><span class="token function">toMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">outMatrix<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Computes the actual value of @self and stores it in @out_matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-266193163%2FFunctions%2F-800540438" anchor-label="toString" id="-266193163%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-266193163%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Converts a matrix into a string that is suitable for printing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1446962282%2FFunctions%2F-800540438" anchor-label="transform" id="1446962282%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform.html"><span><span>transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1446962282%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform.html"><span class="token function">transform</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Applies all the operations from @other to @next.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1105336391%2FFunctions%2F-800540438" anchor-label="transformBounds" id="1105336391%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-bounds.html"><span>transform</span><wbr><span><span>Bounds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1105336391%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-bounds.html"><span class="token function">transformBounds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rect<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">outRect<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms a <code class="lang-kotlin">graphene_rect_t</code> using the given transform @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1299067124%2FFunctions%2F-800540438" anchor-label="transformPoint" id="-1299067124%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-point.html"><span>transform</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1299067124%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-point.html"><span class="token function">transformPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">point<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">outPoint<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms a <code class="lang-kotlin">graphene_point_t</code> using the given transform @self.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1156033271%2FFunctions%2F-800540438" anchor-label="translate" id="-1156033271%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate.html"><span><span>translate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1156033271%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">point<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Translates @next in 2-dimensional space by @point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1082816811%2FFunctions%2F-800540438" anchor-label="translate3d" id="1082816811%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate3d.html"><span><span>translate3d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1082816811%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="translate3d.html"><span class="token function">translate3d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">point<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Transform</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Translates @next by @point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1719811073%2FFunctions%2F-800540438" anchor-label="unref" id="-1719811073%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1719811073%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases a reference on the given <code class="lang-kotlin">GskTransform</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

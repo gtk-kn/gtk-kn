@@ -1,0 +1,480 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Euler</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:graphene/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:graphene/nativeMain" data-filter=":bindings:core:graphene/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="graphene::org.gtkkn.bindings.graphene/Euler///PointingToDeclaration//-383291588">
+  <div class="breadcrumbs"><a href="../../index.html">graphene</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.graphene</a><span class="delimiter">/</span><span class="current">Euler</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Euler</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Euler</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>grapheneEulerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">Describe a rotation using Euler angles.</p><p class="paragraph">The contents of the #graphene_euler_t structure are private and should never be accessed directly.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.2</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1271586627%2FConstructors%2F-383291588" anchor-label="Euler" id="-1271586627%2FConstructors%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-euler.html"><span><span>Euler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1271586627%2FConstructors%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Euler.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Euler using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">grapheneEulerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1737162974%2FClasslikes%2F-383291588" anchor-label="Companion" id="-1737162974%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1737162974%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-647479651%2FProperties%2F-383291588" anchor-label="grapheneEulerPointer" id="-647479651%2FProperties%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="graphene-euler-pointer.html"><span>graphene</span><wbr><span>Euler</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-647479651%2FProperties%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="graphene-euler-pointer.html">grapheneEulerPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1019724393%2FFunctions%2F-383291588" anchor-label="equal" id="1019724393%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1019724393%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Euler</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if two #graphene_euler_t are equal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="223902195%2FFunctions%2F-383291588" anchor-label="free" id="223902195%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="223902195%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Frees the resources allocated by graphene_euler_alloc().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1843039433%2FFunctions%2F-383291588" anchor-label="getAlpha" id="-1843039433%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-alpha.html"><span>get</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1843039433%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-alpha.html"><span class="token function">getAlpha</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the first component of the Euler angle vector, depending on the order of rotation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-221020747%2FFunctions%2F-383291588" anchor-label="getBeta" id="-221020747%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-beta.html"><span>get</span><wbr><span><span>Beta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-221020747%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-beta.html"><span class="token function">getBeta</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the second component of the Euler angle vector, depending on the order of rotation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="467985678%2FFunctions%2F-383291588" anchor-label="getGamma" id="467985678%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-gamma.html"><span>get</span><wbr><span><span>Gamma</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="467985678%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-gamma.html"><span class="token function">getGamma</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the third component of the Euler angle vector, depending on the order of rotation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1121637561%2FFunctions%2F-383291588" anchor-label="getOrder" id="-1121637561%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-order.html"><span>get</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1121637561%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-order.html"><span class="token function">getOrder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a></div><div class="brief "><p class="paragraph">Retrieves the order used to apply the rotations described in the #graphene_euler_t structure, when converting to and from other structures, like #graphene_quaternion_t and #graphene_matrix_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1069662557%2FFunctions%2F-383291588" anchor-label="getX" id="1069662557%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-x.html"><span>get</span><wbr><span><span>X</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1069662557%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-x.html"><span class="token function">getX</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the rotation angle on the X axis, in degrees.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1100682364%2FFunctions%2F-383291588" anchor-label="getY" id="1100682364%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-y.html"><span>get</span><wbr><span><span>Y</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1100682364%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-y.html"><span class="token function">getY</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the rotation angle on the Y axis, in degrees.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1131702171%2FFunctions%2F-383291588" anchor-label="getZ" id="1131702171%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-z.html"><span>get</span><wbr><span><span>Z</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1131702171%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-z.html"><span class="token function">getZ</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the rotation angle on the Z axis, in degrees.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-770969400%2FFunctions%2F-383291588" anchor-label="init" id="-770969400%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init.html"><span><span>init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-770969400%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">z<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t using the given angles.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-108778689%2FFunctions%2F-383291588" anchor-label="initFromEuler" id="-108778689%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-euler.html"><span>init</span><wbr><span>From</span><wbr><span><span>Euler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-108778689%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-euler.html"><span class="token function">initFromEuler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">src<span class="token operator">: </span><a href="index.html">Euler</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t using the angles and order of another #graphene_euler_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="517134700%2FFunctions%2F-383291588" anchor-label="initFromMatrix" id="517134700%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-matrix.html"><span>init</span><wbr><span>From</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="517134700%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-matrix.html"><span class="token function">initFromMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">m<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t using the given rotation matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2068675982%2FFunctions%2F-383291588" anchor-label="initFromQuaternion" id="-2068675982%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-quaternion.html"><span>init</span><wbr><span>From</span><wbr><span><span>Quaternion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068675982%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-quaternion.html"><span class="token function">initFromQuaternion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">q<span class="token operator">: </span><a href="../-quaternion/index.html">Quaternion</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t using the given normalized quaternion.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="825818247%2FFunctions%2F-383291588" anchor-label="initFromRadians" id="825818247%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-radians.html"><span>init</span><wbr><span>From</span><wbr><span><span>Radians</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="825818247%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-radians.html"><span class="token function">initFromRadians</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">z<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t using the given angles and order of rotation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="379220912%2FFunctions%2F-383291588" anchor-label="initFromVec3" id="379220912%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-vec3.html"><span>init</span><wbr><span>From</span><wbr><span><span>Vec3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="379220912%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-vec3.html"><span class="token function">initFromVec3</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">v<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t using the angles contained in a #graphene_vec3_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="515099591%2FFunctions%2F-383291588" anchor-label="initWithOrder" id="515099591%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-with-order.html"><span>init</span><wbr><span>With</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="515099591%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-with-order.html"><span class="token function">initWithOrder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">z<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">order<span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Euler</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_euler_t with the given angles and @order.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1468770741%2FFunctions%2F-383291588" anchor-label="reorder" id="1468770741%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reorder.html"><span><span>reorder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1468770741%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reorder.html"><span class="token function">reorder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">order<span class="token operator">: </span><a href="../-euler-order/index.html">EulerOrder</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Euler</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Reorders a #graphene_euler_t using @order.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1748772747%2FFunctions%2F-383291588" anchor-label="toMatrix" id="1748772747%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-matrix.html"><span>to</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1748772747%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-matrix.html"><span class="token function">toMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Converts a #graphene_euler_t into a transformation matrix expressing the extrinsic composition of rotations described by the Euler angles.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1691263087%2FFunctions%2F-383291588" anchor-label="toQuaternion" id="-1691263087%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-quaternion.html"><span>to</span><wbr><span><span>Quaternion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1691263087%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-quaternion.html"><span class="token function">toQuaternion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="../-quaternion/index.html">Quaternion</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Converts a #graphene_euler_t into a #graphene_quaternion_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-193974961%2FFunctions%2F-383291588" anchor-label="toVec3" id="-193974961%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-vec3.html"><span>to</span><wbr><span><span>Vec3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193974961%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-vec3.html"><span class="token function">toVec3</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Retrieves the angles of a #graphene_euler_t and initializes a #graphene_vec3_t with them.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

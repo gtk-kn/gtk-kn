@@ -1,0 +1,405 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FindController</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:webkit/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:webkit/nativeMain" data-filter=":bindings:extra:webkit/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="webkit::org.gtkkn.bindings.webkit/FindController///PointingToDeclaration//-1693314907">
+  <div class="breadcrumbs"><a href="../../index.html">webkit</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.webkit</a><span class="delimiter">/</span><span class="current">FindController</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Find</span><wbr><span><span>Controller</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FindController</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>webkitFindControllerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Controls text search in a #WebKitWebView.</p><p class="paragraph">A #WebKitFindController is used to search text in a #WebKitWebView. You can get a #WebKitWebView<!-- -->'s #WebKitFindController with webkit_web_view_get_find_controller(), and later use it to search for text using webkit_find_controller_search(), or get the number of matches using webkit_find_controller_count_matches(). The operations are asynchronous and trigger signals when ready, such as #WebKitFindController::found-text, #WebKitFindController::failed-to-find-text or #WebKitFindController::counted-matches<!-- -->.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">text</code>: Property has no getter nor setter</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1775107550%2FConstructors%2F-1693314907" anchor-label="FindController" id="1775107550%2FConstructors%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-find-controller.html"><span>Find</span><wbr><span><span>Controller</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1775107550%2FConstructors%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">webkitFindControllerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="863063002%2FClasslikes%2F-1693314907" anchor-label="Companion" id="863063002%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="863063002%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-710290299%2FProperties%2F-1693314907" anchor-label="maxMatchCount" id="-710290299%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-match-count.html"><span>max</span><wbr><span>Match</span><wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-710290299%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="max-match-count.html">maxMatchCount</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The maximum number of matches to report for a given search.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-140132555%2FProperties%2F-1693314907" anchor-label="options" id="-140132555%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="options.html"><span><span>options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-140132555%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="options.html">options</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The options to be used in the search operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="847286125%2FProperties%2F-1693314907" anchor-label="webkitFindControllerPointer" id="847286125%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="webkit-find-controller-pointer.html"><span>webkit</span><wbr><span>Find</span><wbr><span>Controller</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="847286125%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="webkit-find-controller-pointer.html">webkitFindControllerPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1799707110%2FProperties%2F-1693314907" anchor-label="webView" id="-1799707110%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="web-view.html"><span>web</span><wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1799707110%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="web-view.html">webView</a><span class="token operator">: </span><a href="../-web-view/index.html">WebView</a></div><div class="brief "><p class="paragraph">The #WebKitWebView this controller is associated to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-789094867%2FFunctions%2F-1693314907" anchor-label="countMatches" id="-789094867%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="count-matches.html"><span>count</span><wbr><span><span>Matches</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-789094867%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="count-matches.html"><span class="token function">countMatches</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">searchText<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">findOptions<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">maxMatchCount<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Counts the number of matches for @search_text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1531818922%2FFunctions%2F-1693314907" anchor-label="emitCountedMatches" id="-1531818922%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-counted-matches.html"><span>emit</span><wbr><span>Counted</span><wbr><span><span>Matches</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1531818922%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-counted-matches.html"><span class="token function">emitCountedMatches</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matchCount<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "counted-matches" signal. See <a href="on-counted-matches.html">onCountedMatches</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="156986390%2FFunctions%2F-1693314907" anchor-label="emitFailedToFindText" id="156986390%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-failed-to-find-text.html"><span>emit</span><wbr><span>Failed</span><wbr><span>To</span><wbr><span>Find</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="156986390%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-failed-to-find-text.html"><span class="token function">emitFailedToFindText</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "failed-to-find-text" signal. See <a href="on-failed-to-find-text.html">onFailedToFindText</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1590948878%2FFunctions%2F-1693314907" anchor-label="emitFoundText" id="1590948878%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-found-text.html"><span>emit</span><wbr><span>Found</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1590948878%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-found-text.html"><span class="token function">emitFoundText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matchCount<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "found-text" signal. See <a href="on-found-text.html">onFoundText</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1848186104%2FFunctions%2F-1693314907" anchor-label="getSearchText" id="-1848186104%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-search-text.html"><span>get</span><wbr><span>Search</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1848186104%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-search-text.html"><span class="token function">getSearchText</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Gets the text that @find_controller is searching for.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="363988125%2FFunctions%2F-1693314907" anchor-label="onCountedMatches" id="363988125%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-counted-matches.html"><span>on</span><wbr><span>Counted</span><wbr><span><span>Matches</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="363988125%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-counted-matches.html"><span class="token function">onCountedMatches</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when the #WebKitFindController has counted the number of matches for a given text after a call to webkit_find_controller_count_matches().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1295272306%2FFunctions%2F-1693314907" anchor-label="onFailedToFindText" id="1295272306%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-failed-to-find-text.html"><span>on</span><wbr><span>Failed</span><wbr><span>To</span><wbr><span>Find</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1295272306%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-failed-to-find-text.html"><span class="token function">onFailedToFindText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a search operation does not find any result for the given text. It will be issued if the text is not found asynchronously after a call to webkit_find_controller_search(), webkit_find_controller_search_next() or webkit_find_controller_search_previous().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="260900221%2FFunctions%2F-1693314907" anchor-label="onFoundText" id="260900221%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-found-text.html"><span>on</span><wbr><span>Found</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="260900221%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-found-text.html"><span class="token function">onFoundText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a given text is found in the web page text. It will be issued if the text is found asynchronously after a call to webkit_find_controller_search(), webkit_find_controller_search_next() or webkit_find_controller_search_previous().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1852465103%2FFunctions%2F-1693314907" anchor-label="search" id="-1852465103%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="search.html"><span><span>search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1852465103%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="search.html"><span class="token function">search</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">searchText<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">findOptions<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">maxMatchCount<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Looks for @search_text associated with @find_controller.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2026168620%2FFunctions%2F-1693314907" anchor-label="searchFinish" id="2026168620%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="search-finish.html"><span>search</span><wbr><span><span>Finish</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2026168620%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="search-finish.html"><span class="token function">searchFinish</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Finishes a find operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1964306612%2FFunctions%2F-1693314907" anchor-label="searchNext" id="-1964306612%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="search-next.html"><span>search</span><wbr><span><span>Next</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1964306612%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="search-next.html"><span class="token function">searchNext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Looks for the next occurrence of the search text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1919273672%2FFunctions%2F-1693314907" anchor-label="searchPrevious" id="1919273672%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="search-previous.html"><span>search</span><wbr><span><span>Previous</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1919273672%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="search-previous.html"><span class="token function">searchPrevious</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Looks for the previous occurrence of the search text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

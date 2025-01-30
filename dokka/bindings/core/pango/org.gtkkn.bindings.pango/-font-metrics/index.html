@@ -1,0 +1,348 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>FontMetrics</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:pango/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:pango/nativeMain" data-filter=":bindings:core:pango/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="pango::org.gtkkn.bindings.pango/FontMetrics///PointingToDeclaration//1803427171">
+  <div class="breadcrumbs"><a href="../../index.html">pango</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.pango</a><span class="delimiter">/</span><span class="current">FontMetrics</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Font</span><wbr><span><span>Metrics</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FontMetrics</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>pangoFontMetricsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">PangoFontMetrics</code> structure holds the overall metric information for a font.</p><p class="paragraph">The information in a <code class="lang-kotlin">PangoFontMetrics</code> structure may be restricted to a script. The fields of this structure are private to implementations of a font backend. See the documentation of the corresponding getters for documentation of their meaning.</p><p class="paragraph">For an overview of the most important metrics, see:</p><picture>
+<source srcset="fontmetrics-dark.png" media="(prefers-color-scheme: dark)">
+<img alt="Font metrics" src="fontmetrics-light.png">
+</picture></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="193098650%2FConstructors%2F1803427171" anchor-label="FontMetrics" id="193098650%2FConstructors%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-font-metrics.html"><span>Font</span><wbr><span><span>Metrics</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="193098650%2FConstructors%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new FontMetrics.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new FontMetrics using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pangoFontMetricsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="2014662610%2FClasslikes%2F1803427171" anchor-label="Companion" id="2014662610%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2014662610%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="555478141%2FProperties%2F1803427171" anchor-label="pangoFontMetricsPointer" id="555478141%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pango-font-metrics-pointer.html"><span>pango</span><wbr><span>Font</span><wbr><span>Metrics</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="555478141%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="pango-font-metrics-pointer.html">pangoFontMetricsPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="810276473%2FFunctions%2F1803427171" anchor-label="getApproximateCharWidth" id="810276473%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-approximate-char-width.html"><span>get</span><wbr><span>Approximate</span><wbr><span>Char</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="810276473%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-approximate-char-width.html"><span class="token function">getApproximateCharWidth</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the approximate character width for a font metrics structure.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1290886664%2FFunctions%2F1803427171" anchor-label="getApproximateDigitWidth" id="-1290886664%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-approximate-digit-width.html"><span>get</span><wbr><span>Approximate</span><wbr><span>Digit</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1290886664%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-approximate-digit-width.html"><span class="token function">getApproximateDigitWidth</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the approximate digit width for a font metrics structure.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-206399301%2FFunctions%2F1803427171" anchor-label="getAscent" id="-206399301%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-ascent.html"><span>get</span><wbr><span><span>Ascent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-206399301%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-ascent.html"><span class="token function">getAscent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the ascent from a font metrics structure.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1050021547%2FFunctions%2F1803427171" anchor-label="getDescent" id="1050021547%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-descent.html"><span>get</span><wbr><span><span>Descent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1050021547%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-descent.html"><span class="token function">getDescent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the descent from a font metrics structure.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-29772530%2FFunctions%2F1803427171" anchor-label="getHeight" id="-29772530%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-height.html"><span>get</span><wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-29772530%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-height.html"><span class="token function">getHeight</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the line height from a font metrics structure.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1308542601%2FFunctions%2F1803427171" anchor-label="getStrikethroughPosition" id="1308542601%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-strikethrough-position.html"><span>get</span><wbr><span>Strikethrough</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1308542601%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-strikethrough-position.html"><span class="token function">getStrikethroughPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the suggested position to draw the strikethrough.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="39806356%2FFunctions%2F1803427171" anchor-label="getStrikethroughThickness" id="39806356%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-strikethrough-thickness.html"><span>get</span><wbr><span>Strikethrough</span><wbr><span><span>Thickness</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="39806356%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-strikethrough-thickness.html"><span class="token function">getStrikethroughThickness</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the suggested thickness to draw for the strikethrough.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="928683440%2FFunctions%2F1803427171" anchor-label="getUnderlinePosition" id="928683440%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-underline-position.html"><span>get</span><wbr><span>Underline</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="928683440%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-underline-position.html"><span class="token function">getUnderlinePosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the suggested position to draw the underline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1149074253%2FFunctions%2F1803427171" anchor-label="getUnderlineThickness" id="1149074253%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-underline-thickness.html"><span>get</span><wbr><span>Underline</span><wbr><span><span>Thickness</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1149074253%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-underline-thickness.html"><span class="token function">getUnderlineThickness</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the suggested thickness to draw for the underline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1283968040%2FFunctions%2F1803427171" anchor-label="ref" id="-1283968040%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1283968040%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FontMetrics</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Increase the reference count of a font metrics structure by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-423053455%2FFunctions%2F1803427171" anchor-label="unref" id="-423053455%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-423053455%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decrease the reference count of a font metrics structure by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

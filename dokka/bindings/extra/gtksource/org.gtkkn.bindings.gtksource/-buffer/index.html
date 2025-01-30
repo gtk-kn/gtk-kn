@@ -1,0 +1,540 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Buffer</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:gtksource/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:gtksource/nativeMain" data-filter=":bindings:extra:gtksource/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtksource::org.gtkkn.bindings.gtksource/Buffer///PointingToDeclaration//-1723413374">
+  <div class="breadcrumbs"><a href="../../index.html">gtksource</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtksource</a><span class="delimiter">/</span><span class="current">Buffer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Buffer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">Buffer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceBufferPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Subclass of class@Gtk.TextBuffer.</p><p class="paragraph">A <code class="lang-kotlin">GtkSourceBuffer</code> object is the model for class@View widgets. It extends the class@Gtk.TextBuffer class by adding features useful to display and edit source code such as syntax highlighting and bracket matching.</p><p class="paragraph">To create a <code class="lang-kotlin">GtkSourceBuffer</code> use ctor@GtkSource.Buffer.new or ctor@GtkSource.Buffer.new_with_language. The second form is just a convenience function which allows you to initially set a class@Language. You can also directly create a class@View and get its class@Buffer with method@Gtk.TextView.get_buffer.</p><p class="paragraph">The highlighting is enabled by default, but you can disable it with method@Buffer.set_highlight_syntax.</p><h1 class="">Context Classes:</h1><p class="paragraph">It is possible to retrieve some information from the syntax highlighting engine. The default context classes that are applied to regions of a <code class="lang-kotlin">GtkSourceBuffer</code>:</p><ul><li><p class="paragraph"><strong>comment</strong>: the region delimits a comment;</p></li><li><p class="paragraph"><strong>no-spell-check</strong>: the region should not be spell checked;</p></li><li><p class="paragraph"><strong>path</strong>: the region delimits a path to a file;</p></li><li><p class="paragraph"><strong>string</strong>: the region delimits a string.</p></li></ul><p class="paragraph">Custom language definition files can create their own context classes, since the functions like method@Buffer.iter_has_context_class take a string parameter as the context class.</p><p class="paragraph"><code class="lang-kotlin">GtkSourceBuffer</code> provides an API to access the context classes: method@Buffer.iter_has_context_class, method@Buffer.get_context_classes_at_iter, method@Buffer.iter_forward_to_context_class_toggle and method@Buffer.iter_backward_to_context_class_toggle.</p><p class="paragraph">And the signal@GtkSource.Buffer::highlight-updated signal permits to be notified when a context class region changes.</p><p class="paragraph">Each context class has also an associated class@Gtk.TextTag with the name <code class="lang-kotlin">gtksourceview:context-classes:&lt;name&gt;</code>. For example to retrieve the class@Gtk.TextTag for the string context class, one can write:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">GtkTextTagTable *tag_table;<br>GtkTextTag *tag;<br><br>tag_table = gtk_text_buffer_get_tag_table (buffer);<br>tag = gtk_text_tag_table_lookup (tag_table, "gtksourceview:context-classes:string");</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The tag must be used for read-only purposes.</p><p class="paragraph">Accessing a context class via the associated class@Gtk.TextTag is less convenient than the <code class="lang-kotlin">GtkSourceBuffer</code> API, because:</p><ul><li><p class="paragraph">The tag doesn't always exist, you need to listen to the     signal@Gtk.TextTagTable::tag-added and signal@Gtk.TextTagTable::tag-removed signals.</p></li><li><p class="paragraph">Instead of the signal@GtkSource.Buffer::highlight-updated signal, you can listen     to the signal@Gtk.TextBuffer::apply-tag and signal@Gtk.TextBuffer::remove-tag signals.</p></li></ul><p class="paragraph">A possible use-case for accessing a context class via the associated class@Gtk.TextTag is to read the region but without adding a hard dependency on the GtkSourceView library (for example for a spell-checking library that wants to read the no-spell-check region).</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">backward_iter_to_source_mark</code>: In/Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">create_source_tag</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">forward_iter_to_source_mark</code>: In/Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">iter_backward_to_context_class_toggle</code>: In/Out parameter is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">iter_forward_to_context_class_toggle</code>: In/Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1936103031%2FConstructors%2F-1723413374" anchor-label="Buffer" id="-1936103031%2FConstructors%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-buffer.html"><span><span>Buffer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1936103031%2FConstructors%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">table<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new source buffer.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">language<span class="token operator">: </span><a href="../-language/index.html">Language</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new source buffer using the highlighting patterns in <code class="lang-kotlin">language</code>.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtksourceBufferPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1698529036%2FClasslikes%2F-1723413374" anchor-label="Companion" id="-1698529036%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1698529036%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1026173609%2FProperties%2F-1723413374" anchor-label="gtksourceBufferPointer" id="1026173609%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtksource-buffer-pointer.html"><span>gtksource</span><wbr><span>Buffer</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1026173609%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtksource-buffer-pointer.html">gtksourceBufferPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1078147471%2FProperties%2F-1723413374" anchor-label="highlightMatchingBrackets" id="-1078147471%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="highlight-matching-brackets.html"><span>highlight</span><wbr><span>Matching</span><wbr><span><span>Brackets</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1078147471%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="highlight-matching-brackets.html">highlightMatchingBrackets</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether to highlight matching brackets in the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="850835926%2FProperties%2F-1723413374" anchor-label="highlightSyntax" id="850835926%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="highlight-syntax.html"><span>highlight</span><wbr><span><span>Syntax</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="850835926%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="highlight-syntax.html">highlightSyntax</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether to highlight syntax in the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1612755494%2FProperties%2F-1723413374" anchor-label="implicitTrailingNewline" id="-1612755494%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="implicit-trailing-newline.html"><span>implicit</span><wbr><span>Trailing</span><wbr><span><span>Newline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1612755494%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="implicit-trailing-newline.html">implicitTrailingNewline</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the buffer has an implicit trailing newline. See method@Buffer.set_implicit_trailing_newline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="610122101%2FProperties%2F-1723413374" anchor-label="language" id="610122101%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="language.html"><span><span>language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="610122101%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="language.html">language</a><span class="token operator">: </span><a href="../-language/index.html">Language</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2015733233%2FProperties%2F-1723413374" anchor-label="loading" id="2015733233%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="loading.html"><span><span>loading</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2015733233%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="loading.html">loading</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">The "loading" property denotes that a <code class="lang-kotlin">GtkSourceFileLoader</code> is currently loading the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="789435831%2FProperties%2F-1723413374" anchor-label="styleScheme" id="789435831%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="style-scheme.html"><span>style</span><wbr><span><span>Scheme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="789435831%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="style-scheme.html">styleScheme</a><span class="token operator">: </span><a href="../-style-scheme/index.html">StyleScheme</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Style scheme. It contains styles for syntax highlighting, optionally foreground, background, cursor color, current line color, and matching brackets style.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-398555363%2FFunctions%2F-1723413374" anchor-label="changeCase" id="-398555363%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="change-case.html"><span>change</span><wbr><span><span>Case</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-398555363%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="change-case.html"><span class="token function">changeCase</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">caseType<span class="token operator">: </span><a href="../-change-case-type/index.html">ChangeCaseType</a><span class="token punctuation">, </span></span><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Changes the case of the text between the specified iterators.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1061714971%2FFunctions%2F-1723413374" anchor-label="createSourceMark" id="1061714971%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-source-mark.html"><span>create</span><wbr><span>Source</span><wbr><span><span>Mark</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1061714971%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-source-mark.html"><span class="token function">createSourceMark</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">where<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-mark/index.html">Mark</a></div><div class="brief "><p class="paragraph">Creates a source mark in the <code class="lang-kotlin">buffer</code> of category <code class="lang-kotlin">category</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-614586934%2FFunctions%2F-1723413374" anchor-label="emitBracketMatched" id="-614586934%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-bracket-matched.html"><span>emit</span><wbr><span>Bracket</span><wbr><span><span>Matched</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-614586934%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-bracket-matched.html"><span class="token function">emitBracketMatched</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">state<span class="token operator">: </span><a href="../-bracket-match-type/index.html">BracketMatchType</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "bracket-matched" signal. See <a href="on-bracket-matched.html">onBracketMatched</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-916678717%2FFunctions%2F-1723413374" anchor-label="emitCursorMoved" id="-916678717%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-cursor-moved.html"><span>emit</span><wbr><span>Cursor</span><wbr><span><span>Moved</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-916678717%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-cursor-moved.html"><span class="token function">emitCursorMoved</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "cursor-moved" signal. See <a href="on-cursor-moved.html">onCursorMoved</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-794682804%2FFunctions%2F-1723413374" anchor-label="emitHighlightUpdated" id="-794682804%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-highlight-updated.html"><span>emit</span><wbr><span>Highlight</span><wbr><span><span>Updated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-794682804%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-highlight-updated.html"><span class="token function">emitHighlightUpdated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "highlight-updated" signal. See <a href="on-highlight-updated.html">onHighlightUpdated</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1121976395%2FFunctions%2F-1723413374" anchor-label="emitSourceMarkUpdated" id="1121976395%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-source-mark-updated.html"><span>emit</span><wbr><span>Source</span><wbr><span>Mark</span><wbr><span><span>Updated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1121976395%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-source-mark-updated.html"><span class="token function">emitSourceMarkUpdated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mark<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "source-mark-updated" signal. See <a href="on-source-mark-updated.html">onSourceMarkUpdated</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-148655576%2FFunctions%2F-1723413374" anchor-label="ensureHighlight" id="-148655576%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ensure-highlight.html"><span>ensure</span><wbr><span><span>Highlight</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-148655576%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="ensure-highlight.html"><span class="token function">ensureHighlight</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Forces buffer to analyze and highlight the given area synchronously.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1588544930%2FFunctions%2F-1723413374" anchor-label="getContextClassesAtIter" id="-1588544930%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-context-classes-at-iter.html"><span>get</span><wbr><span>Context</span><wbr><span>Classes</span><wbr><span>At</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1588544930%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-context-classes-at-iter.html"><span class="token function">getContextClassesAtIter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Get all defined context classes at @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="471911592%2FFunctions%2F-1723413374" anchor-label="getSourceMarksAtIter" id="471911592%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-source-marks-at-iter.html"><span>get</span><wbr><span>Source</span><wbr><span>Marks</span><wbr><span>At</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="471911592%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-source-marks-at-iter.html"><span class="token function">getSourceMarksAtIter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the list of marks of the given category at @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-257734527%2FFunctions%2F-1723413374" anchor-label="getSourceMarksAtLine" id="-257734527%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-source-marks-at-line.html"><span>get</span><wbr><span>Source</span><wbr><span>Marks</span><wbr><span>At</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-257734527%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-source-marks-at-line.html"><span class="token function">getSourceMarksAtLine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">line<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the list of marks of the given category at @line.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1529921200%2FFunctions%2F-1723413374" anchor-label="iterHasContextClass" id="-1529921200%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="iter-has-context-class.html"><span>iter</span><wbr><span>Has</span><wbr><span>Context</span><wbr><span><span>Class</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1529921200%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="iter-has-context-class.html"><span class="token function">iterHasContextClass</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iter<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">contextClass<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check if the class @context_class is set on @iter.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2029072953%2FFunctions%2F-1723413374" anchor-label="joinLines" id="-2029072953%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="join-lines.html"><span>join</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2029072953%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="join-lines.html"><span class="token function">joinLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Joins the lines of text between the specified iterators.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-483300287%2FFunctions%2F-1723413374" anchor-label="onBracketMatched" id="-483300287%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-bracket-matched.html"><span>on</span><wbr><span>Bracket</span><wbr><span><span>Matched</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-483300287%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-bracket-matched.html"><span class="token function">onBracketMatched</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span>state<span class="token operator">: </span><a href="../-bracket-match-type/index.html">BracketMatchType</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1771265975%2FFunctions%2F-1723413374" anchor-label="onCursorMoved" id="1771265975%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-cursor-moved.html"><span>on</span><wbr><span>Cursor</span><wbr><span><span>Moved</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1771265975%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-cursor-moved.html"><span class="token function">onCursorMoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The "cursor-moved" signal is emitted when then insertion mark has moved.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1959943119%2FFunctions%2F-1723413374" anchor-label="onHighlightUpdated" id="-1959943119%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-highlight-updated.html"><span>on</span><wbr><span>Highlight</span><wbr><span><span>Updated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1959943119%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-highlight-updated.html"><span class="token function">onHighlightUpdated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::highlight-updated signal is emitted when the syntax highlighting and ./class.Buffer.html#context-classes are updated in a certain region of the @buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1914887998%2FFunctions%2F-1723413374" anchor-label="onSourceMarkUpdated" id="1914887998%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-source-mark-updated.html"><span>on</span><wbr><span>Source</span><wbr><span>Mark</span><wbr><span><span>Updated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1914887998%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-source-mark-updated.html"><span class="token function">onSourceMarkUpdated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">The ::source-mark-updated signal is emitted each time a mark is added to, moved or removed from the @buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-400985499%2FFunctions%2F-1723413374" anchor-label="removeSourceMarks" id="-400985499%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-source-marks.html"><span>remove</span><wbr><span>Source</span><wbr><span><span>Marks</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-400985499%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="remove-source-marks.html"><span class="token function">removeSourceMarks</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">category<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Remove all marks of @category between @start and @end from the buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-701797206%2FFunctions%2F-1723413374" anchor-label="sortLines" id="-701797206%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sort-lines.html"><span>sort</span><wbr><span><span>Lines</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-701797206%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="sort-lines.html"><span class="token function">sortLines</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">end<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-sort-flags/index.html">SortFlags</a><span class="token punctuation">, </span></span><span class="parameter ">column<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sort the lines of text between the specified iterators.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Drag</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gdk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gdk4/nativeMain" data-filter=":bindings:gtk:gdk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gdk4::org.gtkkn.bindings.gdk/Drag///PointingToDeclaration//-299861221">
+  <div class="breadcrumbs"><a href="../../index.html">gdk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gdk</a><span class="delimiter">/</span><span class="current">Drag</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Drag</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">Drag</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkDragPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">The <code class="lang-kotlin">GdkDrag</code> object represents the source of an ongoing DND operation.</p><p class="paragraph">A <code class="lang-kotlin">GdkDrag</code> is created when a drag is started, and stays alive for duration of the DND operation. After a drag has been started with func@Gdk.Drag.begin, the caller gets informed about the status of the ongoing drag operation with signals on the <code class="lang-kotlin">GdkDrag</code> object.</p><p class="paragraph">GTK provides a higher level abstraction based on top of these functions, and so they are not normally needed in GTK applications. See the "Drag and Drop" section of the GTK documentation for more information.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-drag-impl/index.html">DragImpl</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-888294052%2FConstructors%2F-299861221" anchor-label="Drag" id="-888294052%2FConstructors%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-drag.html"><span><span>Drag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-888294052%2FConstructors%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gdkDragPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1343041419%2FClasslikes%2F-299861221" anchor-label="Companion" id="-1343041419%2FClasslikes%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1343041419%2FClasslikes%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1804633453%2FClasslikes%2F-299861221" anchor-label="DragImpl" id="1804633453%2FClasslikes%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-drag-impl/index.html"><span>Drag</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1804633453%2FClasslikes%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-drag-impl/index.html">DragImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="index.html">Drag</a></div><div class="brief "><p class="paragraph">The DragImpl type represents a native instance of the abstract Drag class.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="569378065%2FProperties%2F-299861221" anchor-label="actions" id="569378065%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="actions.html"><span><span>actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="569378065%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="actions.html">actions</a><span class="token operator">: </span><a href="../-drag-action/index.html">DragAction</a></div><div class="brief "><p class="paragraph">The possible actions of this drag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1991525099%2FProperties%2F-299861221" anchor-label="content" id="-1991525099%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="content.html"><span><span>content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1991525099%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="content.html">content</a><span class="token operator">: </span><a href="../-content-provider/index.html">ContentProvider</a></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkContentProvider</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1076628394%2FProperties%2F-299861221" anchor-label="device" id="-1076628394%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="device.html"><span><span>device</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1076628394%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="device.html">device</a><span class="token operator">: </span><a href="../-device/index.html">Device</a></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkDevice</code> that is performing the drag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1476457236%2FProperties%2F-299861221" anchor-label="display" id="-1476457236%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="display.html"><span><span>display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1476457236%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="display.html">display</a><span class="token operator">: </span><a href="../-display/index.html">Display</a></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">GdkDisplay</code> that the drag belongs to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1775706222%2FProperties%2F-299861221" anchor-label="formats" id="-1775706222%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="formats.html"><span><span>formats</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1775706222%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="formats.html">formats</a><span class="token operator">: </span><a href="../-content-formats/index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">The possible formats that the drag can provide its data in.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1097170161%2FProperties%2F-299861221" anchor-label="gdkDragPointer" id="1097170161%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gdk-drag-pointer.html"><span>gdk</span><wbr><span>Drag</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1097170161%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gdk-drag-pointer.html">gdkDragPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1478034267%2FProperties%2F-299861221" anchor-label="selectedAction" id="1478034267%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="selected-action.html"><span>selected</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1478034267%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="selected-action.html">selectedAction</a><span class="token operator">: </span><a href="../-drag-action/index.html">DragAction</a></div><div class="brief "><p class="paragraph">The currently selected action of the drag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-191043743%2FProperties%2F-299861221" anchor-label="surface" id="-191043743%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="surface.html"><span><span>surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-191043743%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="surface.html">surface</a><span class="token operator">: </span><a href="../-surface/index.html">Surface</a></div><div class="brief "><p class="paragraph">The surface where the drag originates.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1781028800%2FFunctions%2F-299861221" anchor-label="dropDone" id="-1781028800%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="drop-done.html"><span>drop</span><wbr><span><span>Done</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1781028800%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="drop-done.html"><span class="token function">dropDone</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">success<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Informs GDK that the drop ended.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1952080792%2FFunctions%2F-299861221" anchor-label="emitCancel" id="-1952080792%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-cancel.html"><span>emit</span><wbr><span><span>Cancel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1952080792%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-cancel.html"><span class="token function">emitCancel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">reason<span class="token operator">: </span><a href="../-drag-cancel-reason/index.html">DragCancelReason</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "cancel" signal. See <a href="on-cancel.html">onCancel</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="611452597%2FFunctions%2F-299861221" anchor-label="emitDndFinished" id="611452597%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-dnd-finished.html"><span>emit</span><wbr><span>Dnd</span><wbr><span><span>Finished</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="611452597%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-dnd-finished.html"><span class="token function">emitDndFinished</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "dnd-finished" signal. See <a href="on-dnd-finished.html">onDndFinished</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1417431920%2FFunctions%2F-299861221" anchor-label="emitDropPerformed" id="1417431920%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-drop-performed.html"><span>emit</span><wbr><span>Drop</span><wbr><span><span>Performed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1417431920%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-drop-performed.html"><span class="token function">emitDropPerformed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "drop-performed" signal. See <a href="on-drop-performed.html">onDropPerformed</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1157105495%2FFunctions%2F-299861221" anchor-label="getDragSurface" id="-1157105495%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-drag-surface.html"><span>get</span><wbr><span>Drag</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1157105495%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-drag-surface.html"><span class="token function">getDragSurface</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-surface/index.html">Surface</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the surface on which the drag icon should be rendered during the drag operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1828283147%2FFunctions%2F-299861221" anchor-label="onCancel" id="1828283147%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-cancel.html"><span>on</span><wbr><span><span>Cancel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1828283147%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-cancel.html"><span class="token function">onCancel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>reason<span class="token operator">: </span><a href="../-drag-cancel-reason/index.html">DragCancelReason</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when the drag operation is cancelled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1614102551%2FFunctions%2F-299861221" anchor-label="onDndFinished" id="-1614102551%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-dnd-finished.html"><span>on</span><wbr><span>Dnd</span><wbr><span><span>Finished</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1614102551%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-dnd-finished.html"><span class="token function">onDndFinished</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when the destination side has finished reading all data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="386074916%2FFunctions%2F-299861221" anchor-label="onDropPerformed" id="386074916%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-drop-performed.html"><span>on</span><wbr><span>Drop</span><wbr><span><span>Performed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="386074916%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-drop-performed.html"><span class="token function">onDropPerformed</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Emitted when the drop operation is performed on an accepting client.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1357760224%2FFunctions%2F-299861221" anchor-label="setHotspot" id="-1357760224%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-hotspot.html"><span>set</span><wbr><span><span>Hotspot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1357760224%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-hotspot.html"><span class="token function">setHotspot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">hotX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">hotY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the position of the drag surface that will be kept under the cursor hotspot.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

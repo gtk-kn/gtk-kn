@@ -1,0 +1,465 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>BlendMode</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gsk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gsk4/nativeMain" data-filter=":bindings:gtk:gsk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gsk4::org.gtkkn.bindings.gsk/BlendMode///PointingToDeclaration//-800540438">
+  <div class="breadcrumbs"><a href="../../index.html">gsk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gsk</a><span class="delimiter">/</span><span class="current">BlendMode</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Blend</span><wbr><span><span>Mode</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">BlendMode</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">BlendMode</a><span class="token operator">&gt; </span></div><p class="paragraph">The blend modes available for render nodes.</p><p class="paragraph">The implementation of each blend mode is deferred to the rendering pipeline.</p><p class="paragraph">See <a href="https://www.w3.org/TR/compositing-1/#blending">https://www.w3.org/TR/compositing-1/#blending</a> for more information on blending and blend modes.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="-640187486%2FClasslikes%2F-800540438" anchor-label="DEFAULT" id="-640187486%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t/index.html">DEFAULT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-640187486%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-e-f-a-u-l-t/index.html">DEFAULT</a></div></div><div class="brief "><p class="paragraph">The default blend mode, which specifies no blending</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-566712661%2FClasslikes%2F-800540438" anchor-label="MULTIPLY" id="-566712661%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-u-l-t-i-p-l-y/index.html">MULTIPLY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-566712661%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-u-l-t-i-p-l-y/index.html">MULTIPLY</a></div></div><div class="brief "><p class="paragraph">The source color is multiplied by the destination and replaces the destination</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-554395725%2FClasslikes%2F-800540438" anchor-label="SCREEN" id="-554395725%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-c-r-e-e-n/index.html">SCREEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-554395725%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-c-r-e-e-n/index.html">SCREEN</a></div></div><div class="brief "><p class="paragraph">Multiplies the complements of the destination and source color values, then complements the result.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-958514831%2FClasslikes%2F-800540438" anchor-label="OVERLAY" id="-958514831%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-v-e-r-l-a-y/index.html">OVERLAY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-958514831%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-v-e-r-l-a-y/index.html">OVERLAY</a></div></div><div class="brief "><p class="paragraph">Multiplies or screens the colors, depending on the destination color value. This is the inverse of hard-list</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-724857178%2FClasslikes%2F-800540438" anchor-label="DARKEN" id="-724857178%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-a-r-k-e-n/index.html">DARKEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-724857178%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-a-r-k-e-n/index.html">DARKEN</a></div></div><div class="brief "><p class="paragraph">Selects the darker of the destination and source colors</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="863734048%2FClasslikes%2F-800540438" anchor-label="LIGHTEN" id="863734048%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t-e-n/index.html">LIGHTEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="863734048%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-g-h-t-e-n/index.html">LIGHTEN</a></div></div><div class="brief "><p class="paragraph">Selects the lighter of the destination and source colors</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1433308476%2FClasslikes%2F-800540438" anchor-label="COLOR_DODGE" id="1433308476%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-l-o-r_-d-o-d-g-e/index.html">COLOR_DODGE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1433308476%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-l-o-r_-d-o-d-g-e/index.html">COLOR_DODGE</a></div></div><div class="brief "><p class="paragraph">Brightens the destination color to reflect the source color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1115155154%2FClasslikes%2F-800540438" anchor-label="COLOR_BURN" id="1115155154%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-l-o-r_-b-u-r-n/index.html">COLOR_BURN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1115155154%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-l-o-r_-b-u-r-n/index.html">COLOR_BURN</a></div></div><div class="brief "><p class="paragraph">Darkens the destination color to reflect the source color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1105771543%2FClasslikes%2F-800540438" anchor-label="HARD_LIGHT" id="-1105771543%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-a-r-d_-l-i-g-h-t/index.html">HARD_LIGHT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1105771543%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-h-a-r-d_-l-i-g-h-t/index.html">HARD_LIGHT</a></div></div><div class="brief "><p class="paragraph">Multiplies or screens the colors, depending on the source color value</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-24653912%2FClasslikes%2F-800540438" anchor-label="SOFT_LIGHT" id="-24653912%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-o-f-t_-l-i-g-h-t/index.html">SOFT_LIGHT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-24653912%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-o-f-t_-l-i-g-h-t/index.html">SOFT_LIGHT</a></div></div><div class="brief "><p class="paragraph">Darkens or lightens the colors, depending on the source color value</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1942872900%2FClasslikes%2F-800540438" anchor-label="DIFFERENCE" id="1942872900%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-i-f-f-e-r-e-n-c-e/index.html">DIFFERENCE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1942872900%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-i-f-f-e-r-e-n-c-e/index.html">DIFFERENCE</a></div></div><div class="brief "><p class="paragraph">Subtracts the darker of the two constituent colors from the lighter color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-923998417%2FClasslikes%2F-800540438" anchor-label="EXCLUSION" id="-923998417%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-x-c-l-u-s-i-o-n/index.html">EXCLUSION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-923998417%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-e-x-c-l-u-s-i-o-n/index.html">EXCLUSION</a></div></div><div class="brief "><p class="paragraph">Produces an effect similar to that of the difference mode but lower in contrast</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-248668028%2FClasslikes%2F-800540438" anchor-label="COLOR" id="-248668028%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-l-o-r/index.html">COLOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-248668028%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-l-o-r/index.html">COLOR</a></div></div><div class="brief "><p class="paragraph">Creates a color with the hue and saturation of the source color and the luminosity of the destination color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1041951385%2FClasslikes%2F-800540438" anchor-label="HUE" id="1041951385%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-u-e/index.html">HUE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1041951385%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-h-u-e/index.html">HUE</a></div></div><div class="brief "><p class="paragraph">Creates a color with the hue of the source color and the saturation and luminosity of the destination color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1511291673%2FClasslikes%2F-800540438" anchor-label="SATURATION" id="1511291673%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-a-t-u-r-a-t-i-o-n/index.html">SATURATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1511291673%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-a-t-u-r-a-t-i-o-n/index.html">SATURATION</a></div></div><div class="brief "><p class="paragraph">Creates a color with the saturation of the source color and the hue and luminosity of the destination color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="347488456%2FClasslikes%2F-800540438" anchor-label="LUMINOSITY" id="347488456%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-u-m-i-n-o-s-i-t-y/index.html">LUMINOSITY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="347488456%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-u-m-i-n-o-s-i-t-y/index.html">LUMINOSITY</a></div></div><div class="brief "><p class="paragraph">Creates a color with the luminosity of the source color and the hue and saturation of the destination color</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="295805496%2FClasslikes%2F-800540438" anchor-label="Companion" id="295805496%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="295805496%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-800540438" anchor-label="name" id="-372974862%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-transform-category/-i-d-e-n-t-i-t-y/index.html#-372974862%2FProperties%2F-800540438"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-transform-category/-i-d-e-n-t-i-t-y/index.html#-372974862%2FProperties%2F-800540438">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1844482665%2FProperties%2F-800540438" anchor-label="nativeValue" id="-1844482665%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1844482665%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-800540438" anchor-label="ordinal" id="-739389684%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-transform-category/-i-d-e-n-t-i-t-y/index.html#-739389684%2FProperties%2F-800540438"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-transform-category/-i-d-e-n-t-i-t-y/index.html#-739389684%2FProperties%2F-800540438">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-774383653%2FFunctions%2F-800540438" anchor-label="valueOf" id="-774383653%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-774383653%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">BlendMode</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1244311591%2FFunctions%2F-800540438" anchor-label="values" id="1244311591%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1244311591%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">BlendMode</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

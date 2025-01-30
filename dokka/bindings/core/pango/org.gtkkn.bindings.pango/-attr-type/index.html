@@ -1,0 +1,795 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AttrType</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:pango/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:pango/nativeMain" data-filter=":bindings:core:pango/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="pango::org.gtkkn.bindings.pango/AttrType///PointingToDeclaration//1803427171">
+  <div class="breadcrumbs"><a href="../../index.html">pango</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.pango</a><span class="delimiter">/</span><span class="current">AttrType</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Attr</span><wbr><span><span>Type</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">AttrType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">AttrType</a><span class="token operator">&gt; </span></div><p class="paragraph">The <code class="lang-kotlin">PangoAttrType</code> distinguishes between different types of attributes.</p><p class="paragraph">Along with the predefined values, it is possible to allocate additional values for custom attributes using <a href="-companion/register.html">func@AttrType.register</a>. The predefined values are given below. The type of structure used to store the attribute is listed in parentheses after the description.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="588064923%2FClasslikes%2F1803427171" anchor-label="INVALID" id="588064923%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-v-a-l-i-d/index.html">INVALID</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="588064923%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-v-a-l-i-d/index.html">INVALID</a></div></div><div class="brief "><p class="paragraph">does not happen</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1169681028%2FClasslikes%2F1803427171" anchor-label="LANGUAGE" id="-1169681028%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-a-n-g-u-a-g-e/index.html">LANGUAGE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1169681028%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-a-n-g-u-a-g-e/index.html">LANGUAGE</a></div></div><div class="brief "><p class="paragraph">language (struct@Pango.AttrLanguage)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="730306696%2FClasslikes%2F1803427171" anchor-label="FAMILY" id="730306696%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-a-m-i-l-y/index.html">FAMILY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="730306696%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-a-m-i-l-y/index.html">FAMILY</a></div></div><div class="brief "><p class="paragraph">font family name list (struct@Pango.AttrString)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1850903851%2FClasslikes%2F1803427171" anchor-label="STYLE" id="-1850903851%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-y-l-e/index.html">STYLE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1850903851%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-y-l-e/index.html">STYLE</a></div></div><div class="brief "><p class="paragraph">font slant style (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1801581724%2FClasslikes%2F1803427171" anchor-label="WEIGHT" id="1801581724%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-e-i-g-h-t/index.html">WEIGHT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1801581724%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-w-e-i-g-h-t/index.html">WEIGHT</a></div></div><div class="brief "><p class="paragraph">font weight (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="845001385%2FClasslikes%2F1803427171" anchor-label="VARIANT" id="845001385%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-v-a-r-i-a-n-t/index.html">VARIANT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="845001385%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-v-a-r-i-a-n-t/index.html">VARIANT</a></div></div><div class="brief "><p class="paragraph">font variant (normal or small caps) (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1489950423%2FClasslikes%2F1803427171" anchor-label="STRETCH" id="-1489950423%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-r-e-t-c-h/index.html">STRETCH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1489950423%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-r-e-t-c-h/index.html">STRETCH</a></div></div><div class="brief "><p class="paragraph">font stretch (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-455952283%2FClasslikes%2F1803427171" anchor-label="SIZE" id="-455952283%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-i-z-e/index.html">SIZE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-455952283%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-i-z-e/index.html">SIZE</a></div></div><div class="brief "><p class="paragraph">font size in points scaled by %PANGO_SCALE (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1231612475%2FClasslikes%2F1803427171" anchor-label="FONT_DESC" id="-1231612475%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-n-t_-d-e-s-c/index.html">FONT_DESC</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1231612475%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-n-t_-d-e-s-c/index.html">FONT_DESC</a></div></div><div class="brief "><p class="paragraph">font description (struct@Pango.AttrFontDesc)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1100534311%2FClasslikes%2F1803427171" anchor-label="FOREGROUND" id="1100534311%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-r-e-g-r-o-u-n-d/index.html">FOREGROUND</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1100534311%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-r-e-g-r-o-u-n-d/index.html">FOREGROUND</a></div></div><div class="brief "><p class="paragraph">foreground color (struct@Pango.AttrColor)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1545800914%2FClasslikes%2F1803427171" anchor-label="BACKGROUND" id="1545800914%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-c-k-g-r-o-u-n-d/index.html">BACKGROUND</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1545800914%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-a-c-k-g-r-o-u-n-d/index.html">BACKGROUND</a></div></div><div class="brief "><p class="paragraph">background color (struct@Pango.AttrColor)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1425488208%2FClasslikes%2F1803427171" anchor-label="UNDERLINE" id="-1425488208%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-d-e-r-l-i-n-e/index.html">UNDERLINE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1425488208%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-d-e-r-l-i-n-e/index.html">UNDERLINE</a></div></div><div class="brief "><p class="paragraph">whether the text has an underline (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-792710025%2FClasslikes%2F1803427171" anchor-label="STRIKETHROUGH" id="-792710025%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-r-i-k-e-t-h-r-o-u-g-h/index.html">STRIKETHROUGH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-792710025%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-r-i-k-e-t-h-r-o-u-g-h/index.html">STRIKETHROUGH</a></div></div><div class="brief "><p class="paragraph">whether the text is struck-through (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-894315219%2FClasslikes%2F1803427171" anchor-label="RISE" id="-894315219%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-i-s-e/index.html">RISE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-894315219%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-i-s-e/index.html">RISE</a></div></div><div class="brief "><p class="paragraph">baseline displacement (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="10248389%2FClasslikes%2F1803427171" anchor-label="SHAPE" id="10248389%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-h-a-p-e/index.html">SHAPE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="10248389%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-h-a-p-e/index.html">SHAPE</a></div></div><div class="brief "><p class="paragraph">shape (struct@Pango.AttrShape)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1639375022%2FClasslikes%2F1803427171" anchor-label="SCALE" id="1639375022%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-c-a-l-e/index.html">SCALE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1639375022%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-c-a-l-e/index.html">SCALE</a></div></div><div class="brief "><p class="paragraph">font size scale factor (struct@Pango.AttrFloat)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1926095750%2FClasslikes%2F1803427171" anchor-label="FALLBACK" id="1926095750%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-a-l-l-b-a-c-k/index.html">FALLBACK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1926095750%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-a-l-l-b-a-c-k/index.html">FALLBACK</a></div></div><div class="brief "><p class="paragraph">whether fallback is enabled (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-367447122%2FClasslikes%2F1803427171" anchor-label="LETTER_SPACING" id="-367447122%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-e-t-t-e-r_-s-p-a-c-i-n-g/index.html">LETTER_SPACING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-367447122%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-e-t-t-e-r_-s-p-a-c-i-n-g/index.html">LETTER_SPACING</a></div></div><div class="brief "><p class="paragraph">letter spacing (struct@PangoAttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1109844748%2FClasslikes%2F1803427171" anchor-label="UNDERLINE_COLOR" id="-1109844748%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-d-e-r-l-i-n-e_-c-o-l-o-r/index.html">UNDERLINE_COLOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1109844748%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-d-e-r-l-i-n-e_-c-o-l-o-r/index.html">UNDERLINE_COLOR</a></div></div><div class="brief "><p class="paragraph">underline color (struct@Pango.AttrColor)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1534928517%2FClasslikes%2F1803427171" anchor-label="STRIKETHROUGH_COLOR" id="-1534928517%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-r-i-k-e-t-h-r-o-u-g-h_-c-o-l-o-r/index.html">STRIKETHROUGH_COLOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1534928517%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-r-i-k-e-t-h-r-o-u-g-h_-c-o-l-o-r/index.html">STRIKETHROUGH_COLOR</a></div></div><div class="brief "><p class="paragraph">strikethrough color (struct@Pango.AttrColor)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="254832909%2FClasslikes%2F1803427171" anchor-label="ABSOLUTE_SIZE" id="254832909%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-b-s-o-l-u-t-e_-s-i-z-e/index.html">ABSOLUTE_SIZE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="254832909%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-b-s-o-l-u-t-e_-s-i-z-e/index.html">ABSOLUTE_SIZE</a></div></div><div class="brief "><p class="paragraph">font size in pixels scaled by %PANGO_SCALE (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1333828942%2FClasslikes%2F1803427171" anchor-label="GRAVITY" id="-1333828942%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-a-v-i-t-y/index.html">GRAVITY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1333828942%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-r-a-v-i-t-y/index.html">GRAVITY</a></div></div><div class="brief "><p class="paragraph">base text gravity (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1942409188%2FClasslikes%2F1803427171" anchor-label="GRAVITY_HINT" id="-1942409188%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-a-v-i-t-y_-h-i-n-t/index.html">GRAVITY_HINT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1942409188%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-r-a-v-i-t-y_-h-i-n-t/index.html">GRAVITY_HINT</a></div></div><div class="brief "><p class="paragraph">gravity hint (struct@Pango.AttrInt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1195901327%2FClasslikes%2F1803427171" anchor-label="FONT_FEATURES" id="-1195901327%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-n-t_-f-e-a-t-u-r-e-s/index.html">FONT_FEATURES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1195901327%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-n-t_-f-e-a-t-u-r-e-s/index.html">FONT_FEATURES</a></div></div><div class="brief "><p class="paragraph">OpenType font features (struct@Pango.AttrFontFeatures). Since 1.38</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1832159206%2FClasslikes%2F1803427171" anchor-label="FOREGROUND_ALPHA" id="1832159206%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-r-e-g-r-o-u-n-d_-a-l-p-h-a/index.html">FOREGROUND_ALPHA</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1832159206%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-r-e-g-r-o-u-n-d_-a-l-p-h-a/index.html">FOREGROUND_ALPHA</a></div></div><div class="brief "><p class="paragraph">foreground alpha (struct@Pango.AttrInt). Since 1.38</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2004145745%2FClasslikes%2F1803427171" anchor-label="BACKGROUND_ALPHA" id="2004145745%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-c-k-g-r-o-u-n-d_-a-l-p-h-a/index.html">BACKGROUND_ALPHA</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2004145745%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-a-c-k-g-r-o-u-n-d_-a-l-p-h-a/index.html">BACKGROUND_ALPHA</a></div></div><div class="brief "><p class="paragraph">background alpha (struct@Pango.AttrInt). Since 1.38</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="724423630%2FClasslikes%2F1803427171" anchor-label="ALLOW_BREAKS" id="724423630%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-l-l-o-w_-b-r-e-a-k-s/index.html">ALLOW_BREAKS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="724423630%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-l-l-o-w_-b-r-e-a-k-s/index.html">ALLOW_BREAKS</a></div></div><div class="brief "><p class="paragraph">whether breaks are allowed (struct@Pango.AttrInt). Since 1.44</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-676232607%2FClasslikes%2F1803427171" anchor-label="SHOW" id="-676232607%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-h-o-w/index.html">SHOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-676232607%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-h-o-w/index.html">SHOW</a></div></div><div class="brief "><p class="paragraph">how to render invisible characters (struct@Pango.AttrInt). Since 1.44</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="413018303%2FClasslikes%2F1803427171" anchor-label="INSERT_HYPHENS" id="413018303%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-s-e-r-t_-h-y-p-h-e-n-s/index.html">INSERT_HYPHENS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="413018303%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-s-e-r-t_-h-y-p-h-e-n-s/index.html">INSERT_HYPHENS</a></div></div><div class="brief "><p class="paragraph">whether to insert hyphens at intra-word line breaks (struct@Pango.AttrInt). Since 1.44</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-68157204%2FClasslikes%2F1803427171" anchor-label="OVERLINE" id="-68157204%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-v-e-r-l-i-n-e/index.html">OVERLINE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-68157204%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-v-e-r-l-i-n-e/index.html">OVERLINE</a></div></div><div class="brief "><p class="paragraph">whether the text has an overline (struct@Pango.AttrInt). Since 1.46</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="350403120%2FClasslikes%2F1803427171" anchor-label="OVERLINE_COLOR" id="350403120%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-v-e-r-l-i-n-e_-c-o-l-o-r/index.html">OVERLINE_COLOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="350403120%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-v-e-r-l-i-n-e_-c-o-l-o-r/index.html">OVERLINE_COLOR</a></div></div><div class="brief "><p class="paragraph">overline color (struct@Pango.AttrColor). Since 1.46</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2052078250%2FClasslikes%2F1803427171" anchor-label="LINE_HEIGHT" id="-2052078250%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-n-e_-h-e-i-g-h-t/index.html">LINE_HEIGHT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2052078250%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-n-e_-h-e-i-g-h-t/index.html">LINE_HEIGHT</a></div></div><div class="brief "><p class="paragraph">line height factor (struct@Pango.AttrFloat). Since: 1.50</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1824030638%2FClasslikes%2F1803427171" anchor-label="ABSOLUTE_LINE_HEIGHT" id="1824030638%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-b-s-o-l-u-t-e_-l-i-n-e_-h-e-i-g-h-t/index.html">ABSOLUTE_LINE_HEIGHT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824030638%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-a-b-s-o-l-u-t-e_-l-i-n-e_-h-e-i-g-h-t/index.html">ABSOLUTE_LINE_HEIGHT</a></div></div><div class="brief "><p class="paragraph">line height (struct@Pango.AttrInt). Since: 1.50</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1579750750%2FClasslikes%2F1803427171" anchor-label="TEXT_TRANSFORM" id="1579750750%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-e-x-t_-t-r-a-n-s-f-o-r-m/index.html">TEXT_TRANSFORM</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1579750750%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-e-x-t_-t-r-a-n-s-f-o-r-m/index.html">TEXT_TRANSFORM</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1540932178%2FClasslikes%2F1803427171" anchor-label="WORD" id="-1540932178%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-o-r-d/index.html">WORD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1540932178%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-w-o-r-d/index.html">WORD</a></div></div><div class="brief "><p class="paragraph">override segmentation to classify the range of the attribute as a single word (struct@Pango.AttrInt). Since 1.50</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-712183993%2FClasslikes%2F1803427171" anchor-label="SENTENCE" id="-712183993%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-n-t-e-n-c-e/index.html">SENTENCE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-712183993%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-n-t-e-n-c-e/index.html">SENTENCE</a></div></div><div class="brief "><p class="paragraph">override segmentation to classify the range of the attribute as a single sentence (struct@Pango.AttrInt). Since 1.50</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2052820980%2FClasslikes%2F1803427171" anchor-label="BASELINE_SHIFT" id="-2052820980%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-s-e-l-i-n-e_-s-h-i-f-t/index.html">BASELINE_SHIFT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2052820980%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-a-s-e-l-i-n-e_-s-h-i-f-t/index.html">BASELINE_SHIFT</a></div></div><div class="brief "><p class="paragraph">baseline displacement (struct@Pango.AttrInt). Since 1.50</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1019502558%2FClasslikes%2F1803427171" anchor-label="FONT_SCALE" id="1019502558%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-n-t_-s-c-a-l-e/index.html">FONT_SCALE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1019502558%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-n-t_-s-c-a-l-e/index.html">FONT_SCALE</a></div></div><div class="brief "><p class="paragraph">font-relative size change (struct@Pango.AttrInt). Since 1.50</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1622369963%2FClasslikes%2F1803427171" anchor-label="Companion" id="-1622369963%2FClasslikes%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1622369963%2FClasslikes%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F1803427171" anchor-label="name" id="-372974862%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-372974862%2FProperties%2F1803427171"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-372974862%2FProperties%2F1803427171">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1624838516%2FProperties%2F1803427171" anchor-label="nativeValue" id="1624838516%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1624838516%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F1803427171" anchor-label="ordinal" id="-739389684%2FProperties%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-739389684%2FProperties%2F1803427171"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-wrap-mode/-w-o-r-d_-c-h-a-r/index.html#-739389684%2FProperties%2F1803427171">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1000094878%2FFunctions%2F1803427171" anchor-label="valueOf" id="1000094878%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1000094878%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">AttrType</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1417106986%2FFunctions%2F1803427171" anchor-label="values" id="1417106986%2FFunctions%2F1803427171" data-filterable-set=":bindings:core:pango/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:pango/nativeMain" data-filterable-set=":bindings:core:pango/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1417106986%2FFunctions%2F1803427171"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:pango/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">AttrType</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

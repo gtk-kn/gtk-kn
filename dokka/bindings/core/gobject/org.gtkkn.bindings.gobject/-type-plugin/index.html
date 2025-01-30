@@ -1,0 +1,236 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TypePlugin</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gobject/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gobject/nativeMain" data-filter=":bindings:core:gobject/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gobject::org.gtkkn.bindings.gobject/TypePlugin///PointingToDeclaration//-793642492">
+  <div class="breadcrumbs"><a href="../../index.html">gobject</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gobject</a><span class="delimiter">/</span><span class="current">TypePlugin</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Type</span><wbr><span><span>Plugin</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TypePlugin</a> : <a href="../../org.gtkkn.extensions.gobject/-k-g-typed/index.html">KGTyped</a></div><p class="paragraph">An interface that handles the lifecycle of dynamically loaded types.</p><p class="paragraph">The GObject type system supports dynamic loading of types. It goes as follows:</p><ol><li><p class="paragraph">The type is initially introduced (usually upon loading the module     the first time, or by your main application that knows what modules     introduces what types), like this:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea"> new_type_id = g_type_register_dynamic (parent_type_id,<br>                                        "TypeName",<br>                                        new_type_plugin,<br>                                        type_flags);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph"> where <code class="lang-kotlin">new_type_plugin</code> is an implementation of the     <code class="lang-kotlin">GTypePlugin</code> interface.</p></li><li><p class="paragraph">The type's implementation is referenced, e.g. through     func@GObject.TypeClass.ref or through func@GObject.type_create_instance     (this is being called by ctor@GObject.Object.new) or through one of the above     done on a type derived from <code class="lang-kotlin">new_type_id</code>.</p></li><li><p class="paragraph">This causes the type system to load the type's implementation by calling     method@GObject.TypePlugin.use and method@GObject.TypePlugin.complete_type_info     on <code class="lang-kotlin">new_type_plugin</code>.</p></li><li><p class="paragraph">At some point the type's implementation isn't required anymore, e.g. after     method@GObject.TypeClass.unref or func@GObject.type_free_instance     (called when the reference count of an instance drops to zero).</p></li><li><p class="paragraph">This causes the type system to throw away the information retrieved     from method@GObject.TypePlugin.complete_type_info and then it calls     method@GObject.TypePlugin.unuse on <code class="lang-kotlin">new_type_plugin</code>.</p></li><li><p class="paragraph">Things may repeat from the second step.</p></li></ol><p class="paragraph">So basically, you need to implement a <code class="lang-kotlin">GTypePlugin</code> type that carries a use_count, once use_count goes from zero to one, you need to load the implementation to successfully handle the upcoming method@GObject.TypePlugin.complete_type_info call. Later, maybe after succeeding use/unuse calls, once use_count drops to zero, you can unload the implementation again. The type system makes sure to call method@GObject.TypePlugin.use and method@GObject.TypePlugin.complete_type_info again when the type is needed again.</p><p class="paragraph">class@GObject.TypeModule is an implementation of <code class="lang-kotlin">GTypePlugin</code> that already implements most of this except for the actual module loading and unloading. It even handles multiple registered types per module.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-type-module/index.html">TypeModule</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-type-plugin-impl/index.html">TypePluginImpl</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="350987572%2FClasslikes%2F-793642492" anchor-label="Companion" id="350987572%2FClasslikes%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="350987572%2FClasslikes%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../../org.gtkkn.extensions.gobject/-type-companion/index.html">TypeCompanion</a><span class="token operator">&lt;</span><a href="index.html">TypePlugin</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1583964971%2FClasslikes%2F-793642492" anchor-label="TypePluginImpl" id="-1583964971%2FClasslikes%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type-plugin-impl/index.html"><span>Type</span><wbr><span>Plugin</span><wbr><span><span>Impl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1583964971%2FClasslikes%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-type-plugin-impl/index.html">TypePluginImpl</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gobjectTypePluginPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-object/index.html">Object</a>, <a href="index.html">TypePlugin</a></div><div class="brief "><p class="paragraph">The TypePluginImpl type represents a native instance of the TypePlugin interface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1137343523%2FProperties%2F-793642492" anchor-label="gobjectTypePluginPointer" id="1137343523%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gobject-type-plugin-pointer.html"><span>gobject</span><wbr><span>Type</span><wbr><span>Plugin</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1137343523%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="gobject-type-plugin-pointer.html">gobjectTypePluginPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-775912131%2FFunctions%2F-793642492" anchor-label="completeInterfaceInfo" id="-775912131%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="complete-interface-info.html"><span>complete</span><wbr><span>Interface</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-775912131%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="complete-interface-info.html"><span class="token function">completeInterfaceInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">instanceType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">interfaceType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">info<span class="token operator">: </span><a href="../-interface-info/index.html">InterfaceInfo</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls the @complete_interface_info function from the #GTypePluginClass of @plugin. There should be no need to use this function outside of the GObject type system itself.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-32947426%2FFunctions%2F-793642492" anchor-label="completeTypeInfo" id="-32947426%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="complete-type-info.html"><span>complete</span><wbr><span>Type</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-32947426%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="complete-type-info.html"><span class="token function">completeTypeInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">info<span class="token operator">: </span><a href="../-type-info/index.html">TypeInfo</a><span class="token punctuation">, </span></span><span class="parameter ">valueTable<span class="token operator">: </span><a href="../-type-value-table/index.html">TypeValueTable</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls the @complete_type_info function from the #GTypePluginClass of @plugin. There should be no need to use this function outside of the GObject type system itself.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1532869471%2FFunctions%2F-793642492" anchor-label="unuse" id="1532869471%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unuse.html"><span><span>unuse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1532869471%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="unuse.html"><span class="token function">unuse</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls the @unuse_plugin function from the #GTypePluginClass of</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-493655994%2FFunctions%2F-793642492" anchor-label="use" id="-493655994%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="use.html"><span><span>use</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-493655994%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="use.html"><span class="token function">use</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls the @use_plugin function from the #GTypePluginClass of</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

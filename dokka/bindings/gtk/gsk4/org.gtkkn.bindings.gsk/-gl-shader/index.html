@@ -1,0 +1,435 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GlShader</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gsk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gsk4/nativeMain" data-filter=":bindings:gtk:gsk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gsk4::org.gtkkn.bindings.gsk/GlShader///PointingToDeclaration//-800540438">
+  <div class="breadcrumbs"><a href="../../index.html">gsk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gsk</a><span class="delimiter">/</span><span class="current">GlShader</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Gl</span><wbr><span><span>Shader</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">GlShader</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gskGlShaderPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">GskGLShader</code> is a snippet of GLSL that is meant to run in the fragment shader of the rendering pipeline.</p><p class="paragraph">A fragment shader gets the coordinates being rendered as input and produces the pixel values for that particular pixel. Additionally, the shader can declare a set of other input arguments, called uniforms (as they are uniform over all the calls to your shader in each instance of use). A shader can also receive up to 4 textures that it can use as input when producing the pixel data.</p><p class="paragraph"><code class="lang-kotlin">GskGLShader</code> is usually used with gtk_snapshot_push_gl_shader() to produce a class@Gsk.GLShaderNode in the rendering hierarchy, and then its input textures are constructed by rendering the child nodes to textures before rendering the shader node itself. (You can pass texture nodes as children if you want to directly use a texture as input).</p><p class="paragraph">The actual shader code is GLSL code that gets combined with some other code into the fragment shader. Since the exact capabilities of the GPU driver differs between different OpenGL drivers and hardware, GTK adds some defines that you can use to ensure your GLSL code runs on as many drivers as it can.</p><p class="paragraph">If the OpenGL driver is GLES, then the shader language version is set to 100, and GSK_GLES will be defined in the shader.</p><p class="paragraph">Otherwise, if the OpenGL driver does not support the 3.2 core profile, then the shader will run with language version 110 for GL2 and 130 for GL3, and GSK_LEGACY will be defined in the shader.</p><p class="paragraph">If the OpenGL driver supports the 3.2 code profile, it will be used, the shader language version is set to 150, and GSK_GL3 will be defined in the shader.</p><p class="paragraph">The main function the shader must implement is:</p><div class="sample-container"><pre><code class="block lang-glsl" theme="idea">void mainImage(out vec4 fragColor,<br>               in vec2 fragCoord,<br>               in vec2 resolution,<br>               in vec2 uv)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Where the input @fragCoord is the coordinate of the pixel we're currently rendering, relative to the boundary rectangle that was specified in the <code class="lang-kotlin">GskGLShaderNode</code>, and @resolution is the width and height of that rectangle. This is in the typical GTK coordinate system with the origin in the top left. @uv contains the u and v coordinates that can be used to index a texture at the corresponding point. These coordinates are in the 0..1x0..1 region, with 0, 0 being in the lower left corder (which is typical for OpenGL).</p><p class="paragraph">The output @fragColor should be a RGBA color (with premultiplied alpha) that will be used as the output for the specified pixel location. Note that this output will be automatically clipped to the clip region of the glshader node.</p><p class="paragraph">In addition to the function arguments the shader can define up to 4 uniforms for textures which must be called u_textureN (i.e. u_texture1 to u_texture4) as well as any custom uniforms you want of types int, uint, bool, float, vec2, vec3 or vec4.</p><p class="paragraph">All textures sources contain premultiplied alpha colors, but if some there are outer sources of colors there is a gsk_premultiply() helper to compute premultiplication when needed.</p><p class="paragraph">Note that GTK parses the uniform declarations, so each uniform has to be on a line by itself with no other code, like so:</p><div class="sample-container"><pre><code class="block lang-glsl" theme="idea">uniform float u_time;<br>uniform vec3 u_color;<br>uniform sampler2D u_texture1;<br>uniform sampler2D u_texture2;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">GTK uses the "gsk" namespace in the symbols it uses in the shader, so your code should not use any symbols with the prefix gsk or GSK. There are some helper functions declared that you can use:</p><div class="sample-container"><pre><code class="block lang-glsl" theme="idea">vec4 GskTexture(sampler2D sampler, vec2 texCoords);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">This samples a texture (e.g. u_texture1) at the specified coordinates, and contains some helper ifdefs to ensure that it works on all OpenGL versions.</p><p class="paragraph">You can compile the shader yourself using method@Gsk.GLShader.compile, otherwise the GSK renderer will do it when it handling the glshader node. If errors occurs, the returned @error will include the glsl sources, so you can see what GSK was passing to the compiler. You can also set GSK_DEBUG=shaders in the environment to see the sources and other relevant information about all shaders that GSK is handling.</p><h1 class="">An example shader</h1><div class="sample-container"><pre><code class="block lang-glsl" theme="idea">uniform float position;<br>uniform sampler2D u_texture1;<br>uniform sampler2D u_texture2;<br><br>void mainImage(out vec4 fragColor,<br>               in vec2 fragCoord,<br>               in vec2 resolution,<br>               in vec2 uv) {<br>  vec4 source1 = GskTexture(u_texture1, uv);<br>  vec4 source2 = GskTexture(u_texture2, uv);<br><br>  fragColor = position * source1 + (1.0 - position) * source2;<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">format_args</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">uniforms</code>: va_list type is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-707225664%2FConstructors%2F-800540438" anchor-label="GlShader" id="-707225664%2FConstructors%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gl-shader.html"><span>Gl</span><wbr><span><span>Shader</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-707225664%2FConstructors%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourcecode<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a <code class="lang-kotlin">GskGLShader</code> that will render pixels using the specified code.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourcePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a <code class="lang-kotlin">GskGLShader</code> that will render pixels using the specified code.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gskGlShaderPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1860557328%2FClasslikes%2F-800540438" anchor-label="Companion" id="1860557328%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1860557328%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1237259261%2FProperties%2F-800540438" anchor-label="gskGlShaderPointer" id="1237259261%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gsk-gl-shader-pointer.html"><span>gsk</span><wbr><span>Gl</span><wbr><span>Shader</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1237259261%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gsk-gl-shader-pointer.html">gskGlShaderPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1652208867%2FProperties%2F-800540438" anchor-label="resource" id="1652208867%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resource.html"><span><span>resource</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1652208867%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="resource.html">resource</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Resource containing the source code for the shader.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1947494794%2FProperties%2F-800540438" anchor-label="source" id="-1947494794%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source.html"><span><span>source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1947494794%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="source.html">source</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1238608657%2FFunctions%2F-800540438" anchor-label="compile" id="1238608657%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="compile.html"><span><span>compile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1238608657%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="compile.html"><span class="token function">compile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">renderer<span class="token operator">: </span><a href="../-renderer/index.html">Renderer</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Tries to compile the @shader for the given @renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1411474888%2FFunctions%2F-800540438" anchor-label="findUniformByName" id="-1411474888%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-uniform-by-name.html"><span>find</span><wbr><span>Uniform</span><wbr><span>By</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1411474888%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="find-uniform-by-name.html"><span class="token function">findUniformByName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Looks for a uniform by the name @name, and returns the index of the uniform, or -1 if it was not found.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1967474531%2FFunctions%2F-800540438" anchor-label="getArgBool" id="1967474531%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-bool.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Bool</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1967474531%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-bool.html"><span class="token function">getArgBool</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1934588471%2FFunctions%2F-800540438" anchor-label="getArgFloat" id="-1934588471%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-float.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Float</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1934588471%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-float.html"><span class="token function">getArgFloat</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-834503722%2FFunctions%2F-800540438" anchor-label="getArgInt" id="-834503722%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-int.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Int</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-834503722%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-int.html"><span class="token function">getArgInt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1719933867%2FFunctions%2F-800540438" anchor-label="getArgsSize" id="-1719933867%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-args-size.html"><span>get</span><wbr><span>Args</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1719933867%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-args-size.html"><span class="token function">getArgsSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Get the size of the data block used to specify arguments for this shader.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-274981645%2FFunctions%2F-800540438" anchor-label="getArgUint" id="-274981645%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-uint.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Uint</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-274981645%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-uint.html"><span class="token function">getArgUint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-712954734%2FFunctions%2F-800540438" anchor-label="getArgVec2" id="-712954734%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-vec2.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Vec2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-712954734%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-vec2.html"><span class="token function">getArgVec2</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">outValue<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-429403180%2FFunctions%2F-800540438" anchor-label="getArgVec3" id="-429403180%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-vec3.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Vec3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-429403180%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-vec3.html"><span class="token function">getArgVec3</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">outValue<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-145851626%2FFunctions%2F-800540438" anchor-label="getArgVec4" id="-145851626%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-arg-vec4.html"><span>get</span><wbr><span>Arg</span><wbr><span><span>Vec4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-145851626%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-arg-vec4.html"><span class="token function">getArgVec4</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">args<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">outValue<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Gets the value of the uniform @idx in the @args block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="643088033%2FFunctions%2F-800540438" anchor-label="getNTextures" id="643088033%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-n-textures.html"><span>get</span><wbr><span><span>NTextures</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="643088033%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-n-textures.html"><span class="token function">getNTextures</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Returns the number of textures that the shader requires.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-42809862%2FFunctions%2F-800540438" anchor-label="getNUniforms" id="-42809862%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-n-uniforms.html"><span>get</span><wbr><span><span>NUniforms</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-42809862%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-n-uniforms.html"><span class="token function">getNUniforms</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Get the number of declared uniforms for this shader.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="476952820%2FFunctions%2F-800540438" anchor-label="getUniformName" id="476952820%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-uniform-name.html"><span>get</span><wbr><span>Uniform</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="476952820%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-uniform-name.html"><span class="token function">getUniformName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the name of the declared uniform for this shader at index @idx.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1794359404%2FFunctions%2F-800540438" anchor-label="getUniformOffset" id="1794359404%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-uniform-offset.html"><span>get</span><wbr><span>Uniform</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1794359404%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-uniform-offset.html"><span class="token function">getUniformOffset</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Get the offset into the data block where data for this uniforms is stored.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="547998309%2FFunctions%2F-800540438" anchor-label="getUniformType" id="547998309%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-uniform-type.html"><span>get</span><wbr><span>Uniform</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="547998309%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-uniform-type.html"><span class="token function">getUniformType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-gl-uniform-type/index.html">GlUniformType</a></div><div class="brief "><p class="paragraph">Get the type of the declared uniform for this shader at index @idx.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

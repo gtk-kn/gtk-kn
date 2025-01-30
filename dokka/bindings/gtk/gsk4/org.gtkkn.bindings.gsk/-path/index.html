@@ -1,0 +1,378 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Path</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gsk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gsk4/nativeMain" data-filter=":bindings:gtk:gsk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gsk4::org.gtkkn.bindings.gsk/Path///PointingToDeclaration//-800540438">
+  <div class="breadcrumbs"><a href="../../index.html">gsk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gsk</a><span class="delimiter">/</span><span class="current">Path</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Path</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Path</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gskPathPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A <code class="lang-kotlin">GskPath</code> describes lines and curves that are more complex than simple rectangles.</p><p class="paragraph">Paths can used for rendering (filling or stroking) and for animations (e.g. as trajectories).</p><p class="paragraph"><code class="lang-kotlin">GskPath</code> is an immutable, opaque, reference-counted struct. After creation, you cannot change the types it represents. Instead, new <code class="lang-kotlin">GskPath</code> objects have to be created. The struct@Gsk.PathBuilder structure is meant to help in this endeavor.</p><p class="paragraph">Conceptually, a path consists of zero or more contours (continuous, connected curves), each of which may or may not be closed. Contours are typically constructed from Bézier segments.</p><picture>
+<source srcset="path-dark.png" media="(prefers-color-scheme: dark)">
+<img alt="A Path" src="path-light.png">
+</picture><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">distance</code>: distance: Out parameter is not supported</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">4.14</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1148925877%2FConstructors%2F-800540438" anchor-label="Path" id="-1148925877%2FConstructors%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path.html"><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1148925877%2FConstructors%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gskPathPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-31192907%2FClasslikes%2F-800540438" anchor-label="Companion" id="-31192907%2FClasslikes%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-31192907%2FClasslikes%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-2146841357%2FProperties%2F-800540438" anchor-label="gskPathPointer" id="-2146841357%2FProperties%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gsk-path-pointer.html"><span>gsk</span><wbr><span>Path</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2146841357%2FProperties%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gsk-path-pointer.html">gskPathPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2110690836%2FFunctions%2F-800540438" anchor-label="foreach" id="2110690836%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="foreach.html"><span><span>foreach</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2110690836%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="foreach.html"><span class="token function">foreach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">flags<span class="token operator">: </span><a href="../-path-foreach-flags/index.html">PathForeachFlags</a><span class="token punctuation">, </span></span><span class="parameter ">func<span class="token operator">: </span><a href="../-path-foreach-func/index.html">PathForeachFunc</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Calls @func for every operation of the path.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1320249461%2FFunctions%2F-800540438" anchor-label="getBounds" id="-1320249461%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-bounds.html"><span>get</span><wbr><span><span>Bounds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1320249461%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-bounds.html"><span class="token function">getBounds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">bounds<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Computes the bounds of the given path.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-484470224%2FFunctions%2F-800540438" anchor-label="getEndPoint" id="-484470224%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-end-point.html"><span>get</span><wbr><span>End</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-484470224%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-end-point.html"><span class="token function">getEndPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-path-point/index.html">PathPoint</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets the end point of the path.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-943683401%2FFunctions%2F-800540438" anchor-label="getStartPoint" id="-943683401%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-start-point.html"><span>get</span><wbr><span>Start</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-943683401%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-start-point.html"><span class="token function">getStartPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-path-point/index.html">PathPoint</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Gets the start point of the path.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1716200896%2FFunctions%2F-800540438" anchor-label="getStrokeBounds" id="1716200896%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-stroke-bounds.html"><span>get</span><wbr><span>Stroke</span><wbr><span><span>Bounds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1716200896%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-stroke-bounds.html"><span class="token function">getStrokeBounds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stroke<span class="token operator">: </span><a href="../-stroke/index.html">Stroke</a><span class="token punctuation">, </span></span><span class="parameter ">bounds<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Computes the bounds for stroking the given path with the parameters in @stroke.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1113209444%2FFunctions%2F-800540438" anchor-label="inFill" id="-1113209444%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="in-fill.html"><span>in</span><wbr><span><span>Fill</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1113209444%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="in-fill.html"><span class="token function">inFill</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">point<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">fillRule<span class="token operator">: </span><a href="../-fill-rule/index.html">FillRule</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether the given point is inside the area that would be affected if the path was filled according to @fill_rule.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-382309514%2FFunctions%2F-800540438" anchor-label="isClosed" id="-382309514%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-closed.html"><span>is</span><wbr><span><span>Closed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-382309514%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-closed.html"><span class="token function">isClosed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns if the path represents a single closed contour.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1191428405%2FFunctions%2F-800540438" anchor-label="isEmpty" id="-1191428405%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-empty.html"><span>is</span><wbr><span><span>Empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1191428405%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-empty.html"><span class="token function">isEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if the path is empty, i.e. contains no lines or curves.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="959042964%2FFunctions%2F-800540438" anchor-label="print" id="959042964%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print.html"><span><span>print</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="959042964%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="print.html"><span class="token function">print</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">string<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Converts @self into a human-readable string representation suitable for printing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="900731643%2FFunctions%2F-800540438" anchor-label="ref" id="900731643%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="900731643%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Path</a></div><div class="brief "><p class="paragraph">Increases the reference count of a <code class="lang-kotlin">GskPath</code> by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1562602638%2FFunctions%2F-800540438" anchor-label="toCairo" id="-1562602638%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-cairo.html"><span>to</span><wbr><span><span>Cairo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1562602638%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-cairo.html"><span class="token function">toCairo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cr<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Appends the given @path to the given cairo context for drawing with Cairo.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1579723520%2FFunctions%2F-800540438" anchor-label="toString" id="-1579723520%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1579723520%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Converts the path into a string that is suitable for printing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1165665836%2FFunctions%2F-800540438" anchor-label="unref" id="-1165665836%2FFunctions%2F-800540438" data-filterable-set=":bindings:gtk:gsk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gsk4/nativeMain" data-filterable-set=":bindings:gtk:gsk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1165665836%2FFunctions%2F-800540438"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gsk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decreases the reference count of a <code class="lang-kotlin">GskPath</code> by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

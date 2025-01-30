@@ -1,0 +1,1530 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Context</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:cairo/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:cairo/nativeMain" data-filter=":bindings:core:cairo/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="cairo::org.gtkkn.bindings.cairo/Context///PointingToDeclaration//507617766">
+  <div class="breadcrumbs"><a href="../../index.html">cairo</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.cairo</a><span class="delimiter">/</span><span class="current">Context</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Context</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cairoContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">dashes</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x1</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x1</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x1</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">dx</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">dx</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">destroy</code>: GLib.DestroyNotify</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">dashes</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">x1</code>: Unsupported pointer to primitive type</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1028271426%2FConstructors%2F507617766" anchor-label="Context" id="1028271426%2FConstructors%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-context.html"><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1028271426%2FConstructors%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cairoContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1290650028%2FClasslikes%2F507617766" anchor-label="Companion" id="-1290650028%2FClasslikes%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1290650028%2FClasslikes%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1238386391%2FProperties%2F507617766" anchor-label="cairoContextPointer" id="1238386391%2FProperties%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cairo-context-pointer.html"><span>cairo</span><wbr><span>Context</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1238386391%2FProperties%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="cairo-context-pointer.html">cairoContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-139764160%2FFunctions%2F507617766" anchor-label="appendPath" id="-139764160%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="append-path.html"><span>append</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-139764160%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="append-path.html"><span class="token function">appendPath</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="../-path/index.html">Path</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1528331307%2FFunctions%2F507617766" anchor-label="arc" id="-1528331307%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="arc.html"><span><span>arc</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1528331307%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="arc.html"><span class="token function">arc</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">xc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">yc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">radius<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">angle1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">angle2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1306681366%2FFunctions%2F507617766" anchor-label="arcNegative" id="-1306681366%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="arc-negative.html"><span>arc</span><wbr><span><span>Negative</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1306681366%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="arc-negative.html"><span class="token function">arcNegative</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">xc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">yc<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">radius<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">angle1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">angle2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-910295267%2FFunctions%2F507617766" anchor-label="clip" id="-910295267%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clip.html"><span><span>clip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-910295267%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="clip.html"><span class="token function">clip</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1495146959%2FFunctions%2F507617766" anchor-label="clipPreserve" id="-1495146959%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clip-preserve.html"><span>clip</span><wbr><span><span>Preserve</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1495146959%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="clip-preserve.html"><span class="token function">clipPreserve</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2075099504%2FFunctions%2F507617766" anchor-label="closePath" id="2075099504%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="close-path.html"><span>close</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2075099504%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="close-path.html"><span class="token function">closePath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1847046839%2FFunctions%2F507617766" anchor-label="copyPage" id="-1847046839%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-page.html"><span>copy</span><wbr><span><span>Page</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1847046839%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy-page.html"><span class="token function">copyPage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2137907085%2FFunctions%2F507617766" anchor-label="copyPath" id="-2137907085%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-path.html"><span>copy</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2137907085%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy-path.html"><span class="token function">copyPath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-path/index.html">Path</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-483299334%2FFunctions%2F507617766" anchor-label="copyPathFlat" id="-483299334%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-path-flat.html"><span>copy</span><wbr><span>Path</span><wbr><span><span>Flat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-483299334%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="copy-path-flat.html"><span class="token function">copyPathFlat</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-path/index.html">Path</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1314851094%2FFunctions%2F507617766" anchor-label="curveTo" id="-1314851094%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="curve-to.html"><span>curve</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1314851094%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="curve-to.html"><span class="token function">curveTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x3<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y3<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-360714669%2FFunctions%2F507617766" anchor-label="destroy" id="-360714669%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="destroy.html"><span><span>destroy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-360714669%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="destroy.html"><span class="token function">destroy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="399014986%2FFunctions%2F507617766" anchor-label="fill" id="399014986%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fill.html"><span><span>fill</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="399014986%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="fill.html"><span class="token function">fill</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-987308450%2FFunctions%2F507617766" anchor-label="fillPreserve" id="-987308450%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fill-preserve.html"><span>fill</span><wbr><span><span>Preserve</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-987308450%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="fill-preserve.html"><span class="token function">fillPreserve</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-921227576%2FFunctions%2F507617766" anchor-label="fontExtents" id="-921227576%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="font-extents.html"><span>font</span><wbr><span><span>Extents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-921227576%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="font-extents.html"><span class="token function">fontExtents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">extents<span class="token operator">: </span><a href="../-font-extents/index.html">FontExtents</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561749493%2FFunctions%2F507617766" anchor-label="getAntialias" id="561749493%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-antialias.html"><span>get</span><wbr><span><span>Antialias</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561749493%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-antialias.html"><span class="token function">getAntialias</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-antialias/index.html">Antialias</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1950641254%2FFunctions%2F507617766" anchor-label="getDashCount" id="1950641254%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-dash-count.html"><span>get</span><wbr><span>Dash</span><wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1950641254%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-dash-count.html"><span class="token function">getDashCount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1853524456%2FFunctions%2F507617766" anchor-label="getFillRule" id="-1853524456%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fill-rule.html"><span>get</span><wbr><span>Fill</span><wbr><span><span>Rule</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1853524456%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-fill-rule.html"><span class="token function">getFillRule</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-fill-rule/index.html">FillRule</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="770769547%2FFunctions%2F507617766" anchor-label="getFontFace" id="770769547%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-font-face.html"><span>get</span><wbr><span>Font</span><wbr><span><span>Face</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="770769547%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-font-face.html"><span class="token function">getFontFace</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-font-face/index.html">FontFace</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1873354507%2FFunctions%2F507617766" anchor-label="getFontMatrix" id="1873354507%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-font-matrix.html"><span>get</span><wbr><span>Font</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1873354507%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-font-matrix.html"><span class="token function">getFontMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="68452340%2FFunctions%2F507617766" anchor-label="getFontOptions" id="68452340%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-font-options.html"><span>get</span><wbr><span>Font</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="68452340%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-font-options.html"><span class="token function">getFontOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../-font-options/index.html">FontOptions</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1185615373%2FFunctions%2F507617766" anchor-label="getGroupTarget" id="-1185615373%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-group-target.html"><span>get</span><wbr><span>Group</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1185615373%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-group-target.html"><span class="token function">getGroupTarget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1811388993%2FFunctions%2F507617766" anchor-label="getHairline" id="1811388993%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-hairline.html"><span>get</span><wbr><span><span>Hairline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1811388993%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-hairline.html"><span class="token function">getHairline</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1532386917%2FFunctions%2F507617766" anchor-label="getLineCap" id="1532386917%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-cap.html"><span>get</span><wbr><span>Line</span><wbr><span><span>Cap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1532386917%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-line-cap.html"><span class="token function">getLineCap</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-line-cap/index.html">LineCap</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="519579353%2FFunctions%2F507617766" anchor-label="getLineJoin" id="519579353%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-join.html"><span>get</span><wbr><span>Line</span><wbr><span><span>Join</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="519579353%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-line-join.html"><span class="token function">getLineJoin</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-line-join/index.html">LineJoin</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1110973327%2FFunctions%2F507617766" anchor-label="getLineWidth" id="-1110973327%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-width.html"><span>get</span><wbr><span>Line</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1110973327%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-line-width.html"><span class="token function">getLineWidth</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="672758236%2FFunctions%2F507617766" anchor-label="getMatrix" id="672758236%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-matrix.html"><span>get</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="672758236%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-matrix.html"><span class="token function">getMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1199000801%2FFunctions%2F507617766" anchor-label="getMiterLimit" id="1199000801%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-miter-limit.html"><span>get</span><wbr><span>Miter</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1199000801%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-miter-limit.html"><span class="token function">getMiterLimit</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1744118835%2FFunctions%2F507617766" anchor-label="getOperator" id="1744118835%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-operator.html"><span>get</span><wbr><span><span>Operator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1744118835%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-operator.html"><span class="token function">getOperator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-operator/index.html">Operator</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-20640210%2FFunctions%2F507617766" anchor-label="getScaledFont" id="-20640210%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-scaled-font.html"><span>get</span><wbr><span>Scaled</span><wbr><span><span>Font</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-20640210%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-scaled-font.html"><span class="token function">getScaledFont</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-scaled-font/index.html">ScaledFont</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="878626588%2FFunctions%2F507617766" anchor-label="getSource" id="878626588%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-source.html"><span>get</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="878626588%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-source.html"><span class="token function">getSource</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-112644506%2FFunctions%2F507617766" anchor-label="getTarget" id="-112644506%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-target.html"><span>get</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-112644506%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-target.html"><span class="token function">getTarget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-surface/index.html">Surface</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-446228746%2FFunctions%2F507617766" anchor-label="getTolerance" id="-446228746%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tolerance.html"><span>get</span><wbr><span><span>Tolerance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-446228746%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-tolerance.html"><span class="token function">getTolerance</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2010186425%2FFunctions%2F507617766" anchor-label="getUserData" id="-2010186425%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-user-data.html"><span>get</span><wbr><span>User</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2010186425%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-user-data.html"><span class="token function">getUserData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../-user-data-key/index.html">UserDataKey</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-966466852%2FFunctions%2F507617766" anchor-label="hasCurrentPoint" id="-966466852%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-current-point.html"><span>has</span><wbr><span>Current</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-966466852%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="has-current-point.html"><span class="token function">hasCurrentPoint</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="696586030%2FFunctions%2F507617766" anchor-label="identityMatrix" id="696586030%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="identity-matrix.html"><span>identity</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="696586030%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="identity-matrix.html"><span class="token function">identityMatrix</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="199977313%2FFunctions%2F507617766" anchor-label="inClip" id="199977313%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="in-clip.html"><span>in</span><wbr><span><span>Clip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="199977313%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="in-clip.html"><span class="token function">inClip</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2010026231%2FFunctions%2F507617766" anchor-label="inStroke" id="-2010026231%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="in-stroke.html"><span>in</span><wbr><span><span>Stroke</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2010026231%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="in-stroke.html"><span class="token function">inStroke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1176128987%2FFunctions%2F507617766" anchor-label="lineTo" id="1176128987%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="line-to.html"><span>line</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1176128987%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="line-to.html"><span class="token function">lineTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1470658080%2FFunctions%2F507617766" anchor-label="mask" id="1470658080%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mask.html"><span><span>mask</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1470658080%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="mask.html"><span class="token function">mask</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pattern<span class="token operator">: </span><a href="../-pattern/index.html">Pattern</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-289713688%2FFunctions%2F507617766" anchor-label="maskSurface" id="-289713688%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mask-surface.html"><span>mask</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-289713688%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="mask-surface.html"><span class="token function">maskSurface</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surface<span class="token operator">: </span><a href="../-surface/index.html">Surface</a><span class="token punctuation">, </span></span><span class="parameter ">surfaceX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">surfaceY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1493485832%2FFunctions%2F507617766" anchor-label="moveTo" id="-1493485832%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="move-to.html"><span>move</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1493485832%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="move-to.html"><span class="token function">moveTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1897810632%2FFunctions%2F507617766" anchor-label="newPath" id="1897810632%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-path.html"><span>new</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1897810632%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="new-path.html"><span class="token function">newPath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1478011720%2FFunctions%2F507617766" anchor-label="newSubPath" id="1478011720%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-sub-path.html"><span>new</span><wbr><span>Sub</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1478011720%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="new-sub-path.html"><span class="token function">newSubPath</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1662377361%2FFunctions%2F507617766" anchor-label="paint" id="-1662377361%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="paint.html"><span><span>paint</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1662377361%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="paint.html"><span class="token function">paint</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1695978665%2FFunctions%2F507617766" anchor-label="paintWithAlpha" id="1695978665%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="paint-with-alpha.html"><span>paint</span><wbr><span>With</span><wbr><span><span>Alpha</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1695978665%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="paint-with-alpha.html"><span class="token function">paintWithAlpha</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">alpha<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1292660353%2FFunctions%2F507617766" anchor-label="popGroup" id="-1292660353%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pop-group.html"><span>pop</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1292660353%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="pop-group.html"><span class="token function">popGroup</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-pattern/index.html">Pattern</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1940953687%2FFunctions%2F507617766" anchor-label="popGroupToSource" id="-1940953687%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pop-group-to-source.html"><span>pop</span><wbr><span>Group</span><wbr><span>To</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1940953687%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="pop-group-to-source.html"><span class="token function">popGroupToSource</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="428655912%2FFunctions%2F507617766" anchor-label="pushGroup" id="428655912%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="push-group.html"><span>push</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="428655912%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="push-group.html"><span class="token function">pushGroup</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1216758837%2FFunctions%2F507617766" anchor-label="pushGroupWithContent" id="1216758837%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="push-group-with-content.html"><span>push</span><wbr><span>Group</span><wbr><span>With</span><wbr><span><span>Content</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1216758837%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="push-group-with-content.html"><span class="token function">pushGroupWithContent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><a href="../-content/index.html">Content</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="221770005%2FFunctions%2F507617766" anchor-label="rectangle" id="221770005%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rectangle.html"><span><span>rectangle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="221770005%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rectangle.html"><span class="token function">rectangle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-130511055%2FFunctions%2F507617766" anchor-label="relCurveTo" id="-130511055%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rel-curve-to.html"><span>rel</span><wbr><span>Curve</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-130511055%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rel-curve-to.html"><span class="token function">relCurveTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dx1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dy1<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dx2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dy2<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dx3<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dy3<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="27798964%2FFunctions%2F507617766" anchor-label="relLineTo" id="27798964%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rel-line-to.html"><span>rel</span><wbr><span>Line</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="27798964%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rel-line-to.html"><span class="token function">relLineTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dy<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1653151441%2FFunctions%2F507617766" anchor-label="relMoveTo" id="1653151441%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rel-move-to.html"><span>rel</span><wbr><span>Move</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1653151441%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rel-move-to.html"><span class="token function">relMoveTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">dy<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2114292910%2FFunctions%2F507617766" anchor-label="resetClip" id="2114292910%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-clip.html"><span>reset</span><wbr><span><span>Clip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2114292910%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reset-clip.html"><span class="token function">resetClip</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="296290879%2FFunctions%2F507617766" anchor-label="restore" id="296290879%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="restore.html"><span><span>restore</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="296290879%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="restore.html"><span class="token function">restore</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-19630006%2FFunctions%2F507617766" anchor-label="rotate" id="-19630006%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate.html"><span><span>rotate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-19630006%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate.html"><span class="token function">rotate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-628605552%2FFunctions%2F507617766" anchor-label="save" id="-628605552%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="save.html"><span><span>save</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-628605552%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="save.html"><span class="token function">save</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1142863754%2FFunctions%2F507617766" anchor-label="scale" id="-1142863754%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale.html"><span><span>scale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1142863754%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale.html"><span class="token function">scale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1191073027%2FFunctions%2F507617766" anchor-label="selectFontFace" id="-1191073027%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="select-font-face.html"><span>select</span><wbr><span>Font</span><wbr><span><span>Face</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1191073027%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="select-font-face.html"><span class="token function">selectFontFace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">utf8<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../-font-slant/index.html">FontSlant</a><span class="token punctuation">, </span></span><span class="parameter ">weight<span class="token operator">: </span><a href="../-font-weight/index.html">FontWeight</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1246058238%2FFunctions%2F507617766" anchor-label="setAntialias" id="-1246058238%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-antialias.html"><span>set</span><wbr><span><span>Antialias</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1246058238%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-antialias.html"><span class="token function">setAntialias</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">antialias<span class="token operator">: </span><a href="../-antialias/index.html">Antialias</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="527446264%2FFunctions%2F507617766" anchor-label="setDash" id="527446264%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.cairo/set-dash.html"><span>set</span><wbr><span><span>Dash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="527446264%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">Context</a><span class="token punctuation">.</span><a href="../../org.gtkkn.extensions.cairo/set-dash.html"><span class="token function">setDash</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dashes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double-array/index.html">DoubleArray</a><span class="token punctuation">, </span></span><span class="parameter ">offset<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="571722792%2FFunctions%2F507617766" anchor-label="setFillRule" id="571722792%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-fill-rule.html"><span>set</span><wbr><span>Fill</span><wbr><span><span>Rule</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="571722792%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-fill-rule.html"><span class="token function">setFillRule</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fillRule<span class="token operator">: </span><a href="../-fill-rule/index.html">FillRule</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="910747464%2FFunctions%2F507617766" anchor-label="setFontFace" id="910747464%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-font-face.html"><span>set</span><wbr><span>Font</span><wbr><span><span>Face</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="910747464%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-font-face.html"><span class="token function">setFontFace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fontFace<span class="token operator">: </span><a href="../-font-face/index.html">FontFace</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1082402537%2FFunctions%2F507617766" anchor-label="setFontMatrix" id="-1082402537%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-font-matrix.html"><span>set</span><wbr><span>Font</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1082402537%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-font-matrix.html"><span class="token function">setFontMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1883144448%2FFunctions%2F507617766" anchor-label="setFontOptions" id="1883144448%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-font-options.html"><span>set</span><wbr><span>Font</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1883144448%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-font-options.html"><span class="token function">setFontOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../-font-options/index.html">FontOptions</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1340846081%2FFunctions%2F507617766" anchor-label="setFontSize" id="1340846081%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-font-size.html"><span>set</span><wbr><span>Font</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1340846081%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-font-size.html"><span class="token function">setFontSize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">size<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1983366458%2FFunctions%2F507617766" anchor-label="setHairline" id="1983366458%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-hairline.html"><span>set</span><wbr><span><span>Hairline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1983366458%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-hairline.html"><span class="token function">setHairline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1779191006%2FFunctions%2F507617766" anchor-label="setLineCap" id="-1779191006%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line-cap.html"><span>set</span><wbr><span>Line</span><wbr><span><span>Cap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1779191006%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line-cap.html"><span class="token function">setLineCap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lineCap<span class="token operator">: </span><a href="../-line-cap/index.html">LineCap</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="719578248%2FFunctions%2F507617766" anchor-label="setLineJoin" id="719578248%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line-join.html"><span>set</span><wbr><span>Line</span><wbr><span><span>Join</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="719578248%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line-join.html"><span class="token function">setLineJoin</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lineJoin<span class="token operator">: </span><a href="../-line-join/index.html">LineJoin</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1208122783%2FFunctions%2F507617766" anchor-label="setLineWidth" id="1208122783%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-line-width.html"><span>set</span><wbr><span>Line</span><wbr><span><span>Width</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1208122783%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-line-width.html"><span class="token function">setLineWidth</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-854386200%2FFunctions%2F507617766" anchor-label="setMatrix" id="-854386200%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-matrix.html"><span>set</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-854386200%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-matrix.html"><span class="token function">setMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1293280569%2FFunctions%2F507617766" anchor-label="setMiterLimit" id="-1293280569%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-miter-limit.html"><span>set</span><wbr><span>Miter</span><wbr><span><span>Limit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1293280569%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-miter-limit.html"><span class="token function">setMiterLimit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">limit<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="374736456%2FFunctions%2F507617766" anchor-label="setOperator" id="374736456%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-operator.html"><span>set</span><wbr><span><span>Operator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="374736456%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-operator.html"><span class="token function">setOperator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">operator<span class="token operator">: </span><a href="../-operator/index.html">Operator</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2034020376%2FFunctions%2F507617766" anchor-label="setScaledFont" id="-2034020376%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-scaled-font.html"><span>set</span><wbr><span>Scaled</span><wbr><span><span>Font</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2034020376%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-scaled-font.html"><span class="token function">setScaledFont</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scaledFont<span class="token operator">: </span><a href="../-scaled-font/index.html">ScaledFont</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1554304943%2FFunctions%2F507617766" anchor-label="setSource" id="1554304943%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-source.html"><span>set</span><wbr><span><span>Source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1554304943%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-source.html"><span class="token function">setSource</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="../-pattern/index.html">Pattern</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-987319271%2FFunctions%2F507617766" anchor-label="setSourceRgb" id="-987319271%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-source-rgb.html"><span>set</span><wbr><span>Source</span><wbr><span><span>Rgb</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-987319271%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-source-rgb.html"><span class="token function">setSourceRgb</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">red<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">green<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">blue<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1621493353%2FFunctions%2F507617766" anchor-label="setSourceRgba" id="-1621493353%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-source-rgba.html"><span>set</span><wbr><span>Source</span><wbr><span><span>Rgba</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1621493353%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-source-rgba.html"><span class="token function">setSourceRgba</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">red<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">green<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">blue<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">alpha<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2057400057%2FFunctions%2F507617766" anchor-label="setSourceSurface" id="2057400057%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-source-surface.html"><span>set</span><wbr><span>Source</span><wbr><span><span>Surface</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2057400057%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-source-surface.html"><span class="token function">setSourceSurface</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surface<span class="token operator">: </span><a href="../-surface/index.html">Surface</a><span class="token punctuation">, </span></span><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1690819398%2FFunctions%2F507617766" anchor-label="setTolerance" id="-1690819398%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-tolerance.html"><span>set</span><wbr><span><span>Tolerance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1690819398%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-tolerance.html"><span class="token function">setTolerance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tolerance<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1613746495%2FFunctions%2F507617766" anchor-label="showPage" id="-1613746495%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-page.html"><span>show</span><wbr><span><span>Page</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1613746495%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="show-page.html"><span class="token function">showPage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="735879169%2FFunctions%2F507617766" anchor-label="showText" id="735879169%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-text.html"><span>show</span><wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="735879169%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="show-text.html"><span class="token function">showText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">utf8<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1022918843%2FFunctions%2F507617766" anchor-label="status" id="1022918843%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="status.html"><span><span>status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1022918843%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="status.html"><span class="token function">status</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-status/index.html">Status</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-266054347%2FFunctions%2F507617766" anchor-label="stroke" id="-266054347%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stroke.html"><span><span>stroke</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-266054347%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="stroke.html"><span class="token function">stroke</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-352543671%2FFunctions%2F507617766" anchor-label="strokePreserve" id="-352543671%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stroke-preserve.html"><span>stroke</span><wbr><span><span>Preserve</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-352543671%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="stroke-preserve.html"><span class="token function">strokePreserve</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="976854539%2FFunctions%2F507617766" anchor-label="tagBegin" id="976854539%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-begin.html"><span>tag</span><wbr><span><span>Begin</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="976854539%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tag-begin.html"><span class="token function">tagBegin</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tagName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">attributes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1986520%2FFunctions%2F507617766" anchor-label="tagEnd" id="1986520%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-end.html"><span>tag</span><wbr><span><span>End</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1986520%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tag-end.html"><span class="token function">tagEnd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tagName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1108950081%2FFunctions%2F507617766" anchor-label="textExtents" id="-1108950081%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="text-extents.html"><span>text</span><wbr><span><span>Extents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1108950081%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="text-extents.html"><span class="token function">textExtents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">utf8<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">extents<span class="token operator">: </span><a href="../-text-extents/index.html">TextExtents</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="660894505%2FFunctions%2F507617766" anchor-label="textPath" id="660894505%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="text-path.html"><span>text</span><wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="660894505%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="text-path.html"><span class="token function">textPath</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">utf8<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2064484241%2FFunctions%2F507617766" anchor-label="transform" id="2064484241%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform.html"><span><span>transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2064484241%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform.html"><span class="token function">transform</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2116960890%2FFunctions%2F507617766" anchor-label="translate" id="2116960890%2FFunctions%2F507617766" data-filterable-set=":bindings:core:cairo/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:cairo/nativeMain" data-filterable-set=":bindings:core:cairo/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate.html"><span><span>translate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2116960890%2FFunctions%2F507617766"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:cairo/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

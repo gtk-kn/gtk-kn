@@ -1,0 +1,1125 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Matrix</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:graphene/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:graphene/nativeMain" data-filter=":bindings:core:graphene/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="graphene::org.gtkkn.bindings.graphene/Matrix///PointingToDeclaration//-383291588">
+  <div class="breadcrumbs"><a href="../../index.html">graphene</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.graphene</a><span class="delimiter">/</span><span class="current">Matrix</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Matrix</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Matrix</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>grapheneMatrixPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">A structure capable of holding a 4x4 matrix.</p><p class="paragraph">The contents of the #graphene_matrix_t structure are private and should never be accessed directly.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">v</code>: Array parameter of type gfloat is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">xx</code>: xx: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">v</code>: v: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1570292723%2FConstructors%2F-383291588" anchor-label="Matrix" id="-1570292723%2FConstructors%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-matrix.html"><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1570292723%2FConstructors%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Matrix.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Matrix using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">grapheneMatrixPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="655702874%2FClasslikes%2F-383291588" anchor-label="Companion" id="655702874%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="655702874%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1199325125%2FProperties%2F-383291588" anchor-label="grapheneMatrixPointer" id="1199325125%2FProperties%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="graphene-matrix-pointer.html"><span>graphene</span><wbr><span>Matrix</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1199325125%2FProperties%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="graphene-matrix-pointer.html">grapheneMatrixPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-765252692%2FFunctions%2F-383291588" anchor-label="decompose" id="-765252692%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="decompose.html"><span><span>decompose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765252692%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="decompose.html"><span class="token function">decompose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">translate<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">scale<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">rotate<span class="token operator">: </span><a href="../-quaternion/index.html">Quaternion</a><span class="token punctuation">, </span></span><span class="parameter ">shear<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">perspective<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Decomposes a transformation matrix into its component transformations.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="276485086%2FFunctions%2F-383291588" anchor-label="determinant" id="276485086%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="determinant.html"><span><span>determinant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="276485086%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="determinant.html"><span class="token function">determinant</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Computes the determinant of the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-979954265%2FFunctions%2F-383291588" anchor-label="equal" id="-979954265%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-979954265%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the two given #graphene_matrix_t matrices are equal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2109860523%2FFunctions%2F-383291588" anchor-label="equalFast" id="2109860523%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal-fast.html"><span>equal</span><wbr><span><span>Fast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2109860523%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal-fast.html"><span class="token function">equalFast</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the two given #graphene_matrix_t matrices are byte-by-byte equal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="430013115%2FFunctions%2F-383291588" anchor-label="free" id="430013115%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="430013115%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Frees the resources allocated by graphene_matrix_alloc().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2055102938%2FFunctions%2F-383291588" anchor-label="getRow" id="-2055102938%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-row.html"><span>get</span><wbr><span><span>Row</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2055102938%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-row.html"><span class="token function">getRow</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">index<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Retrieves the given row vector at @index_ inside a matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1901048225%2FFunctions%2F-383291588" anchor-label="getValue" id="-1901048225%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value.html"><span>get</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1901048225%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-value.html"><span class="token function">getValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">row<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">col<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the value at the given @row and @col index.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="476377195%2FFunctions%2F-383291588" anchor-label="getXScale" id="476377195%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-x-scale.html"><span>get</span><wbr><span><span>XScale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="476377195%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-x-scale.html"><span class="token function">getXScale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the scaling factor on the X axis in @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1391022364%2FFunctions%2F-383291588" anchor-label="getXTranslation" id="-1391022364%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-x-translation.html"><span>get</span><wbr><span><span>XTranslation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1391022364%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-x-translation.html"><span class="token function">getXTranslation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the translation component on the X axis from @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="827177132%2FFunctions%2F-383291588" anchor-label="getYScale" id="827177132%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-y-scale.html"><span>get</span><wbr><span><span>YScale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="827177132%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-y-scale.html"><span class="token function">getYScale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the scaling factor on the Y axis in @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1061256603%2FFunctions%2F-383291588" anchor-label="getYTranslation" id="-1061256603%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-y-translation.html"><span>get</span><wbr><span><span>YTranslation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1061256603%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-y-translation.html"><span class="token function">getYTranslation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the translation component on the Y axis from @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1177977069%2FFunctions%2F-383291588" anchor-label="getZScale" id="1177977069%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-z-scale.html"><span>get</span><wbr><span><span>ZScale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1177977069%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-z-scale.html"><span class="token function">getZScale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the scaling factor on the Z axis in @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-731490842%2FFunctions%2F-383291588" anchor-label="getZTranslation" id="-731490842%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-z-translation.html"><span>get</span><wbr><span><span>ZTranslation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-731490842%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-z-translation.html"><span class="token function">getZTranslation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the translation component on the Z axis from @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="862275474%2FFunctions%2F-383291588" anchor-label="initFrom2d" id="862275474%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from2d.html"><span>init</span><wbr><span><span>From2d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="862275474%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from2d.html"><span class="token function">initFrom2d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">xx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">yx<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">xy<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">yy<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">x0<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y0<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t from the values of an affine transformation matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-113589164%2FFunctions%2F-383291588" anchor-label="initFromMatrix" id="-113589164%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-matrix.html"><span>init</span><wbr><span>From</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-113589164%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-matrix.html"><span class="token function">initFromMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">src<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t using the values of the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2120547854%2FFunctions%2F-383291588" anchor-label="initFromVec4" id="-2120547854%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-vec4.html"><span>init</span><wbr><span>From</span><wbr><span><span>Vec4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2120547854%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-vec4.html"><span class="token function">initFromVec4</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">v0<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a><span class="token punctuation">, </span></span><span class="parameter ">v1<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a><span class="token punctuation">, </span></span><span class="parameter ">v2<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a><span class="token punctuation">, </span></span><span class="parameter ">v3<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with the given four row vectors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1318797794%2FFunctions%2F-383291588" anchor-label="initFrustum" id="-1318797794%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-frustum.html"><span>init</span><wbr><span><span>Frustum</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1318797794%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-frustum.html"><span class="token function">initFrustum</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">left<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">right<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">bottom<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">top<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">zNear<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">zFar<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t compatible with #graphene_frustum_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="559248249%2FFunctions%2F-383291588" anchor-label="initIdentity" id="559248249%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-identity.html"><span>init</span><wbr><span><span>Identity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="559248249%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-identity.html"><span class="token function">initIdentity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with the identity matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2109218127%2FFunctions%2F-383291588" anchor-label="initLookAt" id="2109218127%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-look-at.html"><span>init</span><wbr><span>Look</span><wbr><span><span>At</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2109218127%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-look-at.html"><span class="token function">initLookAt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eye<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">center<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">up<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t so that it positions the "camera" at the given @eye coordinates towards an object at the @center coordinates. The top of the camera is aligned to the direction of the @up vector.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-753450892%2FFunctions%2F-383291588" anchor-label="initOrtho" id="-753450892%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-ortho.html"><span>init</span><wbr><span><span>Ortho</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-753450892%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-ortho.html"><span class="token function">initOrtho</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">left<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">right<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">top<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">bottom<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">zNear<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">zFar<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with an orthographic projection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1966338936%2FFunctions%2F-383291588" anchor-label="initPerspective" id="1966338936%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-perspective.html"><span>init</span><wbr><span><span>Perspective</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1966338936%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-perspective.html"><span class="token function">initPerspective</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fovy<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">aspect<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">zNear<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">zFar<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with a perspective projection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="644717588%2FFunctions%2F-383291588" anchor-label="initRotate" id="644717588%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-rotate.html"><span>init</span><wbr><span><span>Rotate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="644717588%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-rotate.html"><span class="token function">initRotate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">axis<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes @m to represent a rotation of @angle degrees on the axis represented by the @axis vector.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="445135282%2FFunctions%2F-383291588" anchor-label="initScale" id="445135282%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-scale.html"><span>init</span><wbr><span><span>Scale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="445135282%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-scale.html"><span class="token function">initScale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">x<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">y<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">z<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with the given scaling factors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2007435886%2FFunctions%2F-383291588" anchor-label="initSkew" id="-2007435886%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-skew.html"><span>init</span><wbr><span><span>Skew</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2007435886%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-skew.html"><span class="token function">initSkew</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">xSkew<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">ySkew<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with a skew transformation with the given factors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="588922147%2FFunctions%2F-383291588" anchor-label="initTranslate" id="588922147%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-translate.html"><span>init</span><wbr><span><span>Translate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="588922147%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-translate.html"><span class="token function">initTranslate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Matrix</a></div><div class="brief "><p class="paragraph">Initializes a #graphene_matrix_t with a translation to the given coordinates.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-438737456%2FFunctions%2F-383291588" anchor-label="interpolate" id="-438737456%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="interpolate.html"><span><span>interpolate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-438737456%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="interpolate.html"><span class="token function">interpolate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Matrix</a><span class="token punctuation">, </span></span><span class="parameter ">factor<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Linearly interpolates the two given #graphene_matrix_t by interpolating the decomposed transformations separately.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-884058453%2FFunctions%2F-383291588" anchor-label="inverse" id="-884058453%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inverse.html"><span><span>inverse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-884058453%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="inverse.html"><span class="token function">inverse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Inverts the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="425887243%2FFunctions%2F-383291588" anchor-label="is2d" id="425887243%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is2d.html"><span><span>is2d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="425887243%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is2d.html"><span class="token function">is2d</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the given #graphene_matrix_t is compatible with an a 2D affine transformation matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2017080561%2FFunctions%2F-383291588" anchor-label="isBackfaceVisible" id="-2017080561%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-backface-visible.html"><span>is</span><wbr><span>Backface</span><wbr><span><span>Visible</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2017080561%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-backface-visible.html"><span class="token function">isBackfaceVisible</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether a #graphene_matrix_t has a visible back face.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1462053151%2FFunctions%2F-383291588" anchor-label="isIdentity" id="1462053151%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-identity.html"><span>is</span><wbr><span><span>Identity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1462053151%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-identity.html"><span class="token function">isIdentity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the given #graphene_matrix_t is the identity matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1338478566%2FFunctions%2F-383291588" anchor-label="isSingular" id="1338478566%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-singular.html"><span>is</span><wbr><span><span>Singular</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1338478566%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-singular.html"><span class="token function">isSingular</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether a matrix is singular.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1402308964%2FFunctions%2F-383291588" anchor-label="multiply" id="-1402308964%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="multiply.html"><span><span>multiply</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1402308964%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="multiply.html"><span class="token function">multiply</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Matrix</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Multiplies two #graphene_matrix_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2005291153%2FFunctions%2F-383291588" anchor-label="near" id="2005291153%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="near.html"><span><span>near</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2005291153%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="near.html"><span class="token function">near</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Matrix</a><span class="token punctuation">, </span></span><span class="parameter ">epsilon<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Compares the two given #graphene_matrix_t matrices and checks whether their values are within the given @epsilon of each other.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-962836690%2FFunctions%2F-383291588" anchor-label="normalize" id="-962836690%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="normalize.html"><span><span>normalize</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-962836690%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="normalize.html"><span class="token function">normalize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Normalizes the given #graphene_matrix_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-183661577%2FFunctions%2F-383291588" anchor-label="perspective" id="-183661577%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="perspective.html"><span><span>perspective</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-183661577%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="perspective.html"><span class="token function">perspective</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">depth<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Applies a perspective of @depth to the matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1201585926%2FFunctions%2F-383291588" anchor-label="print" id="1201585926%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print.html"><span><span>print</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1201585926%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="print.html"><span class="token function">print</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Prints the contents of a matrix to the standard error stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1738635491%2FFunctions%2F-383291588" anchor-label="projectPoint" id="1738635491%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="project-point.html"><span>project</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1738635491%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="project-point.html"><span class="token function">projectPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p<span class="token operator">: </span><a href="../-point/index.html">Point</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-point/index.html">Point</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Projects a #graphene_point_t using the matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="345741446%2FFunctions%2F-383291588" anchor-label="projectRect" id="345741446%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="project-rect.html"><span>project</span><wbr><span><span>Rect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="345741446%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="project-rect.html"><span class="token function">projectRect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">r<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-quad/index.html">Quad</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Projects all corners of a #graphene_rect_t using the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="753440926%2FFunctions%2F-383291588" anchor-label="projectRectBounds" id="753440926%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="project-rect-bounds.html"><span>project</span><wbr><span>Rect</span><wbr><span><span>Bounds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="753440926%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="project-rect-bounds.html"><span class="token function">projectRectBounds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">r<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-rect/index.html">Rect</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Projects a #graphene_rect_t using the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-803144220%2FFunctions%2F-383291588" anchor-label="rotate" id="-803144220%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate.html"><span><span>rotate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-803144220%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate.html"><span class="token function">rotate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">axis<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a rotation transformation to @m, using the given @angle and @axis vector.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="170969291%2FFunctions%2F-383291588" anchor-label="rotateEuler" id="170969291%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate-euler.html"><span>rotate</span><wbr><span><span>Euler</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="170969291%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate-euler.html"><span class="token function">rotateEuler</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">e<span class="token operator">: </span><a href="../-euler/index.html">Euler</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a rotation transformation to @m, using the given #graphene_euler_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="561769081%2FFunctions%2F-383291588" anchor-label="rotateQuaternion" id="561769081%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate-quaternion.html"><span>rotate</span><wbr><span><span>Quaternion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="561769081%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate-quaternion.html"><span class="token function">rotateQuaternion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">q<span class="token operator">: </span><a href="../-quaternion/index.html">Quaternion</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a rotation transformation to @m, using the given #graphene_quaternion_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="22288591%2FFunctions%2F-383291588" anchor-label="rotateX" id="22288591%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate-x.html"><span>rotate</span><wbr><span><span>X</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="22288591%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate-x.html"><span class="token function">rotateX</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a rotation transformation around the X axis to @m, using the given @angle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1803788526%2FFunctions%2F-383291588" anchor-label="rotateY" id="1803788526%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate-y.html"><span>rotate</span><wbr><span><span>Y</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1803788526%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate-y.html"><span class="token function">rotateY</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a rotation transformation around the Y axis to @m, using the given @angle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-709678835%2FFunctions%2F-383291588" anchor-label="rotateZ" id="-709678835%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotate-z.html"><span>rotate</span><wbr><span><span>Z</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-709678835%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="rotate-z.html"><span class="token function">rotateZ</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">angle<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a rotation transformation around the Z axis to @m, using the given @angle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="895662978%2FFunctions%2F-383291588" anchor-label="scale" id="895662978%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale.html"><span><span>scale</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="895662978%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale.html"><span class="token function">scale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factorX<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">factorY<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">factorZ<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a scaling transformation to @m, using the three given factors.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="176991445%2FFunctions%2F-383291588" anchor-label="skewXy" id="176991445%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="skew-xy.html"><span>skew</span><wbr><span><span>Xy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="176991445%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="skew-xy.html"><span class="token function">skewXy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a skew of @factor on the X and Y axis to the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1958491380%2FFunctions%2F-383291588" anchor-label="skewXz" id="1958491380%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="skew-xz.html"><span>skew</span><wbr><span><span>Xz</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1958491380%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="skew-xz.html"><span class="token function">skewXz</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a skew of @factor on the X and Z axis to the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1350414517%2FFunctions%2F-383291588" anchor-label="skewYz" id="1350414517%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="skew-yz.html"><span>skew</span><wbr><span><span>Yz</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1350414517%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="skew-yz.html"><span class="token function">skewYz</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a skew of @factor on the Y and Z axis to the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="140754413%2FFunctions%2F-383291588" anchor-label="transformBounds" id="140754413%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-bounds.html"><span>transform</span><wbr><span><span>Bounds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="140754413%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-bounds.html"><span class="token function">transformBounds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">r<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-rect/index.html">Rect</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms each corner of a #graphene_rect_t using the given matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1767833867%2FFunctions%2F-383291588" anchor-label="transformBox" id="-1767833867%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-box.html"><span>transform</span><wbr><span><span>Box</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1767833867%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-box.html"><span class="token function">transformBox</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="../-box/index.html">Box</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-box/index.html">Box</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms the vertices of a #graphene_box_t using the given matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="660924784%2FFunctions%2F-383291588" anchor-label="transformPoint" id="660924784%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-point.html"><span>transform</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="660924784%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-point.html"><span class="token function">transformPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p<span class="token operator">: </span><a href="../-point/index.html">Point</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-point/index.html">Point</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms the given #graphene_point_t using the matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1305233823%2FFunctions%2F-383291588" anchor-label="transformPoint3d" id="1305233823%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-point3d.html"><span>transform</span><wbr><span><span>Point3d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1305233823%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-point3d.html"><span class="token function">transformPoint3d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms the given #graphene_point3d_t using the matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1946625494%2FFunctions%2F-383291588" anchor-label="transformRay" id="1946625494%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-ray.html"><span>transform</span><wbr><span><span>Ray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1946625494%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-ray.html"><span class="token function">transformRay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">r<span class="token operator">: </span><a href="../-ray/index.html">Ray</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-ray/index.html">Ray</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transform a #graphene_ray_t using the given matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1074772761%2FFunctions%2F-383291588" anchor-label="transformRect" id="1074772761%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-rect.html"><span>transform</span><wbr><span><span>Rect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1074772761%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-rect.html"><span class="token function">transformRect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">r<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-quad/index.html">Quad</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms each corner of a #graphene_rect_t using the given matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1952097317%2FFunctions%2F-383291588" anchor-label="transformSphere" id="1952097317%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-sphere.html"><span>transform</span><wbr><span><span>Sphere</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952097317%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-sphere.html"><span class="token function">transformSphere</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">s<span class="token operator">: </span><a href="../-sphere/index.html">Sphere</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-sphere/index.html">Sphere</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms a #graphene_sphere_t using the given matrix @m. The result is the bounding sphere containing the transformed sphere.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1999562761%2FFunctions%2F-383291588" anchor-label="transformVec3" id="-1999562761%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-vec3.html"><span>transform</span><wbr><span><span>Vec3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1999562761%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-vec3.html"><span class="token function">transformVec3</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">v<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms the given #graphene_vec3_t using the matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1888565400%2FFunctions%2F-383291588" anchor-label="transformVec4" id="1888565400%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform-vec4.html"><span>transform</span><wbr><span><span>Vec4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1888565400%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform-vec4.html"><span class="token function">transformVec4</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">v<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms the given #graphene_vec4_t using the matrix @m.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-516723373%2FFunctions%2F-383291588" anchor-label="translate" id="-516723373%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="translate.html"><span><span>translate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-516723373%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="translate.html"><span class="token function">translate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pos<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a translation transformation to @m using the coordinates of the given #graphene_point3d_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1448846210%2FFunctions%2F-383291588" anchor-label="transpose" id="1448846210%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transpose.html"><span><span>transpose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1448846210%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transpose.html"><span class="token function">transpose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Matrix</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transposes the given matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="669897056%2FFunctions%2F-383291588" anchor-label="unprojectPoint3d" id="669897056%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unproject-point3d.html"><span>unproject</span><wbr><span><span>Point3d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="669897056%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unproject-point3d.html"><span class="token function">unprojectPoint3d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modelview<span class="token operator">: </span><a href="index.html">Matrix</a><span class="token punctuation">, </span></span><span class="parameter ">point<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unprojects the given @point using the @projection matrix and a @modelview matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-73732720%2FFunctions%2F-383291588" anchor-label="untransformBounds" id="-73732720%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="untransform-bounds.html"><span>untransform</span><wbr><span><span>Bounds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-73732720%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="untransform-bounds.html"><span class="token function">untransformBounds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">r<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">bounds<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-rect/index.html">Rect</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Undoes the transformation on the corners of a #graphene_rect_t using the given matrix, within the given axis aligned rectangular @bounds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-728773201%2FFunctions%2F-383291588" anchor-label="untransformPoint" id="-728773201%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="untransform-point.html"><span>untransform</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-728773201%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="untransform-point.html"><span class="token function">untransformPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p<span class="token operator">: </span><a href="../-point/index.html">Point</a><span class="token punctuation">, </span></span><span class="parameter ">bounds<span class="token operator">: </span><a href="../-rect/index.html">Rect</a><span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="../-point/index.html">Point</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Undoes the transformation of a #graphene_point_t using the given matrix, within the given axis aligned rectangular @bounds.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

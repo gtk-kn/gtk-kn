@@ -1,0 +1,570 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>WebContext</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:webkit/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:webkit/nativeMain" data-filter=":bindings:extra:webkit/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="webkit::org.gtkkn.bindings.webkit/WebContext///PointingToDeclaration//-1693314907">
+  <div class="breadcrumbs"><a href="../../index.html">webkit</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.webkit</a><span class="delimiter">/</span><span class="current">WebContext</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Web</span><wbr><span><span>Context</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">WebContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>webkitWebContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Manages aspects common to all #WebKitWebView<!-- -->s</p><p class="paragraph">The #WebKitWebContext manages all aspects common to all #WebKitWebView<!-- -->s.</p><p class="paragraph">You can define the #WebKitCacheModel with webkit_web_context_set_cache_model(), depending on the needs of your application. You can access the #WebKitSecurityManager to specify the behaviour of your application regarding security using webkit_web_context_get_security_manager().</p><p class="paragraph">It is also possible to change your preferred language or enable spell checking, using webkit_web_context_set_preferred_languages(), webkit_web_context_set_spell_checking_languages() and webkit_web_context_set_spell_checking_enabled().</p><p class="paragraph">You can use webkit_web_context_register_uri_scheme() to register custom URI schemes, and manage several other settings.</p><p class="paragraph">TLS certificate validation failure is now treated as a transport error by default. To handle TLS failures differently, you can connect to #WebKitWebView::load-failed-with-tls-errors. Alternatively, you can use webkit_web_context_set_tls_errors_policy() to set the policy %WEBKIT_TLS_ERRORS_POLICY_IGNORE; however, this is not appropriate for Internet applications.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">memory-pressure-settings</code>: Property has no getter nor setter</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="997259704%2FConstructors%2F-1693314907" anchor-label="WebContext" id="997259704%2FConstructors%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-web-context.html"><span>Web</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="997259704%2FConstructors%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #WebKitWebContext.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">webkitWebContextPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-433540460%2FClasslikes%2F-1693314907" anchor-label="Companion" id="-433540460%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-433540460%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-971837240%2FProperties%2F-1693314907" anchor-label="timeZoneOverride" id="-971837240%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="time-zone-override.html"><span>time</span><wbr><span>Zone</span><wbr><span><span>Override</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-971837240%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="time-zone-override.html">timeZoneOverride</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The timezone override for this web context. Setting this property provides a better alternative to configure the timezone information for all webviews managed by the WebContext. The other, less optimal, approach is to globally set the TZ environment variable in the process before creating the context. However this approach might not be very convenient and can have side-effects in your application.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1426818605%2FProperties%2F-1693314907" anchor-label="webkitWebContextPointer" id="1426818605%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="webkit-web-context-pointer.html"><span>webkit</span><wbr><span>Web</span><wbr><span>Context</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1426818605%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="webkit-web-context-pointer.html">webkitWebContextPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="837422695%2FFunctions%2F-1693314907" anchor-label="addPathToSandbox" id="837422695%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-path-to-sandbox.html"><span>add</span><wbr><span>Path</span><wbr><span>To</span><wbr><span><span>Sandbox</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="837422695%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-path-to-sandbox.html"><span class="token function">addPathToSandbox</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">readOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a path to be mounted in the sandbox.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="325608976%2FFunctions%2F-1693314907" anchor-label="emitAutomationStarted" id="325608976%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-automation-started.html"><span>emit</span><wbr><span>Automation</span><wbr><span><span>Started</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="325608976%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-automation-started.html"><span class="token function">emitAutomationStarted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">session<span class="token operator">: </span><a href="../-automation-session/index.html">AutomationSession</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "automation-started" signal. See <a href="on-automation-started.html">onAutomationStarted</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1809591625%2FFunctions%2F-1693314907" anchor-label="emitInitializeNotificationPermissions" id="-1809591625%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-initialize-notification-permissions.html"><span>emit</span><wbr><span>Initialize</span><wbr><span>Notification</span><wbr><span><span>Permissions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1809591625%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-initialize-notification-permissions.html"><span class="token function">emitInitializeNotificationPermissions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "initialize-notification-permissions" signal. See <a href="on-initialize-notification-permissions.html">onInitializeNotificationPermissions</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-138651365%2FFunctions%2F-1693314907" anchor-label="emitInitializeWebProcessExtensions" id="-138651365%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="emit-initialize-web-process-extensions.html"><span>emit</span><wbr><span>Initialize</span><wbr><span>Web</span><wbr><span>Process</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-138651365%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="emit-initialize-web-process-extensions.html"><span class="token function">emitInitializeWebProcessExtensions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Emits the "initialize-web-process-extensions" signal. See <a href="on-initialize-web-process-extensions.html">onInitializeWebProcessExtensions</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="852689712%2FFunctions%2F-1693314907" anchor-label="getCacheModel" id="852689712%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cache-model.html"><span>get</span><wbr><span>Cache</span><wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="852689712%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-cache-model.html"><span class="token function">getCacheModel</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-cache-model/index.html">CacheModel</a></div><div class="brief "><p class="paragraph">Returns the current cache model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1547739344%2FFunctions%2F-1693314907" anchor-label="getGeolocationManager" id="-1547739344%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-geolocation-manager.html"><span>get</span><wbr><span>Geolocation</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1547739344%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-geolocation-manager.html"><span class="token function">getGeolocationManager</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-geolocation-manager/index.html">GeolocationManager</a></div><div class="brief "><p class="paragraph">Get the #WebKitGeolocationManager of @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1885635445%2FFunctions%2F-1693314907" anchor-label="getNetworkSessionForAutomation" id="-1885635445%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-network-session-for-automation.html"><span>get</span><wbr><span>Network</span><wbr><span>Session</span><wbr><span>For</span><wbr><span><span>Automation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1885635445%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-network-session-for-automation.html"><span class="token function">getNetworkSessionForAutomation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-network-session/index.html">NetworkSession</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the #WebKitNetworkSession used for automation sessions started in @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1311832586%2FFunctions%2F-1693314907" anchor-label="getSecurityManager" id="-1311832586%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-security-manager.html"><span>get</span><wbr><span>Security</span><wbr><span><span>Manager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1311832586%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-security-manager.html"><span class="token function">getSecurityManager</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-security-manager/index.html">SecurityManager</a></div><div class="brief "><p class="paragraph">Get the #WebKitSecurityManager of @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1316497224%2FFunctions%2F-1693314907" anchor-label="getSpellCheckingEnabled" id="-1316497224%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-spell-checking-enabled.html"><span>get</span><wbr><span>Spell</span><wbr><span>Checking</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1316497224%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-spell-checking-enabled.html"><span class="token function">getSpellCheckingEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether spell checking feature is currently enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-971440610%2FFunctions%2F-1693314907" anchor-label="getSpellCheckingLanguages" id="-971440610%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-spell-checking-languages.html"><span>get</span><wbr><span>Spell</span><wbr><span>Checking</span><wbr><span><span>Languages</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-971440610%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-spell-checking-languages.html"><span class="token function">getSpellCheckingLanguages</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Get the the list of spell checking languages.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1970859451%2FFunctions%2F-1693314907" anchor-label="initializeNotificationPermissions" id="1970859451%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="initialize-notification-permissions.html"><span>initialize</span><wbr><span>Notification</span><wbr><span><span>Permissions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1970859451%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="initialize-notification-permissions.html"><span class="token function">initializeNotificationPermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">allowedOrigins<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">disallowedOrigins<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets initial desktop notification permissions for the @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-873780570%2FFunctions%2F-1693314907" anchor-label="isAutomationAllowed" id="-873780570%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-automation-allowed.html"><span>is</span><wbr><span>Automation</span><wbr><span><span>Allowed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-873780570%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-automation-allowed.html"><span class="token function">isAutomationAllowed</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether automation is allowed in @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-149020485%2FFunctions%2F-1693314907" anchor-label="onAutomationStarted" id="-149020485%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-automation-started.html"><span>on</span><wbr><span>Automation</span><wbr><span><span>Started</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-149020485%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-automation-started.html"><span class="token function">onAutomationStarted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>session<span class="token operator">: </span><a href="../-automation-session/index.html">AutomationSession</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a new automation request is made. Note that it will never be emitted if automation is not enabled in @context, see webkit_web_context_set_automation_allowed() for more details.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1243233365%2FFunctions%2F-1693314907" anchor-label="onInitializeNotificationPermissions" id="-1243233365%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-initialize-notification-permissions.html"><span>on</span><wbr><span>Initialize</span><wbr><span>Notification</span><wbr><span><span>Permissions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1243233365%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-initialize-notification-permissions.html"><span class="token function">onInitializeNotificationPermissions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a #WebKitWebContext needs to set initial notification permissions for a web process. It is emitted when a new web process is about to be launched, and signals the most appropriate moment to use webkit_web_context_initialize_notification_permissions(). If no notification permissions have changed since the last time this signal was emitted, then there is no need to call webkit_web_context_initialize_notification_permissions() again.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1192370825%2FFunctions%2F-1693314907" anchor-label="onInitializeWebProcessExtensions" id="-1192370825%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-initialize-web-process-extensions.html"><span>on</span><wbr><span>Initialize</span><wbr><span>Web</span><wbr><span>Process</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1192370825%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-initialize-web-process-extensions.html"><span class="token function">onInitializeWebProcessExtensions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a new web process is about to be launched. It signals the most appropriate moment to use webkit_web_context_set_web_process_extensions_initialization_user_data() and webkit_web_context_set_web_process_extensions_directory().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1127863791%2FFunctions%2F-1693314907" anchor-label="onUserMessageReceived" id="1127863791%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-user-message-received.html"><span>on</span><wbr><span>User</span><wbr><span>Message</span><wbr><span><span>Received</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1127863791%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="on-user-message-received.html"><span class="token function">onUserMessageReceived</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">connectFlags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ConnectFlags(0u)<span class="token punctuation">, </span></span><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>message<span class="token operator">: </span><a href="../-user-message/index.html">UserMessage</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">This signal is emitted when a #WebKitUserMessage is received from a web process extension. You can reply to the message using webkit_user_message_send_reply().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-534034126%2FFunctions%2F-1693314907" anchor-label="registerUriScheme" id="-534034126%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="register-uri-scheme.html"><span>register</span><wbr><span>Uri</span><wbr><span><span>Scheme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-534034126%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="register-uri-scheme.html"><span class="token function">registerUriScheme</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scheme<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><a href="../-uri-scheme-request-callback/index.html">UriSchemeRequestCallback</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Register @scheme in @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1568902537%2FFunctions%2F-1693314907" anchor-label="sendMessageToAllExtensions" id="-1568902537%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-message-to-all-extensions.html"><span>send</span><wbr><span>Message</span><wbr><span>To</span><wbr><span>All</span><wbr><span><span>Extensions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1568902537%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="send-message-to-all-extensions.html"><span class="token function">sendMessageToAllExtensions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="../-user-message/index.html">UserMessage</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Send @message to all web process extensions associated to @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-533219965%2FFunctions%2F-1693314907" anchor-label="setAutomationAllowed" id="-533219965%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-automation-allowed.html"><span>set</span><wbr><span>Automation</span><wbr><span><span>Allowed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-533219965%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-automation-allowed.html"><span class="token function">setAutomationAllowed</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">allowed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set whether automation is allowed in @context.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1510288666%2FFunctions%2F-1693314907" anchor-label="setCacheModel" id="1510288666%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-cache-model.html"><span>set</span><wbr><span>Cache</span><wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1510288666%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-cache-model.html"><span class="token function">setCacheModel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cacheModel<span class="token operator">: </span><a href="../-cache-model/index.html">CacheModel</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Specifies a usage model for WebViews.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-49475832%2FFunctions%2F-1693314907" anchor-label="setPreferredLanguages" id="-49475832%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-preferred-languages.html"><span>set</span><wbr><span>Preferred</span><wbr><span><span>Languages</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-49475832%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-preferred-languages.html"><span class="token function">setPreferredLanguages</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">languages<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the list of preferred languages.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1199266161%2FFunctions%2F-1693314907" anchor-label="setSpellCheckingEnabled" id="1199266161%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-spell-checking-enabled.html"><span>set</span><wbr><span>Spell</span><wbr><span>Checking</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1199266161%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-spell-checking-enabled.html"><span class="token function">setSpellCheckingEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Enable or disable the spell checking feature.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-128662052%2FFunctions%2F-1693314907" anchor-label="setSpellCheckingLanguages" id="-128662052%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-spell-checking-languages.html"><span>set</span><wbr><span>Spell</span><wbr><span>Checking</span><wbr><span><span>Languages</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-128662052%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-spell-checking-languages.html"><span class="token function">setSpellCheckingLanguages</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">languages<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the list of spell checking languages to be used for spell checking.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1676399603%2FFunctions%2F-1693314907" anchor-label="setWebProcessExtensionsDirectory" id="1676399603%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-web-process-extensions-directory.html"><span>set</span><wbr><span>Web</span><wbr><span>Process</span><wbr><span>Extensions</span><wbr><span><span>Directory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1676399603%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-web-process-extensions-directory.html"><span class="token function">setWebProcessExtensionsDirectory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">directory<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set the directory where WebKit will look for web process extensions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1172695966%2FFunctions%2F-1693314907" anchor-label="setWebProcessExtensionsInitializationUserData" id="-1172695966%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-web-process-extensions-initialization-user-data.html"><span>set</span><wbr><span>Web</span><wbr><span>Process</span><wbr><span>Extensions</span><wbr><span>Initialization</span><wbr><span>User</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1172695966%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-web-process-extensions-initialization-user-data.html"><span class="token function">setWebProcessExtensionsInitializationUserData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">userData<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set user data to be passed to Web Extensions on initialization.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

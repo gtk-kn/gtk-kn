@@ -1,0 +1,217 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GtkDispatcher</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":coroutines/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":coroutines/nativeMain" data-filter=":coroutines/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="coroutines::org.gtkkn.coroutines/GtkDispatcher///PointingToDeclaration//1794697722">
+  <div class="breadcrumbs"><a href="../../index.html">coroutines</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.coroutines</a><span class="delimiter">/</span><span class="current">GtkDispatcher</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Gtk</span><wbr><span><span>Dispatcher</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">GtkDispatcher</a></div><p class="paragraph">Provides a dispatcher for GTK's main loop.</p><p class="paragraph">Work dispatched via this dispatcher is guaranteed to be executed on GTK's main/UI thread.</p><p class="paragraph"><strong>Note:</strong> To use <code class="lang-kotlin">Dispatchers.Main</code> with GTK, you need to inject <code class="lang-kotlin">GtkDispatcher</code> as the main dispatcher. This can be done using internal APIs:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")<br>Dispatchers.setMain(GtkDispatcher)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A feature request for a stable API to set the main dispatcher is being tracked here: <a href="https://github.com/Kotlin/kotlinx.coroutines/issues/4286">Kotlin Coroutines Issue #4286</a>.</p><h2 class="">Bootstrapping Example</h2><p class="paragraph">When starting a GTK application, you need to initialize the GTK environment on a dedicated thread and set up the main dispatcher. Here's a simplified example:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">fun main() = runBlocking {<br>    // Bootstrap GTK on a dedicated thread<br>    val gtkMainThread = newSingleThreadContext("GTK-Main")<br><br>    // Inject GtkDispatcher as the Main dispatcher<br>    @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")<br>    Dispatchers.setMain(GtkDispatcher)<br><br>    // Start the GTK application<br>    withContext(gtkMainThread) {<br>        // Initialize GTK application and start the main loop<br>        val application = Application("com.example.myapp", ApplicationFlags.DEFAULT_FLAGS)<br>        application.onActivate {<br>            // Launch coroutines on the GTK main dispatcher<br>            CoroutineScope(Dispatchers.Main).launch {<br>                // Your UI code here<br>            }<br>        }<br>        application.onShutdown {<br>            GtkDispatcher.cancel()<br>            gtkMainThread.cancel()<br>    }<br>        application.run()<br>    }<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">In this example:</p><ul><li><p class="paragraph">We create a dedicated thread (<code class="lang-kotlin">gtkMainThread</code>) for bootstrapping GTK.</p></li><li><p class="paragraph">Inject <code class="lang-kotlin">GtkDispatcher</code> as <code class="lang-kotlin">Dispatchers.Main</code> to ensure coroutines use the GTK main loop.</p></li><li><p class="paragraph">Use <code class="lang-kotlin">withContext(gtkMainThread)</code> to initialize GTK on the dedicated thread.</p></li><li><p class="paragraph">Launch coroutines using <code class="lang-kotlin">Dispatchers.Main</code> for UI interactions.</p></li></ul><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><span>Dispatchers.</span><wbr><span>Main</span></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="2035587635%2FProperties%2F1794697722" anchor-label="immediate" id="2035587635%2FProperties%2F1794697722" data-filterable-set=":coroutines/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="immediate.html"><span><span>immediate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2035587635%2FProperties%2F1794697722"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="immediate.html">immediate</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1193581865%2FFunctions%2F1794697722" anchor-label="dispatch" id="1193581865%2FFunctions%2F1794697722" data-filterable-set=":coroutines/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dispatch.html"><span><span>dispatch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1193581865%2FFunctions%2F1794697722"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="dispatch.html"><span class="token function">dispatch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-904439687%2FFunctions%2F1794697722" anchor-label="invokeOnTimeout" id="-904439687%2FFunctions%2F1794697722" data-filterable-set=":coroutines/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="invoke-on-timeout.html"><span>invoke</span><wbr><span>On</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-904439687%2FFunctions%2F1794697722"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="invoke-on-timeout.html"><span class="token function">invokeOnTimeout</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">context<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-5969000%2FFunctions%2F1794697722" anchor-label="isDispatchNeeded" id="-5969000%2FFunctions%2F1794697722" data-filterable-set=":coroutines/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-dispatch-needed.html"><span>is</span><wbr><span>Dispatch</span><wbr><span><span>Needed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-5969000%2FFunctions%2F1794697722"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="is-dispatch-needed.html"><span class="token function">isDispatchNeeded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1081836473%2FFunctions%2F1794697722" anchor-label="scheduleResumeAfterDelay" id="-1081836473%2FFunctions%2F1794697722" data-filterable-set=":coroutines/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="schedule-resume-after-delay.html"><span>schedule</span><wbr><span>Resume</span><wbr><span>After</span><wbr><span><span>Delay</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1081836473%2FFunctions%2F1794697722"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="schedule-resume-after-delay.html"><span class="token function">scheduleResumeAfterDelay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">continuation<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1741361386%2FFunctions%2F1794697722" anchor-label="toString" id="1741361386%2FFunctions%2F1794697722" data-filterable-set=":coroutines/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":coroutines/nativeMain" data-filterable-set=":coroutines/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1741361386%2FFunctions%2F1794697722"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":coroutines/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

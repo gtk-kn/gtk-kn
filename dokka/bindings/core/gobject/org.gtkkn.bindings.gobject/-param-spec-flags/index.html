@@ -1,0 +1,401 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ParamSpecFlags</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gobject/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gobject/nativeMain" data-filter=":bindings:core:gobject/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gobject::org.gtkkn.bindings.gobject/ParamSpecFlags///PointingToDeclaration//-793642492">
+  <div class="breadcrumbs"><a href="../../index.html">gobject</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gobject</a><span class="delimiter">/</span><span class="current">ParamSpecFlags</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Param</span><wbr><span>Spec</span><wbr><span><span>Flags</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">ParamSpecFlags</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gobjectParamSpecFlagsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-param-spec/index.html">ParamSpec</a></div><p class="paragraph">A #GParamSpec derived structure that contains the meta data for flags properties.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1838318524%2FConstructors%2F-793642492" anchor-label="ParamSpecFlags" id="-1838318524%2FConstructors%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-param-spec-flags.html"><span>Param</span><wbr><span>Spec</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1838318524%2FConstructors%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gobjectParamSpecFlagsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="831134599%2FProperties%2F-793642492" anchor-label="gobjectParamSpecFlagsPointer" id="831134599%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gobject-param-spec-flags-pointer.html"><span>gobject</span><wbr><span>Param</span><wbr><span>Spec</span><wbr><span>Flags</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="831134599%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gobject-param-spec-flags-pointer.html">gobjectParamSpecFlagsPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="257251451%2FProperties%2F-793642492" anchor-label="gobjectParamSpecPointer" id="257251451%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/gobject-param-spec-pointer.html"><span>gobject</span><wbr><span>Param</span><wbr><span>Spec</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="257251451%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-param-spec/gobject-param-spec-pointer.html">gobjectParamSpecPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-775238937%2FProperties%2F-793642492" anchor-label="gobjectTypeInstancePointer" id="-775238937%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-type-instance/gobject-type-instance-pointer.html"><span>gobject</span><wbr><span>Type</span><wbr><span>Instance</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-775238937%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-type-instance/gobject-type-instance-pointer.html">gobjectTypeInstancePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1807500481%2FFunctions%2F-793642492" anchor-label="getBlurb" id="-1807500481%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-blurb.html"><span>get</span><wbr><span><span>Blurb</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1807500481%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-blurb.html"><span class="token function">getBlurb</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the short description of a #GParamSpec.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1747697520%2FFunctions%2F-793642492" anchor-label="getDefaultValue" id="1747697520%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-default-value.html"><span>get</span><wbr><span>Default</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1747697520%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-default-value.html"><span class="token function">getDefaultValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-value/index.html">Value</a></div><div class="brief "><p class="paragraph">Gets the default value of @pspec as a pointer to a #GValue.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1130217461%2FFunctions%2F-793642492" anchor-label="getName" id="1130217461%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-name.html"><span>get</span><wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1130217461%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-name.html"><span class="token function">getName</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the name of a #GParamSpec.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1318790575%2FFunctions%2F-793642492" anchor-label="getNameQuark" id="1318790575%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-name-quark.html"><span>get</span><wbr><span>Name</span><wbr><span><span>Quark</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1318790575%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-name-quark.html"><span class="token function">getNameQuark</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the GQuark for the name.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1747761635%2FFunctions%2F-793642492" anchor-label="getNick" id="-1747761635%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-nick.html"><span>get</span><wbr><span><span>Nick</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1747761635%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-nick.html"><span class="token function">getNick</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Get the nickname of a #GParamSpec.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1838792995%2FFunctions%2F-793642492" anchor-label="getPrivate" id="1838792995%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-type-instance/get-private.html"><span>get</span><wbr><span><span>Private</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1838792995%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../-type-instance/get-private.html"><span class="token function">getPrivate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">privateType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-780459333%2FFunctions%2F-793642492" anchor-label="getQdata" id="-780459333%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-qdata.html"><span>get</span><wbr><span><span>Qdata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-780459333%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-qdata.html"><span class="token function">getQdata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">quark<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets back user data pointers stored via g_param_spec_set_qdata().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="404799603%2FFunctions%2F-793642492" anchor-label="getRedirectTarget" id="404799603%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/get-redirect-target.html"><span>get</span><wbr><span>Redirect</span><wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="404799603%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/get-redirect-target.html"><span class="token function">getRedirectTarget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-param-spec/index.html">ParamSpec</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">If the paramspec redirects operations to another paramspec, returns that paramspec. Redirect is used typically for providing a new implementation of a property in a derived type while preserving all the properties from the parent type. Redirection is established by creating a property of type #GParamSpecOverride. See g_object_class_override_property() for an example of the use of this capability.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="560850723%2FFunctions%2F-793642492" anchor-label="ref" id="560850723%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="560850723%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-param-spec/index.html">ParamSpec</a></div><div class="brief "><p class="paragraph">Increments the reference count of @pspec.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1384132400%2FFunctions%2F-793642492" anchor-label="refSink" id="-1384132400%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/ref-sink.html"><span>ref</span><wbr><span><span>Sink</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1384132400%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/ref-sink.html"><span class="token function">refSink</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-param-spec/index.html">ParamSpec</a></div><div class="brief "><p class="paragraph">Convenience function to ref and sink a #GParamSpec.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="765142873%2FFunctions%2F-793642492" anchor-label="setQdata" id="765142873%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/set-qdata.html"><span>set</span><wbr><span><span>Qdata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="765142873%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/set-qdata.html"><span class="token function">setQdata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">quark<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">data<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets an opaque, named pointer on a #GParamSpec. The name is specified through a #GQuark (retrieved e.g. via g_quark_from_static_string()), and the pointer can be gotten back from the @pspec with g_param_spec_get_qdata().  Setting a previously set user data pointer, overrides (frees) the old pointer set, using null as pointer essentially removes the data stored.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="301732625%2FFunctions%2F-793642492" anchor-label="sink" id="301732625%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/sink.html"><span><span>sink</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="301732625%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/sink.html"><span class="token function">sink</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The initial reference count of a newly created #GParamSpec is 1, even though no one has explicitly called g_param_spec_ref() on it yet. So the initial reference count is flagged as "floating", until someone calls <code class="lang-kotlin">g_param_spec_ref (pspec); g_param_spec_sink (pspec);</code> in sequence on it, taking over the initial reference count (thus ending up with a @pspec that has a reference count of 1 still, but is not flagged "floating" anymore).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1823808034%2FFunctions%2F-793642492" anchor-label="stealQdata" id="1823808034%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/steal-qdata.html"><span>steal</span><wbr><span><span>Qdata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1823808034%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/steal-qdata.html"><span class="token function">stealQdata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">quark<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Gets back user data pointers stored via g_param_spec_set_qdata() and removes the @data from @pspec without invoking its destroy() function (if any was set).  Usually, calling this function is only required to update user data pointers with a destroy notifier.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1373715460%2FFunctions%2F-793642492" anchor-label="unref" id="-1373715460%2FFunctions%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-param-spec/unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1373715460%2FFunctions%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-param-spec/unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decrements the reference count of a @pspec.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

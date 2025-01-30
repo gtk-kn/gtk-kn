@@ -1,0 +1,270 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SpaceDrawer</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:gtksource/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:gtksource/nativeMain" data-filter=":bindings:extra:gtksource/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gtksource::org.gtkkn.bindings.gtksource/SpaceDrawer///PointingToDeclaration//-1723413374">
+  <div class="breadcrumbs"><a href="../../index.html">gtksource</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtksource</a><span class="delimiter">/</span><span class="current">SpaceDrawer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Space</span><wbr><span><span>Drawer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SpaceDrawer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtksourceSpaceDrawerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Represent white space characters with symbols.</p><p class="paragraph">#GtkSourceSpaceDrawer provides a way to visualize white spaces, by drawing symbols.</p><p class="paragraph">Call method@View.get_space_drawer to get the <code class="lang-kotlin">GtkSourceSpaceDrawer</code> instance of a certain class@View.</p><p class="paragraph">By default, no white spaces are drawn because the property@SpaceDrawer:enable-matrix is false.</p><p class="paragraph">To draw white spaces, method@SpaceDrawer.set_types_for_locations can be called to set the property@SpaceDrawer:matrix property (by default all space types are enabled at all locations). Then call method@SpaceDrawer.set_enable_matrix.</p><p class="paragraph">For a finer-grained method, there is also the class@Tag's property@Tag:draw-spaces property.</p><h1 class="">Example</h1><p class="paragraph">To draw non-breaking spaces everywhere and draw all types of trailing spaces except newlines:</p><div class="sample-container"><pre><code class="block lang-c" theme="idea">gtk_source_space_drawer_set_types_for_locations (space_drawer,<br>                                                 GTK_SOURCE_SPACE_LOCATION_ALL,<br>                                                 GTK_SOURCE_SPACE_TYPE_NBSP);<br><br>gtk_source_space_drawer_set_types_for_locations (space_drawer,<br>                                                 GTK_SOURCE_SPACE_LOCATION_TRAILING,<br>                                                 GTK_SOURCE_SPACE_TYPE_ALL &amp;<br>                                                 ~GTK_SOURCE_SPACE_TYPE_NEWLINE);<br><br>gtk_source_space_drawer_set_enable_matrix (space_drawer, TRUE);</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h1 class="">Use-case: draw unwanted white spaces</h1><p class="paragraph">A possible use-case is to draw only unwanted white spaces. Examples:</p><ul><li><p class="paragraph">Draw all trailing spaces.</p></li><li><p class="paragraph">If the indentation and alignment must be done with spaces, draw tabs.</p></li></ul><p class="paragraph">And non-breaking spaces can always be drawn, everywhere, to distinguish them from normal spaces.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">matrix</code>: Property TypeInfo of getter and setter do not match</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="788417930%2FConstructors%2F-1723413374" anchor-label="SpaceDrawer" id="788417930%2FConstructors%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-space-drawer.html"><span>Space</span><wbr><span><span>Drawer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="788417930%2FConstructors%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #GtkSourceSpaceDrawer object.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gtksourceSpaceDrawerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-790221477%2FClasslikes%2F-1723413374" anchor-label="Companion" id="-790221477%2FClasslikes%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-790221477%2FClasslikes%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1090368158%2FProperties%2F-1723413374" anchor-label="enableMatrix" id="-1090368158%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-matrix.html"><span>enable</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1090368158%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">var </span><a href="enable-matrix.html">enableMatrix</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the property@SpaceDrawer:matrix property is enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="257763829%2FProperties%2F-1723413374" anchor-label="gtksourceSpaceDrawerPointer" id="257763829%2FProperties%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gtksource-space-drawer-pointer.html"><span>gtksource</span><wbr><span>Space</span><wbr><span>Drawer</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="257763829%2FProperties%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gtksource-space-drawer-pointer.html">gtksourceSpaceDrawerPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-694161478%2FFunctions%2F-1723413374" anchor-label="bindMatrixSetting" id="-694161478%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="bind-matrix-setting.html"><span>bind</span><wbr><span>Matrix</span><wbr><span><span>Setting</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-694161478%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="bind-matrix-setting.html"><span class="token function">bindMatrixSetting</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">settings<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Binds the property@SpaceDrawer:matrix property to a class@Gio.Settings key.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="486821181%2FFunctions%2F-1723413374" anchor-label="getMatrix" id="486821181%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-matrix.html"><span>get</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="486821181%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-matrix.html"><span class="token function">getMatrix</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the value of the property@SpaceDrawer:matrix property, as a struct@GLib.Variant.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1222421546%2FFunctions%2F-1723413374" anchor-label="getTypesForLocations" id="1222421546%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-types-for-locations.html"><span>get</span><wbr><span>Types</span><wbr><span>For</span><wbr><span><span>Locations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1222421546%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-types-for-locations.html"><span class="token function">getTypesForLocations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">locations<span class="token operator">: </span><a href="../-space-location-flags/index.html">SpaceLocationFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-space-type-flags/index.html">SpaceTypeFlags</a></div><div class="brief "><p class="paragraph">If only one location is specified, this function returns what kind of white spaces are drawn at that location.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-129619061%2FFunctions%2F-1723413374" anchor-label="setMatrix" id="-129619061%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-matrix.html"><span>set</span><wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-129619061%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-matrix.html"><span class="token function">setMatrix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a new value to the property@SpaceDrawer:matrix property, as a struct@GLib.Variant.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1928175420%2FFunctions%2F-1723413374" anchor-label="setTypesForLocations" id="1928175420%2FFunctions%2F-1723413374" data-filterable-set=":bindings:extra:gtksource/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:gtksource/nativeMain" data-filterable-set=":bindings:extra:gtksource/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-types-for-locations.html"><span>set</span><wbr><span>Types</span><wbr><span>For</span><wbr><span><span>Locations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1928175420%2FFunctions%2F-1723413374"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:gtksource/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="set-types-for-locations.html"><span class="token function">setTypesForLocations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">locations<span class="token operator">: </span><a href="../-space-location-flags/index.html">SpaceLocationFlags</a><span class="token punctuation">, </span></span><span class="parameter ">types<span class="token operator">: </span><a href="../-space-type-flags/index.html">SpaceTypeFlags</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Modifies the property@SpaceDrawer:matrix property at the specified</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ContentFormats</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:gtk:gdk4/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:gtk:gdk4/nativeMain" data-filter=":bindings:gtk:gdk4/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gdk4::org.gtkkn.bindings.gdk/ContentFormats///PointingToDeclaration//-299861221">
+  <div class="breadcrumbs"><a href="../../index.html">gdk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gdk</a><span class="delimiter">/</span><span class="current">ContentFormats</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Content</span><wbr><span><span>Formats</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ContentFormats</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkContentFormatsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">The <code class="lang-kotlin">GdkContentFormats</code> structure is used to advertise and negotiate the format of content.</p><p class="paragraph">You will encounter <code class="lang-kotlin">GdkContentFormats</code> when interacting with objects controlling operations that pass data between different widgets, window or application, like class@Gdk.Drag, class@Gdk.Drop, class@Gdk.Clipboard or class@Gdk.ContentProvider.</p><p class="paragraph">GDK supports content in 2 forms: <code class="lang-kotlin">GType</code> and mime type. Using <code class="lang-kotlin">GTypes</code> is meant only for in-process content transfers. Mime types are meant to be used for data passing both in-process and out-of-process. The details of how data is passed is described in the documentation of the actual implementations. To transform between the two forms, class@Gdk.ContentSerializer and class@Gdk.ContentDeserializer are used.</p><p class="paragraph">A <code class="lang-kotlin">GdkContentFormats</code> describes a set of possible formats content can be exchanged in. It is assumed that this set is ordered. <code class="lang-kotlin">GTypes</code> are more important than mime types. Order between different <code class="lang-kotlin">GTypes</code> or mime types is the order they were added in, most important first. Functions that care about order, such as method@Gdk.ContentFormats.union, will describe in their documentation how they interpret that order, though in general the order of the first argument is considered the primary order of the result, followed by the order of further arguments.</p><p class="paragraph">For debugging purposes, the function method@Gdk.ContentFormats.to_string exists. It will print a comma-separated list of formats from most important to least important.</p><p class="paragraph"><code class="lang-kotlin">GdkContentFormats</code> is an immutable struct. After creation, you cannot change the types it represents. Instead, new <code class="lang-kotlin">GdkContentFormats</code> have to be created. The struct@Gdk.ContentFormatsBuilder structure is meant to help in this endeavor.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">n_gtypes</code>: n_gtypes: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">n_mime_types</code>: n_mime_types: Out parameter is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1553575204%2FConstructors%2F-299861221" anchor-label="ContentFormats" id="-1553575204%2FConstructors%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-content-formats.html"><span>Content</span><wbr><span><span>Formats</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1553575204%2FConstructors%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gdkContentFormatsPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-2522330%2FClasslikes%2F-299861221" anchor-label="Companion" id="-2522330%2FClasslikes%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2522330%2FClasslikes%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="975237455%2FProperties%2F-299861221" anchor-label="gdkContentFormatsPointer" id="975237455%2FProperties%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gdk-content-formats-pointer.html"><span>gdk</span><wbr><span>Content</span><wbr><span>Formats</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="975237455%2FProperties%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gdk-content-formats-pointer.html">gdkContentFormatsPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1824244375%2FFunctions%2F-299861221" anchor-label="containGtype" id="1824244375%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="contain-gtype.html"><span>contain</span><wbr><span><span>Gtype</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824244375%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="contain-gtype.html"><span class="token function">containGtype</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if a given <code class="lang-kotlin">GType</code> is part of the given @formats.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-417774585%2FFunctions%2F-299861221" anchor-label="containMimeType" id="-417774585%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="contain-mime-type.html"><span>contain</span><wbr><span>Mime</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417774585%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="contain-mime-type.html"><span class="token function">containMimeType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mimeType<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if a given mime type is part of the given @formats.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="151385756%2FFunctions%2F-299861221" anchor-label="match" id="151385756%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="match.html"><span><span>match</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="151385756%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="match.html"><span class="token function">match</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">second<span class="token operator">: </span><a href="index.html">ContentFormats</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if @first and @second have any matching formats.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-764276105%2FFunctions%2F-299861221" anchor-label="matchGtype" id="-764276105%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="match-gtype.html"><span>match</span><wbr><span><span>Gtype</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-764276105%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="match-gtype.html"><span class="token function">matchGtype</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">second<span class="token operator">: </span><a href="index.html">ContentFormats</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Finds the first <code class="lang-kotlin">GType</code> from @first that is also contained in @second.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-826763062%2FFunctions%2F-299861221" anchor-label="matchMimeType" id="-826763062%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="match-mime-type.html"><span>match</span><wbr><span>Mime</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-826763062%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="match-mime-type.html"><span class="token function">matchMimeType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">second<span class="token operator">: </span><a href="index.html">ContentFormats</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Finds the first mime type from @first that is also contained in @second.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="152062725%2FFunctions%2F-299861221" anchor-label="print" id="152062725%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print.html"><span><span>print</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="152062725%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="print.html"><span class="token function">print</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">string<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Prints the given @formats into a string for human consumption.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1578469844%2FFunctions%2F-299861221" anchor-label="ref" id="-1578469844%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1578469844%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">Increases the reference count of a <code class="lang-kotlin">GdkContentFormats</code> by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="222316655%2FFunctions%2F-299861221" anchor-label="toString" id="222316655%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="222316655%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Prints the given @formats into a human-readable string.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1775575514%2FFunctions%2F-299861221" anchor-label="union" id="-1775575514%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="union.html"><span><span>union</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1775575514%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="union.html"><span class="token function">union</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">second<span class="token operator">: </span><a href="index.html">ContentFormats</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">Append all missing types from @second to @first, in the order they had in @second.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="236703065%2FFunctions%2F-299861221" anchor-label="unionDeserializeGtypes" id="236703065%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="union-deserialize-gtypes.html"><span>union</span><wbr><span>Deserialize</span><wbr><span><span>Gtypes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="236703065%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="union-deserialize-gtypes.html"><span class="token function">unionDeserializeGtypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">Add GTypes for mime types in @formats for which deserializers are registered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1448422870%2FFunctions%2F-299861221" anchor-label="unionDeserializeMimeTypes" id="-1448422870%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="union-deserialize-mime-types.html"><span>union</span><wbr><span>Deserialize</span><wbr><span>Mime</span><wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1448422870%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="union-deserialize-mime-types.html"><span class="token function">unionDeserializeMimeTypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">Add mime types for GTypes in @formats for which deserializers are registered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2130049768%2FFunctions%2F-299861221" anchor-label="unionSerializeGtypes" id="-2130049768%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="union-serialize-gtypes.html"><span>union</span><wbr><span>Serialize</span><wbr><span><span>Gtypes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2130049768%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="union-serialize-gtypes.html"><span class="token function">unionSerializeGtypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">Add GTypes for the mime types in @formats for which serializers are registered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1096027659%2FFunctions%2F-299861221" anchor-label="unionSerializeMimeTypes" id="1096027659%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="union-serialize-mime-types.html"><span>union</span><wbr><span>Serialize</span><wbr><span>Mime</span><wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1096027659%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="union-serialize-mime-types.html"><span class="token function">unionSerializeMimeTypes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContentFormats</a></div><div class="brief "><p class="paragraph">Add mime types for GTypes in @formats for which serializers are registered.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="28554437%2FFunctions%2F-299861221" anchor-label="unref" id="28554437%2FFunctions%2F-299861221" data-filterable-set=":bindings:gtk:gdk4/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:gtk:gdk4/nativeMain" data-filterable-set=":bindings:gtk:gdk4/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="28554437%2FFunctions%2F-299861221"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gdk4/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Decreases the reference count of a <code class="lang-kotlin">GdkContentFormats</code> by one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

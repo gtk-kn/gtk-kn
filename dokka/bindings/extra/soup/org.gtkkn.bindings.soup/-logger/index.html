@@ -1,0 +1,255 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Logger</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:soup/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:soup/nativeMain" data-filter=":bindings:extra:soup/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="soup::org.gtkkn.bindings.soup/Logger///PointingToDeclaration//-1891832998">
+  <div class="breadcrumbs"><a href="../../index.html">soup</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.soup</a><span class="delimiter">/</span><span class="current">Logger</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Logger</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Logger</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupLoggerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-session-feature/index.html">SessionFeature</a></div><p class="paragraph">Debug logging support</p><p class="paragraph">#SoupLogger watches a class@Session and logs the HTTP traffic that it generates, for debugging purposes. Many applications use an environment variable to determine whether or not to use #SoupLogger, and to determine the amount of debugging output.</p><p class="paragraph">To use #SoupLogger, first create a logger with ctor@Logger.new, optionally configure it with method@Logger.set_request_filter, method@Logger.set_response_filter, and method@Logger.set_printer, and then attach it to a session (or multiple sessions) with method@Session.add_feature.</p><p class="paragraph">By default, the debugging output is sent to <code class="lang-kotlin">stdout</code>, and looks something like:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">&gt; POST /unauth HTTP/1.1<br>&gt; Soup-Debug-Timestamp: 1200171744<br>&gt; Soup-Debug: SoupSession 1 (0x612190), SoupMessage 1 (0x617000), GSocket 1 (0x612220)<br>&gt; Host: localhost<br>&gt; Content-Type: text/plain<br>&gt; Connection: close<br><br>`&amp;lt;` HTTP/1.1 201 Created<br>`&amp;lt;` Soup-Debug-Timestamp: 1200171744<br>`&amp;lt;` Soup-Debug: SoupMessage 1 (0x617000)<br>`&amp;lt;` Date: Sun, 12 Jan 2008 21:02:24 GMT<br>`&amp;lt;` Content-Length: 0</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The <code class="lang-kotlin">Soup-Debug-Timestamp</code> line gives the time (as a <code class="lang-kotlin">time_t</code>) when the request was sent, or the response fully received.</p><p class="paragraph">The <code class="lang-kotlin">Soup-Debug</code> line gives further debugging information about the class@Session, class@Message, and class@Gio.Socket involved; the hex numbers are the addresses of the objects in question (which may be useful if you are running in a debugger). The decimal IDs are simply counters that uniquely identify objects across the lifetime of the #SoupLogger. In particular, this can be used to identify when multiple messages are sent across the same connection.</p><p class="paragraph">Currently, the request half of the message is logged just before the first byte of the request gets written to the network (from the signal@Message::starting signal).</p><p class="paragraph">The response is logged just after the last byte of the response body is read from the network (from the signal@Message::got-body or signal@Message::got-informational signal), which means that the signal@Message::got-headers signal, and anything triggered off it (such as #SoupMessage::authenticate) will be emitted <i>before</i> the response headers are actually logged.</p><p class="paragraph">If the response doesn't happen to trigger the signal@Message::got-body nor signal@Message::got-informational signals due to, for example, a cancellation before receiving the last byte of the response body, the response will still be logged on the event of the signal@Message::finished signal.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">level</code>: Property has no getter nor setter</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-359734788%2FConstructors%2F-1891832998" anchor-label="Logger" id="-359734788%2FConstructors%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-logger.html"><span><span>Logger</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-359734788%2FConstructors%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">level<span class="token operator">: </span><a href="../-logger-log-level/index.html">LoggerLogLevel</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new #SoupLogger with the given debug level.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">soupLoggerPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="615400852%2FClasslikes%2F-1891832998" anchor-label="Companion" id="615400852%2FClasslikes%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="615400852%2FClasslikes%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1140356122%2FProperties%2F-1891832998" anchor-label="maxBodySize" id="-1140356122%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-body-size.html"><span>max</span><wbr><span>Body</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1140356122%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">var </span><a href="max-body-size.html">maxBodySize</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">If property@Logger:level is %SOUP_LOGGER_LOG_BODY, this gives the maximum number of bytes of the body that will be logged. (-1 means "no limit".)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="789716791%2FProperties%2F-1891832998" anchor-label="soupLoggerPointer" id="789716791%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="soup-logger-pointer.html"><span>soup</span><wbr><span>Logger</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="789716791%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="soup-logger-pointer.html">soupLoggerPointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162704935%2FProperties%2F-1891832998" anchor-label="soupSessionFeaturePointer" id="162704935%2FProperties%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="soup-session-feature-pointer.html"><span>soup</span><wbr><span>Session</span><wbr><span>Feature</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162704935%2FProperties%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="soup-session-feature-pointer.html">soupSessionFeaturePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1269304702%2FFunctions%2F-1891832998" anchor-label="setPrinter" id="1269304702%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-printer.html"><span>set</span><wbr><span><span>Printer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1269304702%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-printer.html"><span class="token function">setPrinter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">printer<span class="token operator">: </span><a href="../-logger-printer/index.html">LoggerPrinter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets up an alternate log printing routine, if you don't want the log to go to <code class="lang-kotlin">stdout</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1456308082%2FFunctions%2F-1891832998" anchor-label="setRequestFilter" id="-1456308082%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-request-filter.html"><span>set</span><wbr><span>Request</span><wbr><span><span>Filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1456308082%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-request-filter.html"><span class="token function">setRequestFilter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">requestFilter<span class="token operator">: </span><a href="../-logger-filter/index.html">LoggerFilter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets up a filter to determine the log level for a given request.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-804437020%2FFunctions%2F-1891832998" anchor-label="setResponseFilter" id="-804437020%2FFunctions%2F-1891832998" data-filterable-set=":bindings:extra:soup/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:soup/nativeMain" data-filterable-set=":bindings:extra:soup/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-response-filter.html"><span>set</span><wbr><span>Response</span><wbr><span><span>Filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-804437020%2FFunctions%2F-1891832998"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-response-filter.html"><span class="token function">setResponseFilter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">responseFilter<span class="token operator">: </span><a href="../-logger-filter/index.html">LoggerFilter</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets up a filter to determine the log level for a given response.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

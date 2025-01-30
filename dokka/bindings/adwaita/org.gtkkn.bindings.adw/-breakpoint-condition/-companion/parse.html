@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>parse</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:adwaita/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:adwaita/nativeMain" data-filter=":bindings:adwaita/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="adwaita::org.gtkkn.bindings.adw/BreakpointCondition.Companion/parse/#kotlin.String/PointingToDeclaration//-902881796">
+  <div class="breadcrumbs"><a href="../../../index.html">adwaita</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><a href="../index.html">BreakpointCondition</a><span class="delimiter">/</span><a href="index.html">Companion</a><span class="delimiter">/</span><span class="current">parse</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>parse</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="parse.html"><span class="token function">parse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">str<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">BreakpointCondition</a></div><p class="paragraph">Parses a condition from a string.</p><p class="paragraph">Length conditions are specified as <code class="lang-kotlin">&lt;type&gt;: &lt;value&gt;[&lt;unit&gt;]</code>, where:</p><ul><li><p class="paragraph"><code class="lang-kotlin">&lt;type&gt;</code> can be <code class="lang-kotlin">min-width</code>, <code class="lang-kotlin">max-width</code>, <code class="lang-kotlin">min-height</code> or <code class="lang-kotlin">max-height</code></p></li><li><p class="paragraph"><code class="lang-kotlin">&lt;value&gt;</code> is a fractional number</p></li><li><p class="paragraph"><code class="lang-kotlin">&lt;unit&gt;</code> can be <code class="lang-kotlin">px</code>, <code class="lang-kotlin">pt</code> or <code class="lang-kotlin">sp</code></p></li></ul><p class="paragraph">If the unit is omitted, <code class="lang-kotlin">px</code> is assumed.</p><p class="paragraph">See ctor@BreakpointCondition.new_length.</p><p class="paragraph">Examples:</p><ul><li><p class="paragraph"><code class="lang-kotlin">min-width: 500px</code></p></li><li><p class="paragraph"><code class="lang-kotlin">min-height: 400pt</code></p></li><li><p class="paragraph"><code class="lang-kotlin">max-width: 100sp</code></p></li><li><p class="paragraph"><code class="lang-kotlin">max-height: 500</code></p></li></ul><p class="paragraph">Ratio conditions are specified as <code class="lang-kotlin">&lt;type&gt;: &lt;width&gt;[/&lt;height&gt;]</code>, where:</p><ul><li><p class="paragraph"><code class="lang-kotlin">&lt;type&gt;</code> can be <code class="lang-kotlin">min-aspect-ratio</code> or <code class="lang-kotlin">max-aspect-ratio</code></p></li><li><p class="paragraph"><code class="lang-kotlin">&lt;width&gt;</code> and <code class="lang-kotlin">&lt;height&gt;</code> are integer numbers</p></li></ul><p class="paragraph">See ctor@BreakpointCondition.new_ratio.</p><p class="paragraph">The ratio is represented as <code class="lang-kotlin">&lt;width&gt;</code> divided by <code class="lang-kotlin">&lt;height&gt;</code>.</p><p class="paragraph">If <code class="lang-kotlin">&lt;height&gt;</code> is omitted, it's assumed to be 1.</p><p class="paragraph">Examples:</p><ul><li><p class="paragraph"><code class="lang-kotlin">min-aspect-ratio: 4/3</code></p></li><li><p class="paragraph"><code class="lang-kotlin">max-aspect-ratio: 1</code></p></li></ul><p class="paragraph">The logical operators <code class="lang-kotlin">and</code>, <code class="lang-kotlin">or</code> can be used to compose a complex condition as follows:</p><ul><li><p class="paragraph"><code class="lang-kotlin">&lt;condition&gt; and &lt;condition&gt;</code>: the condition is true when both <code class="lang-kotlin">&lt;condition&gt;</code>s are true, same as when using ctor@BreakpointCondition.new_and</p></li><li><p class="paragraph"><code class="lang-kotlin">&lt;condition&gt; or &lt;condition&gt;</code>: the condition is true when either of the <code class="lang-kotlin">&lt;condition&gt;</code>s is true, same as when using ctor@BreakpointCondition.new_or</p></li></ul><p class="paragraph">Examples:</p><ul><li><p class="paragraph"><code class="lang-kotlin">min-width: 400px and max-aspect-ratio: 4/3</code></p></li><li><p class="paragraph"><code class="lang-kotlin">max-width: 360sp or max-width: 360px</code></p></li></ul><p class="paragraph">Conditions can be further nested using parentheses, for example:</p><ul><li><p class="paragraph"><code class="lang-kotlin">min-width: 400px and (max-aspect-ratio: 4/3 or max-height: 400px)</code></p></li></ul><p class="paragraph">If parentheses are omitted, the first operator takes priority.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">the parsed condition</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.4</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>str</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the string specifying the condition</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

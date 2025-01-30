@@ -1,0 +1,273 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Companion</title>
+<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gobject/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gobject/nativeMain" data-filter=":bindings:core:gobject/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gobject::org.gtkkn.bindings.gobject/SignalFlags.Companion///PointingToDeclaration//-793642492">
+  <div class="breadcrumbs"><a href="../../../index.html">gobject</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.gobject</a><span class="delimiter">/</span><a href="../index.html">SignalFlags</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Companion</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-664255586%2FProperties%2F-793642492" anchor-label="ACCUMULATOR_FIRST_RUN" id="-664255586%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-c-c-u-m-u-l-a-t-o-r_-f-i-r-s-t_-r-u-n.html"><span>ACCUMULATOR_</span><wbr><span>FIRST_</span><wbr><span>RUN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-664255586%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-c-c-u-m-u-l-a-t-o-r_-f-i-r-s-t_-r-u-n.html">ACCUMULATOR_FIRST_RUN</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Only used in #GSignalAccumulator accumulator functions for the #GSignalInvocationHint::run_type field to mark the first call to the accumulator function for a signal emission.  Since 2.68.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1313633443%2FProperties%2F-793642492" anchor-label="ACTION" id="1313633443%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-c-t-i-o-n.html"><span><span>ACTION</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1313633443%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-c-t-i-o-n.html">ACTION</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Action signals are signals that may freely be emitted on alive objects from user code via g_signal_emit() and friends, without the need of being embedded into extra code that performs pre or post emission adjustments on the object. They can also be thought of as object methods which can be called generically by third-party code.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1894089274%2FProperties%2F-793642492" anchor-label="DEPRECATED" id="-1894089274%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-p-r-e-c-a-t-e-d.html"><span><span>DEPRECATED</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1894089274%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-p-r-e-c-a-t-e-d.html">DEPRECATED</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">The signal is deprecated and will be removed in a future version. A warning will be generated if it is connected while running with G_ENABLE_DIAGNOSTIC=1.  Since 2.32.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1611638679%2FProperties%2F-793642492" anchor-label="DETAILED" id="-1611638679%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-t-a-i-l-e-d.html"><span><span>DETAILED</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1611638679%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-d-e-t-a-i-l-e-d.html">DETAILED</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">This signal supports "::detail" appendices to the signal name upon handler connections and emissions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2110424379%2FProperties%2F-793642492" anchor-label="MUST_COLLECT" id="-2110424379%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-u-s-t_-c-o-l-l-e-c-t.html"><span>MUST_</span><wbr><span>COLLECT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2110424379%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-m-u-s-t_-c-o-l-l-e-c-t.html">MUST_COLLECT</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Varargs signal emission will always collect the arguments, even if there are no signal handlers connected.  Since 2.30.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="82718663%2FProperties%2F-793642492" anchor-label="NO_HOOKS" id="82718663%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o_-h-o-o-k-s.html"><span>NO_</span><wbr><span>HOOKS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="82718663%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o_-h-o-o-k-s.html">NO_HOOKS</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">No emissions hooks are supported for this signal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-749227624%2FProperties%2F-793642492" anchor-label="NO_RECURSE" id="-749227624%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o_-r-e-c-u-r-s-e.html"><span>NO_</span><wbr><span>RECURSE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-749227624%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o_-r-e-c-u-r-s-e.html">NO_RECURSE</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Signals being emitted for an object while currently being in emission for this very object will not be emitted recursively, but instead cause the first emission to be restarted.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="115260465%2FProperties%2F-793642492" anchor-label="RUN_CLEANUP" id="115260465%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-u-n_-c-l-e-a-n-u-p.html"><span>RUN_</span><wbr><span>CLEANUP</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="115260465%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-u-n_-c-l-e-a-n-u-p.html">RUN_CLEANUP</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Invoke the object method handler in the last emission stage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="300607397%2FProperties%2F-793642492" anchor-label="RUN_FIRST" id="300607397%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-u-n_-f-i-r-s-t.html"><span>RUN_</span><wbr><span>FIRST</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="300607397%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-u-n_-f-i-r-s-t.html">RUN_FIRST</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Invoke the object method handler in the first emission stage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-25132433%2FProperties%2F-793642492" anchor-label="RUN_LAST" id="-25132433%2FProperties%2F-793642492" data-filterable-set=":bindings:core:gobject/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gobject/nativeMain" data-filterable-set=":bindings:core:gobject/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-u-n_-l-a-s-t.html"><span>RUN_</span><wbr><span>LAST</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-25132433%2FProperties%2F-793642492"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gobject/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-r-u-n_-l-a-s-t.html">RUN_LAST</a><span class="token operator">: </span><a href="../index.html">SignalFlags</a></div><div class="brief "><p class="paragraph">Invoke the object method handler in the third emission stage.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

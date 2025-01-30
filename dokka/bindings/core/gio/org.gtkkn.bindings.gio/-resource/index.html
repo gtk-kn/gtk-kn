@@ -1,0 +1,285 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Resource</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gio/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gio/nativeMain" data-filter=":bindings:core:gio/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="gio::org.gtkkn.bindings.gio/Resource///PointingToDeclaration//-726360853">
+  <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">Resource</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Resource</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Resource</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioResourcePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Applications and libraries often contain binary or textual data that is really part of the application, rather than user data. For instance <a href="https://docs.gtk.org/gtk4/class.Builder.html"><code class="lang-kotlin">GtkBuilder</code></a> <code class="lang-kotlin">.ui</code> files, splashscreen images, class@Gio.Menu markup XML, CSS files, icons, etc. These are often shipped as files in <code class="lang-kotlin">$datadir/appname</code>, or manually included as literal strings in the code.</p><p class="paragraph">The <code class="lang-kotlin">GResource</code> API and the glib-compile-resources.html program provide a convenient and efficient alternative to this which has some nice properties. You maintain the files as normal files, so it’s easy to edit them, but during the build the files are combined into a binary bundle that is linked into the executable. This means that loading the resource files are efficient (as they are already in memory, shared with other instances) and simple (no need to check for things like I/O errors or locate the files in the filesystem). It also makes it easier to create relocatable applications.</p><p class="paragraph">Resource files can also be marked as compressed. Such files will be included in the resource bundle in a compressed form, but will be automatically uncompressed when the resource is used. This is very useful e.g. for larger text files that are parsed once (or rarely) and then thrown away.</p><p class="paragraph">Resource files can also be marked to be preprocessed, by setting the value of the <code class="lang-kotlin">preprocess</code> attribute to a comma-separated list of preprocessing options. The only options currently supported are:</p><ul><li><p class="paragraph"><code class="lang-kotlin">xml-stripblanks</code> which will use the man:xmllint(1) command     to strip ignorable whitespace from the XML file. For this to work,     the <code class="lang-kotlin">XMLLINT</code> environment variable must be set to the full path to     the xmllint executable, or xmllint must be in the <code class="lang-kotlin">PATH</code>; otherwise     the preprocessing step is skipped.</p></li><li><p class="paragraph"><code class="lang-kotlin">to-pixdata</code> (deprecated since gdk-pixbuf 2.32) which will use the     <code class="lang-kotlin">gdk-pixbuf-pixdata</code> command to convert images to the <a href="https://docs.gtk.org/gdk-pixbuf/class.Pixdata.html"><code class="lang-kotlin">GdkPixdata</code></a>     format, which allows you to create pixbufs directly using the data inside     the resource file, rather than an (uncompressed) copy of it. For this, the     <code class="lang-kotlin">gdk-pixbuf-pixdata</code> program must be in the <code class="lang-kotlin">PATH</code>, or the     <code class="lang-kotlin">GDK_PIXBUF_PIXDATA</code> environment variable must be set to the full path to     the <code class="lang-kotlin">gdk-pixbuf-pixdata</code> executable; otherwise the resource compiler will     abort. <code class="lang-kotlin">to-pixdata</code> has been deprecated since gdk-pixbuf 2.32, as     <code class="lang-kotlin">GResource</code> supports embedding modern image formats just as well. Instead     of using it, embed a PNG or SVG file in your <code class="lang-kotlin">GResource</code>.</p></li><li><p class="paragraph"><code class="lang-kotlin">json-stripblanks</code> which will use the     man:json-glib-format(1) command to strip ignorable     whitespace from the JSON file. For this to work, the <code class="lang-kotlin">JSON_GLIB_FORMAT</code>     environment variable must be set to the full path to the     <code class="lang-kotlin">json-glib-format</code> executable, or it must be in the <code class="lang-kotlin">PATH</code>; otherwise the     preprocessing step is skipped. In addition, at least version 1.6 of     <code class="lang-kotlin">json-glib-format</code> is required.</p></li></ul><p class="paragraph">Resource files will be exported in the <code class="lang-kotlin">GResource</code> namespace using the combination of the given <code class="lang-kotlin">prefix</code> and the filename from the <code class="lang-kotlin">file</code> element. The <code class="lang-kotlin">alias</code> attribute can be used to alter the filename to expose them at a different location in the resource namespace. Typically, this is used to include files from a different source directory without exposing the source directory in the resource namespace, as in the example below.</p><p class="paragraph">Resource bundles are created by the glib-compile-resources.html program which takes an XML file that describes the bundle, and a set of files that the XML references. These are combined into a binary resource bundle.</p><p class="paragraph">An example resource description:</p><div class="sample-container"><pre><code class="block lang-xml" theme="idea">&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>&lt;gresources&gt;<br>  &lt;gresource prefix="/org/gtk/Example"&gt;<br>    &lt;file&gt;data/splashscreen.png&lt;/file&gt;<br>    &lt;file compressed="true"&gt;dialog.ui&lt;/file&gt;<br>    &lt;file preprocess="xml-stripblanks"&gt;menumarkup.xml&lt;/file&gt;<br>    &lt;file alias="example.css"&gt;data/example.css&lt;/file&gt;<br>  &lt;/gresource&gt;<br>&lt;/gresources&gt;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">This will create a resource bundle with the following files:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">/org/gtk/Example/data/splashscreen.png<br>/org/gtk/Example/dialog.ui<br>/org/gtk/Example/menumarkup.xml<br>/org/gtk/Example/example.css</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note that all resources in the process share the same namespace, so use Java-style path prefixes (like in the above example) to avoid conflicts.</p><p class="paragraph">You can then use glib-compile-resources.html to compile the XML to a binary bundle that you can load with func@Gio.Resource.load. However, it’s more common to use the <code class="lang-kotlin">--generate-source</code> and <code class="lang-kotlin">--generate-header</code> arguments to create a source file and header to link directly into your application. This will generate <code class="lang-kotlin">get_resource()</code>, <code class="lang-kotlin">register_resource()</code> and <code class="lang-kotlin">unregister_resource()</code> functions, prefixed by the <code class="lang-kotlin">--c-name</code> argument passed to glib-compile-resources.html. <code class="lang-kotlin">get_resource()</code> returns the generated <code class="lang-kotlin">GResource</code> object. The register and unregister functions register the resource so its files can be accessed using func@Gio.resources_lookup_data.</p><p class="paragraph">Once a <code class="lang-kotlin">GResource</code> has been created and registered all the data in it can be accessed globally in the process by using API calls like func@Gio.resources_open_stream to stream the data or func@Gio.resources_lookup_data to get a direct pointer to the data. You can also use URIs like <code class="lang-kotlin">resource:///org/gtk/Example/data/splashscreen.png</code> with iface@Gio.File to access the resource data.</p><p class="paragraph">Some higher-level APIs, such as <a href="https://docs.gtk.org/gtk4/class.Application.html"><code class="lang-kotlin">GtkApplication</code></a>, will automatically load resources from certain well-known paths in the resource namespace as a convenience. See the documentation for those APIs for details.</p><p class="paragraph">There are two forms of the generated source, the default version uses the compiler support for constructor and destructor functions (where available) to automatically create and register the <code class="lang-kotlin">GResource</code> on startup or library load time. If you pass <code class="lang-kotlin">--manual-register</code>, two functions to register/unregister the resource are created instead. This requires an explicit initialization call in your application/library, but it works on all platforms, even on the minor ones where constructors are not supported. (Constructor support is available for at least Win32, Mac OS and Linux.)</p><p class="paragraph">Note that resource data can point directly into the data segment of e.g. a library, so if you are unloading libraries during runtime you need to be very careful with keeping around pointers to data from a resource, as this goes away when the library is unloaded. However, in practice this is not generally a problem, since most resource accesses are for your own resources, and resource data is often used once, during parsing, and then released.</p><h1 class="">Overlays</h1><p class="paragraph">When debugging a program or testing a change to an installed version, it is often useful to be able to replace resources in the program or library, without recompiling, for debugging or quick hacking and testing purposes. Since GLib 2.50, it is possible to use the <code class="lang-kotlin">G_RESOURCE_OVERLAYS</code> environment variable to selectively overlay resources with replacements from the filesystem.  It is a <code class="lang-kotlin">G_SEARCHPATH_SEPARATOR</code>-separated list of substitutions to perform during resource lookups. It is ignored when running in a setuid process.</p><p class="paragraph">A substitution has the form</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">/org/gtk/libgtk=/home/desrt/gtk-overlay</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The part before the <code class="lang-kotlin">=</code> is the resource subpath for which the overlay applies.  The part after is a filesystem path which contains files and subdirectories as you would like to be loaded as resources with the equivalent names.</p><p class="paragraph">In the example above, if an application tried to load a resource with the resource path <code class="lang-kotlin">/org/gtk/libgtk/ui/gtkdialog.ui</code> then <code class="lang-kotlin">GResource</code> would check the filesystem path <code class="lang-kotlin">/home/desrt/gtk-overlay/ui/gtkdialog.ui</code>.  If a file was found there, it would be used instead.  This is an overlay, not an outright replacement, which means that if a file is not found at that path, the built-in version will be used instead.  Whiteouts are not currently supported.</p><p class="paragraph">Substitutions must start with a slash, and must not contain a trailing slash before the <code class="lang-kotlin">=</code>.  The path after the slash should ideally be absolute, but this is not strictly required.  It is possible to overlay the location of a single resource with an individual file.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">size</code>: size: Out parameter is not supported</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.32</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1782326717%2FConstructors%2F-726360853" anchor-label="Resource" id="1782326717%2FConstructors%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-resource.html"><span><span>Resource</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1782326717%2FConstructors%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gioResourcePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="783416954%2FClasslikes%2F-726360853" anchor-label="Companion" id="783416954%2FClasslikes%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="783416954%2FClasslikes%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1139498363%2FProperties%2F-726360853" anchor-label="gioResourcePointer" id="-1139498363%2FProperties%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="gio-resource-pointer.html"><span>gio</span><wbr><span>Resource</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1139498363%2FProperties%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="gio-resource-pointer.html">gioResourcePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1810913994%2FFunctions%2F-726360853" anchor-label="enumerateChildren" id="-1810913994%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enumerate-children.html"><span>enumerate</span><wbr><span><span>Children</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1810913994%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="enumerate-children.html"><span class="token function">enumerateChildren</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">lookupFlags<span class="token operator">: </span><a href="../-resource-lookup-flags/index.html">ResourceLookupFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns all the names of children at the specified @path in the resource. The return result is a null terminated list of strings which should be released with g_strfreev().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1138409833%2FFunctions%2F-726360853" anchor-label="lookupData" id="1138409833%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="lookup-data.html"><span>lookup</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1138409833%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="lookup-data.html"><span class="token function">lookupData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">lookupFlags<span class="token operator">: </span><a href="../-resource-lookup-flags/index.html">ResourceLookupFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Looks for a file at the specified @path in the resource and returns a #GBytes that lets you directly access the data in memory.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="842825731%2FFunctions%2F-726360853" anchor-label="openStream" id="842825731%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-stream.html"><span>open</span><wbr><span><span>Stream</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="842825731%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-stream.html"><span class="token function">openStream</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">lookupFlags<span class="token operator">: </span><a href="../-resource-lookup-flags/index.html">ResourceLookupFlags</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="../-input-stream/index.html">InputStream</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Looks for a file at the specified @path in the resource and returns a #GInputStream that lets you read the data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="239534208%2FFunctions%2F-726360853" anchor-label="ref" id="239534208%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ref.html"><span><span>ref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="239534208%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Resource</a></div><div class="brief "><p class="paragraph">Atomically increments the reference count of @resource by one. This function is MT-safe and may be called from any thread.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="285061195%2FFunctions%2F-726360853" anchor-label="resourcesRegister" id="285061195%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resources-register.html"><span>resources</span><wbr><span><span>Register</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="285061195%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="resources-register.html"><span class="token function">resourcesRegister</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Registers the resource with the process-global set of resources. Once a resource is registered the files in it can be accessed with the global resource lookup functions like g_resources_lookup_data().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="323446930%2FFunctions%2F-726360853" anchor-label="resourcesUnregister" id="323446930%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="resources-unregister.html"><span>resources</span><wbr><span><span>Unregister</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="323446930%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="resources-unregister.html"><span class="token function">resourcesUnregister</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unregisters the resource from the process-global set of resources.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-921241063%2FFunctions%2F-726360853" anchor-label="unref" id="-921241063%2FFunctions%2F-726360853" data-filterable-set=":bindings:core:gio/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gio/nativeMain" data-filterable-set=":bindings:core:gio/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unref.html"><span><span>unref</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-921241063%2FFunctions%2F-726360853"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="unref.html"><span class="token function">unref</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Atomically decrements the reference count of @resource by one. If the reference count drops to 0, all memory allocated by the resource is released. This function is MT-safe and may be called from any thread.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

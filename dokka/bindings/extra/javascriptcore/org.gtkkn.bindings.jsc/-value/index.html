@@ -1,0 +1,690 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Value</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:javascriptcore/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:javascriptcore/nativeMain" data-filter=":bindings:extra:javascriptcore/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="javascriptcore::org.gtkkn.bindings.jsc/Value///PointingToDeclaration//176874543">
+  <div class="breadcrumbs"><a href="../../index.html">javascriptcore</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.jsc</a><span class="delimiter">/</span><span class="current">Value</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Value</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Value</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>jscValuePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">JSCValue represents a reference to a value in a #JSCContext. The JSCValue protects the referenced value from being garbage collected.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">size</code>: Unsupported pointer to primitive type</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">parameters</code>: Array parameter of type Value is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">parameters</code>: Array parameter of type Value is not supported</p></li><li><p class="paragraph">method <code class="lang-kotlin">object_define_property_accessor</code>: User data 'user_data' cannot be shared by multiple closures</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">parameters</code>: Array parameter of type Value is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">length</code>: length: Out parameter is not supported</p></li><li><p class="paragraph">constructor <code class="lang-kotlin">new_array</code>: Varargs parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">array</code>: GLib.PtrArray parameter of type Value is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">parameter_types</code>: Array parameter of type GType is not supported</p></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1367001557%2FConstructors%2F176874543" anchor-label="Value" id="1367001557%2FConstructors%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-value.html"><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1367001557%2FConstructors%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">data<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">size<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">destroyNotify<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new %ArrayBuffer from existing @data in memory.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">strv<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue referencing an array of strings with the items from @strv. If @array is null or empty a new empty array will be created.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue from @value</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">json<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue referencing a new value created by parsing @json.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">returnType<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a function in @context. If @name is null an anonymous function will be created. When the function is called by JavaScript or jsc_value_function_call(), @callback is called receiving an #GPtrArray of #JSCValue<!-- -->s with the arguments and then @user_data as last parameter. When the function is cleared in @context, @destroy_notify is called with @user_data as parameter.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue referencing <function>null</function> in @context.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">number<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue from @number.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">instance<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">jscClass<span class="token operator">: </span><a href="../-class/index.html">Class</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue from @instance. If @instance is null a new empty object is created. When @instance is provided, @jsc_class must be provided too. @jsc_class takes ownership of</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">string<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue from @string. If you need to create a #JSCValue from a string containing null characters, use jsc_value_new_string_from_bytes() instead.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">bytes<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new #JSCValue from @bytes.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="../-context/index.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="../-typed-array-type/index.html">TypedArrayType</a><span class="token punctuation">, </span></span><span class="parameter ">length<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create a new typed array containing a given amount of elements.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">jscValuePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-992444192%2FClasslikes%2F176874543" anchor-label="Companion" id="-992444192%2FClasslikes%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-992444192%2FClasslikes%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1621937206%2FProperties%2F176874543" anchor-label="context" id="-1621937206%2FProperties%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context.html"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1621937206%2FProperties%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="context.html">context</a><span class="token operator">: </span><a href="../-context/index.html">Context</a></div><div class="brief "><p class="paragraph">The #JSCContext in which the value was created.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2039819379%2FProperties%2F176874543" anchor-label="jscValuePointer" id="2039819379%2FProperties%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="jsc-value-pointer.html"><span>jsc</span><wbr><span>Value</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2039819379%2FProperties%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="jsc-value-pointer.html">jscValuePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="241858275%2FFunctions%2F176874543" anchor-label="arrayBufferGetSize" id="241858275%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="array-buffer-get-size.html"><span>array</span><wbr><span>Buffer</span><wbr><span>Get</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="241858275%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="array-buffer-get-size.html"><span class="token function">arrayBufferGetSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the size in bytes of the array buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-793682390%2FFunctions%2F176874543" anchor-label="isArray" id="-793682390%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-array.html"><span>is</span><wbr><span><span>Array</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-793682390%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-array.html"><span class="token function">isArray</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is an array.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-489438198%2FFunctions%2F176874543" anchor-label="isArrayBuffer" id="-489438198%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-array-buffer.html"><span>is</span><wbr><span>Array</span><wbr><span><span>Buffer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489438198%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-array-buffer.html"><span class="token function">isArrayBuffer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check whether the @value is an %ArrayBuffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1104128443%2FFunctions%2F176874543" anchor-label="isBoolean" id="1104128443%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-boolean.html"><span>is</span><wbr><span><span>Boolean</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1104128443%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-boolean.html"><span class="token function">isBoolean</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is a boolean.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1429091543%2FFunctions%2F176874543" anchor-label="isConstructor" id="-1429091543%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-constructor.html"><span>is</span><wbr><span><span>Constructor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1429091543%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-constructor.html"><span class="token function">isConstructor</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is a constructor.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2058395009%2FFunctions%2F176874543" anchor-label="isFunction" id="-2058395009%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-function.html"><span>is</span><wbr><span><span>Function</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2058395009%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-function.html"><span class="token function">isFunction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is a function</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1072947376%2FFunctions%2F176874543" anchor-label="isNull" id="1072947376%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-null.html"><span>is</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1072947376%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-null.html"><span class="token function">isNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is <function>null</function>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1522576046%2FFunctions%2F176874543" anchor-label="isNumber" id="1522576046%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-number.html"><span>is</span><wbr><span><span>Number</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1522576046%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-number.html"><span class="token function">isNumber</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is a number.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1248633720%2FFunctions%2F176874543" anchor-label="isObject" id="1248633720%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-object.html"><span>is</span><wbr><span><span>Object</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1248633720%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-object.html"><span class="token function">isObject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is an object.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="376018662%2FFunctions%2F176874543" anchor-label="isString" id="376018662%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-string.html"><span>is</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="376018662%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-string.html"><span class="token function">isString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is a string</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1814014040%2FFunctions%2F176874543" anchor-label="isTypedArray" id="-1814014040%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-typed-array.html"><span>is</span><wbr><span>Typed</span><wbr><span><span>Array</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1814014040%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-typed-array.html"><span class="token function">isTypedArray</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Determines whether a value is a typed array.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1678090259%2FFunctions%2F176874543" anchor-label="isUndefined" id="1678090259%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-undefined.html"><span>is</span><wbr><span><span>Undefined</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1678090259%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-undefined.html"><span class="token function">isUndefined</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is <function>undefined</function>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1711432991%2FFunctions%2F176874543" anchor-label="newTypedArrayWithBuffer" id="1711432991%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-typed-array-with-buffer.html"><span>new</span><wbr><span>Typed</span><wbr><span>Array</span><wbr><span>With</span><wbr><span><span>Buffer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1711432991%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="new-typed-array-with-buffer.html"><span class="token function">newTypedArrayWithBuffer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="../-typed-array-type/index.html">TypedArrayType</a><span class="token punctuation">, </span></span><span class="parameter ">offset<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">length<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Value</a></div><div class="brief "><p class="paragraph">Create a new typed array value with elements from an array buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1928981543%2FFunctions%2F176874543" anchor-label="objectDefinePropertyData" id="-1928981543%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-define-property-data.html"><span>object</span><wbr><span>Define</span><wbr><span>Property</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1928981543%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-define-property-data.html"><span class="token function">objectDefinePropertyData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">propertyName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="../-value-property-flags/index.html">ValuePropertyFlags</a><span class="token punctuation">, </span></span><span class="parameter ">propertyValue<span class="token operator">: </span><a href="index.html">Value</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Define or modify a property with @property_name in object referenced by @value. This is equivalent to JavaScript <function>Object.defineProperty()</function> when used with a data descriptor.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1976214846%2FFunctions%2F176874543" anchor-label="objectDeleteProperty" id="-1976214846%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-delete-property.html"><span>object</span><wbr><span>Delete</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1976214846%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-delete-property.html"><span class="token function">objectDeleteProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Try to delete property with @name from @value. This function will return false if the property was defined without %JSC_VALUE_PROPERTY_CONFIGURABLE flag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-790018655%2FFunctions%2F176874543" anchor-label="objectEnumerateProperties" id="-790018655%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-enumerate-properties.html"><span>object</span><wbr><span>Enumerate</span><wbr><span><span>Properties</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-790018655%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-enumerate-properties.html"><span class="token function">objectEnumerateProperties</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Get the list of property names of @value. Only properties defined with %JSC_VALUE_PROPERTY_ENUMERABLE flag will be collected.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-972617833%2FFunctions%2F176874543" anchor-label="objectGetProperty" id="-972617833%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-get-property.html"><span>object</span><wbr><span>Get</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-972617833%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-get-property.html"><span class="token function">objectGetProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Value</a></div><div class="brief "><p class="paragraph">Get property with @name from @value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-307256713%2FFunctions%2F176874543" anchor-label="objectGetPropertyAtIndex" id="-307256713%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-get-property-at-index.html"><span>object</span><wbr><span>Get</span><wbr><span>Property</span><wbr><span>At</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-307256713%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-get-property-at-index.html"><span class="token function">objectGetPropertyAtIndex</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">index<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Value</a></div><div class="brief "><p class="paragraph">Get property at @index from @value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1760293851%2FFunctions%2F176874543" anchor-label="objectHasProperty" id="1760293851%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-has-property.html"><span>object</span><wbr><span>Has</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1760293851%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-has-property.html"><span class="token function">objectHasProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether @value has property with @name.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1431478904%2FFunctions%2F176874543" anchor-label="objectIsInstanceOf" id="1431478904%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-is-instance-of.html"><span>object</span><wbr><span>Is</span><wbr><span>Instance</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1431478904%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-is-instance-of.html"><span class="token function">objectIsInstanceOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Get whether the value referenced by @value is an instance of class @name.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1595737304%2FFunctions%2F176874543" anchor-label="objectSetProperty" id="-1595737304%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-set-property.html"><span>object</span><wbr><span>Set</span><wbr><span><span>Property</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1595737304%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-set-property.html"><span class="token function">objectSetProperty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">property<span class="token operator">: </span><a href="index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set @property with @name on @value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2002412512%2FFunctions%2F176874543" anchor-label="objectSetPropertyAtIndex" id="2002412512%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="object-set-property-at-index.html"><span>object</span><wbr><span>Set</span><wbr><span>Property</span><wbr><span>At</span><wbr><span><span>Index</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2002412512%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="object-set-property-at-index.html"><span class="token function">objectSetPropertyAtIndex</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">index<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">property<span class="token operator">: </span><a href="index.html">Value</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Set @property at @index on @value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-355588340%2FFunctions%2F176874543" anchor-label="toBoolean" id="-355588340%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-boolean.html"><span>to</span><wbr><span><span>Boolean</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-355588340%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-boolean.html"><span class="token function">toBoolean</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Convert @value to a boolean.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1865529419%2FFunctions%2F176874543" anchor-label="toDouble" id="-1865529419%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-double.html"><span>to</span><wbr><span><span>Double</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1865529419%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-double.html"><span class="token function">toDouble</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Convert @value to a double.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-921582298%2FFunctions%2F176874543" anchor-label="toInt32" id="-921582298%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-int32.html"><span>to</span><wbr><span><span>Int32</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-921582298%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-int32.html"><span class="token function">toInt32</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Convert @value to a #gint32.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-555919545%2FFunctions%2F176874543" anchor-label="toJson" id="-555919545%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-json.html"><span>to</span><wbr><span><span>Json</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-555919545%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-json.html"><span class="token function">toJson</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">indent<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Create a JSON string of @value serialization. If @indent is 0, the resulting JSON will not contain newlines. The size of the indent is clamped to 10 spaces.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1575857013%2FFunctions%2F176874543" anchor-label="toString" id="1575857013%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1575857013%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Convert @value to a string. Use jsc_value_to_string_as_bytes() instead, if you need to handle strings containing null characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-813648916%2FFunctions%2F176874543" anchor-label="toStringAsBytes" id="-813648916%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-string-as-bytes.html"><span>to</span><wbr><span>String</span><wbr><span>As</span><wbr><span><span>Bytes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-813648916%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-string-as-bytes.html"><span class="token function">toStringAsBytes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Convert @value to a string and return the results as #GBytes. This is needed to handle strings with null characters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1030827374%2FFunctions%2F176874543" anchor-label="typedArrayGetBuffer" id="-1030827374%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="typed-array-get-buffer.html"><span>typed</span><wbr><span>Array</span><wbr><span>Get</span><wbr><span><span>Buffer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1030827374%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="typed-array-get-buffer.html"><span class="token function">typedArrayGetBuffer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Value</a></div><div class="brief "><p class="paragraph">Obtain the %ArrayBuffer for the memory region of the typed array elements.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="225366700%2FFunctions%2F176874543" anchor-label="typedArrayGetLength" id="225366700%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="typed-array-get-length.html"><span>typed</span><wbr><span>Array</span><wbr><span>Get</span><wbr><span><span>Length</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="225366700%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="typed-array-get-length.html"><span class="token function">typedArrayGetLength</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the number of elements in a typed array.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="110294431%2FFunctions%2F176874543" anchor-label="typedArrayGetOffset" id="110294431%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="typed-array-get-offset.html"><span>typed</span><wbr><span>Array</span><wbr><span>Get</span><wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="110294431%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="typed-array-get-offset.html"><span class="token function">typedArrayGetOffset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the offset over the underlying array buffer data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-805022927%2FFunctions%2F176874543" anchor-label="typedArrayGetSize" id="-805022927%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="typed-array-get-size.html"><span>typed</span><wbr><span>Array</span><wbr><span>Get</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-805022927%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="typed-array-get-size.html"><span class="token function">typedArrayGetSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Gets the size of a typed array.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-918944232%2FFunctions%2F176874543" anchor-label="typedArrayGetType" id="-918944232%2FFunctions%2F176874543" data-filterable-set=":bindings:extra:javascriptcore/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:javascriptcore/nativeMain" data-filterable-set=":bindings:extra:javascriptcore/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="typed-array-get-type.html"><span>typed</span><wbr><span>Array</span><wbr><span>Get</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-918944232%2FFunctions%2F176874543"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:javascriptcore/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="typed-array-get-type.html"><span class="token function">typedArrayGetType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-typed-array-type/index.html">TypedArrayType</a></div><div class="brief "><p class="paragraph">Gets the type of elements contained in a typed array.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

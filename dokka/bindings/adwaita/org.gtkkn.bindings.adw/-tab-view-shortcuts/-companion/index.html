@@ -1,0 +1,352 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Companion</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:adwaita/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:adwaita/nativeMain" data-filter=":bindings:adwaita/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="adwaita::org.gtkkn.bindings.adw/TabViewShortcuts.Companion///PointingToDeclaration//-902881796">
+  <div class="breadcrumbs"><a href="../../../index.html">adwaita</a><span class="delimiter">/</span><a href="../../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><a href="../index.html">TabViewShortcuts</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Companion</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1192465192%2FProperties%2F-902881796" anchor-label="ALL_SHORTCUTS" id="1192465192%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-l-l_-s-h-o-r-t-c-u-t-s.html"><span>ALL_</span><wbr><span>SHORTCUTS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1192465192%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-l-l_-s-h-o-r-t-c-u-t-s.html">ALL_SHORTCUTS</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph">All of the shortcuts</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1490330361%2FProperties%2F-902881796" anchor-label="ALT_DIGITS" id="-1490330361%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-l-t_-d-i-g-i-t-s.html"><span>ALT_</span><wbr><span>DIGITS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1490330361%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-l-t_-d-i-g-i-t-s.html">ALT_DIGITS</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Alt</kbd>+<kbd>1</kbd>⋯<kbd>9</kbd> - switch to pages 1-9</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1901052293%2FProperties%2F-902881796" anchor-label="ALT_ZERO" id="1901052293%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-l-t_-z-e-r-o.html"><span>ALT_</span><wbr><span>ZERO</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1901052293%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-a-l-t_-z-e-r-o.html">ALT_ZERO</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Alt</kbd>+<kbd>0</kbd> - switch to page 10</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-801466946%2FProperties%2F-902881796" anchor-label="CONTROL_END" id="-801466946%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-e-n-d.html"><span>CONTROL_</span><wbr><span>END</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-801466946%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-e-n-d.html">CONTROL_END</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>End</kbd> - switch to the last page</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1342135070%2FProperties%2F-902881796" anchor-label="CONTROL_HOME" id="-1342135070%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-h-o-m-e.html"><span>CONTROL_</span><wbr><span>HOME</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1342135070%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-h-o-m-e.html">CONTROL_HOME</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Home</kbd> - switch to the first page</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-471033593%2FProperties%2F-902881796" anchor-label="CONTROL_PAGE_DOWN" id="-471033593%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-p-a-g-e_-d-o-w-n.html"><span>CONTROL_</span><wbr><span>PAGE_</span><wbr><span>DOWN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-471033593%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-p-a-g-e_-d-o-w-n.html">CONTROL_PAGE_DOWN</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Page Down</kbd> - switch to the next page</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162865198%2FProperties%2F-902881796" anchor-label="CONTROL_PAGE_UP" id="162865198%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-p-a-g-e_-u-p.html"><span>CONTROL_</span><wbr><span>PAGE_</span><wbr><span>UP</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162865198%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-p-a-g-e_-u-p.html">CONTROL_PAGE_UP</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="117173115%2FProperties%2F-902881796" anchor-label="CONTROL_SHIFT_END" id="117173115%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-e-n-d.html"><span>CONTROL_</span><wbr><span>SHIFT_</span><wbr><span>END</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="117173115%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-e-n-d.html">CONTROL_SHIFT_END</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd> - move the current page at the end</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1365903045%2FProperties%2F-902881796" anchor-label="CONTROL_SHIFT_HOME" id="1365903045%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-h-o-m-e.html"><span>CONTROL_</span><wbr><span>SHIFT_</span><wbr><span>HOME</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1365903045%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-h-o-m-e.html">CONTROL_SHIFT_HOME</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Home</kbd> - move the selected page at the start</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-980161276%2FProperties%2F-902881796" anchor-label="CONTROL_SHIFT_PAGE_DOWN" id="-980161276%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-p-a-g-e_-d-o-w-n.html"><span>CONTROL_</span><wbr><span>SHIFT_</span><wbr><span>PAGE_</span><wbr><span>DOWN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-980161276%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-p-a-g-e_-d-o-w-n.html">CONTROL_SHIFT_PAGE_DOWN</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Down</kbd> - move the selected page forward</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1339338901%2FProperties%2F-902881796" anchor-label="CONTROL_SHIFT_PAGE_UP" id="-1339338901%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-p-a-g-e_-u-p.html"><span>CONTROL_</span><wbr><span>SHIFT_</span><wbr><span>PAGE_</span><wbr><span>UP</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1339338901%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-p-a-g-e_-u-p.html">CONTROL_SHIFT_PAGE_UP</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Up</kbd> - move the selected page backward</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="912972289%2FProperties%2F-902881796" anchor-label="CONTROL_SHIFT_TAB" id="912972289%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-t-a-b.html"><span>CONTROL_</span><wbr><span>SHIFT_</span><wbr><span>TAB</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="912972289%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-s-h-i-f-t_-t-a-b.html">CONTROL_SHIFT_TAB</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the previous page</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-5667772%2FProperties%2F-902881796" anchor-label="CONTROL_TAB" id="-5667772%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l_-t-a-b.html"><span>CONTROL_</span><wbr><span>TAB</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-5667772%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-c-o-n-t-r-o-l_-t-a-b.html">CONTROL_TAB</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph"><kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2018541099%2FProperties%2F-902881796" anchor-label="NONE" id="2018541099%2FProperties%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-n-e.html"><span><span>NONE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2018541099%2FProperties%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-n-o-n-e.html">NONE</a><span class="token operator">: </span><a href="../index.html">TabViewShortcuts</a></div><div class="brief "><p class="paragraph">No shortcuts</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1162644057%2FFunctions%2F-902881796" anchor-label="getType" id="-1162644057%2FFunctions%2F-902881796" data-filterable-set=":bindings:adwaita/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:adwaita/nativeMain" data-filterable-set=":bindings:adwaita/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-type.html"><span>get</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1162644057%2FFunctions%2F-902881796"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-type.html"><span class="token function">getType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Get the GType of TabViewShortcuts</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

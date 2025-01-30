@@ -1,0 +1,675 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>UnicodeType</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:glib/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:glib/nativeMain" data-filter=":bindings:core:glib/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="glib::org.gtkkn.bindings.glib/UnicodeType///PointingToDeclaration//-2021666004">
+  <div class="breadcrumbs"><a href="../../index.html">glib</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.glib</a><span class="delimiter">/</span><span class="current">UnicodeType</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Unicode</span><wbr><span><span>Type</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">UnicodeType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">UnicodeType</a><span class="token operator">&gt; </span></div><p class="paragraph">These are the possible character classifications from the Unicode specification. See <a href="http://www.unicode.org/reports/tr44/#General_Category_Values">Unicode Character Database</a>.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="1780417746%2FClasslikes%2F-2021666004" anchor-label="CONTROL" id="1780417746%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-t-r-o-l/index.html">CONTROL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1780417746%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-n-t-r-o-l/index.html">CONTROL</a></div></div><div class="brief "><p class="paragraph">General category "Other, Control" (Cc)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="106117226%2FClasslikes%2F-2021666004" anchor-label="FORMAT" id="106117226%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-r-m-a-t/index.html">FORMAT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="106117226%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-r-m-a-t/index.html">FORMAT</a></div></div><div class="brief "><p class="paragraph">General category "Other, Format" (Cf)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="784146522%2FClasslikes%2F-2021666004" anchor-label="UNASSIGNED" id="784146522%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-a-s-s-i-g-n-e-d/index.html">UNASSIGNED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="784146522%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-a-s-s-i-g-n-e-d/index.html">UNASSIGNED</a></div></div><div class="brief "><p class="paragraph">General category "Other, Not Assigned" (Cn)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1298651360%2FClasslikes%2F-2021666004" anchor-label="PRIVATE_USE" id="-1298651360%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-r-i-v-a-t-e_-u-s-e/index.html">PRIVATE_USE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1298651360%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-r-i-v-a-t-e_-u-s-e/index.html">PRIVATE_USE</a></div></div><div class="brief "><p class="paragraph">General category "Other, Private Use" (Co)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1167728845%2FClasslikes%2F-2021666004" anchor-label="SURROGATE" id="1167728845%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-u-r-r-o-g-a-t-e/index.html">SURROGATE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1167728845%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-u-r-r-o-g-a-t-e/index.html">SURROGATE</a></div></div><div class="brief "><p class="paragraph">General category "Other, Surrogate" (Cs)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1547634809%2FClasslikes%2F-2021666004" anchor-label="LOWERCASE_LETTER" id="-1547634809%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-o-w-e-r-c-a-s-e_-l-e-t-t-e-r/index.html">LOWERCASE_LETTER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1547634809%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-o-w-e-r-c-a-s-e_-l-e-t-t-e-r/index.html">LOWERCASE_LETTER</a></div></div><div class="brief "><p class="paragraph">General category "Letter, Lowercase" (Ll)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-473799325%2FClasslikes%2F-2021666004" anchor-label="MODIFIER_LETTER" id="-473799325%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-d-i-f-i-e-r_-l-e-t-t-e-r/index.html">MODIFIER_LETTER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-473799325%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-o-d-i-f-i-e-r_-l-e-t-t-e-r/index.html">MODIFIER_LETTER</a></div></div><div class="brief "><p class="paragraph">General category "Letter, Modifier" (Lm)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1023523080%2FClasslikes%2F-2021666004" anchor-label="OTHER_LETTER" id="1023523080%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-t-h-e-r_-l-e-t-t-e-r/index.html">OTHER_LETTER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1023523080%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-t-h-e-r_-l-e-t-t-e-r/index.html">OTHER_LETTER</a></div></div><div class="brief "><p class="paragraph">General category "Letter, Other" (Lo)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-526597616%2FClasslikes%2F-2021666004" anchor-label="TITLECASE_LETTER" id="-526597616%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-i-t-l-e-c-a-s-e_-l-e-t-t-e-r/index.html">TITLECASE_LETTER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-526597616%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-i-t-l-e-c-a-s-e_-l-e-t-t-e-r/index.html">TITLECASE_LETTER</a></div></div><div class="brief "><p class="paragraph">General category "Letter, Titlecase" (Lt)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1199726842%2FClasslikes%2F-2021666004" anchor-label="UPPERCASE_LETTER" id="-1199726842%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-p-p-e-r-c-a-s-e_-l-e-t-t-e-r/index.html">UPPERCASE_LETTER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1199726842%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-p-p-e-r-c-a-s-e_-l-e-t-t-e-r/index.html">UPPERCASE_LETTER</a></div></div><div class="brief "><p class="paragraph">General category "Letter, Uppercase" (Lu)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1207323876%2FClasslikes%2F-2021666004" anchor-label="SPACING_MARK" id="-1207323876%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-p-a-c-i-n-g_-m-a-r-k/index.html">SPACING_MARK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1207323876%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-p-a-c-i-n-g_-m-a-r-k/index.html">SPACING_MARK</a></div></div><div class="brief "><p class="paragraph">General category "Mark, Spacing" (Mc)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="781986579%2FClasslikes%2F-2021666004" anchor-label="ENCLOSING_MARK" id="781986579%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-n-c-l-o-s-i-n-g_-m-a-r-k/index.html">ENCLOSING_MARK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="781986579%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-e-n-c-l-o-s-i-n-g_-m-a-r-k/index.html">ENCLOSING_MARK</a></div></div><div class="brief "><p class="paragraph">General category "Mark, Enclosing" (Me)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1506888594%2FClasslikes%2F-2021666004" anchor-label="NON_SPACING_MARK" id="-1506888594%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o-n_-s-p-a-c-i-n-g_-m-a-r-k/index.html">NON_SPACING_MARK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506888594%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-o-n_-s-p-a-c-i-n-g_-m-a-r-k/index.html">NON_SPACING_MARK</a></div></div><div class="brief "><p class="paragraph">General category "Mark, Nonspacing" (Mn)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-433575542%2FClasslikes%2F-2021666004" anchor-label="DECIMAL_NUMBER" id="-433575542%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-c-i-m-a-l_-n-u-m-b-e-r/index.html">DECIMAL_NUMBER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-433575542%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-e-c-i-m-a-l_-n-u-m-b-e-r/index.html">DECIMAL_NUMBER</a></div></div><div class="brief "><p class="paragraph">General category "Number, Decimal Digit" (Nd)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-805758569%2FClasslikes%2F-2021666004" anchor-label="LETTER_NUMBER" id="-805758569%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-e-t-t-e-r_-n-u-m-b-e-r/index.html">LETTER_NUMBER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-805758569%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-e-t-t-e-r_-n-u-m-b-e-r/index.html">LETTER_NUMBER</a></div></div><div class="brief "><p class="paragraph">General category "Number, Letter" (Nl)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="975285483%2FClasslikes%2F-2021666004" anchor-label="OTHER_NUMBER" id="975285483%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-t-h-e-r_-n-u-m-b-e-r/index.html">OTHER_NUMBER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="975285483%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-t-h-e-r_-n-u-m-b-e-r/index.html">OTHER_NUMBER</a></div></div><div class="brief "><p class="paragraph">General category "Number, Other" (No)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1182597798%2FClasslikes%2F-2021666004" anchor-label="CONNECT_PUNCTUATION" id="-1182597798%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-n-n-e-c-t_-p-u-n-c-t-u-a-t-i-o-n/index.html">CONNECT_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1182597798%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-n-n-e-c-t_-p-u-n-c-t-u-a-t-i-o-n/index.html">CONNECT_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Connector" (Pc)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-788924608%2FClasslikes%2F-2021666004" anchor-label="DASH_PUNCTUATION" id="-788924608%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-a-s-h_-p-u-n-c-t-u-a-t-i-o-n/index.html">DASH_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-788924608%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-a-s-h_-p-u-n-c-t-u-a-t-i-o-n/index.html">DASH_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Dash" (Pd)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1447911720%2FClasslikes%2F-2021666004" anchor-label="CLOSE_PUNCTUATION" id="1447911720%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-l-o-s-e_-p-u-n-c-t-u-a-t-i-o-n/index.html">CLOSE_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1447911720%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-l-o-s-e_-p-u-n-c-t-u-a-t-i-o-n/index.html">CLOSE_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Close" (Pe)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1613274918%2FClasslikes%2F-2021666004" anchor-label="FINAL_PUNCTUATION" id="1613274918%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-i-n-a-l_-p-u-n-c-t-u-a-t-i-o-n/index.html">FINAL_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1613274918%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-i-n-a-l_-p-u-n-c-t-u-a-t-i-o-n/index.html">FINAL_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Final quote" (Pf)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1637978932%2FClasslikes%2F-2021666004" anchor-label="INITIAL_PUNCTUATION" id="1637978932%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-i-t-i-a-l_-p-u-n-c-t-u-a-t-i-o-n/index.html">INITIAL_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1637978932%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-i-t-i-a-l_-p-u-n-c-t-u-a-t-i-o-n/index.html">INITIAL_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Initial quote" (Pi)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="780928064%2FClasslikes%2F-2021666004" anchor-label="OTHER_PUNCTUATION" id="780928064%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-t-h-e-r_-p-u-n-c-t-u-a-t-i-o-n/index.html">OTHER_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="780928064%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-t-h-e-r_-p-u-n-c-t-u-a-t-i-o-n/index.html">OTHER_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Other" (Po)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1863362552%2FClasslikes%2F-2021666004" anchor-label="OPEN_PUNCTUATION" id="1863362552%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-p-u-n-c-t-u-a-t-i-o-n/index.html">OPEN_PUNCTUATION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1863362552%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-p-u-n-c-t-u-a-t-i-o-n/index.html">OPEN_PUNCTUATION</a></div></div><div class="brief "><p class="paragraph">General category "Punctuation, Open" (Ps)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-757714341%2FClasslikes%2F-2021666004" anchor-label="CURRENCY_SYMBOL" id="-757714341%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-u-r-r-e-n-c-y_-s-y-m-b-o-l/index.html">CURRENCY_SYMBOL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-757714341%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-u-r-r-e-n-c-y_-s-y-m-b-o-l/index.html">CURRENCY_SYMBOL</a></div></div><div class="brief "><p class="paragraph">General category "Symbol, Currency" (Sc)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1784892245%2FClasslikes%2F-2021666004" anchor-label="MODIFIER_SYMBOL" id="1784892245%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-o-d-i-f-i-e-r_-s-y-m-b-o-l/index.html">MODIFIER_SYMBOL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1784892245%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-o-d-i-f-i-e-r_-s-y-m-b-o-l/index.html">MODIFIER_SYMBOL</a></div></div><div class="brief "><p class="paragraph">General category "Symbol, Modifier" (Sk)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1466453572%2FClasslikes%2F-2021666004" anchor-label="MATH_SYMBOL" id="1466453572%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-h_-s-y-m-b-o-l/index.html">MATH_SYMBOL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1466453572%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-a-t-h_-s-y-m-b-o-l/index.html">MATH_SYMBOL</a></div></div><div class="brief "><p class="paragraph">General category "Symbol, Math" (Sm)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1012752646%2FClasslikes%2F-2021666004" anchor-label="OTHER_SYMBOL" id="-1012752646%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-t-h-e-r_-s-y-m-b-o-l/index.html">OTHER_SYMBOL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1012752646%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-t-h-e-r_-s-y-m-b-o-l/index.html">OTHER_SYMBOL</a></div></div><div class="brief "><p class="paragraph">General category "Symbol, Other" (So)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1350694509%2FClasslikes%2F-2021666004" anchor-label="LINE_SEPARATOR" id="1350694509%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-n-e_-s-e-p-a-r-a-t-o-r/index.html">LINE_SEPARATOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1350694509%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-i-n-e_-s-e-p-a-r-a-t-o-r/index.html">LINE_SEPARATOR</a></div></div><div class="brief "><p class="paragraph">General category "Separator, Line" (Zl)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-192179991%2FClasslikes%2F-2021666004" anchor-label="PARAGRAPH_SEPARATOR" id="-192179991%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-r-a-g-r-a-p-h_-s-e-p-a-r-a-t-o-r/index.html">PARAGRAPH_SEPARATOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-192179991%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-a-r-a-g-r-a-p-h_-s-e-p-a-r-a-t-o-r/index.html">PARAGRAPH_SEPARATOR</a></div></div><div class="brief "><p class="paragraph">General category "Separator, Paragraph" (Zp)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="994566401%2FClasslikes%2F-2021666004" anchor-label="SPACE_SEPARATOR" id="994566401%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-p-a-c-e_-s-e-p-a-r-a-t-o-r/index.html">SPACE_SEPARATOR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="994566401%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-p-a-c-e_-s-e-p-a-r-a-t-o-r/index.html">SPACE_SEPARATOR</a></div></div><div class="brief "><p class="paragraph">General category "Separator, Space" (Zs)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="599461796%2FClasslikes%2F-2021666004" anchor-label="Companion" id="599461796%2FClasslikes%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="599461796%2FClasslikes%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-2021666004" anchor-label="name" id="-372974862%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-372974862%2FProperties%2F-2021666004"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-372974862%2FProperties%2F-2021666004">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2088554493%2FProperties%2F-2021666004" anchor-label="nativeValue" id="-2088554493%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2088554493%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-2021666004" anchor-label="ordinal" id="-739389684%2FProperties%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-739389684%2FProperties%2F-2021666004"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../../org.gtkkn.extensions.glib.util.log/-log-level/-e-r-r-o-r/index.html#-739389684%2FProperties%2F-2021666004">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2005266705%2FFunctions%2F-2021666004" anchor-label="valueOf" id="-2005266705%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2005266705%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">UnicodeType</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1679156677%2FFunctions%2F-2021666004" anchor-label="values" id="-1679156677%2FFunctions%2F-2021666004" data-filterable-set=":bindings:core:glib/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:glib/nativeMain" data-filterable-set=":bindings:core:glib/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1679156677%2FFunctions%2F-2021666004"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:glib/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">UnicodeType</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

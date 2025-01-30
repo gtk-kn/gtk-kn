@@ -1,0 +1,681 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>org.gtkkn.bindings.gdk</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:gdkpixbuf/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:gdkpixbuf/nativeMain" data-filter=":bindings:core:gdkpixbuf/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="gdkpixbuf::org.gtkkn.bindings.gdk////PointingToDeclaration//-449668928">
+  <div class="breadcrumbs"><a href="../index.html">gdkpixbuf</a><span class="delimiter">/</span><span class="current">org.gtkkn.bindings.gdk</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="400925636%2FClasslikes%2F-449668928" anchor-label="Colorspace" id="400925636%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-colorspace/index.html"><span><span>Colorspace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="400925636%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-colorspace/index.html">Colorspace</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-colorspace/index.html">Colorspace</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">This enumeration defines the color spaces that are supported by the gdk-pixbuf library.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1424952135%2FClasslikes%2F-449668928" anchor-label="GdkPixbuf" id="-1424952135%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gdk-pixbuf/index.html"><span>Gdk</span><wbr><span><span>Pixbuf</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1424952135%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-gdk-pixbuf/index.html">GdkPixbuf</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1412961330%2FClasslikes%2F-449668928" anchor-label="GdkpixbufTypeProvider" id="-1412961330%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gdkpixbuf-type-provider/index.html"><span>Gdkpixbuf</span><wbr><span>Type</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1412961330%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-gdkpixbuf-type-provider/index.html">GdkpixbufTypeProvider</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-693548743%2FClasslikes%2F-449668928" anchor-label="InterpType" id="-693548743%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-interp-type/index.html"><span>Interp</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-693548743%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-interp-type/index.html">InterpType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-interp-type/index.html">InterpType</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Interpolation modes for scaling functions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1574886669%2FClasslikes%2F-449668928" anchor-label="Pixbuf" id="-1574886669%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf/index.html"><span><span>Pixbuf</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1574886669%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf/index.html">Pixbuf</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="-gdk-pixbuf/index.html">GdkPixbuf</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A pixel buffer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="729904846%2FClasslikes%2F-449668928" anchor-label="PixbufAlphaMode" id="729904846%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-alpha-mode/index.html"><span>Pixbuf</span><wbr><span>Alpha</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="729904846%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-pixbuf-alpha-mode/index.html">PixbufAlphaMode</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-pixbuf-alpha-mode/index.html">PixbufAlphaMode</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Control the alpha channel for drawables.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="63987915%2FClasslikes%2F-449668928" anchor-label="PixbufAnimation" id="63987915%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-animation/index.html"><span>Pixbuf</span><wbr><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="63987915%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf-animation/index.html">PixbufAnimation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufAnimationPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">An opaque object representing an animation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1938316397%2FClasslikes%2F-449668928" anchor-label="PixbufAnimationIter" id="-1938316397%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-animation-iter/index.html"><span>Pixbuf</span><wbr><span>Animation</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1938316397%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf-animation-iter/index.html">PixbufAnimationIter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufAnimationIterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">An opaque object representing an iterator which points to a certain position in an animation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1556801972%2FClasslikes%2F-449668928" anchor-label="PixbufDestroyNotify" id="-1556801972%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-destroy-notify/index.html"><span>Pixbuf</span><wbr><span>Destroy</span><wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1556801972%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-destroy-notify/index.html">PixbufDestroyNotify</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">A function of this type is responsible for freeing the pixel array of a pixbuf.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1497351623%2FClasslikes%2F-449668928" anchor-label="PixbufError" id="1497351623%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-error/index.html"><span>Pixbuf</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1497351623%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-pixbuf-error/index.html">PixbufError</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-pixbuf-error/index.html">PixbufError</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">An error code in the <code class="lang-kotlin">GDK_PIXBUF_ERROR</code> domain.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1165779468%2FClasslikes%2F-449668928" anchor-label="PixbufErrorException" id="1165779468%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-error-exception/index.html"><span>Pixbuf</span><wbr><span>Error</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1165779468%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-pixbuf-error-exception/index.html">PixbufErrorException</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>code<span class="token operator">: </span><a href="-pixbuf-error/index.html">PixbufError</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="781917500%2FClasslikes%2F-449668928" anchor-label="PixbufFormat" id="781917500%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-format/index.html"><span>Pixbuf</span><wbr><span><span>Format</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="781917500%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-pixbuf-format/index.html">PixbufFormat</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufFormatPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A <code class="lang-kotlin">GdkPixbufFormat</code> contains information about the image format accepted by a module.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="180384127%2FClasslikes%2F-449668928" anchor-label="PixbufFormatFlags" id="180384127%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-format-flags/index.html"><span>Pixbuf</span><wbr><span>Format</span><wbr><span><span>Flags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="180384127%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-pixbuf-format-flags/index.html">PixbufFormatFlags</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>mask<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Flags which allow a module to specify further details about the supported operations.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1476000928%2FClasslikes%2F-449668928" anchor-label="PixbufLoader" id="1476000928%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-loader/index.html"><span>Pixbuf</span><wbr><span><span>Loader</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1476000928%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf-loader/index.html">PixbufLoader</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufLoaderPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Incremental image loader.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1608658023%2FClasslikes%2F-449668928" anchor-label="PixbufModule" id="1608658023%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module/index.html"><span>Pixbuf</span><wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1608658023%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-pixbuf-module/index.html">PixbufModule</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufModulePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A <code class="lang-kotlin">GdkPixbufModule</code> contains the necessary functions to load and save images in a certain file format.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-247622222%2FClasslikes%2F-449668928" anchor-label="PixbufModuleFillInfoFunc" id="-247622222%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-fill-info-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Fill</span><wbr><span>Info</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-247622222%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-fill-info-func/index.html">PixbufModuleFillInfoFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span>info<span class="token operator">: </span><a href="-pixbuf-format/index.html">PixbufFormat</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Defines the type of the function used to fill a #GdkPixbufFormat structure with information about a module.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1822667576%2FClasslikes%2F-449668928" anchor-label="PixbufModuleFillVtableFunc" id="-1822667576%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-fill-vtable-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Fill</span><wbr><span>Vtable</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1822667576%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-fill-vtable-func/index.html">PixbufModuleFillVtableFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span>module<span class="token operator">: </span><a href="-pixbuf-module/index.html">PixbufModule</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Defines the type of the function used to set the vtable of a #GdkPixbufModule when it is loaded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-28304482%2FClasslikes%2F-449668928" anchor-label="PixbufModuleLoadXpmDataFunc" id="-28304482%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-load-xpm-data-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Load</span><wbr><span>Xpm</span><wbr><span>Data</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-28304482%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-load-xpm-data-func/index.html">PixbufModuleLoadXpmDataFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span>data<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-pixbuf/index.html">Pixbuf</a></div><div class="brief "><p class="paragraph">Loads XPM data into a new <code class="lang-kotlin">GdkPixbuf</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1430162997%2FClasslikes%2F-449668928" anchor-label="PixbufModulePattern" id="-1430162997%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-pattern/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span><span>Pattern</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1430162997%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-pixbuf-module-pattern/index.html">PixbufModulePattern</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufModulePatternPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The signature prefix for a module.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1052959290%2FClasslikes%2F-449668928" anchor-label="PixbufModulePreparedFunc" id="-1052959290%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-prepared-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Prepared</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1052959290%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-prepared-func/index.html">PixbufModulePreparedFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span>pixbuf<span class="token operator">: </span><a href="-pixbuf/index.html">Pixbuf</a><span class="token punctuation">, </span>anim<span class="token operator">: </span><a href="-pixbuf-animation/index.html">PixbufAnimation</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Defines the type of the function that gets called once the initial setup of @pixbuf is done.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-317051397%2FClasslikes%2F-449668928" anchor-label="PixbufModuleSaveOptionSupportedFunc" id="-317051397%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-save-option-supported-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Save</span><wbr><span>Option</span><wbr><span>Supported</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-317051397%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-save-option-supported-func/index.html">PixbufModuleSaveOptionSupportedFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span>optionKey<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the given <code class="lang-kotlin">option_key</code> is supported when saving.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1960307838%2FClasslikes%2F-449668928" anchor-label="PixbufModuleSizeFunc" id="-1960307838%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-size-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Size</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1960307838%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-size-func/index.html">PixbufModuleSizeFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Defines the type of the function that gets called once the size of the loaded image is known.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1498790628%2FClasslikes%2F-449668928" anchor-label="PixbufModuleUpdatedFunc" id="-1498790628%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-updated-func/index.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Updated</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1498790628%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-module-updated-func/index.html">PixbufModuleUpdatedFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span>pixbuf<span class="token operator">: </span><a href="-pixbuf/index.html">Pixbuf</a><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Defines the type of the function that gets called every time a region of @pixbuf is updated.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2115012241%2FClasslikes%2F-449668928" anchor-label="PixbufNonAnim" id="2115012241%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-non-anim/index.html"><span>Pixbuf</span><wbr><span>Non</span><wbr><span><span>Anim</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2115012241%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf-non-anim/index.html">PixbufNonAnim</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufNonAnimPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pixbuf-animation/index.html">PixbufAnimation</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="718699285%2FClasslikes%2F-449668928" anchor-label="PixbufRotation" id="718699285%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-rotation/index.html"><span>Pixbuf</span><wbr><span><span>Rotation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="718699285%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-pixbuf-rotation/index.html">PixbufRotation</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-pixbuf-rotation/index.html">PixbufRotation</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">The possible rotations which can be passed to gdk_pixbuf_rotate_simple().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-229073390%2FClasslikes%2F-449668928" anchor-label="PixbufSaveFunc" id="-229073390%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-save-func/index.html"><span>Pixbuf</span><wbr><span>Save</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-229073390%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-pixbuf-save-func/index.html">PixbufSaveFunc</a><span class="token operator"> = </span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Save functions used by method@GdkPixbuf.Pixbuf.save_to_callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1474090704%2FClasslikes%2F-449668928" anchor-label="PixbufSimpleAnim" id="1474090704%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-simple-anim/index.html"><span>Pixbuf</span><wbr><span>Simple</span><wbr><span><span>Anim</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1474090704%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf-simple-anim/index.html">PixbufSimpleAnim</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufSimpleAnimPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pixbuf-animation/index.html">PixbufAnimation</a></div><div class="brief "><p class="paragraph">An opaque struct representing a simple animation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2040499992%2FClasslikes%2F-449668928" anchor-label="PixbufSimpleAnimIter" id="2040499992%2FClasslikes%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-simple-anim-iter/index.html"><span>Pixbuf</span><wbr><span>Simple</span><wbr><span>Anim</span><wbr><span><span>Iter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2040499992%2FClasslikes%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pixbuf-simple-anim-iter/index.html">PixbufSimpleAnimIter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gdkPixbufSimpleAnimIterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-pixbuf-animation-iter/index.html">PixbufAnimationIter</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1569129359%2FProperties%2F-449668928" anchor-label="PixbufDestroyNotifyFunc" id="1569129359%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-destroy-notify-func.html"><span>Pixbuf</span><wbr><span>Destroy</span><wbr><span>Notify</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1569129359%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-destroy-notify-func.html">PixbufDestroyNotifyFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-559513185%2FProperties%2F-449668928" anchor-label="PixbufModuleFillInfoFuncFunc" id="-559513185%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-fill-info-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Fill</span><wbr><span>Info</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-559513185%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-fill-info-func-func.html">PixbufModuleFillInfoFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2145943435%2FProperties%2F-449668928" anchor-label="PixbufModuleFillVtableFuncFunc" id="-2145943435%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-fill-vtable-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Fill</span><wbr><span>Vtable</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2145943435%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-fill-vtable-func-func.html">PixbufModuleFillVtableFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1390888161%2FProperties%2F-449668928" anchor-label="PixbufModuleLoadXpmDataFuncFunc" id="1390888161%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-load-xpm-data-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Load</span><wbr><span>Xpm</span><wbr><span>Data</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1390888161%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-load-xpm-data-func-func.html">PixbufModuleLoadXpmDataFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="-gdk-pixbuf/index.html">GdkPixbuf</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="347856819%2FProperties%2F-449668928" anchor-label="PixbufModulePreparedFuncFunc" id="347856819%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-prepared-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Prepared</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="347856819%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-prepared-func-func.html">PixbufModulePreparedFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="-gdk-pixbuf/index.html">GdkPixbuf</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1019341378%2FProperties%2F-449668928" anchor-label="PixbufModuleSaveOptionSupportedFuncFunc" id="-1019341378%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-save-option-supported-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Save</span><wbr><span>Option</span><wbr><span>Supported</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1019341378%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-save-option-supported-func-func.html">PixbufModuleSaveOptionSupportedFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="461177327%2FProperties%2F-449668928" anchor-label="PixbufModuleSizeFuncFunc" id="461177327%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-size-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Size</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="461177327%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-size-func-func.html">PixbufModuleSizeFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1476459297%2FProperties%2F-449668928" anchor-label="PixbufModuleUpdatedFuncFunc" id="-1476459297%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-module-updated-func-func.html"><span>Pixbuf</span><wbr><span>Module</span><wbr><span>Updated</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1476459297%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-module-updated-func-func.html">PixbufModuleUpdatedFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="-gdk-pixbuf/index.html">GdkPixbuf</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">, </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="599669823%2FProperties%2F-449668928" anchor-label="PixbufSaveFuncFunc" id="599669823%2FProperties%2F-449668928" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:gdkpixbuf/nativeMain" data-filterable-set=":bindings:core:gdkpixbuf/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pixbuf-save-func-func.html"><span>Pixbuf</span><wbr><span>Save</span><wbr><span>Func</span><wbr><span><span>Func</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="599669823%2FProperties%2F-449668928"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gdkpixbuf/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-pixbuf-save-func-func.html">PixbufSaveFuncFunc</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

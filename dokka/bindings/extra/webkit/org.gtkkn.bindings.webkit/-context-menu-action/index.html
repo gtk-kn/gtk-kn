@@ -1,0 +1,930 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ContextMenuAction</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:extra:webkit/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:extra:webkit/nativeMain" data-filter=":bindings:extra:webkit/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="webkit::org.gtkkn.bindings.webkit/ContextMenuAction///PointingToDeclaration//-1693314907">
+  <div class="breadcrumbs"><a href="../../index.html">webkit</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.webkit</a><span class="delimiter">/</span><span class="current">ContextMenuAction</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Context</span><wbr><span>Menu</span><wbr><span><span>Action</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">ContextMenuAction</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">ContextMenuAction</a><span class="token operator">&gt; </span></div><p class="paragraph">Enum values used to denote the stock actions for #WebKitContextMenuItem<!-- -->s</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="103079770%2FClasslikes%2F-1693314907" anchor-label="NO_ACTION" id="103079770%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o_-a-c-t-i-o-n/index.html">NO_ACTION</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="103079770%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-o_-a-c-t-i-o-n/index.html">NO_ACTION</a></div></div><div class="brief "><p class="paragraph">No action, used by separator menu items.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1501196171%2FClasslikes%2F-1693314907" anchor-label="OPEN_LINK" id="-1501196171%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-l-i-n-k/index.html">OPEN_LINK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1501196171%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-l-i-n-k/index.html">OPEN_LINK</a></div></div><div class="brief "><p class="paragraph">Open current link.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2103027169%2FClasslikes%2F-1693314907" anchor-label="OPEN_LINK_IN_NEW_WINDOW" id="-2103027169%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-l-i-n-k_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_LINK_IN_NEW_WINDOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2103027169%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-l-i-n-k_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_LINK_IN_NEW_WINDOW</a></div></div><div class="brief "><p class="paragraph">Open current link in a new window.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1267452313%2FClasslikes%2F-1693314907" anchor-label="DOWNLOAD_LINK_TO_DISK" id="1267452313%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-o-w-n-l-o-a-d_-l-i-n-k_-t-o_-d-i-s-k/index.html">DOWNLOAD_LINK_TO_DISK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1267452313%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-o-w-n-l-o-a-d_-l-i-n-k_-t-o_-d-i-s-k/index.html">DOWNLOAD_LINK_TO_DISK</a></div></div><div class="brief "><p class="paragraph">Download link destination.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1524996529%2FClasslikes%2F-1693314907" anchor-label="COPY_LINK_TO_CLIPBOARD" id="-1524996529%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y_-l-i-n-k_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_LINK_TO_CLIPBOARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1524996529%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-p-y_-l-i-n-k_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_LINK_TO_CLIPBOARD</a></div></div><div class="brief "><p class="paragraph">Copy link location to the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-59499918%2FClasslikes%2F-1693314907" anchor-label="OPEN_IMAGE_IN_NEW_WINDOW" id="-59499918%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-i-m-a-g-e_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_IMAGE_IN_NEW_WINDOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-59499918%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-i-m-a-g-e_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_IMAGE_IN_NEW_WINDOW</a></div></div><div class="brief "><p class="paragraph">Open current image in a new window.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-612167576%2FClasslikes%2F-1693314907" anchor-label="DOWNLOAD_IMAGE_TO_DISK" id="-612167576%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-o-w-n-l-o-a-d_-i-m-a-g-e_-t-o_-d-i-s-k/index.html">DOWNLOAD_IMAGE_TO_DISK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-612167576%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-o-w-n-l-o-a-d_-i-m-a-g-e_-t-o_-d-i-s-k/index.html">DOWNLOAD_IMAGE_TO_DISK</a></div></div><div class="brief "><p class="paragraph">Download current image.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-751309146%2FClasslikes%2F-1693314907" anchor-label="COPY_IMAGE_TO_CLIPBOARD" id="-751309146%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y_-i-m-a-g-e_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_IMAGE_TO_CLIPBOARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-751309146%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-p-y_-i-m-a-g-e_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_IMAGE_TO_CLIPBOARD</a></div></div><div class="brief "><p class="paragraph">Copy current image to the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-603819114%2FClasslikes%2F-1693314907" anchor-label="COPY_IMAGE_URL_TO_CLIPBOARD" id="-603819114%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y_-i-m-a-g-e_-u-r-l_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_IMAGE_URL_TO_CLIPBOARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-603819114%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-p-y_-i-m-a-g-e_-u-r-l_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_IMAGE_URL_TO_CLIPBOARD</a></div></div><div class="brief "><p class="paragraph">Copy current image location to the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="614428548%2FClasslikes%2F-1693314907" anchor-label="OPEN_FRAME_IN_NEW_WINDOW" id="614428548%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-f-r-a-m-e_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_FRAME_IN_NEW_WINDOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="614428548%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-f-r-a-m-e_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_FRAME_IN_NEW_WINDOW</a></div></div><div class="brief "><p class="paragraph">Open current frame in a new window.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="646046148%2FClasslikes%2F-1693314907" anchor-label="GO_BACK" id="646046148%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-o_-b-a-c-k/index.html">GO_BACK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="646046148%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-o_-b-a-c-k/index.html">GO_BACK</a></div></div><div class="brief "><p class="paragraph">Load the previous history item.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1850102608%2FClasslikes%2F-1693314907" anchor-label="GO_FORWARD" id="1850102608%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-o_-f-o-r-w-a-r-d/index.html">GO_FORWARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1850102608%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-g-o_-f-o-r-w-a-r-d/index.html">GO_FORWARD</a></div></div><div class="brief "><p class="paragraph">Load the next history item.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-839052156%2FClasslikes%2F-1693314907" anchor-label="STOP" id="-839052156%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-o-p/index.html">STOP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-839052156%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-t-o-p/index.html">STOP</a></div></div><div class="brief "><p class="paragraph">Stop any ongoing loading operation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-224382885%2FClasslikes%2F-1693314907" anchor-label="RELOAD" id="-224382885%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-l-o-a-d/index.html">RELOAD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-224382885%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-r-e-l-o-a-d/index.html">RELOAD</a></div></div><div class="brief "><p class="paragraph">Reload the contents of current view.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="324586679%2FClasslikes%2F-1693314907" anchor-label="COPY" id="324586679%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y/index.html">COPY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="324586679%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-p-y/index.html">COPY</a></div></div><div class="brief "><p class="paragraph">Copy current selection the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1425810440%2FClasslikes%2F-1693314907" anchor-label="CUT" id="1425810440%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-u-t/index.html">CUT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1425810440%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-u-t/index.html">CUT</a></div></div><div class="brief "><p class="paragraph">Cut current selection to the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1239738393%2FClasslikes%2F-1693314907" anchor-label="PASTE" id="1239738393%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-s-t-e/index.html">PASTE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1239738393%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-a-s-t-e/index.html">PASTE</a></div></div><div class="brief "><p class="paragraph">Paste clipboard contents.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1130958611%2FClasslikes%2F-1693314907" anchor-label="DELETE" id="-1130958611%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-l-e-t-e/index.html">DELETE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1130958611%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-e-l-e-t-e/index.html">DELETE</a></div></div><div class="brief "><p class="paragraph">Delete current selection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2046623552%2FClasslikes%2F-1693314907" anchor-label="SELECT_ALL" id="-2046623552%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-l-e-c-t_-a-l-l/index.html">SELECT_ALL</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2046623552%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-e-l-e-c-t_-a-l-l/index.html">SELECT_ALL</a></div></div><div class="brief "><p class="paragraph">Select all text.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1288445475%2FClasslikes%2F-1693314907" anchor-label="INPUT_METHODS" id="1288445475%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-p-u-t_-m-e-t-h-o-d-s/index.html">INPUT_METHODS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1288445475%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-p-u-t_-m-e-t-h-o-d-s/index.html">INPUT_METHODS</a></div></div><div class="brief "><p class="paragraph">Input methods menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1604363875%2FClasslikes%2F-1693314907" anchor-label="UNICODE" id="1604363875%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-i-c-o-d-e/index.html">UNICODE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1604363875%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-i-c-o-d-e/index.html">UNICODE</a></div></div><div class="brief "><p class="paragraph">Unicode menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-447751692%2FClasslikes%2F-1693314907" anchor-label="SPELLING_GUESS" id="-447751692%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-p-e-l-l-i-n-g_-g-u-e-s-s/index.html">SPELLING_GUESS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-447751692%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-s-p-e-l-l-i-n-g_-g-u-e-s-s/index.html">SPELLING_GUESS</a></div></div><div class="brief "><p class="paragraph">A proposed replacement for a misspelled word.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2110839092%2FClasslikes%2F-1693314907" anchor-label="NO_GUESSES_FOUND" id="-2110839092%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-o_-g-u-e-s-s-e-s_-f-o-u-n-d/index.html">NO_GUESSES_FOUND</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2110839092%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-n-o_-g-u-e-s-s-e-s_-f-o-u-n-d/index.html">NO_GUESSES_FOUND</a></div></div><div class="brief "><p class="paragraph">An indicator that spellchecking found no proposed replacements.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-484542035%2FClasslikes%2F-1693314907" anchor-label="IGNORE_SPELLING" id="-484542035%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-g-n-o-r-e_-s-p-e-l-l-i-n-g/index.html">IGNORE_SPELLING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-484542035%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-g-n-o-r-e_-s-p-e-l-l-i-n-g/index.html">IGNORE_SPELLING</a></div></div><div class="brief "><p class="paragraph">Causes the spellchecker to ignore the word for this session.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="517934391%2FClasslikes%2F-1693314907" anchor-label="LEARN_SPELLING" id="517934391%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-e-a-r-n_-s-p-e-l-l-i-n-g/index.html">LEARN_SPELLING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="517934391%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-l-e-a-r-n_-s-p-e-l-l-i-n-g/index.html">LEARN_SPELLING</a></div></div><div class="brief "><p class="paragraph">Causes the spellchecker to add the word to the dictionary.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1182883044%2FClasslikes%2F-1693314907" anchor-label="IGNORE_GRAMMAR" id="-1182883044%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-g-n-o-r-e_-g-r-a-m-m-a-r/index.html">IGNORE_GRAMMAR</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1182883044%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-g-n-o-r-e_-g-r-a-m-m-a-r/index.html">IGNORE_GRAMMAR</a></div></div><div class="brief "><p class="paragraph">Ignore grammar.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2017897205%2FClasslikes%2F-1693314907" anchor-label="FONT_MENU" id="2017897205%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-o-n-t_-m-e-n-u/index.html">FONT_MENU</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2017897205%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-f-o-n-t_-m-e-n-u/index.html">FONT_MENU</a></div></div><div class="brief "><p class="paragraph">Font options menu.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1423891399%2FClasslikes%2F-1693314907" anchor-label="BOLD" id="1423891399%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-o-l-d/index.html">BOLD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1423891399%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-b-o-l-d/index.html">BOLD</a></div></div><div class="brief "><p class="paragraph">Bold.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1433816398%2FClasslikes%2F-1693314907" anchor-label="ITALIC" id="-1433816398%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-t-a-l-i-c/index.html">ITALIC</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1433816398%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-t-a-l-i-c/index.html">ITALIC</a></div></div><div class="brief "><p class="paragraph">Italic.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-913061486%2FClasslikes%2F-1693314907" anchor-label="UNDERLINE" id="-913061486%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-u-n-d-e-r-l-i-n-e/index.html">UNDERLINE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-913061486%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-u-n-d-e-r-l-i-n-e/index.html">UNDERLINE</a></div></div><div class="brief "><p class="paragraph">Underline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-660932344%2FClasslikes%2F-1693314907" anchor-label="OUTLINE" id="-660932344%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-u-t-l-i-n-e/index.html">OUTLINE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-660932344%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-u-t-l-i-n-e/index.html">OUTLINE</a></div></div><div class="brief "><p class="paragraph">Outline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1096064567%2FClasslikes%2F-1693314907" anchor-label="INSPECT_ELEMENT" id="1096064567%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-s-p-e-c-t_-e-l-e-m-e-n-t/index.html">INSPECT_ELEMENT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1096064567%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-s-p-e-c-t_-e-l-e-m-e-n-t/index.html">INSPECT_ELEMENT</a></div></div><div class="brief "><p class="paragraph">Open current element in the inspector.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1257231762%2FClasslikes%2F-1693314907" anchor-label="OPEN_VIDEO_IN_NEW_WINDOW" id="1257231762%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-v-i-d-e-o_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_VIDEO_IN_NEW_WINDOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1257231762%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-v-i-d-e-o_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_VIDEO_IN_NEW_WINDOW</a></div></div><div class="brief "><p class="paragraph">Open current video element in a new window.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532317075%2FClasslikes%2F-1693314907" anchor-label="OPEN_AUDIO_IN_NEW_WINDOW" id="-532317075%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-p-e-n_-a-u-d-i-o_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_AUDIO_IN_NEW_WINDOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532317075%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-o-p-e-n_-a-u-d-i-o_-i-n_-n-e-w_-w-i-n-d-o-w/index.html">OPEN_AUDIO_IN_NEW_WINDOW</a></div></div><div class="brief "><p class="paragraph">Open current audio element in a new window.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1163024235%2FClasslikes%2F-1693314907" anchor-label="COPY_VIDEO_LINK_TO_CLIPBOARD" id="1163024235%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y_-v-i-d-e-o_-l-i-n-k_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_VIDEO_LINK_TO_CLIPBOARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1163024235%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-p-y_-v-i-d-e-o_-l-i-n-k_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_VIDEO_LINK_TO_CLIPBOARD</a></div></div><div class="brief "><p class="paragraph">Copy video link location in to the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1467160774%2FClasslikes%2F-1693314907" anchor-label="COPY_AUDIO_LINK_TO_CLIPBOARD" id="1467160774%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-p-y_-a-u-d-i-o_-l-i-n-k_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_AUDIO_LINK_TO_CLIPBOARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1467160774%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-o-p-y_-a-u-d-i-o_-l-i-n-k_-t-o_-c-l-i-p-b-o-a-r-d/index.html">COPY_AUDIO_LINK_TO_CLIPBOARD</a></div></div><div class="brief "><p class="paragraph">Copy audio link location in to the clipboard.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-610009854%2FClasslikes%2F-1693314907" anchor-label="TOGGLE_MEDIA_CONTROLS" id="-610009854%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-o-g-g-l-e_-m-e-d-i-a_-c-o-n-t-r-o-l-s/index.html">TOGGLE_MEDIA_CONTROLS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-610009854%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-o-g-g-l-e_-m-e-d-i-a_-c-o-n-t-r-o-l-s/index.html">TOGGLE_MEDIA_CONTROLS</a></div></div><div class="brief "><p class="paragraph">Enable or disable media controls.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="540943472%2FClasslikes%2F-1693314907" anchor-label="TOGGLE_MEDIA_LOOP" id="540943472%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-o-g-g-l-e_-m-e-d-i-a_-l-o-o-p/index.html">TOGGLE_MEDIA_LOOP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="540943472%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-t-o-g-g-l-e_-m-e-d-i-a_-l-o-o-p/index.html">TOGGLE_MEDIA_LOOP</a></div></div><div class="brief "><p class="paragraph">Enable or disable media loop.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2005550392%2FClasslikes%2F-1693314907" anchor-label="ENTER_VIDEO_FULLSCREEN" id="-2005550392%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-n-t-e-r_-v-i-d-e-o_-f-u-l-l-s-c-r-e-e-n/index.html">ENTER_VIDEO_FULLSCREEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2005550392%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-e-n-t-e-r_-v-i-d-e-o_-f-u-l-l-s-c-r-e-e-n/index.html">ENTER_VIDEO_FULLSCREEN</a></div></div><div class="brief "><p class="paragraph">Show current video element in fullscreen mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-685307887%2FClasslikes%2F-1693314907" anchor-label="MEDIA_PLAY" id="-685307887%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-d-i-a_-p-l-a-y/index.html">MEDIA_PLAY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-685307887%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-d-i-a_-p-l-a-y/index.html">MEDIA_PLAY</a></div></div><div class="brief "><p class="paragraph">Play current media element.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1066382399%2FClasslikes%2F-1693314907" anchor-label="MEDIA_PAUSE" id="-1066382399%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-d-i-a_-p-a-u-s-e/index.html">MEDIA_PAUSE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1066382399%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-d-i-a_-p-a-u-s-e/index.html">MEDIA_PAUSE</a></div></div><div class="brief "><p class="paragraph">Pause current media element.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-732105674%2FClasslikes%2F-1693314907" anchor-label="MEDIA_MUTE" id="-732105674%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-d-i-a_-m-u-t-e/index.html">MEDIA_MUTE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-732105674%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-m-e-d-i-a_-m-u-t-e/index.html">MEDIA_MUTE</a></div></div><div class="brief "><p class="paragraph">Mute current media element.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1280203896%2FClasslikes%2F-1693314907" anchor-label="DOWNLOAD_VIDEO_TO_DISK" id="-1280203896%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-o-w-n-l-o-a-d_-v-i-d-e-o_-t-o_-d-i-s-k/index.html">DOWNLOAD_VIDEO_TO_DISK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1280203896%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-o-w-n-l-o-a-d_-v-i-d-e-o_-t-o_-d-i-s-k/index.html">DOWNLOAD_VIDEO_TO_DISK</a></div></div><div class="brief "><p class="paragraph">Download video to disk. Since 2.2</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1217940131%2FClasslikes%2F-1693314907" anchor-label="DOWNLOAD_AUDIO_TO_DISK" id="1217940131%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-o-w-n-l-o-a-d_-a-u-d-i-o_-t-o_-d-i-s-k/index.html">DOWNLOAD_AUDIO_TO_DISK</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1217940131%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-d-o-w-n-l-o-a-d_-a-u-d-i-o_-t-o_-d-i-s-k/index.html">DOWNLOAD_AUDIO_TO_DISK</a></div></div><div class="brief "><p class="paragraph">Download audio to disk. Since 2.2</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="707332386%2FClasslikes%2F-1693314907" anchor-label="INSERT_EMOJI" id="707332386%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-n-s-e-r-t_-e-m-o-j-i/index.html">INSERT_EMOJI</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="707332386%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-i-n-s-e-r-t_-e-m-o-j-i/index.html">INSERT_EMOJI</a></div></div><div class="brief "><p class="paragraph">Insert an emoji. Since 2.26</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="136153641%2FClasslikes%2F-1693314907" anchor-label="PASTE_AS_PLAIN_TEXT" id="136153641%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-s-t-e_-a-s_-p-l-a-i-n_-t-e-x-t/index.html">PASTE_AS_PLAIN_TEXT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="136153641%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-p-a-s-t-e_-a-s_-p-l-a-i-n_-t-e-x-t/index.html">PASTE_AS_PLAIN_TEXT</a></div></div><div class="brief "><p class="paragraph">Paste clipboard contents as plain text. Since 2.30</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="79646771%2FClasslikes%2F-1693314907" anchor-label="CUSTOM" id="79646771%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-u-s-t-o-m/index.html">CUSTOM</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="79646771%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><div class="block"><a href="-c-u-s-t-o-m/index.html">CUSTOM</a></div></div><div class="brief "><p class="paragraph">Custom action defined by applications.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-573261517%2FClasslikes%2F-1693314907" anchor-label="Companion" id="-573261517%2FClasslikes%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-573261517%2FClasslikes%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-1693314907" anchor-label="name" id="-372974862%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-web-process-termination-reason/-t-e-r-m-i-n-a-t-e-d_-b-y_-a-p-i/index.html#-372974862%2FProperties%2F-1693314907"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-web-process-termination-reason/-t-e-r-m-i-n-a-t-e-d_-b-y_-a-p-i/index.html#-372974862%2FProperties%2F-1693314907">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="500740562%2FProperties%2F-1693314907" anchor-label="nativeValue" id="500740562%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="native-value.html"><span>native</span><wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="500740562%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="native-value.html">nativeValue</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F-1693314907" anchor-label="ordinal" id="-739389684%2FProperties%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-web-process-termination-reason/-t-e-r-m-i-n-a-t-e-d_-b-y_-a-p-i/index.html#-739389684%2FProperties%2F-1693314907"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="../-web-process-termination-reason/-t-e-r-m-i-n-a-t-e-d_-b-y_-a-p-i/index.html#-739389684%2FProperties%2F-1693314907">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1193813504%2FFunctions%2F-1693314907" anchor-label="valueOf" id="1193813504%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1193813504%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContextMenuAction</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-193957108%2FFunctions%2F-1693314907" anchor-label="values" id="-193957108%2FFunctions%2F-1693314907" data-filterable-set=":bindings:extra:webkit/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:extra:webkit/nativeMain" data-filterable-set=":bindings:extra:webkit/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193957108%2FFunctions%2F-1693314907"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:webkit/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">ContextMenuAction</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Plane</title>
+<link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../../index.html">
+                    gtk-kn
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":bindings:core:graphene/nativeMain">native</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option native-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":bindings:core:graphene/nativeMain" data-filter=":bindings:core:graphene/nativeMain">
+                                <span class="checkbox--icon"></span>
+                                native
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    gtk-kn
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="graphene::org.gtkkn.bindings.graphene/Plane///PointingToDeclaration//-383291588">
+  <div class="breadcrumbs"><a href="../../index.html">graphene</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.graphene</a><span class="delimiter">/</span><span class="current">Plane</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Plane</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Plane</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>graphenePlanePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">A 2D plane that extends infinitely in a 3D volume.</p><p class="paragraph">The contents of the <code class="lang-kotlin">graphene_plane_t</code> are private, and should not be modified directly.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.2</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1723009795%2FConstructors%2F-383291588" anchor-label="Plane" id="-1723009795%2FConstructors%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-plane.html"><span><span>Plane</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1723009795%2FConstructors%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Plane.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Allocate a new Plane using the provided AutofreeScope.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">graphenePlanePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">cleaner<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-522617009%2FClasslikes%2F-383291588" anchor-label="Companion" id="-522617009%2FClasslikes%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-522617009%2FClasslikes%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1883506499%2FProperties%2F-383291588" anchor-label="graphenePlanePointer" id="1883506499%2FProperties%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="graphene-plane-pointer.html"><span>graphene</span><wbr><span>Plane</span><wbr><span><span>Pointer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1883506499%2FProperties%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="graphene-plane-pointer.html">graphenePlanePointer</a><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2129065701%2FFunctions%2F-383291588" anchor-label="distance" id="-2129065701%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="distance.html"><span><span>distance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2129065701%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="distance.html"><span class="token function">distance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">point<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Computes the distance of @point from a #graphene_plane_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1921578743%2FFunctions%2F-383291588" anchor-label="equal" id="-1921578743%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="equal.html"><span><span>equal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1921578743%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="equal.html"><span class="token function">equal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="index.html">Plane</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks whether the two given #graphene_plane_t are equal.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1541025370%2FFunctions%2F-383291588" anchor-label="free" id="-1541025370%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free.html"><span><span>free</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1541025370%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="free.html"><span class="token function">free</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Frees the resources allocated by graphene_plane_alloc().</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1958037650%2FFunctions%2F-383291588" anchor-label="getConstant" id="-1958037650%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-constant.html"><span>get</span><wbr><span><span>Constant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1958037650%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-constant.html"><span class="token function">getConstant</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the distance along the normal vector of the given #graphene_plane_t from the origin.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1970394443%2FFunctions%2F-383291588" anchor-label="getNormal" id="-1970394443%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-normal.html"><span>get</span><wbr><span><span>Normal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970394443%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-normal.html"><span class="token function">getNormal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">normal<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Retrieves the normal vector pointing towards the origin of the given #graphene_plane_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1300912799%2FFunctions%2F-383291588" anchor-label="init" id="-1300912799%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init.html"><span><span>init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1300912799%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init.html"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">normal<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">constant<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Plane</a></div><div class="brief "><p class="paragraph">Initializes the given #graphene_plane_t using the given @normal vector and @constant values.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1435447543%2FFunctions%2F-383291588" anchor-label="initFromPlane" id="1435447543%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-plane.html"><span>init</span><wbr><span>From</span><wbr><span><span>Plane</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1435447543%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-plane.html"><span class="token function">initFromPlane</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">src<span class="token operator">: </span><a href="index.html">Plane</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Plane</a></div><div class="brief "><p class="paragraph">Initializes the given #graphene_plane_t using the normal vector and constant of another #graphene_plane_t.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="67127669%2FFunctions%2F-383291588" anchor-label="initFromPoint" id="67127669%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-point.html"><span>init</span><wbr><span>From</span><wbr><span><span>Point</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="67127669%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-point.html"><span class="token function">initFromPoint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">normal<span class="token operator">: </span><a href="../-vec3/index.html">Vec3</a><span class="token punctuation">, </span></span><span class="parameter ">point<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Plane</a></div><div class="brief "><p class="paragraph">Initializes the given #graphene_plane_t using the given normal vector and an arbitrary co-planar point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1335590411%2FFunctions%2F-383291588" anchor-label="initFromPoints" id="-1335590411%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-points.html"><span>init</span><wbr><span>From</span><wbr><span><span>Points</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1335590411%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-points.html"><span class="token function">initFromPoints</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">a<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a><span class="token punctuation">, </span></span><span class="parameter ">b<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a><span class="token punctuation">, </span></span><span class="parameter ">c<span class="token operator">: </span><a href="../-point3d/index.html">Point3d</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Plane</a></div><div class="brief "><p class="paragraph">Initializes the given #graphene_plane_t using the 3 provided co-planar points.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-105706367%2FFunctions%2F-383291588" anchor-label="initFromVec4" id="-105706367%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="init-from-vec4.html"><span>init</span><wbr><span>From</span><wbr><span><span>Vec4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-105706367%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="init-from-vec4.html"><span class="token function">initFromVec4</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">src<span class="token operator">: </span><a href="../-vec4/index.html">Vec4</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Plane</a></div><div class="brief "><p class="paragraph">Initializes the given #graphene_plane_t using the components of the given #graphene_vec4_t vector.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1337590477%2FFunctions%2F-383291588" anchor-label="negate" id="1337590477%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="negate.html"><span><span>negate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1337590477%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="negate.html"><span class="token function">negate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Plane</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Negates the normal vector and constant of a #graphene_plane_t, effectively mirroring the plane across the origin.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="325188898%2FFunctions%2F-383291588" anchor-label="normalize" id="325188898%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="normalize.html"><span><span>normalize</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="325188898%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="normalize.html"><span class="token function">normalize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Plane</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Normalizes the vector of the given #graphene_plane_t, and adjusts the constant accordingly.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1669019358%2FFunctions%2F-383291588" anchor-label="transform" id="1669019358%2FFunctions%2F-383291588" data-filterable-set=":bindings:core:graphene/nativeMain"></a>
+          <div class="table-row" data-filterable-current=":bindings:core:graphene/nativeMain" data-filterable-set=":bindings:core:graphene/nativeMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform.html"><span><span>transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1669019358%2FFunctions%2F-383291588"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:graphene/nativeMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transform.html"><span class="token function">transform</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a><span class="token punctuation">, </span></span><span class="parameter ">normalMatrix<span class="token operator">: </span><a href="../-matrix/index.html">Matrix</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">res<span class="token operator">: </span><a href="index.html">Plane</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Transforms a #graphene_plane_t @p using the given @matrix and @normal_matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
