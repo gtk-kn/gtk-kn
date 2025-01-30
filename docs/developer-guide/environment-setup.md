@@ -4,7 +4,7 @@ description: Set up your development environment for gtk-kn with the required de
 
 To develop a `gtk-kn` application, you need:
 
-- The **Kotlin/Native toolchain**, which requires a correctly configured **Java environment**
+- The **Kotlin/Native toolchain**, which requires a **Java environment** (only for Gradle, not the actual application)
 - The **GTK 4 library** and dependencies
 
 Most Linux distributions require only three essential packages to build and run **GTK applications**:
