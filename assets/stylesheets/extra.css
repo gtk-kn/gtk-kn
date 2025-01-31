@@ -2,25 +2,46 @@
     --md-primary-fg-color: #E24462;
 }
 
-/* darcula looking style */
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs {
+    background-color: hsla(var(--md-hue), 15%, 9%, 1) !important;
+}
+
+/* Intellij IDEA Light looking style */
+[data-md-color-scheme="default"] {
+    /* Syntax groups */
+    --md-code-hl-number-color: #1750EB; /* numbers */
+    --md-code-hl-special-color: #0033B3; /* “special” tokens (often same as keyword) */
+    --md-code-hl-function-color: #00627A; /* function declarations/calls */
+    --md-code-hl-constant-color: #871094; /* constants */
+    --md-code-hl-keyword-color: #0033B3; /* keywords (if, def, etc.) */
+    --md-code-hl-string-color: #067D17; /* strings */
+    --md-code-hl-name-color: #36464E; /* identifiers (default) */
+    --md-code-hl-operator-color: #36464E; /* operators (+ - / =) */
+    --md-code-hl-punctuation-color: #36464E; /* punctuation (braces, parentheses) */
+    --md-code-hl-comment-color: #8C8C8C; /* line/block comments */
+    --md-code-hl-generic-color: #36464E; /* fallback/general text */
+    --md-code-hl-variable-color: #36464E; /* variables */
+}
+
+/* Intellij IDEA Dark looking style */
 [data-md-color-scheme="slate"] {
-    --md-code-fg-color: rgb(169, 183, 198); /* normal */
-    --md-code-bg-color: rgb(43, 43, 43); /* background */
-    --md-code-hl-color: var(--md-default-bg-color--light);
-    --md-code-hl-operator-color: var(--md-code-fg-color); /* +-=/ */
-    --md-code-hl-operator-word-color: var(--md-code-hl-keyword-color); /* not and or */
-    --md-code-hl-punctuation-color: var(--md-code-fg-color);
-    --md-code-hl-string-color: rgb(98, 151, 85); /*str*/
-    --md-code-hl-special-color: var(--md-code-hl-keyword-color); /* "some\nthing"*/
-    --md-code-hl-number-color: rgb(104, 151, 187); /*num*/
-    --md-code-hl-keyword-color: rgb(204, 120, 50); /* def/if/for */
-    --md-code-hl-name-color: var(--md-code-fg-color); /* variables */
-    --md-code-hl-constant-color: rgb(136, 136, 198); /* builtins, not constants... */
-    --md-code-hl-pseudo-color: rgb(148, 85, 141); /* self */
-    --md-code-hl-function-color: rgb(255, 198, 109); /* foo() */
-    --md-code-hl-decorator-color: rgb(187, 181, 41); /* @something */
-    --md-code-hl-comment-color: rgb(128, 128, 128); /*  # comment */
-    --md-code-hl-variable-color: var(--md-code-fg-color);
-    --md-code-hl-generic-color: var(--md-code-fg-color);
-    --md-code-hl-dunder-color: rgb(178, 0, 178); /* ADD */
+    /* Base code block colors */
+    --md-code-fg-color: #BCBEC4; /* default text */
+    --md-code-bg-color: #1E1F22; /* background */
+    --md-code-hl-color: #26282E; /* line highlight (approx. caret row) */
+
+    /* Syntax groups */
+    --md-code-hl-number-color: #2AACB8; /* numbers */
+    --md-code-hl-special-color: #CF8E6D; /* “special” tokens (often same as keyword) */
+    --md-code-hl-function-color: #56A8F5; /* function declarations/calls */
+    --md-code-hl-constant-color: #C77DBB; /* constants */
+    --md-code-hl-keyword-color: #CF8E6D; /* keywords (if, def, etc.) */
+    --md-code-hl-string-color: #6AAB73; /* strings */
+    --md-code-hl-name-color: #BCBEC4; /* identifiers (default) */
+    --md-code-hl-operator-color: #BCBEC4; /* operators (+ - / =) */
+    --md-code-hl-punctuation-color: #BCBEC4; /* punctuation (braces, parentheses) */
+    --md-code-hl-comment-color: #7A7E85; /* line/block comments */
+    --md-code-hl-generic-color: #BCBEC4; /* fallback/general text */
+    --md-code-hl-variable-color: #BCBEC4; /* variables */
 }
