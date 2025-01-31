@@ -104,7 +104,7 @@ theme:
         name: Switch to dark mode
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
-      primary: 'black'
+      primary: custom
       accent: 'blue-grey'
       toggle:
         icon: material/brightness-4
@@ -156,7 +156,9 @@ markdown_extensions:
       smart_enable: all
   - pymdownx.caret
   - pymdownx.details
-  - pymdownx.emoji
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

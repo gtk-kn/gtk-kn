@@ -17,23 +17,25 @@ Kotlin/Native bindings for the GTK framework and other GObject-Introspection-bas
 <br>
 <div class="grid cards" markdown>
 
--   __Modern Native Apps__
+-   __Modern Native Desktop Apps__
 
     ---
 
-    Build fast, Kotlin/Native GTK apps with direct system performance, no JVM needed.
+    Build fast, :material-language-kotlin: Kotlin/Native :simple-gtk: GTK apps with direct system performance,
+    no :fontawesome-brands-java: JVM needed.
 
 -   __Familiar Tools__
 
     ---
 
-    IntelliJ IDEA, Gradle, Kotlin — everything you already know, now for GTK.
+    :simple-intellijidea: IntelliJ IDEA, :simple-gradle: Gradle, :material-language-kotlin: Kotlin — everything you already know,
+    now for GTK.
 
--   __Linux & macOS Support__
+-   __Multiplatform__
 
     ---
 
-    Develop GTK applications across multiple platforms.
+    Develop gtk-kn apps on :simple-linux: Linux and :simple-apple: macOS.
 
 </div>
 <br>

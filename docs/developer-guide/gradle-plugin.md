@@ -137,7 +137,7 @@ To use this feature, place your resources in the `src/gresources/main` directory
 to your `build.gradle.kts`:
 
 ```kotlin
-kotlin.linuxX64.gtk {
+gtkKn {
     gresources.main.embed(project.nativeTergetCompilation())
 }
 ```
