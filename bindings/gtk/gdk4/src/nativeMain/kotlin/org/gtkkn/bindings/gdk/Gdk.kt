@@ -5120,52 +5120,52 @@ public object Gdk {
     }
 
     private fun registerTypes() {
-        TypeCache.register(AppLaunchContext::class, AppLaunchContext.getType()) { AppLaunchContext(it.reinterpret()) }
-        TypeCache.register(ButtonEvent::class, ButtonEvent.getType()) { ButtonEvent(it.reinterpret()) }
-        TypeCache.register(CairoContext::class, CairoContext.getType()) { CairoContext.CairoContextImpl(it.reinterpret()) }
-        TypeCache.register(Clipboard::class, Clipboard.getType()) { Clipboard(it.reinterpret()) }
-        TypeCache.register(ContentDeserializer::class, ContentDeserializer.getType()) { ContentDeserializer(it.reinterpret()) }
-        TypeCache.register(ContentProvider::class, ContentProvider.getType()) { ContentProvider(it.reinterpret()) }
-        TypeCache.register(ContentSerializer::class, ContentSerializer.getType()) { ContentSerializer(it.reinterpret()) }
-        TypeCache.register(CrossingEvent::class, CrossingEvent.getType()) { CrossingEvent(it.reinterpret()) }
-        TypeCache.register(Cursor::class, Cursor.getType()) { Cursor(it.reinterpret()) }
-        TypeCache.register(DndEvent::class, DndEvent.getType()) { DndEvent(it.reinterpret()) }
-        TypeCache.register(DeleteEvent::class, DeleteEvent.getType()) { DeleteEvent(it.reinterpret()) }
-        TypeCache.register(Device::class, Device.getType()) { Device.DeviceImpl(it.reinterpret()) }
-        TypeCache.register(DeviceTool::class, DeviceTool.getType()) { DeviceTool(it.reinterpret()) }
-        TypeCache.register(Display::class, Display.getType()) { Display(it.reinterpret()) }
-        TypeCache.register(DisplayManager::class, DisplayManager.getType()) { DisplayManager(it.reinterpret()) }
-        TypeCache.register(DmabufTexture::class, DmabufTexture.getType()) { DmabufTexture(it.reinterpret()) }
-        TypeCache.register(DmabufTextureBuilder::class, DmabufTextureBuilder.getType()) { DmabufTextureBuilder(it.reinterpret()) }
-        TypeCache.register(Drag::class, Drag.getType()) { Drag.DragImpl(it.reinterpret()) }
-        TypeCache.register(DrawContext::class, DrawContext.getType()) { DrawContext.DrawContextImpl(it.reinterpret()) }
-        TypeCache.register(Drop::class, Drop.getType()) { Drop.DropImpl(it.reinterpret()) }
-        TypeCache.register(Event::class, Event.getType()) { Event.EventImpl(it.reinterpret()) }
-        TypeCache.register(FocusEvent::class, FocusEvent.getType()) { FocusEvent(it.reinterpret()) }
-        TypeCache.register(FrameClock::class, FrameClock.getType()) { FrameClock.FrameClockImpl(it.reinterpret()) }
-        TypeCache.register(GlContext::class, GlContext.getType()) { GlContext.GlContextImpl(it.reinterpret()) }
-        TypeCache.register(GlTexture::class, GlTexture.getType()) { GlTexture(it.reinterpret()) }
-        TypeCache.register(GlTextureBuilder::class, GlTextureBuilder.getType()) { GlTextureBuilder(it.reinterpret()) }
-        TypeCache.register(GrabBrokenEvent::class, GrabBrokenEvent.getType()) { GrabBrokenEvent(it.reinterpret()) }
-        TypeCache.register(KeyEvent::class, KeyEvent.getType()) { KeyEvent(it.reinterpret()) }
-        TypeCache.register(MemoryTexture::class, MemoryTexture.getType()) { MemoryTexture(it.reinterpret()) }
-        TypeCache.register(Monitor::class, Monitor.getType()) { Monitor(it.reinterpret()) }
-        TypeCache.register(MotionEvent::class, MotionEvent.getType()) { MotionEvent(it.reinterpret()) }
-        TypeCache.register(PadEvent::class, PadEvent.getType()) { PadEvent(it.reinterpret()) }
-        TypeCache.register(ProximityEvent::class, ProximityEvent.getType()) { ProximityEvent(it.reinterpret()) }
-        TypeCache.register(ScrollEvent::class, ScrollEvent.getType()) { ScrollEvent(it.reinterpret()) }
-        TypeCache.register(Seat::class, Seat.getType()) { Seat.SeatImpl(it.reinterpret()) }
-        TypeCache.register(Snapshot::class, Snapshot.getType()) { Snapshot.SnapshotImpl(it.reinterpret()) }
-        TypeCache.register(Surface::class, Surface.getType()) { Surface.SurfaceImpl(it.reinterpret()) }
-        TypeCache.register(Texture::class, Texture.getType()) { Texture.TextureImpl(it.reinterpret()) }
-        TypeCache.register(TouchEvent::class, TouchEvent.getType()) { TouchEvent(it.reinterpret()) }
-        TypeCache.register(TouchpadEvent::class, TouchpadEvent.getType()) { TouchpadEvent(it.reinterpret()) }
-        TypeCache.register(VulkanContext::class, VulkanContext.getType()) { VulkanContext.VulkanContextImpl(it.reinterpret()) }
-        TypeCache.register(DevicePad::class, DevicePad.getType()) { DevicePad.DevicePadImpl(it.reinterpret()) }
-        TypeCache.register(DragSurface::class, DragSurface.getType()) { DragSurface.DragSurfaceImpl(it.reinterpret()) }
-        TypeCache.register(Paintable::class, Paintable.getType()) { Paintable.PaintableImpl(it.reinterpret()) }
-        TypeCache.register(Popup::class, Popup.getType()) { Popup.PopupImpl(it.reinterpret()) }
-        TypeCache.register(Toplevel::class, Toplevel.getType()) { Toplevel.ToplevelImpl(it.reinterpret()) }
+        AppLaunchContext.getTypeOrNull()?.let { gtype -> TypeCache.register(AppLaunchContext::class, gtype) { AppLaunchContext(it.reinterpret()) } }
+        ButtonEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(ButtonEvent::class, gtype) { ButtonEvent(it.reinterpret()) } }
+        CairoContext.getTypeOrNull()?.let { gtype -> TypeCache.register(CairoContext::class, gtype) { CairoContext.CairoContextImpl(it.reinterpret()) } }
+        Clipboard.getTypeOrNull()?.let { gtype -> TypeCache.register(Clipboard::class, gtype) { Clipboard(it.reinterpret()) } }
+        ContentDeserializer.getTypeOrNull()?.let { gtype -> TypeCache.register(ContentDeserializer::class, gtype) { ContentDeserializer(it.reinterpret()) } }
+        ContentProvider.getTypeOrNull()?.let { gtype -> TypeCache.register(ContentProvider::class, gtype) { ContentProvider(it.reinterpret()) } }
+        ContentSerializer.getTypeOrNull()?.let { gtype -> TypeCache.register(ContentSerializer::class, gtype) { ContentSerializer(it.reinterpret()) } }
+        CrossingEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(CrossingEvent::class, gtype) { CrossingEvent(it.reinterpret()) } }
+        Cursor.getTypeOrNull()?.let { gtype -> TypeCache.register(Cursor::class, gtype) { Cursor(it.reinterpret()) } }
+        DndEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(DndEvent::class, gtype) { DndEvent(it.reinterpret()) } }
+        DeleteEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(DeleteEvent::class, gtype) { DeleteEvent(it.reinterpret()) } }
+        Device.getTypeOrNull()?.let { gtype -> TypeCache.register(Device::class, gtype) { Device.DeviceImpl(it.reinterpret()) } }
+        DeviceTool.getTypeOrNull()?.let { gtype -> TypeCache.register(DeviceTool::class, gtype) { DeviceTool(it.reinterpret()) } }
+        Display.getTypeOrNull()?.let { gtype -> TypeCache.register(Display::class, gtype) { Display(it.reinterpret()) } }
+        DisplayManager.getTypeOrNull()?.let { gtype -> TypeCache.register(DisplayManager::class, gtype) { DisplayManager(it.reinterpret()) } }
+        DmabufTexture.getTypeOrNull()?.let { gtype -> TypeCache.register(DmabufTexture::class, gtype) { DmabufTexture(it.reinterpret()) } }
+        DmabufTextureBuilder.getTypeOrNull()?.let { gtype -> TypeCache.register(DmabufTextureBuilder::class, gtype) { DmabufTextureBuilder(it.reinterpret()) } }
+        Drag.getTypeOrNull()?.let { gtype -> TypeCache.register(Drag::class, gtype) { Drag.DragImpl(it.reinterpret()) } }
+        DrawContext.getTypeOrNull()?.let { gtype -> TypeCache.register(DrawContext::class, gtype) { DrawContext.DrawContextImpl(it.reinterpret()) } }
+        Drop.getTypeOrNull()?.let { gtype -> TypeCache.register(Drop::class, gtype) { Drop.DropImpl(it.reinterpret()) } }
+        Event.getTypeOrNull()?.let { gtype -> TypeCache.register(Event::class, gtype) { Event.EventImpl(it.reinterpret()) } }
+        FocusEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(FocusEvent::class, gtype) { FocusEvent(it.reinterpret()) } }
+        FrameClock.getTypeOrNull()?.let { gtype -> TypeCache.register(FrameClock::class, gtype) { FrameClock.FrameClockImpl(it.reinterpret()) } }
+        GlContext.getTypeOrNull()?.let { gtype -> TypeCache.register(GlContext::class, gtype) { GlContext.GlContextImpl(it.reinterpret()) } }
+        GlTexture.getTypeOrNull()?.let { gtype -> TypeCache.register(GlTexture::class, gtype) { GlTexture(it.reinterpret()) } }
+        GlTextureBuilder.getTypeOrNull()?.let { gtype -> TypeCache.register(GlTextureBuilder::class, gtype) { GlTextureBuilder(it.reinterpret()) } }
+        GrabBrokenEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(GrabBrokenEvent::class, gtype) { GrabBrokenEvent(it.reinterpret()) } }
+        KeyEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(KeyEvent::class, gtype) { KeyEvent(it.reinterpret()) } }
+        MemoryTexture.getTypeOrNull()?.let { gtype -> TypeCache.register(MemoryTexture::class, gtype) { MemoryTexture(it.reinterpret()) } }
+        Monitor.getTypeOrNull()?.let { gtype -> TypeCache.register(Monitor::class, gtype) { Monitor(it.reinterpret()) } }
+        MotionEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(MotionEvent::class, gtype) { MotionEvent(it.reinterpret()) } }
+        PadEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(PadEvent::class, gtype) { PadEvent(it.reinterpret()) } }
+        ProximityEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(ProximityEvent::class, gtype) { ProximityEvent(it.reinterpret()) } }
+        ScrollEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(ScrollEvent::class, gtype) { ScrollEvent(it.reinterpret()) } }
+        Seat.getTypeOrNull()?.let { gtype -> TypeCache.register(Seat::class, gtype) { Seat.SeatImpl(it.reinterpret()) } }
+        Snapshot.getTypeOrNull()?.let { gtype -> TypeCache.register(Snapshot::class, gtype) { Snapshot.SnapshotImpl(it.reinterpret()) } }
+        Surface.getTypeOrNull()?.let { gtype -> TypeCache.register(Surface::class, gtype) { Surface.SurfaceImpl(it.reinterpret()) } }
+        Texture.getTypeOrNull()?.let { gtype -> TypeCache.register(Texture::class, gtype) { Texture.TextureImpl(it.reinterpret()) } }
+        TouchEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(TouchEvent::class, gtype) { TouchEvent(it.reinterpret()) } }
+        TouchpadEvent.getTypeOrNull()?.let { gtype -> TypeCache.register(TouchpadEvent::class, gtype) { TouchpadEvent(it.reinterpret()) } }
+        VulkanContext.getTypeOrNull()?.let { gtype -> TypeCache.register(VulkanContext::class, gtype) { VulkanContext.VulkanContextImpl(it.reinterpret()) } }
+        DevicePad.getTypeOrNull()?.let { gtype -> TypeCache.register(DevicePad::class, gtype) { DevicePad.DevicePadImpl(it.reinterpret()) } }
+        DragSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(DragSurface::class, gtype) { DragSurface.DragSurfaceImpl(it.reinterpret()) } }
+        Paintable.getTypeOrNull()?.let { gtype -> TypeCache.register(Paintable::class, gtype) { Paintable.PaintableImpl(it.reinterpret()) } }
+        Popup.getTypeOrNull()?.let { gtype -> TypeCache.register(Popup::class, gtype) { Popup.PopupImpl(it.reinterpret()) } }
+        Toplevel.getTypeOrNull()?.let { gtype -> TypeCache.register(Toplevel::class, gtype) { Toplevel.ToplevelImpl(it.reinterpret()) } }
     }
 }
 

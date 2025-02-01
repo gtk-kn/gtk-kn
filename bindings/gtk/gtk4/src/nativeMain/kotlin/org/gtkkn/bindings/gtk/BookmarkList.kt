@@ -10,11 +10,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -114,7 +114,9 @@ public open class BookmarkList(
      * @param attributes The attributes to query
      * @return a new `GtkBookmarkList`
      */
-    public constructor(filename: String? = null, attributes: String? = null) : this(gtk_bookmark_list_new(filename, attributes)!!)
+    public constructor(filename: String? = null, attributes: String? = null) : this(gtk_bookmark_list_new(filename, attributes)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns true if the files are currently being loaded.
@@ -129,7 +131,7 @@ public open class BookmarkList(
 
     public companion object : TypeCompanion<BookmarkList> {
         override val type: GeneratedClassKGType<BookmarkList> =
-                GeneratedClassKGType(getTypeOrNull("gtk_bookmark_list_get_type")!!) { BookmarkList(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { BookmarkList(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -140,5 +142,15 @@ public open class BookmarkList(
          * @return the GType
          */
         public fun getType(): GType = gtk_bookmark_list_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_bookmark_list_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_bookmark_list_get_type")
     }
 }

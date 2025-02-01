@@ -9,11 +9,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitWindowProperties
 import org.gtkkn.native.webkit.webkit_window_properties_get_fullscreen
@@ -180,7 +179,7 @@ public class WindowProperties(
 
     public companion object : TypeCompanion<WindowProperties> {
         override val type: GeneratedClassKGType<WindowProperties> =
-                GeneratedClassKGType(getTypeOrNull("webkit_window_properties_get_type")!!) { WindowProperties(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { WindowProperties(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -191,5 +190,15 @@ public class WindowProperties(
          * @return the GType
          */
         public fun getType(): GType = webkit_window_properties_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_window_properties_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_window_properties_get_type")
     }
 }

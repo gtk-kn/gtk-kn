@@ -28,12 +28,12 @@ import org.gtkkn.bindings.pango.FontFace
 import org.gtkkn.bindings.pango.FontFamily
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Language
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFontDialog
@@ -206,7 +206,9 @@ public open class FontDialog(
      * @return the new `GtkFontDialog`
      * @since 4.10
      */
-    public constructor() : this(gtk_font_dialog_new()!!)
+    public constructor() : this(gtk_font_dialog_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This function initiates a font selection operation by
@@ -392,7 +394,7 @@ public open class FontDialog(
 
     public companion object : TypeCompanion<FontDialog> {
         override val type: GeneratedClassKGType<FontDialog> =
-                GeneratedClassKGType(getTypeOrNull("gtk_font_dialog_get_type")!!) { FontDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FontDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -403,5 +405,15 @@ public open class FontDialog(
          * @return the GType
          */
         public fun getType(): GType = gtk_font_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_font_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_font_dialog_get_type")
     }
 }

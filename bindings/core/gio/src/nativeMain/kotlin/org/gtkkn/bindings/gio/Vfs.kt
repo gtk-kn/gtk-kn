@@ -11,13 +11,12 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GVfs
 import org.gtkkn.native.gio.g_vfs_get_default
 import org.gtkkn.native.gio.g_vfs_get_file_for_path
@@ -145,7 +144,7 @@ public open class Vfs(
 
     public companion object : TypeCompanion<Vfs> {
         override val type: GeneratedClassKGType<Vfs> =
-                GeneratedClassKGType(getTypeOrNull("g_vfs_get_type")!!) { Vfs(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Vfs(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -173,5 +172,15 @@ public open class Vfs(
          * @return the GType
          */
         public fun getType(): GType = g_vfs_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_vfs_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_vfs_get_type")
     }
 }

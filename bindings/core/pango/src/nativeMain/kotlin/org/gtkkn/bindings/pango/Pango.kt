@@ -1178,16 +1178,16 @@ public object Pango {
     }
 
     private fun registerTypes() {
-        TypeCache.register(Context::class, Context.getType()) { Context(it.reinterpret()) }
-        TypeCache.register(Coverage::class, Coverage.getType()) { Coverage(it.reinterpret()) }
-        TypeCache.register(Font::class, Font.getType()) { Font.FontImpl(it.reinterpret()) }
-        TypeCache.register(FontFace::class, FontFace.getType()) { FontFace.FontFaceImpl(it.reinterpret()) }
-        TypeCache.register(FontFamily::class, FontFamily.getType()) { FontFamily.FontFamilyImpl(it.reinterpret()) }
-        TypeCache.register(FontMap::class, FontMap.getType()) { FontMap.FontMapImpl(it.reinterpret()) }
-        TypeCache.register(Fontset::class, Fontset.getType()) { Fontset.FontsetImpl(it.reinterpret()) }
-        TypeCache.register(FontsetSimple::class, FontsetSimple.getType()) { FontsetSimple(it.reinterpret()) }
-        TypeCache.register(Layout::class, Layout.getType()) { Layout(it.reinterpret()) }
-        TypeCache.register(Renderer::class, Renderer.getType()) { Renderer.RendererImpl(it.reinterpret()) }
+        Context.getTypeOrNull()?.let { gtype -> TypeCache.register(Context::class, gtype) { Context(it.reinterpret()) } }
+        Coverage.getTypeOrNull()?.let { gtype -> TypeCache.register(Coverage::class, gtype) { Coverage(it.reinterpret()) } }
+        Font.getTypeOrNull()?.let { gtype -> TypeCache.register(Font::class, gtype) { Font.FontImpl(it.reinterpret()) } }
+        FontFace.getTypeOrNull()?.let { gtype -> TypeCache.register(FontFace::class, gtype) { FontFace.FontFaceImpl(it.reinterpret()) } }
+        FontFamily.getTypeOrNull()?.let { gtype -> TypeCache.register(FontFamily::class, gtype) { FontFamily.FontFamilyImpl(it.reinterpret()) } }
+        FontMap.getTypeOrNull()?.let { gtype -> TypeCache.register(FontMap::class, gtype) { FontMap.FontMapImpl(it.reinterpret()) } }
+        Fontset.getTypeOrNull()?.let { gtype -> TypeCache.register(Fontset::class, gtype) { Fontset.FontsetImpl(it.reinterpret()) } }
+        FontsetSimple.getTypeOrNull()?.let { gtype -> TypeCache.register(FontsetSimple::class, gtype) { FontsetSimple(it.reinterpret()) } }
+        Layout.getTypeOrNull()?.let { gtype -> TypeCache.register(Layout::class, gtype) { Layout(it.reinterpret()) } }
+        Renderer.getTypeOrNull()?.let { gtype -> TypeCache.register(Renderer::class, gtype) { Renderer.RendererImpl(it.reinterpret()) } }
     }
 }
 

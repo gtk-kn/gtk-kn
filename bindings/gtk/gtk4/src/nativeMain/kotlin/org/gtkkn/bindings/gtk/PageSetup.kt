@@ -20,11 +20,11 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
@@ -115,7 +115,9 @@ public open class PageSetup(
      *
      * @return a new `GtkPageSetup`.
      */
-    public constructor() : this(gtk_page_setup_new()!!)
+    public constructor() : this(gtk_page_setup_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads the page setup from the file @file_name.
@@ -137,7 +139,9 @@ public open class PageSetup(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Desrialize a page setup from an a{sv} variant.
@@ -148,7 +152,9 @@ public open class PageSetup(
      * @param variant an a{sv} `GVariant`
      * @return a new `GtkPageSetup` object
      */
-    public constructor(variant: Variant) : this(gtk_page_setup_new_from_gvariant(variant.glibVariantPointer)!!)
+    public constructor(variant: Variant) : this(gtk_page_setup_new_from_gvariant(variant.glibVariantPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads the page setup from the group @group_name in the key file
@@ -172,7 +178,9 @@ public open class PageSetup(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Copies a `GtkPageSetup`.
@@ -407,7 +415,7 @@ public open class PageSetup(
 
     public companion object : TypeCompanion<PageSetup> {
         override val type: GeneratedClassKGType<PageSetup> =
-                GeneratedClassKGType(getTypeOrNull("gtk_page_setup_get_type")!!) { PageSetup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PageSetup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -418,5 +426,15 @@ public open class PageSetup(
          * @return the GType
          */
         public fun getType(): GType = gtk_page_setup_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_page_setup_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_page_setup_get_type")
     }
 }

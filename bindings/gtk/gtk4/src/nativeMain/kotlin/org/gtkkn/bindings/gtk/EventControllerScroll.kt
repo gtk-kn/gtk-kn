@@ -16,12 +16,12 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.ScrollUnit
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
@@ -102,7 +102,9 @@ public open class EventControllerScroll(
      * @param flags flags affecting the controller behavior
      * @return a new `GtkEventControllerScroll`
      */
-    public constructor(flags: EventControllerScrollFlags) : this(gtk_event_controller_scroll_new(flags.mask)!!.reinterpret())
+    public constructor(flags: EventControllerScrollFlags) : this(gtk_event_controller_scroll_new(flags.mask)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the scroll unit of the last
@@ -190,7 +192,7 @@ public open class EventControllerScroll(
 
     public companion object : TypeCompanion<EventControllerScroll> {
         override val type: GeneratedClassKGType<EventControllerScroll> =
-                GeneratedClassKGType(getTypeOrNull("gtk_event_controller_scroll_get_type")!!) { EventControllerScroll(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { EventControllerScroll(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -201,6 +203,16 @@ public open class EventControllerScroll(
          * @return the GType
          */
         public fun getType(): GType = gtk_event_controller_scroll_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_event_controller_scroll_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_event_controller_scroll_get_type")
     }
 }
 

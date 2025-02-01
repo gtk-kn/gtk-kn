@@ -21,14 +21,14 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.License
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwAboutDialog
 import org.gtkkn.native.adw.adw_about_dialog_add_acknowledgement_section
 import org.gtkkn.native.adw.adw_about_dialog_add_credit_section
@@ -1125,7 +1125,9 @@ public class AboutDialog(
      * @return the newly created `AdwAboutDialog`
      * @since 1.5
      */
-    public constructor() : this(adw_about_dialog_new()!!.reinterpret())
+    public constructor() : this(adw_about_dialog_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `AdwAboutDialog` using AppStream metadata.
@@ -1154,7 +1156,9 @@ public class AboutDialog(
      * @return the newly created `AdwAboutDialog`
      * @since 1.5
      */
-    public constructor(resourcePath: String, releaseNotesVersion: String? = null) : this(adw_about_dialog_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret())
+    public constructor(resourcePath: String, releaseNotesVersion: String? = null) : this(adw_about_dialog_new_from_appdata(resourcePath, releaseNotesVersion)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a section to the Acknowledgements page.
@@ -1295,7 +1299,7 @@ public class AboutDialog(
 
     public companion object : TypeCompanion<AboutDialog> {
         override val type: GeneratedClassKGType<AboutDialog> =
-                GeneratedClassKGType(getTypeOrNull("adw_about_dialog_get_type")!!) { AboutDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { AboutDialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -1306,6 +1310,16 @@ public class AboutDialog(
          * @return the GType
          */
         public fun getType(): GType = adw_about_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_about_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_about_dialog_get_type")
     }
 }
 

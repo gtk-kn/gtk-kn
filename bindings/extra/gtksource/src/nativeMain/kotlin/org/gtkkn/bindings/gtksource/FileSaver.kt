@@ -22,12 +22,12 @@ import org.gtkkn.bindings.gio.FileProgressCallbackFunc
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -177,7 +177,9 @@ public open class FileSaver(
      * @param file the #GtkSourceFile.
      * @return a new #GtkSourceFileSaver object.
      */
-    public constructor(buffer: Buffer, `file`: File) : this(gtk_source_file_saver_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!)
+    public constructor(buffer: Buffer, `file`: File) : this(gtk_source_file_saver_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GtkSourceFileSaver object with a target location.
@@ -198,7 +200,9 @@ public open class FileSaver(
         buffer: Buffer,
         `file`: File,
         targetLocation: org.gtkkn.bindings.gio.File,
-    ) : this(gtk_source_file_saver_new_with_target(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer, targetLocation.gioFilePointer)!!)
+    ) : this(gtk_source_file_saver_new_with_target(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer, targetLocation.gioFilePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      *
@@ -262,7 +266,7 @@ public open class FileSaver(
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_file_saver_get_type")!!) { FileSaver(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FileSaver(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -273,5 +277,15 @@ public open class FileSaver(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_file_saver_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_file_saver_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_file_saver_get_type")
     }
 }

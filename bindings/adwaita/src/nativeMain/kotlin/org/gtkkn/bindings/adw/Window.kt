@@ -10,10 +10,10 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwWindow
 import org.gtkkn.native.adw.adw_window_add_breakpoint
 import org.gtkkn.native.adw.adw_window_get_content
@@ -212,7 +212,9 @@ public open class Window(
      *
      * @return the newly created `AdwWindow`
      */
-    public constructor() : this(adw_window_new()!!.reinterpret())
+    public constructor() : this(adw_window_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @breakpoint to @self.
@@ -225,7 +227,7 @@ public open class Window(
 
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =
-                GeneratedClassKGType(getTypeOrNull("adw_window_get_type")!!) { Window(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Window(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -236,5 +238,15 @@ public open class Window(
          * @return the GType
          */
         public fun getType(): GType = adw_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_window_get_type")
     }
 }

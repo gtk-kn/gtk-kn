@@ -25,13 +25,13 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_region_t
 import org.gtkkn.native.gdk.GdkEvent
 import org.gtkkn.native.gdk.GdkMonitor
@@ -253,7 +253,9 @@ public abstract class Surface(
      * @param autohide whether to hide the surface on outside clicks
      * @return a new `GdkSurface`
      */
-    public constructor(parent: Surface, autohide: Boolean) : this(gdk_surface_new_popup(parent.gdkSurfacePointer, autohide.asGBoolean())!!)
+    public constructor(parent: Surface, autohide: Boolean) : this(gdk_surface_new_popup(parent.gdkSurfacePointer, autohide.asGBoolean())!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new toplevel surface.
@@ -261,7 +263,9 @@ public abstract class Surface(
      * @param display the display to create the surface on
      * @return the new `GdkSurface`
      */
-    public constructor(display: Display) : this(gdk_surface_new_toplevel(display.gdkDisplayPointer)!!)
+    public constructor(display: Display) : this(gdk_surface_new_toplevel(display.gdkDisplayPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emits a short beep associated to @surface.
@@ -549,7 +553,7 @@ public abstract class Surface(
 
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
-                GeneratedClassKGType(getTypeOrNull("gdk_surface_get_type")!!) { SurfaceImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SurfaceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -560,6 +564,16 @@ public abstract class Surface(
          * @return the GType
          */
         public fun getType(): GType = gdk_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_surface_get_type")
     }
 }
 

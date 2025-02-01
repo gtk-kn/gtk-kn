@@ -9,10 +9,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwBreakpointBin
 import org.gtkkn.native.adw.adw_breakpoint_bin_add_breakpoint
 import org.gtkkn.native.adw.adw_breakpoint_bin_get_child
@@ -204,7 +204,9 @@ public open class BreakpointBin(
      * @return the newly created `AdwBreakpointBin`
      * @since 1.4
      */
-    public constructor() : this(adw_breakpoint_bin_new()!!.reinterpret())
+    public constructor() : this(adw_breakpoint_bin_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @breakpoint to @self.
@@ -226,7 +228,7 @@ public open class BreakpointBin(
 
     public companion object : TypeCompanion<BreakpointBin> {
         override val type: GeneratedClassKGType<BreakpointBin> =
-                GeneratedClassKGType(getTypeOrNull("adw_breakpoint_bin_get_type")!!) { BreakpointBin(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { BreakpointBin(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -237,5 +239,15 @@ public open class BreakpointBin(
          * @return the GType
          */
         public fun getType(): GType = adw_breakpoint_bin_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_breakpoint_bin_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_breakpoint_bin_get_type")
     }
 }

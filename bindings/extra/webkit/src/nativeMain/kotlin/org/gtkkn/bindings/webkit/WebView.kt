@@ -53,14 +53,14 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
@@ -664,7 +664,9 @@ public open class WebView(
      *
      * @return The newly created #WebKitWebView widget
      */
-    public constructor() : this(webkit_web_view_new()!!.reinterpret())
+    public constructor() : this(webkit_web_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Asynchronously call @body with @arguments in the script world with name @world_name of the main frame current context in @web_view.
@@ -2228,7 +2230,7 @@ public open class WebView(
 
     public companion object : TypeCompanion<WebView> {
         override val type: GeneratedClassKGType<WebView> =
-                GeneratedClassKGType(getTypeOrNull("webkit_web_view_get_type")!!) { WebView(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { WebView(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -2239,6 +2241,16 @@ public open class WebView(
          * @return the GType
          */
         public fun getType(): GType = webkit_web_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_web_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_web_view_get_type")
     }
 }
 

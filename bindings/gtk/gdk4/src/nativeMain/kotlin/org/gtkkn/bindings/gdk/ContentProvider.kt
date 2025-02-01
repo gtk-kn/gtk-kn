@@ -30,12 +30,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkContentProvider
 import org.gtkkn.native.gdk.gdk_content_provider_content_changed
 import org.gtkkn.native.gdk.gdk_content_provider_get_type
@@ -86,7 +86,9 @@ public open class ContentProvider(
      * @param bytes a `GBytes` with the data for @mime_type
      * @return a new `GdkContentProvider`
      */
-    public constructor(mimeType: String, bytes: Bytes) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer)!!)
+    public constructor(mimeType: String, bytes: Bytes) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a content provider that provides the given @value.
@@ -94,7 +96,9 @@ public open class ContentProvider(
      * @param value a `GValue`
      * @return a new `GdkContentProvider`
      */
-    public constructor(`value`: Value) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer)!!)
+    public constructor(`value`: Value) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emits the ::content-changed signal.
@@ -209,7 +213,7 @@ public open class ContentProvider(
 
     public companion object : TypeCompanion<ContentProvider> {
         override val type: GeneratedClassKGType<ContentProvider> =
-                GeneratedClassKGType(getTypeOrNull("gdk_content_provider_get_type")!!) { ContentProvider(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ContentProvider(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -220,6 +224,16 @@ public open class ContentProvider(
          * @return the GType
          */
         public fun getType(): GType = gdk_content_provider_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_content_provider_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_content_provider_get_type")
     }
 }
 

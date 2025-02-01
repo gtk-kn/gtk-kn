@@ -15,13 +15,13 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -143,7 +143,9 @@ public open class PasswordEntry(
      *
      * @return a new `GtkPasswordEntry`
      */
-    public constructor() : this(gtk_password_entry_new()!!.reinterpret())
+    public constructor() : this(gtk_password_entry_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted when the entry is activated.
@@ -164,7 +166,7 @@ public open class PasswordEntry(
 
     public companion object : TypeCompanion<PasswordEntry> {
         override val type: GeneratedClassKGType<PasswordEntry> =
-                GeneratedClassKGType(getTypeOrNull("gtk_password_entry_get_type")!!) { PasswordEntry(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PasswordEntry(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -175,6 +177,16 @@ public open class PasswordEntry(
          * @return the GType
          */
         public fun getType(): GType = gtk_password_entry_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_password_entry_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_password_entry_get_type")
     }
 }
 

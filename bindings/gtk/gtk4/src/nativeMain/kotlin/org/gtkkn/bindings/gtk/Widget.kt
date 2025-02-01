@@ -38,15 +38,14 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
@@ -3235,7 +3234,7 @@ public abstract class Widget(
 
     public companion object : TypeCompanion<Widget> {
         override val type: GeneratedClassKGType<Widget> =
-                GeneratedClassKGType(getTypeOrNull("gtk_widget_get_type")!!) { WidgetImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { WidgetImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -3265,6 +3264,16 @@ public abstract class Widget(
          * @return the GType
          */
         public fun getType(): GType = gtk_widget_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_widget_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_widget_get_type")
     }
 }
 

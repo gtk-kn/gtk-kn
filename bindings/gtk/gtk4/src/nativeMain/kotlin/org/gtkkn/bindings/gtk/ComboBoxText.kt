@@ -8,10 +8,10 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -118,7 +118,9 @@ public open class ComboBoxText(
      *
      * @return A new `GtkComboBoxText`
      */
-    public constructor() : this(gtk_combo_box_text_new()!!.reinterpret())
+    public constructor() : this(gtk_combo_box_text_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @text to the list of strings stored in @combo_box.
@@ -225,7 +227,7 @@ public open class ComboBoxText(
 
     public companion object : TypeCompanion<ComboBoxText> {
         override val type: GeneratedClassKGType<ComboBoxText> =
-                GeneratedClassKGType(getTypeOrNull("gtk_combo_box_text_get_type")!!) { ComboBoxText(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ComboBoxText(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -238,10 +240,22 @@ public open class ComboBoxText(
         public fun getType(): GType = gtk_combo_box_text_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_combo_box_text_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_combo_box_text_get_type")
+
+        /**
          * Creates a new `GtkComboBoxText` with an entry.
          *
          * @return a new `GtkComboBoxText`
          */
-        public fun withEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret())
+        public fun withEntry(): ComboBoxText = ComboBoxText(gtk_combo_box_text_new_with_entry()!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

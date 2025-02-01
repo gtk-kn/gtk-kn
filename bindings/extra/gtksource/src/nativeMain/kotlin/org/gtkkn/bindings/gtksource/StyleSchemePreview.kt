@@ -17,13 +17,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Actionable
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -91,7 +91,9 @@ public open class StyleSchemePreview(
      * @return a #GtkWidget
      * @since 5.4
      */
-    public constructor(scheme: StyleScheme) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer)!!.reinterpret())
+    public constructor(scheme: StyleScheme) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      *
@@ -110,7 +112,7 @@ public open class StyleSchemePreview(
 
     public companion object : TypeCompanion<StyleSchemePreview> {
         override val type: GeneratedClassKGType<StyleSchemePreview> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_preview_get_type")!!) { StyleSchemePreview(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { StyleSchemePreview(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -121,6 +123,16 @@ public open class StyleSchemePreview(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_style_scheme_preview_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_style_scheme_preview_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_style_scheme_preview_get_type")
     }
 }
 

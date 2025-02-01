@@ -21,13 +21,13 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -592,7 +592,9 @@ public open class TreeView(
      *
      * @return A newly created `GtkTreeView` widget.
      */
-    public constructor() : this(gtk_tree_view_new()!!.reinterpret())
+    public constructor() : this(gtk_tree_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkTreeView` widget with the model initialized to @model.
@@ -600,7 +602,9 @@ public open class TreeView(
      * @param model the model.
      * @return A newly created `GtkTreeView` widget.
      */
-    public constructor(model: TreeModel) : this(gtk_tree_view_new_with_model(model.gtkTreeModelPointer)!!.reinterpret())
+    public constructor(model: TreeModel) : this(gtk_tree_view_new_with_model(model.gtkTreeModelPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @column to the list of columns. If @tree_view has “fixed_height”
@@ -1287,7 +1291,7 @@ public open class TreeView(
 
     public companion object : TypeCompanion<TreeView> {
         override val type: GeneratedClassKGType<TreeView> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_view_get_type")!!) { TreeView(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -1298,6 +1302,16 @@ public open class TreeView(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_view_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_view_get_type")
     }
 }
 

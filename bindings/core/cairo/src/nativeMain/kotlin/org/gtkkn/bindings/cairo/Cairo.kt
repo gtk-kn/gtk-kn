@@ -12,25 +12,25 @@ public object Cairo {
     }
 
     private fun registerTypes() {
-        TypeCache.register(Device::class, Device.getType()) { Device.DeviceImpl(it.reinterpret()) }
-        TypeCache.register(Script::class, Script.getType()) { Script(it.reinterpret()) }
-        TypeCache.register(Surface::class, Surface.getType()) { Surface(it.reinterpret()) }
-        TypeCache.register(ImageSurface::class, ImageSurface.getType()) { ImageSurface(it.reinterpret()) }
-        TypeCache.register(PdfSurface::class, PdfSurface.getType()) { PdfSurface(it.reinterpret()) }
-        TypeCache.register(PsSurface::class, PsSurface.getType()) { PsSurface(it.reinterpret()) }
-        TypeCache.register(RecordingSurface::class, RecordingSurface.getType()) { RecordingSurface(it.reinterpret()) }
-        TypeCache.register(SvgSurface::class, SvgSurface.getType()) { SvgSurface(it.reinterpret()) }
-        TypeCache.register(TeeSurface::class, TeeSurface.getType()) { TeeSurface(it.reinterpret()) }
-        TypeCache.register(RadialGradient::class, RadialGradient.getType()) { RadialGradient(it.reinterpret()) }
-        TypeCache.register(Mesh::class, Mesh.getType()) { Mesh(it.reinterpret()) }
-        TypeCache.register(RasterSource::class, RasterSource.getType()) { RasterSource(it.reinterpret()) }
-        TypeCache.register(SolidPattern::class, SolidPattern.getType()) { SolidPattern(it.reinterpret()) }
-        TypeCache.register(SurfacePattern::class, SurfacePattern.getType()) { SurfacePattern(it.reinterpret()) }
-        TypeCache.register(Pattern::class, Pattern.getType()) { Pattern.PatternImpl(it.reinterpret()) }
-        TypeCache.register(Gradient::class, Gradient.getType()) { Gradient.GradientImpl(it.reinterpret()) }
-        TypeCache.register(LinearGradient::class, LinearGradient.getType()) { LinearGradient(it.reinterpret()) }
-        TypeCache.register(FontFace::class, FontFace.getType()) { FontFace(it.reinterpret()) }
-        TypeCache.register(ToyFontFace::class, ToyFontFace.getType()) { ToyFontFace(it.reinterpret()) }
-        TypeCache.register(UserFontFace::class, UserFontFace.getType()) { UserFontFace(it.reinterpret()) }
+        Device.getTypeOrNull()?.let { gtype -> TypeCache.register(Device::class, gtype) { Device.DeviceImpl(it.reinterpret()) } }
+        Script.getTypeOrNull()?.let { gtype -> TypeCache.register(Script::class, gtype) { Script(it.reinterpret()) } }
+        Surface.getTypeOrNull()?.let { gtype -> TypeCache.register(Surface::class, gtype) { Surface(it.reinterpret()) } }
+        ImageSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(ImageSurface::class, gtype) { ImageSurface(it.reinterpret()) } }
+        PdfSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(PdfSurface::class, gtype) { PdfSurface(it.reinterpret()) } }
+        PsSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(PsSurface::class, gtype) { PsSurface(it.reinterpret()) } }
+        RecordingSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(RecordingSurface::class, gtype) { RecordingSurface(it.reinterpret()) } }
+        SvgSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(SvgSurface::class, gtype) { SvgSurface(it.reinterpret()) } }
+        TeeSurface.getTypeOrNull()?.let { gtype -> TypeCache.register(TeeSurface::class, gtype) { TeeSurface(it.reinterpret()) } }
+        RadialGradient.getTypeOrNull()?.let { gtype -> TypeCache.register(RadialGradient::class, gtype) { RadialGradient(it.reinterpret()) } }
+        Mesh.getTypeOrNull()?.let { gtype -> TypeCache.register(Mesh::class, gtype) { Mesh(it.reinterpret()) } }
+        RasterSource.getTypeOrNull()?.let { gtype -> TypeCache.register(RasterSource::class, gtype) { RasterSource(it.reinterpret()) } }
+        SolidPattern.getTypeOrNull()?.let { gtype -> TypeCache.register(SolidPattern::class, gtype) { SolidPattern(it.reinterpret()) } }
+        SurfacePattern.getTypeOrNull()?.let { gtype -> TypeCache.register(SurfacePattern::class, gtype) { SurfacePattern(it.reinterpret()) } }
+        Pattern.getTypeOrNull()?.let { gtype -> TypeCache.register(Pattern::class, gtype) { Pattern.PatternImpl(it.reinterpret()) } }
+        Gradient.getTypeOrNull()?.let { gtype -> TypeCache.register(Gradient::class, gtype) { Gradient.GradientImpl(it.reinterpret()) } }
+        LinearGradient.getTypeOrNull()?.let { gtype -> TypeCache.register(LinearGradient::class, gtype) { LinearGradient(it.reinterpret()) } }
+        FontFace.getTypeOrNull()?.let { gtype -> TypeCache.register(FontFace::class, gtype) { FontFace(it.reinterpret()) } }
+        ToyFontFace.getTypeOrNull()?.let { gtype -> TypeCache.register(ToyFontFace::class, gtype) { ToyFontFace(it.reinterpret()) } }
+        UserFontFace.getTypeOrNull()?.let { gtype -> TypeCache.register(UserFontFace::class, gtype) { UserFontFace(it.reinterpret()) } }
     }
 }

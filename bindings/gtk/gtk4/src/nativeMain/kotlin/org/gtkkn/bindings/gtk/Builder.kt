@@ -23,12 +23,12 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilder
@@ -468,7 +468,9 @@ public open class Builder(
      *
      * @return a new (empty) `GtkBuilder` object
      */
-    public constructor() : this(gtk_builder_new()!!)
+    public constructor() : this(gtk_builder_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses the UI definition in the file @filename.
@@ -480,7 +482,9 @@ public open class Builder(
      * @param filename filename of user interface description file
      * @return a `GtkBuilder` containing the described interface
      */
-    public constructor(filename: String) : this(gtk_builder_new_from_file(filename)!!)
+    public constructor(filename: String) : this(gtk_builder_new_from_file(filename)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses the UI definition in @string.
@@ -496,7 +500,9 @@ public open class Builder(
      * @param length the length of @string, or -1
      * @return a `GtkBuilder` containing the interface described by @string
      */
-    public constructor(string: String, length: Long) : this(gtk_builder_new_from_string(string, length)!!)
+    public constructor(string: String, length: Long) : this(gtk_builder_new_from_string(string, length)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses a file containing a UI definition and merges it with
@@ -870,7 +876,7 @@ public open class Builder(
 
     public companion object : TypeCompanion<Builder> {
         override val type: GeneratedClassKGType<Builder> =
-                GeneratedClassKGType(getTypeOrNull("gtk_builder_get_type")!!) { Builder(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Builder(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -883,6 +889,16 @@ public open class Builder(
         public fun getType(): GType = gtk_builder_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_builder_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_builder_get_type")
+
+        /**
          * Parses the UI definition at @resource_path.
          *
          * If there is an error locating the resource or parsing the
@@ -891,6 +907,8 @@ public open class Builder(
          * @param resourcePath a `GResource` resource path
          * @return a `GtkBuilder` containing the described interface
          */
-        public fun fromResource(resourcePath: String): Builder = Builder(gtk_builder_new_from_resource(resourcePath)!!)
+        public fun fromResource(resourcePath: String): Builder = Builder(gtk_builder_new_from_resource(resourcePath)!!).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

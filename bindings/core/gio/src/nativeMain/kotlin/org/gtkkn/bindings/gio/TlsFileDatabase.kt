@@ -15,10 +15,9 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsFileDatabase
 import org.gtkkn.native.gio.g_tls_file_database_get_type
 import org.gtkkn.native.gio.g_tls_file_database_new
@@ -59,7 +58,7 @@ public interface TlsFileDatabase : Proxy, KGTyped {
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =
-                GeneratedInterfaceKGType(getTypeOrNull("g_tls_file_database_get_type")!!) { TlsFileDatabaseImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { TlsFileDatabaseImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -94,5 +93,15 @@ public interface TlsFileDatabase : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = g_tls_file_database_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tls_file_database_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_file_database_get_type")
     }
 }

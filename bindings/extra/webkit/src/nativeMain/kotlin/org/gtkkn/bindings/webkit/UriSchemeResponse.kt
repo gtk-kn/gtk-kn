@@ -11,10 +11,10 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.MessageHeaders
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -60,7 +60,9 @@ public class UriSchemeResponse(
      * @return the newly created #WebKitURISchemeResponse.
      * @since 2.36
      */
-    public constructor(inputStream: InputStream, streamLength: gint64) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer, streamLength)!!)
+    public constructor(inputStream: InputStream, streamLength: gint64) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer, streamLength)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Sets the content type for the @response
@@ -97,7 +99,7 @@ public class UriSchemeResponse(
 
     public companion object : TypeCompanion<UriSchemeResponse> {
         override val type: GeneratedClassKGType<UriSchemeResponse> =
-                GeneratedClassKGType(getTypeOrNull("webkit_uri_scheme_response_get_type")!!) { UriSchemeResponse(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { UriSchemeResponse(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -108,5 +110,15 @@ public class UriSchemeResponse(
          * @return the GType
          */
         public fun getType(): GType = webkit_uri_scheme_response_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_uri_scheme_response_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_uri_scheme_response_get_type")
     }
 }

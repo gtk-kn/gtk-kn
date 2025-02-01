@@ -18,13 +18,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Adjustment
 import org.gtkkn.bindings.gtk.Editable
 import org.gtkkn.bindings.gtk.SpinButtonUpdatePolicy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwSpinRow
 import org.gtkkn.native.adw.adw_spin_row_configure
 import org.gtkkn.native.adw.adw_spin_row_get_adjustment
@@ -303,7 +303,9 @@ public class SpinRow(
         adjustment: Adjustment? = null,
         climbRate: gdouble,
         digits: guint,
-    ) : this(adw_spin_row_new(adjustment?.gtkAdjustmentPointer, climbRate, digits)!!.reinterpret())
+    ) : this(adw_spin_row_new(adjustment?.gtkAdjustmentPointer, climbRate, digits)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `AdwSpinRow` with the given properties.
@@ -328,7 +330,9 @@ public class SpinRow(
         min: gdouble,
         max: gdouble,
         step: gdouble,
-    ) : this(adw_spin_row_new_with_range(min, max, step)!!.reinterpret())
+    ) : this(adw_spin_row_new_with_range(min, max, step)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Changes the properties of an existing spin row.
@@ -424,7 +428,7 @@ public class SpinRow(
 
     public companion object : TypeCompanion<SpinRow> {
         override val type: GeneratedClassKGType<SpinRow> =
-                GeneratedClassKGType(getTypeOrNull("adw_spin_row_get_type")!!) { SpinRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SpinRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -435,6 +439,16 @@ public class SpinRow(
          * @return the GType
          */
         public fun getType(): GType = adw_spin_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_spin_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_spin_row_get_type")
     }
 }
 

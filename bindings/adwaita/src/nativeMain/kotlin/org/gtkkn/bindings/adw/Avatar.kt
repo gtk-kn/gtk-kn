@@ -11,12 +11,12 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwAvatar
 import org.gtkkn.native.adw.adw_avatar_draw_to_texture
 import org.gtkkn.native.adw.adw_avatar_get_custom_image
@@ -196,7 +196,9 @@ public class Avatar(
         size: gint,
         text: String? = null,
         showInitials: Boolean,
-    ) : this(adw_avatar_new(size, text, showInitials.asGBoolean())!!.reinterpret())
+    ) : this(adw_avatar_new(size, text, showInitials.asGBoolean())!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Renders @self into a [class@Gdk.Texture] at @scale_factor.
@@ -211,7 +213,7 @@ public class Avatar(
 
     public companion object : TypeCompanion<Avatar> {
         override val type: GeneratedClassKGType<Avatar> =
-                GeneratedClassKGType(getTypeOrNull("adw_avatar_get_type")!!) { Avatar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Avatar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -222,5 +224,15 @@ public class Avatar(
          * @return the GType
          */
         public fun getType(): GType = adw_avatar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_avatar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_avatar_get_type")
     }
 }

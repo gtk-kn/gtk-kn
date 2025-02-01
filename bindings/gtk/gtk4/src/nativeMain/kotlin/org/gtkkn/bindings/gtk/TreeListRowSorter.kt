@@ -5,10 +5,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeListRowSorter
 import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_get_sorter
@@ -70,11 +70,13 @@ public open class TreeListRowSorter(
      * @param sorter a `GtkSorter`
      * @return a new `GtkTreeListRowSorter`
      */
-    public constructor(sorter: Sorter? = null) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer)!!)
+    public constructor(sorter: Sorter? = null) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<TreeListRowSorter> {
         override val type: GeneratedClassKGType<TreeListRowSorter> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_sorter_get_type")!!) { TreeListRowSorter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeListRowSorter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -85,5 +87,15 @@ public open class TreeListRowSorter(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_list_row_sorter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_list_row_sorter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_list_row_sorter_get_type")
     }
 }

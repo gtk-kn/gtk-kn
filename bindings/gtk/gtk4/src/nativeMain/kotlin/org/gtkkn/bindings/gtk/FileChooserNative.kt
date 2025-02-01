@@ -7,10 +7,10 @@ import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFileChooser
 import org.gtkkn.native.gtk.GtkFileChooserNative
@@ -247,11 +247,13 @@ public open class FileChooserNative(
         action: FileChooserAction,
         acceptLabel: String? = null,
         cancelLabel: String? = null,
-    ) : this(gtk_file_chooser_native_new(title, parent?.gtkWindowPointer, action.nativeValue, acceptLabel, cancelLabel)!!)
+    ) : this(gtk_file_chooser_native_new(title, parent?.gtkWindowPointer, action.nativeValue, acceptLabel, cancelLabel)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<FileChooserNative> {
         override val type: GeneratedClassKGType<FileChooserNative> =
-                GeneratedClassKGType(getTypeOrNull("gtk_file_chooser_native_get_type")!!) { FileChooserNative(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FileChooserNative(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -262,5 +264,15 @@ public open class FileChooserNative(
          * @return the GType
          */
         public fun getType(): GType = gtk_file_chooser_native_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_file_chooser_native_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_file_chooser_native_get_type")
     }
 }

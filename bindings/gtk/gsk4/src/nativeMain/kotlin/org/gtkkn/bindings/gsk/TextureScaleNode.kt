@@ -9,10 +9,9 @@ import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskTextureScaleNode
 import org.gtkkn.native.gsk.gsk_render_node_unref
@@ -84,7 +83,7 @@ public open class TextureScaleNode(
 
     public companion object : TypeCompanion<TextureScaleNode> {
         override val type: GeneratedClassKGType<TextureScaleNode> =
-                GeneratedClassKGType(getTypeOrNull("gsk_texture_scale_node_get_type")!!) { TextureScaleNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TextureScaleNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()}
@@ -95,5 +94,15 @@ public open class TextureScaleNode(
          * @return the GType
          */
         public fun getType(): GType = gsk_texture_scale_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_texture_scale_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_texture_scale_node_get_type")
     }
 }

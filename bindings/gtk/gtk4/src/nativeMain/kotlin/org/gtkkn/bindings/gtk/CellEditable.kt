@@ -15,11 +15,10 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -124,7 +123,7 @@ public interface CellEditable : Proxy, KGTyped {
 
     public companion object : TypeCompanion<CellEditable> {
         override val type: GeneratedInterfaceKGType<CellEditable> =
-                GeneratedInterfaceKGType(getTypeOrNull("gtk_cell_editable_get_type")!!) { CellEditableImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { CellEditableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -135,6 +134,16 @@ public interface CellEditable : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = gtk_cell_editable_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_cell_editable_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_editable_get_type")
     }
 }
 

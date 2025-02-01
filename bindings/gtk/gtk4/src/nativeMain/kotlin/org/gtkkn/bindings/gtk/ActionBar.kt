@@ -7,12 +7,12 @@ import kotlin.Boolean
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionBar
@@ -112,7 +112,9 @@ public open class ActionBar(
      *
      * @return a new `GtkActionBar`
      */
-    public constructor() : this(gtk_action_bar_new()!!.reinterpret())
+    public constructor() : this(gtk_action_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Retrieves the center bar widget of the bar.
@@ -154,7 +156,7 @@ public open class ActionBar(
 
     public companion object : TypeCompanion<ActionBar> {
         override val type: GeneratedClassKGType<ActionBar> =
-                GeneratedClassKGType(getTypeOrNull("gtk_action_bar_get_type")!!) { ActionBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ActionBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -165,5 +167,15 @@ public open class ActionBar(
          * @return the GType
          */
         public fun getType(): GType = gtk_action_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_action_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_action_bar_get_type")
     }
 }

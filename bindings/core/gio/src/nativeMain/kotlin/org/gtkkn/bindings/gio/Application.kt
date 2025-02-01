@@ -40,14 +40,14 @@ import org.gtkkn.bindings.glib.OptionGroup
 import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
 import org.gtkkn.native.gio.GApplication
@@ -473,7 +473,9 @@ public open class Application(
      * @param flags the application flags
      * @return a new #GApplication instance
      */
-    public constructor(applicationId: String? = null, flags: ApplicationFlags) : this(g_application_new(applicationId, flags.mask)!!)
+    public constructor(applicationId: String? = null, flags: ApplicationFlags) : this(g_application_new(applicationId, flags.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Activates the application.
@@ -1105,7 +1107,7 @@ public open class Application(
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
-                GeneratedClassKGType(getTypeOrNull("g_application_get_type")!!) { Application(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Application(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -1184,6 +1186,16 @@ public open class Application(
          * @return the GType
          */
         public fun getType(): GType = g_application_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_application_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_application_get_type")
     }
 }
 

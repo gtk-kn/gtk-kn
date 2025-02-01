@@ -17,13 +17,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -429,7 +429,9 @@ public open class TreeViewColumn(
      *
      * @return A newly created `GtkTreeViewColumn`.
      */
-    public constructor() : this(gtk_tree_view_column_new()!!)
+    public constructor() : this(gtk_tree_view_column_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkTreeViewColumn` using @area to render its cells.
@@ -437,7 +439,9 @@ public open class TreeViewColumn(
      * @param area the `GtkCellArea` that the newly created column should use to layout cells.
      * @return A newly created `GtkTreeViewColumn`.
      */
-    public constructor(area: CellArea) : this(gtk_tree_view_column_new_with_area(area.gtkCellAreaPointer)!!)
+    public constructor(area: CellArea) : this(gtk_tree_view_column_new_with_area(area.gtkCellAreaPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds an attribute mapping to the list in @tree_column.
@@ -589,7 +593,7 @@ public open class TreeViewColumn(
 
     public companion object : TypeCompanion<TreeViewColumn> {
         override val type: GeneratedClassKGType<TreeViewColumn> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_view_column_get_type")!!) { TreeViewColumn(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeViewColumn(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -600,6 +604,16 @@ public open class TreeViewColumn(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_view_column_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_view_column_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_view_column_get_type")
     }
 }
 

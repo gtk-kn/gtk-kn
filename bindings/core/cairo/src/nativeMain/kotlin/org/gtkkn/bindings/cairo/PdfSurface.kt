@@ -12,10 +12,9 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_16
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_gobject_surface_get_type
 import org.gtkkn.native.cairo.cairo_pdf_surface_add_outline
 import org.gtkkn.native.cairo.cairo_pdf_surface_create
@@ -129,7 +128,7 @@ public open class PdfSurface(
         public const val PDF_OUTLINE_ROOT: gint = 0
 
         override val type: GeneratedClassKGType<PdfSurface> =
-                GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { PdfSurface(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PdfSurface(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()}
@@ -140,5 +139,15 @@ public open class PdfSurface(
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_surface_get_type")
     }
 }

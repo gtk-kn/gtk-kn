@@ -17,11 +17,11 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.glib.guint
@@ -120,7 +120,9 @@ public open class EntryBuffer(
      * @param nInitialChars number of characters in @initial_chars, or -1
      * @return A new `GtkEntryBuffer` object.
      */
-    public constructor(initialChars: String? = null, nInitialChars: gint) : this(gtk_entry_buffer_new(initialChars, nInitialChars)!!)
+    public constructor(initialChars: String? = null, nInitialChars: gint) : this(gtk_entry_buffer_new(initialChars, nInitialChars)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Deletes a sequence of characters from the buffer.
@@ -232,7 +234,7 @@ public open class EntryBuffer(
 
     public companion object : TypeCompanion<EntryBuffer> {
         override val type: GeneratedClassKGType<EntryBuffer> =
-                GeneratedClassKGType(getTypeOrNull("gtk_entry_buffer_get_type")!!) { EntryBuffer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { EntryBuffer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -243,6 +245,16 @@ public open class EntryBuffer(
          * @return the GType
          */
         public fun getType(): GType = gtk_entry_buffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_entry_buffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_entry_buffer_get_type")
     }
 }
 

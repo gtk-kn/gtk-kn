@@ -19,13 +19,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Device
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -352,7 +352,9 @@ public open class ComboBox(
      *
      * @return A new `GtkComboBox`
      */
-    public constructor() : this(gtk_combo_box_new()!!.reinterpret())
+    public constructor() : this(gtk_combo_box_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkComboBox` with a model.
@@ -360,7 +362,9 @@ public open class ComboBox(
      * @param model a `GtkTreeModel`
      * @return A new `GtkComboBox`
      */
-    public constructor(model: TreeModel) : this(gtk_combo_box_new_with_model(model.gtkTreeModelPointer)!!.reinterpret())
+    public constructor(model: TreeModel) : this(gtk_combo_box_new_with_model(model.gtkTreeModelPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the ID of the active row of @combo_box.
@@ -593,7 +597,7 @@ public open class ComboBox(
 
     public companion object : TypeCompanion<ComboBox> {
         override val type: GeneratedClassKGType<ComboBox> =
-                GeneratedClassKGType(getTypeOrNull("gtk_combo_box_get_type")!!) { ComboBox(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ComboBox(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -606,6 +610,16 @@ public open class ComboBox(
         public fun getType(): GType = gtk_combo_box_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_combo_box_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_combo_box_get_type")
+
+        /**
          * Creates a new empty `GtkComboBox` with an entry.
          *
          * In order to use a combo box with entry, you need to tell it
@@ -614,7 +628,9 @@ public open class ComboBox(
          *
          * @return A new `GtkComboBox`
          */
-        public fun withEntry(): ComboBox = ComboBox(gtk_combo_box_new_with_entry()!!.reinterpret())
+        public fun withEntry(): ComboBox = ComboBox(gtk_combo_box_new_with_entry()!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
 
         /**
          * Creates a new empty `GtkComboBox` with an entry and a model.
@@ -624,7 +640,9 @@ public open class ComboBox(
          * @param model A `GtkTreeModel`
          * @return A new `GtkComboBox`
          */
-        public fun withModelAndEntry(model: TreeModel): ComboBox = ComboBox(gtk_combo_box_new_with_model_and_entry(model.gtkTreeModelPointer)!!.reinterpret())
+        public fun withModelAndEntry(model: TreeModel): ComboBox = ComboBox(gtk_combo_box_new_with_model_and_entry(model.gtkTreeModelPointer)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }
 

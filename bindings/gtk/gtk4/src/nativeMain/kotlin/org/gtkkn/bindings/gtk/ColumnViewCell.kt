@@ -8,12 +8,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkColumnViewCell
@@ -169,7 +168,7 @@ public open class ColumnViewCell(
 
     public companion object : TypeCompanion<ColumnViewCell> {
         override val type: GeneratedClassKGType<ColumnViewCell> =
-                GeneratedClassKGType(getTypeOrNull("gtk_column_view_cell_get_type")!!) { ColumnViewCell(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ColumnViewCell(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -180,5 +179,15 @@ public open class ColumnViewCell(
          * @return the GType
          */
         public fun getType(): GType = gtk_column_view_cell_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_column_view_cell_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_column_view_cell_get_type")
     }
 }

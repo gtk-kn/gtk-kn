@@ -25,11 +25,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.g_tls_certificate_get_issuer
 import org.gtkkn.native.gio.g_tls_certificate_get_issuer_name
@@ -206,7 +206,9 @@ public abstract class TlsCertificate(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GTlsCertificate from the PEM-encoded data in @cert_file
@@ -241,7 +243,9 @@ public abstract class TlsCertificate(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GTlsCertificate from the PEM-encoded data in @data. If
@@ -274,7 +278,9 @@ public abstract class TlsCertificate(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GTlsCertificate from a
@@ -317,7 +323,9 @@ public abstract class TlsCertificate(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Check if two #GTlsCertificate objects represent the same certificate.
@@ -388,7 +396,7 @@ public abstract class TlsCertificate(
 
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
-                GeneratedClassKGType(getTypeOrNull("g_tls_certificate_get_type")!!) { TlsCertificateImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TlsCertificateImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -427,6 +435,16 @@ public abstract class TlsCertificate(
         public fun getType(): GType = g_tls_certificate_get_type()
 
         /**
+         * Gets the GType of from the symbol `g_tls_certificate_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_certificate_get_type")
+
+        /**
          * Creates a #GTlsCertificate from the data in @file.
          *
          * If @file cannot be read or parsed, the function will return null and
@@ -450,6 +468,7 @@ public abstract class TlsCertificate(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = TlsCertificateImpl(checkNotNull(gResult))
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

@@ -17,13 +17,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -217,7 +217,9 @@ public open class Button(
      *
      * @return The newly created `GtkButton` widget.
      */
-    public constructor() : this(gtk_button_new()!!.reinterpret())
+    public constructor() : this(gtk_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GtkButton` widget with a `GtkLabel` child.
@@ -225,7 +227,9 @@ public open class Button(
      * @param label The text you want the `GtkLabel` to hold
      * @return The newly created `GtkButton` widget
      */
-    public constructor(label: String) : this(gtk_button_new_with_label(label)!!.reinterpret())
+    public constructor(label: String) : this(gtk_button_new_with_label(label)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the icon name of the button.
@@ -307,7 +311,7 @@ public open class Button(
 
     public companion object : TypeCompanion<Button> {
         override val type: GeneratedClassKGType<Button> =
-                GeneratedClassKGType(getTypeOrNull("gtk_button_get_type")!!) { Button(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Button(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -318,6 +322,16 @@ public open class Button(
          * @return the GType
          */
         public fun getType(): GType = gtk_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_button_get_type")
 
         /**
          * Creates a new `GtkButton` containing a label.
@@ -332,7 +346,9 @@ public open class Button(
          *   mnemonic character
          * @return a new `GtkButton`
          */
-        public fun withMnemonic(label: String): Button = Button(gtk_button_new_with_mnemonic(label)!!.reinterpret())
+        public fun withMnemonic(label: String): Button = Button(gtk_button_new_with_mnemonic(label)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
 
         /**
          * Creates a new button containing an icon from the current icon theme.
@@ -344,7 +360,9 @@ public open class Button(
          * @param iconName an icon name
          * @return a new `GtkButton` displaying the themed icon
          */
-        public fun fromIconName(iconName: String): Button = Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret())
+        public fun fromIconName(iconName: String): Button = Button(gtk_button_new_from_icon_name(iconName)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }
 

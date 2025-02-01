@@ -11,12 +11,12 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GThemedIcon
 import org.gtkkn.native.gio.g_themed_icon_append_name
@@ -74,7 +74,9 @@ public open class ThemedIcon(
      * @param iconname a string containing an icon name.
      * @return a new #GThemedIcon.
      */
-    public constructor(iconname: String) : this(g_themed_icon_new(iconname)!!.reinterpret())
+    public constructor(iconname: String) : this(g_themed_icon_new(iconname)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new themed icon for @iconnames.
@@ -87,7 +89,9 @@ public open class ThemedIcon(
     public constructor(iconnames: List<String>, len: gint) : this(memScoped {
         g_themed_icon_new_from_names(iconnames.toCStringList(this), len)!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Append a name to the list of icons from within @icon.
@@ -113,7 +117,7 @@ public open class ThemedIcon(
 
     public companion object : TypeCompanion<ThemedIcon> {
         override val type: GeneratedClassKGType<ThemedIcon> =
-                GeneratedClassKGType(getTypeOrNull("g_themed_icon_get_type")!!) { ThemedIcon(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ThemedIcon(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -124,6 +128,16 @@ public open class ThemedIcon(
          * @return the GType
          */
         public fun getType(): GType = g_themed_icon_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_themed_icon_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_themed_icon_get_type")
 
         /**
          * Creates a new themed icon for @iconname, and all the names
@@ -145,6 +159,8 @@ public open class ThemedIcon(
          * @param iconname a string containing an icon name
          * @return a new #GThemedIcon.
          */
-        public fun withDefaultFallbacks(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret())
+        public fun withDefaultFallbacks(iconname: String): ThemedIcon = ThemedIcon(g_themed_icon_new_with_default_fallbacks(iconname)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

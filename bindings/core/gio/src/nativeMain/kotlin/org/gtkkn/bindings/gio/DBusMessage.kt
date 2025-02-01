@@ -20,11 +20,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusMessage
 import org.gtkkn.native.gio.g_dbus_message_copy
 import org.gtkkn.native.gio.g_dbus_message_get_arg0
@@ -116,7 +116,9 @@ public open class DBusMessage(
      * @return A #GDBusMessage. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_dbus_message_new()!!)
+    public constructor() : this(g_dbus_message_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDBusMessage for a method call.
@@ -133,7 +135,9 @@ public open class DBusMessage(
         path: String,
         `interface`: String? = null,
         method: String,
-    ) : this(g_dbus_message_new_method_call(name, path, `interface`, method)!!)
+    ) : this(g_dbus_message_new_method_call(name, path, `interface`, method)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDBusMessage for a signal emission.
@@ -148,7 +152,9 @@ public open class DBusMessage(
         path: String,
         `interface`: String,
         signal: String,
-    ) : this(g_dbus_message_new_signal(path, `interface`, signal)!!)
+    ) : this(g_dbus_message_new_signal(path, `interface`, signal)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Copies @message. The copy is a deep copy and the returned
@@ -621,7 +627,7 @@ public open class DBusMessage(
 
     public companion object : TypeCompanion<DBusMessage> {
         override val type: GeneratedClassKGType<DBusMessage> =
-                GeneratedClassKGType(getTypeOrNull("g_dbus_message_get_type")!!) { DBusMessage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DBusMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -632,5 +638,15 @@ public open class DBusMessage(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_message_get_type")
     }
 }

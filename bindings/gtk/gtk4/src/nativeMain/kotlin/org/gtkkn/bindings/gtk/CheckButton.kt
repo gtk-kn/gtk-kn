@@ -18,13 +18,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_2
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -258,7 +258,9 @@ public open class CheckButton(
      *
      * @return a new `GtkCheckButton`
      */
-    public constructor() : this(gtk_check_button_new()!!.reinterpret())
+    public constructor() : this(gtk_check_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkCheckButton` with the given text.
@@ -266,7 +268,9 @@ public open class CheckButton(
      * @param label the text for the check button.
      * @return a new `GtkCheckButton`
      */
-    public constructor(label: String? = null) : this(gtk_check_button_new_with_label(label)!!.reinterpret())
+    public constructor(label: String? = null) : this(gtk_check_button_new_with_label(label)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @self to the group of @group.
@@ -337,7 +341,7 @@ public open class CheckButton(
 
     public companion object : TypeCompanion<CheckButton> {
         override val type: GeneratedClassKGType<CheckButton> =
-                GeneratedClassKGType(getTypeOrNull("gtk_check_button_get_type")!!) { CheckButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { CheckButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -350,13 +354,25 @@ public open class CheckButton(
         public fun getType(): GType = gtk_check_button_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_check_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_check_button_get_type")
+
+        /**
          * Creates a new `GtkCheckButton` with the given text and a mnemonic.
          *
          * @param label The text of the button, with an underscore
          *   in front of the mnemonic character
          * @return a new `GtkCheckButton`
          */
-        public fun withMnemonic(label: String? = null): CheckButton = CheckButton(gtk_check_button_new_with_mnemonic(label)!!.reinterpret())
+        public fun withMnemonic(label: String? = null): CheckButton = CheckButton(gtk_check_button_new_with_mnemonic(label)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }
 

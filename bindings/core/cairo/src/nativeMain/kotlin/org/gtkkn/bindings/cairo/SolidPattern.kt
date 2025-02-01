@@ -6,10 +6,9 @@ package org.gtkkn.bindings.cairo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_gobject_surface_get_type
 import org.gtkkn.native.cairo.cairo_pattern_create_rgb
 import org.gtkkn.native.cairo.cairo_pattern_create_rgba
@@ -50,7 +49,7 @@ public open class SolidPattern(
 
     public companion object : TypeCompanion<SolidPattern> {
         override val type: GeneratedClassKGType<SolidPattern> =
-                GeneratedClassKGType(getTypeOrNull("cairo_gobject_surface_get_type")!!) { SolidPattern(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SolidPattern(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()}
@@ -61,5 +60,15 @@ public open class SolidPattern(
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_surface_get_type")
     }
 }

@@ -15,11 +15,10 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
@@ -170,7 +169,7 @@ public class BackForwardList(
 
     public companion object : TypeCompanion<BackForwardList> {
         override val type: GeneratedClassKGType<BackForwardList> =
-                GeneratedClassKGType(getTypeOrNull("webkit_back_forward_list_get_type")!!) { BackForwardList(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { BackForwardList(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -181,6 +180,16 @@ public class BackForwardList(
          * @return the GType
          */
         public fun getType(): GType = webkit_back_forward_list_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_back_forward_list_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_back_forward_list_get_type")
     }
 }
 

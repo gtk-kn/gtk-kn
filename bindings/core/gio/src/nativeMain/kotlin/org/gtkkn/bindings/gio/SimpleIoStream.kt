@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSimpleIOStream
 import org.gtkkn.native.gio.g_simple_io_stream_get_type
 import org.gtkkn.native.gio.g_simple_io_stream_new
@@ -52,11 +52,13 @@ public open class SimpleIoStream(
      * @return a new #GSimpleIOStream instance.
      * @since 2.44
      */
-    public constructor(inputStream: InputStream, outputStream: OutputStream) : this(g_simple_io_stream_new(inputStream.gioInputStreamPointer, outputStream.gioOutputStreamPointer)!!.reinterpret())
+    public constructor(inputStream: InputStream, outputStream: OutputStream) : this(g_simple_io_stream_new(inputStream.gioInputStreamPointer, outputStream.gioOutputStreamPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<SimpleIoStream> {
         override val type: GeneratedClassKGType<SimpleIoStream> =
-                GeneratedClassKGType(getTypeOrNull("g_simple_io_stream_get_type")!!) { SimpleIoStream(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SimpleIoStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -67,5 +69,15 @@ public open class SimpleIoStream(
          * @return the GType
          */
         public fun getType(): GType = g_simple_io_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_simple_io_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_simple_io_stream_get_type")
     }
 }

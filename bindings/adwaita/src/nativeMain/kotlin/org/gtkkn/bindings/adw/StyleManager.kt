@@ -8,11 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwStyleManager
 import org.gtkkn.native.adw.adw_style_manager_get_color_scheme
 import org.gtkkn.native.adw.adw_style_manager_get_dark
@@ -198,7 +197,7 @@ public class StyleManager(
 
     public companion object : TypeCompanion<StyleManager> {
         override val type: GeneratedClassKGType<StyleManager> =
-                GeneratedClassKGType(getTypeOrNull("adw_style_manager_get_type")!!) { StyleManager(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { StyleManager(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -236,5 +235,15 @@ public class StyleManager(
          * @return the GType
          */
         public fun getType(): GType = adw_style_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_style_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_style_manager_get_type")
     }
 }

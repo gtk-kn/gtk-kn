@@ -7,11 +7,11 @@ import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GUnixCredentialsMessage
 import org.gtkkn.native.gio.g_unix_credentials_message_get_credentials
 import org.gtkkn.native.gio.g_unix_credentials_message_get_type
@@ -73,7 +73,9 @@ public open class UnixCredentialsMessage(
      * @return a new #GUnixCredentialsMessage
      * @since 2.26
      */
-    public constructor() : this(g_unix_credentials_message_new()!!.reinterpret())
+    public constructor() : this(g_unix_credentials_message_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GUnixCredentialsMessage holding @credentials.
@@ -82,11 +84,13 @@ public open class UnixCredentialsMessage(
      * @return a new #GUnixCredentialsMessage
      * @since 2.26
      */
-    public constructor(credentials: Credentials) : this(g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer)!!.reinterpret())
+    public constructor(credentials: Credentials) : this(g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<UnixCredentialsMessage> {
         override val type: GeneratedClassKGType<UnixCredentialsMessage> =
-                GeneratedClassKGType(getTypeOrNull("g_unix_credentials_message_get_type")!!) { UnixCredentialsMessage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { UnixCredentialsMessage(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -106,5 +110,15 @@ public open class UnixCredentialsMessage(
          * @return the GType
          */
         public fun getType(): GType = g_unix_credentials_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_unix_credentials_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_unix_credentials_message_get_type")
     }
 }

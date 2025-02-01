@@ -19,11 +19,10 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDBusInterface
 import org.gtkkn.native.gio.GDBusObject
 import org.gtkkn.native.gio.GDBusObjectManager
@@ -160,7 +159,7 @@ public interface DBusObjectManager : Proxy, KGTyped {
 
     public companion object : TypeCompanion<DBusObjectManager> {
         override val type: GeneratedInterfaceKGType<DBusObjectManager> =
-                GeneratedInterfaceKGType(getTypeOrNull("g_dbus_object_manager_get_type")!!) { DBusObjectManagerImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { DBusObjectManagerImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -171,6 +170,16 @@ public interface DBusObjectManager : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = g_dbus_object_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_object_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_object_manager_get_type")
     }
 }
 

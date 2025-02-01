@@ -6,10 +6,9 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Context
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkCairoContext
 import org.gtkkn.native.gdk.gdk_cairo_context_cairo_create
 import org.gtkkn.native.gdk.gdk_cairo_context_get_type
@@ -58,7 +57,7 @@ public abstract class CairoContext(
 
     public companion object : TypeCompanion<CairoContext> {
         override val type: GeneratedClassKGType<CairoContext> =
-                GeneratedClassKGType(getTypeOrNull("gdk_cairo_context_get_type")!!) { CairoContextImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { CairoContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -69,5 +68,15 @@ public abstract class CairoContext(
          * @return the GType
          */
         public fun getType(): GType = gdk_cairo_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_cairo_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_cairo_context_get_type")
     }
 }

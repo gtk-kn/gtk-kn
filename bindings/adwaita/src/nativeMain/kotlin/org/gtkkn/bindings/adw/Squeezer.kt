@@ -10,12 +10,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.SelectionModel
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwSqueezer
 import org.gtkkn.native.adw.adw_squeezer_add
 import org.gtkkn.native.adw.adw_squeezer_get_allow_none
@@ -352,7 +352,9 @@ public class Squeezer(
      *
      * @return the newly created `AdwSqueezer`
      */
-    public constructor() : this(adw_squeezer_new()!!.reinterpret())
+    public constructor() : this(adw_squeezer_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a child to @self.
@@ -381,7 +383,7 @@ public class Squeezer(
 
     public companion object : TypeCompanion<Squeezer> {
         override val type: GeneratedClassKGType<Squeezer> =
-                GeneratedClassKGType(getTypeOrNull("adw_squeezer_get_type")!!) { Squeezer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Squeezer(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -392,5 +394,15 @@ public class Squeezer(
          * @return the GType
          */
         public fun getType(): GType = adw_squeezer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_squeezer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_squeezer_get_type")
     }
 }

@@ -20,11 +20,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GInetAddressMask
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gio.g_inet_address_mask_equal
@@ -126,7 +126,9 @@ public open class InetAddressMask(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses @mask_string as an IP address and (optional) length, and
@@ -149,7 +151,9 @@ public open class InetAddressMask(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Tests if @mask and @mask2 are the same mask.
@@ -184,7 +188,7 @@ public open class InetAddressMask(
 
     public companion object : TypeCompanion<InetAddressMask> {
         override val type: GeneratedClassKGType<InetAddressMask> =
-                GeneratedClassKGType(getTypeOrNull("g_inet_address_mask_get_type")!!) { InetAddressMask(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { InetAddressMask(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -195,5 +199,15 @@ public open class InetAddressMask(
          * @return the GType
          */
         public fun getType(): GType = g_inet_address_mask_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_inet_address_mask_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_inet_address_mask_get_type")
     }
 }

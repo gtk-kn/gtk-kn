@@ -8,10 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuilderListItemFactory
 import org.gtkkn.native.gtk.gtk_builder_list_item_factory_get_bytes
@@ -98,7 +98,9 @@ public open class BuilderListItemFactory(
      * @param bytes the `GBytes` containing the ui file to instantiate
      * @return a new `GtkBuilderListItemFactory`
      */
-    public constructor(scope: BuilderScope? = null, bytes: Bytes) : this(gtk_builder_list_item_factory_new_from_bytes(scope?.gtkBuilderScopePointer, bytes.glibBytesPointer)!!.reinterpret())
+    public constructor(scope: BuilderScope? = null, bytes: Bytes) : this(gtk_builder_list_item_factory_new_from_bytes(scope?.gtkBuilderScopePointer, bytes.glibBytesPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkBuilderListItemFactory` that instantiates widgets
@@ -108,11 +110,13 @@ public open class BuilderListItemFactory(
      * @param resourcePath valid path to a resource that contains the data
      * @return a new `GtkBuilderListItemFactory`
      */
-    public constructor(scope: BuilderScope? = null, resourcePath: String) : this(gtk_builder_list_item_factory_new_from_resource(scope?.gtkBuilderScopePointer, resourcePath)!!.reinterpret())
+    public constructor(scope: BuilderScope? = null, resourcePath: String) : this(gtk_builder_list_item_factory_new_from_resource(scope?.gtkBuilderScopePointer, resourcePath)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<BuilderListItemFactory> {
         override val type: GeneratedClassKGType<BuilderListItemFactory> =
-                GeneratedClassKGType(getTypeOrNull("gtk_builder_list_item_factory_get_type")!!) { BuilderListItemFactory(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { BuilderListItemFactory(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -123,5 +127,15 @@ public open class BuilderListItemFactory(
          * @return the GType
          */
         public fun getType(): GType = gtk_builder_list_item_factory_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_builder_list_item_factory_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_builder_list_item_factory_get_type")
     }
 }

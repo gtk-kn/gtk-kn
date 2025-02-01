@@ -22,14 +22,14 @@ import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextMark
 import org.gtkkn.bindings.gtk.TextTagTable
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_10
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -305,7 +305,9 @@ public open class Buffer(
      * @param table a #GtkTextTagTable, or null to create a new one.
      * @return a new source buffer.
      */
-    public constructor(table: TextTagTable? = null) : this(gtk_source_buffer_new(table?.gtkTextTagTablePointer)!!)
+    public constructor(table: TextTagTable? = null) : this(gtk_source_buffer_new(table?.gtkTextTagTablePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new source buffer using the highlighting patterns in `language`.
@@ -317,7 +319,9 @@ public open class Buffer(
      * @return a new source buffer which will highlight text
      * according to the highlighting patterns in `language`.
      */
-    public constructor(language: Language) : this(gtk_source_buffer_new_with_language(language.gtksourceLanguagePointer)!!)
+    public constructor(language: Language) : this(gtk_source_buffer_new_with_language(language.gtksourceLanguagePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Changes the case of the text between the specified iterators.
@@ -543,7 +547,7 @@ public open class Buffer(
 
     public companion object : TypeCompanion<Buffer> {
         override val type: GeneratedClassKGType<Buffer> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_buffer_get_type")!!) { Buffer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Buffer(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -554,6 +558,16 @@ public open class Buffer(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_buffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_buffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_buffer_get_type")
     }
 }
 

@@ -12,12 +12,12 @@ import org.gtkkn.bindings.gio.Settings
 import org.gtkkn.bindings.gio.SettingsBindFlags
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSpaceDrawer
 import org.gtkkn.native.gtksource.gtk_source_space_drawer_bind_matrix_setting
@@ -113,7 +113,9 @@ public open class SpaceDrawer(
      *
      * @return a new #GtkSourceSpaceDrawer.
      */
-    public constructor() : this(gtk_source_space_drawer_new()!!)
+    public constructor() : this(gtk_source_space_drawer_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Binds the [property@SpaceDrawer:matrix] property to a [class@Gio.Settings] key.
@@ -192,7 +194,7 @@ public open class SpaceDrawer(
 
     public companion object : TypeCompanion<SpaceDrawer> {
         override val type: GeneratedClassKGType<SpaceDrawer> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_space_drawer_get_type")!!) { SpaceDrawer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SpaceDrawer(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -203,5 +205,15 @@ public open class SpaceDrawer(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_space_drawer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_space_drawer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_space_drawer_get_type")
     }
 }

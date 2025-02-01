@@ -7,10 +7,10 @@ import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSignalAction
 import org.gtkkn.native.gtk.gtk_signal_action_get_signal_name
@@ -51,11 +51,13 @@ public open class SignalAction(
      * @param signalName name of the signal to emit
      * @return a new `GtkShortcutAction`
      */
-    public constructor(signalName: String) : this(gtk_signal_action_new(signalName)!!.reinterpret())
+    public constructor(signalName: String) : this(gtk_signal_action_new(signalName)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<SignalAction> {
         override val type: GeneratedClassKGType<SignalAction> =
-                GeneratedClassKGType(getTypeOrNull("gtk_signal_action_get_type")!!) { SignalAction(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SignalAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -66,5 +68,15 @@ public open class SignalAction(
          * @return the GType
          */
         public fun getType(): GType = gtk_signal_action_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_signal_action_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_signal_action_get_type")
     }
 }

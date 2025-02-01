@@ -15,12 +15,12 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketConnection
 import org.gtkkn.native.gio.GThreadedSocketService
 import org.gtkkn.native.gio.g_threaded_socket_service_get_type
@@ -73,7 +73,9 @@ public open class ThreadedSocketService(
      * @return a new #GSocketService.
      * @since 2.22
      */
-    public constructor(maxThreads: gint) : this(g_threaded_socket_service_new(maxThreads)!!.reinterpret())
+    public constructor(maxThreads: gint) : this(g_threaded_socket_service_new(maxThreads)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * The ::run signal is emitted in a worker thread in response to an
@@ -88,7 +90,7 @@ public open class ThreadedSocketService(
 
     public companion object : TypeCompanion<ThreadedSocketService> {
         override val type: GeneratedClassKGType<ThreadedSocketService> =
-                GeneratedClassKGType(getTypeOrNull("g_threaded_socket_service_get_type")!!) { ThreadedSocketService(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ThreadedSocketService(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -99,6 +101,16 @@ public open class ThreadedSocketService(
          * @return the GType
          */
         public fun getType(): GType = g_threaded_socket_service_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_threaded_socket_service_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_threaded_socket_service_get_type")
     }
 }
 

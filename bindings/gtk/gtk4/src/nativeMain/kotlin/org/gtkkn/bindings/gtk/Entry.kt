@@ -24,13 +24,13 @@ import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.TabArray
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -615,7 +615,9 @@ public open class Entry(
      *
      * @return a new `GtkEntry`.
      */
-    public constructor() : this(gtk_entry_new()!!.reinterpret())
+    public constructor() : this(gtk_entry_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new entry with the specified text buffer.
@@ -623,7 +625,9 @@ public open class Entry(
      * @param buffer The buffer to use for the new `GtkEntry`.
      * @return a new `GtkEntry`
      */
-    public constructor(buffer: EntryBuffer) : this(gtk_entry_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret())
+    public constructor(buffer: EntryBuffer) : this(gtk_entry_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the value set by gtk_entry_set_alignment().
@@ -997,7 +1001,7 @@ public open class Entry(
 
     public companion object : TypeCompanion<Entry> {
         override val type: GeneratedClassKGType<Entry> =
-                GeneratedClassKGType(getTypeOrNull("gtk_entry_get_type")!!) { Entry(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Entry(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -1008,6 +1012,16 @@ public open class Entry(
          * @return the GType
          */
         public fun getType(): GType = gtk_entry_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_entry_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_entry_get_type")
     }
 }
 

@@ -18,11 +18,10 @@ import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDatagramBased
 import org.gtkkn.native.gio.g_datagram_based_condition_check
 import org.gtkkn.native.gio.g_datagram_based_condition_wait
@@ -213,7 +212,7 @@ public interface DatagramBased : Proxy, KGTyped {
 
     public companion object : TypeCompanion<DatagramBased> {
         override val type: GeneratedInterfaceKGType<DatagramBased> =
-                GeneratedInterfaceKGType(getTypeOrNull("g_datagram_based_get_type")!!) { DatagramBasedImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { DatagramBasedImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -224,5 +223,15 @@ public interface DatagramBased : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = g_datagram_based_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_datagram_based_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_datagram_based_get_type")
     }
 }

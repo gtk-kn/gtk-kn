@@ -35,13 +35,13 @@ import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncInitable
 import org.gtkkn.native.gio.GDBusConnection
 import org.gtkkn.native.gio.GInitable
@@ -357,7 +357,9 @@ public open class DBusConnection(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Synchronously connects and sets up a D-Bus client connection for
@@ -401,7 +403,9 @@ public open class DBusConnection(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Synchronously sets up a D-Bus connection for exchanging D-Bus messages
@@ -445,7 +449,9 @@ public open class DBusConnection(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a message filter. Filters are handlers that are run on all
@@ -1277,7 +1283,7 @@ public open class DBusConnection(
 
     public companion object : TypeCompanion<DBusConnection> {
         override val type: GeneratedClassKGType<DBusConnection> =
-                GeneratedClassKGType(getTypeOrNull("g_dbus_connection_get_type")!!) { DBusConnection(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DBusConnection(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -1370,6 +1376,16 @@ public open class DBusConnection(
         public fun getType(): GType = g_dbus_connection_get_type()
 
         /**
+         * Gets the GType of from the symbol `g_dbus_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_connection_get_type")
+
+        /**
          * Finishes an operation started with g_dbus_connection_new_for_address().
          *
          * @param res a #GAsyncResult obtained from the #GAsyncReadyCallback passed
@@ -1387,6 +1403,7 @@ public open class DBusConnection(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = DBusConnection(checkNotNull(gResult))
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

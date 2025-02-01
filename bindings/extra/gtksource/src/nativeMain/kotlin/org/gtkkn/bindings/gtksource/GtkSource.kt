@@ -282,51 +282,51 @@ public object GtkSource {
     }
 
     private fun registerTypes() {
-        TypeCache.register(Buffer::class, Buffer.getType()) { Buffer(it.reinterpret()) }
-        TypeCache.register(Completion::class, Completion.getType()) { Completion(it.reinterpret()) }
-        TypeCache.register(CompletionCell::class, CompletionCell.getType()) { CompletionCell(it.reinterpret()) }
-        TypeCache.register(CompletionContext::class, CompletionContext.getType()) { CompletionContext(it.reinterpret()) }
-        TypeCache.register(CompletionSnippets::class, CompletionSnippets.getType()) { CompletionSnippets(it.reinterpret()) }
-        TypeCache.register(CompletionWords::class, CompletionWords.getType()) { CompletionWords(it.reinterpret()) }
-        TypeCache.register(File::class, File.getType()) { File(it.reinterpret()) }
-        TypeCache.register(FileLoader::class, FileLoader.getType()) { FileLoader(it.reinterpret()) }
-        TypeCache.register(FileSaver::class, FileSaver.getType()) { FileSaver(it.reinterpret()) }
-        TypeCache.register(Gutter::class, Gutter.getType()) { Gutter(it.reinterpret()) }
-        TypeCache.register(GutterLines::class, GutterLines.getType()) { GutterLines(it.reinterpret()) }
-        TypeCache.register(GutterRenderer::class, GutterRenderer.getType()) { GutterRenderer.GutterRendererImpl(it.reinterpret()) }
-        TypeCache.register(GutterRendererPixbuf::class, GutterRendererPixbuf.getType()) { GutterRendererPixbuf(it.reinterpret()) }
-        TypeCache.register(GutterRendererText::class, GutterRendererText.getType()) { GutterRendererText(it.reinterpret()) }
-        TypeCache.register(Hover::class, Hover.getType()) { Hover(it.reinterpret()) }
-        TypeCache.register(HoverContext::class, HoverContext.getType()) { HoverContext(it.reinterpret()) }
-        TypeCache.register(HoverDisplay::class, HoverDisplay.getType()) { HoverDisplay(it.reinterpret()) }
-        TypeCache.register(Language::class, Language.getType()) { Language(it.reinterpret()) }
-        TypeCache.register(LanguageManager::class, LanguageManager.getType()) { LanguageManager(it.reinterpret()) }
-        TypeCache.register(Map::class, Map.getType()) { Map(it.reinterpret()) }
-        TypeCache.register(Mark::class, Mark.getType()) { Mark(it.reinterpret()) }
-        TypeCache.register(MarkAttributes::class, MarkAttributes.getType()) { MarkAttributes(it.reinterpret()) }
-        TypeCache.register(PrintCompositor::class, PrintCompositor.getType()) { PrintCompositor(it.reinterpret()) }
-        TypeCache.register(Region::class, Region.getType()) { Region(it.reinterpret()) }
-        TypeCache.register(SearchContext::class, SearchContext.getType()) { SearchContext(it.reinterpret()) }
-        TypeCache.register(SearchSettings::class, SearchSettings.getType()) { SearchSettings(it.reinterpret()) }
-        TypeCache.register(Snippet::class, Snippet.getType()) { Snippet(it.reinterpret()) }
-        TypeCache.register(SnippetChunk::class, SnippetChunk.getType()) { SnippetChunk(it.reinterpret()) }
-        TypeCache.register(SnippetContext::class, SnippetContext.getType()) { SnippetContext(it.reinterpret()) }
-        TypeCache.register(SnippetManager::class, SnippetManager.getType()) { SnippetManager(it.reinterpret()) }
-        TypeCache.register(SpaceDrawer::class, SpaceDrawer.getType()) { SpaceDrawer(it.reinterpret()) }
-        TypeCache.register(Style::class, Style.getType()) { Style(it.reinterpret()) }
-        TypeCache.register(StyleScheme::class, StyleScheme.getType()) { StyleScheme(it.reinterpret()) }
-        TypeCache.register(StyleSchemeChooserButton::class, StyleSchemeChooserButton.getType()) { StyleSchemeChooserButton(it.reinterpret()) }
-        TypeCache.register(StyleSchemeChooserWidget::class, StyleSchemeChooserWidget.getType()) { StyleSchemeChooserWidget(it.reinterpret()) }
-        TypeCache.register(StyleSchemeManager::class, StyleSchemeManager.getType()) { StyleSchemeManager(it.reinterpret()) }
-        TypeCache.register(StyleSchemePreview::class, StyleSchemePreview.getType()) { StyleSchemePreview(it.reinterpret()) }
-        TypeCache.register(Tag::class, Tag.getType()) { Tag(it.reinterpret()) }
-        TypeCache.register(View::class, View.getType()) { View(it.reinterpret()) }
-        TypeCache.register(VimImContext::class, VimImContext.getType()) { VimImContext(it.reinterpret()) }
-        TypeCache.register(CompletionProposal::class, CompletionProposal.getType()) { CompletionProposal.CompletionProposalImpl(it.reinterpret()) }
-        TypeCache.register(CompletionProvider::class, CompletionProvider.getType()) { CompletionProvider.CompletionProviderImpl(it.reinterpret()) }
-        TypeCache.register(HoverProvider::class, HoverProvider.getType()) { HoverProvider.HoverProviderImpl(it.reinterpret()) }
-        TypeCache.register(Indenter::class, Indenter.getType()) { Indenter.IndenterImpl(it.reinterpret()) }
-        TypeCache.register(StyleSchemeChooser::class, StyleSchemeChooser.getType()) { StyleSchemeChooser.StyleSchemeChooserImpl(it.reinterpret()) }
+        Buffer.getTypeOrNull()?.let { gtype -> TypeCache.register(Buffer::class, gtype) { Buffer(it.reinterpret()) } }
+        Completion.getTypeOrNull()?.let { gtype -> TypeCache.register(Completion::class, gtype) { Completion(it.reinterpret()) } }
+        CompletionCell.getTypeOrNull()?.let { gtype -> TypeCache.register(CompletionCell::class, gtype) { CompletionCell(it.reinterpret()) } }
+        CompletionContext.getTypeOrNull()?.let { gtype -> TypeCache.register(CompletionContext::class, gtype) { CompletionContext(it.reinterpret()) } }
+        CompletionSnippets.getTypeOrNull()?.let { gtype -> TypeCache.register(CompletionSnippets::class, gtype) { CompletionSnippets(it.reinterpret()) } }
+        CompletionWords.getTypeOrNull()?.let { gtype -> TypeCache.register(CompletionWords::class, gtype) { CompletionWords(it.reinterpret()) } }
+        File.getTypeOrNull()?.let { gtype -> TypeCache.register(File::class, gtype) { File(it.reinterpret()) } }
+        FileLoader.getTypeOrNull()?.let { gtype -> TypeCache.register(FileLoader::class, gtype) { FileLoader(it.reinterpret()) } }
+        FileSaver.getTypeOrNull()?.let { gtype -> TypeCache.register(FileSaver::class, gtype) { FileSaver(it.reinterpret()) } }
+        Gutter.getTypeOrNull()?.let { gtype -> TypeCache.register(Gutter::class, gtype) { Gutter(it.reinterpret()) } }
+        GutterLines.getTypeOrNull()?.let { gtype -> TypeCache.register(GutterLines::class, gtype) { GutterLines(it.reinterpret()) } }
+        GutterRenderer.getTypeOrNull()?.let { gtype -> TypeCache.register(GutterRenderer::class, gtype) { GutterRenderer.GutterRendererImpl(it.reinterpret()) } }
+        GutterRendererPixbuf.getTypeOrNull()?.let { gtype -> TypeCache.register(GutterRendererPixbuf::class, gtype) { GutterRendererPixbuf(it.reinterpret()) } }
+        GutterRendererText.getTypeOrNull()?.let { gtype -> TypeCache.register(GutterRendererText::class, gtype) { GutterRendererText(it.reinterpret()) } }
+        Hover.getTypeOrNull()?.let { gtype -> TypeCache.register(Hover::class, gtype) { Hover(it.reinterpret()) } }
+        HoverContext.getTypeOrNull()?.let { gtype -> TypeCache.register(HoverContext::class, gtype) { HoverContext(it.reinterpret()) } }
+        HoverDisplay.getTypeOrNull()?.let { gtype -> TypeCache.register(HoverDisplay::class, gtype) { HoverDisplay(it.reinterpret()) } }
+        Language.getTypeOrNull()?.let { gtype -> TypeCache.register(Language::class, gtype) { Language(it.reinterpret()) } }
+        LanguageManager.getTypeOrNull()?.let { gtype -> TypeCache.register(LanguageManager::class, gtype) { LanguageManager(it.reinterpret()) } }
+        Map.getTypeOrNull()?.let { gtype -> TypeCache.register(Map::class, gtype) { Map(it.reinterpret()) } }
+        Mark.getTypeOrNull()?.let { gtype -> TypeCache.register(Mark::class, gtype) { Mark(it.reinterpret()) } }
+        MarkAttributes.getTypeOrNull()?.let { gtype -> TypeCache.register(MarkAttributes::class, gtype) { MarkAttributes(it.reinterpret()) } }
+        PrintCompositor.getTypeOrNull()?.let { gtype -> TypeCache.register(PrintCompositor::class, gtype) { PrintCompositor(it.reinterpret()) } }
+        Region.getTypeOrNull()?.let { gtype -> TypeCache.register(Region::class, gtype) { Region(it.reinterpret()) } }
+        SearchContext.getTypeOrNull()?.let { gtype -> TypeCache.register(SearchContext::class, gtype) { SearchContext(it.reinterpret()) } }
+        SearchSettings.getTypeOrNull()?.let { gtype -> TypeCache.register(SearchSettings::class, gtype) { SearchSettings(it.reinterpret()) } }
+        Snippet.getTypeOrNull()?.let { gtype -> TypeCache.register(Snippet::class, gtype) { Snippet(it.reinterpret()) } }
+        SnippetChunk.getTypeOrNull()?.let { gtype -> TypeCache.register(SnippetChunk::class, gtype) { SnippetChunk(it.reinterpret()) } }
+        SnippetContext.getTypeOrNull()?.let { gtype -> TypeCache.register(SnippetContext::class, gtype) { SnippetContext(it.reinterpret()) } }
+        SnippetManager.getTypeOrNull()?.let { gtype -> TypeCache.register(SnippetManager::class, gtype) { SnippetManager(it.reinterpret()) } }
+        SpaceDrawer.getTypeOrNull()?.let { gtype -> TypeCache.register(SpaceDrawer::class, gtype) { SpaceDrawer(it.reinterpret()) } }
+        Style.getTypeOrNull()?.let { gtype -> TypeCache.register(Style::class, gtype) { Style(it.reinterpret()) } }
+        StyleScheme.getTypeOrNull()?.let { gtype -> TypeCache.register(StyleScheme::class, gtype) { StyleScheme(it.reinterpret()) } }
+        StyleSchemeChooserButton.getTypeOrNull()?.let { gtype -> TypeCache.register(StyleSchemeChooserButton::class, gtype) { StyleSchemeChooserButton(it.reinterpret()) } }
+        StyleSchemeChooserWidget.getTypeOrNull()?.let { gtype -> TypeCache.register(StyleSchemeChooserWidget::class, gtype) { StyleSchemeChooserWidget(it.reinterpret()) } }
+        StyleSchemeManager.getTypeOrNull()?.let { gtype -> TypeCache.register(StyleSchemeManager::class, gtype) { StyleSchemeManager(it.reinterpret()) } }
+        StyleSchemePreview.getTypeOrNull()?.let { gtype -> TypeCache.register(StyleSchemePreview::class, gtype) { StyleSchemePreview(it.reinterpret()) } }
+        Tag.getTypeOrNull()?.let { gtype -> TypeCache.register(Tag::class, gtype) { Tag(it.reinterpret()) } }
+        View.getTypeOrNull()?.let { gtype -> TypeCache.register(View::class, gtype) { View(it.reinterpret()) } }
+        VimImContext.getTypeOrNull()?.let { gtype -> TypeCache.register(VimImContext::class, gtype) { VimImContext(it.reinterpret()) } }
+        CompletionProposal.getTypeOrNull()?.let { gtype -> TypeCache.register(CompletionProposal::class, gtype) { CompletionProposal.CompletionProposalImpl(it.reinterpret()) } }
+        CompletionProvider.getTypeOrNull()?.let { gtype -> TypeCache.register(CompletionProvider::class, gtype) { CompletionProvider.CompletionProviderImpl(it.reinterpret()) } }
+        HoverProvider.getTypeOrNull()?.let { gtype -> TypeCache.register(HoverProvider::class, gtype) { HoverProvider.HoverProviderImpl(it.reinterpret()) } }
+        Indenter.getTypeOrNull()?.let { gtype -> TypeCache.register(Indenter::class, gtype) { Indenter.IndenterImpl(it.reinterpret()) } }
+        StyleSchemeChooser.getTypeOrNull()?.let { gtype -> TypeCache.register(StyleSchemeChooser::class, gtype) { StyleSchemeChooser.StyleSchemeChooserImpl(it.reinterpret()) } }
     }
 }
 

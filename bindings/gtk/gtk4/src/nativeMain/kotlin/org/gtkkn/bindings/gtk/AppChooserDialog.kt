@@ -9,10 +9,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAppChooser
@@ -97,7 +97,9 @@ public open class AppChooserDialog(
         parent: Window? = null,
         flags: DialogFlags,
         `file`: File,
-    ) : this(gtk_app_chooser_dialog_new(parent?.gtkWindowPointer, flags.mask, `file`.gioFilePointer)!!.reinterpret())
+    ) : this(gtk_app_chooser_dialog_new(parent?.gtkWindowPointer, flags.mask, `file`.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkAppChooserDialog` for the provided content type.
@@ -113,7 +115,9 @@ public open class AppChooserDialog(
         parent: Window? = null,
         flags: DialogFlags,
         contentType: String,
-    ) : this(gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer, flags.mask, contentType)!!.reinterpret())
+    ) : this(gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer, flags.mask, contentType)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the text to display at the top of the dialog.
@@ -142,7 +146,7 @@ public open class AppChooserDialog(
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =
-                GeneratedClassKGType(getTypeOrNull("gtk_app_chooser_dialog_get_type")!!) { AppChooserDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { AppChooserDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -153,5 +157,15 @@ public open class AppChooserDialog(
          * @return the GType
          */
         public fun getType(): GType = gtk_app_chooser_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_app_chooser_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_app_chooser_dialog_get_type")
     }
 }

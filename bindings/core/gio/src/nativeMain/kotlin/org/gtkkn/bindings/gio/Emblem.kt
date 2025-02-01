@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GEmblem
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.g_emblem_get_icon
@@ -80,7 +80,9 @@ public open class Emblem(
      * @return a new #GEmblem.
      * @since 2.18
      */
-    public constructor(icon: Icon) : this(g_emblem_new(icon.gioIconPointer)!!)
+    public constructor(icon: Icon) : this(g_emblem_new(icon.gioIconPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new emblem for @icon.
@@ -90,11 +92,13 @@ public open class Emblem(
      * @return a new #GEmblem.
      * @since 2.18
      */
-    public constructor(icon: Icon, origin: EmblemOrigin) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!)
+    public constructor(icon: Icon, origin: EmblemOrigin) : this(g_emblem_new_with_origin(icon.gioIconPointer, origin.nativeValue)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Emblem> {
         override val type: GeneratedClassKGType<Emblem> =
-                GeneratedClassKGType(getTypeOrNull("g_emblem_get_type")!!) { Emblem(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Emblem(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -105,5 +109,15 @@ public open class Emblem(
          * @return the GType
          */
         public fun getType(): GType = g_emblem_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_emblem_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_emblem_get_type")
     }
 }

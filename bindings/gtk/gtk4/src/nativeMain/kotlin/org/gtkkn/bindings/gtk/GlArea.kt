@@ -18,13 +18,13 @@ import org.gtkkn.bindings.gdk.Glapi
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLContext
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
@@ -363,7 +363,9 @@ public open class GlArea(
      *
      * @return a new `GtkGLArea`
      */
-    public constructor() : this(gtk_gl_area_new()!!.reinterpret())
+    public constructor() : this(gtk_gl_area_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Binds buffers to the framebuffer.
@@ -490,7 +492,7 @@ public open class GlArea(
 
     public companion object : TypeCompanion<GlArea> {
         override val type: GeneratedClassKGType<GlArea> =
-                GeneratedClassKGType(getTypeOrNull("gtk_gl_area_get_type")!!) { GlArea(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { GlArea(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -501,6 +503,16 @@ public open class GlArea(
          * @return the GType
          */
         public fun getType(): GType = gtk_gl_area_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_gl_area_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_gl_area_get_type")
     }
 }
 

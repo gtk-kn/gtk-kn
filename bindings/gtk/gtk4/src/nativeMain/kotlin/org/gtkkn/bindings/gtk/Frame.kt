@@ -8,10 +8,10 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -168,7 +168,9 @@ public open class Frame(
      * @param label the text to use as the label of the frame
      * @return a new `GtkFrame` widget
      */
-    public constructor(label: String? = null) : this(gtk_frame_new(label)!!.reinterpret())
+    public constructor(label: String? = null) : this(gtk_frame_new(label)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Retrieves the X alignment of the frame’s label.
@@ -190,7 +192,7 @@ public open class Frame(
 
     public companion object : TypeCompanion<Frame> {
         override val type: GeneratedClassKGType<Frame> =
-                GeneratedClassKGType(getTypeOrNull("gtk_frame_get_type")!!) { Frame(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Frame(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -201,5 +203,15 @@ public open class Frame(
          * @return the GType
          */
         public fun getType(): GType = gtk_frame_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_frame_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_frame_get_type")
     }
 }

@@ -33,13 +33,13 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncInitable
 import org.gtkkn.native.gio.GDBusObjectManager
 import org.gtkkn.native.gio.GDBusObjectManagerClient
@@ -265,7 +265,9 @@ public open class DBusObjectManagerClient(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Like g_dbus_object_manager_client_new_sync() but takes a #GBusType instead
@@ -303,7 +305,9 @@ public open class DBusObjectManagerClient(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDBusObjectManagerClient object.
@@ -340,7 +344,9 @@ public open class DBusObjectManagerClient(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted when one or more D-Bus properties on proxy changes. The
@@ -433,7 +439,7 @@ public open class DBusObjectManagerClient(
 
     public companion object : TypeCompanion<DBusObjectManagerClient> {
         override val type: GeneratedClassKGType<DBusObjectManagerClient> =
-                GeneratedClassKGType(getTypeOrNull("g_dbus_object_manager_client_get_type")!!) { DBusObjectManagerClient(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DBusObjectManagerClient(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -507,6 +513,16 @@ public open class DBusObjectManagerClient(
         public fun getType(): GType = g_dbus_object_manager_client_get_type()
 
         /**
+         * Gets the GType of from the symbol `g_dbus_object_manager_client_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_object_manager_client_get_type")
+
+        /**
          * Finishes an operation started with g_dbus_object_manager_client_new_for_bus().
          *
          * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback passed to g_dbus_object_manager_client_new_for_bus().
@@ -524,6 +540,7 @@ public open class DBusObjectManagerClient(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = DBusObjectManagerClient(checkNotNull(gResult).reinterpret())
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

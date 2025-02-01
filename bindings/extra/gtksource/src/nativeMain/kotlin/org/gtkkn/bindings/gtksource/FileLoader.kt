@@ -24,12 +24,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -143,7 +143,9 @@ public open class FileLoader(
      * @param file the #GtkSourceFile.
      * @return a new #GtkSourceFileLoader object.
      */
-    public constructor(buffer: Buffer, `file`: File) : this(gtk_source_file_loader_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!)
+    public constructor(buffer: Buffer, `file`: File) : this(gtk_source_file_loader_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GtkSourceFileLoader object. The contents is read from @stream.
@@ -157,7 +159,9 @@ public open class FileLoader(
         buffer: Buffer,
         `file`: File,
         stream: InputStream,
-    ) : this(gtk_source_file_loader_new_from_stream(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer, stream.gioInputStreamPointer)!!)
+    ) : this(gtk_source_file_loader_new_from_stream(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer, stream.gioInputStreamPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      *
@@ -244,7 +248,7 @@ public open class FileLoader(
 
     public companion object : TypeCompanion<FileLoader> {
         override val type: GeneratedClassKGType<FileLoader> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_file_loader_get_type")!!) { FileLoader(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FileLoader(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -255,5 +259,15 @@ public open class FileLoader(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_file_loader_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_file_loader_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_file_loader_get_type")
     }
 }

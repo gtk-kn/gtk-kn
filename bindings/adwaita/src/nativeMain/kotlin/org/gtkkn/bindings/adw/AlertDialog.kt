@@ -24,13 +24,13 @@ import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwAlertDialog
 import org.gtkkn.native.adw.adw_alert_dialog_add_response
 import org.gtkkn.native.adw.adw_alert_dialog_choose
@@ -446,7 +446,9 @@ public open class AlertDialog(
      * @return the newly created `AdwAlertDialog`
      * @since 1.5
      */
-    public constructor(heading: String? = null, body: String? = null) : this(adw_alert_dialog_new(heading, body)!!.reinterpret())
+    public constructor(heading: String? = null, body: String? = null) : this(adw_alert_dialog_new(heading, body)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a response with @id and @label to @self.
@@ -655,7 +657,7 @@ public open class AlertDialog(
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =
-                GeneratedClassKGType(getTypeOrNull("adw_alert_dialog_get_type")!!) { AlertDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { AlertDialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -666,6 +668,16 @@ public open class AlertDialog(
          * @return the GType
          */
         public fun getType(): GType = adw_alert_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_alert_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_alert_dialog_get_type")
     }
 }
 

@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Permission
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
@@ -112,11 +112,13 @@ public open class LockButton(
      * @param permission a `GPermission`
      * @return a new `GtkLockButton`
      */
-    public constructor(permission: Permission? = null) : this(gtk_lock_button_new(permission?.gioPermissionPointer)!!.reinterpret())
+    public constructor(permission: Permission? = null) : this(gtk_lock_button_new(permission?.gioPermissionPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<LockButton> {
         override val type: GeneratedClassKGType<LockButton> =
-                GeneratedClassKGType(getTypeOrNull("gtk_lock_button_get_type")!!) { LockButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { LockButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -127,5 +129,15 @@ public open class LockButton(
          * @return the GType
          */
         public fun getType(): GType = gtk_lock_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_lock_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_lock_button_get_type")
     }
 }

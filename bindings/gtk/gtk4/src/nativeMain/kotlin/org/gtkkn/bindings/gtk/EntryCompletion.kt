@@ -18,13 +18,13 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -303,7 +303,9 @@ public open class EntryCompletion(
      *
      * @return A newly created `GtkEntryCompletion` object
      */
-    public constructor() : this(gtk_entry_completion_new()!!)
+    public constructor() : this(gtk_entry_completion_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkEntryCompletion` object using the
@@ -315,7 +317,9 @@ public open class EntryCompletion(
      * @param area the `GtkCellArea` used to layout cells
      * @return A newly created `GtkEntryCompletion` object
      */
-    public constructor(area: CellArea) : this(gtk_entry_completion_new_with_area(area.gtkCellAreaPointer)!!)
+    public constructor(area: CellArea) : this(gtk_entry_completion_new_with_area(area.gtkCellAreaPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Requests a completion operation, or in other words a refiltering of the
@@ -436,7 +440,7 @@ public open class EntryCompletion(
 
     public companion object : TypeCompanion<EntryCompletion> {
         override val type: GeneratedClassKGType<EntryCompletion> =
-                GeneratedClassKGType(getTypeOrNull("gtk_entry_completion_get_type")!!) { EntryCompletion(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { EntryCompletion(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -447,6 +451,16 @@ public open class EntryCompletion(
          * @return the GType
          */
         public fun getType(): GType = gtk_entry_completion_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_entry_completion_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_entry_completion_get_type")
     }
 }
 

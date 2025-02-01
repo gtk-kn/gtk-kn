@@ -18,10 +18,10 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -132,7 +132,9 @@ public open class Snippet(
      * @param languageId the source language
      * @return A new #GtkSourceSnippet
      */
-    public constructor(trigger: String? = null, languageId: String? = null) : this(gtk_source_snippet_new(trigger, languageId)!!)
+    public constructor(trigger: String? = null, languageId: String? = null) : this(gtk_source_snippet_new(trigger, languageId)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Parses the snippet formatted @text into a series of chunks and adds them
@@ -153,7 +155,9 @@ public open class Snippet(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @chunk to the @snippet.
@@ -217,7 +221,7 @@ public open class Snippet(
 
     public companion object : TypeCompanion<Snippet> {
         override val type: GeneratedClassKGType<Snippet> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_get_type")!!) { Snippet(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Snippet(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -228,5 +232,15 @@ public open class Snippet(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_snippet_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_snippet_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_snippet_get_type")
     }
 }

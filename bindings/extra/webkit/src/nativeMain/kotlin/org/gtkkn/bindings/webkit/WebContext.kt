@@ -26,15 +26,15 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -133,7 +133,9 @@ public class WebContext(
      * @return a newly created #WebKitWebContext
      * @since 2.8
      */
-    public constructor() : this(webkit_web_context_new()!!)
+    public constructor() : this(webkit_web_context_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a path to be mounted in the sandbox.
@@ -511,7 +513,7 @@ public class WebContext(
 
     public companion object : TypeCompanion<WebContext> {
         override val type: GeneratedClassKGType<WebContext> =
-                GeneratedClassKGType(getTypeOrNull("webkit_web_context_get_type")!!) { WebContext(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { WebContext(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -530,6 +532,16 @@ public class WebContext(
          * @return the GType
          */
         public fun getType(): GType = webkit_web_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_web_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_web_context_get_type")
     }
 }
 

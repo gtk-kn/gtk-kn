@@ -11,10 +11,10 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.Icon
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
@@ -227,7 +227,9 @@ public open class Image(
      *
      * @return a newly created `GtkImage` widget.
      */
-    public constructor() : this(gtk_image_new()!!.reinterpret())
+    public constructor() : this(gtk_image_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkImage` displaying the file @filename.
@@ -247,7 +249,9 @@ public open class Image(
      * @param filename a filename
      * @return a new `GtkImage`
      */
-    public constructor(filename: String) : this(gtk_image_new_from_file(filename)!!.reinterpret())
+    public constructor(filename: String) : this(gtk_image_new_from_file(filename)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GtkImage` displaying an icon from the current icon theme.
@@ -259,7 +263,9 @@ public open class Image(
      * @param icon an icon
      * @return a new `GtkImage` displaying the themed icon
      */
-    public constructor(icon: Icon) : this(gtk_image_new_from_gicon(icon.gioIconPointer)!!.reinterpret())
+    public constructor(icon: Icon) : this(gtk_image_new_from_gicon(icon.gioIconPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GtkImage` displaying an icon from the current icon theme.
@@ -271,7 +277,9 @@ public open class Image(
      * @param iconName an icon name
      * @return a new `GtkImage` displaying the themed icon
      */
-    public constructor(iconName: String? = null) : this(gtk_image_new_from_icon_name(iconName)!!.reinterpret())
+    public constructor(iconName: String? = null) : this(gtk_image_new_from_icon_name(iconName)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkImage` displaying @paintable.
@@ -286,7 +294,9 @@ public open class Image(
      * @param paintable a `GdkPaintable`
      * @return a new `GtkImage`
      */
-    public constructor(paintable: Paintable? = null) : this(gtk_image_new_from_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
+    public constructor(paintable: Paintable? = null) : this(gtk_image_new_from_paintable(paintable?.gdkPaintablePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkImage` displaying @pixbuf.
@@ -305,7 +315,9 @@ public open class Image(
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GtkImage`
      */
-    public constructor(pixbuf: Pixbuf? = null) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret())
+    public constructor(pixbuf: Pixbuf? = null) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Resets the image to be empty.
@@ -372,7 +384,7 @@ public open class Image(
 
     public companion object : TypeCompanion<Image> {
         override val type: GeneratedClassKGType<Image> =
-                GeneratedClassKGType(getTypeOrNull("gtk_image_get_type")!!) { Image(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Image(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -383,6 +395,16 @@ public open class Image(
          * @return the GType
          */
         public fun getType(): GType = gtk_image_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_image_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_image_get_type")
 
         /**
          * Creates a new `GtkImage` displaying the resource file @resource_path.
@@ -402,6 +424,8 @@ public open class Image(
          * @param resourcePath a resource path
          * @return a new `GtkImage`
          */
-        public fun fromResource(resourcePath: String): Image = Image(gtk_image_new_from_resource(resourcePath)!!.reinterpret())
+        public fun fromResource(resourcePath: String): Image = Image(gtk_image_new_from_resource(resourcePath)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

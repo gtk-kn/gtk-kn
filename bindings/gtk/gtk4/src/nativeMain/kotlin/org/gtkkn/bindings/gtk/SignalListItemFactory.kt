@@ -14,11 +14,11 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -84,7 +84,9 @@ public open class SignalListItemFactory(
      *
      * @return a new `GtkSignalListItemFactory`
      */
-    public constructor() : this(gtk_signal_list_item_factory_new()!!.reinterpret())
+    public constructor() : this(gtk_signal_list_item_factory_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted when an object has been bound, for example when a
@@ -180,7 +182,7 @@ public open class SignalListItemFactory(
 
     public companion object : TypeCompanion<SignalListItemFactory> {
         override val type: GeneratedClassKGType<SignalListItemFactory> =
-                GeneratedClassKGType(getTypeOrNull("gtk_signal_list_item_factory_get_type")!!) { SignalListItemFactory(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SignalListItemFactory(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -191,6 +193,16 @@ public open class SignalListItemFactory(
          * @return the GType
          */
         public fun getType(): GType = gtk_signal_list_item_factory_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_signal_list_item_factory_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_signal_list_item_factory_get_type")
     }
 }
 

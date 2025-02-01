@@ -9,11 +9,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
@@ -313,7 +312,7 @@ public open class TreeStore(
 
     public companion object : TypeCompanion<TreeStore> {
         override val type: GeneratedClassKGType<TreeStore> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_store_get_type")!!) { TreeStore(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeStore(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -324,5 +323,15 @@ public open class TreeStore(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_store_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_store_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_store_get_type")
     }
 }

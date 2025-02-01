@@ -8,10 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.TextMark
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceMark
 import org.gtkkn.native.gtksource.gtk_source_mark_get_category
@@ -71,7 +71,9 @@ public open class Mark(
      *   to "error" category).
      * @return a new #GtkSourceMark that can be added using [method@Gtk.TextBuffer.add_mark].
      */
-    public constructor(name: String? = null, category: String) : this(gtk_source_mark_new(name, category)!!)
+    public constructor(name: String? = null, category: String) : this(gtk_source_mark_new(name, category)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the next `GtkSourceMark` in the buffer or null if the mark
@@ -103,7 +105,7 @@ public open class Mark(
 
     public companion object : TypeCompanion<Mark> {
         override val type: GeneratedClassKGType<Mark> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_mark_get_type")!!) { Mark(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Mark(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -114,5 +116,15 @@ public open class Mark(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_mark_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_mark_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_mark_get_type")
     }
 }

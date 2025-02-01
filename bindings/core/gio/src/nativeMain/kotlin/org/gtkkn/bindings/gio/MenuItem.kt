@@ -13,10 +13,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMenuItem
 import org.gtkkn.native.gio.g_menu_item_get_attribute_value
 import org.gtkkn.native.gio.g_menu_item_get_link
@@ -72,7 +72,9 @@ public open class MenuItem(
      * @return a new #GMenuItem
      * @since 2.32
      */
-    public constructor(label: String? = null, detailedAction: String? = null) : this(g_menu_item_new(label, detailedAction)!!)
+    public constructor(label: String? = null, detailedAction: String? = null) : this(g_menu_item_new(label, detailedAction)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a #GMenuItem as an exact copy of an existing menu item in a
@@ -86,7 +88,9 @@ public open class MenuItem(
      * @return a new #GMenuItem.
      * @since 2.34
      */
-    public constructor(model: MenuModel, itemIndex: gint) : this(g_menu_item_new_from_model(model.gioMenuModelPointer, itemIndex)!!)
+    public constructor(model: MenuModel, itemIndex: gint) : this(g_menu_item_new_from_model(model.gioMenuModelPointer, itemIndex)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GMenuItem representing a section.
@@ -155,7 +159,9 @@ public open class MenuItem(
      * @return a new #GMenuItem
      * @since 2.32
      */
-    public constructor(label: String? = null, section: MenuModel) : this(g_menu_item_new_section(label, section.gioMenuModelPointer)!!)
+    public constructor(label: String? = null, section: MenuModel) : this(g_menu_item_new_section(label, section.gioMenuModelPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Queries the named @attribute on @menu_item.
@@ -359,7 +365,7 @@ public open class MenuItem(
 
     public companion object : TypeCompanion<MenuItem> {
         override val type: GeneratedClassKGType<MenuItem> =
-                GeneratedClassKGType(getTypeOrNull("g_menu_item_get_type")!!) { MenuItem(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MenuItem(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -372,6 +378,16 @@ public open class MenuItem(
         public fun getType(): GType = g_menu_item_get_type()
 
         /**
+         * Gets the GType of from the symbol `g_menu_item_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_menu_item_get_type")
+
+        /**
          * Creates a new #GMenuItem representing a submenu.
          *
          * This is a convenience API around g_menu_item_new() and
@@ -382,6 +398,8 @@ public open class MenuItem(
          * @return a new #GMenuItem
          * @since 2.32
          */
-        public fun submenu(label: String? = null, submenu: MenuModel): MenuItem = MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer)!!)
+        public fun submenu(label: String? = null, submenu: MenuModel): MenuItem = MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer)!!).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

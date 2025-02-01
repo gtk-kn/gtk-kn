@@ -34,13 +34,13 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncInitable
 import org.gtkkn.native.gio.GDBusInterface
 import org.gtkkn.native.gio.GDBusProxy
@@ -179,7 +179,9 @@ public open class DBusProxy(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Like g_dbus_proxy_new_sync() but takes a #GBusType instead of a #GDBusConnection.
@@ -216,7 +218,9 @@ public open class DBusProxy(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a proxy for accessing @interface_name on the remote object
@@ -271,7 +275,9 @@ public open class DBusProxy(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Asynchronously invokes the @method_name method on @proxy.
@@ -714,7 +720,7 @@ public open class DBusProxy(
 
     public companion object : TypeCompanion<DBusProxy> {
         override val type: GeneratedClassKGType<DBusProxy> =
-                GeneratedClassKGType(getTypeOrNull("g_dbus_proxy_get_type")!!) { DBusProxy(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DBusProxy(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -805,6 +811,16 @@ public open class DBusProxy(
         public fun getType(): GType = g_dbus_proxy_get_type()
 
         /**
+         * Gets the GType of from the symbol `g_dbus_proxy_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_proxy_get_type")
+
+        /**
          * Finishes creating a #GDBusProxy.
          *
          * @param res A #GAsyncResult obtained from the #GAsyncReadyCallback function passed to g_dbus_proxy_new_for_bus().
@@ -821,6 +837,7 @@ public open class DBusProxy(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = DBusProxy(checkNotNull(gResult))
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

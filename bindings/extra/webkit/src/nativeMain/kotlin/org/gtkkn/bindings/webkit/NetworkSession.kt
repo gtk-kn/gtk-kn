@@ -30,13 +30,13 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -90,7 +90,9 @@ public class NetworkSession(
      * @return a new ephemeral #WebKitNetworkSession.
      * @since 2.40
      */
-    public constructor() : this(webkit_network_session_new_ephemeral()!!)
+    public constructor() : this(webkit_network_session_new_ephemeral()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #WebKitNetworkSession with a persistent #WebKitWebsiteDataManager.
@@ -108,7 +110,9 @@ public class NetworkSession(
      * @return the newly created #WebKitNetworkSession
      * @since 2.40
      */
-    public constructor(dataDirectory: String? = null, cacheDirectory: String? = null) : this(webkit_network_session_new(dataDirectory, cacheDirectory)!!)
+    public constructor(dataDirectory: String? = null, cacheDirectory: String? = null) : this(webkit_network_session_new(dataDirectory, cacheDirectory)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Ignore further TLS errors on the @host for the certificate present in @info.
@@ -325,7 +329,7 @@ public class NetworkSession(
 
     public companion object : TypeCompanion<NetworkSession> {
         override val type: GeneratedClassKGType<NetworkSession> =
-                GeneratedClassKGType(getTypeOrNull("webkit_network_session_get_type")!!) { NetworkSession(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { NetworkSession(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -368,6 +372,16 @@ public class NetworkSession(
          * @return the GType
          */
         public fun getType(): GType = webkit_network_session_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_network_session_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_network_session_get_type")
     }
 }
 

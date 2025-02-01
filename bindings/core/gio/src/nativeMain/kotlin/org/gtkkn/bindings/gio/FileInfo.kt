@@ -20,14 +20,14 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFileInfo
 import org.gtkkn.native.gio.g_file_info_clear_status
 import org.gtkkn.native.gio.g_file_info_copy_into
@@ -162,7 +162,9 @@ public open class FileInfo(
      *
      * @return a #GFileInfo.
      */
-    public constructor() : this(g_file_info_new()!!)
+    public constructor() : this(g_file_info_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Clears the status information from @info.
@@ -888,7 +890,7 @@ public open class FileInfo(
 
     public companion object : TypeCompanion<FileInfo> {
         override val type: GeneratedClassKGType<FileInfo> =
-                GeneratedClassKGType(getTypeOrNull("g_file_info_get_type")!!) { FileInfo(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FileInfo(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -899,5 +901,15 @@ public open class FileInfo(
          * @return the GType
          */
         public fun getType(): GType = g_file_info_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_file_info_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_file_info_get_type")
     }
 }

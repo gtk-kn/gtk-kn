@@ -16,11 +16,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.g_async_result_get_source_object
 import org.gtkkn.native.gio.g_async_result_get_type
@@ -194,7 +193,7 @@ public interface AsyncResult : Proxy, KGTyped {
 
     public companion object : TypeCompanion<AsyncResult> {
         override val type: GeneratedInterfaceKGType<AsyncResult> =
-                GeneratedInterfaceKGType(getTypeOrNull("g_async_result_get_type")!!) { AsyncResultImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { AsyncResultImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -205,5 +204,15 @@ public interface AsyncResult : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = g_async_result_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_async_result_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_async_result_get_type")
     }
 }

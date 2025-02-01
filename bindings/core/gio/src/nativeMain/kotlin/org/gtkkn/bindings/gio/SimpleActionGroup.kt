@@ -9,10 +9,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
 import org.gtkkn.native.gio.GSimpleActionGroup
@@ -57,7 +57,9 @@ public open class SimpleActionGroup(
      * @return a new #GSimpleActionGroup
      * @since 2.28
      */
-    public constructor() : this(g_simple_action_group_new()!!)
+    public constructor() : this(g_simple_action_group_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds an action to the action group.
@@ -99,7 +101,7 @@ public open class SimpleActionGroup(
 
     public companion object : TypeCompanion<SimpleActionGroup> {
         override val type: GeneratedClassKGType<SimpleActionGroup> =
-                GeneratedClassKGType(getTypeOrNull("g_simple_action_group_get_type")!!) { SimpleActionGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SimpleActionGroup(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -110,5 +112,15 @@ public open class SimpleActionGroup(
          * @return the GType
          */
         public fun getType(): GType = g_simple_action_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_simple_action_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_simple_action_group_get_type")
     }
 }

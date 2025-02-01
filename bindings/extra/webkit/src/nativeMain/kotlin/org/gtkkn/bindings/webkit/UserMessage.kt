@@ -12,10 +12,10 @@ import org.gtkkn.bindings.gio.UnixFdList
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserMessage
 import org.gtkkn.native.webkit.webkit_user_message_get_fd_list
@@ -103,7 +103,9 @@ public class UserMessage(
      * @return the newly created #WebKitUserMessage object.
      * @since 2.28
      */
-    public constructor(name: String, parameters: Variant? = null) : this(webkit_user_message_new(name, parameters?.glibVariantPointer)!!)
+    public constructor(name: String, parameters: Variant? = null) : this(webkit_user_message_new(name, parameters?.glibVariantPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #WebKitUserMessage including also a list of UNIX file descriptors to be sent.
@@ -118,7 +120,9 @@ public class UserMessage(
         name: String,
         parameters: Variant? = null,
         fdList: UnixFdList? = null,
-    ) : this(webkit_user_message_new_with_fd_list(name, parameters?.glibVariantPointer, fdList?.gioUnixFdListPointer)!!)
+    ) : this(webkit_user_message_new_with_fd_list(name, parameters?.glibVariantPointer, fdList?.gioUnixFdListPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Send a reply to an user message.
@@ -135,7 +139,7 @@ public class UserMessage(
 
     public companion object : TypeCompanion<UserMessage> {
         override val type: GeneratedClassKGType<UserMessage> =
-                GeneratedClassKGType(getTypeOrNull("webkit_user_message_get_type")!!) { UserMessage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { UserMessage(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -146,5 +150,15 @@ public class UserMessage(
          * @return the GType
          */
         public fun getType(): GType = webkit_user_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_user_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_user_message_get_type")
     }
 }

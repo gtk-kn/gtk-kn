@@ -9,12 +9,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -240,11 +240,13 @@ public open class TreeExpander(
      *
      * @return a new `GtkTreeExpander`
      */
-    public constructor() : this(gtk_tree_expander_new()!!.reinterpret())
+    public constructor() : this(gtk_tree_expander_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<TreeExpander> {
         override val type: GeneratedClassKGType<TreeExpander> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_expander_get_type")!!) { TreeExpander(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeExpander(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -255,5 +257,15 @@ public open class TreeExpander(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_expander_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_expander_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_expander_get_type")
     }
 }

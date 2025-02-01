@@ -1939,13 +1939,13 @@ public object GObject {
     public fun variantGetGtype(): GType = g_variant_get_gtype()
 
     private fun registerTypes() {
-        TypeCache.register(Binding::class, Binding.getType()) { Binding(it.reinterpret()) }
-        TypeCache.register(BindingGroup::class, BindingGroup.getType()) { BindingGroup(it.reinterpret()) }
-        TypeCache.register(InitiallyUnowned::class, InitiallyUnowned.getType()) { InitiallyUnowned(it.reinterpret()) }
-        TypeCache.register(Object::class, Object.getType()) { Object(it.reinterpret()) }
-        TypeCache.register(SignalGroup::class, SignalGroup.getType()) { SignalGroup(it.reinterpret()) }
-        TypeCache.register(TypeModule::class, TypeModule.getType()) { TypeModule.TypeModuleImpl(it.reinterpret()) }
-        TypeCache.register(TypePlugin::class, TypePlugin.getType()) { TypePlugin.TypePluginImpl(it.reinterpret()) }
+        Binding.getTypeOrNull()?.let { gtype -> TypeCache.register(Binding::class, gtype) { Binding(it.reinterpret()) } }
+        BindingGroup.getTypeOrNull()?.let { gtype -> TypeCache.register(BindingGroup::class, gtype) { BindingGroup(it.reinterpret()) } }
+        InitiallyUnowned.getTypeOrNull()?.let { gtype -> TypeCache.register(InitiallyUnowned::class, gtype) { InitiallyUnowned(it.reinterpret()) } }
+        Object.getTypeOrNull()?.let { gtype -> TypeCache.register(Object::class, gtype) { Object(it.reinterpret()) } }
+        SignalGroup.getTypeOrNull()?.let { gtype -> TypeCache.register(SignalGroup::class, gtype) { SignalGroup(it.reinterpret()) } }
+        TypeModule.getTypeOrNull()?.let { gtype -> TypeCache.register(TypeModule::class, gtype) { TypeModule.TypeModuleImpl(it.reinterpret()) } }
+        TypePlugin.getTypeOrNull()?.let { gtype -> TypeCache.register(TypePlugin::class, gtype) { TypePlugin.TypePluginImpl(it.reinterpret()) } }
     }
 }
 

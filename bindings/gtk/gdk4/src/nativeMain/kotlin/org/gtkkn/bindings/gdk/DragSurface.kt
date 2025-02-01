@@ -16,12 +16,11 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragSurface
 import org.gtkkn.native.gdk.GdkDragSurfaceSize
 import org.gtkkn.native.gdk.gdk_drag_surface_get_type
@@ -85,7 +84,7 @@ public interface DragSurface : Proxy, KGTyped {
 
     public companion object : TypeCompanion<DragSurface> {
         override val type: GeneratedInterfaceKGType<DragSurface> =
-                GeneratedInterfaceKGType(getTypeOrNull("gdk_drag_surface_get_type")!!) { DragSurfaceImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { DragSurfaceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -96,6 +95,16 @@ public interface DragSurface : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = gdk_drag_surface_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_drag_surface_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_drag_surface_get_type")
     }
 }
 

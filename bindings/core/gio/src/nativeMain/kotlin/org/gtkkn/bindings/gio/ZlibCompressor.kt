@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.GZlibCompressor
 import org.gtkkn.native.gio.g_zlib_compressor_get_file_info
@@ -82,11 +82,13 @@ public open class ZlibCompressor(
      * @return a new #GZlibCompressor
      * @since 2.24
      */
-    public constructor(format: ZlibCompressorFormat, level: gint) : this(g_zlib_compressor_new(format.nativeValue, level)!!)
+    public constructor(format: ZlibCompressorFormat, level: gint) : this(g_zlib_compressor_new(format.nativeValue, level)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ZlibCompressor> {
         override val type: GeneratedClassKGType<ZlibCompressor> =
-                GeneratedClassKGType(getTypeOrNull("g_zlib_compressor_get_type")!!) { ZlibCompressor(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ZlibCompressor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -97,5 +99,15 @@ public open class ZlibCompressor(
          * @return the GType
          */
         public fun getType(): GType = g_zlib_compressor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_zlib_compressor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_zlib_compressor_get_type")
     }
 }

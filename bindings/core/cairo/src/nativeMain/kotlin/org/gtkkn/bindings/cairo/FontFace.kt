@@ -7,10 +7,9 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_font_face_destroy
 import org.gtkkn.native.cairo.cairo_font_face_get_type
 import org.gtkkn.native.cairo.cairo_font_face_get_user_data
@@ -49,7 +48,7 @@ public open class FontFace(
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =
-                GeneratedClassKGType(getTypeOrNull("cairo_gobject_font_face_get_type")!!) { FontFace(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FontFace(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()}
@@ -60,5 +59,15 @@ public open class FontFace(
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_font_face_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_font_face_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_font_face_get_type")
     }
 }

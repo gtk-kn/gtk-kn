@@ -370,8 +370,8 @@ public object PangoCairo {
     public fun updateLayout(cr: CairoContext, layout: Layout): Unit = pango_cairo_update_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
 
     private fun registerTypes() {
-        TypeCache.register(Font::class, Font.getType()) { Font.FontImpl(it.reinterpret()) }
-        TypeCache.register(FontMap::class, FontMap.getType()) { FontMap.FontMapImpl(it.reinterpret()) }
+        Font.getTypeOrNull()?.let { gtype -> TypeCache.register(Font::class, gtype) { Font.FontImpl(it.reinterpret()) } }
+        FontMap.getTypeOrNull()?.let { gtype -> TypeCache.register(FontMap::class, gtype) { FontMap.FontMapImpl(it.reinterpret()) } }
     }
 }
 

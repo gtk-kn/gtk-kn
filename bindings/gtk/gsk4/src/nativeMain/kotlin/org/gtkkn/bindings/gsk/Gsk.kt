@@ -104,44 +104,44 @@ public object Gsk {
     }
 
     private fun registerTypes() {
-        TypeCache.register(BlendNode::class, BlendNode.getType()) { BlendNode(it.reinterpret()) }
-        TypeCache.register(BlurNode::class, BlurNode.getType()) { BlurNode(it.reinterpret()) }
-        TypeCache.register(BorderNode::class, BorderNode.getType()) { BorderNode(it.reinterpret()) }
-        TypeCache.register(BroadwayRenderer::class, BroadwayRenderer.getType()) { BroadwayRenderer(it.reinterpret()) }
-        TypeCache.register(CairoNode::class, CairoNode.getType()) { CairoNode(it.reinterpret()) }
-        TypeCache.register(CairoRenderer::class, CairoRenderer.getType()) { CairoRenderer(it.reinterpret()) }
-        TypeCache.register(ClipNode::class, ClipNode.getType()) { ClipNode(it.reinterpret()) }
-        TypeCache.register(ColorMatrixNode::class, ColorMatrixNode.getType()) { ColorMatrixNode(it.reinterpret()) }
-        TypeCache.register(ColorNode::class, ColorNode.getType()) { ColorNode(it.reinterpret()) }
-        TypeCache.register(ConicGradientNode::class, ConicGradientNode.getType()) { ConicGradientNode(it.reinterpret()) }
-        TypeCache.register(ContainerNode::class, ContainerNode.getType()) { ContainerNode(it.reinterpret()) }
-        TypeCache.register(CrossFadeNode::class, CrossFadeNode.getType()) { CrossFadeNode(it.reinterpret()) }
-        TypeCache.register(DebugNode::class, DebugNode.getType()) { DebugNode(it.reinterpret()) }
-        TypeCache.register(FillNode::class, FillNode.getType()) { FillNode(it.reinterpret()) }
-        TypeCache.register(GlRenderer::class, GlRenderer.getType()) { GlRenderer(it.reinterpret()) }
-        TypeCache.register(GlShader::class, GlShader.getType()) { GlShader(it.reinterpret()) }
-        TypeCache.register(GlShaderNode::class, GlShaderNode.getType()) { GlShaderNode(it.reinterpret()) }
-        TypeCache.register(InsetShadowNode::class, InsetShadowNode.getType()) { InsetShadowNode(it.reinterpret()) }
-        TypeCache.register(LinearGradientNode::class, LinearGradientNode.getType()) { LinearGradientNode(it.reinterpret()) }
-        TypeCache.register(MaskNode::class, MaskNode.getType()) { MaskNode(it.reinterpret()) }
-        TypeCache.register(NglRenderer::class, NglRenderer.getType()) { NglRenderer(it.reinterpret()) }
-        TypeCache.register(OpacityNode::class, OpacityNode.getType()) { OpacityNode(it.reinterpret()) }
-        TypeCache.register(OutsetShadowNode::class, OutsetShadowNode.getType()) { OutsetShadowNode(it.reinterpret()) }
-        TypeCache.register(RadialGradientNode::class, RadialGradientNode.getType()) { RadialGradientNode(it.reinterpret()) }
-        TypeCache.register(RenderNode::class, RenderNode.getType()) { RenderNode.RenderNodeImpl(it.reinterpret()) }
-        TypeCache.register(Renderer::class, Renderer.getType()) { Renderer.RendererImpl(it.reinterpret()) }
-        TypeCache.register(RepeatNode::class, RepeatNode.getType()) { RepeatNode(it.reinterpret()) }
-        TypeCache.register(RepeatingLinearGradientNode::class, RepeatingLinearGradientNode.getType()) { RepeatingLinearGradientNode(it.reinterpret()) }
-        TypeCache.register(RepeatingRadialGradientNode::class, RepeatingRadialGradientNode.getType()) { RepeatingRadialGradientNode(it.reinterpret()) }
-        TypeCache.register(RoundedClipNode::class, RoundedClipNode.getType()) { RoundedClipNode(it.reinterpret()) }
-        TypeCache.register(ShadowNode::class, ShadowNode.getType()) { ShadowNode(it.reinterpret()) }
-        TypeCache.register(StrokeNode::class, StrokeNode.getType()) { StrokeNode(it.reinterpret()) }
-        TypeCache.register(SubsurfaceNode::class, SubsurfaceNode.getType()) { SubsurfaceNode(it.reinterpret()) }
-        TypeCache.register(TextNode::class, TextNode.getType()) { TextNode(it.reinterpret()) }
-        TypeCache.register(TextureNode::class, TextureNode.getType()) { TextureNode(it.reinterpret()) }
-        TypeCache.register(TextureScaleNode::class, TextureScaleNode.getType()) { TextureScaleNode(it.reinterpret()) }
-        TypeCache.register(TransformNode::class, TransformNode.getType()) { TransformNode(it.reinterpret()) }
-        TypeCache.register(VulkanRenderer::class, VulkanRenderer.getType()) { VulkanRenderer(it.reinterpret()) }
+        BlendNode.getTypeOrNull()?.let { gtype -> TypeCache.register(BlendNode::class, gtype) { BlendNode(it.reinterpret()) } }
+        BlurNode.getTypeOrNull()?.let { gtype -> TypeCache.register(BlurNode::class, gtype) { BlurNode(it.reinterpret()) } }
+        BorderNode.getTypeOrNull()?.let { gtype -> TypeCache.register(BorderNode::class, gtype) { BorderNode(it.reinterpret()) } }
+        BroadwayRenderer.getTypeOrNull()?.let { gtype -> TypeCache.register(BroadwayRenderer::class, gtype) { BroadwayRenderer(it.reinterpret()) } }
+        CairoNode.getTypeOrNull()?.let { gtype -> TypeCache.register(CairoNode::class, gtype) { CairoNode(it.reinterpret()) } }
+        CairoRenderer.getTypeOrNull()?.let { gtype -> TypeCache.register(CairoRenderer::class, gtype) { CairoRenderer(it.reinterpret()) } }
+        ClipNode.getTypeOrNull()?.let { gtype -> TypeCache.register(ClipNode::class, gtype) { ClipNode(it.reinterpret()) } }
+        ColorMatrixNode.getTypeOrNull()?.let { gtype -> TypeCache.register(ColorMatrixNode::class, gtype) { ColorMatrixNode(it.reinterpret()) } }
+        ColorNode.getTypeOrNull()?.let { gtype -> TypeCache.register(ColorNode::class, gtype) { ColorNode(it.reinterpret()) } }
+        ConicGradientNode.getTypeOrNull()?.let { gtype -> TypeCache.register(ConicGradientNode::class, gtype) { ConicGradientNode(it.reinterpret()) } }
+        ContainerNode.getTypeOrNull()?.let { gtype -> TypeCache.register(ContainerNode::class, gtype) { ContainerNode(it.reinterpret()) } }
+        CrossFadeNode.getTypeOrNull()?.let { gtype -> TypeCache.register(CrossFadeNode::class, gtype) { CrossFadeNode(it.reinterpret()) } }
+        DebugNode.getTypeOrNull()?.let { gtype -> TypeCache.register(DebugNode::class, gtype) { DebugNode(it.reinterpret()) } }
+        FillNode.getTypeOrNull()?.let { gtype -> TypeCache.register(FillNode::class, gtype) { FillNode(it.reinterpret()) } }
+        GlRenderer.getTypeOrNull()?.let { gtype -> TypeCache.register(GlRenderer::class, gtype) { GlRenderer(it.reinterpret()) } }
+        GlShader.getTypeOrNull()?.let { gtype -> TypeCache.register(GlShader::class, gtype) { GlShader(it.reinterpret()) } }
+        GlShaderNode.getTypeOrNull()?.let { gtype -> TypeCache.register(GlShaderNode::class, gtype) { GlShaderNode(it.reinterpret()) } }
+        InsetShadowNode.getTypeOrNull()?.let { gtype -> TypeCache.register(InsetShadowNode::class, gtype) { InsetShadowNode(it.reinterpret()) } }
+        LinearGradientNode.getTypeOrNull()?.let { gtype -> TypeCache.register(LinearGradientNode::class, gtype) { LinearGradientNode(it.reinterpret()) } }
+        MaskNode.getTypeOrNull()?.let { gtype -> TypeCache.register(MaskNode::class, gtype) { MaskNode(it.reinterpret()) } }
+        NglRenderer.getTypeOrNull()?.let { gtype -> TypeCache.register(NglRenderer::class, gtype) { NglRenderer(it.reinterpret()) } }
+        OpacityNode.getTypeOrNull()?.let { gtype -> TypeCache.register(OpacityNode::class, gtype) { OpacityNode(it.reinterpret()) } }
+        OutsetShadowNode.getTypeOrNull()?.let { gtype -> TypeCache.register(OutsetShadowNode::class, gtype) { OutsetShadowNode(it.reinterpret()) } }
+        RadialGradientNode.getTypeOrNull()?.let { gtype -> TypeCache.register(RadialGradientNode::class, gtype) { RadialGradientNode(it.reinterpret()) } }
+        RenderNode.getTypeOrNull()?.let { gtype -> TypeCache.register(RenderNode::class, gtype) { RenderNode.RenderNodeImpl(it.reinterpret()) } }
+        Renderer.getTypeOrNull()?.let { gtype -> TypeCache.register(Renderer::class, gtype) { Renderer.RendererImpl(it.reinterpret()) } }
+        RepeatNode.getTypeOrNull()?.let { gtype -> TypeCache.register(RepeatNode::class, gtype) { RepeatNode(it.reinterpret()) } }
+        RepeatingLinearGradientNode.getTypeOrNull()?.let { gtype -> TypeCache.register(RepeatingLinearGradientNode::class, gtype) { RepeatingLinearGradientNode(it.reinterpret()) } }
+        RepeatingRadialGradientNode.getTypeOrNull()?.let { gtype -> TypeCache.register(RepeatingRadialGradientNode::class, gtype) { RepeatingRadialGradientNode(it.reinterpret()) } }
+        RoundedClipNode.getTypeOrNull()?.let { gtype -> TypeCache.register(RoundedClipNode::class, gtype) { RoundedClipNode(it.reinterpret()) } }
+        ShadowNode.getTypeOrNull()?.let { gtype -> TypeCache.register(ShadowNode::class, gtype) { ShadowNode(it.reinterpret()) } }
+        StrokeNode.getTypeOrNull()?.let { gtype -> TypeCache.register(StrokeNode::class, gtype) { StrokeNode(it.reinterpret()) } }
+        SubsurfaceNode.getTypeOrNull()?.let { gtype -> TypeCache.register(SubsurfaceNode::class, gtype) { SubsurfaceNode(it.reinterpret()) } }
+        TextNode.getTypeOrNull()?.let { gtype -> TypeCache.register(TextNode::class, gtype) { TextNode(it.reinterpret()) } }
+        TextureNode.getTypeOrNull()?.let { gtype -> TypeCache.register(TextureNode::class, gtype) { TextureNode(it.reinterpret()) } }
+        TextureScaleNode.getTypeOrNull()?.let { gtype -> TypeCache.register(TextureScaleNode::class, gtype) { TextureScaleNode(it.reinterpret()) } }
+        TransformNode.getTypeOrNull()?.let { gtype -> TypeCache.register(TransformNode::class, gtype) { TransformNode(it.reinterpret()) } }
+        VulkanRenderer.getTypeOrNull()?.let { gtype -> TypeCache.register(VulkanRenderer::class, gtype) { VulkanRenderer(it.reinterpret()) } }
     }
 }
 

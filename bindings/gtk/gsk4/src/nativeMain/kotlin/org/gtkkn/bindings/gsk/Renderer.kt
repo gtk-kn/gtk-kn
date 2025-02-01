@@ -21,11 +21,11 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Gsk.resolveException
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderer
@@ -90,7 +90,9 @@ public abstract class Renderer(
      * @param surface a `GdkSurface`
      * @return a `GskRenderer`
      */
-    public constructor(surface: Surface) : this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer)!!.reinterpret())
+    public constructor(surface: Surface) : this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Checks whether the @renderer is realized or not.
@@ -199,7 +201,7 @@ public abstract class Renderer(
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-                GeneratedClassKGType(getTypeOrNull("gsk_renderer_get_type")!!) { RendererImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { RendererImpl(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()}
@@ -210,5 +212,15 @@ public abstract class Renderer(
          * @return the GType
          */
         public fun getType(): GType = gsk_renderer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_renderer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_renderer_get_type")
     }
 }

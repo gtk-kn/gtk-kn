@@ -13,12 +13,12 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -266,7 +266,9 @@ public open class Picture(
      *
      * @return a newly created `GtkPicture` widget.
      */
-    public constructor() : this(gtk_picture_new()!!.reinterpret())
+    public constructor() : this(gtk_picture_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying the given @file.
@@ -281,7 +283,9 @@ public open class Picture(
      * @param file a `GFile`
      * @return a new `GtkPicture`
      */
-    public constructor(`file`: File? = null) : this(gtk_picture_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_picture_new_for_file(`file`?.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying the file @filename.
@@ -292,7 +296,9 @@ public open class Picture(
      * @param filename a filename
      * @return a new `GtkPicture`
      */
-    public constructor(filename: String? = null) : this(gtk_picture_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String? = null) : this(gtk_picture_new_for_filename(filename)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying @paintable.
@@ -303,7 +309,9 @@ public open class Picture(
      * @param paintable a `GdkPaintable`
      * @return a new `GtkPicture`
      */
-    public constructor(paintable: Paintable? = null) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
+    public constructor(paintable: Paintable? = null) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkPicture` displaying @pixbuf.
@@ -316,7 +324,9 @@ public open class Picture(
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GtkPicture`
      */
-    public constructor(pixbuf: Pixbuf? = null) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret())
+    public constructor(pixbuf: Pixbuf? = null) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Makes @self load and display the given @filename.
@@ -350,7 +360,7 @@ public open class Picture(
 
     public companion object : TypeCompanion<Picture> {
         override val type: GeneratedClassKGType<Picture> =
-                GeneratedClassKGType(getTypeOrNull("gtk_picture_get_type")!!) { Picture(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Picture(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -363,6 +373,16 @@ public open class Picture(
         public fun getType(): GType = gtk_picture_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_picture_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_picture_get_type")
+
+        /**
          * Creates a new `GtkPicture` displaying the resource at @resource_path.
          *
          * This is a utility function that calls [ctor@Gtk.Picture.new_for_file].
@@ -371,6 +391,8 @@ public open class Picture(
          * @param resourcePath resource path to play back
          * @return a new `GtkPicture`
          */
-        public fun forResource(resourcePath: String? = null): Picture = Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret())
+        public fun forResource(resourcePath: String? = null): Picture = Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

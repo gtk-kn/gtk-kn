@@ -43,13 +43,13 @@ import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.gdk_pixbuf_add_alpha
 import org.gtkkn.native.gdk.gdk_pixbuf_apply_embedded_orientation
 import org.gtkkn.native.gdk.gdk_pixbuf_calculate_rowstride
@@ -394,7 +394,9 @@ public open class Pixbuf(
         bitsPerSample: gint,
         width: gint,
         height: gint,
-    ) : this(gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret())
+    ) : this(gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GdkPixbuf out of in-memory readonly image data.
@@ -422,7 +424,9 @@ public open class Pixbuf(
         width: gint,
         height: gint,
         rowstride: gint,
-    ) : this(gdk_pixbuf_new_from_bytes(`data`.glibBytesPointer, colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height, rowstride)!!)
+    ) : this(gdk_pixbuf_new_from_bytes(`data`.glibBytesPointer, colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height, rowstride)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -452,7 +456,9 @@ public open class Pixbuf(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -501,7 +507,9 @@ public open class Pixbuf(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -544,7 +552,9 @@ public open class Pixbuf(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from an input stream.
@@ -575,7 +585,9 @@ public open class Pixbuf(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by loading an image from an input stream.
@@ -624,7 +636,9 @@ public open class Pixbuf(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Finishes an asynchronous pixbuf creation operation started with
@@ -644,7 +658,9 @@ public open class Pixbuf(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf by parsing XPM data in memory.
@@ -658,7 +674,9 @@ public open class Pixbuf(
     public constructor(`data`: List<String>) : this(memScoped {
         gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Takes an existing pixbuf and adds an alpha channel to it.
@@ -1266,7 +1284,7 @@ public open class Pixbuf(
 
     public companion object : TypeCompanion<Pixbuf> {
         override val type: GeneratedClassKGType<Pixbuf> =
-                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_get_type")!!) { Pixbuf(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Pixbuf(it.reinterpret()) }
 
         init {
             GdkPixbufTypeProvider.register()}
@@ -1435,6 +1453,16 @@ public open class Pixbuf(
         public fun getType(): GType = gdk_pixbuf_get_type()
 
         /**
+         * Gets the GType of from the symbol `gdk_pixbuf_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_get_type")
+
+        /**
          * Creates a new pixbuf by loading an image from an resource.
          *
          * The file format is detected automatically. If `NULL` is returned, then
@@ -1453,6 +1481,7 @@ public open class Pixbuf(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = Pixbuf(checkNotNull(gResult).reinterpret())
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 
@@ -1495,6 +1524,7 @@ public open class Pixbuf(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = Pixbuf(checkNotNull(gResult).reinterpret())
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

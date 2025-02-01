@@ -21,12 +21,12 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAction
 import org.gtkkn.native.gio.GSimpleAction
 import org.gtkkn.native.gio.g_simple_action_get_type
@@ -77,7 +77,9 @@ public open class SimpleAction(
      * @return a new #GSimpleAction
      * @since 2.28
      */
-    public constructor(name: String, parameterType: VariantType? = null) : this(g_simple_action_new(name, parameterType?.glibVariantTypePointer)!!)
+    public constructor(name: String, parameterType: VariantType? = null) : this(g_simple_action_new(name, parameterType?.glibVariantTypePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new stateful action.
@@ -98,7 +100,9 @@ public open class SimpleAction(
         name: String,
         parameterType: VariantType? = null,
         state: Variant,
-    ) : this(g_simple_action_new_stateful(name, parameterType?.glibVariantTypePointer, state.glibVariantPointer)!!)
+    ) : this(g_simple_action_new_stateful(name, parameterType?.glibVariantTypePointer, state.glibVariantPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Sets the action as enabled or not.
@@ -235,7 +239,7 @@ public open class SimpleAction(
 
     public companion object : TypeCompanion<SimpleAction> {
         override val type: GeneratedClassKGType<SimpleAction> =
-                GeneratedClassKGType(getTypeOrNull("g_simple_action_get_type")!!) { SimpleAction(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SimpleAction(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -246,6 +250,16 @@ public open class SimpleAction(
          * @return the GType
          */
         public fun getType(): GType = g_simple_action_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_simple_action_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_simple_action_get_type")
     }
 }
 

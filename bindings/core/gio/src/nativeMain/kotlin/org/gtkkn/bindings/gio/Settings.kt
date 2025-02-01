@@ -28,15 +28,15 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSettings
 import org.gtkkn.native.gio.g_settings_apply
 import org.gtkkn.native.gio.g_settings_bind
@@ -443,7 +443,9 @@ public open class Settings(
      * @return a new #GSettings object
      * @since 2.26
      */
-    public constructor(schemaId: String) : this(g_settings_new(schemaId)!!)
+    public constructor(schemaId: String) : this(g_settings_new(schemaId)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with a given schema, backend and
@@ -480,7 +482,9 @@ public open class Settings(
         schema: SettingsSchema,
         backend: SettingsBackend? = null,
         path: String? = null,
-    ) : this(g_settings_new_full(schema.gioSettingsSchemaPointer, backend?.gioSettingsBackendPointer, path)!!)
+    ) : this(g_settings_new_full(schema.gioSettingsSchemaPointer, backend?.gioSettingsBackendPointer, path)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with the schema specified by
@@ -497,7 +501,9 @@ public open class Settings(
      * @return a new #GSettings object
      * @since 2.26
      */
-    public constructor(schemaId: String, backend: SettingsBackend) : this(g_settings_new_with_backend(schemaId, backend.gioSettingsBackendPointer)!!)
+    public constructor(schemaId: String, backend: SettingsBackend) : this(g_settings_new_with_backend(schemaId, backend.gioSettingsBackendPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with the schema specified by
@@ -516,7 +522,9 @@ public open class Settings(
         schemaId: String,
         backend: SettingsBackend,
         path: String,
-    ) : this(g_settings_new_with_backend_and_path(schemaId, backend.gioSettingsBackendPointer, path)!!)
+    ) : this(g_settings_new_with_backend_and_path(schemaId, backend.gioSettingsBackendPointer, path)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSettings object with the relocatable schema specified
@@ -538,7 +546,9 @@ public open class Settings(
      * @return a new #GSettings object
      * @since 2.26
      */
-    public constructor(schemaId: String, path: String) : this(g_settings_new_with_path(schemaId, path)!!)
+    public constructor(schemaId: String, path: String) : this(g_settings_new_with_path(schemaId, path)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Applies any changes that have been made to the settings.  This
@@ -1313,7 +1323,7 @@ public open class Settings(
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-                GeneratedClassKGType(getTypeOrNull("g_settings_get_type")!!) { Settings(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Settings(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -1374,6 +1384,16 @@ public open class Settings(
          * @return the GType
          */
         public fun getType(): GType = g_settings_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_settings_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_settings_get_type")
     }
 }
 

@@ -13,11 +13,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Tree
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSettingsBackend
 import org.gtkkn.native.gio.g_settings_backend_changed
 import org.gtkkn.native.gio.g_settings_backend_changed_tree
@@ -212,7 +211,7 @@ public abstract class SettingsBackend(
 
     public companion object : TypeCompanion<SettingsBackend> {
         override val type: GeneratedClassKGType<SettingsBackend> =
-                GeneratedClassKGType(getTypeOrNull("g_settings_backend_get_type")!!) { SettingsBackendImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SettingsBackendImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -239,5 +238,15 @@ public abstract class SettingsBackend(
          * @return the GType
          */
         public fun getType(): GType = g_settings_backend_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_settings_backend_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_settings_backend_get_type")
     }
 }

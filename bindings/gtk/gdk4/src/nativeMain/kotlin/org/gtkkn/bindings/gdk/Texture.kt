@@ -23,11 +23,11 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gdk.GdkTexture
 import org.gtkkn.native.gdk.gdk_texture_get_format
@@ -122,7 +122,9 @@ public abstract class Texture(
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GdkTexture`
      */
-    public constructor(pixbuf: Pixbuf) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer)!!)
+    public constructor(pixbuf: Pixbuf) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new texture by loading an image from memory,
@@ -150,7 +152,9 @@ public abstract class Texture(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new texture by loading an image from a file.
@@ -177,7 +181,9 @@ public abstract class Texture(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new texture by loading an image from a file.
@@ -205,7 +211,9 @@ public abstract class Texture(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the memory format most closely associated with the data of
@@ -306,7 +314,7 @@ public abstract class Texture(
 
     public companion object : TypeCompanion<Texture> {
         override val type: GeneratedClassKGType<Texture> =
-                GeneratedClassKGType(getTypeOrNull("gdk_texture_get_type")!!) { TextureImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TextureImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -317,6 +325,16 @@ public abstract class Texture(
          * @return the GType
          */
         public fun getType(): GType = gdk_texture_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_texture_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_texture_get_type")
 
         /**
          * Creates a new texture by loading an image from a resource.
@@ -336,6 +354,8 @@ public abstract class Texture(
          * @param resourcePath the path of the resource file
          * @return A newly-created `GdkTexture`
          */
-        public fun fromResource(resourcePath: String): TextureImpl = TextureImpl(gdk_texture_new_from_resource(resourcePath)!!)
+        public fun fromResource(resourcePath: String): TextureImpl = TextureImpl(gdk_texture_new_from_resource(resourcePath)!!).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

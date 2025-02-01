@@ -6,11 +6,10 @@ package org.gtkkn.bindings.gdk
 import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkCrossingEvent
 import org.gtkkn.native.gdk.gdk_crossing_event_get_detail
 import org.gtkkn.native.gdk.gdk_crossing_event_get_focus
@@ -54,7 +53,7 @@ public open class CrossingEvent(
 
     public companion object : TypeCompanion<CrossingEvent> {
         override val type: GeneratedClassKGType<CrossingEvent> =
-                GeneratedClassKGType(getTypeOrNull("gdk_crossing_event_get_type")!!) { CrossingEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { CrossingEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -65,5 +64,15 @@ public open class CrossingEvent(
          * @return the GType
          */
         public fun getType(): GType = gdk_crossing_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_crossing_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_crossing_event_get_type")
     }
 }

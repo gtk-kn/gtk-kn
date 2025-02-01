@@ -20,13 +20,13 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.bindings.pango.FontDescription
 import org.gtkkn.bindings.pango.Language
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -240,7 +240,9 @@ public open class FontDialogButton(
      * @return the new `GtkFontDialogButton`
      * @since 4.10
      */
-    public constructor(dialog: FontDialog? = null) : this(gtk_font_dialog_button_new(dialog?.gtkFontDialogPointer)!!.reinterpret())
+    public constructor(dialog: FontDialog? = null) : this(gtk_font_dialog_button_new(dialog?.gtkFontDialogPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the `GtkFontDialog` of @self.
@@ -311,7 +313,7 @@ public open class FontDialogButton(
 
     public companion object : TypeCompanion<FontDialogButton> {
         override val type: GeneratedClassKGType<FontDialogButton> =
-                GeneratedClassKGType(getTypeOrNull("gtk_font_dialog_button_get_type")!!) { FontDialogButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FontDialogButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -322,6 +324,16 @@ public open class FontDialogButton(
          * @return the GType
          */
         public fun getType(): GType = gtk_font_dialog_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_font_dialog_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_font_dialog_button_get_type")
     }
 }
 

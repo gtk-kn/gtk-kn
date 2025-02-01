@@ -23,12 +23,12 @@ import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -161,7 +161,9 @@ public open class MarkAttributes(
      *
      * @return a new source mark attributes.
      */
-    public constructor() : this(gtk_source_mark_attributes_new()!!)
+    public constructor() : this(gtk_source_mark_attributes_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Stores background color in @background.
@@ -241,7 +243,7 @@ public open class MarkAttributes(
 
     public companion object : TypeCompanion<MarkAttributes> {
         override val type: GeneratedClassKGType<MarkAttributes> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_mark_attributes_get_type")!!) { MarkAttributes(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MarkAttributes(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -252,6 +254,16 @@ public open class MarkAttributes(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_mark_attributes_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_mark_attributes_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_mark_attributes_get_type")
     }
 }
 

@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkShortcut
 import org.gtkkn.native.gtk.gtk_shortcut_get_action
@@ -116,11 +116,13 @@ public open class Shortcut(
      *    triggering
      * @return a new `GtkShortcut`
      */
-    public constructor(trigger: ShortcutTrigger? = null, action: ShortcutAction? = null) : this(gtk_shortcut_new(trigger?.gtkShortcutTriggerPointer, action?.gtkShortcutActionPointer)!!)
+    public constructor(trigger: ShortcutTrigger? = null, action: ShortcutAction? = null) : this(gtk_shortcut_new(trigger?.gtkShortcutTriggerPointer, action?.gtkShortcutActionPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<Shortcut> {
         override val type: GeneratedClassKGType<Shortcut> =
-                GeneratedClassKGType(getTypeOrNull("gtk_shortcut_get_type")!!) { Shortcut(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Shortcut(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -131,5 +133,15 @@ public open class Shortcut(
          * @return the GType
          */
         public fun getType(): GType = gtk_shortcut_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_shortcut_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_shortcut_get_type")
     }
 }

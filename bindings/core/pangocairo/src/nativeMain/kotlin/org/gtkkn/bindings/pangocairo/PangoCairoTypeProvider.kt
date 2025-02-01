@@ -5,13 +5,12 @@ package org.gtkkn.bindings.pangocairo
 
 import kotlin.collections.Map
 import kotlin.reflect.KClass
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.KGType
-import org.gtkkn.extensions.gobject.TypeProvider
+import org.gtkkn.extensions.gobject.legacy.KGType
+import org.gtkkn.extensions.gobject.legacy.TypeProvider
 
 public object PangoCairoTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = buildMap {
-        if (getTypeOrNull("pango_cairo_font_get_type") != null) put(Font::class, Font.type)
-        if (getTypeOrNull("pango_cairo_font_map_get_type") != null) put(FontMap::class, FontMap.type)
+        if (Font.getTypeOrNull() != null) put(Font::class, Font.type)
+        if (FontMap.getTypeOrNull() != null) put(FontMap::class, FontMap.type)
     }
 }

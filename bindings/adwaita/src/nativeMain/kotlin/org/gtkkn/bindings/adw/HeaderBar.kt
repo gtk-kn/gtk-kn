@@ -11,12 +11,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwHeaderBar
 import org.gtkkn.native.adw.adw_header_bar_get_centering_policy
 import org.gtkkn.native.adw.adw_header_bar_get_decoration_layout
@@ -370,7 +370,9 @@ public class HeaderBar(
      *
      * @return the newly created `AdwHeaderBar`.
      */
-    public constructor() : this(adw_header_bar_new()!!.reinterpret())
+    public constructor() : this(adw_header_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @child to @self, packed with reference to the end of @self.
@@ -398,7 +400,7 @@ public class HeaderBar(
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =
-                GeneratedClassKGType(getTypeOrNull("adw_header_bar_get_type")!!) { HeaderBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { HeaderBar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -409,5 +411,15 @@ public class HeaderBar(
          * @return the GType
          */
         public fun getType(): GType = adw_header_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_header_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_header_bar_get_type")
     }
 }

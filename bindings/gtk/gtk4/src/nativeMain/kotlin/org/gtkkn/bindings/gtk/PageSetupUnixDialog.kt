@@ -7,10 +7,10 @@ import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -74,7 +74,9 @@ public open class PageSetupUnixDialog(
      * @param parent transient parent of the dialog
      * @return the new `GtkPageSetupUnixDialog`
      */
-    public constructor(title: String? = null, parent: Window? = null) : this(gtk_page_setup_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
+    public constructor(title: String? = null, parent: Window? = null) : this(gtk_page_setup_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the currently selected page setup from the dialog.
@@ -110,7 +112,7 @@ public open class PageSetupUnixDialog(
 
     public companion object : TypeCompanion<PageSetupUnixDialog> {
         override val type: GeneratedClassKGType<PageSetupUnixDialog> =
-                GeneratedClassKGType(getTypeOrNull("gtk_page_setup_unix_dialog_get_type")!!) { PageSetupUnixDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PageSetupUnixDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -121,5 +123,15 @@ public open class PageSetupUnixDialog(
          * @return the GType
          */
         public fun getType(): GType = gtk_page_setup_unix_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_page_setup_unix_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_page_setup_unix_dialog_get_type")
     }
 }

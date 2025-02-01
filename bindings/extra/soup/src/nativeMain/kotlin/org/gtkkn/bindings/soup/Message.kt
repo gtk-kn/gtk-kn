@@ -34,13 +34,13 @@ import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GIOStream
 import org.gtkkn.native.gio.GSocketClientEvent
 import org.gtkkn.native.gio.GTlsCertificate
@@ -433,7 +433,9 @@ public class Message(
      * @return the new #SoupMessage (or null if @uri
      *   could not be parsed).
      */
-    public constructor(method: String, uriString: String) : this(soup_message_new(method, uriString)!!.reinterpret())
+    public constructor(method: String, uriString: String) : this(soup_message_new(method, uriString)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #SoupMessage and sets it up to send the given @encoded_form
@@ -455,7 +457,9 @@ public class Message(
         method: String,
         uriString: String,
         encodedForm: String,
-    ) : this(soup_message_new_from_encoded_form(method, uriString, encodedForm.cstr)!!.reinterpret())
+    ) : this(soup_message_new_from_encoded_form(method, uriString, encodedForm.cstr)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #SoupMessage and sets it up to send @multipart to
@@ -466,7 +470,9 @@ public class Message(
      * @return the new #SoupMessage, or null if @uri_string
      *   could not be parsed
      */
-    public constructor(uriString: String, multipart: Multipart) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer)!!.reinterpret())
+    public constructor(uriString: String, multipart: Multipart) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -475,7 +481,9 @@ public class Message(
      * @param uri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(method: String, uri: Uri) : this(soup_message_new_from_uri(method, uri.glibUriPointer)!!)
+    public constructor(method: String, uri: Uri) : this(soup_message_new_from_uri(method, uri.glibUriPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #SoupMessage to send `OPTIONS *` to a server. The path of
@@ -484,7 +492,9 @@ public class Message(
      * @param baseUri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.glibUriPointer)!!)
+    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.glibUriPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @flags to the set of @msg's flags.
@@ -1049,7 +1059,7 @@ public class Message(
 
     public companion object : TypeCompanion<Message> {
         override val type: GeneratedClassKGType<Message> =
-                GeneratedClassKGType(getTypeOrNull("soup_message_get_type")!!) { Message(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Message(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()}
@@ -1060,6 +1070,16 @@ public class Message(
          * @return the GType
          */
         public fun getType(): GType = soup_message_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_message_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_message_get_type")
     }
 }
 

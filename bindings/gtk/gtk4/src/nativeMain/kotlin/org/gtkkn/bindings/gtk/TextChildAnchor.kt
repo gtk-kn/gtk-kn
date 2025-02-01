@@ -8,11 +8,11 @@ import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTextChildAnchor
 import org.gtkkn.native.gtk.gtk_text_child_anchor_get_deleted
@@ -48,7 +48,9 @@ public open class TextChildAnchor(
      *
      * @return a new `GtkTextChildAnchor`
      */
-    public constructor() : this(gtk_text_child_anchor_new()!!)
+    public constructor() : this(gtk_text_child_anchor_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkTextChildAnchor` with the given replacement character.
@@ -60,7 +62,9 @@ public open class TextChildAnchor(
      * @return a new `GtkTextChildAnchor`
      * @since 4.6
      */
-    public constructor(character: String) : this(gtk_text_child_anchor_new_with_replacement(character)!!)
+    public constructor(character: String) : this(gtk_text_child_anchor_new_with_replacement(character)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Determines whether a child anchor has been deleted from
@@ -78,7 +82,7 @@ public open class TextChildAnchor(
 
     public companion object : TypeCompanion<TextChildAnchor> {
         override val type: GeneratedClassKGType<TextChildAnchor> =
-                GeneratedClassKGType(getTypeOrNull("gtk_text_child_anchor_get_type")!!) { TextChildAnchor(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TextChildAnchor(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -89,5 +93,15 @@ public open class TextChildAnchor(
          * @return the GType
          */
         public fun getType(): GType = gtk_text_child_anchor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_text_child_anchor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_text_child_anchor_get_type")
     }
 }

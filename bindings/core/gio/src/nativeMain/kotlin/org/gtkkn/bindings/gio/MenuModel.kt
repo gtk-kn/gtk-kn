@@ -19,12 +19,11 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GMenuModel
 import org.gtkkn.native.gio.g_menu_model_get_item_attribute_value
 import org.gtkkn.native.gio.g_menu_model_get_item_link
@@ -350,7 +349,7 @@ public abstract class MenuModel(
 
     public companion object : TypeCompanion<MenuModel> {
         override val type: GeneratedClassKGType<MenuModel> =
-                GeneratedClassKGType(getTypeOrNull("g_menu_model_get_type")!!) { MenuModelImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MenuModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -361,6 +360,16 @@ public abstract class MenuModel(
          * @return the GType
          */
         public fun getType(): GType = g_menu_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_menu_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_menu_model_get_type")
     }
 }
 

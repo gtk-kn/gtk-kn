@@ -29,12 +29,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPixbufLoader
 import org.gtkkn.native.gdk.gdk_pixbuf_loader_close
 import org.gtkkn.native.gdk.gdk_pixbuf_loader_get_animation
@@ -116,7 +116,9 @@ public open class PixbufLoader(
      *
      * @return A newly-created pixbuf loader.
      */
-    public constructor() : this(gdk_pixbuf_loader_new()!!)
+    public constructor() : this(gdk_pixbuf_loader_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new pixbuf loader object that always attempts to parse
@@ -147,7 +149,9 @@ public open class PixbufLoader(
         }
         gResult!!
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Informs a pixbuf loader that no further writes with
@@ -367,7 +371,7 @@ public open class PixbufLoader(
 
     public companion object : TypeCompanion<PixbufLoader> {
         override val type: GeneratedClassKGType<PixbufLoader> =
-                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_loader_get_type")!!) { PixbufLoader(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PixbufLoader(it.reinterpret()) }
 
         init {
             GdkPixbufTypeProvider.register()}
@@ -378,6 +382,16 @@ public open class PixbufLoader(
          * @return the GType
          */
         public fun getType(): GType = gdk_pixbuf_loader_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_pixbuf_loader_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_loader_get_type")
 
         /**
          * Creates a new pixbuf loader object that always attempts to parse
@@ -409,6 +423,7 @@ public open class PixbufLoader(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = PixbufLoader(checkNotNull(gResult))
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

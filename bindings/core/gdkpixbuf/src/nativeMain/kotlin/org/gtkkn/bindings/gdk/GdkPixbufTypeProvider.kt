@@ -5,18 +5,17 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.collections.Map
 import kotlin.reflect.KClass
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.KGType
-import org.gtkkn.extensions.gobject.TypeProvider
+import org.gtkkn.extensions.gobject.legacy.KGType
+import org.gtkkn.extensions.gobject.legacy.TypeProvider
 
 public object GdkPixbufTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = buildMap {
-        if (getTypeOrNull("gdk_pixbuf_get_type") != null) put(Pixbuf::class, Pixbuf.type)
-        if (getTypeOrNull("gdk_pixbuf_animation_get_type") != null) put(PixbufAnimation::class, PixbufAnimation.type)
-        if (getTypeOrNull("gdk_pixbuf_animation_iter_get_type") != null) put(PixbufAnimationIter::class, PixbufAnimationIter.type)
-        if (getTypeOrNull("gdk_pixbuf_loader_get_type") != null) put(PixbufLoader::class, PixbufLoader.type)
-        if (getTypeOrNull("gdk_pixbuf_non_anim_get_type") != null) put(PixbufNonAnim::class, PixbufNonAnim.type)
-        if (getTypeOrNull("gdk_pixbuf_simple_anim_get_type") != null) put(PixbufSimpleAnim::class, PixbufSimpleAnim.type)
-        if (getTypeOrNull("gdk_pixbuf_simple_anim_iter_get_type") != null) put(PixbufSimpleAnimIter::class, PixbufSimpleAnimIter.type)
+        if (Pixbuf.getTypeOrNull() != null) put(Pixbuf::class, Pixbuf.type)
+        if (PixbufAnimation.getTypeOrNull() != null) put(PixbufAnimation::class, PixbufAnimation.type)
+        if (PixbufAnimationIter.getTypeOrNull() != null) put(PixbufAnimationIter::class, PixbufAnimationIter.type)
+        if (PixbufLoader.getTypeOrNull() != null) put(PixbufLoader::class, PixbufLoader.type)
+        if (PixbufNonAnim.getTypeOrNull() != null) put(PixbufNonAnim::class, PixbufNonAnim.type)
+        if (PixbufSimpleAnim.getTypeOrNull() != null) put(PixbufSimpleAnim::class, PixbufSimpleAnim.type)
+        if (PixbufSimpleAnimIter.getTypeOrNull() != null) put(PixbufSimpleAnimIter::class, PixbufSimpleAnimIter.type)
     }
 }

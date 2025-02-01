@@ -10,12 +10,12 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDmabufTextureBuilder
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_display
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_fd
@@ -376,7 +376,9 @@ public open class DmabufTextureBuilder(
      * @return the new `GdkTextureBuilder`
      * @since 4.14
      */
-    public constructor() : this(gdk_dmabuf_texture_builder_new()!!)
+    public constructor() : this(gdk_dmabuf_texture_builder_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the file descriptor for a plane.
@@ -442,7 +444,7 @@ public open class DmabufTextureBuilder(
 
     public companion object : TypeCompanion<DmabufTextureBuilder> {
         override val type: GeneratedClassKGType<DmabufTextureBuilder> =
-                GeneratedClassKGType(getTypeOrNull("gdk_dmabuf_texture_builder_get_type")!!) { DmabufTextureBuilder(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DmabufTextureBuilder(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -453,5 +455,15 @@ public open class DmabufTextureBuilder(
          * @return the GType
          */
         public fun getType(): GType = gdk_dmabuf_texture_builder_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_dmabuf_texture_builder_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_dmabuf_texture_builder_get_type")
     }
 }

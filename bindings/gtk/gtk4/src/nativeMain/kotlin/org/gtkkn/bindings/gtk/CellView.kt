@@ -9,12 +9,12 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -170,7 +170,9 @@ public open class CellView(
      *
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor() : this(gtk_cell_view_new()!!.reinterpret())
+    public constructor() : this(gtk_cell_view_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkCellView` widget with a specific `GtkCellArea`
@@ -185,7 +187,9 @@ public open class CellView(
      * @param context the `GtkCellAreaContext` in which to calculate cell geometry
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(area: CellArea, context: CellAreaContext) : this(gtk_cell_view_new_with_context(area.gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.reinterpret())
+    public constructor(area: CellArea, context: CellAreaContext) : this(gtk_cell_view_new_with_context(area.gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
@@ -194,7 +198,9 @@ public open class CellView(
      * @param text the text to display in the cell view
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(text: String) : this(gtk_cell_view_new_with_text(text)!!.reinterpret())
+    public constructor(text: String) : this(gtk_cell_view_new_with_text(text)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
@@ -203,7 +209,9 @@ public open class CellView(
      * @param texture the image to display in the cell view
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(texture: Texture) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer)!!.reinterpret())
+    public constructor(texture: Texture) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns a `GtkTreePath` referring to the currently
@@ -229,7 +237,7 @@ public open class CellView(
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =
-                GeneratedClassKGType(getTypeOrNull("gtk_cell_view_get_type")!!) { CellView(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { CellView(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -242,6 +250,16 @@ public open class CellView(
         public fun getType(): GType = gtk_cell_view_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_cell_view_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_view_get_type")
+
+        /**
          * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
          * to it, and makes it show @markup. The text can be marked up with
          * the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).
@@ -249,6 +267,8 @@ public open class CellView(
          * @param markup the text to display in the cell view
          * @return A newly created `GtkCellView` widget.
          */
-        public fun withMarkup(markup: String): CellView = CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
+        public fun withMarkup(markup: String): CellView = CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

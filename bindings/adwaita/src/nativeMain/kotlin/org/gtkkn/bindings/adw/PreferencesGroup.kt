@@ -10,10 +10,10 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_1
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwPreferencesGroup
 import org.gtkkn.native.adw.adw_preferences_group_add
 import org.gtkkn.native.adw.adw_preferences_group_get_description
@@ -152,7 +152,9 @@ public open class PreferencesGroup(
      *
      * @return the newly created `AdwPreferencesGroup`
      */
-    public constructor() : this(adw_preferences_group_new()!!.reinterpret())
+    public constructor() : this(adw_preferences_group_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a child to @self.
@@ -170,7 +172,7 @@ public open class PreferencesGroup(
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =
-                GeneratedClassKGType(getTypeOrNull("adw_preferences_group_get_type")!!) { PreferencesGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PreferencesGroup(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -181,5 +183,15 @@ public open class PreferencesGroup(
          * @return the GType
          */
         public fun getType(): GType = adw_preferences_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_preferences_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_preferences_group_get_type")
     }
 }

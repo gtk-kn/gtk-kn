@@ -7,10 +7,9 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -73,7 +72,7 @@ public abstract class MultiFilter(
 
     public companion object : TypeCompanion<MultiFilter> {
         override val type: GeneratedClassKGType<MultiFilter> =
-                GeneratedClassKGType(getTypeOrNull("gtk_multi_filter_get_type")!!) { MultiFilterImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MultiFilterImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -84,5 +83,15 @@ public abstract class MultiFilter(
          * @return the GType
          */
         public fun getType(): GType = gtk_multi_filter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_multi_filter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_multi_filter_get_type")
     }
 }

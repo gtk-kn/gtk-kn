@@ -8,10 +8,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GDBusActionGroup
 import org.gtkkn.native.gio.GRemoteActionGroup
@@ -44,7 +43,7 @@ public open class DBusActionGroup(
 
     public companion object : TypeCompanion<DBusActionGroup> {
         override val type: GeneratedClassKGType<DBusActionGroup> =
-                GeneratedClassKGType(getTypeOrNull("g_dbus_action_group_get_type")!!) { DBusActionGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DBusActionGroup(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -85,5 +84,15 @@ public open class DBusActionGroup(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_action_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_action_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_action_group_get_type")
     }
 }

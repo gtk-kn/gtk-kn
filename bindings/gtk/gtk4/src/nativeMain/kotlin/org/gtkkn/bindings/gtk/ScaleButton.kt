@@ -19,14 +19,14 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -208,7 +208,9 @@ public open class ScaleButton(
     ) : this(memScoped {
         gtk_scale_button_new(min, max, step, icons?.toCStringList(this))!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Retrieves the minus button of the `GtkScaleButton`.
@@ -302,7 +304,7 @@ public open class ScaleButton(
 
     public companion object : TypeCompanion<ScaleButton> {
         override val type: GeneratedClassKGType<ScaleButton> =
-                GeneratedClassKGType(getTypeOrNull("gtk_scale_button_get_type")!!) { ScaleButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ScaleButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -313,6 +315,16 @@ public open class ScaleButton(
          * @return the GType
          */
         public fun getType(): GType = gtk_scale_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_scale_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_scale_button_get_type")
     }
 }
 

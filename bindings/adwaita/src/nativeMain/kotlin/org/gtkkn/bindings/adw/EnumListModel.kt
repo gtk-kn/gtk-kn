@@ -7,10 +7,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwEnumListModel
 import org.gtkkn.native.adw.adw_enum_list_model_find_position
 import org.gtkkn.native.adw.adw_enum_list_model_get_enum_type
@@ -55,7 +55,9 @@ public class EnumListModel(
      * @param enumType the type of the enum to construct the model from
      * @return the newly created `AdwEnumListModel`
      */
-    public constructor(enumType: GType) : this(adw_enum_list_model_new(enumType)!!)
+    public constructor(enumType: GType) : this(adw_enum_list_model_new(enumType)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Finds the position of a given enum value in @self.
@@ -68,7 +70,7 @@ public class EnumListModel(
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =
-                GeneratedClassKGType(getTypeOrNull("adw_enum_list_model_get_type")!!) { EnumListModel(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { EnumListModel(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -79,5 +81,15 @@ public class EnumListModel(
          * @return the GType
          */
         public fun getType(): GType = adw_enum_list_model_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_enum_list_model_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_enum_list_model_get_type")
     }
 }

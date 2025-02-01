@@ -21,14 +21,14 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -361,7 +361,9 @@ public open class DropDown(
      * @param expression the expression to use
      * @return a new `GtkDropDown`
      */
-    public constructor(model: ListModel? = null, expression: Expression? = null) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gtkExpressionPointer)!!.reinterpret())
+    public constructor(model: ListModel? = null, expression: Expression? = null) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gtkExpressionPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkDropDown` that is populated with
@@ -373,7 +375,9 @@ public open class DropDown(
     public constructor(strings: List<String>) : this(memScoped {
         gtk_drop_down_new_from_strings(strings.toCStringList(this))!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emitted to when the drop down is activated.
@@ -400,7 +404,7 @@ public open class DropDown(
 
     public companion object : TypeCompanion<DropDown> {
         override val type: GeneratedClassKGType<DropDown> =
-                GeneratedClassKGType(getTypeOrNull("gtk_drop_down_get_type")!!) { DropDown(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DropDown(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -411,6 +415,16 @@ public open class DropDown(
          * @return the GType
          */
         public fun getType(): GType = gtk_drop_down_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_drop_down_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_drop_down_get_type")
     }
 }
 

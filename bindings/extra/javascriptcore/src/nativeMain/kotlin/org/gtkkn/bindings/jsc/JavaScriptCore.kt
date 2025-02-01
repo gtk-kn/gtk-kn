@@ -274,12 +274,12 @@ public object JavaScriptCore {
     public fun optionsSetUint(option: String, `value`: guint): Boolean = jsc_options_set_uint(option, `value`).asBoolean()
 
     private fun registerTypes() {
-        TypeCache.register(Class::class, Class.getType()) { Class(it.reinterpret()) }
-        TypeCache.register(Context::class, Context.getType()) { Context(it.reinterpret()) }
-        TypeCache.register(Exception::class, Exception.getType()) { Exception(it.reinterpret()) }
-        TypeCache.register(Value::class, Value.getType()) { Value(it.reinterpret()) }
-        TypeCache.register(VirtualMachine::class, VirtualMachine.getType()) { VirtualMachine(it.reinterpret()) }
-        TypeCache.register(WeakValue::class, WeakValue.getType()) { WeakValue(it.reinterpret()) }
+        Class.getTypeOrNull()?.let { gtype -> TypeCache.register(Class::class, gtype) { Class(it.reinterpret()) } }
+        Context.getTypeOrNull()?.let { gtype -> TypeCache.register(Context::class, gtype) { Context(it.reinterpret()) } }
+        Exception.getTypeOrNull()?.let { gtype -> TypeCache.register(Exception::class, gtype) { Exception(it.reinterpret()) } }
+        Value.getTypeOrNull()?.let { gtype -> TypeCache.register(Value::class, gtype) { Value(it.reinterpret()) } }
+        VirtualMachine.getTypeOrNull()?.let { gtype -> TypeCache.register(VirtualMachine::class, gtype) { VirtualMachine(it.reinterpret()) } }
+        WeakValue.getTypeOrNull()?.let { gtype -> TypeCache.register(WeakValue::class, gtype) { WeakValue(it.reinterpret()) } }
     }
 }
 

@@ -7,10 +7,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskOutsetShadowNode
@@ -104,7 +103,7 @@ public open class OutsetShadowNode(
 
     public companion object : TypeCompanion<OutsetShadowNode> {
         override val type: GeneratedClassKGType<OutsetShadowNode> =
-                GeneratedClassKGType(getTypeOrNull("gsk_outset_shadow_node_get_type")!!) { OutsetShadowNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { OutsetShadowNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()}
@@ -115,5 +114,15 @@ public open class OutsetShadowNode(
          * @return the GType
          */
         public fun getType(): GType = gsk_outset_shadow_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_outset_shadow_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_outset_shadow_node_get_type")
     }
 }

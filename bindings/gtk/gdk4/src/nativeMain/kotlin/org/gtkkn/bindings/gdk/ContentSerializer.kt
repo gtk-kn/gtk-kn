@@ -14,10 +14,9 @@ import org.gtkkn.bindings.gio.OutputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkContentSerializer
 import org.gtkkn.native.gdk.gdk_content_serializer_get_cancellable
 import org.gtkkn.native.gdk.gdk_content_serializer_get_gtype
@@ -148,7 +147,7 @@ public open class ContentSerializer(
 
     public companion object : TypeCompanion<ContentSerializer> {
         override val type: GeneratedClassKGType<ContentSerializer> =
-                GeneratedClassKGType(getTypeOrNull("gdk_content_serializer_get_type")!!) { ContentSerializer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ContentSerializer(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -159,5 +158,15 @@ public open class ContentSerializer(
          * @return the GType
          */
         public fun getType(): GType = gdk_content_serializer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_content_serializer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_content_serializer_get_type")
     }
 }

@@ -25,12 +25,12 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPrintDialog
@@ -206,7 +206,9 @@ public open class PrintDialog(
      * @return the new `GtkPrintDialog`
      * @since 4.14
      */
-    public constructor() : this(gtk_print_dialog_new()!!)
+    public constructor() : this(gtk_print_dialog_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This function prints content from a stream.
@@ -360,7 +362,7 @@ public open class PrintDialog(
 
     public companion object : TypeCompanion<PrintDialog> {
         override val type: GeneratedClassKGType<PrintDialog> =
-                GeneratedClassKGType(getTypeOrNull("gtk_print_dialog_get_type")!!) { PrintDialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PrintDialog(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -371,5 +373,15 @@ public open class PrintDialog(
          * @return the GType
          */
         public fun getType(): GType = gtk_print_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_print_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_print_dialog_get_type")
     }
 }

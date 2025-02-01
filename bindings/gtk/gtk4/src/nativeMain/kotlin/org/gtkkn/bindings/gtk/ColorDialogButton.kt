@@ -16,11 +16,11 @@ import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -125,7 +125,9 @@ public open class ColorDialogButton(
      * @return the new `GtkColorDialogButton`
      * @since 4.10
      */
-    public constructor(dialog: ColorDialog? = null) : this(gtk_color_dialog_button_new(dialog?.gtkColorDialogPointer)!!.reinterpret())
+    public constructor(dialog: ColorDialog? = null) : this(gtk_color_dialog_button_new(dialog?.gtkColorDialogPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns the `GtkColorDialog` of @self.
@@ -173,7 +175,7 @@ public open class ColorDialogButton(
 
     public companion object : TypeCompanion<ColorDialogButton> {
         override val type: GeneratedClassKGType<ColorDialogButton> =
-                GeneratedClassKGType(getTypeOrNull("gtk_color_dialog_button_get_type")!!) { ColorDialogButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ColorDialogButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -184,6 +186,16 @@ public open class ColorDialogButton(
          * @return the GType
          */
         public fun getType(): GType = gtk_color_dialog_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_color_dialog_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_color_dialog_button_get_type")
     }
 }
 

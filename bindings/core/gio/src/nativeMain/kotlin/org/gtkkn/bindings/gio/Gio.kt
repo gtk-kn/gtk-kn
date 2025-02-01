@@ -2965,153 +2965,153 @@ public object Gio {
     }
 
     private fun registerTypes() {
-        TypeCache.register(AppInfoMonitor::class, AppInfoMonitor.getType()) { AppInfoMonitor(it.reinterpret()) }
-        TypeCache.register(AppLaunchContext::class, AppLaunchContext.getType()) { AppLaunchContext(it.reinterpret()) }
-        TypeCache.register(Application::class, Application.getType()) { Application(it.reinterpret()) }
-        TypeCache.register(ApplicationCommandLine::class, ApplicationCommandLine.getType()) { ApplicationCommandLine(it.reinterpret()) }
-        TypeCache.register(BufferedInputStream::class, BufferedInputStream.getType()) { BufferedInputStream(it.reinterpret()) }
-        TypeCache.register(BufferedOutputStream::class, BufferedOutputStream.getType()) { BufferedOutputStream(it.reinterpret()) }
-        TypeCache.register(BytesIcon::class, BytesIcon.getType()) { BytesIcon(it.reinterpret()) }
-        TypeCache.register(Cancellable::class, Cancellable.getType()) { Cancellable(it.reinterpret()) }
-        TypeCache.register(CharsetConverter::class, CharsetConverter.getType()) { CharsetConverter(it.reinterpret()) }
-        TypeCache.register(ConverterInputStream::class, ConverterInputStream.getType()) { ConverterInputStream(it.reinterpret()) }
-        TypeCache.register(ConverterOutputStream::class, ConverterOutputStream.getType()) { ConverterOutputStream(it.reinterpret()) }
-        TypeCache.register(Credentials::class, Credentials.getType()) { Credentials(it.reinterpret()) }
-        TypeCache.register(DBusActionGroup::class, DBusActionGroup.getType()) { DBusActionGroup(it.reinterpret()) }
-        TypeCache.register(DBusAuthObserver::class, DBusAuthObserver.getType()) { DBusAuthObserver(it.reinterpret()) }
-        TypeCache.register(DBusConnection::class, DBusConnection.getType()) { DBusConnection(it.reinterpret()) }
-        TypeCache.register(DBusInterfaceSkeleton::class, DBusInterfaceSkeleton.getType()) { DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(it.reinterpret()) }
-        TypeCache.register(DBusMenuModel::class, DBusMenuModel.getType()) { DBusMenuModel(it.reinterpret()) }
-        TypeCache.register(DBusMessage::class, DBusMessage.getType()) { DBusMessage(it.reinterpret()) }
-        TypeCache.register(DBusMethodInvocation::class, DBusMethodInvocation.getType()) { DBusMethodInvocation(it.reinterpret()) }
-        TypeCache.register(DBusObjectManagerClient::class, DBusObjectManagerClient.getType()) { DBusObjectManagerClient(it.reinterpret()) }
-        TypeCache.register(DBusObjectManagerServer::class, DBusObjectManagerServer.getType()) { DBusObjectManagerServer(it.reinterpret()) }
-        TypeCache.register(DBusObjectProxy::class, DBusObjectProxy.getType()) { DBusObjectProxy(it.reinterpret()) }
-        TypeCache.register(DBusObjectSkeleton::class, DBusObjectSkeleton.getType()) { DBusObjectSkeleton(it.reinterpret()) }
-        TypeCache.register(DBusProxy::class, DBusProxy.getType()) { DBusProxy(it.reinterpret()) }
-        TypeCache.register(DBusServer::class, DBusServer.getType()) { DBusServer(it.reinterpret()) }
-        TypeCache.register(DataInputStream::class, DataInputStream.getType()) { DataInputStream(it.reinterpret()) }
-        TypeCache.register(DataOutputStream::class, DataOutputStream.getType()) { DataOutputStream(it.reinterpret()) }
-        TypeCache.register(DebugControllerDBus::class, DebugControllerDBus.getType()) { DebugControllerDBus(it.reinterpret()) }
-        TypeCache.register(DesktopAppInfo::class, DesktopAppInfo.getType()) { DesktopAppInfo(it.reinterpret()) }
-        TypeCache.register(Emblem::class, Emblem.getType()) { Emblem(it.reinterpret()) }
-        TypeCache.register(EmblemedIcon::class, EmblemedIcon.getType()) { EmblemedIcon(it.reinterpret()) }
-        TypeCache.register(FileEnumerator::class, FileEnumerator.getType()) { FileEnumerator(it.reinterpret()) }
-        TypeCache.register(FileIoStream::class, FileIoStream.getType()) { FileIoStream(it.reinterpret()) }
-        TypeCache.register(FileIcon::class, FileIcon.getType()) { FileIcon(it.reinterpret()) }
-        TypeCache.register(FileInfo::class, FileInfo.getType()) { FileInfo(it.reinterpret()) }
-        TypeCache.register(FileInputStream::class, FileInputStream.getType()) { FileInputStream(it.reinterpret()) }
-        TypeCache.register(FileMonitor::class, FileMonitor.getType()) { FileMonitor.FileMonitorImpl(it.reinterpret()) }
-        TypeCache.register(FileOutputStream::class, FileOutputStream.getType()) { FileOutputStream(it.reinterpret()) }
-        TypeCache.register(FilenameCompleter::class, FilenameCompleter.getType()) { FilenameCompleter(it.reinterpret()) }
-        TypeCache.register(FilterInputStream::class, FilterInputStream.getType()) { FilterInputStream.FilterInputStreamImpl(it.reinterpret()) }
-        TypeCache.register(FilterOutputStream::class, FilterOutputStream.getType()) { FilterOutputStream.FilterOutputStreamImpl(it.reinterpret()) }
-        TypeCache.register(IoModule::class, IoModule.getType()) { IoModule(it.reinterpret()) }
-        TypeCache.register(IoStream::class, IoStream.getType()) { IoStream.IoStreamImpl(it.reinterpret()) }
-        TypeCache.register(InetAddress::class, InetAddress.getType()) { InetAddress(it.reinterpret()) }
-        TypeCache.register(InetAddressMask::class, InetAddressMask.getType()) { InetAddressMask(it.reinterpret()) }
-        TypeCache.register(InetSocketAddress::class, InetSocketAddress.getType()) { InetSocketAddress(it.reinterpret()) }
-        TypeCache.register(InputStream::class, InputStream.getType()) { InputStream.InputStreamImpl(it.reinterpret()) }
-        TypeCache.register(ListStore::class, ListStore.getType()) { ListStore(it.reinterpret()) }
-        TypeCache.register(MemoryInputStream::class, MemoryInputStream.getType()) { MemoryInputStream(it.reinterpret()) }
-        TypeCache.register(MemoryOutputStream::class, MemoryOutputStream.getType()) { MemoryOutputStream(it.reinterpret()) }
-        TypeCache.register(Menu::class, Menu.getType()) { Menu(it.reinterpret()) }
-        TypeCache.register(MenuAttributeIter::class, MenuAttributeIter.getType()) { MenuAttributeIter.MenuAttributeIterImpl(it.reinterpret()) }
-        TypeCache.register(MenuItem::class, MenuItem.getType()) { MenuItem(it.reinterpret()) }
-        TypeCache.register(MenuLinkIter::class, MenuLinkIter.getType()) { MenuLinkIter.MenuLinkIterImpl(it.reinterpret()) }
-        TypeCache.register(MenuModel::class, MenuModel.getType()) { MenuModel.MenuModelImpl(it.reinterpret()) }
-        TypeCache.register(MountOperation::class, MountOperation.getType()) { MountOperation(it.reinterpret()) }
-        TypeCache.register(NativeSocketAddress::class, NativeSocketAddress.getType()) { NativeSocketAddress(it.reinterpret()) }
-        TypeCache.register(NativeVolumeMonitor::class, NativeVolumeMonitor.getType()) { NativeVolumeMonitor.NativeVolumeMonitorImpl(it.reinterpret()) }
-        TypeCache.register(NetworkAddress::class, NetworkAddress.getType()) { NetworkAddress(it.reinterpret()) }
-        TypeCache.register(NetworkService::class, NetworkService.getType()) { NetworkService(it.reinterpret()) }
-        TypeCache.register(Notification::class, Notification.getType()) { Notification(it.reinterpret()) }
-        TypeCache.register(OutputStream::class, OutputStream.getType()) { OutputStream.OutputStreamImpl(it.reinterpret()) }
-        TypeCache.register(Permission::class, Permission.getType()) { Permission.PermissionImpl(it.reinterpret()) }
-        TypeCache.register(PropertyAction::class, PropertyAction.getType()) { PropertyAction(it.reinterpret()) }
-        TypeCache.register(ProxyAddress::class, ProxyAddress.getType()) { ProxyAddress(it.reinterpret()) }
-        TypeCache.register(ProxyAddressEnumerator::class, ProxyAddressEnumerator.getType()) { ProxyAddressEnumerator(it.reinterpret()) }
-        TypeCache.register(Resolver::class, Resolver.getType()) { Resolver.ResolverImpl(it.reinterpret()) }
-        TypeCache.register(Settings::class, Settings.getType()) { Settings(it.reinterpret()) }
-        TypeCache.register(SettingsBackend::class, SettingsBackend.getType()) { SettingsBackend.SettingsBackendImpl(it.reinterpret()) }
-        TypeCache.register(SimpleAction::class, SimpleAction.getType()) { SimpleAction(it.reinterpret()) }
-        TypeCache.register(SimpleActionGroup::class, SimpleActionGroup.getType()) { SimpleActionGroup(it.reinterpret()) }
-        TypeCache.register(SimpleAsyncResult::class, SimpleAsyncResult.getType()) { SimpleAsyncResult(it.reinterpret()) }
-        TypeCache.register(SimpleIoStream::class, SimpleIoStream.getType()) { SimpleIoStream(it.reinterpret()) }
-        TypeCache.register(SimplePermission::class, SimplePermission.getType()) { SimplePermission(it.reinterpret()) }
-        TypeCache.register(SimpleProxyResolver::class, SimpleProxyResolver.getType()) { SimpleProxyResolver(it.reinterpret()) }
-        TypeCache.register(Socket::class, Socket.getType()) { Socket(it.reinterpret()) }
-        TypeCache.register(SocketAddress::class, SocketAddress.getType()) { SocketAddress.SocketAddressImpl(it.reinterpret()) }
-        TypeCache.register(SocketAddressEnumerator::class, SocketAddressEnumerator.getType()) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(it.reinterpret()) }
-        TypeCache.register(SocketClient::class, SocketClient.getType()) { SocketClient(it.reinterpret()) }
-        TypeCache.register(SocketConnection::class, SocketConnection.getType()) { SocketConnection(it.reinterpret()) }
-        TypeCache.register(SocketControlMessage::class, SocketControlMessage.getType()) { SocketControlMessage.SocketControlMessageImpl(it.reinterpret()) }
-        TypeCache.register(SocketListener::class, SocketListener.getType()) { SocketListener(it.reinterpret()) }
-        TypeCache.register(SocketService::class, SocketService.getType()) { SocketService(it.reinterpret()) }
-        TypeCache.register(Subprocess::class, Subprocess.getType()) { Subprocess(it.reinterpret()) }
-        TypeCache.register(SubprocessLauncher::class, SubprocessLauncher.getType()) { SubprocessLauncher(it.reinterpret()) }
-        TypeCache.register(Task::class, Task.getType()) { Task(it.reinterpret()) }
-        TypeCache.register(TcpConnection::class, TcpConnection.getType()) { TcpConnection(it.reinterpret()) }
-        TypeCache.register(TcpWrapperConnection::class, TcpWrapperConnection.getType()) { TcpWrapperConnection(it.reinterpret()) }
-        TypeCache.register(TestDBus::class, TestDBus.getType()) { TestDBus(it.reinterpret()) }
-        TypeCache.register(ThemedIcon::class, ThemedIcon.getType()) { ThemedIcon(it.reinterpret()) }
-        TypeCache.register(ThreadedSocketService::class, ThreadedSocketService.getType()) { ThreadedSocketService(it.reinterpret()) }
-        TypeCache.register(TlsCertificate::class, TlsCertificate.getType()) { TlsCertificate.TlsCertificateImpl(it.reinterpret()) }
-        TypeCache.register(TlsConnection::class, TlsConnection.getType()) { TlsConnection.TlsConnectionImpl(it.reinterpret()) }
-        TypeCache.register(TlsDatabase::class, TlsDatabase.getType()) { TlsDatabase.TlsDatabaseImpl(it.reinterpret()) }
-        TypeCache.register(TlsInteraction::class, TlsInteraction.getType()) { TlsInteraction(it.reinterpret()) }
-        TypeCache.register(TlsPassword::class, TlsPassword.getType()) { TlsPassword(it.reinterpret()) }
-        TypeCache.register(UnixConnection::class, UnixConnection.getType()) { UnixConnection(it.reinterpret()) }
-        TypeCache.register(UnixCredentialsMessage::class, UnixCredentialsMessage.getType()) { UnixCredentialsMessage(it.reinterpret()) }
-        TypeCache.register(UnixFdList::class, UnixFdList.getType()) { UnixFdList(it.reinterpret()) }
-        TypeCache.register(UnixFdMessage::class, UnixFdMessage.getType()) { UnixFdMessage(it.reinterpret()) }
-        TypeCache.register(UnixInputStream::class, UnixInputStream.getType()) { UnixInputStream(it.reinterpret()) }
-        TypeCache.register(UnixMountMonitor::class, UnixMountMonitor.getType()) { UnixMountMonitor(it.reinterpret()) }
-        TypeCache.register(UnixOutputStream::class, UnixOutputStream.getType()) { UnixOutputStream(it.reinterpret()) }
-        TypeCache.register(UnixSocketAddress::class, UnixSocketAddress.getType()) { UnixSocketAddress(it.reinterpret()) }
-        TypeCache.register(Vfs::class, Vfs.getType()) { Vfs(it.reinterpret()) }
-        TypeCache.register(VolumeMonitor::class, VolumeMonitor.getType()) { VolumeMonitor(it.reinterpret()) }
-        TypeCache.register(ZlibCompressor::class, ZlibCompressor.getType()) { ZlibCompressor(it.reinterpret()) }
-        TypeCache.register(ZlibDecompressor::class, ZlibDecompressor.getType()) { ZlibDecompressor(it.reinterpret()) }
-        TypeCache.register(Action::class, Action.getType()) { Action.ActionImpl(it.reinterpret()) }
-        TypeCache.register(ActionGroup::class, ActionGroup.getType()) { ActionGroup.ActionGroupImpl(it.reinterpret()) }
-        TypeCache.register(ActionMap::class, ActionMap.getType()) { ActionMap.ActionMapImpl(it.reinterpret()) }
-        TypeCache.register(AppInfo::class, AppInfo.getType()) { AppInfo.AppInfoImpl(it.reinterpret()) }
-        TypeCache.register(AsyncInitable::class, AsyncInitable.getType()) { AsyncInitable.AsyncInitableImpl(it.reinterpret()) }
-        TypeCache.register(AsyncResult::class, AsyncResult.getType()) { AsyncResult.AsyncResultImpl(it.reinterpret()) }
-        TypeCache.register(Converter::class, Converter.getType()) { Converter.ConverterImpl(it.reinterpret()) }
-        TypeCache.register(DBusInterface::class, DBusInterface.getType()) { DBusInterface.DBusInterfaceImpl(it.reinterpret()) }
-        TypeCache.register(DBusObject::class, DBusObject.getType()) { DBusObject.DBusObjectImpl(it.reinterpret()) }
-        TypeCache.register(DBusObjectManager::class, DBusObjectManager.getType()) { DBusObjectManager.DBusObjectManagerImpl(it.reinterpret()) }
-        TypeCache.register(DatagramBased::class, DatagramBased.getType()) { DatagramBased.DatagramBasedImpl(it.reinterpret()) }
-        TypeCache.register(DebugController::class, DebugController.getType()) { DebugController.DebugControllerImpl(it.reinterpret()) }
-        TypeCache.register(DesktopAppInfoLookup::class, DesktopAppInfoLookup.getType()) { DesktopAppInfoLookup.DesktopAppInfoLookupImpl(it.reinterpret()) }
-        TypeCache.register(Drive::class, Drive.getType()) { Drive.DriveImpl(it.reinterpret()) }
-        TypeCache.register(DtlsClientConnection::class, DtlsClientConnection.getType()) { DtlsClientConnection.DtlsClientConnectionImpl(it.reinterpret()) }
-        TypeCache.register(DtlsConnection::class, DtlsConnection.getType()) { DtlsConnection.DtlsConnectionImpl(it.reinterpret()) }
-        TypeCache.register(DtlsServerConnection::class, DtlsServerConnection.getType()) { DtlsServerConnection.DtlsServerConnectionImpl(it.reinterpret()) }
-        TypeCache.register(File::class, File.getType()) { File.FileImpl(it.reinterpret()) }
-        TypeCache.register(FileDescriptorBased::class, FileDescriptorBased.getType()) { FileDescriptorBased.FileDescriptorBasedImpl(it.reinterpret()) }
-        TypeCache.register(Icon::class, Icon.getType()) { Icon.IconImpl(it.reinterpret()) }
-        TypeCache.register(Initable::class, Initable.getType()) { Initable.InitableImpl(it.reinterpret()) }
-        TypeCache.register(ListModel::class, ListModel.getType()) { ListModel.ListModelImpl(it.reinterpret()) }
-        TypeCache.register(LoadableIcon::class, LoadableIcon.getType()) { LoadableIcon.LoadableIconImpl(it.reinterpret()) }
-        TypeCache.register(MemoryMonitor::class, MemoryMonitor.getType()) { MemoryMonitor.MemoryMonitorImpl(it.reinterpret()) }
-        TypeCache.register(Mount::class, Mount.getType()) { Mount.MountImpl(it.reinterpret()) }
-        TypeCache.register(NetworkMonitor::class, NetworkMonitor.getType()) { NetworkMonitor.NetworkMonitorImpl(it.reinterpret()) }
-        TypeCache.register(PollableInputStream::class, PollableInputStream.getType()) { PollableInputStream.PollableInputStreamImpl(it.reinterpret()) }
-        TypeCache.register(PollableOutputStream::class, PollableOutputStream.getType()) { PollableOutputStream.PollableOutputStreamImpl(it.reinterpret()) }
-        TypeCache.register(PowerProfileMonitor::class, PowerProfileMonitor.getType()) { PowerProfileMonitor.PowerProfileMonitorImpl(it.reinterpret()) }
-        TypeCache.register(Proxy::class, Proxy.getType()) { Proxy.ProxyImpl(it.reinterpret()) }
-        TypeCache.register(ProxyResolver::class, ProxyResolver.getType()) { ProxyResolver.ProxyResolverImpl(it.reinterpret()) }
-        TypeCache.register(RemoteActionGroup::class, RemoteActionGroup.getType()) { RemoteActionGroup.RemoteActionGroupImpl(it.reinterpret()) }
-        TypeCache.register(Seekable::class, Seekable.getType()) { Seekable.SeekableImpl(it.reinterpret()) }
-        TypeCache.register(SocketConnectable::class, SocketConnectable.getType()) { SocketConnectable.SocketConnectableImpl(it.reinterpret()) }
-        TypeCache.register(TlsBackend::class, TlsBackend.getType()) { TlsBackend.TlsBackendImpl(it.reinterpret()) }
-        TypeCache.register(TlsClientConnection::class, TlsClientConnection.getType()) { TlsClientConnection.TlsClientConnectionImpl(it.reinterpret()) }
-        TypeCache.register(TlsFileDatabase::class, TlsFileDatabase.getType()) { TlsFileDatabase.TlsFileDatabaseImpl(it.reinterpret()) }
-        TypeCache.register(TlsServerConnection::class, TlsServerConnection.getType()) { TlsServerConnection.TlsServerConnectionImpl(it.reinterpret()) }
-        TypeCache.register(Volume::class, Volume.getType()) { Volume.VolumeImpl(it.reinterpret()) }
+        AppInfoMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(AppInfoMonitor::class, gtype) { AppInfoMonitor(it.reinterpret()) } }
+        AppLaunchContext.getTypeOrNull()?.let { gtype -> TypeCache.register(AppLaunchContext::class, gtype) { AppLaunchContext(it.reinterpret()) } }
+        Application.getTypeOrNull()?.let { gtype -> TypeCache.register(Application::class, gtype) { Application(it.reinterpret()) } }
+        ApplicationCommandLine.getTypeOrNull()?.let { gtype -> TypeCache.register(ApplicationCommandLine::class, gtype) { ApplicationCommandLine(it.reinterpret()) } }
+        BufferedInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(BufferedInputStream::class, gtype) { BufferedInputStream(it.reinterpret()) } }
+        BufferedOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(BufferedOutputStream::class, gtype) { BufferedOutputStream(it.reinterpret()) } }
+        BytesIcon.getTypeOrNull()?.let { gtype -> TypeCache.register(BytesIcon::class, gtype) { BytesIcon(it.reinterpret()) } }
+        Cancellable.getTypeOrNull()?.let { gtype -> TypeCache.register(Cancellable::class, gtype) { Cancellable(it.reinterpret()) } }
+        CharsetConverter.getTypeOrNull()?.let { gtype -> TypeCache.register(CharsetConverter::class, gtype) { CharsetConverter(it.reinterpret()) } }
+        ConverterInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(ConverterInputStream::class, gtype) { ConverterInputStream(it.reinterpret()) } }
+        ConverterOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(ConverterOutputStream::class, gtype) { ConverterOutputStream(it.reinterpret()) } }
+        Credentials.getTypeOrNull()?.let { gtype -> TypeCache.register(Credentials::class, gtype) { Credentials(it.reinterpret()) } }
+        DBusActionGroup.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusActionGroup::class, gtype) { DBusActionGroup(it.reinterpret()) } }
+        DBusAuthObserver.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusAuthObserver::class, gtype) { DBusAuthObserver(it.reinterpret()) } }
+        DBusConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusConnection::class, gtype) { DBusConnection(it.reinterpret()) } }
+        DBusInterfaceSkeleton.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusInterfaceSkeleton::class, gtype) { DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(it.reinterpret()) } }
+        DBusMenuModel.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusMenuModel::class, gtype) { DBusMenuModel(it.reinterpret()) } }
+        DBusMessage.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusMessage::class, gtype) { DBusMessage(it.reinterpret()) } }
+        DBusMethodInvocation.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusMethodInvocation::class, gtype) { DBusMethodInvocation(it.reinterpret()) } }
+        DBusObjectManagerClient.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusObjectManagerClient::class, gtype) { DBusObjectManagerClient(it.reinterpret()) } }
+        DBusObjectManagerServer.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusObjectManagerServer::class, gtype) { DBusObjectManagerServer(it.reinterpret()) } }
+        DBusObjectProxy.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusObjectProxy::class, gtype) { DBusObjectProxy(it.reinterpret()) } }
+        DBusObjectSkeleton.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusObjectSkeleton::class, gtype) { DBusObjectSkeleton(it.reinterpret()) } }
+        DBusProxy.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusProxy::class, gtype) { DBusProxy(it.reinterpret()) } }
+        DBusServer.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusServer::class, gtype) { DBusServer(it.reinterpret()) } }
+        DataInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(DataInputStream::class, gtype) { DataInputStream(it.reinterpret()) } }
+        DataOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(DataOutputStream::class, gtype) { DataOutputStream(it.reinterpret()) } }
+        DebugControllerDBus.getTypeOrNull()?.let { gtype -> TypeCache.register(DebugControllerDBus::class, gtype) { DebugControllerDBus(it.reinterpret()) } }
+        DesktopAppInfo.getTypeOrNull()?.let { gtype -> TypeCache.register(DesktopAppInfo::class, gtype) { DesktopAppInfo(it.reinterpret()) } }
+        Emblem.getTypeOrNull()?.let { gtype -> TypeCache.register(Emblem::class, gtype) { Emblem(it.reinterpret()) } }
+        EmblemedIcon.getTypeOrNull()?.let { gtype -> TypeCache.register(EmblemedIcon::class, gtype) { EmblemedIcon(it.reinterpret()) } }
+        FileEnumerator.getTypeOrNull()?.let { gtype -> TypeCache.register(FileEnumerator::class, gtype) { FileEnumerator(it.reinterpret()) } }
+        FileIoStream.getTypeOrNull()?.let { gtype -> TypeCache.register(FileIoStream::class, gtype) { FileIoStream(it.reinterpret()) } }
+        FileIcon.getTypeOrNull()?.let { gtype -> TypeCache.register(FileIcon::class, gtype) { FileIcon(it.reinterpret()) } }
+        FileInfo.getTypeOrNull()?.let { gtype -> TypeCache.register(FileInfo::class, gtype) { FileInfo(it.reinterpret()) } }
+        FileInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(FileInputStream::class, gtype) { FileInputStream(it.reinterpret()) } }
+        FileMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(FileMonitor::class, gtype) { FileMonitor.FileMonitorImpl(it.reinterpret()) } }
+        FileOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(FileOutputStream::class, gtype) { FileOutputStream(it.reinterpret()) } }
+        FilenameCompleter.getTypeOrNull()?.let { gtype -> TypeCache.register(FilenameCompleter::class, gtype) { FilenameCompleter(it.reinterpret()) } }
+        FilterInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(FilterInputStream::class, gtype) { FilterInputStream.FilterInputStreamImpl(it.reinterpret()) } }
+        FilterOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(FilterOutputStream::class, gtype) { FilterOutputStream.FilterOutputStreamImpl(it.reinterpret()) } }
+        IoModule.getTypeOrNull()?.let { gtype -> TypeCache.register(IoModule::class, gtype) { IoModule(it.reinterpret()) } }
+        IoStream.getTypeOrNull()?.let { gtype -> TypeCache.register(IoStream::class, gtype) { IoStream.IoStreamImpl(it.reinterpret()) } }
+        InetAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(InetAddress::class, gtype) { InetAddress(it.reinterpret()) } }
+        InetAddressMask.getTypeOrNull()?.let { gtype -> TypeCache.register(InetAddressMask::class, gtype) { InetAddressMask(it.reinterpret()) } }
+        InetSocketAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(InetSocketAddress::class, gtype) { InetSocketAddress(it.reinterpret()) } }
+        InputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(InputStream::class, gtype) { InputStream.InputStreamImpl(it.reinterpret()) } }
+        ListStore.getTypeOrNull()?.let { gtype -> TypeCache.register(ListStore::class, gtype) { ListStore(it.reinterpret()) } }
+        MemoryInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(MemoryInputStream::class, gtype) { MemoryInputStream(it.reinterpret()) } }
+        MemoryOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(MemoryOutputStream::class, gtype) { MemoryOutputStream(it.reinterpret()) } }
+        Menu.getTypeOrNull()?.let { gtype -> TypeCache.register(Menu::class, gtype) { Menu(it.reinterpret()) } }
+        MenuAttributeIter.getTypeOrNull()?.let { gtype -> TypeCache.register(MenuAttributeIter::class, gtype) { MenuAttributeIter.MenuAttributeIterImpl(it.reinterpret()) } }
+        MenuItem.getTypeOrNull()?.let { gtype -> TypeCache.register(MenuItem::class, gtype) { MenuItem(it.reinterpret()) } }
+        MenuLinkIter.getTypeOrNull()?.let { gtype -> TypeCache.register(MenuLinkIter::class, gtype) { MenuLinkIter.MenuLinkIterImpl(it.reinterpret()) } }
+        MenuModel.getTypeOrNull()?.let { gtype -> TypeCache.register(MenuModel::class, gtype) { MenuModel.MenuModelImpl(it.reinterpret()) } }
+        MountOperation.getTypeOrNull()?.let { gtype -> TypeCache.register(MountOperation::class, gtype) { MountOperation(it.reinterpret()) } }
+        NativeSocketAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(NativeSocketAddress::class, gtype) { NativeSocketAddress(it.reinterpret()) } }
+        NativeVolumeMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(NativeVolumeMonitor::class, gtype) { NativeVolumeMonitor.NativeVolumeMonitorImpl(it.reinterpret()) } }
+        NetworkAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(NetworkAddress::class, gtype) { NetworkAddress(it.reinterpret()) } }
+        NetworkService.getTypeOrNull()?.let { gtype -> TypeCache.register(NetworkService::class, gtype) { NetworkService(it.reinterpret()) } }
+        Notification.getTypeOrNull()?.let { gtype -> TypeCache.register(Notification::class, gtype) { Notification(it.reinterpret()) } }
+        OutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(OutputStream::class, gtype) { OutputStream.OutputStreamImpl(it.reinterpret()) } }
+        Permission.getTypeOrNull()?.let { gtype -> TypeCache.register(Permission::class, gtype) { Permission.PermissionImpl(it.reinterpret()) } }
+        PropertyAction.getTypeOrNull()?.let { gtype -> TypeCache.register(PropertyAction::class, gtype) { PropertyAction(it.reinterpret()) } }
+        ProxyAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(ProxyAddress::class, gtype) { ProxyAddress(it.reinterpret()) } }
+        ProxyAddressEnumerator.getTypeOrNull()?.let { gtype -> TypeCache.register(ProxyAddressEnumerator::class, gtype) { ProxyAddressEnumerator(it.reinterpret()) } }
+        Resolver.getTypeOrNull()?.let { gtype -> TypeCache.register(Resolver::class, gtype) { Resolver.ResolverImpl(it.reinterpret()) } }
+        Settings.getTypeOrNull()?.let { gtype -> TypeCache.register(Settings::class, gtype) { Settings(it.reinterpret()) } }
+        SettingsBackend.getTypeOrNull()?.let { gtype -> TypeCache.register(SettingsBackend::class, gtype) { SettingsBackend.SettingsBackendImpl(it.reinterpret()) } }
+        SimpleAction.getTypeOrNull()?.let { gtype -> TypeCache.register(SimpleAction::class, gtype) { SimpleAction(it.reinterpret()) } }
+        SimpleActionGroup.getTypeOrNull()?.let { gtype -> TypeCache.register(SimpleActionGroup::class, gtype) { SimpleActionGroup(it.reinterpret()) } }
+        SimpleAsyncResult.getTypeOrNull()?.let { gtype -> TypeCache.register(SimpleAsyncResult::class, gtype) { SimpleAsyncResult(it.reinterpret()) } }
+        SimpleIoStream.getTypeOrNull()?.let { gtype -> TypeCache.register(SimpleIoStream::class, gtype) { SimpleIoStream(it.reinterpret()) } }
+        SimplePermission.getTypeOrNull()?.let { gtype -> TypeCache.register(SimplePermission::class, gtype) { SimplePermission(it.reinterpret()) } }
+        SimpleProxyResolver.getTypeOrNull()?.let { gtype -> TypeCache.register(SimpleProxyResolver::class, gtype) { SimpleProxyResolver(it.reinterpret()) } }
+        Socket.getTypeOrNull()?.let { gtype -> TypeCache.register(Socket::class, gtype) { Socket(it.reinterpret()) } }
+        SocketAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketAddress::class, gtype) { SocketAddress.SocketAddressImpl(it.reinterpret()) } }
+        SocketAddressEnumerator.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketAddressEnumerator::class, gtype) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(it.reinterpret()) } }
+        SocketClient.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketClient::class, gtype) { SocketClient(it.reinterpret()) } }
+        SocketConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketConnection::class, gtype) { SocketConnection(it.reinterpret()) } }
+        SocketControlMessage.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketControlMessage::class, gtype) { SocketControlMessage.SocketControlMessageImpl(it.reinterpret()) } }
+        SocketListener.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketListener::class, gtype) { SocketListener(it.reinterpret()) } }
+        SocketService.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketService::class, gtype) { SocketService(it.reinterpret()) } }
+        Subprocess.getTypeOrNull()?.let { gtype -> TypeCache.register(Subprocess::class, gtype) { Subprocess(it.reinterpret()) } }
+        SubprocessLauncher.getTypeOrNull()?.let { gtype -> TypeCache.register(SubprocessLauncher::class, gtype) { SubprocessLauncher(it.reinterpret()) } }
+        Task.getTypeOrNull()?.let { gtype -> TypeCache.register(Task::class, gtype) { Task(it.reinterpret()) } }
+        TcpConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(TcpConnection::class, gtype) { TcpConnection(it.reinterpret()) } }
+        TcpWrapperConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(TcpWrapperConnection::class, gtype) { TcpWrapperConnection(it.reinterpret()) } }
+        TestDBus.getTypeOrNull()?.let { gtype -> TypeCache.register(TestDBus::class, gtype) { TestDBus(it.reinterpret()) } }
+        ThemedIcon.getTypeOrNull()?.let { gtype -> TypeCache.register(ThemedIcon::class, gtype) { ThemedIcon(it.reinterpret()) } }
+        ThreadedSocketService.getTypeOrNull()?.let { gtype -> TypeCache.register(ThreadedSocketService::class, gtype) { ThreadedSocketService(it.reinterpret()) } }
+        TlsCertificate.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsCertificate::class, gtype) { TlsCertificate.TlsCertificateImpl(it.reinterpret()) } }
+        TlsConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsConnection::class, gtype) { TlsConnection.TlsConnectionImpl(it.reinterpret()) } }
+        TlsDatabase.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsDatabase::class, gtype) { TlsDatabase.TlsDatabaseImpl(it.reinterpret()) } }
+        TlsInteraction.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsInteraction::class, gtype) { TlsInteraction(it.reinterpret()) } }
+        TlsPassword.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsPassword::class, gtype) { TlsPassword(it.reinterpret()) } }
+        UnixConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixConnection::class, gtype) { UnixConnection(it.reinterpret()) } }
+        UnixCredentialsMessage.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixCredentialsMessage::class, gtype) { UnixCredentialsMessage(it.reinterpret()) } }
+        UnixFdList.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixFdList::class, gtype) { UnixFdList(it.reinterpret()) } }
+        UnixFdMessage.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixFdMessage::class, gtype) { UnixFdMessage(it.reinterpret()) } }
+        UnixInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixInputStream::class, gtype) { UnixInputStream(it.reinterpret()) } }
+        UnixMountMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixMountMonitor::class, gtype) { UnixMountMonitor(it.reinterpret()) } }
+        UnixOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixOutputStream::class, gtype) { UnixOutputStream(it.reinterpret()) } }
+        UnixSocketAddress.getTypeOrNull()?.let { gtype -> TypeCache.register(UnixSocketAddress::class, gtype) { UnixSocketAddress(it.reinterpret()) } }
+        Vfs.getTypeOrNull()?.let { gtype -> TypeCache.register(Vfs::class, gtype) { Vfs(it.reinterpret()) } }
+        VolumeMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(VolumeMonitor::class, gtype) { VolumeMonitor(it.reinterpret()) } }
+        ZlibCompressor.getTypeOrNull()?.let { gtype -> TypeCache.register(ZlibCompressor::class, gtype) { ZlibCompressor(it.reinterpret()) } }
+        ZlibDecompressor.getTypeOrNull()?.let { gtype -> TypeCache.register(ZlibDecompressor::class, gtype) { ZlibDecompressor(it.reinterpret()) } }
+        Action.getTypeOrNull()?.let { gtype -> TypeCache.register(Action::class, gtype) { Action.ActionImpl(it.reinterpret()) } }
+        ActionGroup.getTypeOrNull()?.let { gtype -> TypeCache.register(ActionGroup::class, gtype) { ActionGroup.ActionGroupImpl(it.reinterpret()) } }
+        ActionMap.getTypeOrNull()?.let { gtype -> TypeCache.register(ActionMap::class, gtype) { ActionMap.ActionMapImpl(it.reinterpret()) } }
+        AppInfo.getTypeOrNull()?.let { gtype -> TypeCache.register(AppInfo::class, gtype) { AppInfo.AppInfoImpl(it.reinterpret()) } }
+        AsyncInitable.getTypeOrNull()?.let { gtype -> TypeCache.register(AsyncInitable::class, gtype) { AsyncInitable.AsyncInitableImpl(it.reinterpret()) } }
+        AsyncResult.getTypeOrNull()?.let { gtype -> TypeCache.register(AsyncResult::class, gtype) { AsyncResult.AsyncResultImpl(it.reinterpret()) } }
+        Converter.getTypeOrNull()?.let { gtype -> TypeCache.register(Converter::class, gtype) { Converter.ConverterImpl(it.reinterpret()) } }
+        DBusInterface.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusInterface::class, gtype) { DBusInterface.DBusInterfaceImpl(it.reinterpret()) } }
+        DBusObject.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusObject::class, gtype) { DBusObject.DBusObjectImpl(it.reinterpret()) } }
+        DBusObjectManager.getTypeOrNull()?.let { gtype -> TypeCache.register(DBusObjectManager::class, gtype) { DBusObjectManager.DBusObjectManagerImpl(it.reinterpret()) } }
+        DatagramBased.getTypeOrNull()?.let { gtype -> TypeCache.register(DatagramBased::class, gtype) { DatagramBased.DatagramBasedImpl(it.reinterpret()) } }
+        DebugController.getTypeOrNull()?.let { gtype -> TypeCache.register(DebugController::class, gtype) { DebugController.DebugControllerImpl(it.reinterpret()) } }
+        DesktopAppInfoLookup.getTypeOrNull()?.let { gtype -> TypeCache.register(DesktopAppInfoLookup::class, gtype) { DesktopAppInfoLookup.DesktopAppInfoLookupImpl(it.reinterpret()) } }
+        Drive.getTypeOrNull()?.let { gtype -> TypeCache.register(Drive::class, gtype) { Drive.DriveImpl(it.reinterpret()) } }
+        DtlsClientConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(DtlsClientConnection::class, gtype) { DtlsClientConnection.DtlsClientConnectionImpl(it.reinterpret()) } }
+        DtlsConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(DtlsConnection::class, gtype) { DtlsConnection.DtlsConnectionImpl(it.reinterpret()) } }
+        DtlsServerConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(DtlsServerConnection::class, gtype) { DtlsServerConnection.DtlsServerConnectionImpl(it.reinterpret()) } }
+        File.getTypeOrNull()?.let { gtype -> TypeCache.register(File::class, gtype) { File.FileImpl(it.reinterpret()) } }
+        FileDescriptorBased.getTypeOrNull()?.let { gtype -> TypeCache.register(FileDescriptorBased::class, gtype) { FileDescriptorBased.FileDescriptorBasedImpl(it.reinterpret()) } }
+        Icon.getTypeOrNull()?.let { gtype -> TypeCache.register(Icon::class, gtype) { Icon.IconImpl(it.reinterpret()) } }
+        Initable.getTypeOrNull()?.let { gtype -> TypeCache.register(Initable::class, gtype) { Initable.InitableImpl(it.reinterpret()) } }
+        ListModel.getTypeOrNull()?.let { gtype -> TypeCache.register(ListModel::class, gtype) { ListModel.ListModelImpl(it.reinterpret()) } }
+        LoadableIcon.getTypeOrNull()?.let { gtype -> TypeCache.register(LoadableIcon::class, gtype) { LoadableIcon.LoadableIconImpl(it.reinterpret()) } }
+        MemoryMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(MemoryMonitor::class, gtype) { MemoryMonitor.MemoryMonitorImpl(it.reinterpret()) } }
+        Mount.getTypeOrNull()?.let { gtype -> TypeCache.register(Mount::class, gtype) { Mount.MountImpl(it.reinterpret()) } }
+        NetworkMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(NetworkMonitor::class, gtype) { NetworkMonitor.NetworkMonitorImpl(it.reinterpret()) } }
+        PollableInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(PollableInputStream::class, gtype) { PollableInputStream.PollableInputStreamImpl(it.reinterpret()) } }
+        PollableOutputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(PollableOutputStream::class, gtype) { PollableOutputStream.PollableOutputStreamImpl(it.reinterpret()) } }
+        PowerProfileMonitor.getTypeOrNull()?.let { gtype -> TypeCache.register(PowerProfileMonitor::class, gtype) { PowerProfileMonitor.PowerProfileMonitorImpl(it.reinterpret()) } }
+        Proxy.getTypeOrNull()?.let { gtype -> TypeCache.register(Proxy::class, gtype) { Proxy.ProxyImpl(it.reinterpret()) } }
+        ProxyResolver.getTypeOrNull()?.let { gtype -> TypeCache.register(ProxyResolver::class, gtype) { ProxyResolver.ProxyResolverImpl(it.reinterpret()) } }
+        RemoteActionGroup.getTypeOrNull()?.let { gtype -> TypeCache.register(RemoteActionGroup::class, gtype) { RemoteActionGroup.RemoteActionGroupImpl(it.reinterpret()) } }
+        Seekable.getTypeOrNull()?.let { gtype -> TypeCache.register(Seekable::class, gtype) { Seekable.SeekableImpl(it.reinterpret()) } }
+        SocketConnectable.getTypeOrNull()?.let { gtype -> TypeCache.register(SocketConnectable::class, gtype) { SocketConnectable.SocketConnectableImpl(it.reinterpret()) } }
+        TlsBackend.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsBackend::class, gtype) { TlsBackend.TlsBackendImpl(it.reinterpret()) } }
+        TlsClientConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsClientConnection::class, gtype) { TlsClientConnection.TlsClientConnectionImpl(it.reinterpret()) } }
+        TlsFileDatabase.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsFileDatabase::class, gtype) { TlsFileDatabase.TlsFileDatabaseImpl(it.reinterpret()) } }
+        TlsServerConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(TlsServerConnection::class, gtype) { TlsServerConnection.TlsServerConnectionImpl(it.reinterpret()) } }
+        Volume.getTypeOrNull()?.let { gtype -> TypeCache.register(Volume::class, gtype) { Volume.VolumeImpl(it.reinterpret()) } }
     }
 }
 

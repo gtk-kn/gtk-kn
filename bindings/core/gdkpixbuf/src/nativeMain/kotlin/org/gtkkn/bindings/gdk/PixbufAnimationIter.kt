@@ -8,11 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPixbufAnimationIter
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_iter_advance
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_iter_get_delay_time
@@ -113,7 +112,7 @@ public open class PixbufAnimationIter(
 
     public companion object : TypeCompanion<PixbufAnimationIter> {
         override val type: GeneratedClassKGType<PixbufAnimationIter> =
-                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_animation_iter_get_type")!!) { PixbufAnimationIter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PixbufAnimationIter(it.reinterpret()) }
 
         init {
             GdkPixbufTypeProvider.register()}
@@ -124,5 +123,15 @@ public open class PixbufAnimationIter(
          * @return the GType
          */
         public fun getType(): GType = gdk_pixbuf_animation_iter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_pixbuf_animation_iter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_animation_iter_get_type")
     }
 }

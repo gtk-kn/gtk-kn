@@ -18,13 +18,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwDialog
 import org.gtkkn.native.adw.adw_dialog_add_breakpoint
 import org.gtkkn.native.adw.adw_dialog_close
@@ -409,7 +409,9 @@ public open class Dialog(
      * @return the new created `AdwDialog`
      * @since 1.5
      */
-    public constructor() : this(adw_dialog_new()!!)
+    public constructor() : this(adw_dialog_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @breakpoint to @self.
@@ -529,7 +531,7 @@ public open class Dialog(
 
     public companion object : TypeCompanion<Dialog> {
         override val type: GeneratedClassKGType<Dialog> =
-                GeneratedClassKGType(getTypeOrNull("adw_dialog_get_type")!!) { Dialog(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Dialog(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -540,6 +542,16 @@ public open class Dialog(
          * @return the GType
          */
         public fun getType(): GType = adw_dialog_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_dialog_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_dialog_get_type")
     }
 }
 

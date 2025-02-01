@@ -6,10 +6,10 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -58,11 +58,13 @@ public open class StyleSchemeChooserWidget(
      *
      * @return a new  #GtkSourceStyleSchemeChooserWidget.
      */
-    public constructor() : this(gtk_source_style_scheme_chooser_widget_new()!!.reinterpret())
+    public constructor() : this(gtk_source_style_scheme_chooser_widget_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<StyleSchemeChooserWidget> {
         override val type: GeneratedClassKGType<StyleSchemeChooserWidget> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_style_scheme_chooser_widget_get_type")!!) { StyleSchemeChooserWidget(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { StyleSchemeChooserWidget(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -73,5 +75,15 @@ public open class StyleSchemeChooserWidget(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_style_scheme_chooser_widget_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_style_scheme_chooser_widget_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_style_scheme_chooser_widget_get_type")
     }
 }

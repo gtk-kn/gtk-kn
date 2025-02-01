@@ -90,13 +90,13 @@ public object GdkPixbuf {
     }
 
     private fun registerTypes() {
-        TypeCache.register(Pixbuf::class, Pixbuf.getType()) { Pixbuf(it.reinterpret()) }
-        TypeCache.register(PixbufAnimation::class, PixbufAnimation.getType()) { PixbufAnimation(it.reinterpret()) }
-        TypeCache.register(PixbufAnimationIter::class, PixbufAnimationIter.getType()) { PixbufAnimationIter(it.reinterpret()) }
-        TypeCache.register(PixbufLoader::class, PixbufLoader.getType()) { PixbufLoader(it.reinterpret()) }
-        TypeCache.register(PixbufNonAnim::class, PixbufNonAnim.getType()) { PixbufNonAnim(it.reinterpret()) }
-        TypeCache.register(PixbufSimpleAnim::class, PixbufSimpleAnim.getType()) { PixbufSimpleAnim(it.reinterpret()) }
-        TypeCache.register(PixbufSimpleAnimIter::class, PixbufSimpleAnimIter.getType()) { PixbufSimpleAnimIter(it.reinterpret()) }
+        Pixbuf.getTypeOrNull()?.let { gtype -> TypeCache.register(Pixbuf::class, gtype) { Pixbuf(it.reinterpret()) } }
+        PixbufAnimation.getTypeOrNull()?.let { gtype -> TypeCache.register(PixbufAnimation::class, gtype) { PixbufAnimation(it.reinterpret()) } }
+        PixbufAnimationIter.getTypeOrNull()?.let { gtype -> TypeCache.register(PixbufAnimationIter::class, gtype) { PixbufAnimationIter(it.reinterpret()) } }
+        PixbufLoader.getTypeOrNull()?.let { gtype -> TypeCache.register(PixbufLoader::class, gtype) { PixbufLoader(it.reinterpret()) } }
+        PixbufNonAnim.getTypeOrNull()?.let { gtype -> TypeCache.register(PixbufNonAnim::class, gtype) { PixbufNonAnim(it.reinterpret()) } }
+        PixbufSimpleAnim.getTypeOrNull()?.let { gtype -> TypeCache.register(PixbufSimpleAnim::class, gtype) { PixbufSimpleAnim(it.reinterpret()) } }
+        PixbufSimpleAnimIter.getTypeOrNull()?.let { gtype -> TypeCache.register(PixbufSimpleAnimIter::class, gtype) { PixbufSimpleAnimIter(it.reinterpret()) } }
     }
 }
 

@@ -12,11 +12,11 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextBuffer
 import org.gtkkn.bindings.gtk.TextIter
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceRegion
 import org.gtkkn.native.gtksource.gtk_source_region_add_region
@@ -104,7 +104,9 @@ public open class Region(
      * @param buffer a #GtkTextBuffer.
      * @return a new #GtkSourceRegion object for @buffer.
      */
-    public constructor(buffer: TextBuffer) : this(gtk_source_region_new(buffer.gtkTextBufferPointer)!!)
+    public constructor(buffer: TextBuffer) : this(gtk_source_region_new(buffer.gtkTextBufferPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds @region_to_add to @region.
@@ -210,7 +212,7 @@ public open class Region(
 
     public companion object : TypeCompanion<Region> {
         override val type: GeneratedClassKGType<Region> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_region_get_type")!!) { Region(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Region(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -221,5 +223,15 @@ public open class Region(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_region_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_region_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_region_get_type")
     }
 }

@@ -15,11 +15,10 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDevice
 import org.gtkkn.native.gdk.GdkDeviceTool
 import org.gtkkn.native.gdk.GdkSeat
@@ -189,7 +188,7 @@ public abstract class Seat(
 
     public companion object : TypeCompanion<Seat> {
         override val type: GeneratedClassKGType<Seat> =
-                GeneratedClassKGType(getTypeOrNull("gdk_seat_get_type")!!) { SeatImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SeatImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -200,6 +199,16 @@ public abstract class Seat(
          * @return the GType
          */
         public fun getType(): GType = gdk_seat_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_seat_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_seat_get_type")
     }
 }
 

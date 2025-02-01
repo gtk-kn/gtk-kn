@@ -12,13 +12,12 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.FileFilter
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitFileChooserRequest
 import org.gtkkn.native.webkit.webkit_file_chooser_request_cancel
@@ -172,7 +171,7 @@ public class FileChooserRequest(
 
     public companion object : TypeCompanion<FileChooserRequest> {
         override val type: GeneratedClassKGType<FileChooserRequest> =
-                GeneratedClassKGType(getTypeOrNull("webkit_file_chooser_request_get_type")!!) { FileChooserRequest(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FileChooserRequest(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -183,5 +182,15 @@ public class FileChooserRequest(
          * @return the GType
          */
         public fun getType(): GType = webkit_file_chooser_request_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_file_chooser_request_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_file_chooser_request_get_type")
     }
 }

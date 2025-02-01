@@ -18,12 +18,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GApplicationCommandLine
 import org.gtkkn.native.gio.g_application_command_line_create_file_for_arg
 import org.gtkkn.native.gio.g_application_command_line_done
@@ -471,7 +470,7 @@ public open class ApplicationCommandLine(
 
     public companion object : TypeCompanion<ApplicationCommandLine> {
         override val type: GeneratedClassKGType<ApplicationCommandLine> =
-                GeneratedClassKGType(getTypeOrNull("g_application_command_line_get_type")!!) { ApplicationCommandLine(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ApplicationCommandLine(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -482,5 +481,15 @@ public open class ApplicationCommandLine(
          * @return the GType
          */
         public fun getType(): GType = g_application_command_line_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_application_command_line_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_application_command_line_get_type")
     }
 }

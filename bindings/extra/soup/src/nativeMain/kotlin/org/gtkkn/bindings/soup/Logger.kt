@@ -8,11 +8,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupLogger
@@ -130,7 +130,9 @@ public class Logger(
      * @param level the debug level
      * @return a new #SoupLogger
      */
-    public constructor(level: LoggerLogLevel) : this(soup_logger_new(level.nativeValue)!!)
+    public constructor(level: LoggerLogLevel) : this(soup_logger_new(level.nativeValue)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Sets up an alternate log printing routine, if you don't want
@@ -166,7 +168,7 @@ public class Logger(
 
     public companion object : TypeCompanion<Logger> {
         override val type: GeneratedClassKGType<Logger> =
-                GeneratedClassKGType(getTypeOrNull("soup_logger_get_type")!!) { Logger(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Logger(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()}
@@ -177,5 +179,15 @@ public class Logger(
          * @return the GType
          */
         public fun getType(): GType = soup_logger_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_logger_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_logger_get_type")
     }
 }

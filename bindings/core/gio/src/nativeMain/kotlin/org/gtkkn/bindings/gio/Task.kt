@@ -28,12 +28,12 @@ import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.GTask
 import org.gtkkn.native.gio.g_task_get_cancellable
@@ -682,7 +682,9 @@ public open class Task(
         sourceObject: Object? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ) : this(g_task_new(sourceObject?.gobjectObjectPointer?.reinterpret(), cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })!!)
+    ) : this(g_task_new(sourceObject?.gobjectObjectPointer?.reinterpret(), cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets @task's #GCancellable
@@ -1102,7 +1104,7 @@ public open class Task(
 
     public companion object : TypeCompanion<Task> {
         override val type: GeneratedClassKGType<Task> =
-                GeneratedClassKGType(getTypeOrNull("g_task_get_type")!!) { Task(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Task(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -1153,5 +1155,15 @@ public open class Task(
          * @return the GType
          */
         public fun getType(): GType = g_task_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_task_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_task_get_type")
     }
 }

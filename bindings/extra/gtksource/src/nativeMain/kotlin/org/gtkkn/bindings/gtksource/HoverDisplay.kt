@@ -7,10 +7,9 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -59,7 +58,7 @@ public open class HoverDisplay(
 
     public companion object : TypeCompanion<HoverDisplay> {
         override val type: GeneratedClassKGType<HoverDisplay> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_hover_display_get_type")!!) { HoverDisplay(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { HoverDisplay(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -70,5 +69,15 @@ public open class HoverDisplay(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_hover_display_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_hover_display_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_hover_display_get_type")
     }
 }

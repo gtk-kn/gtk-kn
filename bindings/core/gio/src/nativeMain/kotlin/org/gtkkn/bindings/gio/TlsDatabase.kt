@@ -19,10 +19,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GTlsDatabase
 import org.gtkkn.native.gio.g_tls_database_create_certificate_handle
 import org.gtkkn.native.gio.g_tls_database_get_type
@@ -440,7 +439,7 @@ public abstract class TlsDatabase(
 
     public companion object : TypeCompanion<TlsDatabase> {
         override val type: GeneratedClassKGType<TlsDatabase> =
-                GeneratedClassKGType(getTypeOrNull("g_tls_database_get_type")!!) { TlsDatabaseImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TlsDatabaseImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -451,5 +450,15 @@ public abstract class TlsDatabase(
          * @return the GType
          */
         public fun getType(): GType = g_tls_database_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_tls_database_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_tls_database_get_type")
     }
 }

@@ -11,10 +11,10 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.WrapMode
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -398,7 +398,9 @@ public open class Inscription(
      * @return a new `GtkInscription`
      * @since 4.8
      */
-    public constructor(text: String? = null) : this(gtk_inscription_new(text)!!.reinterpret())
+    public constructor(text: String? = null) : this(gtk_inscription_new(text)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Utility function to set the text and attributes to be displayed.
@@ -413,7 +415,7 @@ public open class Inscription(
 
     public companion object : TypeCompanion<Inscription> {
         override val type: GeneratedClassKGType<Inscription> =
-                GeneratedClassKGType(getTypeOrNull("gtk_inscription_get_type")!!) { Inscription(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Inscription(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -424,5 +426,15 @@ public open class Inscription(
          * @return the GType
          */
         public fun getType(): GType = gtk_inscription_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_inscription_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_inscription_get_type")
     }
 }

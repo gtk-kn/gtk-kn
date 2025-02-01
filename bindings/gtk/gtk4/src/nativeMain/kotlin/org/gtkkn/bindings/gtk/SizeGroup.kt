@@ -8,10 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkSizeGroup
@@ -131,7 +131,9 @@ public open class SizeGroup(
      * @param mode the mode for the new size group.
      * @return a newly created `GtkSizeGroup`
      */
-    public constructor(mode: SizeGroupMode) : this(gtk_size_group_new(mode.nativeValue)!!)
+    public constructor(mode: SizeGroupMode) : this(gtk_size_group_new(mode.nativeValue)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a widget to a `GtkSizeGroup`.
@@ -168,7 +170,7 @@ public open class SizeGroup(
 
     public companion object : TypeCompanion<SizeGroup> {
         override val type: GeneratedClassKGType<SizeGroup> =
-                GeneratedClassKGType(getTypeOrNull("gtk_size_group_get_type")!!) { SizeGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SizeGroup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -179,5 +181,15 @@ public open class SizeGroup(
          * @return the GType
          */
         public fun getType(): GType = gtk_size_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_size_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_size_group_get_type")
     }
 }

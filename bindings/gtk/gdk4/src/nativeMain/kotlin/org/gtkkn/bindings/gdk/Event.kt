@@ -8,11 +8,10 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkEvent
 import org.gtkkn.native.gdk.gdk_event_get_device
 import org.gtkkn.native.gdk.gdk_event_get_device_tool
@@ -191,7 +190,7 @@ public abstract class Event(
 
     public companion object : TypeCompanion<Event> {
         override val type: GeneratedClassKGType<Event> =
-                GeneratedClassKGType(getTypeOrNull("gdk_event_get_type")!!) { EventImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { EventImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -202,5 +201,15 @@ public abstract class Event(
          * @return the GType
          */
         public fun getType(): GType = gdk_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_event_get_type")
     }
 }

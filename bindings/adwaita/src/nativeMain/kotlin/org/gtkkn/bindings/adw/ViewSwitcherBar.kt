@@ -7,12 +7,12 @@ import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwViewSwitcherBar
 import org.gtkkn.native.adw.adw_view_switcher_bar_get_reveal
 import org.gtkkn.native.adw.adw_view_switcher_bar_get_stack
@@ -145,11 +145,13 @@ public class ViewSwitcherBar(
      *
      * @return the newly created `AdwViewSwitcherBar`
      */
-    public constructor() : this(adw_view_switcher_bar_new()!!.reinterpret())
+    public constructor() : this(adw_view_switcher_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<ViewSwitcherBar> {
         override val type: GeneratedClassKGType<ViewSwitcherBar> =
-                GeneratedClassKGType(getTypeOrNull("adw_view_switcher_bar_get_type")!!) { ViewSwitcherBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ViewSwitcherBar(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -160,5 +162,15 @@ public class ViewSwitcherBar(
          * @return the GType
          */
         public fun getType(): GType = adw_view_switcher_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_view_switcher_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_view_switcher_bar_get_type")
     }
 }

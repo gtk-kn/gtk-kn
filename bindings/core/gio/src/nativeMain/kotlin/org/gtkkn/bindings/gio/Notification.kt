@@ -12,11 +12,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GNotification
 import org.gtkkn.native.gio.g_notification_add_button
 import org.gtkkn.native.gio.g_notification_add_button_with_target_value
@@ -101,7 +101,9 @@ public open class Notification(
      * @return a new #GNotification instance
      * @since 2.40
      */
-    public constructor(title: String) : this(g_notification_new(title)!!)
+    public constructor(title: String) : this(g_notification_new(title)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a button to @notification that activates the action in
@@ -236,7 +238,7 @@ public open class Notification(
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
-                GeneratedClassKGType(getTypeOrNull("g_notification_get_type")!!) { Notification(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Notification(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -247,5 +249,15 @@ public open class Notification(
          * @return the GType
          */
         public fun getType(): GType = g_notification_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_notification_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_notification_get_type")
     }
 }

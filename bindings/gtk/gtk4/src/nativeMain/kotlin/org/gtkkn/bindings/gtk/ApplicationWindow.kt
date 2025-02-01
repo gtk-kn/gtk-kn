@@ -9,12 +9,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.bindings.gio.ActionMap
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GActionGroup
 import org.gtkkn.native.gio.GActionMap
 import org.gtkkn.native.glib.guint
@@ -172,7 +172,9 @@ public open class ApplicationWindow(
      * @param application a `GtkApplication`
      * @return a newly created `GtkApplicationWindow`
      */
-    public constructor(application: Application) : this(gtk_application_window_new(application.gtkApplicationPointer)!!.reinterpret())
+    public constructor(application: Application) : this(gtk_application_window_new(application.gtkApplicationPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the `GtkShortcutsWindow` that is associated with @window.
@@ -209,7 +211,7 @@ public open class ApplicationWindow(
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =
-                GeneratedClassKGType(getTypeOrNull("gtk_application_window_get_type")!!) { ApplicationWindow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ApplicationWindow(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -220,5 +222,15 @@ public open class ApplicationWindow(
          * @return the GType
          */
         public fun getType(): GType = gtk_application_window_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_application_window_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_application_window_get_type")
     }
 }

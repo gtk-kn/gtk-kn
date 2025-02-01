@@ -16,11 +16,11 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GSocketAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_socket_address_get_family
@@ -77,7 +77,9 @@ public abstract class SocketAddress(
      *     be converted, otherwise null
      * @since 2.22
      */
-    public constructor(native: gpointer, len: gsize) : this(g_socket_address_new_from_native(native, len)!!)
+    public constructor(native: gpointer, len: gsize) : this(g_socket_address_new_from_native(native, len)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the size of @address's native struct sockaddr.
@@ -128,7 +130,7 @@ public abstract class SocketAddress(
 
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-                GeneratedClassKGType(getTypeOrNull("g_socket_address_get_type")!!) { SocketAddressImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SocketAddressImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -139,5 +141,15 @@ public abstract class SocketAddress(
          * @return the GType
          */
         public fun getType(): GType = g_socket_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_socket_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_socket_address_get_type")
     }
 }

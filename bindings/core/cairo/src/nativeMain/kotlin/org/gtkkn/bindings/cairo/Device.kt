@@ -9,10 +9,9 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.cairo.cairo_device_acquire
 import org.gtkkn.native.cairo.cairo_device_finish
 import org.gtkkn.native.cairo.cairo_device_flush
@@ -125,7 +124,7 @@ public abstract class Device(
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-                GeneratedClassKGType(getTypeOrNull("cairo_gobject_device_get_type")!!) { DeviceImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DeviceImpl(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()}
@@ -136,5 +135,15 @@ public abstract class Device(
          * @return the GType
          */
         public fun getType(): GType = cairo_gobject_device_get_type()
+
+        /**
+         * Gets the GType of from the symbol `cairo_gobject_device_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("cairo_gobject_device_get_type")
     }
 }

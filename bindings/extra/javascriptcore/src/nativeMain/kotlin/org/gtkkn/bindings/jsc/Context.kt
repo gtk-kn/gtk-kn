@@ -10,11 +10,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.jsc.JSCContext
@@ -80,7 +80,9 @@ public class Context(
      *
      * @return the newly created #JSCContext.
      */
-    public constructor() : this(jsc_context_new()!!)
+    public constructor() : this(jsc_context_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Create a new #JSCContext in @virtual_machine.
@@ -88,7 +90,9 @@ public class Context(
      * @param vm a #JSCVirtualMachine
      * @return the newly created #JSCContext.
      */
-    public constructor(vm: VirtualMachine) : this(jsc_context_new_with_virtual_machine(vm.jscVirtualMachinePointer)!!)
+    public constructor(vm: VirtualMachine) : this(jsc_context_new_with_virtual_machine(vm.jscVirtualMachinePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Clear the uncaught exception in @context if any.
@@ -204,7 +208,7 @@ public class Context(
 
     public companion object : TypeCompanion<Context> {
         override val type: GeneratedClassKGType<Context> =
-                GeneratedClassKGType(getTypeOrNull("jsc_context_get_type")!!) { Context(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Context(it.reinterpret()) }
 
         init {
             JavaScriptCoreTypeProvider.register()}
@@ -224,5 +228,15 @@ public class Context(
          * @return the GType
          */
         public fun getType(): GType = jsc_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `jsc_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("jsc_context_get_type")
     }
 }

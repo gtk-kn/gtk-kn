@@ -22,13 +22,13 @@ import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkClipboard
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.glib.gint
@@ -221,7 +221,9 @@ public open class TextBuffer(
      * @param table a tag table, or null to create a new one
      * @return a new text buffer
      */
-    public constructor(table: TextTagTable? = null) : this(gtk_text_buffer_new(table?.gtkTextTagTablePointer)!!)
+    public constructor(table: TextTagTable? = null) : this(gtk_text_buffer_new(table?.gtkTextTagTablePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds the mark at position @where.
@@ -1507,7 +1509,7 @@ public open class TextBuffer(
 
     public companion object : TypeCompanion<TextBuffer> {
         override val type: GeneratedClassKGType<TextBuffer> =
-                GeneratedClassKGType(getTypeOrNull("gtk_text_buffer_get_type")!!) { TextBuffer(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TextBuffer(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -1518,6 +1520,16 @@ public open class TextBuffer(
          * @return the GType
          */
         public fun getType(): GType = gtk_text_buffer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_text_buffer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_text_buffer_get_type")
     }
 }
 

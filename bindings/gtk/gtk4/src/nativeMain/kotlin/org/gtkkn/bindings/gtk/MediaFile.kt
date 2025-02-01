@@ -9,10 +9,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.InputStream
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMediaFile
@@ -107,7 +107,9 @@ public abstract class MediaFile(
      *
      * @return a new `GtkMediaFile`
      */
-    public constructor() : this(gtk_media_file_new()!!.reinterpret())
+    public constructor() : this(gtk_media_file_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new media file to play @file.
@@ -115,7 +117,9 @@ public abstract class MediaFile(
      * @param file The file to play
      * @return a new `GtkMediaFile` playing @file
      */
-    public constructor(`file`: File) : this(gtk_media_file_new_for_file(`file`.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File) : this(gtk_media_file_new_for_file(`file`.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new media file for the given filename.
@@ -126,7 +130,9 @@ public abstract class MediaFile(
      * @param filename filename to open
      * @return a new `GtkMediaFile` playing @filename
      */
-    public constructor(filename: String) : this(gtk_media_file_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String) : this(gtk_media_file_new_for_filename(filename)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new media file to play @stream.
@@ -137,7 +143,9 @@ public abstract class MediaFile(
      * @param stream The stream to play
      * @return a new `GtkMediaFile`
      */
-    public constructor(stream: InputStream) : this(gtk_media_file_new_for_input_stream(stream.gioInputStreamPointer)!!.reinterpret())
+    public constructor(stream: InputStream) : this(gtk_media_file_new_for_input_stream(stream.gioInputStreamPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Resets the media file to be empty.
@@ -175,7 +183,7 @@ public abstract class MediaFile(
 
     public companion object : TypeCompanion<MediaFile> {
         override val type: GeneratedClassKGType<MediaFile> =
-                GeneratedClassKGType(getTypeOrNull("gtk_media_file_get_type")!!) { MediaFileImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MediaFileImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -188,6 +196,16 @@ public abstract class MediaFile(
         public fun getType(): GType = gtk_media_file_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_media_file_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_media_file_get_type")
+
+        /**
          * Creates a new new media file for the given resource.
          *
          * This is a utility function that converts the given @resource
@@ -196,6 +214,8 @@ public abstract class MediaFile(
          * @param resourcePath resource path to open
          * @return a new `GtkMediaFile` playing @resource_path
          */
-        public fun forResource(resourcePath: String): MediaFileImpl = MediaFileImpl(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
+        public fun forResource(resourcePath: String): MediaFileImpl = MediaFileImpl(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

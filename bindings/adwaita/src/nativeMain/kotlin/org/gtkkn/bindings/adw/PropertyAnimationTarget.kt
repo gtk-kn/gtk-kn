@@ -9,10 +9,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwPropertyAnimationTarget
 import org.gtkkn.native.adw.adw_property_animation_target_get_object
 import org.gtkkn.native.adw.adw_property_animation_target_get_pspec
@@ -84,7 +84,9 @@ public class PropertyAnimationTarget(
      * @return the newly created `AdwPropertyAnimationTarget`
      * @since 1.2
      */
-    public constructor(`object`: Object, propertyName: String) : this(adw_property_animation_target_new(`object`.gobjectObjectPointer, propertyName)!!.reinterpret())
+    public constructor(`object`: Object, propertyName: String) : this(adw_property_animation_target_new(`object`.gobjectObjectPointer, propertyName)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
@@ -95,11 +97,13 @@ public class PropertyAnimationTarget(
      * @return new newly created `AdwPropertyAnimationTarget`
      * @since 1.2
      */
-    public constructor(`object`: Object, pspec: ParamSpec) : this(adw_property_animation_target_new_for_pspec(`object`.gobjectObjectPointer, pspec.gobjectParamSpecPointer)!!.reinterpret())
+    public constructor(`object`: Object, pspec: ParamSpec) : this(adw_property_animation_target_new_for_pspec(`object`.gobjectObjectPointer, pspec.gobjectParamSpecPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =
-                GeneratedClassKGType(getTypeOrNull("adw_property_animation_target_get_type")!!) { PropertyAnimationTarget(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PropertyAnimationTarget(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -110,5 +114,15 @@ public class PropertyAnimationTarget(
          * @return the GType
          */
         public fun getType(): GType = adw_property_animation_target_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_property_animation_target_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_property_animation_target_get_type")
     }
 }

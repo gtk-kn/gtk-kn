@@ -40,14 +40,14 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
@@ -383,7 +383,9 @@ public open class Session(
      *
      * @return the new session.
      */
-    public constructor() : this(soup_session_new()!!)
+    public constructor() : this(soup_session_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Cancels all pending requests in @session and closes all idle
@@ -906,7 +908,7 @@ public open class Session(
 
     public companion object : TypeCompanion<Session> {
         override val type: GeneratedClassKGType<Session> =
-                GeneratedClassKGType(getTypeOrNull("soup_session_get_type")!!) { Session(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Session(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()}
@@ -917,6 +919,16 @@ public open class Session(
          * @return the GType
          */
         public fun getType(): GType = soup_session_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_session_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_session_get_type")
     }
 }
 

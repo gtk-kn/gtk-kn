@@ -21,13 +21,13 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.g_signal_emit_by_name
@@ -394,7 +394,9 @@ public open class MenuButton(
      *
      * @return The newly created `GtkMenuButton`
      */
-    public constructor() : this(gtk_menu_button_new()!!.reinterpret())
+    public constructor() : this(gtk_menu_button_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the name of the icon shown in the button.
@@ -515,7 +517,7 @@ public open class MenuButton(
 
     public companion object : TypeCompanion<MenuButton> {
         override val type: GeneratedClassKGType<MenuButton> =
-                GeneratedClassKGType(getTypeOrNull("gtk_menu_button_get_type")!!) { MenuButton(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MenuButton(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -526,6 +528,16 @@ public open class MenuButton(
          * @return the GType
          */
         public fun getType(): GType = gtk_menu_button_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_menu_button_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_menu_button_get_type")
     }
 }
 

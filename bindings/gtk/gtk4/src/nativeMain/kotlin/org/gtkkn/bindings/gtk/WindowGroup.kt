@@ -8,10 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkWindowGroup
 import org.gtkkn.native.gtk.gtk_window_group_add_window
@@ -54,7 +54,9 @@ public open class WindowGroup(
      *
      * @return a new `GtkWindowGroup`.
      */
-    public constructor() : this(gtk_window_group_new()!!)
+    public constructor() : this(gtk_window_group_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a window to a `GtkWindowGroup`.
@@ -81,7 +83,7 @@ public open class WindowGroup(
 
     public companion object : TypeCompanion<WindowGroup> {
         override val type: GeneratedClassKGType<WindowGroup> =
-                GeneratedClassKGType(getTypeOrNull("gtk_window_group_get_type")!!) { WindowGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { WindowGroup(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -92,5 +94,15 @@ public open class WindowGroup(
          * @return the GType
          */
         public fun getType(): GType = gtk_window_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_window_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_window_group_get_type")
     }
 }

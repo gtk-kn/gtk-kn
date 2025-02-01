@@ -6,12 +6,11 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GFilterInputStream
 import org.gtkkn.native.gio.g_filter_input_stream_get_base_stream
 import org.gtkkn.native.gio.g_filter_input_stream_get_close_base_stream
@@ -74,7 +73,7 @@ public abstract class FilterInputStream(
 
     public companion object : TypeCompanion<FilterInputStream> {
         override val type: GeneratedClassKGType<FilterInputStream> =
-                GeneratedClassKGType(getTypeOrNull("g_filter_input_stream_get_type")!!) { FilterInputStreamImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FilterInputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -85,5 +84,15 @@ public abstract class FilterInputStream(
          * @return the GType
          */
         public fun getType(): GType = g_filter_input_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_filter_input_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_filter_input_stream_get_type")
     }
 }

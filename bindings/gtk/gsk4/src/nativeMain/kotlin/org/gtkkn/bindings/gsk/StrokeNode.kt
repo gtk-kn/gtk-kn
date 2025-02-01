@@ -7,10 +7,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskStrokeNode
 import org.gtkkn.native.gsk.gsk_render_node_unref
@@ -87,7 +86,7 @@ public open class StrokeNode(
 
     public companion object : TypeCompanion<StrokeNode> {
         override val type: GeneratedClassKGType<StrokeNode> =
-                GeneratedClassKGType(getTypeOrNull("gsk_stroke_node_get_type")!!) { StrokeNode(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { StrokeNode(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()}
@@ -98,5 +97,15 @@ public open class StrokeNode(
          * @return the GType
          */
         public fun getType(): GType = gsk_stroke_node_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gsk_stroke_node_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gsk_stroke_node_get_type")
     }
 }

@@ -14,11 +14,10 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoFontFamily
@@ -134,7 +133,7 @@ public abstract class FontFamily(
 
     public companion object : TypeCompanion<FontFamily> {
         override val type: GeneratedClassKGType<FontFamily> =
-                GeneratedClassKGType(getTypeOrNull("pango_font_family_get_type")!!) { FontFamilyImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FontFamilyImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()}
@@ -145,5 +144,15 @@ public abstract class FontFamily(
          * @return the GType
          */
         public fun getType(): GType = pango_font_family_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_font_family_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_font_family_get_type")
     }
 }

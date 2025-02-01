@@ -21,11 +21,11 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GBytes
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
@@ -247,7 +247,9 @@ public class WebsocketConnection(
         origin: String? = null,
         protocol: String? = null,
         extensions: List,
-    ) : this(soup_websocket_connection_new(stream.gioIoStreamPointer, uri.glibUriPointer, type.nativeValue, origin, protocol, extensions.glibListPointer)!!)
+    ) : this(soup_websocket_connection_new(stream.gioIoStreamPointer, uri.glibUriPointer, type.nativeValue, origin, protocol, extensions.glibListPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Close the connection in an orderly fashion.
@@ -416,7 +418,7 @@ public class WebsocketConnection(
 
     public companion object : TypeCompanion<WebsocketConnection> {
         override val type: GeneratedClassKGType<WebsocketConnection> =
-                GeneratedClassKGType(getTypeOrNull("soup_websocket_connection_get_type")!!) { WebsocketConnection(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { WebsocketConnection(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()}
@@ -427,6 +429,16 @@ public class WebsocketConnection(
          * @return the GType
          */
         public fun getType(): GType = soup_websocket_connection_get_type()
+
+        /**
+         * Gets the GType of from the symbol `soup_websocket_connection_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("soup_websocket_connection_get_type")
     }
 }
 

@@ -19,13 +19,13 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GCredentials
 import org.gtkkn.native.gio.GDBusAuthObserver
 import org.gtkkn.native.gio.GIOStream
@@ -118,7 +118,9 @@ public open class DBusAuthObserver(
      * @return A #GDBusAuthObserver. Free with g_object_unref().
      * @since 2.26
      */
-    public constructor() : this(g_dbus_auth_observer_new()!!)
+    public constructor() : this(g_dbus_auth_observer_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Emits the #GDBusAuthObserver::allow-mechanism signal on @observer.
@@ -164,7 +166,7 @@ public open class DBusAuthObserver(
 
     public companion object : TypeCompanion<DBusAuthObserver> {
         override val type: GeneratedClassKGType<DBusAuthObserver> =
-                GeneratedClassKGType(getTypeOrNull("g_dbus_auth_observer_get_type")!!) { DBusAuthObserver(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DBusAuthObserver(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -175,6 +177,16 @@ public open class DBusAuthObserver(
          * @return the GType
          */
         public fun getType(): GType = g_dbus_auth_observer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_dbus_auth_observer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_dbus_auth_observer_get_type")
     }
 }
 

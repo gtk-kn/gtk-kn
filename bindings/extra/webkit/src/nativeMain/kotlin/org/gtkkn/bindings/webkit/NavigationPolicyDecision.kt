@@ -6,10 +6,9 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNavigationPolicyDecision
 import org.gtkkn.native.webkit.webkit_navigation_policy_decision_get_navigation_action
@@ -48,7 +47,7 @@ public class NavigationPolicyDecision(
 
     public companion object : TypeCompanion<NavigationPolicyDecision> {
         override val type: GeneratedClassKGType<NavigationPolicyDecision> =
-                GeneratedClassKGType(getTypeOrNull("webkit_navigation_policy_decision_get_type")!!) { NavigationPolicyDecision(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { NavigationPolicyDecision(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -59,5 +58,15 @@ public class NavigationPolicyDecision(
          * @return the GType
          */
         public fun getType(): GType = webkit_navigation_policy_decision_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_navigation_policy_decision_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_navigation_policy_decision_get_type")
     }
 }

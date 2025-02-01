@@ -15,11 +15,11 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GDataOutputStream
 import org.gtkkn.native.gio.GSeekable
 import org.gtkkn.native.gio.g_data_output_stream_get_byte_order
@@ -84,7 +84,9 @@ public open class DataOutputStream(
      * @param baseStream a #GOutputStream.
      * @return #GDataOutputStream.
      */
-    public constructor(baseStream: OutputStream) : this(g_data_output_stream_new(baseStream.gioOutputStreamPointer)!!)
+    public constructor(baseStream: OutputStream) : this(g_data_output_stream_new(baseStream.gioOutputStreamPointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Puts a byte into the output stream.
@@ -224,7 +226,7 @@ public open class DataOutputStream(
 
     public companion object : TypeCompanion<DataOutputStream> {
         override val type: GeneratedClassKGType<DataOutputStream> =
-                GeneratedClassKGType(getTypeOrNull("g_data_output_stream_get_type")!!) { DataOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DataOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -235,5 +237,15 @@ public open class DataOutputStream(
          * @return the GType
          */
         public fun getType(): GType = g_data_output_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_data_output_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_data_output_stream_get_type")
     }
 }

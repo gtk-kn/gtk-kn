@@ -18,13 +18,13 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwActionRow
 import org.gtkkn.native.adw.adw_action_row_activate
 import org.gtkkn.native.adw.adw_action_row_add_prefix
@@ -244,7 +244,9 @@ public open class ActionRow(
      *
      * @return the newly created `AdwActionRow`
      */
-    public constructor() : this(adw_action_row_new()!!.reinterpret())
+    public constructor() : this(adw_action_row_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Activates @self.
@@ -306,7 +308,7 @@ public open class ActionRow(
 
     public companion object : TypeCompanion<ActionRow> {
         override val type: GeneratedClassKGType<ActionRow> =
-                GeneratedClassKGType(getTypeOrNull("adw_action_row_get_type")!!) { ActionRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { ActionRow(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -317,6 +319,16 @@ public open class ActionRow(
          * @return the GType
          */
         public fun getType(): GType = adw_action_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_action_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_action_row_get_type")
     }
 }
 

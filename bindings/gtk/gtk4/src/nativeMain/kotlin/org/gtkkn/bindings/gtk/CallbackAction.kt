@@ -6,11 +6,11 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkCallbackAction
 import org.gtkkn.native.gtk.gtk_callback_action_get_type
@@ -34,11 +34,13 @@ public open class CallbackAction(
      * @param callback the callback to call
      * @return A new shortcut action
      */
-    public constructor(callback: ShortcutFunc?) : this(gtk_callback_action_new(callback?.let { ShortcutFuncFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, callback?.let { staticStableRefDestroy.reinterpret() })!!.reinterpret())
+    public constructor(callback: ShortcutFunc?) : this(gtk_callback_action_new(callback?.let { ShortcutFuncFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, callback?.let { staticStableRefDestroy.reinterpret() })!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<CallbackAction> {
         override val type: GeneratedClassKGType<CallbackAction> =
-                GeneratedClassKGType(getTypeOrNull("gtk_callback_action_get_type")!!) { CallbackAction(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { CallbackAction(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -49,5 +51,15 @@ public open class CallbackAction(
          * @return the GType
          */
         public fun getType(): GType = gtk_callback_action_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_callback_action_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_callback_action_get_type")
     }
 }

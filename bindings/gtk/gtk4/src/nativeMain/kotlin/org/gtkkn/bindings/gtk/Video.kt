@@ -10,12 +10,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -185,7 +185,9 @@ public open class Video(
      *
      * @return a new `GtkVideo`
      */
-    public constructor() : this(gtk_video_new()!!.reinterpret())
+    public constructor() : this(gtk_video_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GtkVideo` to play back the given @file.
@@ -193,7 +195,9 @@ public open class Video(
      * @param file a `GFile`
      * @return a new `GtkVideo`
      */
-    public constructor(`file`: File? = null) : this(gtk_video_new_for_file(`file`?.gioFilePointer)!!.reinterpret())
+    public constructor(`file`: File? = null) : this(gtk_video_new_for_file(`file`?.gioFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GtkVideo` to play back the given @filename.
@@ -204,7 +208,9 @@ public open class Video(
      * @param filename filename to play back
      * @return a new `GtkVideo`
      */
-    public constructor(filename: String? = null) : this(gtk_video_new_for_filename(filename)!!.reinterpret())
+    public constructor(filename: String? = null) : this(gtk_video_new_for_filename(filename)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a `GtkVideo` to play back the given @stream.
@@ -212,7 +218,9 @@ public open class Video(
      * @param stream a `GtkMediaStream`
      * @return a new `GtkVideo`
      */
-    public constructor(stream: MediaStream? = null) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer)!!.reinterpret())
+    public constructor(stream: MediaStream? = null) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Makes @self play the given @filename.
@@ -234,7 +242,7 @@ public open class Video(
 
     public companion object : TypeCompanion<Video> {
         override val type: GeneratedClassKGType<Video> =
-                GeneratedClassKGType(getTypeOrNull("gtk_video_get_type")!!) { Video(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Video(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -247,6 +255,16 @@ public open class Video(
         public fun getType(): GType = gtk_video_get_type()
 
         /**
+         * Gets the GType of from the symbol `gtk_video_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_video_get_type")
+
+        /**
          * Creates a `GtkVideo` to play back the resource at the
          * given @resource_path.
          *
@@ -255,6 +273,8 @@ public open class Video(
          * @param resourcePath resource path to play back
          * @return a new `GtkVideo`
          */
-        public fun forResource(resourcePath: String? = null): Video = Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret())
+        public fun forResource(resourcePath: String? = null): Video = Video(gtk_video_new_for_resource(resourcePath)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

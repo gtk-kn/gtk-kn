@@ -7,11 +7,11 @@ import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkMountOperation
 import org.gtkkn.native.gtk.gtk_mount_operation_get_display
@@ -93,7 +93,9 @@ public open class MountOperation(
      * @param parent transient parent of the window
      * @return a new `GtkMountOperation`
      */
-    public constructor(parent: Window? = null) : this(gtk_mount_operation_new(parent?.gtkWindowPointer)!!.reinterpret())
+    public constructor(parent: Window? = null) : this(gtk_mount_operation_new(parent?.gtkWindowPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Returns whether the `GtkMountOperation` is currently displaying
@@ -105,7 +107,7 @@ public open class MountOperation(
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =
-                GeneratedClassKGType(getTypeOrNull("gtk_mount_operation_get_type")!!) { MountOperation(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { MountOperation(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -116,5 +118,15 @@ public open class MountOperation(
          * @return the GType
          */
         public fun getType(): GType = gtk_mount_operation_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_mount_operation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_mount_operation_get_type")
     }
 }

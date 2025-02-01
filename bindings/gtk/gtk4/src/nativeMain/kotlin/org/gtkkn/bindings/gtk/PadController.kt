@@ -9,10 +9,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Device
 import org.gtkkn.bindings.gio.ActionGroup
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkPadController
@@ -103,7 +103,9 @@ public open class PadController(
      * @param pad A %GDK_SOURCE_TABLET_PAD device, or null to handle all pads
      * @return A newly created `GtkPadController`
      */
-    public constructor(group: ActionGroup, pad: Device? = null) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer)!!)
+    public constructor(group: ActionGroup, pad: Device? = null) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds an individual action to @controller.
@@ -133,7 +135,7 @@ public open class PadController(
 
     public companion object : TypeCompanion<PadController> {
         override val type: GeneratedClassKGType<PadController> =
-                GeneratedClassKGType(getTypeOrNull("gtk_pad_controller_get_type")!!) { PadController(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PadController(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -144,5 +146,15 @@ public open class PadController(
          * @return the GType
          */
         public fun getType(): GType = gtk_pad_controller_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_pad_controller_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_pad_controller_get_type")
     }
 }

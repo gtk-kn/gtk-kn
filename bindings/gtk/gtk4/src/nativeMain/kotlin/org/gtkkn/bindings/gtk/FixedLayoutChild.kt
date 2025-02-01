@@ -7,10 +7,9 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.Transform
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkFixedLayoutChild
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_transform
@@ -49,7 +48,7 @@ public open class FixedLayoutChild(
 
     public companion object : TypeCompanion<FixedLayoutChild> {
         override val type: GeneratedClassKGType<FixedLayoutChild> =
-                GeneratedClassKGType(getTypeOrNull("gtk_fixed_layout_child_get_type")!!) { FixedLayoutChild(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FixedLayoutChild(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -60,5 +59,15 @@ public open class FixedLayoutChild(
          * @return the GType
          */
         public fun getType(): GType = gtk_fixed_layout_child_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_fixed_layout_child_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_fixed_layout_child_get_type")
     }
 }

@@ -30,12 +30,12 @@ import org.gtkkn.bindings.glib.SpawnChildSetupFunc
 import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
 import org.gtkkn.bindings.glib.SpawnFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
 import org.gtkkn.native.gio.GDesktopAppInfo
 import org.gtkkn.native.gio.g_desktop_app_info_get_action_name
@@ -124,7 +124,9 @@ public open class DesktopAppInfo(
      * @return a new #GDesktopAppInfo, or null if no desktop
      *     file with that id exists.
      */
-    public constructor(desktopId: String) : this(g_desktop_app_info_new(desktopId)!!.reinterpret())
+    public constructor(desktopId: String) : this(g_desktop_app_info_new(desktopId)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GDesktopAppInfo.
@@ -133,7 +135,9 @@ public open class DesktopAppInfo(
      * @return a new #GDesktopAppInfo or null on error.
      * @since 2.18
      */
-    public constructor(keyFile: KeyFile) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
+    public constructor(keyFile: KeyFile) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the user-visible display name of the "additional application
@@ -399,7 +403,7 @@ public open class DesktopAppInfo(
 
     public companion object : TypeCompanion<DesktopAppInfo> {
         override val type: GeneratedClassKGType<DesktopAppInfo> =
-                GeneratedClassKGType(getTypeOrNull("g_desktop_app_info_get_type")!!) { DesktopAppInfo(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DesktopAppInfo(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -440,12 +444,24 @@ public open class DesktopAppInfo(
         public fun getType(): GType = g_desktop_app_info_get_type()
 
         /**
+         * Gets the GType of from the symbol `g_desktop_app_info_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_desktop_app_info_get_type")
+
+        /**
          * Creates a new #GDesktopAppInfo.
          *
          * @param filename the path of a desktop file, in the GLib
          *      filename encoding
          * @return a new #GDesktopAppInfo or null on error.
          */
-        public fun fromFilename(filename: String): DesktopAppInfo = DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret())
+        public fun fromFilename(filename: String): DesktopAppInfo = DesktopAppInfo(g_desktop_app_info_new_from_filename(filename)!!.reinterpret()).apply  {
+            InstanceCache.put(this)
+        }
     }
 }

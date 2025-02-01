@@ -644,34 +644,34 @@ public object Soup {
     }
 
     private fun registerTypes() {
-        TypeCache.register(Auth::class, Auth.getType()) { Auth.AuthImpl(it.reinterpret()) }
-        TypeCache.register(AuthBasic::class, AuthBasic.getType()) { AuthBasic(it.reinterpret()) }
-        TypeCache.register(AuthDigest::class, AuthDigest.getType()) { AuthDigest(it.reinterpret()) }
-        TypeCache.register(AuthDomain::class, AuthDomain.getType()) { AuthDomain.AuthDomainImpl(it.reinterpret()) }
-        TypeCache.register(AuthDomainBasic::class, AuthDomainBasic.getType()) { AuthDomainBasic(it.reinterpret()) }
-        TypeCache.register(AuthDomainDigest::class, AuthDomainDigest.getType()) { AuthDomainDigest(it.reinterpret()) }
-        TypeCache.register(AuthManager::class, AuthManager.getType()) { AuthManager(it.reinterpret()) }
-        TypeCache.register(AuthNtlm::class, AuthNtlm.getType()) { AuthNtlm(it.reinterpret()) }
-        TypeCache.register(AuthNegotiate::class, AuthNegotiate.getType()) { AuthNegotiate(it.reinterpret()) }
-        TypeCache.register(Cache::class, Cache.getType()) { Cache(it.reinterpret()) }
-        TypeCache.register(ContentDecoder::class, ContentDecoder.getType()) { ContentDecoder(it.reinterpret()) }
-        TypeCache.register(ContentSniffer::class, ContentSniffer.getType()) { ContentSniffer(it.reinterpret()) }
-        TypeCache.register(CookieJar::class, CookieJar.getType()) { CookieJar(it.reinterpret()) }
-        TypeCache.register(CookieJarDb::class, CookieJarDb.getType()) { CookieJarDb(it.reinterpret()) }
-        TypeCache.register(CookieJarText::class, CookieJarText.getType()) { CookieJarText(it.reinterpret()) }
-        TypeCache.register(HstsEnforcer::class, HstsEnforcer.getType()) { HstsEnforcer(it.reinterpret()) }
-        TypeCache.register(HstsEnforcerDb::class, HstsEnforcerDb.getType()) { HstsEnforcerDb(it.reinterpret()) }
-        TypeCache.register(Logger::class, Logger.getType()) { Logger(it.reinterpret()) }
-        TypeCache.register(Message::class, Message.getType()) { Message(it.reinterpret()) }
-        TypeCache.register(MultipartInputStream::class, MultipartInputStream.getType()) { MultipartInputStream(it.reinterpret()) }
-        TypeCache.register(Server::class, Server.getType()) { Server(it.reinterpret()) }
-        TypeCache.register(ServerMessage::class, ServerMessage.getType()) { ServerMessage(it.reinterpret()) }
-        TypeCache.register(Session::class, Session.getType()) { Session(it.reinterpret()) }
-        TypeCache.register(WebsocketConnection::class, WebsocketConnection.getType()) { WebsocketConnection(it.reinterpret()) }
-        TypeCache.register(WebsocketExtension::class, WebsocketExtension.getType()) { WebsocketExtension.WebsocketExtensionImpl(it.reinterpret()) }
-        TypeCache.register(WebsocketExtensionDeflate::class, WebsocketExtensionDeflate.getType()) { WebsocketExtensionDeflate(it.reinterpret()) }
-        TypeCache.register(WebsocketExtensionManager::class, WebsocketExtensionManager.getType()) { WebsocketExtensionManager(it.reinterpret()) }
-        TypeCache.register(SessionFeature::class, SessionFeature.getType()) { SessionFeature.SessionFeatureImpl(it.reinterpret()) }
+        Auth.getTypeOrNull()?.let { gtype -> TypeCache.register(Auth::class, gtype) { Auth.AuthImpl(it.reinterpret()) } }
+        AuthBasic.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthBasic::class, gtype) { AuthBasic(it.reinterpret()) } }
+        AuthDigest.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthDigest::class, gtype) { AuthDigest(it.reinterpret()) } }
+        AuthDomain.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthDomain::class, gtype) { AuthDomain.AuthDomainImpl(it.reinterpret()) } }
+        AuthDomainBasic.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthDomainBasic::class, gtype) { AuthDomainBasic(it.reinterpret()) } }
+        AuthDomainDigest.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthDomainDigest::class, gtype) { AuthDomainDigest(it.reinterpret()) } }
+        AuthManager.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthManager::class, gtype) { AuthManager(it.reinterpret()) } }
+        AuthNtlm.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthNtlm::class, gtype) { AuthNtlm(it.reinterpret()) } }
+        AuthNegotiate.getTypeOrNull()?.let { gtype -> TypeCache.register(AuthNegotiate::class, gtype) { AuthNegotiate(it.reinterpret()) } }
+        Cache.getTypeOrNull()?.let { gtype -> TypeCache.register(Cache::class, gtype) { Cache(it.reinterpret()) } }
+        ContentDecoder.getTypeOrNull()?.let { gtype -> TypeCache.register(ContentDecoder::class, gtype) { ContentDecoder(it.reinterpret()) } }
+        ContentSniffer.getTypeOrNull()?.let { gtype -> TypeCache.register(ContentSniffer::class, gtype) { ContentSniffer(it.reinterpret()) } }
+        CookieJar.getTypeOrNull()?.let { gtype -> TypeCache.register(CookieJar::class, gtype) { CookieJar(it.reinterpret()) } }
+        CookieJarDb.getTypeOrNull()?.let { gtype -> TypeCache.register(CookieJarDb::class, gtype) { CookieJarDb(it.reinterpret()) } }
+        CookieJarText.getTypeOrNull()?.let { gtype -> TypeCache.register(CookieJarText::class, gtype) { CookieJarText(it.reinterpret()) } }
+        HstsEnforcer.getTypeOrNull()?.let { gtype -> TypeCache.register(HstsEnforcer::class, gtype) { HstsEnforcer(it.reinterpret()) } }
+        HstsEnforcerDb.getTypeOrNull()?.let { gtype -> TypeCache.register(HstsEnforcerDb::class, gtype) { HstsEnforcerDb(it.reinterpret()) } }
+        Logger.getTypeOrNull()?.let { gtype -> TypeCache.register(Logger::class, gtype) { Logger(it.reinterpret()) } }
+        Message.getTypeOrNull()?.let { gtype -> TypeCache.register(Message::class, gtype) { Message(it.reinterpret()) } }
+        MultipartInputStream.getTypeOrNull()?.let { gtype -> TypeCache.register(MultipartInputStream::class, gtype) { MultipartInputStream(it.reinterpret()) } }
+        Server.getTypeOrNull()?.let { gtype -> TypeCache.register(Server::class, gtype) { Server(it.reinterpret()) } }
+        ServerMessage.getTypeOrNull()?.let { gtype -> TypeCache.register(ServerMessage::class, gtype) { ServerMessage(it.reinterpret()) } }
+        Session.getTypeOrNull()?.let { gtype -> TypeCache.register(Session::class, gtype) { Session(it.reinterpret()) } }
+        WebsocketConnection.getTypeOrNull()?.let { gtype -> TypeCache.register(WebsocketConnection::class, gtype) { WebsocketConnection(it.reinterpret()) } }
+        WebsocketExtension.getTypeOrNull()?.let { gtype -> TypeCache.register(WebsocketExtension::class, gtype) { WebsocketExtension.WebsocketExtensionImpl(it.reinterpret()) } }
+        WebsocketExtensionDeflate.getTypeOrNull()?.let { gtype -> TypeCache.register(WebsocketExtensionDeflate::class, gtype) { WebsocketExtensionDeflate(it.reinterpret()) } }
+        WebsocketExtensionManager.getTypeOrNull()?.let { gtype -> TypeCache.register(WebsocketExtensionManager::class, gtype) { WebsocketExtensionManager(it.reinterpret()) } }
+        SessionFeature.getTypeOrNull()?.let { gtype -> TypeCache.register(SessionFeature::class, gtype) { SessionFeature.SessionFeatureImpl(it.reinterpret()) } }
     }
 }
 

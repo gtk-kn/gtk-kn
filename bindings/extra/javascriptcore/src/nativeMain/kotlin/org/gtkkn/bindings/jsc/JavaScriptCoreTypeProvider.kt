@@ -5,17 +5,16 @@ package org.gtkkn.bindings.jsc
 
 import kotlin.collections.Map
 import kotlin.reflect.KClass
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.KGType
-import org.gtkkn.extensions.gobject.TypeProvider
+import org.gtkkn.extensions.gobject.legacy.KGType
+import org.gtkkn.extensions.gobject.legacy.TypeProvider
 
 public object JavaScriptCoreTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = buildMap {
-        if (getTypeOrNull("jsc_class_get_type") != null) put(Class::class, Class.type)
-        if (getTypeOrNull("jsc_context_get_type") != null) put(Context::class, Context.type)
-        if (getTypeOrNull("jsc_exception_get_type") != null) put(Exception::class, Exception.type)
-        if (getTypeOrNull("jsc_value_get_type") != null) put(Value::class, Value.type)
-        if (getTypeOrNull("jsc_virtual_machine_get_type") != null) put(VirtualMachine::class, VirtualMachine.type)
-        if (getTypeOrNull("jsc_weak_value_get_type") != null) put(WeakValue::class, WeakValue.type)
+        if (Class.getTypeOrNull() != null) put(Class::class, Class.type)
+        if (Context.getTypeOrNull() != null) put(Context::class, Context.type)
+        if (Exception.getTypeOrNull() != null) put(Exception::class, Exception.type)
+        if (Value.getTypeOrNull() != null) put(Value::class, Value.type)
+        if (VirtualMachine.getTypeOrNull() != null) put(VirtualMachine::class, VirtualMachine.type)
+        if (WeakValue.getTypeOrNull() != null) put(WeakValue::class, WeakValue.type)
     }
 }

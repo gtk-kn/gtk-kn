@@ -6,10 +6,9 @@ package org.gtkkn.bindings.gdk
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLTexture
 import org.gtkkn.native.gdk.GdkPaintable
 import org.gtkkn.native.gdk.gdk_gl_texture_get_type
@@ -53,7 +52,7 @@ public open class GlTexture(
 
     public companion object : TypeCompanion<GlTexture> {
         override val type: GeneratedClassKGType<GlTexture> =
-                GeneratedClassKGType(getTypeOrNull("gdk_gl_texture_get_type")!!) { GlTexture(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { GlTexture(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -64,5 +63,15 @@ public open class GlTexture(
          * @return the GType
          */
         public fun getType(): GType = gdk_gl_texture_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_gl_texture_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_gl_texture_get_type")
     }
 }

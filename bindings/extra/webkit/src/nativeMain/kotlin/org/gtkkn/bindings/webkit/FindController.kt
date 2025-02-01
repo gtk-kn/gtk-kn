@@ -16,11 +16,10 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
@@ -261,7 +260,7 @@ public class FindController(
 
     public companion object : TypeCompanion<FindController> {
         override val type: GeneratedClassKGType<FindController> =
-                GeneratedClassKGType(getTypeOrNull("webkit_find_controller_get_type")!!) { FindController(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { FindController(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -272,6 +271,16 @@ public class FindController(
          * @return the GType
          */
         public fun getType(): GType = webkit_find_controller_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_find_controller_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_find_controller_get_type")
     }
 }
 

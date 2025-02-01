@@ -9,11 +9,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.cinterop.Proxy
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragDest
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_drag_data_received
@@ -71,7 +70,7 @@ public interface TreeDragDest : Proxy, KGTyped {
 
     public companion object : TypeCompanion<TreeDragDest> {
         override val type: GeneratedInterfaceKGType<TreeDragDest> =
-                GeneratedInterfaceKGType(getTypeOrNull("gtk_tree_drag_dest_get_type")!!) { TreeDragDestImpl(it.reinterpret()) }
+                GeneratedInterfaceKGType(getTypeOrNull()!!) { TreeDragDestImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -82,5 +81,15 @@ public interface TreeDragDest : Proxy, KGTyped {
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_drag_dest_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_drag_dest_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_drag_dest_get_type")
     }
 }

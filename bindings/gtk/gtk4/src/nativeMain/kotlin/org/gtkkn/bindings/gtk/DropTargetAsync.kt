@@ -17,12 +17,12 @@ import org.gtkkn.bindings.gdk.ContentFormats
 import org.gtkkn.bindings.gdk.DragAction
 import org.gtkkn.bindings.gdk.Drop
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragAction
 import org.gtkkn.native.gdk.GdkDrop
 import org.gtkkn.native.glib.gboolean
@@ -128,7 +128,9 @@ public open class DropTargetAsync(
      * @param actions the supported actions
      * @return the new `GtkDropTargetAsync`
      */
-    public constructor(formats: ContentFormats? = null, actions: DragAction) : this(gtk_drop_target_async_new(formats?.gdkContentFormatsPointer, actions.mask)!!)
+    public constructor(formats: ContentFormats? = null, actions: DragAction) : this(gtk_drop_target_async_new(formats?.gdkContentFormatsPointer, actions.mask)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Sets the @drop as not accepted on this drag site.
@@ -236,7 +238,7 @@ public open class DropTargetAsync(
 
     public companion object : TypeCompanion<DropTargetAsync> {
         override val type: GeneratedClassKGType<DropTargetAsync> =
-                GeneratedClassKGType(getTypeOrNull("gtk_drop_target_async_get_type")!!) { DropTargetAsync(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { DropTargetAsync(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -247,6 +249,16 @@ public open class DropTargetAsync(
          * @return the GType
          */
         public fun getType(): GType = gtk_drop_target_async_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_drop_target_async_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_drop_target_async_get_type")
     }
 }
 

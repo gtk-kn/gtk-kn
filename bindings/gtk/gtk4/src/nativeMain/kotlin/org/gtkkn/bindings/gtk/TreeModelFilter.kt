@@ -9,12 +9,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeDragSource
@@ -248,7 +247,7 @@ public open class TreeModelFilter(
 
     public companion object : TypeCompanion<TreeModelFilter> {
         override val type: GeneratedClassKGType<TreeModelFilter> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_model_filter_get_type")!!) { TreeModelFilter(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeModelFilter(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -259,5 +258,15 @@ public open class TreeModelFilter(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_model_filter_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_model_filter_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_model_filter_get_type")
     }
 }

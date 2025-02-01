@@ -12,12 +12,11 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceSnippetManager
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_get_default
@@ -146,7 +145,7 @@ public open class SnippetManager(
 
     public companion object : TypeCompanion<SnippetManager> {
         override val type: GeneratedClassKGType<SnippetManager> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_snippet_manager_get_type")!!) { SnippetManager(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SnippetManager(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -166,5 +165,15 @@ public open class SnippetManager(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_snippet_manager_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_snippet_manager_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_snippet_manager_get_type")
     }
 }

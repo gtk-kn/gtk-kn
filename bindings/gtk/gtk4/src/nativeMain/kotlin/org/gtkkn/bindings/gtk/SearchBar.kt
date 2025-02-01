@@ -7,12 +7,12 @@ import kotlin.Boolean
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -173,7 +173,9 @@ public open class SearchBar(
      *
      * @return a new `GtkSearchBar`
      */
-    public constructor() : this(gtk_search_bar_new()!!.reinterpret())
+    public constructor() : this(gtk_search_bar_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Connects the `GtkEditable` widget passed as the one to be used in
@@ -203,7 +205,7 @@ public open class SearchBar(
 
     public companion object : TypeCompanion<SearchBar> {
         override val type: GeneratedClassKGType<SearchBar> =
-                GeneratedClassKGType(getTypeOrNull("gtk_search_bar_get_type")!!) { SearchBar(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SearchBar(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -214,5 +216,15 @@ public open class SearchBar(
          * @return the GType
          */
         public fun getType(): GType = gtk_search_bar_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_search_bar_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_search_bar_get_type")
     }
 }

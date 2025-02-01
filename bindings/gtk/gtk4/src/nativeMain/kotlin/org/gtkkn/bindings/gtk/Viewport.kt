@@ -8,12 +8,12 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
@@ -120,7 +120,9 @@ public open class Viewport(
      * @param vadjustment vertical adjustment
      * @return a new `GtkViewport`
      */
-    public constructor(hadjustment: Adjustment? = null, vadjustment: Adjustment? = null) : this(gtk_viewport_new(hadjustment?.gtkAdjustmentPointer, vadjustment?.gtkAdjustmentPointer)!!.reinterpret())
+    public constructor(hadjustment: Adjustment? = null, vadjustment: Adjustment? = null) : this(gtk_viewport_new(hadjustment?.gtkAdjustmentPointer, vadjustment?.gtkAdjustmentPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Scrolls a descendant of the viewport into view.
@@ -138,7 +140,7 @@ public open class Viewport(
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =
-                GeneratedClassKGType(getTypeOrNull("gtk_viewport_get_type")!!) { Viewport(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Viewport(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -149,5 +151,15 @@ public open class Viewport(
          * @return the GType
          */
         public fun getType(): GType = gtk_viewport_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_viewport_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_viewport_get_type")
     }
 }

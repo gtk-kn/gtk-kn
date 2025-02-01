@@ -6,12 +6,12 @@ package org.gtkkn.bindings.gio
 import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GBufferedOutputStream
 import org.gtkkn.native.gio.GSeekable
 import org.gtkkn.native.gio.g_buffered_output_stream_get_auto_grow
@@ -95,7 +95,9 @@ public open class BufferedOutputStream(
      * @param baseStream a #GOutputStream.
      * @return a #GOutputStream for the given @base_stream.
      */
-    public constructor(baseStream: OutputStream) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer)!!.reinterpret())
+    public constructor(baseStream: OutputStream) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new buffered output stream with a given buffer size.
@@ -104,11 +106,13 @@ public open class BufferedOutputStream(
      * @param size a #gsize.
      * @return a #GOutputStream with an internal buffer set to @size.
      */
-    public constructor(baseStream: OutputStream, size: gsize) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer, size)!!.reinterpret())
+    public constructor(baseStream: OutputStream, size: gsize) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer, size)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<BufferedOutputStream> {
         override val type: GeneratedClassKGType<BufferedOutputStream> =
-                GeneratedClassKGType(getTypeOrNull("g_buffered_output_stream_get_type")!!) { BufferedOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { BufferedOutputStream(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -119,5 +123,15 @@ public open class BufferedOutputStream(
          * @return the GType
          */
         public fun getType(): GType = g_buffered_output_stream_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_buffered_output_stream_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_buffered_output_stream_get_type")
     }
 }

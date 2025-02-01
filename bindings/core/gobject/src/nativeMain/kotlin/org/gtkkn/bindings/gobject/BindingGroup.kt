@@ -8,10 +8,10 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_72
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GBindingGroup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_binding_group_bind
@@ -51,7 +51,9 @@ public open class BindingGroup(
      * @return a new #GBindingGroup
      * @since 2.72
      */
-    public constructor() : this(g_binding_group_new()!!)
+    public constructor() : this(g_binding_group_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a binding between @source_property on the source object
@@ -135,7 +137,7 @@ public open class BindingGroup(
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =
-                GeneratedClassKGType(getTypeOrNull("g_binding_group_get_type")!!) { BindingGroup(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { BindingGroup(it.reinterpret()) }
 
         init {
             GObjectTypeProvider.register()}
@@ -146,5 +148,15 @@ public open class BindingGroup(
          * @return the GType
          */
         public fun getType(): GType = g_binding_group_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_binding_group_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_binding_group_get_type")
     }
 }

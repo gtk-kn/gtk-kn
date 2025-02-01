@@ -22,12 +22,12 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_72
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GAppInfo
 import org.gtkkn.native.gio.GAppLaunchContext
 import org.gtkkn.native.gio.g_app_launch_context_get_display
@@ -64,7 +64,9 @@ public open class AppLaunchContext(
      *
      * @return a #GAppLaunchContext.
      */
-    public constructor() : this(g_app_launch_context_new()!!)
+    public constructor() : this(g_app_launch_context_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Gets the display string for the @context. This is used to ensure new
@@ -249,7 +251,7 @@ public open class AppLaunchContext(
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
-                GeneratedClassKGType(getTypeOrNull("g_app_launch_context_get_type")!!) { AppLaunchContext(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { AppLaunchContext(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -260,6 +262,16 @@ public open class AppLaunchContext(
          * @return the GType
          */
         public fun getType(): GType = g_app_launch_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_app_launch_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_app_launch_context_get_type")
     }
 }
 

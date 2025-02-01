@@ -17,10 +17,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GNetworkAddress
 import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_network_address_get_hostname
@@ -120,7 +120,9 @@ public open class NetworkAddress(
      * @return the new #GNetworkAddress
      * @since 2.22
      */
-    public constructor(hostname: String, port: guint16) : this(g_network_address_new(hostname, port)!!.reinterpret())
+    public constructor(hostname: String, port: guint16) : this(g_network_address_new(hostname, port)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new #GSocketConnectable for connecting to the local host
@@ -140,11 +142,13 @@ public open class NetworkAddress(
      * @return the new #GNetworkAddress
      * @since 2.44
      */
-    public constructor(port: guint16) : this(g_network_address_new_loopback(port)!!.reinterpret())
+    public constructor(port: guint16) : this(g_network_address_new_loopback(port)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     public companion object : TypeCompanion<NetworkAddress> {
         override val type: GeneratedClassKGType<NetworkAddress> =
-                GeneratedClassKGType(getTypeOrNull("g_network_address_get_type")!!) { NetworkAddress(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { NetworkAddress(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -224,5 +228,15 @@ public open class NetworkAddress(
          * @return the GType
          */
         public fun getType(): GType = g_network_address_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_network_address_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_network_address_get_type")
     }
 }

@@ -6,11 +6,10 @@ package org.gtkkn.bindings.gdk
 import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkTouchEvent
 import org.gtkkn.native.gdk.gdk_touch_event_get_emulating_pointer
 import org.gtkkn.native.gdk.gdk_touch_event_get_type
@@ -36,7 +35,7 @@ public open class TouchEvent(
 
     public companion object : TypeCompanion<TouchEvent> {
         override val type: GeneratedClassKGType<TouchEvent> =
-                GeneratedClassKGType(getTypeOrNull("gdk_touch_event_get_type")!!) { TouchEvent(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TouchEvent(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()}
@@ -47,5 +46,15 @@ public open class TouchEvent(
          * @return the GType
          */
         public fun getType(): GType = gdk_touch_event_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gdk_touch_event_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_touch_event_get_type")
     }
 }

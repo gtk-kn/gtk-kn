@@ -7,10 +7,10 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pango.PangoCoverage
@@ -53,7 +53,9 @@ public open class Coverage(
      *   to %PANGO_COVERAGE_NONE with a reference count of one, which
      *   should be freed with [method@Pango.Coverage.unref].
      */
-    public constructor() : this(pango_coverage_new()!!)
+    public constructor() : this(pango_coverage_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Copy an existing `PangoCoverage`.
@@ -108,7 +110,7 @@ public open class Coverage(
 
     public companion object : TypeCompanion<Coverage> {
         override val type: GeneratedClassKGType<Coverage> =
-                GeneratedClassKGType(getTypeOrNull("pango_coverage_get_type")!!) { Coverage(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Coverage(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()}
@@ -119,5 +121,15 @@ public open class Coverage(
          * @return the GType
          */
         public fun getType(): GType = pango_coverage_get_type()
+
+        /**
+         * Gets the GType of from the symbol `pango_coverage_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("pango_coverage_get_type")
     }
 }

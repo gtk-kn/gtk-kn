@@ -8,11 +8,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceHoverContext
 import org.gtkkn.native.gtksource.gtk_source_hover_context_get_bounds
@@ -77,7 +76,7 @@ public open class HoverContext(
 
     public companion object : TypeCompanion<HoverContext> {
         override val type: GeneratedClassKGType<HoverContext> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_hover_context_get_type")!!) { HoverContext(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { HoverContext(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -88,5 +87,15 @@ public open class HoverContext(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_hover_context_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_hover_context_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_hover_context_get_type")
     }
 }

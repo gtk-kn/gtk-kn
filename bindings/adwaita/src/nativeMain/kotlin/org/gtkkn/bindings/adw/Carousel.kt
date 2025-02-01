@@ -16,13 +16,13 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.Orientable
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwCarousel
 import org.gtkkn.native.adw.AdwSwipeable
 import org.gtkkn.native.adw.adw_carousel_append
@@ -290,7 +290,9 @@ public class Carousel(
      *
      * @return the newly created `AdwCarousel`
      */
-    public constructor() : this(adw_carousel_new()!!.reinterpret())
+    public constructor() : this(adw_carousel_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Appends @child to @self.
@@ -379,7 +381,7 @@ public class Carousel(
 
     public companion object : TypeCompanion<Carousel> {
         override val type: GeneratedClassKGType<Carousel> =
-                GeneratedClassKGType(getTypeOrNull("adw_carousel_get_type")!!) { Carousel(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Carousel(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -390,6 +392,16 @@ public class Carousel(
          * @return the GType
          */
         public fun getType(): GType = adw_carousel_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_carousel_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_carousel_get_type")
     }
 }
 

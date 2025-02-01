@@ -23,13 +23,13 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_4
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.bindings.pango.TabArray
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gsize
@@ -535,7 +535,9 @@ public open class Text(
      *
      * @return a new `GtkText`.
      */
-    public constructor() : this(gtk_text_new()!!.reinterpret())
+    public constructor() : this(gtk_text_new()!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new `GtkText` with the specified text buffer.
@@ -543,7 +545,9 @@ public open class Text(
      * @param buffer The buffer to use for the new `GtkText`.
      * @return a new `GtkText`
      */
-    public constructor(buffer: EntryBuffer) : this(gtk_text_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret())
+    public constructor(buffer: EntryBuffer) : this(gtk_text_new_with_buffer(buffer.gtkEntryBufferPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Determine the positions of the strong and weak cursors if the
@@ -860,7 +864,7 @@ public open class Text(
 
     public companion object : TypeCompanion<Text> {
         override val type: GeneratedClassKGType<Text> =
-                GeneratedClassKGType(getTypeOrNull("gtk_text_get_type")!!) { Text(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Text(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -871,6 +875,16 @@ public open class Text(
          * @return the GType
          */
         public fun getType(): GType = gtk_text_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_text_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_text_get_type")
     }
 }
 

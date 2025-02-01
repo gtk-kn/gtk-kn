@@ -10,13 +10,13 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.Layout
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
@@ -246,7 +246,9 @@ public open class Scale(
      *   the range of the scale, or null to create a new adjustment.
      * @return a new `GtkScale`
      */
-    public constructor(orientation: Orientation, adjustment: Adjustment? = null) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer)!!.reinterpret())
+    public constructor(orientation: Orientation, adjustment: Adjustment? = null) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new scale widget with a range from @min to @max.
@@ -272,7 +274,9 @@ public open class Scale(
         min: gdouble,
         max: gdouble,
         step: gdouble,
-    ) : this(gtk_scale_new_with_range(orientation.nativeValue, min, max, step)!!.reinterpret())
+    ) : this(gtk_scale_new_with_range(orientation.nativeValue, min, max, step)!!.reinterpret()) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Adds a mark at @value.
@@ -333,7 +337,7 @@ public open class Scale(
 
     public companion object : TypeCompanion<Scale> {
         override val type: GeneratedClassKGType<Scale> =
-                GeneratedClassKGType(getTypeOrNull("gtk_scale_get_type")!!) { Scale(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Scale(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -344,5 +348,15 @@ public open class Scale(
          * @return the GType
          */
         public fun getType(): GType = gtk_scale_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_scale_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_scale_get_type")
     }
 }

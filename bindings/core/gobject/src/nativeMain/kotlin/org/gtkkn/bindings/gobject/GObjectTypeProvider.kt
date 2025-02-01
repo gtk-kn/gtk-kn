@@ -5,18 +5,17 @@ package org.gtkkn.bindings.gobject
 
 import kotlin.collections.Map
 import kotlin.reflect.KClass
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
-import org.gtkkn.extensions.gobject.KGType
-import org.gtkkn.extensions.gobject.TypeProvider
+import org.gtkkn.extensions.gobject.legacy.KGType
+import org.gtkkn.extensions.gobject.legacy.TypeProvider
 
 public object GObjectTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = buildMap {
-        if (getTypeOrNull("g_binding_get_type") != null) put(Binding::class, Binding.type)
-        if (getTypeOrNull("g_binding_group_get_type") != null) put(BindingGroup::class, BindingGroup.type)
-        if (getTypeOrNull("g_initially_unowned_get_type") != null) put(InitiallyUnowned::class, InitiallyUnowned.type)
-        if (getTypeOrNull("g_object_get_type") != null) put(Object::class, Object.type)
-        if (getTypeOrNull("g_signal_group_get_type") != null) put(SignalGroup::class, SignalGroup.type)
-        if (getTypeOrNull("g_type_module_get_type") != null) put(TypeModule::class, TypeModule.type)
-        if (getTypeOrNull("g_type_plugin_get_type") != null) put(TypePlugin::class, TypePlugin.type)
+        if (Binding.getTypeOrNull() != null) put(Binding::class, Binding.type)
+        if (BindingGroup.getTypeOrNull() != null) put(BindingGroup::class, BindingGroup.type)
+        if (InitiallyUnowned.getTypeOrNull() != null) put(InitiallyUnowned::class, InitiallyUnowned.type)
+        if (Object.getTypeOrNull() != null) put(Object::class, Object.type)
+        if (SignalGroup.getTypeOrNull() != null) put(SignalGroup::class, SignalGroup.type)
+        if (TypeModule.getTypeOrNull() != null) put(TypeModule::class, TypeModule.type)
+        if (TypePlugin.getTypeOrNull() != null) put(TypePlugin::class, TypePlugin.type)
     }
 }

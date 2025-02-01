@@ -16,11 +16,11 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_18
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gio.GUnixMountMonitor
 import org.gtkkn.native.gio.g_unix_mount_monitor_get
 import org.gtkkn.native.gio.g_unix_mount_monitor_get_type
@@ -50,7 +50,9 @@ public open class UnixMountMonitor(
      *
      * @return a #GUnixMountMonitor.
      */
-    public constructor() : this(g_unix_mount_monitor_new()!!)
+    public constructor() : this(g_unix_mount_monitor_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * This function does nothing.
@@ -100,7 +102,7 @@ public open class UnixMountMonitor(
 
     public companion object : TypeCompanion<UnixMountMonitor> {
         override val type: GeneratedClassKGType<UnixMountMonitor> =
-                GeneratedClassKGType(getTypeOrNull("g_unix_mount_monitor_get_type")!!) { UnixMountMonitor(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { UnixMountMonitor(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()}
@@ -129,6 +131,16 @@ public open class UnixMountMonitor(
          * @return the GType
          */
         public fun getType(): GType = g_unix_mount_monitor_get_type()
+
+        /**
+         * Gets the GType of from the symbol `g_unix_mount_monitor_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_unix_mount_monitor_get_type")
     }
 }
 

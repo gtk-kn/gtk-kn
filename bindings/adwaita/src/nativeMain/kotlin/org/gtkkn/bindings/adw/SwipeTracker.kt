@@ -18,13 +18,13 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_5
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Orientable
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.adw.AdwNavigationDirection
 import org.gtkkn.native.adw.AdwSwipeTracker
 import org.gtkkn.native.adw.adw_swipe_tracker_get_allow_long_swipes
@@ -253,7 +253,9 @@ public class SwipeTracker(
      * @param swipeable a widget to add the tracker on
      * @return the newly created `AdwSwipeTracker`
      */
-    public constructor(swipeable: Swipeable) : this(adw_swipe_tracker_new(swipeable.adwSwipeablePointer)!!)
+    public constructor(swipeable: Swipeable) : this(adw_swipe_tracker_new(swipeable.adwSwipeablePointer)!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Moves the current progress value by @delta.
@@ -343,7 +345,7 @@ public class SwipeTracker(
 
     public companion object : TypeCompanion<SwipeTracker> {
         override val type: GeneratedClassKGType<SwipeTracker> =
-                GeneratedClassKGType(getTypeOrNull("adw_swipe_tracker_get_type")!!) { SwipeTracker(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { SwipeTracker(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()}
@@ -354,6 +356,16 @@ public class SwipeTracker(
          * @return the GType
          */
         public fun getType(): GType = adw_swipe_tracker_get_type()
+
+        /**
+         * Gets the GType of from the symbol `adw_swipe_tracker_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("adw_swipe_tracker_get_type")
     }
 }
 

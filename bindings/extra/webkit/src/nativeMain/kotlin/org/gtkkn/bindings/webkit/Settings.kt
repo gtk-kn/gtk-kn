@@ -33,12 +33,12 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_46
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -1349,7 +1349,9 @@ public class Settings(
      *
      * @return a new #WebKitSettings instance.
      */
-    public constructor() : this(webkit_settings_new()!!)
+    public constructor() : this(webkit_settings_new()!!) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Reads the contents of the given @group_name from the given @key_file and apply the value of
@@ -1448,7 +1450,7 @@ public class Settings(
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
-                GeneratedClassKGType(getTypeOrNull("webkit_settings_get_type")!!) { Settings(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { Settings(it.reinterpret()) }
 
         init {
             WebKitTypeProvider.register()}
@@ -1538,5 +1540,15 @@ public class Settings(
          * @return the GType
          */
         public fun getType(): GType = webkit_settings_get_type()
+
+        /**
+         * Gets the GType of from the symbol `webkit_settings_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("webkit_settings_get_type")
     }
 }

@@ -27,11 +27,11 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.TimeVal
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.InstanceCache
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkPixbufAnimation
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_get_height
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_get_iter
@@ -97,7 +97,9 @@ public open class PixbufAnimation(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Creates a new animation by loading it from an input stream.
@@ -128,7 +130,9 @@ public open class PixbufAnimation(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Finishes an asynchronous pixbuf animation creation operation started with
@@ -148,7 +152,9 @@ public open class PixbufAnimation(
         }
         gResult!!.reinterpret()
     }
-    )
+    ) {
+        InstanceCache.put(this)
+    }
 
     /**
      * Queries the height of the bounding box of a pixbuf animation.
@@ -251,7 +257,7 @@ public open class PixbufAnimation(
 
     public companion object : TypeCompanion<PixbufAnimation> {
         override val type: GeneratedClassKGType<PixbufAnimation> =
-                GeneratedClassKGType(getTypeOrNull("gdk_pixbuf_animation_get_type")!!) { PixbufAnimation(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { PixbufAnimation(it.reinterpret()) }
 
         init {
             GdkPixbufTypeProvider.register()}
@@ -286,6 +292,16 @@ public open class PixbufAnimation(
         public fun getType(): GType = gdk_pixbuf_animation_get_type()
 
         /**
+         * Gets the GType of from the symbol `gdk_pixbuf_animation_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gdk_pixbuf_animation_get_type")
+
+        /**
          * Creates a new pixbuf animation by loading an image from an resource.
          *
          * The file format is detected automatically. If `NULL` is returned, then
@@ -304,6 +320,7 @@ public open class PixbufAnimation(
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
                     val instance = PixbufAnimation(checkNotNull(gResult).reinterpret())
+                    InstanceCache.put(instance)
                     Result.success(instance)
                 }
 

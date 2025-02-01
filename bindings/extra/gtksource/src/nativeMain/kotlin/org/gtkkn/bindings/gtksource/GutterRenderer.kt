@@ -19,13 +19,12 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.glib.gboolean
@@ -341,7 +340,7 @@ public abstract class GutterRenderer(
 
     public companion object : TypeCompanion<GutterRenderer> {
         override val type: GeneratedClassKGType<GutterRenderer> =
-                GeneratedClassKGType(getTypeOrNull("gtk_source_gutter_renderer_get_type")!!) { GutterRendererImpl(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { GutterRendererImpl(it.reinterpret()) }
 
         init {
             GtkSourceTypeProvider.register()}
@@ -352,6 +351,16 @@ public abstract class GutterRenderer(
          * @return the GType
          */
         public fun getType(): GType = gtk_source_gutter_renderer_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_source_gutter_renderer_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_source_gutter_renderer_get_type")
     }
 }
 

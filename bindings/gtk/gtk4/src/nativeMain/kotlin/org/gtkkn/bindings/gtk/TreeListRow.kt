@@ -8,12 +8,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.cinterop.getTypeOrNull
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.gobject.GeneratedClassKGType
-import org.gtkkn.extensions.gobject.KGTyped
-import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
+import org.gtkkn.extensions.gobject.legacy.KGTyped
+import org.gtkkn.extensions.gobject.legacy.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeListRow
@@ -177,7 +176,7 @@ public open class TreeListRow(
 
     public companion object : TypeCompanion<TreeListRow> {
         override val type: GeneratedClassKGType<TreeListRow> =
-                GeneratedClassKGType(getTypeOrNull("gtk_tree_list_row_get_type")!!) { TreeListRow(it.reinterpret()) }
+                GeneratedClassKGType(getTypeOrNull()!!) { TreeListRow(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()}
@@ -188,5 +187,15 @@ public open class TreeListRow(
          * @return the GType
          */
         public fun getType(): GType = gtk_tree_list_row_get_type()
+
+        /**
+         * Gets the GType of from the symbol `gtk_tree_list_row_get_type` if it exists.
+         *
+         * This function dynamically resolves the specified symbol as a C function pointer and invokes it
+         * to retrieve the `GType`.
+         *
+         * @return the GType, or `null` if the symbol cannot be resolved.
+         */
+        internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_tree_list_row_get_type")
     }
 }
