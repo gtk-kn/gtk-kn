@@ -26,7 +26,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class RegionTests {
+class RegionTest {
     @Test
     fun `should create an empty Region with success status`() {
         val region = Region()

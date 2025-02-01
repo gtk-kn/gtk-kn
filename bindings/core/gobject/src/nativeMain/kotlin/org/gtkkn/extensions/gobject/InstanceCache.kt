@@ -37,6 +37,7 @@ import org.gtkkn.extensions.glib.collections.ConcurrentMap
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.util.log.LogLevel
 import org.gtkkn.extensions.gobject.InstanceCache.Ref.Strong
+import org.gtkkn.extensions.gobject.ext.isGObject
 import org.gtkkn.native.gobject.GToggleNotify
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject._GObject
@@ -134,6 +135,7 @@ public object InstanceCache {
         cache: Boolean,
         fallback: ((gpointer) -> T)?
     ): T? {
+        require(address.isGObject()) { "Expected a GObject-based instance" }
         @Suppress("UNCHECKED_CAST")
         references[address]?.proxy
             .takeIf { address.rawValue != NativePtr.NULL }
@@ -170,6 +172,7 @@ public object InstanceCache {
      */
     public fun <T : Proxy> put(proxy: T): T {
         val address: gpointer = proxy.handle
+        require(address.isGObject()) { "Expected a GObject-based instance" }
 
         @Suppress("UNCHECKED_CAST")
         references.putIfAbsent(address, Strong(proxy))?.proxy?.let { return it as T }

@@ -24,7 +24,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
-class SurfaceTests {
+class SurfaceTest {
     @Test
     fun `should create a similar surface with SUCCESS status`() {
         val s1 = ImageSurface(Format.ARGB32, 120, 120)

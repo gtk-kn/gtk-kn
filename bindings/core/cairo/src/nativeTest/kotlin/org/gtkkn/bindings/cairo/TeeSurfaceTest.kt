@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class TeeSurfaceTests {
+class TeeSurfaceTest {
     @Test
     fun `should create TeeSurface with success status`() {
         // Create a primary ImageSurface to back the TeeSurface

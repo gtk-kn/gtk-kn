@@ -31,8 +31,10 @@ import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.collections.ConcurrentMap
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_type_check_instance
 import org.gtkkn.native.gobject.g_type_interfaces
 import org.gtkkn.native.gobject.gpointer
 import kotlin.native.internal.NativePtr
@@ -61,7 +63,7 @@ public object TypeCache {
         address: gpointer,
         fallback: Fallback<T>? = null
     ): ((gpointer) -> T)? =
-        if (address.rawValue == NativePtr.NULL) {
+        if (address.rawValue == NativePtr.NULL || !g_type_check_instance(address.reinterpret()).asBoolean()) {
             null
         } else {
             TypeInstance(address.reinterpret()).gClass?.gType?.let { getConstructor(it, fallback) }

@@ -25,7 +25,7 @@ import org.gtkkn.native.cairo.CAIRO_SVG_UNIT_USER
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SvgSurfaceTests {
+class SvgSurfaceTest {
     @Test
     fun `should create SVG surface with empty filename`() {
         val surface = SvgSurface(null, 120.0, 120.0)

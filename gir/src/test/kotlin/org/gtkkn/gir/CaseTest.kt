@@ -25,7 +25,7 @@ import net.pearx.kasechange.toPascalCase
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class CaseTests {
+class CaseTest {
     @Test
     fun `toCamelCase - converts various strings to camel case`() {
         assertEquals("hello", "hello".toCamelCase(), "Single lowercase word remains unchanged")

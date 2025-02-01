@@ -25,7 +25,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class PsSurfaceTests {
+class PsSurfaceTest {
     @Test
     fun `should create surface with success status using null filename`() {
         // Create a surface using `null` or an empty string, depending on your native support

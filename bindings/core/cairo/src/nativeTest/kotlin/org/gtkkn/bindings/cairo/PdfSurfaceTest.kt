@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class PdfSurfaceTests {
+class PdfSurfaceTest {
     @Test
     fun `should create PdfSurface with success status`() {
         val surface = PdfSurface(null, 120.0, 120.0)

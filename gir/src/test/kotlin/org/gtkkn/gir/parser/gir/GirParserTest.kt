@@ -29,7 +29,7 @@ import kotlin.test.assertNotNull
 
 private const val GTK_GIR_RESOURCE_NAME = "/gir-files/linux/Gtk-4.0.gir"
 
-class GirParserTests {
+class GirParserTest {
     private val gtkRepository by lazy {
         val girParser = GirParser(MetadataParser())
         val file = checkNotNull(loadResourceAsFile(GTK_GIR_RESOURCE_NAME))

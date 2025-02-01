@@ -30,7 +30,7 @@ import kotlin.test.assertEquals
 /**
  * Unit tests for the Matrix class.
  */
-class MatrixTests {
+class MatrixTest {
     @Test
     fun `should init matrix with given values`(): Unit = memScoped {
         val matrix = Matrix(xx = 1.0, yx = 0.0, xy = 0.0, yy = 1.0, x0 = 0.0, y0 = 0.0, scope = this)

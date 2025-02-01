@@ -25,20 +25,20 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class LinearGradientTests {
+class RadialGradientTest {
     @Test
-    fun `should create LinearGradient with success status`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
+    fun `should create RadialGradient with success status`() {
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
         assertEquals(
             Status.SUCCESS,
             gradient.status(),
-            "Expected newly created linear gradient to have SUCCESS status",
+            "Expected newly created radial gradient to have SUCCESS status",
         )
     }
 
     @Test
     fun `should add RGB color stop without error`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
 
         // Add a color stop at offset 0.5 (midpoint)
         gradient.addColorStopRgb(
@@ -54,7 +54,7 @@ class LinearGradientTests {
 
     @Test
     fun `should add RGBA color stop without error`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
 
         // Add a color stop at offset 0.0 (start), with alpha
         gradient.addColorStopRgba(
@@ -70,17 +70,17 @@ class LinearGradientTests {
     }
 
     @Test
-    fun `should have linear pattern type`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
+    fun `should have radial pattern type`() {
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
 
-        // For a linear gradient, the pattern type should be LINEAR
+        // For a radial gradient, the pattern type should be RADIAL
         val patternType = gradient.getPatternType()
-        assertEquals(PatternType.LINEAR, patternType, "Expected pattern type to be LINEAR for LinearGradient")
+        assertEquals(PatternType.RADIAL, patternType, "Expected pattern type to be RADIAL for RadialGradient")
     }
 
     @Test
     fun `should change extend mode successfully`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
         assertEquals(Status.SUCCESS, gradient.status())
 
         // Change extend mode to REPEAT
@@ -91,7 +91,7 @@ class LinearGradientTests {
 
     @Test
     fun `should change filter successfully`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
         assertEquals(Status.SUCCESS, gradient.status())
 
         // Change filter to FAST
@@ -102,8 +102,8 @@ class LinearGradientTests {
 
     @Test
     fun `should set and retrieve matrix successfully`() {
-        val gradient = LinearGradient(0.0, 0.0, 10.0, 10.0)
-        assertEquals(Status.SUCCESS, gradient.status(), "Expected SUCCESS status for newly created LinearGradient")
+        val gradient = RadialGradient(100.0, 100.0, 50.0, 200.0, 100.0, 60.0)
+        assertEquals(Status.SUCCESS, gradient.status(), "Expected SUCCESS status for newly created RadialGradient")
 
         memScoped {
             // Create and set a matrix using the constructor with explicit values
@@ -114,7 +114,7 @@ class LinearGradientTests {
                 yy = 1.0,
                 x0 = 5.0,
                 y0 = 5.0,
-                scope = this
+                scope = this,
             )
 
             // Set the matrix to the gradient
@@ -128,7 +128,7 @@ class LinearGradientTests {
                 yy = 0.0,
                 x0 = 0.0,
                 y0 = 0.0,
-                scope = this
+                scope = this,
             )
             gradient.getMatrix(retrievedMatrix)
 

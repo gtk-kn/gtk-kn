@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ToyFontFaceTests {
+class ToyFontFaceTest {
     @Test
     fun `should create toy font face with default arguments`() {
         // Using a commonly available font family like 'Sans' or 'Serif'.

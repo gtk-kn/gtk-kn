@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SolidPatternTests {
+class SolidPatternTest {
     @Test
     fun `should create SolidPattern with RGB successfully`() {
         // Create a SolidPattern with RGB

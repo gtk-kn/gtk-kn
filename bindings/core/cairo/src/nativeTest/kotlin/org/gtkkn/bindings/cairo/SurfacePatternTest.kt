@@ -25,7 +25,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class SurfacePatternTests {
+class SurfacePatternTest {
     @Test
     fun `should create SurfacePattern with success status`() {
         val surface = ImageSurface(Format.ARGB32, 120, 120)

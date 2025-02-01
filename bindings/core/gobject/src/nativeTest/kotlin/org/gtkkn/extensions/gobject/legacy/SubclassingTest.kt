@@ -33,7 +33,7 @@ import kotlin.test.assertEquals
 /**
  * Unit tests for verifying subclassing and type registration functionality.
  */
-class SubclassingTests {
+class SubclassingTest {
     /**
      * Test that a single-level subclass type is registered correctly with the GObject type system.
      */

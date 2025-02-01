@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class DeviceTests {
+class DeviceTest {
     @Test
     fun `should create script device with success status`() {
         val scriptPath = "/tmp/test_device.script"

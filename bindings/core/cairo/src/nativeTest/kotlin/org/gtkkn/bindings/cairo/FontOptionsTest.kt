@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class FontOptionsTests {
+class FontOptionsTest {
     @Test
     fun `should set and get antialias`() {
         val fo = FontOptions()

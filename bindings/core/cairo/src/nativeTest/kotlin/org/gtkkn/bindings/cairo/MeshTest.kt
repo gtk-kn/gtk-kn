@@ -23,7 +23,7 @@ package org.gtkkn.bindings.cairo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MeshTests {
+class MeshTest {
     @Test
     fun `should create Mesh with success status`() {
         val mesh = Mesh()

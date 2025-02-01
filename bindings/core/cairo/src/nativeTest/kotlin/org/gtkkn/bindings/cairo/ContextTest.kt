@@ -25,7 +25,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class ContextTests {
+class ContextTest {
     private fun createContext(): Context {
         // Assuming ImageSurface and Format are available in your Kotlin/Native cairo bindings
         val surface = ImageSurface(Format.ARGB32, 120, 120)

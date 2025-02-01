@@ -26,7 +26,7 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class ImageSurfaceTests {
+class ImageSurfaceTest {
     @Test
     fun `should calculate valid stride for given format and width`() {
         val stride = ImageSurface.formatStrideForWidth(Format.ARGB32, 120)

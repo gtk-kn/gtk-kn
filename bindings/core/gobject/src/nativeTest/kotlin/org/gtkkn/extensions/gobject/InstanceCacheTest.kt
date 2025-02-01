@@ -48,11 +48,13 @@ import kotlin.native.runtime.GC
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertNotSame
 import kotlin.test.assertNull
 import kotlin.test.assertSame
+import kotlin.test.assertTrue
 
 /**
  * This class provides unit tests for the `InstanceCache` object.
@@ -145,22 +147,47 @@ class InstanceCacheTest {
     }
 
     /**
-     * Ensures that `get()` does not cache non-GObject-based proxies.
+     * Ensures that `InstanceCache.put()` throws an `IllegalArgumentException`
+     * when attempting to cache a non-GObject instance.
      */
     @Test
-    fun `get does not cache non GObject proxies`() {
+    fun `put throws IllegalArgumentException when caching a non-GObject instance`() {
+        // Arrange
+        val nonGObjectProxy = NonGObjectProxy()
+
+        // Act & Assert
+        val exception = assertFailsWith<IllegalArgumentException> {
+            InstanceCache.put(nonGObjectProxy)
+        }
+
+        // Ensure the exception message is meaningful (optional but useful for debugging)
+        assertTrue(
+            exception.message?.contains("Expected a GObject-based instance") == true,
+            "Exception message should indicate that a non-GObject instance was provided",
+        )
+    }
+
+    /**
+     * Ensures that `InstanceCache.get()` throws an `IllegalArgumentException`
+     * when attempting to retrieve a non-GObject instance.
+     */
+    @Test
+    fun `get throws IllegalArgumentException when retrieving a non-GObject instance`() {
         // Arrange
         val nonGObjectProxy = NonGObjectProxy()
         val objectHandle = nonGObjectProxy.handle
         val fallback: (gpointer) -> Proxy = { NonGObjectProxy(it.reinterpret()) }
 
-        // Act
-        val instance1 = InstanceCache.get(objectHandle, true, fallback)
-        val instance2 = InstanceCache.get(objectHandle, true, fallback)
+        // Act & Assert
+        val exception = assertFailsWith<IllegalArgumentException> {
+            InstanceCache.get(objectHandle, cache = true, fallback = fallback)
+        }
 
-        // Assert
-        assertNull(instance1, "Non-GObject proxy should not be cached")
-        assertNull(instance2, "Each call should return a new instance for non-GObject proxies")
+        // Ensure exception message is meaningful (optional, but useful for debugging)
+        assertTrue(
+            exception.message?.contains("Expected a GObject-based instance") == true,
+            "Exception message should indicate that a non-GObject instance was provided",
+        )
     }
 
     /**

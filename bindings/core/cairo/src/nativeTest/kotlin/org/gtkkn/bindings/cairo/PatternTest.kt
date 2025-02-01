@@ -25,7 +25,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class PatternTests {
+class PatternTest {
     @Test
     fun `test status`() {
         // Using LinearGradient as a concrete Pattern
