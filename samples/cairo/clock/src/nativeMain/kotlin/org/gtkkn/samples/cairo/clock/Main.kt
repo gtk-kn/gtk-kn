@@ -32,8 +32,8 @@ import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.bindings.gtk.Application
 import org.gtkkn.bindings.gtk.ApplicationWindow
 import org.gtkkn.bindings.gtk.DrawingArea
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.util.log.Log
 import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 import org.gtkkn.native.glib.G_PRIORITY_DEFAULT
@@ -49,7 +49,7 @@ import kotlin.time.Duration.Companion.milliseconds
  */
 fun main() {
     Log.installConsoleLogWriter()
-    MemoryCleaner.debugLogs = true
+    GtkKn.debugLogs = true
     val app = Application("org.gtkkn.samples.cairo.clock", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         val window = buildWindow(app)

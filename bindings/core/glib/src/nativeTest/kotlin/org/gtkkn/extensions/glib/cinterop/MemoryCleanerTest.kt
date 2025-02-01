@@ -33,6 +33,7 @@ import kotlin.native.runtime.GC
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 /**
@@ -109,6 +110,36 @@ class MemoryCleanerTest {
         // Assert
         assertNull(proxyWeakRef?.value, "ProxyInstance should have been collected")
         assertEquals(1, customFreeFuncCallCount, "Custom free function should have been called once.")
+    }
+
+    @Test
+    fun `custom cleanup function is not called if there is still exists a strong reference to the proxy`() {
+        // Arrange
+        customFreeFuncCallCount = 0
+
+        val testPointer = createTestPointer()
+
+        var proxyStrongRef: ProxyInstance? = null
+
+        // Wrapping lambda to limit scope
+        {
+            val proxy = ProxyInstance(testPointer)
+            MemoryCleaner.setFreeFunc(proxy, true) { gpointer ->
+                customFreeFuncCallCount += 1
+                // Manually free the memory for the test
+                g_free(gpointer)
+            }
+            proxyStrongRef = proxy
+        }()
+
+        // Act
+        // Force garbage collection
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNotNull(proxyStrongRef, "ProxyInstance should have been collected")
+        assertEquals(0, customFreeFuncCallCount, "Custom free function should have been called once.")
     }
 
     /**

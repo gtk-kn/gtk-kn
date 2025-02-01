@@ -21,6 +21,7 @@
 package org.gtkkn.extensions.gobject
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.CValuesRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.GLib
@@ -28,15 +29,15 @@ import org.gtkkn.bindings.glib.MainContext
 import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.TypeInstance
-import org.gtkkn.extensions.glib.cinterop.Floating
-import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.debugLogs
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.collections.ConcurrentMap
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.util.log.LogLevel
 import org.gtkkn.extensions.gobject.InstanceCache.Ref.Strong
-import org.gtkkn.extensions.gobject.InstanceCache.Ref.Weak
+import org.gtkkn.native.gobject.GToggleNotify
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject._GObject
 import org.gtkkn.native.gobject.g_object_add_toggle_ref
@@ -48,142 +49,188 @@ import kotlin.native.internal.NativePtr
 import kotlin.native.ref.WeakReference
 import kotlin.native.ref.createCleaner
 
+/*
+ * Portions of this class are inspired by the open-source project Java-GI.
+ * Original source: https://github.com/jwharm/java-gi/
+ */
 /**
- * Caches [Proxy] objects keyed by their native [gpointer], adding GObject
- * toggle references so the same Kotlin instance is reused for identical
- * underlying native objects.
+ * A singleton object responsible for caching and managing [Proxy] instances associated with native GObject pointers.
+ *
+ * ### **How It Works**
+ * - Uses **toggle references** to track Kotlin/Native-to-GObject bindings.
+ * - Ensures that each GObject is associated with **only one Kotlin instance**.
+ * - Prevents manual `g_object_ref()` and `g_object_unref()` calls in Kotlin.
+ * - Uses a **global cache** of objects, switching between strong and weak references.
+ * - Ensures safe disposal when objects are no longer needed.
+ *
+ * ### **Instance Cache**
+ * - Maintains a **global map** (`references`) of all GObjects used in Kotlin.
+ * - Each GObject is stored using either a **strong** or **weak** reference:
+ *   - **Strong reference**: Prevents GC and ensures the instance stays alive.
+ *   - **Weak reference**: Allows GC when the object is no longer used.
+ *
+ * ### **Toggle References**
+ * GObjects are reference-counted. Normally, objects are explicitly `g_object_ref()` and `g_object_unref()`.
+ * However, **toggle references** automate this:
+ * - If the **toggle reference becomes the last reference**, the cache switches to **weak**.
+ * - If other references appear, the cache switches back to **strong**.
+ * - This prevents memory leaks while ensuring the instance is reusable.
+ *
+ * Toggle references are added like this:
+ * ```c
+ * g_object_add_toggle_ref(obj, toggle_notify_cb, NULL);
+ * g_object_unref(obj);
+ * ```
+ *
+ * ### **Garbage Collection & Cleaners**
+ * - When an instance is GC'ed, a **Cleaner** calls `g_object_remove_toggle_ref()`.
+ * - This reduces the reference count to 0, ensuring safe disposal.
+ *
+ * ### **Floating References**
+ * - Some GObjects (e.g., `GInitiallyUnowned`) have **floating references**.
+ * - Floating references **must be "sunk"** (`refSink()`) to ensure correct ownership.
+ * - `InstanceCache` **automatically sinks** floating references.
  */
 public object InstanceCache {
     /**
-     * Enable/disable debug logs for memory cleanup operations.
+     * Interface for native function calls.
+     *
+     * The default implementation is [NativeFunctionsImpl], but a mock can be used for testing.
      */
-    public var debugLogs: Boolean = false
+    internal var nativeFunctions: NativeFunctions = NativeFunctionsImpl
+
+    /** Cache mapping native pointers ([gpointer]) to references (strong or weak). */
+    private val references = ConcurrentMap<gpointer, Ref<out Proxy>>()
+
+    /** The GObject fundamental type, used to verify if an object is a GObject-based instance. */
+    private val GOBJECT_TYPE: GType by lazy { Object.getType() }
 
     /**
-     * The map of pointer -> reference (weak or strong).
-     */
-    private val references = ConcurrentMap<gpointer, Ref>()
-
-    /**
-     * The GObject "fundamental" GType, used for type checks.
-     */
-    private val GOBJECT_TYPE: GType = Object.getType()
-
-    /**
-     * GObject toggle-notify callback in Kotlin/Native via staticCFunction.
-     * We pass null for `data`, so we ignore it.
+     * Callback function for GObject's toggle references.
+     *
+     * This function is executed when the last reference is dropped (or added back).
      */
     private val toggleNotifyCallback = staticCFunction<
         gpointer?, CPointer<_GObject>?, gboolean, Unit,
         > { _, gobjectPtr, isLastRef ->
-        if (gobjectPtr != null) {
-            handleToggleNotify(gobjectPtr, isLastRef.asBoolean())
-        }
+        gobjectPtr?.let { handleToggleNotify(it, isLastRef.asBoolean()) }
     }
 
     /**
-     * Adjust strong/weak references in the cache depending on whether
-     * this is the last reference (`isLastRef = true`) on the C side.
-     */
-    private fun handleToggleNotify(address: gpointer, isLastRef: Boolean) {
-        log { "Toggle $address, isLastRef=$isLastRef" }
-        references.computeIfPresent(address) { _, ref ->
-            if (isLastRef) ref.asWeak() else ref.asStrong()
-        }
-    }
-
-    /**
-     * Looks up the [Proxy] instance corresponding to [address].
-     */
-    private fun lookup(address: gpointer): Proxy? =
-        if (address.rawValue == NativePtr.NULL) null else references[address]?.proxy
-
-    /**
-     * Retrieves a [Proxy] for [address]. If not found, a new instance is created
-     * using the constructor from [TypeCache], then optionally cached if it is
-     * a GObject-based instance.
+     * Retrieves a [T] instance for the given [gpointer].
      *
-     * @param address pointer to the native object
-     * @param fallback optional fallback constructor if the type is not found
-     * @param cache whether to cache the newly-created proxy
+     * - If the instance exists in the cache, it is returned.
+     * - Otherwise, a new instance is created via [TypeCache].
+     * - If the object is a GObject, it is stored in the cache.
+     *
+     * @param T The expected type of the retrieved instance, which must extend [Proxy].
+     * @param address Pointer to the native object.
+     * @param cache If `true`, the new instance will be cached if applicable.
+     * @param fallback Optional constructor if the type is unknown.
+     * @return The retrieved or newly created instance of [T], or `null` if the type is unknown.
      */
-    public fun getForType(
+    public fun <T : Proxy> get(
         address: gpointer,
-        fallback: ((gpointer) -> Proxy)?,
-        cache: Boolean
-    ): Proxy? {
-        // Quick check if address is null or already in the map
-        lookup(address)?.let { return it }
-        // Look up the constructor via TypeCache
-        val ctor = TypeCache.getConstructor(
+        cache: Boolean,
+        fallback: ((gpointer) -> T)?
+    ): T? {
+        @Suppress("UNCHECKED_CAST")
+        references[address]?.proxy
+            .takeIf { address.rawValue != NativePtr.NULL }
+            ?.let { return it as? T }
+
+        val constructor = TypeCache.getConstructor(
             address,
             fallback?.let { fb -> TypeCache.Fallback(null, fb) },
         ) ?: return null
 
-        val newInstance = ctor(address)
+        val newInstance = constructor(address)
 
         // If it's a GObject-based type, store it in the cache
-        if (cache &&
+        return if (cache &&
             newInstance is TypeInstance &&
             newInstance.gClass?.gType?.let { GObject.typeIsA(it, GOBJECT_TYPE) } == true
         ) {
-            return put(newInstance)
+            put(newInstance)
+        } else {
+            newInstance
         }
-        return newInstance
     }
 
     /**
-     * Caches [proxy] at [address]. If it's a floating GObject, sink it; then
-     * add a toggle reference, unref once, and register a finalizer that
-     * eventually removes the toggle ref from the main context.
+     * Adds a [T] instance to the cache and attaches a toggle reference.
+     *
+     * - If the object is floating, it is sunk (`refSink()`).
+     * - A **toggle reference** is added and the object is **unreferenced**.
+     * - A **Cleaner** ensures proper removal when the object is GC'ed.
+     *
+     * @param T The type of the instance being cached.
+     * @param proxy The instance to be cached.
+     * @return The existing or newly added instance.
      */
-    public fun put(proxy: Proxy): Proxy {
+    public fun <T : Proxy> put(proxy: T): T {
         val address: gpointer = proxy.handle
-        // If one already exists in the cache, reuse it
-        val existing = references.putIfAbsent(address, Strong(proxy))
-        if (existing != null) {
-            return existing.proxy ?: proxy
-        }
 
-        log { "New ${proxy::class.simpleName} $address" }
+        @Suppress("UNCHECKED_CAST")
+        references.putIfAbsent(address, Strong(proxy))?.proxy?.let { return it as T }
+
+        log { "Caching instance: ${proxy.getSimpleNameWithHandle()}" }
 
         // Sink floating references, if necessary
-        if (proxy is Floating) {
+        if (proxy is ParamSpec) {
             proxy.refSink()
         } else if (proxy is InitiallyUnowned) {
             proxy.refSink()
         }
 
-        // Add toggle ref, then unref
-        addToggleRef(proxy)
-        unref(proxy)
+        // Add toggle ref, which increases the ref_count, then unref, to restore the original ref_count value
+        nativeFunctions.gObjectAddToggleRef(proxy.handle.reinterpret(), toggleNotifyCallback, null)
+        nativeFunctions.gObjectUnref(proxy.handle)
 
-        // Register a finalizer to remove the toggle ref when `obj` is GCed
-        createCleaner(address) { rawPtr ->
-            // Must remove toggle-ref from the main context
-            MainContext.default().invoke {
-                removeToggleRef(rawPtr)
-            }
-        }
+        // Register a finalizer to remove the toggle ref when `proxy` is garbage collected.
+        // The cleaner must be stored inside `proxy` to prevent premature execution, ensuring
+        // that the toggle reference is only removed when `proxy` is truly no longer reachable.
+        val cleaner = createCleaner(address) { MainContext.default().invoke { removeToggleRef(it) } }
+        proxy.addCleaner(cleaner)
 
         return proxy
     }
 
-    private fun addToggleRef(obj: Proxy) {
-        g_object_add_toggle_ref(obj.handle.reinterpret(), toggleNotifyCallback, null)
-    }
-
-    private fun unref(obj: Proxy) {
-        g_object_unref(obj.handle)
+    /**
+     * Logs the current content of the instance cache.
+     *
+     * - Displays the number of cached entries.
+     * - Shows each entry with its handle and reference type (Strong/Weak).
+     */
+    public fun logCacheContent() {
+        log { "InstanceCache contains ${references.size} entries:" }
+        var index = 0
+        references.forEach { (ptr, ref) -> log { "[${index++}] $ptr [$ref]" } }
     }
 
     /**
-     * Actually removes the toggle-ref from this GObject pointer and
+     * Handles toggle reference notifications, switching between strong and weak references.
+     */
+    private fun handleToggleNotify(address: gpointer, isLastRef: Boolean) {
+        log {
+            val proxyName = references[address]?.proxy?.getSimpleNameWithHandle() ?: address
+            "Toggle notify for $proxyName, isLastRef=$isLastRef"
+        }
+        references.computeIfPresent(address) { _, ref ->
+            when (isLastRef) {
+                true -> ref.asWeak()
+                false -> ref.asStrong()
+            }
+        }
+    }
+
+    /**
+     * Removes the toggle-ref from this GObject pointer and
      * removes the reference from the internal map.
      */
     private fun removeToggleRef(address: gpointer): Boolean {
-        log { "Unref $address" }
-        g_object_remove_toggle_ref(address.reinterpret(), toggleNotifyCallback, null)
+        log { "Removing toggle reference for ${references[address]?.proxy?.getSimpleNameWithHandle() ?: address}" }
+        nativeFunctions.gObjectRemoveToggleRef(address.reinterpret(), toggleNotifyCallback, null)
         references.remove(address)
         return GLib.SOURCE_REMOVE
     }
@@ -192,6 +239,7 @@ public object InstanceCache {
      * Clears all cached entries (intended for testing purposes).
      */
     internal fun clearForTest() {
+        log { "Clearing cache for testing purposes" }
         references.clear()
     }
 
@@ -199,33 +247,83 @@ public object InstanceCache {
      * Logs a debug message if [debugLogs] is enabled.
      */
     private inline fun log(
-        domain: String? = "InstanceCache",
+        domain: String = "InstanceCache",
         level: LogLevel = LogLevel.DEBUG,
         message: () -> String
     ) {
-        if (debugLogs) {
+        if (GtkKn.debugLogs) {
             org.gtkkn.extensions.glib.util.log.log(domain, level, message)
         }
     }
 
     /**
-     * [Ref] is either a strong reference ([Strong]) or a weak reference ([Weak])
-     * to a [Proxy].
+     * Represents a reference to a cached instance, which can be either strong or weak.
      */
-    private sealed class Ref {
-        abstract val proxy: Proxy?
-        abstract fun asWeak(): Ref
-        abstract fun asStrong(): Ref
+    internal sealed interface Ref<T : Proxy> {
+        val proxy: T?
+        fun asWeak(): Ref<T>
+        fun asStrong(): Ref<T>
 
-        data class Strong(override val proxy: Proxy) : Ref() {
-            override fun asWeak(): Ref = Weak(WeakReference(proxy))
-            override fun asStrong(): Ref = this
+        data class Strong<T : Proxy>(override val proxy: T) : Ref<T> {
+            override fun asWeak(): Ref<T> = Weak(WeakReference(proxy))
+            override fun asStrong(): Ref<T> = this
         }
 
-        data class Weak(val weakRef: WeakReference<Proxy>) : Ref() {
-            override val proxy: Proxy? get() = weakRef.value
-            override fun asWeak(): Ref = this
-            override fun asStrong(): Ref = Strong(checkNotNull(proxy))
+        data class Weak<T : Proxy>(private val weakRef: WeakReference<T>) : Ref<T> {
+            override val proxy: T? get() = weakRef.value
+            override fun asWeak(): Ref<T> = this
+            override fun asStrong(): Ref<T> = Strong(checkNotNull(proxy))
+        }
+    }
+
+    /**
+     * Interface for native cleanup functions.
+     *
+     * This interface abstracts native function calls to allow for dependency injection during testing.
+     *
+     * - **In Testing:** A mock implementation (`TestGObject`) replaces the default
+     *   `NativeFunctionsImpl` to track calls.
+     * - **In Production:** The `NativeFunctionsImpl` provides the real implementation,
+     *   invoking actual native cleanup functions.
+     */
+    internal interface NativeFunctions {
+        fun gObjectAddToggleRef(
+            `object`: CValuesRef<org.gtkkn.native.gobject.GObject>?,
+            notify: GToggleNotify?,
+            data: gpointer?
+        )
+
+        fun gObjectRemoveToggleRef(
+            `object`: CValuesRef<org.gtkkn.native.gobject.GObject>?,
+            notify: GToggleNotify?,
+            data: gpointer?
+        )
+
+        fun gObjectUnref(`object`: gpointer)
+    }
+
+    /**
+     * Default implementation of native cleanup functions for production use.
+     */
+    public object NativeFunctionsImpl : NativeFunctions {
+        override fun gObjectAddToggleRef(
+            `object`: CValuesRef<org.gtkkn.native.gobject.GObject>?,
+            notify: GToggleNotify?,
+            data: gpointer?
+        ) {
+            g_object_add_toggle_ref(`object`, notify, data)
+        }
+
+        override fun gObjectRemoveToggleRef(
+            `object`: CValuesRef<org.gtkkn.native.gobject.GObject>?,
+            notify: GToggleNotify?,
+            data: gpointer?
+        ) {
+            g_object_remove_toggle_ref(`object`, notify, data)
+        }
+
+        override fun gObjectUnref(`object`: gpointer) {
+            g_object_unref(`object`)
         }
     }
 }

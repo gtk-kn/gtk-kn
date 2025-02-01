@@ -21,6 +21,7 @@
 package org.gtkkn.extensions.glib.cinterop
 
 import org.gtkkn.native.glib.gpointer
+import kotlin.native.ref.Cleaner
 
 /**
  * Base type for a Kotlin proxy object to an instance in native memory.
@@ -31,6 +32,11 @@ import org.gtkkn.native.glib.gpointer
  * @param handle the memory address of the instance
  */
 public open class ProxyInstance(public override val handle: gpointer) : Proxy {
+    private val cleanerSet: MutableSet<Cleaner> = LinkedHashSet()
+
+    override fun addCleaner(cleaner: Cleaner): Boolean = cleanerSet.add(cleaner)
+    override fun removeCleaner(cleaner: Cleaner): Boolean = cleanerSet.remove(cleaner)
+
     /**
      * Compare two proxy instances for equality. This will compare both the type
      * of the instances, and their memory addresses.

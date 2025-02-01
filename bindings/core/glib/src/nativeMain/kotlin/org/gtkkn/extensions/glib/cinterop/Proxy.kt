@@ -21,6 +21,7 @@
 package org.gtkkn.extensions.glib.cinterop
 
 import org.gtkkn.native.glib.gpointer
+import kotlin.native.ref.Cleaner
 
 /**
  * Represents an instance of a proxy object with a handle to an object in
@@ -33,4 +34,26 @@ public interface Proxy {
      * @return the native memory address
      */
     public val handle: gpointer
+
+    /**
+     * Registers a cleaner to be executed when this proxy object is garbage collected.
+     *
+     * - A cleaner allows for resource cleanup when the object is no longer used.
+     * - If the cleaner is not explicitly stored, it may be garbage collected early,
+     *   leading to unexpected behavior.
+     *
+     * @param cleaner The [Cleaner] instance to associate with this object.
+     * @return `true` if the cleaner was successfully added, `false` if it was already registered.
+     */
+    public fun addCleaner(cleaner: Cleaner): Boolean
+
+    /**
+     * Removes a previously registered cleaner from this proxy object.
+     *
+     * @param cleaner The [Cleaner] instance to remove.
+     * @return `true` if the cleaner was successfully removed, `false` if it was not found.
+     */
+    public fun removeCleaner(cleaner: Cleaner): Boolean
+
+    public fun getSimpleNameWithHandle(): String = "${this::class.simpleName}(${handle.rawValue})"
 }

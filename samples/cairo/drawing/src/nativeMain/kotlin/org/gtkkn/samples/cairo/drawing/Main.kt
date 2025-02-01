@@ -36,8 +36,8 @@ import org.gtkkn.bindings.gtk.Frame
 import org.gtkkn.bindings.gtk.GestureClick
 import org.gtkkn.bindings.gtk.GestureDrag
 import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.util.log.Log
 import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 import org.gtkkn.native.gdk.GDK_BUTTON_PRIMARY
@@ -53,7 +53,7 @@ private var startY: Double = 0.0
  */
 fun main() {
     Log.installConsoleLogWriter()
-    MemoryCleaner.debugLogs = true
+    GtkKn.debugLogs = true
     val app = Application("org.gtkkn.samples.cairo.drawing", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         val window = buildWindow(app)

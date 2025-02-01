@@ -20,6 +20,8 @@
 
 package org.gtkkn.extensions.gobject
 
+import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ActionEntry
 import org.gtkkn.bindings.gio.Menu
@@ -28,158 +30,490 @@ import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.native.gio.g_simple_action_new
+import org.gtkkn.native.gobject.GObject
+import org.gtkkn.native.gobject.GToggleNotify
+import org.gtkkn.native.gobject.g_object_add_toggle_ref
 import org.gtkkn.native.gobject.g_object_new
+import org.gtkkn.native.gobject.g_object_remove_toggle_ref
+import org.gtkkn.native.gobject.g_object_unref
 import org.gtkkn.native.gobject.gpointer
+import org.gtkkn.native.gobject.guint
+import kotlin.native.concurrent.ObsoleteWorkersApi
+import kotlin.native.concurrent.TransferMode
+import kotlin.native.concurrent.Worker
+import kotlin.native.internal.performGCOnCleanerWorker
+import kotlin.native.ref.WeakReference
+import kotlin.native.runtime.GC
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertNotSame
 import kotlin.test.assertNull
 import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
+/**
+ * This class provides unit tests for the `InstanceCache` object.
+ *
+ * The purpose of these tests is to verify that the caching and lifecycle management
+ * of GObject instances in Kotlin/Native is implemented correctly.
+ *
+ * ### **Tested Features:**
+ *
+ * - Ensuring that `InstanceCache` returns the same instance for the same pointer.
+ * - Verifying the toggle reference mechanism works correctly.
+ * - Ensuring weak and strong references are correctly handled.
+ * - Testing behavior when caching is disabled.
+ * - Ensuring garbage collection properly removes objects from the cache.
+ * - Verifying that floating references are correctly handled via `refSink()`.
+ *
+ * ### **Key Concepts:**
+ *
+ * - **Toggle References:** Used to manage GObject lifecycle between Kotlin and native code.
+ * - **Reference Switching:** Ensures that objects are cached using **strong**
+ *   or **weak** references based on their usage.
+ * - **Garbage Collection:** Uses `GC.collect()` and `performGCOnCleanerWorker()` to verify object cleanup.
+ */
+@OptIn(ObsoleteWorkersApi::class)
 class InstanceCacheTest {
     @BeforeTest
     fun setUp() {
-        InstanceCache.debugLogs = false
+        // Ensure a clean test environment
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Use the mock implementation to track calls instead of performing real native operations
+        InstanceCache.nativeFunctions = TestGObject
+
+        // Reset reference counters
+        addToggleRefCount = 0
+        removeToggleRefCount = 0
+        unrefCount = 0
+
+        // Clear caches
         InstanceCache.clearForTest()
         TypeCache.clearForTest()
-        TypeCache.register(
-            clazz = Object::class,
-            type = Object.getType(),
-        ) { ptr -> Object(ptr.reinterpret()) }
+
+        // Register test object types
+        TypeCache.register(clazz = Object::class, type = Object.getType()) { ptr -> Object(ptr.reinterpret()) }
         TypeCache.register(
             clazz = SimpleAction::class,
             type = SimpleAction.getType(),
         ) { ptr -> SimpleAction(ptr.reinterpret()) }
-        TypeCache.register(
-            clazz = Menu::class,
-            type = Menu.getType(),
-        ) { ptr -> Menu(ptr.reinterpret()) }
+        TypeCache.register(clazz = Menu::class, type = Menu.getType()) { ptr -> Menu(ptr.reinterpret()) }
     }
 
+    /**
+     * Ensures that `put()` caches and returns the same instance for the same pointer.
+     */
     @Test
-    fun `put returns same instance for same pointer`() {
-        // Create a real GObject
-        val action = SimpleAction("launch", VariantType("s"))
+    fun `put caches and returns the same instance for the same pointer`() {
+        // Arrange
+        val action = createSimpleAction()
 
-        // Put it in the cache
-        val fromPut = InstanceCache.put(action)
-        assertSame(action, fromPut, "put() should return the same instance passed in")
+        // Act
+        val cachedInstance1 = InstanceCache.put(action)
+        val cachedInstance2 = InstanceCache.put(action)
 
-        // Re-putting the same pointer should return the same instance, not override it
-        val again = InstanceCache.put(action)
-        assertSame(action, again, "Putting the same pointer again should return the same instance")
+        // Assert
+        assertSame(action, cachedInstance1, "put() should return the same instance passed in")
+        assertSame(
+            action,
+            cachedInstance2,
+            "Calling put() again with the same pointer should return the cached instance",
+        )
     }
 
+    /**
+     * Ensures that `get()` caches and returns the same instance when caching is enabled.
+     */
     @Test
-    fun `getForType returns same instance for same pointer when cache is true`() {
-        // Create a real GObject
+    fun `get caches and returns the same instance when caching is enabled`() {
+        // Arrange
         val menu = Menu()
-        val ptr = menu.handle
+        val objectHandle = menu.handle
 
-        // getForType should create and cache the instance
-        val instance1 = InstanceCache.getForType(ptr, fallback = { Menu(it.reinterpret()) }, cache = true)
-        assertNotNull(instance1, "getForType should return a valid Proxy instance")
-        assertEquals(menu, instance1, "Expected the same object (the default GObject binding)")
+        // Act
+        val instance1 = InstanceCache.get(objectHandle, cache = true) { Menu(it.reinterpret()) }
+        val instance2 = InstanceCache.get(objectHandle, cache = true) { Menu(it.reinterpret()) }
 
-        // Calling getForType again with the same pointer should return the same instance
-        val instance2 = InstanceCache.getForType(ptr, fallback = { Menu(it.reinterpret()) }, cache = true)
-        assertSame(instance1, instance2, "Should return the same Kotlin instance from cache")
+        // Assert
+        assertIs<Menu>(instance1)
+        assertSame(instance1, instance2, "get() should return the same instance from cache")
     }
 
+    /**
+     * Ensures that `get()` does not cache non-GObject-based proxies.
+     */
     @Test
-    fun `getForType does not cache non GObject based proxy if cache is true`() {
-        assertTrue(true)
+    fun `get does not cache non GObject proxies`() {
+        // Arrange
         val nonGObjectProxy = NonGObjectProxy()
-        // If we do getForType with fallback returning the nonGObjectProxy, it
-        // should NOT store it in the cache, since it's not a GObject-based type
+        val objectHandle = nonGObjectProxy.handle
         val fallback: (gpointer) -> Proxy = { NonGObjectProxy(it.reinterpret()) }
 
-        // The pointer can be anything non-null for testing
-        val testPtr = nonGObjectProxy.handle
+        // Act
+        val instance1 = InstanceCache.get(objectHandle, true, fallback)
+        val instance2 = InstanceCache.get(objectHandle, true, fallback)
 
-        val instance1 = InstanceCache.getForType(testPtr, fallback, cache = true)
-        assertNull(instance1, "Fallback should return null for non-GObject proxy")
-
-        // Next call with the same pointer should create a new instance via fallback
-        val instance2 = InstanceCache.getForType(testPtr, fallback, cache = true)
-        assertNull(instance2, "Non-GObject proxy should not be cached, and null should be returned")
+        // Assert
+        assertNull(instance1, "Non-GObject proxy should not be cached")
+        assertNull(instance2, "Each call should return a new instance for non-GObject proxies")
     }
 
+    /**
+     * Ensures that `get()` does not cache instances when `cache = false`
+     * for a GObject-based pointer, always returning a new instance.
+     */
     @Test
-    fun `getForType does not cache if cache is false for a GObject based pointer`() {
-        val action = SimpleAction("launch", VariantType("s"))
+    fun `get does not cache GObject-based pointer when caching is disabled`() {
+        // Arrange
+        val action = createSimpleAction()
         val ptr = action.handle
+        val fallback: (gpointer) -> Proxy = { SimpleAction(it.reinterpret()) }
 
-        // getForType with cache=false -> not cached
-        val instance1 = InstanceCache.getForType(ptr, fallback = { SimpleAction(it.reinterpret()) }, cache = false)
+        // Act
+        val instance1 = InstanceCache.get(ptr, fallback = fallback, cache = false)
+        val instance2 = InstanceCache.get(ptr, fallback = fallback, cache = false)
+
+        // Assert
+        assertIs<SimpleAction>(instance1)
         assertEquals(action, instance1, "We get the same native instance from the default K/N binding")
         assertNotSame(action, instance1, "Expect a new instance each time if not cached")
-
-        // With the same pointer, we get a new instance from getForType again
-        val instance2 = InstanceCache.getForType(ptr, fallback = { SimpleAction(it.reinterpret()) }, cache = false)
-
+        assertIs<SimpleAction>(instance2)
         assertEquals(instance1, instance2, "We get the same native instance from the default K/N binding")
         assertNotSame(instance1, instance2, "Expect a new instance each time if not cached")
     }
 
+    /**
+     * Ensures that `get()` correctly falls back to the provided constructor when the type is not found.
+     */
     @Test
-    fun `test fallback usage when type not found`() {
+    fun `get falls back to provided constructor when type is not found`() {
+        // Arrange
         TypeCache.clearForTest()
-        var fallbackFuncCallCount = 0
+        var fallbackInvocationCount = 0
+        val action = createSimpleAction()
+        val objectHandle = action.handle
 
-        val action = SimpleAction("launch", VariantType("s"))
-        val fallback: (gpointer) -> Proxy = { gpointer ->
-            fallbackFuncCallCount++
-            SimpleAction(gpointer.reinterpret())
+        val fallback: (gpointer) -> Proxy = { ptr ->
+            fallbackInvocationCount++
+            SimpleAction(ptr.reinterpret())
         }
 
-        val testPtr = action.handle
-
+        // Act
+        val fallbackInstance = InstanceCache.get(objectHandle, fallback = fallback, cache = true)
         // Force the TypeCache to always return null, forcing fallback
         TypeCache.clearForTest()
-        // Should execute the fallback because getConstructor returned null
-        val fromGet = InstanceCache.getForType(testPtr, fallback = fallback, cache = true)
-        assertEquals(action, fromGet, "We get the same native instance from the default K/N binding")
-        assertNotSame(action, fromGet, "Expect a new instance each time if not cached")
-        assertEquals(1, fallbackFuncCallCount, "We expect the fallbackFuncCallCount to be exactly 1")
+
+        // Assert
+        assertIs<SimpleAction>(fallbackInstance)
+        assertEquals(action, fallbackInstance, "Expected a new instance from fallback")
+        assertNotSame(action, fallbackInstance, "Fallback should return a fresh instance, not reuse an existing one")
+        assertEquals(1, fallbackInvocationCount, "Fallback constructor should be invoked exactly once")
     }
 
+    /**
+     * Ensures that `InstanceCache` correctly calls `refSink()` for initially unowned objects.
+     */
     @Test
-    fun `test initially unowned object calls refSink`() {
+    fun `InstanceCache calls refSink for InitiallyUnowned objects`() {
+        // Arrange
         val unownedObj = FakeInitiallyUnownedObject()
         assertEquals(0, unownedObj.refSinkCalledCount)
 
+        // Act
         InstanceCache.put(unownedObj)
+
+        // Assert
         assertEquals(1, unownedObj.refSinkCalledCount, "refSink() must be called for InitiallyUnowned object")
+        assertEquals(1, addToggleRefCount, "put() should be adding a toggle ref on the object exactly once")
+        assertEquals(0, removeToggleRefCount, "put() should not call remove a toggle ref")
+        assertEquals(1, unrefCount, "put() should unref the object exactly once after adding a toggle ref")
+    }
+
+    /**
+     * Ensures that `get()` does not cache instances when `cache = false`
+     */
+    @Test
+    fun `InstanceCache retrieves the same instance after put`() {
+        // Arrange
+        val action = createSimpleAction()
+        val address = action.handle
+
+        // Act
+        InstanceCache.put(action)
+        val fromGet: SimpleAction? = InstanceCache.get(address, fallback = null, cache = true)
+
+        // Assert
+        assertSame(action, fromGet, "Should retrieve the same instance from the cache")
+        assertIs<SimpleAction>(fromGet)
+        assertEquals(1u, fromGet.gobjectObjectPointer.pointed.ref_count, "ref_count should be 1")
+        assertEquals(1, addToggleRefCount, "put() should be adding a toggle ref on the object exactly once")
+        assertEquals(0, removeToggleRefCount, "put() should not call remove a toggle ref")
+        assertEquals(1, unrefCount, "put() should unref the object exactly once after adding a toggle ref")
     }
 
     @Test
-    fun `test same pointer returns same instance after put`() {
-        // Manually put a new Proxy instance in the cache
-        val action = SimpleAction("launch", VariantType("s"))
-        val address = action.handle
+    fun `verify reference count changes after put`() {
+        // Arrange
+        val action = createSimpleAction()
+        val initialRefCount = action.gobjectObjectPointer.pointed.ref_count
+        assertEquals(1u, initialRefCount, "Expected 1 ref initially")
 
-        // put() it
+        // Act
         InstanceCache.put(action)
 
-        // Next time we do getForType with the same pointer, we should get the same instance
-        val fromGet = InstanceCache.getForType(address, fallback = null, cache = true)
-        assertSame(action, fromGet, "Should retrieve the same instance from the cache")
-    }
-}
+        // The GObject add_toggle_ref increments the ref count by 1,
+        // then InstanceCache calls unref() once, which decrements it by 1,
+        // so net effect on ref_count is 0 for many GObjects that start with a normal ref.
+        val refCountAfterPut = action.gobjectObjectPointer.pointed.ref_count
 
-/**
- * A fake 'initially unowned' GObject that tracks `refSink()` calls.
- */
-private class FakeInitiallyUnownedObject :
-    InitiallyUnowned(g_object_new(Object.getType(), "first_property")!!.reinterpret()), Proxy {
-    var refSinkCalledCount = 0
-    override fun refSink(): Object {
-        refSinkCalledCount++
-        return super.refSink()
+        // Assert
+        assertEquals(
+            initialRefCount,
+            refCountAfterPut,
+            "Net effect on reference count should be zero after toggle-ref + unref in put().",
+        )
+
+        // Also check that our mock functions were invoked correctly
+        assertEquals(1, addToggleRefCount, "put() should be adding a toggle ref on the object exactly once")
+        assertEquals(0, removeToggleRefCount, "put() should not call remove a toggle ref")
+        assertEquals(1, unrefCount, "put() should unref the object exactly once after adding a toggle ref")
+    }
+
+    /**
+     * Ensures that `InstanceCache` correctly removes the toggle reference
+     * when the object is garbage collected.
+     */
+    @Test
+    fun `finalizer removes toggle reference when object is garbage collected`() {
+        // Arrange
+        var weakReference: WeakReference<SimpleAction>? = null
+
+        // Wrapping lambda to ensure `action` goes out of scope
+        {
+            val action = createSimpleAction()
+            // Put the object in InstanceCache, which adds a toggle ref without changing the ref_count
+            InstanceCache.put(action)
+            weakReference = WeakReference(action)
+            // We don't hold any strong reference to `action` beyond this block
+        }()
+
+        // Act
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNull(weakReference?.value, "SimpleAction should have been collected")
+        assertEquals(1, removeToggleRefCount, "Expected exactly one removeToggleRef call after GC")
+    }
+
+    /**
+     * Ensures that the finalizer does not remove the toggle reference
+     * if the object's reference count is greater than 1.
+     */
+    @Test
+    fun `finalizer is not called when object reference count is greater than 1`() {
+        // Arrange
+        var weakReference: WeakReference<SimpleAction>? = null
+        var objectHandle: gpointer? = null
+
+        // Wrapping lambda to ensure `action` goes out of scope
+        {
+            val action = createSimpleAction()
+            objectHandle = action.handle
+            // Put the object in InstanceCache, which adds a toggle ref without changing the ref_count
+            InstanceCache.put(action)
+            action.ref()
+            weakReference = WeakReference(action)
+            // We don't hold any strong reference to `action` beyond this block
+        }()
+
+        // Act
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNotNull(weakReference?.value, "Object should not have been garbage collected")
+        assertEquals(0, removeToggleRefCount, "Expected no removeToggleRef call after GC")
+
+        g_object_unref(objectHandle)
+    }
+
+    /**
+     * Ensures that the finalizer does not remove the toggle reference
+     * if the object still has a strong reference elsewhere.
+     */
+    @Test
+    fun `finalizer is not called when a strong reference to the object still exists`() {
+        // Arrange
+        var strongReference: SimpleAction? = null
+
+        // Wrapping lambda to ensure `action` goes out of scope
+        {
+            val action = createSimpleAction()
+            // Put the object in InstanceCache, which adds a toggle ref without changing the ref_count
+            InstanceCache.put(action)
+            action.ref()
+            strongReference = action
+            // We don't hold any strong reference to `action` beyond this block
+        }()
+
+        // Act
+        GC.collect()
+        performGCOnCleanerWorker()
+
+        // Assert
+        assertNotNull(strongReference, "Object should not have been garbage collected")
+        assertEquals(0, removeToggleRefCount, "Expected no removeToggleRef call after GC")
+
+        g_object_unref(strongReference!!.handle)
+    }
+
+    /**
+     * Ensures that `InstanceCache` removes the toggle reference only
+     * when the object has no strong references and the reference count is less than 2.
+     */
+    @Test
+    fun `finalizer removes toggle reference once object has no strong references and reference count is below 2`() {
+        // Arrange
+        var weakReference: WeakReference<SimpleAction>? = null
+        var objectHandle: gpointer? = null
+        var refCountBeforeUnref: guint = 0u
+
+        {
+            val action = createSimpleAction()
+            objectHandle = action.handle
+            // Put the object in InstanceCache, which adds a toggle ref without changing the ref_count
+            InstanceCache.put(action)
+            action.ref()
+            weakReference = WeakReference(action)
+            refCountBeforeUnref = weakReference!!.value!!.gobjectObjectPointer.pointed.ref_count
+            // We don't hold any strong reference to `action` beyond this block
+        }()
+
+        // Manually unref one reference
+        g_object_unref(objectHandle)
+
+        // Act
+        GC.collect()
+        performGCOnCleanerWorker()
+        InstanceCache.logCacheContent()
+        // Assert
+        assertEquals(2u, refCountBeforeUnref, "Expected ref count to be 2 before unref")
+        assertNull(weakReference?.value, "SimpleAction should have been collected")
+        assertEquals(1, removeToggleRefCount, "Expected exactly one removeToggleRef call after GC")
+    }
+
+    /**
+     * Ensures that manually calling `ref()` and `unref()` around `InstanceCache` usage
+     * does not cause unexpected changes in the reference count.
+     */
+    @Test
+    fun `manual ref and unref do not affect final reference count after put`() {
+        // Arrange
+        val action = SimpleAction("launch", VariantType("s"))
+        val initialRefCount = 1u
+
+        // Manually ref() the object
+        action.ref()
+        InstanceCache.put(action)
+        action.unref()
+        val finalRefCount = action.gobjectObjectPointer.pointed.ref_count
+
+        // Assert
+        assertEquals(
+            initialRefCount,
+            finalRefCount,
+            "Reference count should return to initial state after manual ref/unref",
+        )
+    }
+
+    /**
+     * Ensures that multiple concurrent calls to `InstanceCache.get(...)` on the same pointer
+     * result in only **one shared instance** in the cache.
+     *
+     * - Multiple worker threads simulate concurrent access.
+     * - Each thread repeatedly retrieves the same pointer's instance.
+     * - All threads must receive the same instance.
+     */
+    @Test
+    fun `concurrent access to InstanceCache returns single instance per pointer`() {
+        // Arrange
+        val gobjectPtr = g_object_new(Object.getType(), null)!!
+        val threadCount = 50  // Number of concurrent workers
+        val workers = List(threadCount) { Worker.start() }
+        val instance = mutableListOf<Object>()
+
+        // Act
+        val futures = workers.map { worker ->
+            worker.execute(
+                mode = TransferMode.SAFE,
+                producer = { gobjectPtr },
+            ) { ptr ->
+                // Each worker thread calls `InstanceCache.get` with the same pointer
+                InstanceCache.get<Object>(address = ptr, fallback = null, cache = true)!!
+            }
+        }
+
+        // Collect results and clean up workers
+        futures.forEach { future -> instance += future.result }
+        workers.forEach { it.requestTermination().result }
+
+        // Assert
+        val expected = instance.first()
+        instance.forEach { assertSame(expected, it, "All threads must return the same GObject instance.") }
+    }
+
+    private fun createSimpleAction() =
+        SimpleAction(g_simple_action_new("launch", VariantType("s").glibVariantTypePointer)!!)
+
+    /**
+     * Companion object containing mock implementations and test utilities.
+     */
+    companion object {
+        var addToggleRefCount = 0
+        var removeToggleRefCount = 0
+        var unrefCount = 0
+
+        /**
+         * Mock implementation of native functions for testing.
+         */
+        object TestGObject : InstanceCache.NativeFunctions {
+            override fun gObjectAddToggleRef(`object`: CValuesRef<GObject>?, notify: GToggleNotify?, data: gpointer?) {
+                addToggleRefCount++
+                g_object_add_toggle_ref(`object`, notify, data)
+            }
+
+            override fun gObjectRemoveToggleRef(
+                `object`: CValuesRef<GObject>?,
+                notify: GToggleNotify?,
+                data: gpointer?
+            ) {
+                removeToggleRefCount++
+                g_object_remove_toggle_ref(`object`, notify, data)
+            }
+
+            override fun gObjectUnref(`object`: gpointer) {
+                unrefCount++
+                g_object_unref(`object`)
+            }
+        }
+
+        /**
+         * Fake `InitiallyUnowned` GObject that tracks `refSink()` calls.
+         */
+        private class FakeInitiallyUnownedObject :
+            InitiallyUnowned(g_object_new(Object.getType(), null)!!.reinterpret()), Proxy {
+            var refSinkCalledCount = 0
+            override fun refSink(): Object {
+                refSinkCalledCount++
+                return super.refSink()
+            }
+        }
     }
 }
 

@@ -29,7 +29,7 @@ abstract class RevertBindingsTask @Inject constructor(
     private val execOperations: ExecOperations
 ) : DefaultTask() {
     init {
-        group = "Build"
+        group = "gtkkn"
         description = "Reverts changes and removes untracked files in all " +
             "/src/nativeMain/kotlin/org/gtkkn/bindings directories within the bindings/ directory using Git."
 

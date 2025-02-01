@@ -20,18 +20,22 @@
 
 package org.gtkkn.extensions.glib.cinterop
 
-import kotlinx.atomicfu.locks.ReentrantLock
-import kotlinx.atomicfu.locks.withLock
 import kotlinx.cinterop.NativePtr
 import kotlinx.cinterop.nativeHeap
+import org.gtkkn.extensions.GtkKn
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.Cached.FreeOperation
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.takeOwnership
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner.yieldOwnership
+import org.gtkkn.extensions.glib.collections.ConcurrentMap
 import org.gtkkn.extensions.glib.util.log.LogLevel
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import kotlin.native.ref.createCleaner
 
+/*
+ * Portions of this class are inspired by the open-source project Java-GI.
+ * Original source: https://github.com/jwharm/java-gi/
+ */
 /**
  * `MemoryCleaner` manages the cleanup of native memory associated with `Proxy` objects.
  *
@@ -55,11 +59,6 @@ import kotlin.native.ref.createCleaner
  */
 public object MemoryCleaner {
     /**
-     * Enable/disable debug logs for memory cleanup operations.
-     */
-    public var debugLogs: Boolean = false
-
-    /**
      * The native functions used by this cleaner to deallocate memory.
      *
      * In production, [NativeFunctionsImpl] is used, which delegates to real
@@ -67,8 +66,7 @@ public object MemoryCleaner {
      * this may be overridden with a mock implementation.
      */
     internal var nativeFunctions: NativeFunctions = NativeFunctionsImpl
-    private val cache = mutableMapOf<gpointer, Cached>()
-    private val lock = ReentrantLock()
+    private val cache = ConcurrentMap<gpointer, Cached>()
 
     /**
      * Transfers ownership of the memory to the `MemoryCleaner`.
@@ -78,10 +76,8 @@ public object MemoryCleaner {
      * @param proxy The `Proxy` instance.
      */
     public fun takeOwnership(proxy: Proxy) {
-        lock.withLock {
-            log { "Taking ownership of ${proxy.handle}" }
-            registerOrUpdate(proxy, owned = true)
-        }
+        log { "Taking ownership of ${proxy.getSimpleNameWithHandle()}" }
+        registerOrUpdate(proxy, owned = true)
     }
 
     /**
@@ -92,10 +88,8 @@ public object MemoryCleaner {
      * @param proxy The `Proxy` instance.
      */
     public fun yieldOwnership(proxy: Proxy) {
-        lock.withLock {
-            log { "Yield ownership of ${proxy.handle}" }
-            registerOrUpdate(proxy, owned = false)
-        }
+        log { "Yield ownership of ${proxy.getSimpleNameWithHandle()}" }
+        registerOrUpdate(proxy, owned = false)
     }
 
     /**
@@ -115,14 +109,11 @@ public object MemoryCleaner {
         owned: Boolean,
         freeFunc: (gpointer) -> Unit,
     ) {
-        lock.withLock {
-            log { "setFreeFunc for ${proxy.handle}, owned=$owned" }
-            registerOrUpdate(
-                proxy = proxy,
-                owned = owned,
-                freeOperation = FreeOperation.CustomFreeFunction(freeFunc),
-            )
-        }
+        registerOrUpdate(
+            proxy = proxy,
+            owned = owned,
+            freeOperation = FreeOperation.CustomFreeFunction(freeFunc),
+        )
     }
 
     /**
@@ -141,14 +132,11 @@ public object MemoryCleaner {
         boxedType: GType,
         owned: Boolean,
     ) {
-        lock.withLock {
-            log { "setBoxedType for ${proxy.handle}, owned=$owned" }
-            registerOrUpdate(
-                proxy = proxy,
-                owned = owned,
-                freeOperation = FreeOperation.BoxedType(boxedType),
-            )
-        }
+        registerOrUpdate(
+            proxy = proxy,
+            owned = owned,
+            freeOperation = FreeOperation.BoxedType(boxedType),
+        )
     }
 
     /**
@@ -166,14 +154,11 @@ public object MemoryCleaner {
         proxy: Proxy,
         owned: Boolean,
     ) {
-        lock.withLock {
-            log { "setNativeHeap for ${proxy.handle}, owned=$owned" }
-            registerOrUpdate(
-                proxy = proxy,
-                owned = owned,
-                freeOperation = FreeOperation.NativeHeap,
-            )
-        }
+        registerOrUpdate(
+            proxy = proxy,
+            owned = owned,
+            freeOperation = FreeOperation.NativeHeap,
+        )
     }
 
     /**
@@ -184,17 +169,7 @@ public object MemoryCleaner {
      * @param cPointer The memory address to free.
      */
     public fun free(cPointer: gpointer) {
-        lock.withLock {
-            log { "free $cPointer" }
-            val cached = cache[cPointer]
-            if (cached != null) {
-                log { "removing $cPointer from cache" }
-                cache.remove(cPointer)
-                if (cached.owned) {
-                    runFreeOperation(cPointer, cached.freeOperation)
-                }
-            }
-        }
+        removeAndFreeIfOwned(cPointer)
     }
 
     /**
@@ -212,35 +187,35 @@ public object MemoryCleaner {
         owned: Boolean? = null,
         freeOperation: FreeOperation? = null
     ): Cached {
-        val cPointer = proxy.handle
-        lock.withLock {
-            log { "getOrRegister ${proxy.handle}, owned=$owned, freeOp=$freeOperation" }
-            var cached = cache[cPointer]
+        val handle = proxy.handle
+        log { "registerOrUpdate ${proxy.getSimpleNameWithHandle()}, owned=$owned, freeOp=$freeOperation" }
+        var cached = cache[handle]
 
-            if (cached == null) {
-                // First time registering this pointer
-                log { "cache miss for ${proxy.handle}" }
-                createCleaner(proxy) { res -> structFinalizer(res) }
-                cached = Cached(
-                    owned = owned ?: false,
-                    freeOperation = freeOperation ?: FreeOperation.GFree,
-                )
-                cache[cPointer] = cached
+        if (cached == null) {
+            // First time registering this pointer
+            log { "Cache miss for   ${proxy.getSimpleNameWithHandle()}" }
+            // The cleaner must be stored inside `proxy` to prevent premature execution, ensuring
+            // that the structFinalizer is only executed when `proxy` is truly no longer reachable.
+            proxy.addCleaner(createCleaner(proxy.handle) { res -> structFinalizer(res) })
+            cached = Cached(
+                owned = owned ?: false,
+                freeOperation = freeOperation ?: FreeOperation.GFree,
+            )
+            cache[handle] = cached
+        } else {
+            // Possibly update ownership or freeOperation if there's a change
+            val newOwned = owned ?: cached.owned
+            val newFreeOp = freeOperation ?: cached.freeOperation
+
+            if (newOwned != cached.owned || newFreeOp != cached.freeOperation) {
+                cached = cached.copy(owned = newOwned, freeOperation = newFreeOp)
+                cache[handle] = cached
+                log { "Updated cache for ${proxy.getSimpleNameWithHandle()} => owned=$newOwned, freeOp=$newFreeOp" }
             } else {
-                // Possibly update ownership or freeOperation if there's a change
-                val newOwned = owned ?: cached.owned
-                val newFreeOp = freeOperation ?: cached.freeOperation
-
-                if (newOwned != cached.owned || newFreeOp != cached.freeOperation) {
-                    cached = cached.copy(owned = newOwned, freeOperation = newFreeOp)
-                    cache[cPointer] = cached
-                    log { "Updated cache for $cPointer => owned=$newOwned, freeOp=$newFreeOp" }
-                } else {
-                    log { "No cache changes needed for $cPointer" }
-                }
+                log { "No cache changes needed for ${proxy.getSimpleNameWithHandle()}" }
             }
-            return cached
         }
+        return cached
     }
 
     /**
@@ -248,19 +223,25 @@ public object MemoryCleaner {
      *
      * This method is called automatically by the `Cleaner` associated with the proxy.
      *
-     * @param proxy The `Proxy` object to finalize.
+     * @param handle The `gpointer` of the object to finalize.
      */
-    private fun structFinalizer(proxy: Proxy) {
-        val cPointer = proxy.handle
-        lock.withLock {
-            log { "structFinalizer for ${proxy.handle}" }
-            val cached = cache[cPointer]
-            if (cached != null) {
-                log { "removing ${proxy.handle} from cache" }
-                cache.remove(cPointer)
-                if (cached.owned) {
-                    runFreeOperation(cPointer, cached.freeOperation)
-                }
+    private fun structFinalizer(handle: gpointer) {
+        val cPointer: gpointer = handle
+        removeAndFreeIfOwned(cPointer)
+    }
+
+    /**
+     * Removes a cached entry from the cache and performs the appropriate cleanup operation.
+     *
+     * @param cPointer The memory address.
+     */
+    private fun removeAndFreeIfOwned(cPointer: gpointer) {
+        val cached = cache[cPointer]
+        if (cached != null) {
+            log { "Removing ${cPointer.rawValue} from cache" }
+            cache.remove(cPointer)
+            if (cached.owned) {
+                runFreeOperation(cPointer, cached.freeOperation)
             }
         }
     }
@@ -283,22 +264,22 @@ public object MemoryCleaner {
     ) {
         when (freeOperation) {
             is FreeOperation.BoxedType -> {
-                log { "Calling g_boxed_free (${freeOperation.gType}) for $cPointer" }
+                log { "g_boxed_free(${freeOperation.gType}, $cPointer)" }
                 nativeFunctions.gBoxedFree(freeOperation.gType, cPointer)
             }
 
             is FreeOperation.CustomFreeFunction -> {
-                log { "Calling freeFunc for $cPointer" }
+                log { "freeFunc(${cPointer.rawValue})" }
                 freeOperation.freeFunc(cPointer)
             }
 
             is FreeOperation.NativeHeap -> {
-                log { "Calling nativeHeap.free for $cPointer" }
+                log { "nativeHeap.free(${cPointer.rawValue})" }
                 nativeFunctions.nativeHeapFree(cPointer.rawValue)
             }
 
             is FreeOperation.GFree -> {
-                log { "Calling g_free for $cPointer" }
+                log { "g_free(${cPointer.rawValue})" }
                 nativeFunctions.gFree(cPointer)
             }
         }
@@ -312,7 +293,7 @@ public object MemoryCleaner {
         level: LogLevel = LogLevel.DEBUG,
         message: () -> String
     ) {
-        if (debugLogs) {
+    if (GtkKn.debugLogs) {
             org.gtkkn.extensions.glib.util.log.log(domain, level, message)
         }
     }

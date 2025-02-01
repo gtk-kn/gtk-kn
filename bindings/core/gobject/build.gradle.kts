@@ -26,6 +26,12 @@ version = config.versions.core.get()
 
 kotlin {
     sourceSets {
+        configureEach {
+            languageSettings {
+                optIn("kotlin.native.internal.InternalForKotlinNative")
+                optIn("kotlin.native.runtime.NativeRuntimeApi")
+            }
+        }
         nativeMain {
             dependencies {
                 api(projects.bindings.core.glib)

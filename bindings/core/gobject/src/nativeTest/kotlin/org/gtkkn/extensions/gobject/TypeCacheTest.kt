@@ -77,7 +77,7 @@ class TypeCacheTest {
         val appPointer: gpointer = getAppPointer()
 
         // Act
-        val constructor = TypeCache.getConstructor(
+        val constructor = TypeCache.getConstructor<Proxy>(
             address = appPointer,
             fallback = null,
         )
@@ -125,7 +125,7 @@ class TypeCacheTest {
         val menuPointer: gpointer = checkNotNull(g_menu_new())
 
         // Act
-        val menuConstructor = TypeCache.getConstructor(
+        val menuConstructor = TypeCache.getConstructor<Proxy>(
             type = Menu.getType(),
             fallback = null,
         )
@@ -147,7 +147,7 @@ class TypeCacheTest {
         val appPointer: gpointer = getAppPointer()
 
         // Act
-        val constructor = TypeCache.getConstructor(
+        val constructor = TypeCache.getConstructor<Proxy>(
             type = Application.getType(),
             fallback = null,
         )
@@ -199,7 +199,7 @@ class TypeCacheTest {
         val filePointer: gpointer = checkNotNull(g_file_parse_name("test.txt"))
 
         // Act
-        val fileConstructor = TypeCache.getConstructor(
+        val fileConstructor = TypeCache.getConstructor<Proxy>(
             address = filePointer,
             fallback = null,
         )

@@ -18,21 +18,15 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.gtkkn.extensions.glib.cinterop
+package org.gtkkn.extensions
 
-/**
- * Classes that implement the Floating interface have a `refSink` method.
- */
-public interface Floating : Proxy {
+import org.gtkkn.extensions.glib.util.log.writer.LogWriter
+
+public object GtkKn {
     /**
-     * Sink the floating reference.
+     * Enable/disable debug logs.
      *
-     * @return the instance
+     * Remember to install a [LogWriter] (e.g., `Log.installConsoleLogWriter()`)
      */
-    public fun refSink(): Floating
-
-    /**
-     * Decrease the reference count of the instance.
-     */
-    public fun unref()
+    public var debugLogs: Boolean = false
 }

@@ -230,10 +230,15 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
         useInstance: Boolean,
     ): CodeBlock {
         val code = CodeBlock.builder()
+        val target = if (useInstance) "instance" else "this"
         when (constructor.memoryManagement) {
-            is MemoryManagement.InstanceCache -> Unit
+            is MemoryManagement.InstanceCache -> code.addStatement(
+                "%T.put(%L)",
+                BindingsGenerator.INSTANCE_CACHE_TYPE,
+                target,
+            )
+
             is MemoryManagement.MemoryCleaner -> {
-                val target = if (useInstance) "instance" else "this"
                 when (constructor.memoryManagement.freeOperation) {
                     MemoryManagement.MemoryCleaner.FreeOperation.BoxedType ->
                         code.addStatement(
