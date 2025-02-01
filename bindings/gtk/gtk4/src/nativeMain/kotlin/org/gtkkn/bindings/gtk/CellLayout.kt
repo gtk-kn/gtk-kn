@@ -38,7 +38,7 @@ import org.gtkkn.native.gtk.gtk_cell_layout_set_cell_data_func
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   See [class@Gtk.LayoutManager] for layout manager delegate objects
+ *   See [class@Gtk.LayoutManager] for layout manager delegate objects
  * ---
  *
  * An interface for packing cells
@@ -158,6 +158,11 @@ public interface CellLayout : Proxy, KGTyped {
     public val gtkCellLayoutPointer: CPointer<GtkCellLayout>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds an attribute mapping to the list in @cell_layout.
      *
      * The @column is the column of the model to get a value from, and the
@@ -177,12 +182,22 @@ public interface CellLayout : Proxy, KGTyped {
     ): Unit = gtk_cell_layout_add_attribute(gtkCellLayoutPointer, cell.gtkCellRendererPointer, attribute, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Unsets all the mappings on all renderers on @cell_layout and
      * removes all renderers from @cell_layout.
      */
     public fun clear(): Unit = gtk_cell_layout_clear(gtkCellLayoutPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Clears all existing attributes previously set with
      * gtk_cell_layout_set_attributes().
      *
@@ -191,6 +206,11 @@ public interface CellLayout : Proxy, KGTyped {
     public fun clearAttributes(cell: CellRenderer): Unit = gtk_cell_layout_clear_attributes(gtkCellLayoutPointer, cell.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the underlying `GtkCellArea` which might be @cell_layout
      * if called on a `GtkCellArea` or might be null if no `GtkCellArea`
      * is used by @cell_layout.
@@ -198,10 +218,15 @@ public interface CellLayout : Proxy, KGTyped {
      * @return the cell area used by @cell_layout
      */
     public fun getArea(): CellArea? = gtk_cell_layout_get_area(gtkCellLayoutPointer)?.run {
-        InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the cell renderers which have been added to @cell_layout.
      *
      * @return a list of cell renderers. The list, but not the renderers has
@@ -212,6 +237,11 @@ public interface CellLayout : Proxy, KGTyped {
         List(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds the @cell to the end of @cell_layout. If @expand is false, then the
      * @cell is allocated no more space than it needs. Any unused space is
      * divided evenly between cells for which @expand is true.
@@ -224,6 +254,11 @@ public interface CellLayout : Proxy, KGTyped {
     public fun packEnd(cell: CellRenderer, expand: Boolean): Unit = gtk_cell_layout_pack_end(gtkCellLayoutPointer, cell.gtkCellRendererPointer, expand.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Packs the @cell into the beginning of @cell_layout. If @expand is false,
      * then the @cell is allocated no more space than it needs. Any unused space
      * is divided evenly between cells for which @expand is true.
@@ -236,6 +271,11 @@ public interface CellLayout : Proxy, KGTyped {
     public fun packStart(cell: CellRenderer, expand: Boolean): Unit = gtk_cell_layout_pack_start(gtkCellLayoutPointer, cell.gtkCellRendererPointer, expand.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Re-inserts @cell at @position.
      *
      * Note that @cell has already to be packed into @cell_layout
@@ -247,6 +287,11 @@ public interface CellLayout : Proxy, KGTyped {
     public fun reorder(cell: CellRenderer, position: gint): Unit = gtk_cell_layout_reorder(gtkCellLayoutPointer, cell.gtkCellRendererPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the `GtkCellLayout`DataFunc to use for @cell_layout.
      *
      * This function is used instead of the standard attributes mapping

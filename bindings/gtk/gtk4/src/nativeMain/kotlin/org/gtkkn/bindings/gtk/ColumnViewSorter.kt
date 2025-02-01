@@ -87,7 +87,7 @@ public open class ColumnViewSorter(
          * @since 4.10
          */
         get() = gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer)?.run {
-            InstanceCache.get(this, true) { ColumnViewColumn(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ColumnViewColumn(reinterpret()) }!!
         }
 
     /**

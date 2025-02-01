@@ -336,6 +336,17 @@ public open class VolumeMonitor(
             GioTypeProvider.register()}
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.20.
+         *
+         * Instead of using this function, #GVolumeMonitor
+         * implementations should instead create shadow mounts with the URI of
+         * the mount they intend to adopt. See the proxy volume monitor in
+         * gvfs for an example of this. Also see g_mount_is_shadowed(),
+         * g_mount_shadow() and g_mount_unshadow() functions.
+         * ---
+         *
          * This function should be called by any #GVolumeMonitor
          * implementation when a new #GMount object is created that is not
          * associated with a #GVolume object. It must be called just before
@@ -379,7 +390,7 @@ public open class VolumeMonitor(
          *    g_object_unref() when done with it.
          */
         public fun `get`(): VolumeMonitor = g_volume_monitor_get()!!.run {
-            InstanceCache.get(this, true) { VolumeMonitor(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { VolumeMonitor(reinterpret()) }!!
         }
 
         /**

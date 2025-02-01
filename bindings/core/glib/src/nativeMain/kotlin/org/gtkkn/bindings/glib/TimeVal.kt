@@ -118,6 +118,14 @@ public class TimeVal(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use `guint64` for
+     *    representing microseconds since the epoch, or use #GDateTime.
+     * ---
+     *
      * Adds the given number of microseconds to @time_. @microseconds can
      * also be negative to decrease the value of @time_.
      *
@@ -126,6 +134,14 @@ public class TimeVal(
     public fun add(microseconds: glong): Unit = g_time_val_add(glibTimeValPointer, microseconds)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use
+     *    g_date_time_format_iso8601(dt) instead.
+     * ---
+     *
      * Converts @time_ into an RFC 3339 encoded string, relative to the
      * Coordinated Universal Time (UTC). This is one of the many formats
      * allowed by ISO 8601.
@@ -172,6 +188,14 @@ public class TimeVal(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.62.
+         *
+         * #GTimeVal is not year-2038-safe. Use
+         *    g_date_time_new_from_iso8601() instead.
+         * ---
+         *
          * Converts a string containing an ISO 8601 encoded date and time
          * to a #GTimeVal and puts it into @time_.
          *

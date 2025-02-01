@@ -195,7 +195,7 @@ public open class ColumnView(
          * @since 4.12
          */
         get() = gtk_column_view_get_header_factory(gtkColumnViewPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
         /**
          * Sets the `GtkListItemFactory` to use for populating the
@@ -261,7 +261,7 @@ public open class ColumnView(
          * @since 4.12
          */
         get() = gtk_column_view_get_row_factory(gtkColumnViewPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
         /**
          * Sets the factory used for configuring rows. The factory must be for configuring
@@ -363,7 +363,7 @@ public open class ColumnView(
          * @return the `GtkSorter` of @self
          */
         get() = gtk_column_view_get_sorter(gtkColumnViewPointer)?.run {
-            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!
         }
 
     /**

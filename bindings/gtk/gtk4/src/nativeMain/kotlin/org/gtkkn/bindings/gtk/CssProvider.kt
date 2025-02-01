@@ -108,6 +108,14 @@ public open class CssProvider(
     public open fun loadFromBytes(`data`: Bytes): Unit = gtk_css_provider_load_from_bytes(gtkCssProviderPointer, `data`.glibBytesPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.CssProvider.load_from_string]
+     *   or [method@Gtk.CssProvider.load_from_bytes] instead
+     * ---
+     *
      * Loads @data into @css_provider.
      *
      * This clears any previously loaded information.

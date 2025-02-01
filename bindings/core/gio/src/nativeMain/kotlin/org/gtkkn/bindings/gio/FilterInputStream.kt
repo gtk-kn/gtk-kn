@@ -43,7 +43,7 @@ public abstract class FilterInputStream(
          * @return a #GInputStream.
          */
         get() = g_filter_input_stream_get_base_stream(gioFilterInputStreamPointer)!!.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
     /**

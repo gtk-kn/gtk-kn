@@ -65,7 +65,7 @@ public open class Coverage(
      *   [method@Pango.Coverage.unref].
      */
     public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer)!!.run {
-        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**
@@ -78,6 +78,13 @@ public open class Coverage(
         CoverageLevel.fromNativeValue(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.44.
+     *
+     * This function does nothing
+     * ---
+     *
      * Set the coverage for each index in @coverage to be the max (better)
      * value of the current coverage for the index and the coverage for
      * the corresponding index in @other.
@@ -87,12 +94,19 @@ public open class Coverage(
     public open fun max(other: Coverage): Unit = pango_coverage_max(pangoCoveragePointer, other.pangoCoveragePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.52.
+     *
+     * Use g_object_ref instead
+     * ---
+     *
      * Increase the reference count on the `PangoCoverage` by one.
      *
      * @return @coverage
      */
     override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer)!!.run {
-        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**
@@ -104,6 +118,13 @@ public open class Coverage(
     public open fun `set`(index: gint, level: CoverageLevel): Unit = pango_coverage_set(pangoCoveragePointer, index, level.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.52.
+     *
+     * Use g_object_unref instead
+     * ---
+     *
      * Decrease the reference count on the `PangoCoverage` by one.
      *
      * If the result is zero, free the coverage and all associated memory.

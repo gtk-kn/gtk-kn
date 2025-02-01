@@ -272,6 +272,11 @@ public interface TreeModel : Proxy, KGTyped {
     public val gtkTreeModelPointer: CPointer<GtkTreeModel>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkTreeModel`, with @child_model as the child_model
      * and @root as the virtual root.
      *
@@ -282,6 +287,11 @@ public interface TreeModel : Proxy, KGTyped {
         TreeModelImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Calls @func on each node in model in a depth-first fashion.
      *
      * If @func returns true, then the tree ceases to be walked,
@@ -292,6 +302,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun foreach(func: TreeModelForeachFunc): Unit = gtk_tree_model_foreach(gtkTreeModelPointer, TreeModelForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the type of the column.
      *
      * @param index the column index
@@ -300,6 +315,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun getColumnType(index: gint): GType = gtk_tree_model_get_column_type(gtkTreeModelPointer, index)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a set of flags supported by this interface.
      *
      * The flags are a bitwise combination of `GtkTreeModel`Flags.
@@ -312,6 +332,11 @@ public interface TreeModel : Proxy, KGTyped {
         TreeModelFlags(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to a valid iterator pointing to @path.
      *
      * If @path does not exist, @iter is set to an invalid
@@ -324,6 +349,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun getIter(iter: TreeIter, path: TreePath): Boolean = gtk_tree_model_get_iter(gtkTreeModelPointer, iter.gtkTreeIterPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Initializes @iter with the first iterator in the tree
      * (the one at the path "0").
      *
@@ -335,6 +365,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun getIterFirst(iter: TreeIter): Boolean = gtk_tree_model_get_iter_first(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to a valid iterator pointing to @path_string, if it
      * exists.
      *
@@ -347,6 +382,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun getIterFromString(iter: TreeIter, pathString: String): Boolean = gtk_tree_model_get_iter_from_string(gtkTreeModelPointer, iter.gtkTreeIterPointer, pathString).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the number of columns supported by @tree_model.
      *
      * @return the number of columns
@@ -354,6 +394,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun getNColumns(): gint = gtk_tree_model_get_n_columns(gtkTreeModelPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a newly-created `GtkTreePath` referenced by @iter.
      *
      * This path should be freed with gtk_tree_path_free().
@@ -365,6 +410,11 @@ public interface TreeModel : Proxy, KGTyped {
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Generates a string representation of the iter.
      *
      * This string is a “:” separated list of numbers.
@@ -377,6 +427,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun getStringFromIter(iter: TreeIter): String? = gtk_tree_model_get_string_from_iter(gtkTreeModelPointer, iter.gtkTreeIterPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Initializes and sets @value to that at @column.
      *
      * When done with @value, g_value_unset() needs to be called
@@ -393,6 +448,11 @@ public interface TreeModel : Proxy, KGTyped {
     ): Unit = gtk_tree_model_get_value(gtkTreeModelPointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to point to the first child of @parent.
      *
      * If @parent has no children, false is returned and @iter is
@@ -409,6 +469,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun iterChildren(iter: TreeIter, parent: TreeIter? = null): Boolean = gtk_tree_model_iter_children(gtkTreeModelPointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if @iter has children, false otherwise.
      *
      * @param iter the `GtkTreeIter` to test for children
@@ -417,6 +482,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun iterHasChild(iter: TreeIter): Boolean = gtk_tree_model_iter_has_child(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the number of children that @iter has.
      *
      * As a special case, if @iter is null, then the number
@@ -428,6 +498,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun iterNChildren(iter: TreeIter? = null): gint = gtk_tree_model_iter_n_children(gtkTreeModelPointer, iter?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to point to the node following it at the current level.
      *
      * If there is no next @iter, false is returned and @iter is set
@@ -439,6 +514,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun iterNext(iter: TreeIter): Boolean = gtk_tree_model_iter_next(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to be the child of @parent, using the given index.
      *
      * The first index is 0. If @n is too big, or @parent has no children,
@@ -459,6 +539,11 @@ public interface TreeModel : Proxy, KGTyped {
     ): Boolean = gtk_tree_model_iter_nth_child(gtkTreeModelPointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, n).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to be the parent of @child.
      *
      * If @child is at the toplevel, and doesn’t have a parent, then
@@ -476,6 +561,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun iterParent(iter: TreeIter, child: TreeIter): Boolean = gtk_tree_model_iter_parent(gtkTreeModelPointer, iter.gtkTreeIterPointer, child.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @iter to point to the previous node at the current level.
      *
      * If there is no previous @iter, false is returned and @iter is
@@ -487,6 +577,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun iterPrevious(iter: TreeIter): Boolean = gtk_tree_model_iter_previous(gtkTreeModelPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Lets the tree ref the node.
      *
      * This is an optional method for models to implement.
@@ -510,6 +605,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun refNode(iter: TreeIter): Unit = gtk_tree_model_ref_node(gtkTreeModelPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-changed signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-changed].
@@ -520,6 +620,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun rowChanged(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_changed(gtkTreeModelPointer, path.gtkTreePathPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-deleted signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-deleted].
@@ -537,6 +642,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun rowDeleted(path: TreePath): Unit = gtk_tree_model_row_deleted(gtkTreeModelPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-has-child-toggled signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-has-child-toggled].
@@ -550,6 +660,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun rowHasChildToggled(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_has_child_toggled(gtkTreeModelPointer, path.gtkTreePathPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the ::row-inserted signal on @tree_model.
      *
      * See [signal@Gtk.TreeModel::row-inserted].
@@ -560,6 +675,11 @@ public interface TreeModel : Proxy, KGTyped {
     public fun rowInserted(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_inserted(gtkTreeModelPointer, path.gtkTreePathPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Lets the tree unref the node.
      *
      * This is an optional method for models to implement.

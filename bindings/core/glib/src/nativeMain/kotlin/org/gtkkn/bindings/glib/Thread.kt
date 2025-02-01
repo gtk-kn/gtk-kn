@@ -157,6 +157,13 @@ public class Thread(
         Thread(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Thread priorities no longer have any effect.
+     * ---
+     *
      * This function does nothing.
      *
      * @param priority ignored
@@ -206,6 +213,13 @@ public class Thread(
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * Use g_thread_new() instead
+         * ---
+         *
          * This function creates a new thread.
          *
          * The new thread executes the function @func with the argument @data.
@@ -236,6 +250,14 @@ public class Thread(
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * The @bound and @priority arguments are now ignored.
+         * Use g_thread_new().
+         * ---
+         *
          * This function creates a new thread.
          *
          * @param func a function to execute in the new thread.
@@ -285,6 +307,15 @@ public class Thread(
         public fun exit(retval: gpointer? = null): Unit = g_thread_exit(retval)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * There aren't many things you can do with a #GThread,
+         *     except comparing it with one that was returned from g_thread_create().
+         *     There are better ways to find out if your thread is still alive.
+         * ---
+         *
          * Call @thread_func on all #GThreads that have been
          * created with g_thread_create().
          *
@@ -313,6 +344,15 @@ public class Thread(
         public fun getInitialized(): Boolean = g_thread_get_initialized().asBoolean()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * This function is no longer necessary. The GLib
+         *     threading system is automatically initialized at the start
+         *     of your program.
+         * ---
+         *
          * If you use GLib from more than one thread, you must initialize the
          * thread system by calling g_thread_init().
          *

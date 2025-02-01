@@ -147,7 +147,7 @@ public abstract class TlsConnection(
          * @since 2.30
          */
         get() = g_tls_connection_get_database(gioTlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
         /**
          * Sets the certificate database that is used to verify peer certificates.
@@ -186,7 +186,7 @@ public abstract class TlsConnection(
          * @since 2.30
          */
         get() = g_tls_connection_get_interaction(gioTlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
         /**
          * Set the object that will be used to interact with the user. It will be used
@@ -245,7 +245,7 @@ public abstract class TlsConnection(
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate(gioTlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -301,6 +301,13 @@ public abstract class TlsConnection(
             TlsProtocolVersion.fromNativeValue(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60.
+     *
+     * The rehandshake mode is ignored.
+     * ---
+     *
      * The rehandshaking mode. See
      * g_tls_connection_set_rehandshake_mode().
      *
@@ -309,6 +316,15 @@ public abstract class TlsConnection(
     @GioVersion2_28
     public open var rehandshakeMode: TlsRehandshakeMode
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.60..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Gets @conn rehandshaking mode. See
          * g_tls_connection_set_rehandshake_mode() for details.
          *
@@ -318,6 +334,15 @@ public abstract class TlsConnection(
         get() = g_tls_connection_get_rehandshake_mode(gioTlsConnectionPointer).run {
             TlsRehandshakeMode.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.60..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Since GLib 2.64, changing the rehandshake mode is no longer supported
          * and will have no effect. With TLS 1.3, rehandshaking has been removed from
          * the TLS protocol, replaced by separate post-handshake authentication and
@@ -383,12 +408,26 @@ public abstract class TlsConnection(
         set(requireCloseNotify) = g_tls_connection_set_require_close_notify(gioTlsConnectionPointer, requireCloseNotify.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.30.
+     *
+     * Use GTlsConnection:database instead
+     * ---
+     *
      * Whether or not the system certificate database will be used to
      * verify peer certificates. See
      * g_tls_connection_set_use_system_certdb().
      */
     public open var useSystemCertdb: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.30.
+         *
+         * Use g_tls_connection_get_database() instead
+         * ---
+         *
          * Gets whether @conn uses the system certificate database to verify
          * peer certificates. See g_tls_connection_set_use_system_certdb().
          *
@@ -396,6 +435,13 @@ public abstract class TlsConnection(
          */
         get() = g_tls_connection_get_use_system_certdb(gioTlsConnectionPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.30.
+         *
+         * Use g_tls_connection_set_database() instead
+         * ---
+         *
          * Sets whether @conn uses the system certificate database to verify
          * peer certificates. This is true by default. If set to false, then
          * peer certificate validation will always set the
@@ -430,7 +476,7 @@ public abstract class TlsConnection(
      */
     @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? = g_tls_connection_get_certificate(gioTlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**

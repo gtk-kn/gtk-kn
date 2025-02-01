@@ -519,6 +519,11 @@ public open class Snapshot(
     public open fun pushStroke(path: Path, stroke: Stroke): Unit = gtk_snapshot_push_stroke(gtkSnapshotPointer.reinterpret(), path.gskPathPointer, stroke.gskStrokePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for the CSS background according to @context,
      * and appends it to the current node of @snapshot, without changing
      * the current node.
@@ -538,6 +543,11 @@ public open class Snapshot(
     ): Unit = gtk_snapshot_render_background(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for the focus outline according to @context,
      * and appends it to the current node of @snapshot, without changing
      * the current node.
@@ -557,6 +567,11 @@ public open class Snapshot(
     ): Unit = gtk_snapshot_render_focus(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for the CSS border according to @context,
      * and appends it to the current node of @snapshot, without changing
      * the current node.
@@ -576,6 +591,11 @@ public open class Snapshot(
     ): Unit = gtk_snapshot_render_frame(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Draws a text caret using @snapshot at the specified index of @layout.
      *
      * @param context a `GtkStyleContext`
@@ -595,6 +615,11 @@ public open class Snapshot(
     ): Unit = gtk_snapshot_render_insertion_cursor(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, layout.pangoLayoutPointer, index, direction.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a render node for rendering @layout according to the style
      * information in @context, and appends it to the current node of @snapshot,
      * without changing the current node.

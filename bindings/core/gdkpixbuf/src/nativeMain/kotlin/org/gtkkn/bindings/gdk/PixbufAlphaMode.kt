@@ -13,8 +13,8 @@ import org.gtkkn.native.gobject.GType
  * This is deprecated since version 2.42.
  *
  * There is no user of GdkPixbufAlphaMode in GdkPixbuf,
-         *   and the Xlib utility functions have been split out to their own
-         *   library, gdk-pixbuf-xlib
+ *   and the Xlib utility functions have been split out to their own
+ *   library, gdk-pixbuf-xlib
  * ---
  *
  * Control the alpha channel for drawables.
@@ -39,8 +39,8 @@ public enum class PixbufAlphaMode(
      * This is deprecated since version 2.42.
      *
      * There is no user of GdkPixbufAlphaMode in GdkPixbuf,
-             *   and the Xlib utility functions have been split out to their own
-             *   library, gdk-pixbuf-xlib
+     *   and the Xlib utility functions have been split out to their own
+     *   library, gdk-pixbuf-xlib
      * ---
      *
      * A bilevel clipping mask (black and white)
@@ -55,8 +55,8 @@ public enum class PixbufAlphaMode(
      * This is deprecated since version 2.42.
      *
      * There is no user of GdkPixbufAlphaMode in GdkPixbuf,
-             *   and the Xlib utility functions have been split out to their own
-             *   library, gdk-pixbuf-xlib
+     *   and the Xlib utility functions have been split out to their own
+     *   library, gdk-pixbuf-xlib
      * ---
      *
      * For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.

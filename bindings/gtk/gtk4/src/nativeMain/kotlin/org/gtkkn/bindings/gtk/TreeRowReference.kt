@@ -44,6 +44,11 @@ public class TreeRowReference(
     public val gtkTreeRowReferencePointer: CPointer<GtkTreeRowReference>,
 ) : ProxyInstance(gtkTreeRowReferencePointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a row reference based on @path.
      *
      * This reference will keep pointing to the node pointed to
@@ -60,6 +65,11 @@ public class TreeRowReference(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * You do not need to use this function.
      *
      * Creates a row reference based on @path.
@@ -99,6 +109,11 @@ public class TreeRowReference(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Copies a `GtkTreeRowReference`.
      *
      * @return a copy of @reference
@@ -107,11 +122,21 @@ public class TreeRowReference(
         TreeRowReference(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Free’s @reference. @reference may be null
      */
     public fun free(): Unit = gtk_tree_row_reference_free(gtkTreeRowReferencePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the model that the row reference is monitoring.
      *
      * @return the model
@@ -120,6 +145,11 @@ public class TreeRowReference(
         TreeModel.TreeModelImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a path that the row reference currently points to,
      * or null if the path pointed to is no longer valid.
      *
@@ -129,6 +159,11 @@ public class TreeRowReference(
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if the @reference is non-null and refers to
      * a current valid path.
      *
@@ -138,6 +173,11 @@ public class TreeRowReference(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Lets a set of row reference created by
          * gtk_tree_row_reference_new_proxy() know that the
          * model emitted the ::row-deleted signal.
@@ -148,6 +188,11 @@ public class TreeRowReference(
         public fun deleted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_deleted(proxy.gobjectObjectPointer, path.gtkTreePathPointer)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Lets a set of row reference created by
          * gtk_tree_row_reference_new_proxy() know that the
          * model emitted the ::row-inserted signal.

@@ -80,6 +80,13 @@ public open class FileChooserWidget(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Direct use of `GtkFileChooserWidget` is deprecated
+     * ---
+     *
      * Creates a new `GtkFileChooserWidget`.
      *
      * This is a file chooser widget that can be embedded in custom

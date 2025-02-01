@@ -38,7 +38,7 @@ import org.gtkkn.native.gobject.g_value_array_sort_with_data
  * This is deprecated since version 2.32.
  *
  * Use `GArray` instead, if possible for the given use case,
-         *    as described above.
+ *    as described above.
  * ---
  *
  * A `GValueArray` is a container structure to hold an array of generic values.
@@ -90,6 +90,13 @@ public class ValueArray(
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_sized_new() instead.
+     * ---
+     *
      * Allocate and initialize a new #GValueArray, optionally preserve space
      * for @n_prealloced elements. New arrays always contain 0 elements,
      * regardless of the value of @n_prealloced.
@@ -153,6 +160,13 @@ public class ValueArray(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_append_val() instead.
+     * ---
+     *
      * Insert a copy of @value as last element of @value_array. If @value is
      * null, an uninitialized value is appended.
      *
@@ -163,6 +177,13 @@ public class ValueArray(
         ValueArray(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_ref() instead.
+     * ---
+     *
      * Construct an exact copy of a #GValueArray by duplicating all its
      * contents.
      *
@@ -172,11 +193,25 @@ public class ValueArray(
         ValueArray(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_unref() instead.
+     * ---
+     *
      * Free a #GValueArray including its contents.
      */
     public fun free(): Unit = g_value_array_free(gobjectValueArrayPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_array_index() instead.
+     * ---
+     *
      * Return a pointer to the value at @index_ containd in @value_array.
      *
      * @param index index of the value of interest
@@ -186,6 +221,13 @@ public class ValueArray(
         Value(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_insert_val() instead.
+     * ---
+     *
      * Insert a copy of @value at specified position into @value_array. If @value
      * is null, an uninitialized value is inserted.
      *
@@ -197,6 +239,13 @@ public class ValueArray(
         ValueArray(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_prepend_val() instead.
+     * ---
+     *
      * Insert a copy of @value as first element of @value_array. If @value is
      * null, an uninitialized value is prepended.
      *
@@ -207,6 +256,13 @@ public class ValueArray(
         ValueArray(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_remove_index() instead.
+     * ---
+     *
      * Remove the value at position @index_ from @value_array.
      *
      * @param index position of value to remove, which must be less than
@@ -217,6 +273,13 @@ public class ValueArray(
         ValueArray(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use #GArray and g_array_sort_with_data().
+     * ---
+     *
      * Sort @value_array using @compare_func to compare the elements according
      * to the semantics of #GCompareDataFunc.
      *

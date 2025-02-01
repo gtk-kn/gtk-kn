@@ -20,7 +20,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents. You
-         *   should use [class@Gtk.Image] for icons, and [class@Gtk.Picture] for images
+ *   should use [class@Gtk.Image] for icons, and [class@Gtk.Picture] for images
  * ---
  *
  * Renders a pixbuf in a cell
@@ -57,6 +57,11 @@ public open class CellRendererPixbuf(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererPixbuf`. Adjust rendering
      * parameters using object properties. Object properties can be set
      * globally (with g_object_set()). Also, with `GtkTreeViewColumn`, you

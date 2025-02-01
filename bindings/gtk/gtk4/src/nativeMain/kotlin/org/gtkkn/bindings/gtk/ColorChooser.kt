@@ -39,7 +39,7 @@ import org.gtkkn.native.gtk.gtk_color_chooser_set_use_alpha
  * This is deprecated since version 4.10.
  *
  * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
-         *   instead of widgets implementing `GtkColorChooser`
+ *   instead of widgets implementing `GtkColorChooser`
  * ---
  *
  * `GtkColorChooser` is an interface that is implemented by widgets
@@ -60,6 +60,14 @@ public interface ColorChooser : Proxy, KGTyped {
     public val gtkColorChooserPointer: CPointer<GtkColorChooser>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
+     *   instead of widgets implementing `GtkColorChooser`
+     * ---
+     *
      * Whether colors may have alpha (translucency).
      *
      * When ::use-alpha is false, the `GdkRGBA` struct obtained
@@ -71,6 +79,13 @@ public interface ColorChooser : Proxy, KGTyped {
      */
     public var useAlpha: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialog] instead
+         * ---
+         *
          * Returns whether the color chooser shows the alpha channel.
          *
          * @return true if the color chooser uses the alpha channel,
@@ -78,6 +93,13 @@ public interface ColorChooser : Proxy, KGTyped {
          */
         get() = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialog] instead
+         * ---
+         *
          * Sets whether or not the color chooser should use the alpha channel.
          *
          * @param useAlpha true if color chooser should use alpha channel, false if not
@@ -85,6 +107,13 @@ public interface ColorChooser : Proxy, KGTyped {
         set(useAlpha) = gtk_color_chooser_set_use_alpha(gtkColorChooserPointer, useAlpha.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Gets the currently-selected color.
      *
      * @param color a `GdkRGBA` to fill in with the current color
@@ -92,6 +121,13 @@ public interface ColorChooser : Proxy, KGTyped {
     public fun getRgba(color: Rgba): Unit = gtk_color_chooser_get_rgba(gtkColorChooserPointer, color.gdkRgbaPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Returns whether the color chooser shows the alpha channel.
      *
      * @return true if the color chooser uses the alpha channel,
@@ -100,6 +136,13 @@ public interface ColorChooser : Proxy, KGTyped {
     public fun getUseAlpha(): Boolean = gtk_color_chooser_get_use_alpha(gtkColorChooserPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Sets the color.
      *
      * @param color the new color
@@ -107,6 +150,13 @@ public interface ColorChooser : Proxy, KGTyped {
     public fun setRgba(color: Rgba): Unit = gtk_color_chooser_set_rgba(gtkColorChooserPointer, color.gdkRgbaPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Sets whether or not the color chooser should use the alpha channel.
      *
      * @param useAlpha true if color chooser should use alpha channel, false if not
@@ -114,6 +164,14 @@ public interface ColorChooser : Proxy, KGTyped {
     public fun setUseAlpha(useAlpha: Boolean): Unit = gtk_color_chooser_set_use_alpha(gtkColorChooserPointer, useAlpha.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
+     *   instead of widgets implementing `GtkColorChooser`
+     * ---
+     *
      * Emitted when a color is activated from the color chooser.
      *
      * This usually happens when the user clicks a color swatch,

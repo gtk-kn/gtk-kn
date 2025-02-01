@@ -100,6 +100,13 @@ public open class TreeSelection(
      */
     public open var mode: SelectionMode
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkListView or GtkColumnView
+         * ---
+         *
          * Gets the selection mode for @selection. See
          * gtk_tree_selection_set_mode().
          *
@@ -108,6 +115,13 @@ public open class TreeSelection(
         get() = gtk_tree_selection_get_mode(gtkTreeSelectionPointer).run {
             SelectionMode.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkListView or GtkColumnView
+         * ---
+         *
          * Sets the selection mode of the @selection.  If the previous type was
          * %GTK_SELECTION_MULTIPLE, then the anchor is kept selected, if it was
          * previously selected.
@@ -117,6 +131,13 @@ public open class TreeSelection(
         set(type) = gtk_tree_selection_set_mode(gtkTreeSelectionPointer, type.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Returns the number of rows that have been selected in @tree.
      *
      * @return The number of rows selected.
@@ -124,15 +145,29 @@ public open class TreeSelection(
     public open fun countSelectedRows(): gint = gtk_tree_selection_count_selected_rows(gtkTreeSelectionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Returns the tree view associated with @selection.
      *
      * @return A `GtkTreeView`
      */
     public open fun getTreeView(): TreeView = gtk_tree_selection_get_tree_view(gtkTreeSelectionPointer)!!.run {
-        InstanceCache.get(this, true) { TreeView(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TreeView(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Returns the user data for the selection function.
      *
      * @return The user data.
@@ -140,6 +175,13 @@ public open class TreeSelection(
     public open fun getUserData(): gpointer? = gtk_tree_selection_get_user_data(gtkTreeSelectionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Returns true if the row at @iter is currently selected.
      *
      * @param iter A valid `GtkTreeIter`
@@ -148,6 +190,13 @@ public open class TreeSelection(
     public open fun iterIsSelected(iter: TreeIter): Boolean = gtk_tree_selection_iter_is_selected(gtkTreeSelectionPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Returns true if the row pointed to by @path is currently selected.  If @path
      * does not point to a valid location, false is returned
      *
@@ -157,12 +206,26 @@ public open class TreeSelection(
     public open fun pathIsSelected(path: TreePath): Boolean = gtk_tree_selection_path_is_selected(gtkTreeSelectionPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Selects all the nodes. @selection must be set to %GTK_SELECTION_MULTIPLE
      * mode.
      */
     public open fun selectAll(): Unit = gtk_tree_selection_select_all(gtkTreeSelectionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Selects the specified iterator.
      *
      * @param iter The `GtkTreeIter` to be selected.
@@ -170,6 +233,13 @@ public open class TreeSelection(
     public open fun selectIter(iter: TreeIter): Unit = gtk_tree_selection_select_iter(gtkTreeSelectionPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Select the row at @path.
      *
      * @param path The `GtkTreePath` to be selected.
@@ -177,6 +247,13 @@ public open class TreeSelection(
     public open fun selectPath(path: TreePath): Unit = gtk_tree_selection_select_path(gtkTreeSelectionPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Selects a range of nodes, determined by @start_path and @end_path inclusive.
      * @selection must be set to %GTK_SELECTION_MULTIPLE mode.
      *
@@ -186,6 +263,13 @@ public open class TreeSelection(
     public open fun selectRange(startPath: TreePath, endPath: TreePath): Unit = gtk_tree_selection_select_range(gtkTreeSelectionPointer, startPath.gtkTreePathPointer, endPath.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Calls a function for each selected node. Note that you cannot modify
      * the tree or selection from within this function. As a result,
      * gtk_tree_selection_get_selected_rows() might be more useful.
@@ -195,6 +279,13 @@ public open class TreeSelection(
     public open fun selectedForeach(func: TreeSelectionForeachFunc): Unit = gtk_tree_selection_selected_foreach(gtkTreeSelectionPointer, TreeSelectionForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Sets the selection function.
      *
      * If set, this function is called before any node is selected or unselected,
@@ -207,11 +298,25 @@ public open class TreeSelection(
     public open fun setSelectFunction(func: TreeSelectionFunc?): Unit = gtk_tree_selection_set_select_function(gtkTreeSelectionPointer, func?.let { TreeSelectionFuncFunc.reinterpret() }, func?.let { StableRef.create(func).asCPointer() }, func?.let { staticStableRefDestroy.reinterpret() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Unselects all the nodes.
      */
     public open fun unselectAll(): Unit = gtk_tree_selection_unselect_all(gtkTreeSelectionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Unselects the specified iterator.
      *
      * @param iter The `GtkTreeIter` to be unselected.
@@ -219,6 +324,13 @@ public open class TreeSelection(
     public open fun unselectIter(iter: TreeIter): Unit = gtk_tree_selection_unselect_iter(gtkTreeSelectionPointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Unselects the row at @path.
      *
      * @param path The `GtkTreePath` to be unselected.
@@ -226,6 +338,13 @@ public open class TreeSelection(
     public open fun unselectPath(path: TreePath): Unit = gtk_tree_selection_unselect_path(gtkTreeSelectionPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkListView or GtkColumnView
+     * ---
+     *
      * Unselects a range of nodes, determined by @start_path and @end_path
      * inclusive.
      *

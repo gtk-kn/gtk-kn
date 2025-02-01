@@ -42,7 +42,7 @@ public interface StyleSchemeChooser : Proxy, KGTyped {
          * @return the currently-selected scheme.
          */
         get() = gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer)!!.run {
-            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
         }
         /**
          * Sets the scheme.
@@ -57,7 +57,7 @@ public interface StyleSchemeChooser : Proxy, KGTyped {
      * @return the currently-selected scheme.
      */
     public fun getStyleScheme(): StyleScheme = gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer)!!.run {
-        InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
     }
 
     /**

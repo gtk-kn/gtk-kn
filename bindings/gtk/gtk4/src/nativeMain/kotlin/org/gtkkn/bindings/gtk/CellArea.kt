@@ -85,7 +85,7 @@ import org.gtkkn.native.gtk.gtk_cell_area_stop_editing
  * This is deprecated since version 4.10.
  *
  * List views use widgets for displaying their
-         *   contents
+ *   contents
  * ---
  *
  * An abstract class for laying out `GtkCellRenderer`s
@@ -439,6 +439,11 @@ public abstract class CellArea(
      */
     public open val editWidget: CellEditable?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets the `GtkCellEditable` widget currently used
          * to edit the currently edited cell.
          *
@@ -455,13 +460,18 @@ public abstract class CellArea(
      */
     public open val editedCell: CellRenderer?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets the `GtkCellRenderer` in @area that is currently
          * being edited.
          *
          * @return The currently edited `GtkCellRenderer`
          */
         get() = gtk_cell_area_get_edited_cell(gtkCellAreaPointer)?.run {
-            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         }
 
     /**
@@ -469,14 +479,24 @@ public abstract class CellArea(
      */
     public open var focusCell: CellRenderer?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Retrieves the currently focused cell for @area
          *
          * @return the currently focused cell in @area.
          */
         get() = gtk_cell_area_get_focus_cell(gtkCellAreaPointer)?.run {
-            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Explicitly sets the currently focused cell to @renderer.
          *
          * This is generally called by implementations of
@@ -489,6 +509,11 @@ public abstract class CellArea(
         set(renderer) = gtk_cell_area_set_focus_cell(gtkCellAreaPointer, renderer?.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Activates @area, usually by activating the currently focused
      * cell, however some subclasses which embed widgets in the area
      * can also activate a widget if it currently has the focus.
@@ -510,6 +535,11 @@ public abstract class CellArea(
     ): Boolean = gtk_cell_area_activate(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, cellArea.gdkRectanglePointer, flags.mask, editOnly.asGBoolean()).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This is used by `GtkCellArea` subclasses when handling events
      * to activate cells, the base `GtkCellArea` class activates cells
      * for keyboard events for free in its own GtkCellArea->activate()
@@ -532,6 +562,11 @@ public abstract class CellArea(
     ): Boolean = gtk_cell_area_activate_cell(gtkCellAreaPointer, widget.gtkWidgetPointer, renderer.gtkCellRendererPointer, event.gdkEventPointer, cellArea.gdkRectanglePointer, flags.mask).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds @renderer to @area with the default child cell properties.
      *
      * @param renderer the `GtkCellRenderer` to add to @area
@@ -539,6 +574,11 @@ public abstract class CellArea(
     public open fun add(renderer: CellRenderer): Unit = gtk_cell_area_add(gtkCellAreaPointer, renderer.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds @sibling to @renderer’s focusable area, focus will be drawn
      * around @renderer and all of its siblings if @renderer can
      * focus for a given row.
@@ -552,6 +592,11 @@ public abstract class CellArea(
     public open fun addFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Unit = gtk_cell_area_add_focus_sibling(gtkCellAreaPointer, renderer.gtkCellRendererPointer, sibling.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Applies any connected attributes to the renderers in
      * @area by pulling the values from @tree_model.
      *
@@ -569,6 +614,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_apply_attributes(gtkCellAreaPointer, treeModel.gtkTreeModelPointer, iter.gtkTreeIterPointer, isExpander.asGBoolean(), isExpanded.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Connects an @attribute to apply values from @column for the
      * `GtkTreeModel` in use.
      *
@@ -583,6 +633,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_attribute_connect(gtkCellAreaPointer, renderer.gtkCellRendererPointer, attribute, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Disconnects @attribute for the @renderer in @area so that
      * attribute will no longer be updated with values from the
      * model.
@@ -593,6 +648,11 @@ public abstract class CellArea(
     public open fun attributeDisconnect(renderer: CellRenderer, attribute: String): Unit = gtk_cell_area_attribute_disconnect(gtkCellAreaPointer, renderer.gtkCellRendererPointer, attribute)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the model column that an attribute has been mapped to,
      * or -1 if the attribute is not mapped.
      *
@@ -603,6 +663,11 @@ public abstract class CellArea(
     public open fun attributeGetColumn(renderer: CellRenderer, attribute: String): gint = gtk_cell_area_attribute_get_column(gtkCellAreaPointer, renderer.gtkCellRendererPointer, attribute)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Gets the value of a cell property for @renderer in @area.
      *
      * @param renderer a `GtkCellRenderer` inside @area
@@ -616,6 +681,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_cell_get_property(gtkCellAreaPointer, renderer.gtkCellRendererPointer, propertyName, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets a cell property for @renderer in @area.
      *
      * @param renderer a `GtkCellRenderer` inside @area
@@ -629,6 +699,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_cell_set_property(gtkCellAreaPointer, renderer.gtkCellRendererPointer, propertyName, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This is sometimes needed for cases where rows need to share
      * alignments in one orientation but may be separately grouped
      * in the opposing orientation.
@@ -645,10 +720,15 @@ public abstract class CellArea(
      * @return a newly created `GtkCellArea`Context copy of @context.
      */
     public open fun copyContext(context: CellAreaContext): CellAreaContext = gtk_cell_area_copy_context(gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.run {
-        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a `GtkCellArea`Context to be used with @area for
      * all purposes. `GtkCellArea`Context stores geometry information
      * for rows for which it was operated on, it is important to use
@@ -659,10 +739,15 @@ public abstract class CellArea(
      * @return a newly created `GtkCellArea`Context which can be used with @area.
      */
     public open fun createContext(): CellAreaContext = gtk_cell_area_create_context(gtkCellAreaPointer)!!.run {
-        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Delegates event handling to a `GtkCellArea`.
      *
      * @param context the `GtkCellArea`Context for this row of data.
@@ -681,6 +766,11 @@ public abstract class CellArea(
     ): gint = gtk_cell_area_event(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, event.gdkEventPointer, cellArea.gdkRectanglePointer, flags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This should be called by the @area’s owning layout widget
      * when focus is to be passed to @area, or moved within @area
      * for a given @direction and row data.
@@ -695,6 +785,11 @@ public abstract class CellArea(
     public open fun focus(direction: DirectionType): Boolean = gtk_cell_area_focus(gtkCellAreaPointer, direction.nativeValue).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Calls @callback for every `GtkCellRenderer` in @area.
      *
      * @param callback the `GtkCellCallback` to call
@@ -720,6 +815,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_foreach_alloc(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, cellArea.gdkRectanglePointer, backgroundArea.gdkRectanglePointer, CellAllocCallbackFunc.reinterpret(), StableRef.create(callback).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Derives the allocation of @renderer inside @area if @area
      * were to be rendered in @cell_area.
      *
@@ -739,6 +839,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_get_cell_allocation(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, renderer.gtkCellRendererPointer, cellArea.gdkRectanglePointer, allocation.gdkRectanglePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Gets the `GtkCellRenderer` at @x and @y coordinates inside @area and optionally
      * returns the full cell allocation for it inside @cell_area.
      *
@@ -760,7 +865,7 @@ public abstract class CellArea(
         y: gint,
         allocArea: Rectangle?,
     ): CellRenderer = gtk_cell_area_get_cell_at_position(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, cellArea.gdkRectanglePointer, x, y, allocArea?.gdkRectanglePointer)!!.run {
-        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
     }
 
     /**
@@ -777,6 +882,11 @@ public abstract class CellArea(
     public open fun getCurrentPathString(): String = gtk_cell_area_get_current_path_string(gtkCellAreaPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Gets the `GtkCellRenderer` which is expected to be focusable
      * for which @renderer is, or may be a sibling.
      *
@@ -790,10 +900,15 @@ public abstract class CellArea(
      *   for which @renderer is a sibling
      */
     public open fun getFocusFromSibling(renderer: CellRenderer): CellRenderer? = gtk_cell_area_get_focus_from_sibling(gtkCellAreaPointer, renderer.gtkCellRendererPointer)?.run {
-        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Gets the focus sibling cell renderers for @renderer.
      *
      * @param renderer the `GtkCellRenderer` expected to have focus
@@ -813,6 +928,11 @@ public abstract class CellArea(
         SizeRequestMode.fromNativeValue(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Checks if @area contains @renderer.
      *
      * @param renderer the `GtkCellRenderer` to check
@@ -821,6 +941,11 @@ public abstract class CellArea(
     public open fun hasRenderer(renderer: CellRenderer): Boolean = gtk_cell_area_has_renderer(gtkCellAreaPointer, renderer.gtkCellRendererPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This is a convenience function for `GtkCellArea` implementations
      * to get the inner area where a given `GtkCellRenderer` will be
      * rendered. It removes any padding previously added by gtk_cell_area_request_renderer().
@@ -837,6 +962,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_inner_cell_area(gtkCellAreaPointer, widget.gtkWidgetPointer, cellArea.gdkRectanglePointer, innerArea.gdkRectanglePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns whether the area can do anything when activated,
      * after applying new attributes to @area.
      *
@@ -845,6 +975,11 @@ public abstract class CellArea(
     public open fun isActivatable(): Boolean = gtk_cell_area_is_activatable(gtkCellAreaPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns whether @sibling is one of @renderer’s focus siblings
      * (see gtk_cell_area_add_focus_sibling()).
      *
@@ -855,6 +990,11 @@ public abstract class CellArea(
     public open fun isFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Boolean = gtk_cell_area_is_focus_sibling(gtkCellAreaPointer, renderer.gtkCellRendererPointer, sibling.gtkCellRendererPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes @renderer from @area.
      *
      * @param renderer the `GtkCellRenderer` to remove from @area
@@ -862,6 +1002,11 @@ public abstract class CellArea(
     public open fun remove(renderer: CellRenderer): Unit = gtk_cell_area_remove(gtkCellAreaPointer, renderer.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes @sibling from @renderer’s focus sibling list
      * (see gtk_cell_area_add_focus_sibling()).
      *
@@ -871,6 +1016,11 @@ public abstract class CellArea(
     public open fun removeFocusSibling(renderer: CellRenderer, sibling: CellRenderer): Unit = gtk_cell_area_remove_focus_sibling(gtkCellAreaPointer, renderer.gtkCellRendererPointer, sibling.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Snapshots @area’s cells according to @area’s layout onto at
      * the given coordinates.
      *
@@ -893,6 +1043,11 @@ public abstract class CellArea(
     ): Unit = gtk_cell_area_snapshot(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, snapshot.gtkSnapshotPointer, backgroundArea.gdkRectanglePointer, cellArea.gdkRectanglePointer, flags.mask, paintFocus.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Explicitly stops the editing of the currently edited cell.
      *
      * If @canceled is true, the currently edited cell renderer

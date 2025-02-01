@@ -118,6 +118,13 @@ public class MappedFile(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mapped_file_unref() instead.
+     * ---
+     *
      * This call existed before #GMappedFile had refcounting and is currently
      * exactly the same as g_mapped_file_unref().
      *

@@ -239,6 +239,13 @@ public open class SimpleAsyncResult(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use g_task_new() instead.
+     * ---
+     *
      * Creates a #GSimpleAsyncResult.
      *
      * The common convention is to create the #GSimpleAsyncResult in the
@@ -264,6 +271,13 @@ public open class SimpleAsyncResult(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use g_task_new() and g_task_return_error() instead.
+     * ---
+     *
      * Creates a #GSimpleAsyncResult from an error condition.
      *
      * @param sourceObject a #GObject, or null.
@@ -280,6 +294,13 @@ public open class SimpleAsyncResult(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask instead.
+     * ---
+     *
      * Completes an asynchronous I/O job immediately. Must be called in
      * the thread where the asynchronous result was to be delivered, as it
      * invokes the callback directly. If you are in a different thread use
@@ -291,6 +312,13 @@ public open class SimpleAsyncResult(
     public open fun complete(): Unit = g_simple_async_result_complete(gioSimpleAsyncResultPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask instead.
+     * ---
+     *
      * Completes an asynchronous function in an idle handler in the
      * [thread-default main context][g-main-context-push-thread-default]
      * of the thread that @simple was initially created in
@@ -302,6 +330,13 @@ public open class SimpleAsyncResult(
     public open fun completeInIdle(): Unit = g_simple_async_result_complete_in_idle(gioSimpleAsyncResultPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_propagate_boolean() instead.
+     * ---
+     *
      * Gets the operation result boolean from within the asynchronous result.
      *
      * @return true if the operation's result was true, false
@@ -310,6 +345,13 @@ public open class SimpleAsyncResult(
     public open fun getOpResGboolean(): Boolean = g_simple_async_result_get_op_res_gboolean(gioSimpleAsyncResultPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_propagate_pointer() instead.
+     * ---
+     *
      * Gets a pointer result as returned by the asynchronous function.
      *
      * @return a pointer from the result.
@@ -317,6 +359,13 @@ public open class SimpleAsyncResult(
     public open fun getOpResGpointer(): gpointer? = g_simple_async_result_get_op_res_gpointer(gioSimpleAsyncResultPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_propagate_int() instead.
+     * ---
+     *
      * Gets a gssize from the asynchronous result.
      *
      * @return a gssize returned from the asynchronous function.
@@ -324,6 +373,13 @@ public open class SimpleAsyncResult(
     public open fun getOpResGssize(): Long = g_simple_async_result_get_op_res_gssize(gioSimpleAsyncResultPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46..
+     *
+     * Use #GTask and g_task_get_source_tag() instead.
+     * ---
+     *
      * Gets the source tag for the #GSimpleAsyncResult.
      *
      * @return a #gpointer to the source object for the #GSimpleAsyncResult.
@@ -331,6 +387,13 @@ public open class SimpleAsyncResult(
     public open fun getSourceTag(): gpointer? = g_simple_async_result_get_source_tag(gioSimpleAsyncResultPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask instead.
+     * ---
+     *
      * Propagates an error from within the simple asynchronous result to
      * a given destination.
      *
@@ -351,6 +414,13 @@ public open class SimpleAsyncResult(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask instead.
+     * ---
+     *
      * Sets a #GCancellable to check before dispatching results.
      *
      * This function has one very specific purpose: the provided cancellable
@@ -374,6 +444,13 @@ public open class SimpleAsyncResult(
     public open fun setCheckCancellable(checkCancellable: Cancellable? = null): Unit = g_simple_async_result_set_check_cancellable(gioSimpleAsyncResultPointer, checkCancellable?.gioCancellablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_return_error() instead.
+     * ---
+     *
      * Sets the result from a #GError.
      *
      * @param error #GError.
@@ -381,6 +458,11 @@ public open class SimpleAsyncResult(
     public open fun setFromError(error: Error): Unit = g_simple_async_result_set_from_error(gioSimpleAsyncResultPointer, error.glibErrorPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     * ---
+     *
      * Sets whether to handle cancellation within the asynchronous operation.
      *
      * This function has nothing to do with
@@ -392,6 +474,13 @@ public open class SimpleAsyncResult(
     public open fun setHandleCancellation(handleCancellation: Boolean): Unit = g_simple_async_result_set_handle_cancellation(gioSimpleAsyncResultPointer, handleCancellation.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_return_boolean() instead.
+     * ---
+     *
      * Sets the operation result to a boolean within the asynchronous result.
      *
      * @param opRes a #gboolean.
@@ -399,6 +488,13 @@ public open class SimpleAsyncResult(
     public open fun setOpResGboolean(opRes: Boolean): Unit = g_simple_async_result_set_op_res_gboolean(gioSimpleAsyncResultPointer, opRes.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_return_int() instead.
+     * ---
+     *
      * Sets the operation result within the asynchronous result to
      * the given @op_res.
      *
@@ -407,6 +503,13 @@ public open class SimpleAsyncResult(
     public open fun setOpResGssize(opRes: Long): Unit = g_simple_async_result_set_op_res_gssize(gioSimpleAsyncResultPointer, opRes)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use #GTask and g_task_return_error() instead.
+     * ---
+     *
      * Sets the result from @error, and takes over the caller's ownership
      * of @error, so the caller does not need to free it any more.
      *
@@ -424,6 +527,13 @@ public open class SimpleAsyncResult(
             GioTypeProvider.register()}
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.46.
+         *
+         * Use #GTask and g_task_is_valid() instead.
+         * ---
+         *
          * Ensures that the data passed to the _finish function of an async
          * operation is consistent.  Three checks are performed.
          *
@@ -468,6 +578,13 @@ public open class SimpleAsyncResult(
         internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("g_simple_async_result_get_type")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.46.
+         *
+         * Use g_task_new() and g_task_return_error() instead.
+         * ---
+         *
          * Creates a #GSimpleAsyncResult from an error condition, and takes over the
          * caller's ownership of @error, so the caller does not need to free it anymore.
          *

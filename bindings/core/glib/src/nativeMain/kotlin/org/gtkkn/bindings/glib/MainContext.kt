@@ -344,6 +344,13 @@ public class MainContext(
     public fun unref(): Unit = g_main_context_unref(glibMainContextPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.58.
+     *
+     * Use g_main_context_is_owner() and separate locking instead.
+     * ---
+     *
      * Tries to become the owner of the specified context,
      * as with g_main_context_acquire(). But if another thread
      * is the owner, atomically drop @mutex and wait on @cond until

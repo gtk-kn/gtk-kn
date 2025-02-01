@@ -215,17 +215,43 @@ public open class Picture(
         set(`file`) = gtk_picture_set_file(gtkPicturePointer, `file`?.gioFilePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.8.
+     *
+     * Use [property@Gtk.Picture:content-fit] instead.
+     * ---
+     *
      * Whether the GtkPicture will render its contents trying to preserve the aspect
      * ratio.
      */
     public open var keepAspectRatio: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.8.
+         *
+         * Use [method@Gtk.Picture.get_content_fit] instead. This will
+         *   now return `FALSE` only if [property@Gtk.Picture:content-fit] is
+         *   `GTK_CONTENT_FIT_FILL`. Returns `TRUE` otherwise.
+         * ---
+         *
          * Returns whether the `GtkPicture` preserves its contents aspect ratio.
          *
          * @return true if the self tries to keep the contents' aspect ratio
          */
         get() = gtk_picture_get_keep_aspect_ratio(gtkPicturePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.8.
+         *
+         * Use [method@Gtk.Picture.set_content_fit] instead. If still
+         *   used, this method will always set the [property@Gtk.Picture:content-fit]
+         *   property to `GTK_CONTENT_FIT_CONTAIN` if @keep_aspect_ratio is true,
+         *   otherwise it will set it to `GTK_CONTENT_FIT_FILL`.
+         * ---
+         *
          * If set to true, the @self will render its contents according to
          * their aspect ratio.
          *
@@ -314,6 +340,14 @@ public open class Picture(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [ctor@Gtk.Picture.new_for_paintable] and
+     *   [ctor@Gdk.Texture.new_for_pixbuf] instead
+     * ---
+     *
      * Creates a new `GtkPicture` displaying @pixbuf.
      *
      * This is a utility function that calls [ctor@Gtk.Picture.new_for_paintable],
@@ -338,6 +372,13 @@ public open class Picture(
     public open fun setFilename(filename: String? = null): Unit = gtk_picture_set_filename(gtkPicturePointer, filename)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Picture.set_paintable] instead
+     * ---
+     *
      * Sets a `GtkPicture` to show a `GdkPixbuf`.
      *
      * See [ctor@Gtk.Picture.new_for_pixbuf] for details.

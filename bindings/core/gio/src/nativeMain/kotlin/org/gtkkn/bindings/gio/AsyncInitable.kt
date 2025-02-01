@@ -232,7 +232,7 @@ public interface AsyncInitable : Proxy, KGTyped {
     public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_async_initable_new_finish(gioAsyncInitablePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -266,6 +266,14 @@ public interface AsyncInitable : Proxy, KGTyped {
             GioTypeProvider.register()}
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.54.
+         *
+         * Use g_object_new_with_properties() and
+         * g_async_initable_init_async() instead. See #GParameter for more information.
+         * ---
+         *
          * Helper function for constructing #GAsyncInitable object. This is
          * similar to g_object_newv() but also initializes the object asynchronously.
          *

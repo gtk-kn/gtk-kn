@@ -75,7 +75,7 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_26
     public open fun getConnection(): DBusConnection = g_dbus_method_invocation_get_connection(gioDBusMethodInvocationPointer)!!.run {
-        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
     }
 
     /**
@@ -107,7 +107,7 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_26
     public open fun getMessage(): DBusMessage = g_dbus_method_invocation_get_message(gioDBusMethodInvocationPointer)!!.run {
-        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
     }
 
     /**

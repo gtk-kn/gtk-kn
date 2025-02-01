@@ -212,7 +212,7 @@ public abstract class MenuModel(
      */
     @GioVersion2_32
     public open fun getItemLink(itemIndex: gint, link: String): MenuModel? = g_menu_model_get_item_link(gioMenuModelPointer, itemIndex, link)?.run {
-        InstanceCache.get(this, true) { MenuModelImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { MenuModelImpl(reinterpret()) }!!
     }
 
     /**
@@ -278,7 +278,7 @@ public abstract class MenuModel(
      */
     @GioVersion2_32
     public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter = g_menu_model_iterate_item_attributes(gioMenuModelPointer, itemIndex)!!.run {
-        InstanceCache.get(this, true) { MenuAttributeIter.MenuAttributeIterImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { MenuAttributeIter.MenuAttributeIterImpl(reinterpret()) }!!
     }
 
     /**
@@ -293,7 +293,7 @@ public abstract class MenuModel(
      */
     @GioVersion2_32
     public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter = g_menu_model_iterate_item_links(gioMenuModelPointer, itemIndex)!!.run {
-        InstanceCache.get(this, true) { MenuLinkIter.MenuLinkIterImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { MenuLinkIter.MenuLinkIterImpl(reinterpret()) }!!
     }
 
     /**

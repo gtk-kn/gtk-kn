@@ -68,7 +68,7 @@ public class Class(
          * @return the parent class of @jsc_class
          */
         get() = jsc_class_get_parent(jscClassPointer)!!.run {
-            InstanceCache.get(this, true) { Class(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Class(reinterpret()) }!!
         }
 
     /**
@@ -93,7 +93,7 @@ public class Class(
         callback: Callback,
         returnType: GType,
     ): Value = jsc_class_add_constructor_variadic(jscClassPointer, name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)!!.run {
-        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!
     }
 
     /**

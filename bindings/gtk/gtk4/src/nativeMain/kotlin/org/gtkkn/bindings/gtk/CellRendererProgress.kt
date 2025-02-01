@@ -21,7 +21,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_progress_new
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You should use [class@Gtk.ProgressBar] instead
+ *   You should use [class@Gtk.ProgressBar] instead
  * ---
  *
  * Renders numbers as progress bars
@@ -51,6 +51,11 @@ public open class CellRendererProgress(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererProgress`.
      *
      * @return the new cell renderer

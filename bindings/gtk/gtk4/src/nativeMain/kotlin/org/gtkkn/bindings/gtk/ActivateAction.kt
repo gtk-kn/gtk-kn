@@ -41,7 +41,7 @@ public open class ActivateAction(
          * @return The activate action
          */
         public fun `get`(): ActivateAction = gtk_activate_action_get()!!.run {
-            InstanceCache.get(reinterpret(), true) { ActivateAction(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(reinterpret(), true) { ActivateAction(reinterpret()) }!!
         }
 
         /**

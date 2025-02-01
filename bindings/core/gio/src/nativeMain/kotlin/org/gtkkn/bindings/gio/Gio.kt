@@ -364,6 +364,14 @@ public object Gio {
     public const val DEBUG_CONTROLLER_EXTENSION_POINT_NAME: String = "gio-debug-controller"
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.28.
+     *
+     * The #GDesktopAppInfoLookup interface is deprecated and
+     *    unused by GIO.
+     * ---
+     *
      * Extension point for default handler to URI association. See
      * [Extending GIO][extending-gio].
      */
@@ -1578,6 +1586,13 @@ public object Gio {
     public const val VOLUME_IDENTIFIER_KIND_CLASS: String = "class"
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.58.
+     *
+     * Do not use, HAL is deprecated.
+     * ---
+     *
      * The string used to obtain a Hal UDI with g_volume_get_identifier().
      */
     public const val VOLUME_IDENTIFIER_KIND_HAL_UDI: String = "hal-udi"
@@ -1653,7 +1668,7 @@ public object Gio {
     public fun busGetFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_finish(res.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -1693,7 +1708,7 @@ public object Gio {
     public fun busGetSync(busType: BusType, cancellable: Cancellable? = null): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_sync(busType.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -2423,6 +2438,15 @@ public object Gio {
     public fun ioModulesScanAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): Unit = g_io_modules_scan_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * You should never call this function, since you don't
+     * know how other libraries in your program might be making use of
+     * gioscheduler.
+     * ---
+     *
      * Cancels all cancellable I/O jobs.
      *
      * A job is cancellable if a #GCancellable was passed into
@@ -2431,6 +2455,13 @@ public object Gio {
     public fun ioSchedulerCancelAllJobs(): Unit = g_io_scheduler_cancel_all_jobs()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * use #GThreadPool or g_task_run_in_thread()
+     * ---
+     *
      * Schedules the I/O job to run in another thread.
      *
      * @notify will be called on @user_data after @job_func has returned,
@@ -2513,7 +2544,7 @@ public object Gio {
         rootPath: String,
         rootGroup: String? = null,
     ): SettingsBackend = g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
-        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!
     }
 
     /**
@@ -2528,7 +2559,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
-        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!
     }
 
     /**
@@ -2553,7 +2584,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun nullSettingsBackendNew(): SettingsBackend = g_null_settings_backend_new()!!.run {
-        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!
     }
 
     /**
@@ -2668,7 +2699,7 @@ public object Gio {
     public fun resourcesOpenStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -2699,6 +2730,13 @@ public object Gio {
     public fun resourcesUnregister(resource: Resource): Unit = g_resources_unregister(resource.gioResourcePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use g_task_report_error().
+     * ---
+     *
      * Reports an error in an idle function. Similar to
      * g_simple_async_report_error_in_idle(), but takes a #GError rather
      * than building a new one.
@@ -2714,6 +2752,13 @@ public object Gio {
     ): Unit = g_simple_async_report_gerror_in_idle(`object`?.gobjectObjectPointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() }, error.glibErrorPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use g_task_report_error().
+     * ---
+     *
      * Reports an error in an idle function. Similar to
      * g_simple_async_report_gerror_in_idle(), but takes over the caller's
      * ownership of @error, so the caller does not have to free it any more.

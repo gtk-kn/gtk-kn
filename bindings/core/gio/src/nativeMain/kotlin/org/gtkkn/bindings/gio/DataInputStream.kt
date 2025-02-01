@@ -304,6 +304,14 @@ public open class DataInputStream(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.56.
+     *
+     * Use g_data_input_stream_read_upto_async() instead, which
+     *     has more consistent behaviour regarding the stop character.
+     * ---
+     *
      * The asynchronous version of g_data_input_stream_read_until().
      * It is an error to have two outstanding calls to this function.
      *

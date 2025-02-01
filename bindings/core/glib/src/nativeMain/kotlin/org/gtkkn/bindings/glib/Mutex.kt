@@ -106,6 +106,14 @@ public class Mutex(
     public fun clear(): Unit = g_mutex_clear(glibMutexPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * GMutex can now be statically allocated, or embedded
+     * in structures and initialised with g_mutex_init().
+     * ---
+     *
      * Destroys a @mutex that has been created with g_mutex_new().
      *
      * Calling g_mutex_free() on a locked mutex may result
@@ -181,6 +189,14 @@ public class Mutex(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * GMutex can now be statically allocated, or embedded
+         * in structures and initialised with g_mutex_init().
+         * ---
+         *
          * Allocates and initializes a new #GMutex.
          *
          * @return a newly allocated #GMutex. Use g_mutex_free() to free

@@ -188,7 +188,7 @@ public open class PageSetup(
      * @return a copy of @other
      */
     public open fun copy(): PageSetup = gtk_page_setup_copy(gtkPageSetupPointer)!!.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**

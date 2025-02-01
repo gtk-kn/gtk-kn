@@ -20,7 +20,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You should use [class@Gtk.SpinButton] instead
+ *   You should use [class@Gtk.SpinButton] instead
  * ---
  *
  * Renders a spin button in a cell
@@ -52,6 +52,11 @@ public open class CellRendererSpin(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererSpin`.
      *
      * @return a new `GtkCellRendererSpin`

@@ -171,7 +171,7 @@ public class SplitButton(
          * @return the child widget
          */
         get() = adw_split_button_get_child(adwSplitButtonPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget.
@@ -261,7 +261,7 @@ public class SplitButton(
          * @return the menu model
          */
         get() = adw_split_button_get_menu_model(adwSplitButtonPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets the menu model from which the popup will be created.
@@ -294,7 +294,7 @@ public class SplitButton(
          * @return the popover
          */
         get() = adw_split_button_get_popover(adwSplitButtonPointer)?.run {
-            InstanceCache.get(this, true) { Popover(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Popover(reinterpret()) }!!
         }
         /**
          * Sets the popover that will be popped up when the dropdown is clicked.

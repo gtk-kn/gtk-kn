@@ -48,7 +48,7 @@ public open class NotebookPage(
          * @return the child to which @page belongs
          */
         get() = gtk_notebook_page_get_child(gtkNotebookPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     public companion object : TypeCompanion<NotebookPage> {

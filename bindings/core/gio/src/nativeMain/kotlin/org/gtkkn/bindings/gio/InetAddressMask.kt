@@ -74,7 +74,7 @@ public open class InetAddressMask(
          * @since 2.32
          */
         get() = g_inet_address_mask_get_address(gioInetAddressMaskPointer)!!.run {
-            InstanceCache.get(this, true) { InetAddress(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { InetAddress(reinterpret()) }!!
         }
 
     /**

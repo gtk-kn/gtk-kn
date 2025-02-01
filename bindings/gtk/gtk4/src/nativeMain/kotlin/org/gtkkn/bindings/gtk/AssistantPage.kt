@@ -40,16 +40,30 @@ public open class AssistantPage(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * The child widget.
      */
     public open val child: Widget
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Returns the child to which @page belongs.
          *
          * @return the child to which @page belongs
          */
         get() = gtk_assistant_page_get_child(gtkAssistantPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     public companion object : TypeCompanion<AssistantPage> {

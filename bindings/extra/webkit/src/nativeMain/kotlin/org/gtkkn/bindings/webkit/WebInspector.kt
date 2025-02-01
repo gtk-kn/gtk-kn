@@ -154,7 +154,7 @@ public class WebInspector(
      * @return the #WebKitWebViewBase used to display the inspector or null
      */
     public fun getWebView(): WebViewBase = webkit_web_inspector_get_web_view(webkitWebInspectorPointer)!!.run {
-        InstanceCache.get(this, true) { WebViewBase(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { WebViewBase(reinterpret()) }!!
     }
 
     /**

@@ -82,6 +82,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
             List(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.56.
+     *
+     * SSL 3.0 is insecure.
+     * ---
+     *
      * SSL 3.0 is no longer supported. See
      * g_tls_client_connection_set_use_ssl3() for details.
      *
@@ -90,6 +97,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
     @GioVersion2_28
     public var useSsl3: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.56.
+         *
+         * SSL 3.0 is insecure.
+         * ---
+         *
          * SSL 3.0 is no longer supported. See
          * g_tls_client_connection_set_use_ssl3() for details.
          *
@@ -98,6 +112,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
          */
         get() = g_tls_client_connection_get_use_ssl3(gioTlsClientConnectionPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.56.
+         *
+         * SSL 3.0 is insecure.
+         * ---
+         *
          * Since GLib 2.42.1, SSL 3.0 is no longer supported.
          *
          * From GLib 2.42.1 through GLib 2.62, this function could be used to
@@ -116,6 +137,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
         set(useSsl3) = g_tls_client_connection_set_use_ssl3(gioTlsClientConnectionPointer, useSsl3.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.72.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * What steps to perform when validating a certificate received from
      * a server. Server certificates that fail to validate in any of the
      * ways indicated here will be rejected unless the application
@@ -138,6 +166,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
     @GioVersion2_28
     public var validationFlags: TlsCertificateFlags
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.72.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Gets @conn's validation flags
          *
          * This function does not work as originally designed and is impossible
@@ -150,6 +185,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
         get() = g_tls_client_connection_get_validation_flags(gioTlsClientConnectionPointer).run {
             TlsCertificateFlags(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.72.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Sets @conn's validation flags, to override the default set of
          * checks performed when validating a server certificate. By default,
          * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.
@@ -231,6 +273,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
         SocketConnectable.SocketConnectableImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.56.
+     *
+     * SSL 3.0 is insecure.
+     * ---
+     *
      * SSL 3.0 is no longer supported. See
      * g_tls_client_connection_set_use_ssl3() for details.
      *
@@ -241,6 +290,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
     public fun getUseSsl3(): Boolean = g_tls_client_connection_get_use_ssl3(gioTlsClientConnectionPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.72.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * Gets @conn's validation flags
      *
      * This function does not work as originally designed and is impossible
@@ -267,6 +323,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
     public fun setServerIdentity(identity: SocketConnectable): Unit = g_tls_client_connection_set_server_identity(gioTlsClientConnectionPointer, identity.gioSocketConnectablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.56.
+     *
+     * SSL 3.0 is insecure.
+     * ---
+     *
      * Since GLib 2.42.1, SSL 3.0 is no longer supported.
      *
      * From GLib 2.42.1 through GLib 2.62, this function could be used to
@@ -285,6 +348,13 @@ public interface TlsClientConnection : Proxy, KGTyped {
     public fun setUseSsl3(useSsl3: Boolean): Unit = g_tls_client_connection_set_use_ssl3(gioTlsClientConnectionPointer, useSsl3.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.72.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * Sets @conn's validation flags, to override the default set of
      * checks performed when validating a server certificate. By default,
      * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.

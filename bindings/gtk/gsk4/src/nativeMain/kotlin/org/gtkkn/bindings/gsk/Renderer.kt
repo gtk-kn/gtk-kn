@@ -76,7 +76,7 @@ public abstract class Renderer(
          * @return a `GdkSurface`
          */
         get() = gsk_renderer_get_surface(gskRendererPointer)?.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -184,7 +184,7 @@ public abstract class Renderer(
      * @return a `GdkTexture` with the rendered contents of @root.
      */
     public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(gskRendererPointer, root.gskRenderNodePointer, viewport?.grapheneRectPointer)!!.run {
-        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
     }
 
     /**

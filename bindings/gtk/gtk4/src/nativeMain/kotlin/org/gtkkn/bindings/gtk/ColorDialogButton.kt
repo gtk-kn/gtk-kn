@@ -137,7 +137,7 @@ public open class ColorDialogButton(
      */
     @GtkVersion4_10
     public open fun getDialog(): ColorDialog? = gtk_color_dialog_button_get_dialog(gtkColorDialogButtonPointer)?.run {
-        InstanceCache.get(this, true) { ColorDialog(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ColorDialog(reinterpret()) }!!
     }
 
     /**

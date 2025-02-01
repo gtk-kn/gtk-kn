@@ -625,6 +625,13 @@ public enum class Script(
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.44..
+         *
+         * Use g_unichar_get_script()
+         * ---
+         *
          * Looks up the script for a particular character.
          *
          * The script of a character is defined by

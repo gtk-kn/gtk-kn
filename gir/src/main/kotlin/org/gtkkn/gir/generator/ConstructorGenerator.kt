@@ -541,6 +541,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
             kdoc = constructor.kdoc,
             parameters = constructor.parameters,
             optInVersionBlueprint = constructor.optInVersionBlueprint,
+            deprecatedBlueprint = constructor.deprecatedBlueprint,
             returnTypeKDoc = constructor.returnTypeKDoc,
         )?.let { funBuilder.addKdoc(it) }
 
@@ -555,10 +556,11 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
 
     private fun addConstructorKDocIfAny(builder: FunSpec.Builder, constructor: ConstructorBlueprint) {
         buildMethodKDoc(
-            constructor.kdoc,
-            constructor.parameters,
-            constructor.optInVersionBlueprint,
-            constructor.returnTypeKDoc,
+            kdoc = constructor.kdoc,
+            parameters = constructor.parameters,
+            optInVersionBlueprint = constructor.optInVersionBlueprint,
+            deprecatedBlueprint = constructor.deprecatedBlueprint,
+            returnTypeKDoc = constructor.returnTypeKDoc,
         )?.let { builder.addKdoc(it) }
     }
 

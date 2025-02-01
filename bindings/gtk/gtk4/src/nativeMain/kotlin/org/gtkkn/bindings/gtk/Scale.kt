@@ -319,7 +319,7 @@ public open class Scale(
      *   property is false.
      */
     public open fun getLayout(): Layout? = gtk_scale_get_layout(gtkScalePointer)?.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**

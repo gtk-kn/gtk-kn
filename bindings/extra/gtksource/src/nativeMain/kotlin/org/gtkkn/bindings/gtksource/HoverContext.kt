@@ -63,7 +63,7 @@ public open class HoverContext(
      * @return The #GtkSourceBuffer for the view
      */
     public open fun getBuffer(): Buffer = gtk_source_hover_context_get_buffer(gtksourceHoverContextPointer)!!.run {
-        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
     }
 
     public open fun getIter(iter: TextIter): Boolean = gtk_source_hover_context_get_iter(gtksourceHoverContextPointer, iter.gtkTextIterPointer).asBoolean()
@@ -74,7 +74,7 @@ public open class HoverContext(
      * @return the #GtkSourceView that owns the context
      */
     public open fun getView(): View = gtk_source_hover_context_get_view(gtksourceHoverContextPointer)!!.run {
-        InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { View(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<HoverContext> {

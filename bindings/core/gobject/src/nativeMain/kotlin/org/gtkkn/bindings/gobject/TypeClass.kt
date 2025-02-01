@@ -64,6 +64,14 @@ public class TypeClass(
     public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeClass>().ptr)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.58.
+     *
+     * Use the G_ADD_PRIVATE() macro with the `G_DEFINE_*`
+     *   family of macros to add instance private data to a type
+     * ---
+     *
      * Registers a private structure for an instantiatable type.
      *
      * When an object is allocated, the private structures for

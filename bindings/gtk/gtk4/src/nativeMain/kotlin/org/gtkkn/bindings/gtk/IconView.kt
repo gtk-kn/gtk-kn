@@ -173,12 +173,26 @@ public open class IconView(
      */
     public open var activateOnSingleClick: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Gets the setting set by gtk_icon_view_set_activate_on_single_click().
          *
          * @return true if item-activated will be emitted on a single click
          */
         get() = gtk_icon_view_get_activate_on_single_click(gtkIconViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Causes the `GtkIconView`::item-activated signal to be emitted on
          * a single click instead of a double click.
          *
@@ -192,12 +206,26 @@ public open class IconView(
      */
     public open var columnSpacing: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::column-spacing property.
          *
          * @return the space between columns
          */
         get() = gtk_icon_view_get_column_spacing(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::column-spacing property which specifies the space
          * which is inserted between the columns of the icon view.
          *
@@ -212,12 +240,26 @@ public open class IconView(
      */
     public open var columns: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::columns property.
          *
          * @return the number of columns, or -1
          */
         get() = gtk_icon_view_get_columns(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::columns property which determines in how
          * many columns the icons are arranged. If @columns is
          * -1, the number of columns will be chosen automatically
@@ -233,6 +275,13 @@ public open class IconView(
      */
     public open var itemOrientation: Orientation
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::item-orientation property which determines
          * whether the labels are drawn beside the icons instead of below.
          *
@@ -241,6 +290,13 @@ public open class IconView(
         get() = gtk_icon_view_get_item_orientation(gtkIconViewPointer).run {
             Orientation.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::item-orientation property which determines whether the labels
          * are drawn beside the icons instead of below.
          *
@@ -254,12 +310,26 @@ public open class IconView(
      */
     public open var itemPadding: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::item-padding property.
          *
          * @return the padding around items
          */
         get() = gtk_icon_view_get_item_padding(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the `GtkIconView`:item-padding property which specifies the padding
          * around each of the icon view’s items.
          *
@@ -274,12 +344,26 @@ public open class IconView(
      */
     public open var itemWidth: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::item-width property.
          *
          * @return the width of a single item, or -1
          */
         get() = gtk_icon_view_get_item_width(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::item-width property which specifies the width
          * to use for each item. If it is set to -1, the icon view will
          * automatically determine a suitable item size.
@@ -294,12 +378,26 @@ public open class IconView(
      */
     public open var margin: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::margin property.
          *
          * @return the space at the borders
          */
         get() = gtk_icon_view_get_margin(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::margin property which specifies the space
          * which is inserted at the top, bottom, left and right
          * of the icon view.
@@ -317,12 +415,26 @@ public open class IconView(
      */
     public open var markupColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the column with markup text for @icon_view.
          *
          * @return the markup column, or -1 if it’s unset.
          */
         get() = gtk_icon_view_get_markup_column(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the column with markup information for @icon_view to be
          * @column. The markup column must be of type `G_TYPE_STRING`.
          * If the markup column is set to something, it overrides
@@ -334,6 +446,13 @@ public open class IconView(
 
     public open var model: TreeModel?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the model the `GtkIconView` is based on.  Returns null if the
          * model is unset.
          *
@@ -342,6 +461,13 @@ public open class IconView(
         get() = gtk_icon_view_get_model(gtkIconViewPointer)?.run {
             TreeModel.TreeModelImpl(reinterpret())}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the model for a `GtkIconView`.
          * If the @icon_view already has a model set, it will remove
          * it before setting the new model.  If @model is null, then
@@ -359,12 +485,26 @@ public open class IconView(
      */
     public open var pixbufColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the column with pixbufs for @icon_view.
          *
          * @return the pixbuf column, or -1 if it’s unset.
          */
         get() = gtk_icon_view_get_pixbuf_column(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the column with pixbufs for @icon_view to be @column. The pixbuf
          * column must be of type `GDK_TYPE_PIXBUF`
          *
@@ -378,6 +518,13 @@ public open class IconView(
      */
     public open var reorderable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Retrieves whether the user can reorder the list via drag-and-drop.
          * See gtk_icon_view_set_reorderable().
          *
@@ -385,6 +532,13 @@ public open class IconView(
          */
         get() = gtk_icon_view_get_reorderable(gtkIconViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * This function is a convenience function to allow you to reorder models that
          * support the `GtkTreeDragSourceIface` and the `GtkTreeDragDestIface`. Both
          * `GtkTreeStore` and `GtkListStore` support these. If @reorderable is true, then
@@ -408,12 +562,26 @@ public open class IconView(
      */
     public open var rowSpacing: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::row-spacing property.
          *
          * @return the space between rows
          */
         get() = gtk_icon_view_get_row_spacing(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::row-spacing property which specifies the space
          * which is inserted between the rows of the icon view.
          *
@@ -428,6 +596,13 @@ public open class IconView(
      */
     public open var selectionMode: SelectionMode
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Gets the selection mode of the @icon_view.
          *
          * @return the current selection mode
@@ -435,6 +610,13 @@ public open class IconView(
         get() = gtk_icon_view_get_selection_mode(gtkIconViewPointer).run {
             SelectionMode.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the selection mode of the @icon_view.
          *
          * @param mode The selection mode
@@ -447,12 +629,26 @@ public open class IconView(
      */
     public open var spacing: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the value of the ::spacing property.
          *
          * @return the space between cells
          */
         get() = gtk_icon_view_get_spacing(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the ::spacing property which specifies the space
          * which is inserted between the cells (i.e. the icon and
          * the text) of an item.
@@ -469,12 +665,26 @@ public open class IconView(
      */
     public open var textColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the column with text for @icon_view.
          *
          * @return the text column, or -1 if it’s unset.
          */
         get() = gtk_icon_view_get_text_column(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Sets the column with text for @icon_view to be @column. The text
          * column must be of type `G_TYPE_STRING`.
          *
@@ -484,6 +694,13 @@ public open class IconView(
 
     public open var tooltipColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * Returns the column of @icon_view’s model which is being used for
          * displaying tooltips on @icon_view’s rows.
          *
@@ -492,6 +709,13 @@ public open class IconView(
          */
         get() = gtk_icon_view_get_tooltip_column(gtkIconViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.GridView] instead
+         * ---
+         *
          * If you only plan to have simple (text-only) tooltips on full items, you
          * can use this function to have `GtkIconView` handle these automatically
          * for you. @column should be set to the column in @icon_view’s model
@@ -508,6 +732,13 @@ public open class IconView(
         set(column) = gtk_icon_view_set_tooltip_column(gtkIconViewPointer, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Creates a new `GtkIconView` widget
      *
      * @return A newly created `GtkIconView` widget
@@ -517,6 +748,13 @@ public open class IconView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Creates a new `GtkIconView` widget using the
      * specified @area to layout cells inside the icons.
      *
@@ -528,6 +766,13 @@ public open class IconView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Creates a new `GtkIconView` widget with the model @model.
      *
      * @param model The model.
@@ -538,6 +783,13 @@ public open class IconView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Creates a `GdkPaintable` representation of the item at @path.
      * This image is used for a drag icon.
      *
@@ -548,6 +800,13 @@ public open class IconView(
         Paintable.PaintableImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Turns @icon_view into a drop destination for automatic DND. Calling this
      * method sets `GtkIconView`:reorderable to false.
      *
@@ -558,6 +817,13 @@ public open class IconView(
     public open fun enableModelDragDest(formats: ContentFormats, actions: DragAction): Unit = gtk_icon_view_enable_model_drag_dest(gtkIconViewPointer, formats.gdkContentFormatsPointer, actions.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Turns @icon_view into a drag source for automatic DND. Calling this
      * method sets `GtkIconView`:reorderable to false.
      *
@@ -573,6 +839,13 @@ public open class IconView(
     ): Unit = gtk_icon_view_enable_model_drag_source(gtkIconViewPointer, startButtonMask.mask, formats.gdkContentFormatsPointer, actions.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Fills the bounding rectangle in widget coordinates for the cell specified by
      * @path and @cell. If @cell is null the main cell area is used.
      *
@@ -590,6 +863,13 @@ public open class IconView(
     ): Boolean = gtk_icon_view_get_cell_rect(gtkIconViewPointer, path.gtkTreePathPointer, cell?.gtkCellRendererPointer, rect.gdkRectanglePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Gets the column in which the item @path is currently
      * displayed. Column numbers start at 0.
      *
@@ -599,6 +879,13 @@ public open class IconView(
     public open fun getItemColumn(path: TreePath): gint = gtk_icon_view_get_item_column(gtkIconViewPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Gets the row in which the item @path is currently
      * displayed. Row numbers start at 0.
      *
@@ -608,6 +895,13 @@ public open class IconView(
     public open fun getItemRow(path: TreePath): gint = gtk_icon_view_get_item_row(gtkIconViewPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Gets the path for the icon at the given position.
      *
      * @param x The x position to be identified
@@ -619,6 +913,13 @@ public open class IconView(
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Creates a list of paths of all selected items. Additionally, if you are
      * planning on modifying the model after calling this function, you may
      * want to convert the returned list into a list of `GtkTreeRowReferences`.
@@ -642,6 +943,13 @@ public open class IconView(
         List(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Activates the item determined by @path.
      *
      * @param path The `GtkTreePath` to be activated
@@ -649,6 +957,13 @@ public open class IconView(
     public open fun itemActivated(path: TreePath): Unit = gtk_icon_view_item_activated(gtkIconViewPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Returns true if the icon pointed to by @path is currently
      * selected. If @path does not point to a valid location, false is returned.
      *
@@ -658,6 +973,13 @@ public open class IconView(
     public open fun pathIsSelected(path: TreePath): Boolean = gtk_icon_view_path_is_selected(gtkIconViewPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Moves the alignments of @icon_view to the position specified by @path.
      * @row_align determines where the row is placed, and @col_align determines
      * where @column is placed.  Both are expected to be between 0.0 and 1.0.
@@ -686,12 +1008,26 @@ public open class IconView(
     ): Unit = gtk_icon_view_scroll_to_path(gtkIconViewPointer, path.gtkTreePathPointer, useAlign.asGBoolean(), rowAlign, colAlign)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Selects all the icons. @icon_view must has its selection mode set
      * to %GTK_SELECTION_MULTIPLE.
      */
     public open fun selectAll(): Unit = gtk_icon_view_select_all(gtkIconViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Selects the row at @path.
      *
      * @param path The `GtkTreePath` to be selected.
@@ -699,6 +1035,13 @@ public open class IconView(
     public open fun selectPath(path: TreePath): Unit = gtk_icon_view_select_path(gtkIconViewPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Calls a function for each selected icon. Note that the model or
      * selection cannot be modified from within this function.
      *
@@ -707,6 +1050,13 @@ public open class IconView(
     public open fun selectedForeach(func: IconViewForeachFunc): Unit = gtk_icon_view_selected_foreach(gtkIconViewPointer, IconViewForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Sets the current keyboard focus to be at @path, and selects it.  This is
      * useful when you want to focus the user’s attention on a particular item.
      * If @cell is not null, then focus is given to the cell specified by
@@ -728,6 +1078,13 @@ public open class IconView(
     ): Unit = gtk_icon_view_set_cursor(gtkIconViewPointer, path.gtkTreePathPointer, cell?.gtkCellRendererPointer, startEditing.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Sets the item that is highlighted for feedback.
      *
      * @param path The path of the item to highlight
@@ -736,6 +1093,13 @@ public open class IconView(
     public open fun setDragDestItem(path: TreePath? = null, pos: IconViewDropPosition): Unit = gtk_icon_view_set_drag_dest_item(gtkIconViewPointer, path?.gtkTreePathPointer, pos.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Sets the tip area of @tooltip to the area which @cell occupies in
      * the item pointed to by @path. See also gtk_tooltip_set_tip_area().
      *
@@ -752,6 +1116,13 @@ public open class IconView(
     ): Unit = gtk_icon_view_set_tooltip_cell(gtkIconViewPointer, tooltip.gtkTooltipPointer, path.gtkTreePathPointer, cell?.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Sets the tip area of @tooltip to be the area covered by the item at @path.
      * See also gtk_icon_view_set_tooltip_column() for a simpler alternative.
      * See also gtk_tooltip_set_tip_area().
@@ -762,11 +1133,25 @@ public open class IconView(
     public open fun setTooltipItem(tooltip: Tooltip, path: TreePath): Unit = gtk_icon_view_set_tooltip_item(gtkIconViewPointer, tooltip.gtkTooltipPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Unselects all the icons.
      */
     public open fun unselectAll(): Unit = gtk_icon_view_unselect_all(gtkIconViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Unselects the row at @path.
      *
      * @param path The `GtkTreePath` to be unselected.
@@ -774,12 +1159,26 @@ public open class IconView(
     public open fun unselectPath(path: TreePath): Unit = gtk_icon_view_unselect_path(gtkIconViewPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Undoes the effect of gtk_icon_view_enable_model_drag_dest(). Calling this
      * method sets `GtkIconView`:reorderable to false.
      */
     public open fun unsetModelDragDest(): Unit = gtk_icon_view_unset_model_drag_dest(gtkIconViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.GridView] instead
+     * ---
+     *
      * Undoes the effect of gtk_icon_view_enable_model_drag_source(). Calling this
      * method sets `GtkIconView`:reorderable to false.
      */

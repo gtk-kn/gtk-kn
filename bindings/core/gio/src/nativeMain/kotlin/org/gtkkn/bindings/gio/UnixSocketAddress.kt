@@ -116,6 +116,13 @@ public open class UnixSocketAddress(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated.
+     *
+     * Use g_unix_socket_address_get_address_type()
+     * ---
+     *
      * Tests if @address is abstract.
      *
      * @return true if the address is abstract, false otherwise

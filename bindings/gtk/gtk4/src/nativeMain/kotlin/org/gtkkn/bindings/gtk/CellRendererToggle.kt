@@ -44,7 +44,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_set_radio
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You should use [class@Gtk.ToggleButton] instead
+ *   You should use [class@Gtk.ToggleButton] instead
  * ---
  *
  * Renders a toggle button in a cell
@@ -68,6 +68,11 @@ public open class CellRendererToggle(
 
     public open var activatable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether the cell renderer is activatable. See
          * gtk_cell_renderer_toggle_set_activatable().
          *
@@ -75,6 +80,11 @@ public open class CellRendererToggle(
          */
         get() = gtk_cell_renderer_toggle_get_activatable(gtkCellRendererTogglePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Makes the cell renderer activatable.
          *
          * @param setting the value to set.
@@ -83,6 +93,11 @@ public open class CellRendererToggle(
 
     public open var active: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether the cell renderer is active. See
          * gtk_cell_renderer_toggle_set_active().
          *
@@ -90,6 +105,11 @@ public open class CellRendererToggle(
          */
         get() = gtk_cell_renderer_toggle_get_active(gtkCellRendererTogglePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Activates or deactivates a cell renderer.
          *
          * @param setting the value to set.
@@ -98,12 +118,22 @@ public open class CellRendererToggle(
 
     public open var radio: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether we’re rendering radio toggles rather than checkboxes.
          *
          * @return true if we’re rendering radio toggles rather than checkboxes
          */
         get() = gtk_cell_renderer_toggle_get_radio(gtkCellRendererTogglePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * If @radio is true, the cell renderer renders a radio toggle
          * (i.e. a toggle in a group of mutually-exclusive toggles).
          * If false, it renders a check toggle (a standalone boolean option).
@@ -117,6 +147,11 @@ public open class CellRendererToggle(
         set(radio) = gtk_cell_renderer_toggle_set_radio(gtkCellRendererTogglePointer, radio.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererToggle`. Adjust rendering
      * parameters using object properties. Object properties can be set
      * globally (with g_object_set()). Also, with `GtkTreeViewColumn`, you

@@ -71,7 +71,7 @@ public class PrintOperation(
          * @return the current #GtkPageSetup of @print_operation.
          */
         get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer)!!.run {
-            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
         }
         /**
          * Set the current page setup of @print_operation.
@@ -97,7 +97,7 @@ public class PrintOperation(
          * @return the current #GtkPrintSettings of @print_operation.
          */
         get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer)!!.run {
-            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
         }
         /**
          * Set the current print settings of @print_operation.

@@ -310,7 +310,7 @@ public open class Grid(
      * @return the child at the given position
      */
     public open fun getChildAt(column: gint, row: gint): Widget? = gtk_grid_get_child_at(gtkGridPointer, column, row)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**

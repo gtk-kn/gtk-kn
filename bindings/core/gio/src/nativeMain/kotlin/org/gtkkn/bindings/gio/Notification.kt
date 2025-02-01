@@ -228,6 +228,14 @@ public open class Notification(
     public open fun setTitle(title: String): Unit = g_notification_set_title(gioNotificationPointer, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.42.
+     *
+     * Since 2.42, this has been deprecated in favour of
+     *    g_notification_set_priority().
+     * ---
+     *
      * Deprecated in favor of g_notification_set_priority().
      *
      * @param urgent true if @notification is urgent

@@ -96,18 +96,39 @@ public open class LockButton(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * The `GPermission object controlling this button.
      */
     public open var permission: Permission?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Obtains the `GPermission` object that controls @button.
          *
          * @return the `GPermission` of @button
          */
         get() = gtk_lock_button_get_permission(gtkLockButtonPointer)?.run {
-            InstanceCache.get(this, true) { Permission.PermissionImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Permission.PermissionImpl(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets the `GPermission` object that controls @button.
          *
          * @param permission a `GPermission` object
@@ -115,6 +136,13 @@ public open class LockButton(
         set(permission) = gtk_lock_button_set_permission(gtkLockButtonPointer, permission?.gioPermissionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new lock button which reflects the @permission.
      *
      * @param permission a `GPermission`

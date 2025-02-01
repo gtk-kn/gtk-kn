@@ -316,7 +316,7 @@ public open class DBusConnection(
          * @since 2.26
          */
         get() = g_dbus_connection_get_stream(gioDBusConnectionPointer)!!.run {
-            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -996,7 +996,7 @@ public open class DBusConnection(
      */
     @GioVersion2_26
     public open fun getPeerCredentials(): Credentials? = g_dbus_connection_get_peer_credentials(gioDBusConnectionPointer)?.run {
-        InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
     }
 
     /**
@@ -1075,7 +1075,7 @@ public open class DBusConnection(
     public open fun sendMessageWithReplyFinish(res: AsyncResult): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_connection_send_message_with_reply_finish(gioDBusConnectionPointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

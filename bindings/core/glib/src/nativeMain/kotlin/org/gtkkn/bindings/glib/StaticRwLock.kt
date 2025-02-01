@@ -127,6 +127,13 @@ public class StaticRwLock(
     public constructor(scope: AutofreeScope) : this(scope.alloc<GStaticRWLock>().ptr)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use a #GRWLock instead
+     * ---
+     *
      * Releases all resources allocated to @lock.
      *
      * You don't have to call this functions for a #GStaticRWLock with an
@@ -137,6 +144,13 @@ public class StaticRwLock(
     public fun free(): Unit = g_static_rw_lock_free(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_init() instead
+     * ---
+     *
      * A #GStaticRWLock must be initialized with this function before it
      * can be used. Alternatively you can initialize it with
      * %G_STATIC_RW_LOCK_INIT.
@@ -144,6 +158,13 @@ public class StaticRwLock(
     public fun `init`(): Unit = g_static_rw_lock_init(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_reader_lock() instead
+     * ---
+     *
      * Locks @lock for reading. There may be unlimited concurrent locks for
      * reading of a #GStaticRWLock at the same time.  If @lock is already
      * locked for writing by another thread or if another thread is already
@@ -159,6 +180,13 @@ public class StaticRwLock(
     public fun readerLock(): Unit = g_static_rw_lock_reader_lock(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_reader_trylock() instead
+     * ---
+     *
      * Tries to lock @lock for reading. If @lock is already locked for
      * writing by another thread or if another thread is already waiting to
      * lock @lock for writing, immediately returns false. Otherwise locks
@@ -170,6 +198,13 @@ public class StaticRwLock(
     public fun readerTrylock(): Boolean = g_static_rw_lock_reader_trylock(glibStaticRwLockPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_reader_unlock() instead
+     * ---
+     *
      * Unlocks @lock. If a thread waits to lock @lock for writing and all
      * locks for reading have been unlocked, the waiting thread is woken up
      * and can lock @lock for writing.
@@ -177,6 +212,13 @@ public class StaticRwLock(
     public fun readerUnlock(): Unit = g_static_rw_lock_reader_unlock(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_writer_lock() instead
+     * ---
+     *
      * Locks @lock for writing. If @lock is already locked for writing or
      * reading by other threads, this function will block until @lock is
      * completely unlocked and then lock @lock for writing. While this
@@ -188,6 +230,13 @@ public class StaticRwLock(
     public fun writerLock(): Unit = g_static_rw_lock_writer_lock(glibStaticRwLockPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_writer_trylock() instead
+     * ---
+     *
      * Tries to lock @lock for writing. If @lock is already locked (for
      * either reading or writing) by another thread, it immediately returns
      * false. Otherwise it locks @lock for writing and returns true. This
@@ -198,6 +247,13 @@ public class StaticRwLock(
     public fun writerTrylock(): Boolean = g_static_rw_lock_writer_trylock(glibStaticRwLockPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rw_lock_writer_unlock() instead
+     * ---
+     *
      * Unlocks @lock. If a thread is waiting to lock @lock for writing and
      * all locks for reading have been unlocked, the waiting thread is
      * woken up and can lock @lock for writing. If no thread is waiting to

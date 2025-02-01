@@ -50,24 +50,11 @@ interface KDocGenerator {
             optInVersionBlueprint?.version?.let { add("\n@since %L", it) }
         }.build()
 
-    fun CodeBlock.Builder.addDeprecation(deprecatedBlueprint: DeprecatedBlueprint?) {
-        deprecatedBlueprint?.let { deprecated ->
-            addStatement("# ⚠\uFE0F Deprecated ⚠\uFE0F")
-            addStatement("")
-            addStatement("This is deprecated${deprecated.version?.let { " since version $it" } ?: ""}.")
-            deprecated.message?.let { message ->
-                addStatement("")
-                addStatement(message)
-            }
-            addStatement("---")
-            addStatement("")
-        }
-    }
-
     fun buildMethodKDoc(
         kdoc: String?,
         parameters: List<ParameterBlueprint> = emptyList(),
         optInVersionBlueprint: OptInVersionBlueprint? = null,
+        deprecatedBlueprint: DeprecatedBlueprint? = null,
         returnTypeKDoc: String? = null,
     ): CodeBlock? =
         if (!kdoc.isNullOrBlank() ||
@@ -76,6 +63,7 @@ interface KDocGenerator {
             !optInVersionBlueprint?.version.isNullOrBlank()
         ) {
             CodeBlock.builder().apply {
+                addDeprecation(deprecatedBlueprint)
                 kdoc?.let { add("%L", it) }
                 if (parameters.isNotEmpty() || returnTypeKDoc != null || optInVersionBlueprint?.version != null) {
                     add("\n")
@@ -95,8 +83,10 @@ interface KDocGenerator {
         detailed: Boolean,
         parameters: List<ParameterBlueprint>,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
         returnTypeKDoc: String?,
     ): CodeBlock = CodeBlock.builder().apply {
+        addDeprecation(deprecatedBlueprint)
         kdoc?.let { add("%L", it) }
         add("\n\n@param connectFlags a combination of [ConnectFlags]")
         if (detailed) {
@@ -115,7 +105,9 @@ interface KDocGenerator {
         detailed: Boolean,
         parameters: List<ParameterBlueprint>,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
     ): CodeBlock = CodeBlock.builder().apply {
+        addDeprecation(deprecatedBlueprint)
         kdoc?.let { add("%L", it) }
         if (detailed || parameters.isNotEmpty() || !optInVersionBlueprint?.version.isNullOrBlank()) {
             add("\n")
@@ -132,7 +124,9 @@ interface KDocGenerator {
     fun buildPropertyKDoc(
         kdoc: String?,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
     ): CodeBlock = CodeBlock.builder().apply {
+        addDeprecation(deprecatedBlueprint)
         kdoc?.let { add("%L", it) }
         optInVersionBlueprint?.version?.let { add("\n\n@since %L", it) }
     }.build()
@@ -151,6 +145,17 @@ interface KDocGenerator {
         }
         returnTypeKDoc?.let { add("\n- return %L", it) }
     }.build()
+
+    fun CodeBlock.Builder.addDeprecation(deprecatedBlueprint: DeprecatedBlueprint?) {
+        deprecatedBlueprint?.let { deprecated ->
+            add("# ⚠\uFE0F Deprecated ⚠\uFE0F\n")
+            add("\nThis is deprecated%L.\n", deprecated.version?.let { " since version $it" } ?: "")
+            deprecated.message?.let { message ->
+                add("\n%L\n", message)
+            }
+            add("---\n\n")
+        }
+    }
 
     fun getAutofreeScopeConstructorKdoc(kotlinName: String) =
         """

@@ -33,7 +33,7 @@ import org.gtkkn.native.gtk.gtk_cell_editable_start_editing
  * This is deprecated since version 4.10.
  *
  * List views use widgets for displaying their
-         *   contents. See [iface@Gtk.Editable] for editable text widgets
+ *   contents. See [iface@Gtk.Editable] for editable text widgets
  * ---
  *
  * Interface for widgets that can be used for editing cells
@@ -50,11 +50,21 @@ public interface CellEditable : Proxy, KGTyped {
     public val gtkCellEditablePointer: CPointer<GtkCellEditable>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the `GtkCellEditable::editing-done` signal.
      */
     public fun editingDone(): Unit = gtk_cell_editable_editing_done(gtkCellEditablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the `GtkCellEditable::remove-widget` signal.
      */
     public fun removeWidget(): Unit = gtk_cell_editable_remove_widget(gtkCellEditablePointer)

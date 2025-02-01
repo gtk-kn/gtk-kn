@@ -106,7 +106,7 @@ public abstract class NativeDialog(
          *   or null if no transient parent has been set.
          */
         get() = gtk_native_dialog_get_transient_for(gtkNativeDialogPointer)?.run {
-            InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
         /**
          * Dialog windows should be set transient for the main application

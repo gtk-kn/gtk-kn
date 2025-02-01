@@ -27,7 +27,7 @@ import org.gtkkn.native.gtk.gtk_tree_drag_source_row_draggable
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You can use [class@Gtk.DragSource] to implement a drag source
+ *   You can use [class@Gtk.DragSource] to implement a drag source
  * ---
  *
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
@@ -36,6 +36,13 @@ public interface TreeDragSource : Proxy, KGTyped {
     public val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Asks the `GtkTreeDragSource` to delete the row at @path, because
      * it was moved somewhere else via drag-and-drop. Returns false
      * if the deletion fails because @path no longer exists, or for
@@ -48,6 +55,13 @@ public interface TreeDragSource : Proxy, KGTyped {
     public fun dragDataDelete(path: TreePath): Boolean = gtk_tree_drag_source_drag_data_delete(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Asks the `GtkTreeDragSource` to return a `GdkContentProvider` representing
      * the row at @path. Should robustly handle a @path no
      * longer found in the model!
@@ -57,10 +71,17 @@ public interface TreeDragSource : Proxy, KGTyped {
      *    given @path
      */
     public fun dragDataGet(path: TreePath): ContentProvider? = gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gtkTreePathPointer)?.run {
-        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Asks the `GtkTreeDragSource` whether a particular row can be used as
      * the source of a DND operation. If the source doesn’t implement
      * this interface, the row is assumed draggable.

@@ -185,7 +185,7 @@ public open class FileInfo(
      * @return a duplicate #GFileInfo of @other.
      */
     public open fun dup(): FileInfo = g_file_info_dup(gioFileInfoPointer)!!.run {
-        InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
     }
 
     /**
@@ -283,7 +283,7 @@ public open class FileInfo(
      * or null otherwise.
      */
     public open fun getAttributeObject(attribute: String): Object? = g_file_info_get_attribute_object(gioFileInfoPointer, attribute)?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -494,6 +494,14 @@ public open class FileInfo(
         DateTime(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * Use g_file_info_get_modification_date_time() instead, as
+     *    #GTimeVal is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the modification time of the current @info and sets it
      * in @result.
      *
@@ -832,6 +840,14 @@ public open class FileInfo(
     public open fun setModificationDateTime(mtime: DateTime): Unit = g_file_info_set_modification_date_time(gioFileInfoPointer, mtime.glibDateTimePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * Use g_file_info_set_modification_date_time() instead, as
+     *    #GTimeVal is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
      * %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
      * given time value.

@@ -98,12 +98,26 @@ public open class ColorButton(
      */
     public open var modal: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Gets whether the dialog is modal.
          *
          * @return true if the dialog is modal
          */
         get() = gtk_color_button_get_modal(gtkColorButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
@@ -115,12 +129,26 @@ public open class ColorButton(
      */
     public open var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Gets the title of the color chooser dialog.
          *
          * @return An internal string, do not free the return value
          */
         get() = gtk_color_button_get_title(gtkColorButtonPointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ColorDialogButton] instead
+         * ---
+         *
          * Sets the title for the color chooser dialog.
          *
          * @param title String containing new window title
@@ -128,6 +156,13 @@ public open class ColorButton(
         set(title) = gtk_color_button_set_title(gtkColorButtonPointer, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialogButton] instead
+     * ---
+     *
      * Creates a new color button.
      *
      * This returns a widget in the form of a small button containing

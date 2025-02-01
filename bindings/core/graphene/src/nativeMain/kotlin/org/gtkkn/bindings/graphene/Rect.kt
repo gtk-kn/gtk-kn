@@ -425,6 +425,13 @@ public class Rect(
     ): Unit = graphene_rect_offset_r(grapheneRectPointer, dX, dY, res.grapheneRectPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.10.
+     *
+     * Use graphene_rect_round_extents() instead
+     * ---
+     *
      * Rounds the origin and size of the given rectangle to
      * their nearest integer values; the rounding is guaranteed
      * to be large enough to have an area bigger or equal to the
@@ -473,6 +480,13 @@ public class Rect(
     public fun roundExtents(res: Rect): Unit = graphene_rect_round_extents(grapheneRectPointer, res.grapheneRectPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use graphene_rect_round() instead
+     * ---
+     *
      * Rounds the origin and the size of the given rectangle to
      * their nearest integer values; the rounding is guaranteed
      * to be large enough to contain the original rectangle.

@@ -102,6 +102,13 @@ public class Squeezer(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Whether to allow squeezing beyond the last child's minimum size.
      *
      * If set to `TRUE`, the squeezer can shrink to the point where no child can
@@ -110,12 +117,26 @@ public class Squeezer(
      */
     public var allowNone: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets whether to allow squeezing beyond the last child's minimum size.
          *
          * @return whether @self allows squeezing beyond the last child
          */
         get() = adw_squeezer_get_allow_none(adwSqueezerPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets whether to allow squeezing beyond the last child's minimum size.
          *
          * If set to `TRUE`, the squeezer can shrink to the point where no child can be
@@ -127,6 +148,13 @@ public class Squeezer(
         set(allowNone) = adw_squeezer_set_allow_none(adwSqueezerPointer, allowNone.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Whether all children have the same size for the opposite orientation.
      *
      * For example, if a squeezer is horizontal and is homogeneous, it will
@@ -135,12 +163,26 @@ public class Squeezer(
      */
     public var homogeneous: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets whether all children have the same size for the opposite orientation.
          *
          * @return whether @self is homogeneous
          */
         get() = adw_squeezer_get_homogeneous(adwSqueezerPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets whether all children have the same size for the opposite orientation.
          *
          * For example, if a squeezer is horizontal and is homogeneous, it will request
@@ -152,6 +194,13 @@ public class Squeezer(
         set(homogeneous) = adw_squeezer_set_homogeneous(adwSqueezerPointer, homogeneous.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Whether the squeezer interpolates its size when changing the visible child.
      *
      * If `TRUE`, the squeezer will interpolate its size between the one of the
@@ -161,12 +210,26 @@ public class Squeezer(
      */
     public var interpolateSize: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets whether @self interpolates its size when changing the visible child.
          *
          * @return whether the size is interpolated
          */
         get() = adw_squeezer_get_interpolate_size(adwSqueezerPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets whether @self interpolates its size when changing the visible child.
          *
          * If `TRUE`, the squeezer will interpolate its size between the one of the
@@ -179,6 +242,13 @@ public class Squeezer(
         set(interpolateSize) = adw_squeezer_set_interpolate_size(adwSqueezerPointer, interpolateSize.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * A selection model with the squeezer's pages.
      *
      * This can be used to keep an up-to-date view. The model also implements
@@ -186,6 +256,13 @@ public class Squeezer(
      */
     public val pages: SelectionModel
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Returns a [iface@Gio.ListModel] that contains the pages of @self.
          *
          * This can be used to keep an up-to-date view. The model also implements
@@ -197,6 +274,13 @@ public class Squeezer(
             SelectionModel.SelectionModelImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The switch threshold policy.
      *
      * Determines when the squeezer will switch children.
@@ -210,11 +294,25 @@ public class Squeezer(
      */
     public var switchThresholdPolicy: FoldThresholdPolicy
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets the switch threshold policy for @self.
          */
         get() = adw_squeezer_get_switch_threshold_policy(adwSqueezerPointer).run {
             FoldThresholdPolicy.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets the switch threshold policy for @self.
          *
          * Determines when the squeezer will switch children.
@@ -231,16 +329,37 @@ public class Squeezer(
         set(policy) = adw_squeezer_set_switch_threshold_policy(adwSqueezerPointer, policy.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The transition animation duration, in milliseconds.
      */
     public var transitionDuration: guint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets the transition animation duration for @self.
          *
          * @return the transition duration, in milliseconds
          */
         get() = adw_squeezer_get_transition_duration(adwSqueezerPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets the transition animation duration for @self.
          *
          * @param duration the new duration, in milliseconds
@@ -248,6 +367,13 @@ public class Squeezer(
         set(duration) = adw_squeezer_set_transition_duration(adwSqueezerPointer, duration)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Whether a transition is currently running.
      *
      * If a transition is impossible, the property value will be set to `TRUE` and
@@ -256,6 +382,13 @@ public class Squeezer(
      */
     public val transitionRunning: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets whether a transition is currently running for @self.
          *
          * If a transition is impossible, the property value will be set to `TRUE` and
@@ -267,10 +400,24 @@ public class Squeezer(
         get() = adw_squeezer_get_transition_running(adwSqueezerPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The type of animation used for transitions between children.
      */
     public var transitionType: SqueezerTransitionType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets the type of animation used for transitions between children in @self.
          *
          * @return the current transition type of @self
@@ -278,6 +425,13 @@ public class Squeezer(
         get() = adw_squeezer_get_transition_type(adwSqueezerPointer).run {
             SqueezerTransitionType.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets the type of animation used for transitions between children in @self.
          *
          * @param transition the new transition type
@@ -285,19 +439,40 @@ public class Squeezer(
         set(transition) = adw_squeezer_set_transition_type(adwSqueezerPointer, transition.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The currently visible child.
      */
     public val visibleChild: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets the currently visible child of @self.
          *
          * @return the visible child
          */
         get() = adw_squeezer_get_visible_child(adwSqueezerPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The horizontal alignment, from 0 (start) to 1 (end).
      *
      * This affects the children allocation during transitions, when they exceed
@@ -308,12 +483,26 @@ public class Squeezer(
      */
     public var xalign: gfloat
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets the horizontal alignment, from 0 (start) to 1 (end).
          *
          * @return the alignment value
          */
         get() = adw_squeezer_get_xalign(adwSqueezerPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets the horizontal alignment, from 0 (start) to 1 (end).
          *
          * This affects the children allocation during transitions, when they exceed the
@@ -327,6 +516,13 @@ public class Squeezer(
         set(xalign) = adw_squeezer_set_xalign(adwSqueezerPointer, xalign)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The vertical alignment, from 0 (top) to 1 (bottom).
      *
      * This affects the children allocation during transitions, when they exceed
@@ -337,12 +533,26 @@ public class Squeezer(
      */
     public var yalign: gfloat
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets the vertical alignment, from 0 (top) to 1 (bottom).
          *
          * @return the alignment value
          */
         get() = adw_squeezer_get_yalign(adwSqueezerPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets the vertical alignment, from 0 (top) to 1 (bottom).
          *
          * This affects the children allocation during transitions, when they exceed the
@@ -356,6 +566,13 @@ public class Squeezer(
         set(yalign) = adw_squeezer_set_yalign(adwSqueezerPointer, yalign)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Creates a new `AdwSqueezer`.
      *
      * @return the newly created `AdwSqueezer`
@@ -365,26 +582,47 @@ public class Squeezer(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Adds a child to @self.
      *
      * @param child the widget to add
      * @return the [class@SqueezerPage] for @child
      */
     public fun add(child: Widget): SqueezerPage = adw_squeezer_add(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Returns the [class@SqueezerPage] object for @child.
      *
      * @param child a child of @self
      * @return the page object for @child
      */
     public fun getPage(child: Widget): SqueezerPage = adw_squeezer_get_page(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Removes a child widget from @self.
      *
      * @param child the child to remove

@@ -127,7 +127,7 @@ public class WebsocketConnection(
          * @return the WebSocket's I/O stream.
          */
         get() = soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer)!!.run {
-            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
         }
 
     /**

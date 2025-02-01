@@ -108,7 +108,7 @@ public open class PasswordEntry(
          * @return the menu model
          */
         get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets a menu model to add when constructing

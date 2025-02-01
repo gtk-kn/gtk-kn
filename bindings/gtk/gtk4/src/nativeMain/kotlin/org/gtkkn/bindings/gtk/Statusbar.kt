@@ -101,6 +101,13 @@ public open class Statusbar(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkStatusbar` ready for messages.
      *
      * @return the new `GtkStatusbar`
@@ -110,6 +117,13 @@ public open class Statusbar(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns a new context identifier, given a description
      * of the actual context.
      *
@@ -122,6 +136,13 @@ public open class Statusbar(
     public open fun getContextId(contextDescription: String): guint = gtk_statusbar_get_context_id(gtkStatusbarPointer, contextDescription)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Removes the first message in the `GtkStatusbar`’s stack
      * with the given context id.
      *
@@ -134,6 +155,13 @@ public open class Statusbar(
     public open fun pop(contextId: guint): Unit = gtk_statusbar_pop(gtkStatusbarPointer, contextId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Pushes a new message onto a statusbar’s stack.
      *
      * @param contextId the message’s context id, as returned by
@@ -145,6 +173,13 @@ public open class Statusbar(
     public open fun push(contextId: guint, text: String): guint = gtk_statusbar_push(gtkStatusbarPointer, contextId, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Forces the removal of a message from a statusbar’s stack.
      * The exact @context_id and @message_id must be specified.
      *
@@ -154,6 +189,13 @@ public open class Statusbar(
     public open fun remove(contextId: guint, messageId: guint): Unit = gtk_statusbar_remove(gtkStatusbarPointer, contextId, messageId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Forces the removal of all messages from a statusbar's
      * stack with the exact @context_id.
      *
@@ -162,6 +204,13 @@ public open class Statusbar(
     public open fun removeAll(contextId: guint): Unit = gtk_statusbar_remove_all(gtkStatusbarPointer, contextId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted whenever a new message is popped off a statusbar's stack.
      *
      * @param connectFlags a combination of [ConnectFlags]
@@ -170,6 +219,13 @@ public open class Statusbar(
     public fun onTextPopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (contextId: guint, text: String) -> Unit): ULong = g_signal_connect_data(gtkStatusbarPointer, "text-popped", onTextPoppedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "text-popped" signal. See [onTextPopped].
      *
      * @param contextId the context id of the relevant message/statusbar
@@ -180,6 +236,13 @@ public open class Statusbar(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emitted whenever a new message gets pushed onto a statusbar's stack.
      *
      * @param connectFlags a combination of [ConnectFlags]
@@ -188,6 +251,13 @@ public open class Statusbar(
     public fun onTextPushed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (contextId: guint, text: String) -> Unit): ULong = g_signal_connect_data(gtkStatusbarPointer, "text-pushed", onTextPushedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Emits the "text-pushed" signal. See [onTextPushed].
      *
      * @param contextId the context id of the relevant message/statusbar

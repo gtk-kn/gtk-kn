@@ -135,6 +135,13 @@ public open class MessageDialog(
      */
     public open val messageArea: Widget
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.AlertDialog] instead
+         * ---
+         *
          * Returns the message area of the dialog.
          *
          * This is the box where the dialog’s primary and secondary labels
@@ -146,10 +153,17 @@ public open class MessageDialog(
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.AlertDialog] instead
+     * ---
+     *
      * Sets the text of the message dialog.
      *
      * @param str string with Pango markup

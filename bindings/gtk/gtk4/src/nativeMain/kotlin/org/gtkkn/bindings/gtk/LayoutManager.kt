@@ -114,7 +114,7 @@ public abstract class LayoutManager(
      * @return a `GtkLayoutChild`
      */
     public open fun getLayoutChild(child: Widget): LayoutChild = gtk_layout_manager_get_layout_child(gtkLayoutManagerPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { LayoutChild.LayoutChildImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { LayoutChild.LayoutChildImpl(reinterpret()) }!!
     }
 
     /**
@@ -131,7 +131,7 @@ public abstract class LayoutManager(
      * @return a `GtkWidget`
      */
     public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**

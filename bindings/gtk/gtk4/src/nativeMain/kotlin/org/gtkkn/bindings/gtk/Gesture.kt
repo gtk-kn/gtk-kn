@@ -180,7 +180,7 @@ public abstract class Gesture(
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gtk_gesture_get_device(gtkGesturePointer)?.run {
-        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
     }
 
     /**
@@ -296,6 +296,13 @@ public abstract class Gesture(
     public open fun isRecognized(): Boolean = gtk_gesture_is_recognized(gtkGesturePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10..
+     *
+     * Use [method@Gtk.Gesture.set_state]
+     * ---
+     *
      * Sets the state of @sequence in @gesture.
      *
      * Sequences start in state %GTK_EVENT_SEQUENCE_NONE, and whenever

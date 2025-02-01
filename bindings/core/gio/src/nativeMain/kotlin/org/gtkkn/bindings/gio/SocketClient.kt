@@ -187,7 +187,7 @@ public open class SocketClient(
          * @since 2.22
          */
         get() = g_socket_client_get_local_address(gioSocketClientPointer)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
         /**
          * Sets the local address of the socket client.
@@ -307,6 +307,13 @@ public open class SocketClient(
         set(tls) = g_socket_client_set_tls(gioSocketClientPointer, tls.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.72.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * The TLS validation flags used when creating TLS connections. The
      * default value is %G_TLS_CERTIFICATE_VALIDATE_ALL.
      *
@@ -326,6 +333,13 @@ public open class SocketClient(
      */
     public open var tlsValidationFlags: TlsCertificateFlags
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.72.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Gets the TLS validation flags used creating TLS connections via
          * @client.
          *
@@ -339,6 +353,13 @@ public open class SocketClient(
         get() = g_socket_client_get_tls_validation_flags(gioSocketClientPointer).run {
             TlsCertificateFlags(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.72.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Sets the TLS validation flags used when creating TLS connections
          * via @client. The default value is %G_TLS_CERTIFICATE_VALIDATE_ALL.
          *
@@ -417,7 +438,7 @@ public open class SocketClient(
     public open fun connect(connectable: SocketConnectable, cancellable: Cancellable? = null): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect(gioSocketClientPointer, connectable.gioSocketConnectablePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -466,7 +487,7 @@ public open class SocketClient(
     public open fun connectFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -522,7 +543,7 @@ public open class SocketClient(
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_host(gioSocketClientPointer, hostAndPort, defaultPort, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -564,7 +585,7 @@ public open class SocketClient(
     public open fun connectToHostFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_host_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -602,7 +623,7 @@ public open class SocketClient(
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_service(gioSocketClientPointer, domain, service, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -641,7 +662,7 @@ public open class SocketClient(
     public open fun connectToServiceFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_service_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -688,7 +709,7 @@ public open class SocketClient(
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_uri(gioSocketClientPointer, uri, defaultPort, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -730,7 +751,7 @@ public open class SocketClient(
     public open fun connectToUriFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_uri_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

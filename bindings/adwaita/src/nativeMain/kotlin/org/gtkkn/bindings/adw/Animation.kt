@@ -165,7 +165,7 @@ public abstract class Animation(
          * @return the animation target
          */
         get() = adw_animation_get_target(adwAnimationPointer)!!.run {
-            InstanceCache.get(this, true) { AnimationTarget.AnimationTargetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { AnimationTarget.AnimationTargetImpl(reinterpret()) }!!
         }
         /**
          * Sets the target @self animates to @target.
@@ -209,7 +209,7 @@ public abstract class Animation(
          * @return the animation widget
          */
         get() = adw_animation_get_widget(adwAnimationPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**

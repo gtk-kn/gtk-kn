@@ -1290,7 +1290,7 @@ public object Gtk {
         pageSetup: PageSetup? = null,
         settings: PrintSettings,
     ): PageSetup = gtk_print_run_page_setup_dialog(parent?.gtkWindowPointer, pageSetup?.gtkPageSetupPointer, settings.gtkPrintSettingsPointer)!!.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
     }
 
     /**
@@ -1314,6 +1314,11 @@ public object Gtk {
     ): Unit = gtk_print_run_page_setup_dialog_async(parent?.gtkWindowPointer, pageSetup?.gtkPageSetupPointer, settings.gtkPrintSettingsPointer, PageSetupDoneFuncFunc.reinterpret(), StableRef.create(doneCb).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an activity indicator (such as in `GtkSpinner`).
      * The state %GTK_STATE_FLAG_CHECKED determines whether there is
      * activity going on.
@@ -1335,6 +1340,11 @@ public object Gtk {
     ): Unit = gtk_render_activity(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an arrow pointing to @angle.
      *
      * Typical arrow rendering at 0, 1⁄2 π;, π; and 3⁄2 π:
@@ -1358,6 +1368,11 @@ public object Gtk {
     ): Unit = gtk_render_arrow(context.gtkStyleContextPointer, cr.cairoContextPointer, angle, x, y, size)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders the background of an element.
      *
      * Typical background rendering, showing the effect of
@@ -1382,6 +1397,11 @@ public object Gtk {
     ): Unit = gtk_render_background(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a checkmark (as in a `GtkCheckButton`).
      *
      * The %GTK_STATE_FLAG_CHECKED state determines whether the check is
@@ -1409,6 +1429,11 @@ public object Gtk {
     ): Unit = gtk_render_check(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an expander (as used in `GtkTreeView` and `GtkExpander`) in the area
      * defined by @x, @y, @width, @height. The state %GTK_STATE_FLAG_CHECKED
      * determines whether the expander is collapsed or expanded.
@@ -1434,6 +1459,11 @@ public object Gtk {
     ): Unit = gtk_render_expander(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a focus indicator on the rectangle determined by @x, @y, @width, @height.
      *
      * Typical focus rendering:
@@ -1457,6 +1487,11 @@ public object Gtk {
     ): Unit = gtk_render_focus(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a frame around the rectangle defined by @x, @y, @width, @height.
      *
      * Examples of frame rendering, showing the effect of `border-image`,
@@ -1481,6 +1516,11 @@ public object Gtk {
     ): Unit = gtk_render_frame(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a handle (as in `GtkPaned` and `GtkWindow`’s resize grip),
      * in the rectangle determined by @x, @y, @width, @height.
      *
@@ -1505,6 +1545,11 @@ public object Gtk {
     ): Unit = gtk_render_handle(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders the icon in @texture at the specified @x and @y coordinates.
      *
      * This function will render the icon in @texture at exactly its size,
@@ -1526,6 +1571,11 @@ public object Gtk {
     ): Unit = gtk_render_icon(context.gtkStyleContextPointer, cr.cairoContextPointer, texture.gdkTexturePointer, x, y)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders @layout on the coordinates @x, @y
      *
      * @param context a `GtkStyleContext`
@@ -1543,6 +1593,11 @@ public object Gtk {
     ): Unit = gtk_render_layout(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, layout.pangoLayoutPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders a line from (x0, y0) to (x1, y1).
      *
      * @param context a `GtkStyleContext`
@@ -1562,6 +1617,11 @@ public object Gtk {
     ): Unit = gtk_render_line(context.gtkStyleContextPointer, cr.cairoContextPointer, x0, y0, x1, y1)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Renders an option mark (as in a radio button), the %GTK_STATE_FLAG_CHECKED
      * state will determine whether the option is on or off, and
      * %GTK_STATE_FLAG_INCONSISTENT whether it should be marked as undefined.
@@ -1594,6 +1654,14 @@ public object Gtk {
     public fun setDebugFlags(flags: DebugFlags): Unit = gtk_set_debug_flags(flags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.FileLauncher.launch] or
+     *   [method@Gtk.UriLauncher.launch] instead
+     * ---
+     *
      * This function launches the default application for showing
      * a given uri, or shows an error dialog if that fails.
      *
@@ -1608,6 +1676,14 @@ public object Gtk {
     ): Unit = gtk_show_uri(parent?.gtkWindowPointer, uri, timestamp)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.FileLauncher.launch] or
+     *   [method@Gtk.UriLauncher.launch] instead
+     * ---
+     *
      * This function launches the default application for showing
      * a given uri.
      *
@@ -1632,6 +1708,14 @@ public object Gtk {
     ): Unit = gtk_show_uri_full(parent?.gtkWindowPointer, uri, timestamp, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [method@Gtk.FileLauncher.launch_finish] or
+     *   [method@Gtk.UriLauncher.launch_finish] instead
+     * ---
+     *
      * Finishes the gtk_show_uri() call and returns the result
      * of the operation.
      *
@@ -1721,6 +1805,13 @@ public object Gtk {
     public fun testWidgetWaitForDraw(widget: Widget): Unit = gtk_test_widget_wait_for_draw(widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Creates a content provider for dragging @path from @tree_model.
      *
      * @param treeModel a `GtkTreeModel`
@@ -1728,7 +1819,7 @@ public object Gtk {
      * @return a new `GdkContentProvider`
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider = gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer)!!.run {
-        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
     }
 
     /**

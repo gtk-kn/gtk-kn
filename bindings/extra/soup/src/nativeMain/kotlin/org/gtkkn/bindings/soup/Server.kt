@@ -389,7 +389,7 @@ public open class Server(
      * @return a #GTlsCertificate or null
      */
     public open fun getTlsCertificate(): TlsCertificate? = soup_server_get_tls_certificate(soupServerPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -398,7 +398,7 @@ public open class Server(
      * @return a #GTlsDatabase
      */
     public open fun getTlsDatabase(): TlsDatabase? = soup_server_get_tls_database(soupServerPointer)?.run {
-        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**
@@ -546,6 +546,13 @@ public open class Server(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 3.2.
+     *
+     * Use soup_server_message_pause() instead.
+     * ---
+     *
      * Pauses I/O on @msg.
      *
      * This can be used when you need to return from the server handler without
@@ -598,6 +605,13 @@ public open class Server(
     public open fun setTlsDatabase(tlsDatabase: TlsDatabase): Unit = soup_server_set_tls_database(soupServerPointer, tlsDatabase.gioTlsDatabasePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 3.2.
+     *
+     * Use soup_server_message_unpause() instead.
+     * ---
+     *
      * Resumes I/O on @msg.
      *
      * Use this to resume after calling [method@Server.pause_message], or after

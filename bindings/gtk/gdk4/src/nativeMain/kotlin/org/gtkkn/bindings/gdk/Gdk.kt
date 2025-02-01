@@ -4710,6 +4710,17 @@ public object Gdk {
     public const val PRIORITY_REDRAW: gint = 120
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.6.
+     *
+     * The function is overly complex and produces broken output
+     *   in various combinations of arguments. If you want to draw with GL textures
+     *   in GTK, use [ctor@Gdk.GLTexture.new]; if you want to use that texture in
+     *   Cairo, use [method@Gdk.Texture.download] to download the data into a Cairo
+     *   image surface.
+     * ---
+     *
      * The main way to not draw GL content in GTK.
      *
      * It takes a render buffer ID (@source_type == GL_RENDERBUFFER) or a texture
@@ -5009,6 +5020,14 @@ public object Gdk {
     public fun keyvalToUpper(keyval: guint): guint = gdk_keyval_to_upper(keyval)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [class@Gdk.Texture] and subclasses instead
+     *   cairo surfaces and pixbufs
+     * ---
+     *
      * Transfers image data from a `cairo_surface_t` and converts it
      * to a `GdkPixbuf`.
      *
@@ -5032,10 +5051,18 @@ public object Gdk {
         width: gint,
         height: gint,
     ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.cairoSurfacePointer, srcX, srcY, width, height)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [class@Gdk.Texture] and subclasses instead
+     *   cairo surfaces and pixbufs
+     * ---
+     *
      * Creates a new pixbuf from @texture.
      *
      * This should generally not be used in newly written code as later
@@ -5046,7 +5073,7 @@ public object Gdk {
      * @return a new `GdkPixbuf`
      */
     public fun pixbufGetFromTexture(texture: Texture): Pixbuf? = gdk_pixbuf_get_from_texture(texture.gdkTexturePointer)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**

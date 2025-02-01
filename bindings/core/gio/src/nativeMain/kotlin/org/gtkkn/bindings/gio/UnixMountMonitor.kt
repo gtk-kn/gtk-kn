@@ -43,6 +43,13 @@ public open class UnixMountMonitor(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.44.
+     *
+     * Use g_unix_mount_monitor_get() instead.
+     * ---
+     *
      * Deprecated alias for g_unix_mount_monitor_get().
      *
      * This function was never a true constructor, which is why it was
@@ -55,6 +62,13 @@ public open class UnixMountMonitor(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.44.
+     *
+     * This function does nothing.  Don't call it.
+     * ---
+     *
      * This function does nothing.
      *
      * Before 2.44, this was a partially-effective way of controlling the
@@ -123,7 +137,7 @@ public open class UnixMountMonitor(
          */
         @GioVersion2_44
         public fun `get`(): UnixMountMonitor = g_unix_mount_monitor_get()!!.run {
-            InstanceCache.get(this, true) { UnixMountMonitor(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { UnixMountMonitor(reinterpret()) }!!
         }
 
         /**

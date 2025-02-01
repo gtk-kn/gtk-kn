@@ -148,7 +148,7 @@ public open class MarkAttributes(
          * should not be unreffed.
          */
         get() = gtk_source_mark_attributes_get_pixbuf(gtksourceMarkAttributesPointer)!!.run {
-            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
         }
         /**
          * Sets a pixbuf to be used as a base for rendered icon.

@@ -138,6 +138,14 @@ public class Cond(
     public fun clear(): Unit = g_cond_clear(glibCondPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * GCond can now be statically allocated, or embedded
+     * in structures and initialised with g_cond_init().
+     * ---
+     *
      * Destroys a #GCond that has been created with g_cond_new().
      *
      * Calling g_cond_free() for a #GCond on which threads are
@@ -172,6 +180,13 @@ public class Cond(
     public fun signal(): Unit = g_cond_signal(glibCondPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_cond_wait_until() instead.
+     * ---
+     *
      * Waits until this thread is woken up on @cond, but not longer than
      * until the time specified by @abs_time. The @mutex is unlocked before
      * falling asleep and locked again before resuming.
@@ -270,6 +285,14 @@ public class Cond(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.32.
+         *
+         * GCond can now be statically allocated, or embedded
+         * in structures and initialised with g_cond_init().
+         * ---
+         *
          * Allocates and initializes a new #GCond.
          *
          * @return a newly allocated #GCond. Free with g_cond_free()

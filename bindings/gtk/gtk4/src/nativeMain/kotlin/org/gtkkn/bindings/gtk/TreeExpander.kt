@@ -117,7 +117,7 @@ public open class TreeExpander(
          * @return The child displayed by @self
          */
         get() = gtk_tree_expander_get_child(gtkTreeExpanderPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the content widget to display.
@@ -216,7 +216,7 @@ public open class TreeExpander(
          * @return The item of the row
          */
         get() = gtk_tree_expander_get_item(gtkTreeExpanderPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -229,7 +229,7 @@ public open class TreeExpander(
          * @return The list row displayed by @self
          */
         get() = gtk_tree_expander_get_list_row(gtkTreeExpanderPointer)?.run {
-            InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!
         }
         /**
          * Sets the tree list row that this expander should manage.

@@ -376,7 +376,7 @@ public open class Cancellable(
          * of the stack, or null if the stack is empty.
          */
         public fun getCurrent(): Cancellable? = g_cancellable_get_current()?.run {
-            InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
         }
 
         /**

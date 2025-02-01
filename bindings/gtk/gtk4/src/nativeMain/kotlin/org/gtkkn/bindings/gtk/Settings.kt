@@ -145,7 +145,7 @@ public open class Settings(
          *   no default display, then returns null.
          */
         public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
-            InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Settings(reinterpret()) }!!
         }
 
         /**
@@ -155,7 +155,7 @@ public open class Settings(
          * @return a `GtkSettings` object
          */
         public fun getForDisplay(display: Display): Settings = gtk_settings_get_for_display(display.gdkDisplayPointer)!!.run {
-            InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Settings(reinterpret()) }!!
         }
 
         /**

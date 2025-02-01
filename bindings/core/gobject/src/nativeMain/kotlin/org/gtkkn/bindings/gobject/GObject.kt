@@ -1784,6 +1784,13 @@ public object GObject {
     public fun typeGetTypeRegistrationSerial(): guint = g_type_get_type_registration_serial()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * the type system is now initialised automatically
+     * ---
+     *
      * This function used to initialise the type system.  Since GLib 2.36,
      * the type system is initialised automatically and this function does
      * nothing.
@@ -1791,6 +1798,13 @@ public object GObject {
     public fun typeInit(): Unit = g_type_init()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.36.
+     *
+     * the type system is now initialised automatically
+     * ---
+     *
      * This function used to initialise the type system with debugging
      * flags.  Since GLib 2.36, the type system is initialised automatically
      * and this function does nothing.

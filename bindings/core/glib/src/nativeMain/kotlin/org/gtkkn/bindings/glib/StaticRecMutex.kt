@@ -65,6 +65,13 @@ public class StaticRecMutex(
     public constructor(scope: AutofreeScope) : this(scope.alloc<GStaticRecMutex>().ptr)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_clear()
+     * ---
+     *
      * Releases all resources allocated to a #GStaticRecMutex.
      *
      * You don't have to call this functions for a #GStaticRecMutex with an
@@ -75,6 +82,13 @@ public class StaticRecMutex(
     public fun free(): Unit = g_static_rec_mutex_free(glibStaticRecMutexPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_init()
+     * ---
+     *
      * A #GStaticRecMutex must be initialized with this function before it
      * can be used. Alternatively you can initialize it with
      * %G_STATIC_REC_MUTEX_INIT.
@@ -82,6 +96,13 @@ public class StaticRecMutex(
     public fun `init`(): Unit = g_static_rec_mutex_init(glibStaticRecMutexPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_lock()
+     * ---
+     *
      * Locks @mutex. If @mutex is already locked by another thread, the
      * current thread will block until @mutex is unlocked by the other
      * thread. If @mutex is already locked by the calling thread, this
@@ -90,6 +111,13 @@ public class StaticRecMutex(
     public fun lock(): Unit = g_static_rec_mutex_lock(glibStaticRecMutexPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_lock()
+     * ---
+     *
      * Works like calling g_static_rec_mutex_lock() for @mutex @depth times.
      *
      * @param depth number of times this mutex has to be unlocked to be
@@ -98,6 +126,13 @@ public class StaticRecMutex(
     public fun lockFull(depth: guint): Unit = g_static_rec_mutex_lock_full(glibStaticRecMutexPointer, depth)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_trylock()
+     * ---
+     *
      * Tries to lock @mutex. If @mutex is already locked by another thread,
      * it immediately returns false. Otherwise it locks @mutex and returns
      * true. If @mutex is already locked by the calling thread, this
@@ -109,6 +144,13 @@ public class StaticRecMutex(
     public fun trylock(): Boolean = g_static_rec_mutex_trylock(glibStaticRecMutexPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_unlock()
+     * ---
+     *
      * Unlocks @mutex. Another thread will be allowed to lock @mutex only
      * when it has been unlocked as many times as it had been locked
      * before. If @mutex is completely unlocked and another thread is
@@ -118,6 +160,13 @@ public class StaticRecMutex(
     public fun unlock(): Unit = g_static_rec_mutex_unlock(glibStaticRecMutexPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_rec_mutex_unlock()
+     * ---
+     *
      * Completely unlocks @mutex. If another thread is blocked in a
      * g_static_rec_mutex_lock() call for @mutex, it will be woken and can
      * lock @mutex itself. This function returns the number of times that

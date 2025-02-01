@@ -85,6 +85,13 @@ public open class ColorChooserDialog(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ColorDialog] instead
+     * ---
+     *
      * Creates a new `GtkColorChooserDialog`.
      *
      * @param title Title of the dialog

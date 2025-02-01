@@ -193,7 +193,7 @@ public open class ComboRow(
          * @return the factory in use
          */
         get() = adw_combo_row_get_factory(adwComboRowPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
         /**
          * Sets the factory for populating list items.
@@ -217,7 +217,7 @@ public open class ComboRow(
          * @return the factory in use
          */
         get() = adw_combo_row_get_list_factory(adwComboRowPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
         /**
          * Sets the factory for populating list items in the popup.
@@ -278,7 +278,7 @@ public open class ComboRow(
          * @return the selected item
          */
         get() = adw_combo_row_get_selected_item(adwComboRowPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
         }
 
     /**

@@ -342,7 +342,7 @@ public class HeaderBar(
          * @return the title widget
          */
         get() = adw_header_bar_get_title_widget(adwHeaderBarPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the title widget for @self.

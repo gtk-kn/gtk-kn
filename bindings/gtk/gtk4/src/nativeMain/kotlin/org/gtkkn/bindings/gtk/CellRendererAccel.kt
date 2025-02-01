@@ -38,8 +38,8 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_accel_new
  * This is deprecated since version 4.10.
  *
  * Applications editing keyboard accelerators should
-         *   provide their own implementation according to platform design
-         *   guidelines
+ *   provide their own implementation according to platform design
+ *   guidelines
  * ---
  *
  * Renders a keyboard accelerator in a cell
@@ -64,6 +64,11 @@ public open class CellRendererAccel(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererAccel`.
      *
      * @return the new cell renderer

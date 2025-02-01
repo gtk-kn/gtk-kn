@@ -225,7 +225,7 @@ public open class Window(
          * @return a `GtkApplication`
          */
         get() = gtk_window_get_application(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Application(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!
         }
         /**
          * Sets or unsets the `GtkApplication` associated with the window.
@@ -256,7 +256,7 @@ public open class Window(
          * @return the child widget of @window
          */
         get() = gtk_window_get_child(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @window.
@@ -304,7 +304,7 @@ public open class Window(
          * @return the default widget
          */
         get() = gtk_window_get_default_widget(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the default widget.
@@ -566,7 +566,7 @@ public open class Window(
          * @return the custom titlebar
          */
         get() = gtk_window_get_titlebar(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets a custom titlebar for @window.
@@ -595,7 +595,7 @@ public open class Window(
          * @return the transient parent for this window
          */
         get() = gtk_window_get_transient_for(gtkWindowPointer)?.run {
-            InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
         /**
          * Dialog windows should be set transient for the main application
@@ -690,7 +690,7 @@ public open class Window(
      * @return the currently focused widget
      */
     override fun getFocus(): Widget? = gtk_window_get_focus(gtkWindowPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
@@ -702,7 +702,7 @@ public open class Window(
      *   or the default group
      */
     public open fun getGroup(): WindowGroup = gtk_window_get_group(gtkWindowPointer)!!.run {
-        InstanceCache.get(this, true) { WindowGroup(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { WindowGroup(reinterpret()) }!!
     }
 
     /**
@@ -819,6 +819,13 @@ public open class Window(
     public open fun present(): Unit = gtk_window_present(gtkWindowPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.14.
+     *
+     * Use gtk_window_present()
+     * ---
+     *
      * Presents a window to the user in response to an user interaction.
      *
      * See [method@Gtk.Window.present] for more details.
@@ -1019,6 +1026,14 @@ public open class Window(
     public fun onEnableDebugging(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (toggle: Boolean) -> Boolean): ULong = g_signal_connect_data(gtkWindowPointer, "enable-debugging", onEnableDebuggingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Shortcut] and [class@Gtk.EventController]
+     * to implement keyboard shortcuts
+     * ---
+     *
      * emitted when the set of accelerators or mnemonics that
      * are associated with @window changes.
      *
@@ -1028,6 +1043,14 @@ public open class Window(
     public fun onKeysChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkWindowPointer, "keys-changed", onKeysChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.Shortcut] and [class@Gtk.EventController]
+     * to implement keyboard shortcuts
+     * ---
+     *
      * Emits the "keys-changed" signal. See [onKeysChanged].
      */
     public fun emitKeysChanged() {

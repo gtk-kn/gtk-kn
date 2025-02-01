@@ -110,7 +110,7 @@ public abstract class Surface(
          * @return a `GdkCursor`
          */
         get() = gdk_surface_get_cursor(gdkSurfacePointer)?.run {
-            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
         }
         /**
          * Sets the default mouse pointer for a `GdkSurface`.
@@ -136,7 +136,7 @@ public abstract class Surface(
          * @return the `GdkDisplay` associated with @surface
          */
         get() = gdk_surface_get_display(gdkSurfacePointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -152,7 +152,7 @@ public abstract class Surface(
          * @return the frame clock
          */
         get() = gdk_surface_get_frame_clock(gdkSurfacePointer)!!.run {
-            InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!
         }
 
     /**
@@ -284,7 +284,7 @@ public abstract class Surface(
      * @return the newly created `GdkCairoContext`
      */
     public open fun createCairoContext(): CairoContext = gdk_surface_create_cairo_context(gdkSurfacePointer)!!.run {
-        InstanceCache.get(this, true) { CairoContext.CairoContextImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { CairoContext.CairoContextImpl(reinterpret()) }!!
     }
 
     /**
@@ -300,7 +300,7 @@ public abstract class Surface(
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_gl_context(gdkSurfacePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -311,6 +311,13 @@ public abstract class Surface(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Create a suitable cairo image surface yourself
+     * ---
+     *
      * Create a new Cairo surface that is as compatible as possible with the
      * given @surface.
      *
@@ -343,6 +350,14 @@ public abstract class Surface(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.14.
+     *
+     * GTK does not expose any Vulkan internals. This
+     *   function is a leftover that was accidentally exposed.
+     * ---
+     *
      * Sets an error and returns null.
      *
      * @return null
@@ -350,7 +365,7 @@ public abstract class Surface(
     public open fun createVulkanContext(): Result<VulkanContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_vulkan_context(gdkSurfacePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { VulkanContext.VulkanContextImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { VulkanContext.VulkanContextImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -386,7 +401,7 @@ public abstract class Surface(
      * @return a `GdkCursor`
      */
     public open fun getDeviceCursor(device: Device): Cursor? = gdk_surface_get_device_cursor(gdkSurfacePointer, device.gdkDevicePointer)?.run {
-        InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Cursor(reinterpret()) }!!
     }
 
     /**

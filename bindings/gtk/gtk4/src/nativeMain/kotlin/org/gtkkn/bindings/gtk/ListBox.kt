@@ -272,7 +272,7 @@ public open class ListBox(
      * @return the adjustment
      */
     public open fun getAdjustment(): Adjustment? = gtk_list_box_get_adjustment(gtkListBoxPointer)?.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
     }
 
     /**
@@ -285,7 +285,7 @@ public open class ListBox(
      * @return the child `GtkWidget`
      */
     public open fun getRowAtIndex(index: gint): ListBoxRow? = gtk_list_box_get_row_at_index(gtkListBoxPointer, index)?.run {
-        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!
     }
 
     /**
@@ -295,7 +295,7 @@ public open class ListBox(
      * @return the row
      */
     public open fun getRowAtY(y: gint): ListBoxRow? = gtk_list_box_get_row_at_y(gtkListBoxPointer, y)?.run {
-        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!
     }
 
     /**
@@ -308,7 +308,7 @@ public open class ListBox(
      * @return the selected row
      */
     public open fun getSelectedRow(): ListBoxRow? = gtk_list_box_get_selected_row(gtkListBoxPointer)?.run {
-        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!
     }
 
     /**

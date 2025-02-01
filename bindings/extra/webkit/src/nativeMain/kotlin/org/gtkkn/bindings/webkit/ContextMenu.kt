@@ -106,7 +106,7 @@ public class ContextMenu(
      *    or null if the #WebKitContextMenu is empty.
      */
     public fun first(): ContextMenuItem = webkit_context_menu_first(webkitContextMenuPointer)!!.run {
-        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!
     }
 
     /**
@@ -143,7 +143,7 @@ public class ContextMenu(
      *    or null if the position is off the end of the @menu.
      */
     public fun getItemAtPosition(position: guint): ContextMenuItem = webkit_context_menu_get_item_at_position(webkitContextMenuPointer, position)!!.run {
-        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!
     }
 
     /**
@@ -194,7 +194,7 @@ public class ContextMenu(
      *    or null if the #WebKitContextMenu is empty.
      */
     public fun last(): ContextMenuItem = webkit_context_menu_last(webkitContextMenuPointer)!!.run {
-        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { ContextMenuItem(reinterpret()) }!!
     }
 
     /**

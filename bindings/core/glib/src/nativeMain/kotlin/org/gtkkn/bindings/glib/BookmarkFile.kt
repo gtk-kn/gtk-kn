@@ -212,6 +212,14 @@ public class BookmarkFile(
     public fun free(): Unit = g_bookmark_file_free(glibBookmarkFilePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_get_added_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the time the bookmark for @uri was added to @bookmark
      *
      * In the event the URI cannot be found, -1 is returned and
@@ -325,6 +333,14 @@ public class BookmarkFile(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_get_modified_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the time when the bookmark for @uri was last modified.
      *
      * In the event the URI cannot be found, -1 is returned and
@@ -402,6 +418,14 @@ public class BookmarkFile(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_get_visited_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Gets the time the bookmark for @uri was last visited.
      *
      * In the event the URI cannot be found, -1 is returned and
@@ -616,6 +640,14 @@ public class BookmarkFile(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_added_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the time the bookmark for @uri was added into @bookmark.
      *
      * If no bookmark for @uri is found then it is created.
@@ -640,6 +672,14 @@ public class BookmarkFile(
     public fun setAddedDateTime(uri: String, added: DateTime): Unit = g_bookmark_file_set_added_date_time(glibBookmarkFilePointer, uri, added.glibDateTimePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_application_info() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the meta-data of application @name inside the list of
      * applications that have registered a bookmark for @uri inside
      * @bookmark.
@@ -829,6 +869,14 @@ public class BookmarkFile(
     public fun setMimeType(uri: String, mimeType: String): Unit = g_bookmark_file_set_mime_type(glibBookmarkFilePointer, uri, mimeType)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_modified_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the last time the bookmark for @uri was last modified.
      *
      * If no bookmark for @uri is found then it is created.
@@ -878,6 +926,14 @@ public class BookmarkFile(
     public fun setTitle(uri: String? = null, title: String): Unit = g_bookmark_file_set_title(glibBookmarkFilePointer, uri, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.66.
+     *
+     * Use g_bookmark_file_set_visited_date_time() instead, as
+     *    `time_t` is deprecated due to the year 2038 problem.
+     * ---
+     *
      * Sets the time the bookmark for @uri was last visited.
      *
      * If no bookmark for @uri is found then it is created.

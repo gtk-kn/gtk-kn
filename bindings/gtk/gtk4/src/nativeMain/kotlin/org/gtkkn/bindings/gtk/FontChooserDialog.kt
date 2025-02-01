@@ -81,6 +81,13 @@ public open class FontChooserDialog(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] instead
+     * ---
+     *
      * Creates a new `GtkFontChooserDialog`.
      *
      * @param title Title of the dialog

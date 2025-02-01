@@ -121,7 +121,7 @@ public abstract class IoStream(
          * @since 2.22
          */
         get() = g_io_stream_get_input_stream(gioIoStreamPointer)!!.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
     /**
@@ -140,7 +140,7 @@ public abstract class IoStream(
          * @since 2.22
          */
         get() = g_io_stream_get_output_stream(gioIoStreamPointer)!!.run {
-            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
         }
 
     /**

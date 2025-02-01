@@ -26,8 +26,8 @@ import org.gtkkn.native.gtk.gtk_app_chooser_refresh
  * This is deprecated since version 4.10.
  *
  * The application selection widgets should be
-         *   implemented according to the design of each platform and/or
-         *   application requiring them.
+ *   implemented according to the design of each platform and/or
+ *   application requiring them.
  * ---
  *
  * `GtkAppChooser` is an interface for widgets which allow the user to
@@ -60,6 +60,13 @@ public interface AppChooser : Proxy, KGTyped {
      */
     public val contentType: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Returns the content type for which the `GtkAppChooser`
          * shows applications.
          *
@@ -68,6 +75,13 @@ public interface AppChooser : Proxy, KGTyped {
         get() = gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the currently selected application.
      *
      * @return a `GAppInfo` for the
@@ -77,6 +91,13 @@ public interface AppChooser : Proxy, KGTyped {
         AppInfo.AppInfoImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the content type for which the `GtkAppChooser`
      * shows applications.
      *
@@ -85,6 +106,13 @@ public interface AppChooser : Proxy, KGTyped {
     public fun getContentType(): String = gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Reloads the list of applications.
      */
     public fun refresh(): Unit = gtk_app_chooser_refresh(gtkAppChooserPointer)

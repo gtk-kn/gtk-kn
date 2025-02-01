@@ -592,7 +592,7 @@ public open class Application(
      */
     @GioVersion2_34
     public open fun getDbusConnection(): DBusConnection? = g_application_get_dbus_connection(gioApplicationPointer)?.run {
-        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
     }
 
     /**
@@ -858,6 +858,17 @@ public open class Application(
     public open fun sendNotification(id: String? = null, notification: Notification): Unit = g_application_send_notification(gioApplicationPointer, id, notification.gioNotificationPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use the #GActionMap interface instead.  Never ever
+     * mix use of this API with use of #GActionMap on the same @application
+     * or things will go very badly wrong.  This function is known to
+     * introduce buggy behaviour (ie: signals not emitted on changes to the
+     * action group), so you should really use #GActionMap instead.
+     * ---
+     *
      * This used to be how actions were associated with a #GApplication.
      * Now there is #GActionMap for that.
      *
@@ -1127,7 +1138,7 @@ public open class Application(
          */
         @GioVersion2_32
         public fun getDefault(): Application? = g_application_get_default()?.run {
-            InstanceCache.get(this, true) { Application(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!
         }
 
         /**

@@ -128,7 +128,7 @@ public interface AsyncResult : Proxy, KGTyped {
      *    object for the @res, or null if there is none.
      */
     public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer)?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**

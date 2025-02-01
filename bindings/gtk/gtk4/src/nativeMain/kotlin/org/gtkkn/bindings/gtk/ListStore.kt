@@ -225,6 +225,13 @@ public open class ListStore(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Appends a new row to @list_store.  @iter will be changed to point to this new
      * row.  The row will be empty after this function is called.  To fill in
      * values, you need to call gtk_list_store_set() or gtk_list_store_set_value().
@@ -234,11 +241,25 @@ public open class ListStore(
     public open fun append(iter: TreeIter): Unit = gtk_list_store_append(gtkListStorePointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Removes all rows from the list store.
      */
     public open fun clear(): Unit = gtk_list_store_clear(gtkListStorePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Creates a new row at @position.  @iter will be changed to point to this new
      * row.  If @position is -1 or is larger than the number of rows on the list,
      * then the new row will be appended to the list. The row will be empty after
@@ -251,6 +272,13 @@ public open class ListStore(
     public open fun insert(iter: TreeIter, position: gint): Unit = gtk_list_store_insert(gtkListStorePointer, iter.gtkTreeIterPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Inserts a new row after @sibling. If @sibling is null, then the row will be
      * prepended to the beginning of the list. @iter will be changed to point to
      * this new row. The row will be empty after this function is called. To fill
@@ -262,6 +290,13 @@ public open class ListStore(
     public open fun insertAfter(iter: TreeIter, sibling: TreeIter? = null): Unit = gtk_list_store_insert_after(gtkListStorePointer, iter.gtkTreeIterPointer, sibling?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Inserts a new row before @sibling. If @sibling is null, then the row will
      * be appended to the end of the list. @iter will be changed to point to this
      * new row. The row will be empty after this function is called. To fill in
@@ -273,6 +308,13 @@ public open class ListStore(
     public open fun insertBefore(iter: TreeIter, sibling: TreeIter? = null): Unit = gtk_list_store_insert_before(gtkListStorePointer, iter.gtkTreeIterPointer, sibling?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Checks if the given iter is a valid iter for this `GtkListStore`.
      *
      * This function is slow. Only use it for debugging and/or testing
@@ -284,6 +326,13 @@ public open class ListStore(
     public open fun iterIsValid(iter: TreeIter): Boolean = gtk_list_store_iter_is_valid(gtkListStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Moves @iter in @store to the position after @position. Note that this
      * function only works with unsorted stores. If @position is null, @iter
      * will be moved to the start of the list.
@@ -294,6 +343,13 @@ public open class ListStore(
     public open fun moveAfter(iter: TreeIter, position: TreeIter? = null): Unit = gtk_list_store_move_after(gtkListStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Moves @iter in @store to the position before @position. Note that this
      * function only works with unsorted stores. If @position is null, @iter
      * will be moved to the end of the list.
@@ -304,6 +360,13 @@ public open class ListStore(
     public open fun moveBefore(iter: TreeIter, position: TreeIter? = null): Unit = gtk_list_store_move_before(gtkListStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Prepends a new row to @list_store. @iter will be changed to point to this new
      * row. The row will be empty after this function is called. To fill in
      * values, you need to call gtk_list_store_set() or gtk_list_store_set_value().
@@ -313,6 +376,13 @@ public open class ListStore(
     public open fun prepend(iter: TreeIter): Unit = gtk_list_store_prepend(gtkListStorePointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Removes the given row from the list store.  After being removed,
      * @iter is set to be the next valid row, or invalidated if it pointed
      * to the last row in @list_store.
@@ -323,6 +393,13 @@ public open class ListStore(
     public open fun remove(iter: TreeIter): Boolean = gtk_list_store_remove(gtkListStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Sets the data in the cell specified by @iter and @column.
      * The type of @value must be convertible to the type of the
      * column.
@@ -338,6 +415,13 @@ public open class ListStore(
     ): Unit = gtk_list_store_set_value(gtkListStorePointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models
+     * ---
+     *
      * Swaps @a and @b in @store. Note that this function only works with
      * unsorted stores.
      *

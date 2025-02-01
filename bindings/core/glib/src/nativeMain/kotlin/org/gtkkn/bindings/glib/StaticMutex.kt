@@ -122,6 +122,13 @@ public class StaticMutex(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_mutex_clear()
+     * ---
+     *
      * Releases all resources allocated to @mutex.
      *
      * You don't have to call this functions for a #GStaticMutex with an
@@ -138,6 +145,13 @@ public class StaticMutex(
         Mutex(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * Use g_mutex_init()
+     * ---
+     *
      * Initializes @mutex.
      * Alternatively you can initialize it with %G_STATIC_MUTEX_INIT.
      */

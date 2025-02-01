@@ -240,7 +240,7 @@ public open class Text(
          * @return A `GtkEntryBuffer` object.
          */
         get() = gtk_text_get_buffer(gtkTextPointer)!!.run {
-            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!
         }
         /**
          * Set the `GtkEntryBuffer` object which holds the text for
@@ -285,7 +285,7 @@ public open class Text(
          * @return the menu model
          */
         get() = gtk_text_get_extra_menu(gtkTextPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets a menu model to add when constructing

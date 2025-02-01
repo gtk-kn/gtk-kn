@@ -474,6 +474,13 @@ public class Date(
     public fun setParse(str: String): Unit = g_date_set_parse(glibDatePointer, str)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.10.
+     *
+     * Use g_date_set_time_t() instead.
+     * ---
+     *
      * Sets the value of a date from a #GTime value.
      * The time to date conversion is done using the user's current timezone.
      *
@@ -501,6 +508,14 @@ public class Date(
     public fun setTimeT(timet: Long): Unit = g_date_set_time_t(glibDatePointer, timet)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use g_date_set_time_t()
+     *    instead.
+     * ---
+     *
      * Sets the value of a date from a #GTimeVal value.  Note that the
      * @tv_usec member is ignored, because #GDate can't make use of the
      * additional precision.

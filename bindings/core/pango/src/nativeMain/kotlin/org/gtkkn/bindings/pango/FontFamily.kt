@@ -86,7 +86,7 @@ public abstract class FontFamily(
      */
     @PangoVersion1_46
     public open fun getFace(name: String? = null): FontFace? = pango_font_family_get_face(pangoFontFamilyPointer, name)?.run {
-        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!
     }
 
     /**

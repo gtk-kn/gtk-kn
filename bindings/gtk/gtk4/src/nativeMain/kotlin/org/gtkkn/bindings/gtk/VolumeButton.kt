@@ -60,6 +60,13 @@ public open class VolumeButton(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a `GtkVolumeButton`.
      *
      * The button has a range between 0.0 and 1.0, with a stepping of 0.02.

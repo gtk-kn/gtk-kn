@@ -299,6 +299,14 @@ public open class Image(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [ctor@Gtk.Image.new_from_paintable] and
+     *   [ctor@Gdk.Texture.new_for_pixbuf] instead
+     * ---
+     *
      * Creates a new `GtkImage` displaying @pixbuf.
      *
      * The `GtkImage` does not assume a reference to the pixbuf; you still
@@ -361,6 +369,13 @@ public open class Image(
     public open fun setFromPaintable(paintable: Paintable? = null): Unit = gtk_image_set_from_paintable(gtkImagePointer, paintable?.gdkPaintablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [method@Gtk.Image.set_from_paintable] instead
+     * ---
+     *
      * Sets a `GtkImage` to show a `GdkPixbuf`.
      *
      * See [ctor@Gtk.Image.new_from_pixbuf] for details.

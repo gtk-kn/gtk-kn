@@ -25,7 +25,7 @@ import org.gtkkn.native.gtk.gtk_tree_drag_dest_row_drop_possible
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You can use [class@Gtk.DropTarget] to implement a drop destination
+ *   You can use [class@Gtk.DropTarget] to implement a drop destination
  * ---
  *
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
@@ -34,6 +34,13 @@ public interface TreeDragDest : Proxy, KGTyped {
     public val gtkTreeDragDestPointer: CPointer<GtkTreeDragDest>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Asks the `GtkTreeDragDest` to insert a row before the path @dest,
      * deriving the contents of the row from @value. If @dest is
      * outside the tree so that inserting before it is impossible, false
@@ -48,6 +55,13 @@ public interface TreeDragDest : Proxy, KGTyped {
     public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(gtkTreeDragDestPointer, dest.gtkTreePathPointer, `value`.gobjectValuePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use list models instead
+     * ---
+     *
      * Determines whether a drop is possible before the given @dest_path,
      * at the same depth as @dest_path. i.e., can we drop the data in
      * @value at that location. @dest_path does not have to

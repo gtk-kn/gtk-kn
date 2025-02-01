@@ -14,8 +14,8 @@ import org.gtkkn.native.gobject.GType
  * This is deprecated since version 2.60..
  *
  * Changing the rehandshake mode is no longer
-         *   required for compatibility. Also, rehandshaking has been removed
-         *   from the TLS protocol in TLS 1.3.
+ *   required for compatibility. Also, rehandshaking has been removed
+ *   from the TLS protocol in TLS 1.3.
  * ---
  *
  * When to allow rehandshaking. See
@@ -32,8 +32,8 @@ public enum class TlsRehandshakeMode(
      * This is deprecated since version 2.60..
      *
      * Changing the rehandshake mode is no longer
-             *   required for compatibility. Also, rehandshaking has been removed
-             *   from the TLS protocol in TLS 1.3.
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
      * ---
      *
      * Never allow rehandshaking
@@ -45,8 +45,8 @@ public enum class TlsRehandshakeMode(
      * This is deprecated since version 2.60..
      *
      * Changing the rehandshake mode is no longer
-             *   required for compatibility. Also, rehandshaking has been removed
-             *   from the TLS protocol in TLS 1.3.
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
      * ---
      *
      * Allow safe rehandshaking only
@@ -58,8 +58,8 @@ public enum class TlsRehandshakeMode(
      * This is deprecated since version 2.60..
      *
      * Changing the rehandshake mode is no longer
-             *   required for compatibility. Also, rehandshaking has been removed
-             *   from the TLS protocol in TLS 1.3.
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
      * ---
      *
      * Allow unsafe rehandshaking

@@ -122,7 +122,7 @@ public open class TextTagTable(
      * @return The tag
      */
     public open fun lookup(name: String): TextTag? = gtk_text_tag_table_lookup(gtkTextTagTablePointer, name)?.run {
-        InstanceCache.get(this, true) { TextTag(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TextTag(reinterpret()) }!!
     }
 
     /**

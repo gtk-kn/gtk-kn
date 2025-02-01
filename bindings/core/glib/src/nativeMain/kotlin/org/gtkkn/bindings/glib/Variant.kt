@@ -1492,6 +1492,13 @@ public class Variant(
         public fun parseErrorQuark(): Quark = g_variant_parse_error_quark()
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated.
+         *
+         * Use g_variant_parse_error_quark() instead.
+         * ---
+         *
          * Same as g_variant_error_quark().
          */
         public fun parserGetErrorQuark(): Quark = g_variant_parser_get_error_quark()

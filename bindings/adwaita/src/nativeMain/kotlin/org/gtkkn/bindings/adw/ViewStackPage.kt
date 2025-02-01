@@ -90,7 +90,7 @@ public class ViewStackPage(
          * @return the child to which @self belongs
          */
         get() = adw_view_stack_page_get_child(adwViewStackPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**

@@ -67,7 +67,7 @@ public open class DBusObjectProxy(
      */
     @GioVersion2_30
     public open fun getConnection(): DBusConnection = g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer)!!.run {
-        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
     }
 
     public companion object : TypeCompanion<DBusObjectProxy> {

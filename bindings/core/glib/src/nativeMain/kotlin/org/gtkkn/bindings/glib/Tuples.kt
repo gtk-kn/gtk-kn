@@ -91,6 +91,13 @@ public class Tuples(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Frees the records which were returned by g_relation_select(). This
      * should always be called after g_relation_select() when you are
      * finished with the records. The records are not removed from the
@@ -99,6 +106,13 @@ public class Tuples(
     public fun destroy(): Unit = g_tuples_destroy(glibTuplesPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Gets a field from the records returned by g_relation_select(). It
      * returns the given field of the record at the given index. The
      * returned value should not be changed.

@@ -73,7 +73,7 @@ public open class ContentSerializer(
      * @return the cancellable for the current operation
      */
     public open fun getCancellable(): Cancellable? = gdk_content_serializer_get_cancellable(gdkContentSerializerPointer)?.run {
-        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
     }
 
     /**
@@ -98,7 +98,7 @@ public open class ContentSerializer(
      * @return the output stream for the current operation
      */
     public open fun getOutputStream(): OutputStream = gdk_content_serializer_get_output_stream(gdkContentSerializerPointer)!!.run {
-        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
     }
 
     /**

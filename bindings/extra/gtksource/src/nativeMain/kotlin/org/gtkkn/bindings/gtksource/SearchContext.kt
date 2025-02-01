@@ -129,7 +129,7 @@ public open class SearchContext(
          * @return the associated buffer.
          */
         get() = gtk_source_search_context_get_buffer(gtksourceSearchContextPointer)!!.run {
-            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
         }
 
     /**
@@ -200,7 +200,7 @@ public open class SearchContext(
          * @return the search settings.
          */
         get() = gtk_source_search_context_get_settings(gtksourceSearchContextPointer)!!.run {
-            InstanceCache.get(this, true) { SearchSettings(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SearchSettings(reinterpret()) }!!
         }
 
     /**
@@ -262,7 +262,7 @@ public open class SearchContext(
      * @return the #GtkSourceStyle to apply on search matches.
      */
     public open fun getMatchStyle(): Style = gtk_source_search_context_get_match_style(gtksourceSearchContextPointer)!!.run {
-        InstanceCache.get(this, true) { Style(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!
     }
 
     /**

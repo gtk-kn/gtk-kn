@@ -91,6 +91,16 @@ public open class PreferencesWindow(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [property@NavigationPage:can-pop] instead.
+     *
+     * Has no effect for subpages added with
+     * [method@PreferencesWindow.push_subpage].
+     * ---
+     *
      * Whether gestures and shortcuts for closing subpages are enabled.
      *
      * The supported gestures are:
@@ -106,12 +116,28 @@ public open class PreferencesWindow(
      */
     public open var canNavigateBack: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * Use [method@NavigationPage.get_can_pop] instead.
+         * ---
+         *
          * Gets whether gestures and shortcuts for closing subpages are enabled.
          *
          * @return whether gestures and shortcuts are enabled.
          */
         get() = adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * Use [method@NavigationPage.set_can_pop] instead.
+         *
+         * Has no effect for subpages added with [method@PreferencesWindow.push_subpage].
+         * ---
+         *
          * Sets whether gestures and shortcuts for closing subpages are enabled.
          *
          * The supported gestures are:
@@ -172,6 +198,13 @@ public open class PreferencesWindow(
     public open fun addToast(toast: Toast): Unit = adw_preferences_window_add_toast(adwPreferencesWindowPointer, toast.adwToastPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [method@PreferencesWindow.pop_subpage] instead.
+     * ---
+     *
      * Closes the current subpage.
      *
      * If there is no presented subpage, this does nothing.
@@ -184,7 +217,7 @@ public open class PreferencesWindow(
      * @return the visible page
      */
     public open fun getVisiblePage(): PreferencesPage? = adw_preferences_window_get_visible_page(adwPreferencesWindowPointer)?.run {
-        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!
     }
 
     /**
@@ -204,6 +237,13 @@ public open class PreferencesWindow(
     public open fun popSubpage(): Boolean = adw_preferences_window_pop_subpage(adwPreferencesWindowPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [method@PreferencesWindow.push_subpage] instead.
+     * ---
+     *
      * Sets @subpage as the window's subpage and opens it.
      *
      * The transition can be cancelled by the user, in which case visible child will

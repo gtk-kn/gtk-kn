@@ -138,6 +138,14 @@ public open class Binding(
     @GObjectVersion2_26
     public open val source: Object?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.68.
+         *
+         * Use g_binding_dup_source() for a safer version of this
+         * function.
+         * ---
+         *
          * Retrieves the #GObject instance used as the source of the binding.
          *
          * A #GBinding can outlive the source #GObject as the binding does not hold a
@@ -153,7 +161,7 @@ public open class Binding(
          * @since 2.26
          */
         get() = g_binding_get_source(gobjectBindingPointer)?.run {
-            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -184,6 +192,14 @@ public open class Binding(
     @GObjectVersion2_26
     public open val target: Object?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.68.
+         *
+         * Use g_binding_dup_target() for a safer version of this
+         * function.
+         * ---
+         *
          * Retrieves the #GObject instance used as the target of the binding.
          *
          * A #GBinding can outlive the target #GObject as the binding does not hold a
@@ -199,7 +215,7 @@ public open class Binding(
          * @since 2.26
          */
         get() = g_binding_get_target(gobjectBindingPointer)?.run {
-            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!
         }
 
     /**
@@ -235,7 +251,7 @@ public open class Binding(
      */
     @GObjectVersion2_68
     public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer)?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -251,7 +267,7 @@ public open class Binding(
      */
     @GObjectVersion2_68
     public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer)?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!
     }
 
     /**

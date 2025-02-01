@@ -112,6 +112,13 @@ public interface Mount : Proxy, KGTyped {
     public fun canUnmount(): Boolean = g_mount_can_unmount(gioMountPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_eject_with_operation() instead.
+     * ---
+     *
      * Ejects a mount. This is an asynchronous operation, and is
      * finished by calling g_mount_eject_finish() with the @mount
      * and #GAsyncResult data returned in the @callback.
@@ -127,6 +134,13 @@ public interface Mount : Proxy, KGTyped {
     ): Unit = g_mount_eject(gioMountPointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_eject_with_operation_finish() instead.
+     * ---
+     *
      * Finishes ejecting a mount. If any errors occurred during the operation,
      * @error will be set to contain the errors and false will be returned.
      *
@@ -444,6 +458,13 @@ public interface Mount : Proxy, KGTyped {
     public fun shadow(): Unit = g_mount_shadow(gioMountPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_unmount_with_operation() instead.
+     * ---
+     *
      * Unmounts a mount. This is an asynchronous operation, and is
      * finished by calling g_mount_unmount_finish() with the @mount
      * and #GAsyncResult data returned in the @callback.
@@ -459,6 +480,13 @@ public interface Mount : Proxy, KGTyped {
     ): Unit = g_mount_unmount(gioMountPointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_mount_unmount_with_operation_finish() instead.
+     * ---
+     *
      * Finishes unmounting a mount. If any errors occurred during the operation,
      * @error will be set to contain the errors and false will be returned.
      *

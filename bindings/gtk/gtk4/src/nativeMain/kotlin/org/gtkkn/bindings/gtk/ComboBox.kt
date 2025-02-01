@@ -179,6 +179,13 @@ public open class ComboBox(
      */
     public open var active: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Returns the index of the currently active item.
          *
          * If the model is a non-flat treemodel, and the active item is not
@@ -191,6 +198,13 @@ public open class ComboBox(
          */
         get() = gtk_combo_box_get_active(gtkComboBoxPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Sets the active item of @combo_box to be the item at @index.
          *
          * @param index An index in the model passed during construction,
@@ -204,6 +218,13 @@ public open class ComboBox(
      */
     public open var buttonSensitivity: SensitivityType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Returns whether the combo box sets the dropdown button
          * sensitive or not when there are no items in the model.
          *
@@ -216,6 +237,13 @@ public open class ComboBox(
         get() = gtk_combo_box_get_button_sensitivity(gtkComboBoxPointer).run {
             SensitivityType.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Sets whether the dropdown button of the combo box should update
          * its sensitivity depending on the model contents.
          *
@@ -228,14 +256,28 @@ public open class ComboBox(
      */
     public open var child: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Gets the child widget of @combo_box.
          *
          * @return the child widget of @combo_box
          */
         get() = gtk_combo_box_get_child(gtkComboBoxPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Sets the child widget of @combo_box.
          *
          * @param child the child widget
@@ -250,6 +292,13 @@ public open class ComboBox(
      */
     public open var entryTextColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Returns the column which @combo_box is using to get the strings
          * from to display in the internal entry.
          *
@@ -257,6 +306,13 @@ public open class ComboBox(
          */
         get() = gtk_combo_box_get_entry_text_column(gtkComboBoxPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Sets the model column which @combo_box should use to get strings
          * from to be @text_column.
          *
@@ -279,6 +335,13 @@ public open class ComboBox(
      */
     public open val hasEntry: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Returns whether the combo box has an entry.
          *
          * @return whether there is an entry in @combo_box.
@@ -291,6 +354,13 @@ public open class ComboBox(
      */
     public open var idColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Returns the column which @combo_box is using to get string IDs
          * for values from.
          *
@@ -298,6 +368,13 @@ public open class ComboBox(
          */
         get() = gtk_combo_box_get_id_column(gtkComboBoxPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Sets the model column which @combo_box should use to get string IDs
          * for values from.
          *
@@ -313,6 +390,13 @@ public open class ComboBox(
      */
     public open var model: TreeModel?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Returns the `GtkTreeModel` of @combo_box.
          *
          * @return A `GtkTreeModel` which was passed
@@ -321,6 +405,13 @@ public open class ComboBox(
         get() = gtk_combo_box_get_model(gtkComboBoxPointer)?.run {
             TreeModel.TreeModelImpl(reinterpret())}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Sets the model used by @combo_box to be @model.
          *
          * Will unset a previously set model (if applicable). If model is null,
@@ -340,12 +431,26 @@ public open class ComboBox(
      */
     public open var popupFixedWidth: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Gets whether the popup uses a fixed width.
          *
          * @return true if the popup uses a fixed width
          */
         get() = gtk_combo_box_get_popup_fixed_width(gtkComboBoxPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Specifies whether the popup’s width should be a fixed width.
          *
          * If @fixed is true, the popup's width is set to match the
@@ -356,6 +461,13 @@ public open class ComboBox(
         set(fixed) = gtk_combo_box_set_popup_fixed_width(gtkComboBoxPointer, fixed.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Creates a new empty `GtkComboBox`.
      *
      * @return A new `GtkComboBox`
@@ -365,6 +477,13 @@ public open class ComboBox(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Creates a new `GtkComboBox` with a model.
      *
      * @param model a `GtkTreeModel`
@@ -375,6 +494,13 @@ public open class ComboBox(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Returns the ID of the active row of @combo_box.
      *
      * This value is taken from the active row and the column specified
@@ -394,6 +520,13 @@ public open class ComboBox(
     public open fun getActiveId(): String? = gtk_combo_box_get_active_id(gtkComboBoxPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Sets @iter to point to the currently active item.
      *
      * If no item is active, @iter is left unchanged.
@@ -404,6 +537,13 @@ public open class ComboBox(
     public open fun getActiveIter(iter: TreeIter): Boolean = gtk_combo_box_get_active_iter(gtkComboBoxPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Hides the menu or dropdown list of @combo_box.
      *
      * This function is mostly intended for use by accessibility technologies;
@@ -412,6 +552,13 @@ public open class ComboBox(
     public open fun popdown(): Unit = gtk_combo_box_popdown(gtkComboBoxPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Pops up the menu or dropdown list of @combo_box.
      *
      * This function is mostly intended for use by accessibility technologies;
@@ -422,6 +569,13 @@ public open class ComboBox(
     public open fun popup(): Unit = gtk_combo_box_popup(gtkComboBoxPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Pops up the menu of @combo_box.
      *
      * Note that currently this does not do anything with the device, as it was
@@ -434,6 +588,13 @@ public open class ComboBox(
     public open fun popupForDevice(device: Device): Unit = gtk_combo_box_popup_for_device(gtkComboBoxPointer, device.gdkDevicePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Changes the active row of @combo_box to the one that has an ID equal to
      * @active_id.
      *
@@ -452,6 +613,13 @@ public open class ComboBox(
     public open fun setActiveId(activeId: String? = null): Boolean = gtk_combo_box_set_active_id(gtkComboBoxPointer, activeId).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Sets the current active item to be the one referenced by @iter.
      *
      * If @iter is null, the active item is unset.
@@ -461,6 +629,13 @@ public open class ComboBox(
     public open fun setActiveIter(iter: TreeIter? = null): Unit = gtk_combo_box_set_active_iter(gtkComboBoxPointer, iter?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Sets the row separator function, which is used to determine
      * whether a row should be drawn as a separator.
      *
@@ -628,6 +803,13 @@ public open class ComboBox(
         internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_combo_box_get_type")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Creates a new empty `GtkComboBox` with an entry.
          *
          * In order to use a combo box with entry, you need to tell it
@@ -641,6 +823,13 @@ public open class ComboBox(
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Creates a new empty `GtkComboBox` with an entry and a model.
          *
          * See also [ctor@Gtk.ComboBox.new_with_entry].

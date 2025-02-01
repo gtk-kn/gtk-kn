@@ -1046,6 +1046,11 @@ public object Pango {
     ): Unit = pango_shape_with_flags(itemText, itemLength, paragraphText, paragraphLength, analysis.pangoAnalysisPointer, glyphs.pangoGlyphStringPointer, flags.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.38.
+     * ---
+     *
      * Splits a %G_SEARCHPATH_SEPARATOR-separated list of files, stripping
      * white space and substituting ~/ with $HOME/.
      *
@@ -1056,6 +1061,11 @@ public object Pango {
     public fun splitFileList(str: String): CollectionsList<String> = pango_split_file_list(str)?.toKStringList() ?: error("Expected not null string array")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.38.
+     * ---
+     *
      * Trims leading and trailing whitespace from a string.
      *
      * @param str a string

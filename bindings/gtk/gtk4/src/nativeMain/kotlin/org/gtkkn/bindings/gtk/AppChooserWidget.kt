@@ -54,8 +54,8 @@ import org.gtkkn.native.gtk.gtk_app_chooser_widget_set_show_recommended
  * This is deprecated since version 4.10.
  *
  * The application selection widgets should be
-         *   implemented according to the design of each platform and/or
-         *   application requiring them.
+ *   implemented according to the design of each platform and/or
+ *   application requiring them.
  * ---
  *
  * `GtkAppChooserWidget` is a widget for selecting applications.
@@ -114,6 +114,13 @@ public open class AppChooserWidget(
      */
     public open var showAll: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show all applications
          * in a flat list.
          *
@@ -121,6 +128,13 @@ public open class AppChooserWidget(
          */
         get() = gtk_app_chooser_widget_get_show_all(gtkAppChooserWidgetPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show all applications
          * in a flat list.
          *
@@ -137,6 +151,13 @@ public open class AppChooserWidget(
      */
     public open var showDefault: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show the default handler
          * for the content type in a separate section.
          *
@@ -144,6 +165,13 @@ public open class AppChooserWidget(
          */
         get() = gtk_app_chooser_widget_get_show_default(gtkAppChooserWidgetPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show the default handler
          * for the content type in a separate section.
          *
@@ -160,6 +188,13 @@ public open class AppChooserWidget(
      */
     public open var showFallback: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show related applications
          * for the content type in a separate section.
          *
@@ -167,6 +202,13 @@ public open class AppChooserWidget(
          */
         get() = gtk_app_chooser_widget_get_show_fallback(gtkAppChooserWidgetPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show related applications
          * for the content type in a separate section.
          *
@@ -180,6 +222,13 @@ public open class AppChooserWidget(
      */
     public open var showOther: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show applications
          * which are unrelated to the content type.
          *
@@ -187,6 +236,13 @@ public open class AppChooserWidget(
          */
         get() = gtk_app_chooser_widget_get_show_other(gtkAppChooserWidgetPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show applications
          * which are unrelated to the content type.
          *
@@ -203,6 +259,13 @@ public open class AppChooserWidget(
      */
     public open var showRecommended: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the app chooser should show recommended applications
          * for the content type in a separate section.
          *
@@ -210,6 +273,13 @@ public open class AppChooserWidget(
          */
         get() = gtk_app_chooser_widget_get_show_recommended(gtkAppChooserWidgetPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the app chooser should show recommended applications
          * for the content type in a separate section.
          *
@@ -218,6 +288,13 @@ public open class AppChooserWidget(
         set(setting) = gtk_app_chooser_widget_set_show_recommended(gtkAppChooserWidgetPointer, setting.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkAppChooserWidget` for applications
      * that can handle content of the given type.
      *
@@ -229,6 +306,13 @@ public open class AppChooserWidget(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the text that is shown if there are not applications
      * that can handle the content type.
      *
@@ -237,6 +321,13 @@ public open class AppChooserWidget(
     public open fun getDefaultText(): String? = gtk_app_chooser_widget_get_default_text(gtkAppChooserWidgetPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets the text that is shown if there are not applications
      * that can handle the content type.
      *

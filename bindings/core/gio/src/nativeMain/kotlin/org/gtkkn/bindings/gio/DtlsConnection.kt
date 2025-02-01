@@ -165,7 +165,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
         }
         /**
          * Sets the certificate database that is used to verify peer certificates.
@@ -204,7 +204,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
         }
         /**
          * Set the object that will be used to interact with the user. It will be used
@@ -263,7 +263,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
     /**
@@ -317,6 +317,13 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
             TlsProtocolVersion.fromNativeValue(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60.
+     *
+     * The rehandshake mode is ignored.
+     * ---
+     *
      * The rehandshaking mode. See
      * g_dtls_connection_set_rehandshake_mode().
      *
@@ -325,6 +332,15 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
     @GioVersion2_48
     public var rehandshakeMode: TlsRehandshakeMode
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.64..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Gets @conn rehandshaking mode. See
          * g_dtls_connection_set_rehandshake_mode() for details.
          *
@@ -334,6 +350,15 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
         get() = g_dtls_connection_get_rehandshake_mode(gioDtlsConnectionPointer).run {
             TlsRehandshakeMode.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.60..
+         *
+         * Changing the rehandshake mode is no longer
+         *   required for compatibility. Also, rehandshaking has been removed
+         *   from the TLS protocol in TLS 1.3.
+         * ---
+         *
          * Since GLib 2.64, changing the rehandshake mode is no longer supported
          * and will have no effect. With TLS 1.3, rehandshaking has been removed from
          * the TLS protocol, replaced by separate post-handshake authentication and
@@ -489,7 +514,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getCertificate(): TlsCertificate? = g_dtls_connection_get_certificate(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -517,7 +542,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getDatabase(): TlsDatabase? = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!
     }
 
     /**
@@ -530,7 +555,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getInteraction(): TlsInteraction? = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!
     }
 
     /**
@@ -558,7 +583,7 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getPeerCertificate(): TlsCertificate? = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
     }
 
     /**
@@ -587,6 +612,15 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
         TlsProtocolVersion.fromNativeValue(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.64..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Gets @conn rehandshaking mode. See
      * g_dtls_connection_set_rehandshake_mode() for details.
      *
@@ -767,6 +801,15 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
     public fun setInteraction(interaction: TlsInteraction? = null): Unit = g_dtls_connection_set_interaction(gioDtlsConnectionPointer, interaction?.gioTlsInteractionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.60..
+     *
+     * Changing the rehandshake mode is no longer
+     *   required for compatibility. Also, rehandshaking has been removed
+     *   from the TLS protocol in TLS 1.3.
+     * ---
+     *
      * Since GLib 2.64, changing the rehandshake mode is no longer supported
      * and will have no effect. With TLS 1.3, rehandshaking has been removed from
      * the TLS protocol, replaced by separate post-handshake authentication and

@@ -97,7 +97,7 @@ public class WeakRef(
      */
     @GObjectVersion2_32
     public fun `get`(): Object = g_weak_ref_get(gobjectWeakRefPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**

@@ -174,6 +174,11 @@ public open class TreeModelSort(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This function should almost never be called.  It clears the @tree_model_sort
      * of any cached iterators that haven’t been reffed with
      * gtk_tree_model_ref_node().  This might be useful if the child model being
@@ -184,6 +189,11 @@ public open class TreeModelSort(
     public open fun clearCache(): Unit = gtk_tree_model_sort_clear_cache(gtkTreeModelSortPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @sort_iter to point to the row in @tree_model_sort that corresponds to
      * the row pointed at by @child_iter.  If @sort_iter was not set, false
      * is returned.  Note: a boolean is only returned since 2.14.
@@ -196,6 +206,11 @@ public open class TreeModelSort(
     public open fun convertChildIterToIter(sortIter: TreeIter, childIter: TreeIter): Boolean = gtk_tree_model_sort_convert_child_iter_to_iter(gtkTreeModelSortPointer, sortIter.gtkTreeIterPointer, childIter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Converts @child_path to a path relative to @tree_model_sort.  That is,
      * @child_path points to a path in the child model.  The returned path will
      * point to the same row in the sorted model.  If @child_path isn’t a valid
@@ -208,6 +223,11 @@ public open class TreeModelSort(
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets @child_iter to point to the row pointed to by @sorted_iter.
      *
      * @param childIter An uninitialized `GtkTreeIter`
@@ -216,6 +236,11 @@ public open class TreeModelSort(
     public open fun convertIterToChildIter(childIter: TreeIter, sortedIter: TreeIter): Unit = gtk_tree_model_sort_convert_iter_to_child_iter(gtkTreeModelSortPointer, childIter.gtkTreeIterPointer, sortedIter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Converts @sorted_path to a path on the child model of @tree_model_sort.
      * That is, @sorted_path points to a location in @tree_model_sort.  The
      * returned path will point to the same location in the model not being
@@ -229,6 +254,11 @@ public open class TreeModelSort(
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * > This function is slow. Only use it for debugging and/or testing
      * > purposes.
      *
@@ -240,6 +270,11 @@ public open class TreeModelSort(
     public open fun iterIsValid(iter: TreeIter): Boolean = gtk_tree_model_sort_iter_is_valid(gtkTreeModelSortPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * This resets the default sort function to be in the “unsorted” state.  That
      * is, it is in the same order as the child model. It will re-sort the model
      * to be in the same order as the child model only if the `GtkTreeModelSort`

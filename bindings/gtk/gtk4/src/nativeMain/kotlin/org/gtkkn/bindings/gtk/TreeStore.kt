@@ -115,6 +115,13 @@ public open class TreeStore(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Appends a new row to @tree_store.
      *
      * If @parent is non-null, then it will append the new row after the last
@@ -130,11 +137,25 @@ public open class TreeStore(
     public open fun append(iter: TreeIter, parent: TreeIter? = null): Unit = gtk_tree_store_append(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Removes all rows from @tree_store
      */
     public open fun clear(): Unit = gtk_tree_store_clear(gtkTreeStorePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Creates a new row at @position.
      *
      * If parent is non-null, then the row will be made a child of @parent.
@@ -158,6 +179,13 @@ public open class TreeStore(
     ): Unit = gtk_tree_store_insert(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Inserts a new row after @sibling.
      *
      * If @sibling is null, then the row will be prepended to @parent’s children.
@@ -183,6 +211,13 @@ public open class TreeStore(
     ): Unit = gtk_tree_store_insert_after(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, sibling?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Inserts a new row before @sibling.
      *
      * If @sibling is null, then the row will be appended to @parent’s children.
@@ -208,6 +243,13 @@ public open class TreeStore(
     ): Unit = gtk_tree_store_insert_before(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer, sibling?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Checks if @iter is an ancestor of @descendant.
      *
      * @param iter A valid `GtkTreeIter`
@@ -217,6 +259,13 @@ public open class TreeStore(
     public open fun isAncestor(iter: TreeIter, descendant: TreeIter): Boolean = gtk_tree_store_is_ancestor(gtkTreeStorePointer, iter.gtkTreeIterPointer, descendant.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Returns the depth of the position pointed by the iterator
      *
      * The depth will be 0 for anything on the root level, 1 for anything down
@@ -228,6 +277,13 @@ public open class TreeStore(
     public open fun iterDepth(iter: TreeIter): gint = gtk_tree_store_iter_depth(gtkTreeStorePointer, iter.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Checks if the given iter is a valid iter for this `GtkTreeStore`.
      *
      * This function is slow. Only use it for debugging and/or testing
@@ -239,6 +295,13 @@ public open class TreeStore(
     public open fun iterIsValid(iter: TreeIter): Boolean = gtk_tree_store_iter_is_valid(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Moves @iter in @tree_store to the position after @position.
      *
      * @iter and @position should be in the same level.
@@ -253,6 +316,13 @@ public open class TreeStore(
     public open fun moveAfter(iter: TreeIter, position: TreeIter? = null): Unit = gtk_tree_store_move_after(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Moves @iter in @tree_store to the position before @position.
      *
      * @iter and @position should be in the same level.
@@ -267,6 +337,13 @@ public open class TreeStore(
     public open fun moveBefore(iter: TreeIter, position: TreeIter? = null): Unit = gtk_tree_store_move_before(gtkTreeStorePointer, iter.gtkTreeIterPointer, position?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Prepends a new row to @tree_store.
      *
      * If @parent is non-null, then it will prepend the new row before the first
@@ -281,6 +358,13 @@ public open class TreeStore(
     public open fun prepend(iter: TreeIter, parent: TreeIter? = null): Unit = gtk_tree_store_prepend(gtkTreeStorePointer, iter.gtkTreeIterPointer, parent?.gtkTreeIterPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Removes @iter from @tree_store.
      *
      * After being removed, @iter is set to the next valid row at that level, or
@@ -292,6 +376,13 @@ public open class TreeStore(
     public open fun remove(iter: TreeIter): Boolean = gtk_tree_store_remove(gtkTreeStorePointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Sets the data in the cell specified by @iter and @column.
      *
      * The type of @value must be convertible to the type of the
@@ -308,6 +399,13 @@ public open class TreeStore(
     ): Unit = gtk_tree_store_set_value(gtkTreeStorePointer, iter.gtkTreeIterPointer, column, `value`.gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.TreeListModel] instead
+     * ---
+     *
      * Swaps @a and @b in the same level of @tree_store.
      *
      * Note that this function only works with unsorted stores.

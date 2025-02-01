@@ -206,6 +206,13 @@ public open class ToggleButton(
     public open fun setGroup(group: ToggleButton? = null): Unit = gtk_toggle_button_set_group(gtkToggleButtonPointer, group?.gtkToggleButtonPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * There is no good reason for an application ever to call this function.
+     * ---
+     *
      * Emits the ::toggled signal on the `GtkToggleButton`.
      */
     public open fun toggled(): Unit = gtk_toggle_button_toggled(gtkToggleButtonPointer)

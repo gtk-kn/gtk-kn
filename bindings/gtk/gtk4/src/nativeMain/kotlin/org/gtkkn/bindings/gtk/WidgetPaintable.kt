@@ -63,7 +63,7 @@ public open class WidgetPaintable(
          * @return the observed widget.
          */
         get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the widget that should be observed.

@@ -81,7 +81,7 @@ public open class SocketConnection(
          * @since 2.22
          */
         get() = g_socket_connection_get_socket(gioSocketConnectionPointer)!!.run {
-            InstanceCache.get(this, true) { Socket(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Socket(reinterpret()) }!!
         }
 
     /**
@@ -156,7 +156,7 @@ public open class SocketConnection(
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -184,7 +184,7 @@ public open class SocketConnection(
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_remote_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

@@ -162,6 +162,13 @@ public class Completion(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Adds items to the #GCompletion.
      *
      * @param items the list of items to add.
@@ -169,6 +176,13 @@ public class Completion(
     public fun addItems(items: List): Unit = g_completion_add_items(glibCompletionPointer, items.glibListPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Removes all items from the #GCompletion. The items are not freed, so if the
      * memory was dynamically allocated, it should be freed after calling this
      * function.
@@ -176,6 +190,13 @@ public class Completion(
     public fun clearItems(): Unit = g_completion_clear_items(glibCompletionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Frees all memory used by the #GCompletion. The items are not freed, so if
      * the memory was dynamically allocated, it should be freed after calling this
      * function.
@@ -183,6 +204,13 @@ public class Completion(
     public fun free(): Unit = g_completion_free(glibCompletionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Removes items from a #GCompletion. The items are not freed, so if the memory
      * was dynamically allocated, free @items with g_list_free_full() after calling
      * this function.

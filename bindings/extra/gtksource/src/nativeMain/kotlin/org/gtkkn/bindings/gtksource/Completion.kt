@@ -97,7 +97,7 @@ public open class Completion(
          * @return A #GtkSourceBuffer
          */
         get() = gtk_source_completion_get_buffer(gtksourceCompletionPointer)!!.run {
-            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
         }
 
     /**
@@ -118,7 +118,7 @@ public open class Completion(
          * @return A #GtkSourceView
          */
         get() = gtk_source_completion_get_view(gtksourceCompletionPointer)!!.run {
-            InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { View(reinterpret()) }!!
         }
 
     /**

@@ -137,7 +137,7 @@ public open class PreferencesDialog(
      */
     @AdwVersion1_5
     public open fun getVisiblePage(): PreferencesPage? = adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer)?.run {
-        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!
     }
 
     /**

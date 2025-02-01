@@ -127,7 +127,7 @@ import org.gtkkn.native.gtk.gtk_tree_view_unset_rows_drag_source
  * This is deprecated since version 4.10.
  *
  * Use [class@Gtk.ListView] for lists, and [class@Gtk.ColumnView]
-         *   for tabular lists
+ *   for tabular lists
  * ---
  *
  * A widget for displaying both trees and lists
@@ -264,12 +264,26 @@ public open class TreeView(
      */
     public open var activateOnSingleClick: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Gets the setting set by gtk_tree_view_set_activate_on_single_click().
          *
          * @return true if row-activated will be emitted on a single click
          */
         get() = gtk_tree_view_get_activate_on_single_click(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Cause the `GtkTreeView`::row-activated signal to be emitted
          * on a single click instead of a double click.
          *
@@ -279,6 +293,13 @@ public open class TreeView(
 
     public open var enableSearch: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether or not the tree allows to start interactive searching
          * by typing in text.
          *
@@ -286,6 +307,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_enable_search(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * If @enable_search is set, then the user can type in text to search through
          * the tree interactively (this is sometimes called "typeahead find").
          *
@@ -298,6 +326,13 @@ public open class TreeView(
 
     public open var enableTreeLines: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether or not tree lines are drawn in @tree_view.
          *
          * @return true if tree lines are drawn in @tree_view, false
@@ -305,6 +340,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_enable_tree_lines(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets whether to draw lines interconnecting the expanders in @tree_view.
          * This does not have any visible effects for lists.
          *
@@ -314,6 +356,13 @@ public open class TreeView(
 
     public open var expanderColumn: TreeViewColumn?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns the column that is the current expander column,
          * or null if none has been set.
          * This column has the expander arrow drawn next to it.
@@ -321,9 +370,16 @@ public open class TreeView(
          * @return The expander column.
          */
         get() = gtk_tree_view_get_expander_column(gtkTreeViewPointer)?.run {
-            InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets the column to draw the expander arrow at. It must be in @tree_view.
          * If @column is null, then the expander arrow is always at the first
          * visible column.
@@ -344,12 +400,26 @@ public open class TreeView(
      */
     public open var fixedHeightMode: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether fixed height mode is turned on for @tree_view.
          *
          * @return true if @tree_view is in fixed height mode
          */
         get() = gtk_tree_view_get_fixed_height_mode(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Enables or disables the fixed height mode of @tree_view.
          * Fixed height mode speeds up `GtkTreeView` by assuming that all
          * rows have the same height.
@@ -362,12 +432,26 @@ public open class TreeView(
 
     public open var headersClickable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether all header columns are clickable.
          *
          * @return true if all header columns are clickable, otherwise false
          */
         get() = gtk_tree_view_get_headers_clickable(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Allow the column title buttons to be clicked.
          *
          * @param setting true if the columns are clickable.
@@ -376,12 +460,26 @@ public open class TreeView(
 
     public open var headersVisible: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns true if the headers on the @tree_view are visible.
          *
          * @return Whether the headers are visible or not.
          */
         get() = gtk_tree_view_get_headers_visible(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets the visibility state of the headers.
          *
          * @param headersVisible true if the headers are visible
@@ -398,12 +496,26 @@ public open class TreeView(
      */
     public open var hoverExpand: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether hover expansion mode is turned on for @tree_view.
          *
          * @return true if @tree_view is in hover expansion mode
          */
         get() = gtk_tree_view_get_hover_expand(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Enables or disables the hover expansion mode of @tree_view.
          * Hover expansion makes rows expand or collapse if the pointer
          * moves over them.
@@ -423,12 +535,26 @@ public open class TreeView(
      */
     public open var hoverSelection: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether hover selection mode is turned on for @tree_view.
          *
          * @return true if @tree_view is in hover selection mode
          */
         get() = gtk_tree_view_get_hover_selection(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Enables or disables the hover selection mode of @tree_view.
          * Hover selection makes the selected row follow the pointer.
          * Currently, this works only for the selection modes
@@ -443,6 +569,13 @@ public open class TreeView(
      */
     public open var levelIndentation: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns the amount, in pixels, of extra indentation for child levels
          * in @tree_view.
          *
@@ -451,6 +584,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_level_indentation(gtkTreeViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets the amount of extra indentation for child levels to use in @tree_view
          * in addition to the default indentation.  The value should be specified in
          * pixels, a value of 0 disables this feature and in this case only the default
@@ -463,6 +603,13 @@ public open class TreeView(
 
     public open var model: TreeModel?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns the model the `GtkTreeView` is based on.  Returns null if the
          * model is unset.
          *
@@ -471,6 +618,13 @@ public open class TreeView(
         get() = gtk_tree_view_get_model(gtkTreeViewPointer)?.run {
             TreeModel.TreeModelImpl(reinterpret())}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets the model for a `GtkTreeView`.  If the @tree_view already has a model
          * set, it will remove it before setting the new model.  If @model is null,
          * then it will unset the old model.
@@ -481,6 +635,13 @@ public open class TreeView(
 
     public open var reorderable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Retrieves whether the user can reorder the tree via drag-and-drop. See
          * gtk_tree_view_set_reorderable().
          *
@@ -488,6 +649,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_reorderable(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * This function is a convenience function to allow you to reorder
          * models that support the `GtkTreeDragSourceIface` and the
          * `GtkTreeDragDestIface`.  Both `GtkTreeStore` and `GtkListStore` support
@@ -509,6 +677,13 @@ public open class TreeView(
 
     public open var rubberBanding: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether rubber banding is turned on for @tree_view.  If the
          * selection mode is %GTK_SELECTION_MULTIPLE, rubber banding will allow the
          * user to select multiple rows by dragging the mouse.
@@ -517,6 +692,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_rubber_banding(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Enables or disables rubber banding in @tree_view.  If the selection mode
          * is %GTK_SELECTION_MULTIPLE, rubber banding will allow the user to select
          * multiple rows by dragging the mouse.
@@ -527,12 +709,26 @@ public open class TreeView(
 
     public open var searchColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Gets the column searched on by the interactive search code.
          *
          * @return the column the interactive search code searches in.
          */
         get() = gtk_tree_view_get_search_column(gtkTreeViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets @column as the column where the interactive search code should
          * search in for the current model.
          *
@@ -552,6 +748,13 @@ public open class TreeView(
      */
     public open var showExpanders: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns whether or not expanders are drawn in @tree_view.
          *
          * @return true if expanders are drawn in @tree_view, false
@@ -559,6 +762,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_show_expanders(gtkTreeViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Sets whether to draw and enable expanders and indent child rows in
          * @tree_view.  When disabled there will be no expanders visible in trees
          * and there will be no way to expand and collapse rows by default.  Also
@@ -573,6 +783,13 @@ public open class TreeView(
 
     public open var tooltipColumn: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * Returns the column of @tree_view’s model which is being used for
          * displaying tooltips on @tree_view’s rows.
          *
@@ -581,6 +798,13 @@ public open class TreeView(
          */
         get() = gtk_tree_view_get_tooltip_column(gtkTreeViewPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+         * ---
+         *
          * If you only plan to have simple (text-only) tooltips on full rows, you
          * can use this function to have `GtkTreeView` handle these automatically
          * for you. @column should be set to the column in @tree_view’s model
@@ -597,6 +821,13 @@ public open class TreeView(
         set(column) = gtk_tree_view_set_tooltip_column(gtkTreeViewPointer, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Creates a new `GtkTreeView` widget.
      *
      * @return A newly created `GtkTreeView` widget.
@@ -606,6 +837,13 @@ public open class TreeView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Creates a new `GtkTreeView` widget with the model initialized to @model.
      *
      * @param model the model.
@@ -616,6 +854,13 @@ public open class TreeView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Appends @column to the list of columns. If @tree_view has “fixed_height”
      * mode enabled, then @column must have its “sizing” property set to be
      * GTK_TREE_VIEW_COLUMN_FIXED.
@@ -626,11 +871,25 @@ public open class TreeView(
     public open fun appendColumn(column: TreeViewColumn): gint = gtk_tree_view_append_column(gtkTreeViewPointer, column.gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Recursively collapses all visible, expanded nodes in @tree_view.
      */
     public open fun collapseAll(): Unit = gtk_tree_view_collapse_all(gtkTreeViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Collapses a row (hides its child rows, if they exist).
      *
      * @param path path to a row in the @tree_view
@@ -639,12 +898,26 @@ public open class TreeView(
     public open fun collapseRow(path: TreePath): Boolean = gtk_tree_view_collapse_row(gtkTreeViewPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Resizes all columns to their optimal width. Only works after the
      * treeview has been realized.
      */
     public open fun columnsAutosize(): Unit = gtk_tree_view_columns_autosize(gtkTreeViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Creates a `cairo_surface_t` representation of the row at @path.
      * This image is used for a drag icon.
      *
@@ -655,6 +928,13 @@ public open class TreeView(
         Paintable.PaintableImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Turns @tree_view into a drop destination for automatic DND. Calling
      * this method sets `GtkTreeView`:reorderable to false.
      *
@@ -665,6 +945,13 @@ public open class TreeView(
     public open fun enableModelDragDest(formats: ContentFormats, actions: DragAction): Unit = gtk_tree_view_enable_model_drag_dest(gtkTreeViewPointer, formats.gdkContentFormatsPointer, actions.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Turns @tree_view into a drag source for automatic DND. Calling this
      * method sets `GtkTreeView`:reorderable to false.
      *
@@ -680,11 +967,25 @@ public open class TreeView(
     ): Unit = gtk_tree_view_enable_model_drag_source(gtkTreeViewPointer, startButtonMask.mask, formats.gdkContentFormatsPointer, actions.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Recursively expands all nodes in the @tree_view.
      */
     public open fun expandAll(): Unit = gtk_tree_view_expand_all(gtkTreeViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Opens the row so its children are visible.
      *
      * @param path path to a row
@@ -694,6 +995,13 @@ public open class TreeView(
     public open fun expandRow(path: TreePath, openAll: Boolean): Boolean = gtk_tree_view_expand_row(gtkTreeViewPointer, path.gtkTreePathPointer, openAll.asGBoolean()).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Expands the row at @path. This will also expand all parent rows of
      * @path as necessary.
      *
@@ -702,6 +1010,13 @@ public open class TreeView(
     public open fun expandToPath(path: TreePath): Unit = gtk_tree_view_expand_to_path(gtkTreeViewPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Fills the bounding rectangle in bin_window coordinates for the cell at the
      * row specified by @path and the column specified by @column.  If @path is
      * null, or points to a node not found in the tree, the @y and @height fields of
@@ -723,6 +1038,13 @@ public open class TreeView(
     ): Unit = gtk_tree_view_get_background_area(gtkTreeViewPointer, path?.gtkTreePathPointer, column?.gtkTreeViewColumnPointer, rect.gdkRectanglePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Fills the bounding rectangle in bin_window coordinates for the cell at the
      * row specified by @path and the column specified by @column.  If @path is
      * null, or points to a path not currently displayed, the @y and @height fields
@@ -744,6 +1066,13 @@ public open class TreeView(
     ): Unit = gtk_tree_view_get_cell_area(gtkTreeViewPointer, path?.gtkTreePathPointer, column?.gtkTreeViewColumnPointer, rect.gdkRectanglePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Gets the `GtkTreeViewColumn` at the given position in the #tree_view.
      *
      * @param n The position of the column, counting from 0.
@@ -751,10 +1080,17 @@ public open class TreeView(
      * position is outside the range of columns.
      */
     public open fun getColumn(n: gint): TreeViewColumn? = gtk_tree_view_get_column(gtkTreeViewPointer, n)?.run {
-        InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Returns a `GList` of all the `GtkTreeViewColumn`s currently in @tree_view.
      * The returned list must be freed with g_list_free ().
      *
@@ -764,6 +1100,13 @@ public open class TreeView(
         List(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Returns which grid lines are enabled in @tree_view.
      *
      * @return a `GtkTreeView`GridLines value indicating which grid lines
@@ -773,6 +1116,13 @@ public open class TreeView(
         TreeViewGridLines.fromNativeValue(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Queries the number of columns in the given @tree_view.
      *
      * @return The number of columns in the @tree_view
@@ -780,6 +1130,13 @@ public open class TreeView(
     public open fun getNColumns(): guint = gtk_tree_view_get_n_columns(gtkTreeViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Returns the `GtkEntry` which is currently in use as interactive search
      * entry for @tree_view.  In case the built-in entry is being used, null
      * will be returned.
@@ -790,15 +1147,29 @@ public open class TreeView(
         Editable.EditableImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Gets the `GtkTreeSelection` associated with @tree_view.
      *
      * @return A `GtkTreeSelection` object.
      */
     public open fun getSelection(): TreeSelection = gtk_tree_view_get_selection(gtkTreeViewPointer)!!.run {
-        InstanceCache.get(this, true) { TreeSelection(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TreeSelection(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Fills @visible_rect with the currently-visible region of the
      * buffer, in tree coordinates. Convert to bin_window coordinates with
      * gtk_tree_view_convert_tree_to_bin_window_coords().
@@ -810,6 +1181,13 @@ public open class TreeView(
     public open fun getVisibleRect(visibleRect: Rectangle): Unit = gtk_tree_view_get_visible_rect(gtkTreeViewPointer, visibleRect.gdkRectanglePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * This inserts the @column into the @tree_view at @position.  If @position is
      * -1, then the column is inserted at the end. If @tree_view has
      * “fixed_height” mode enabled, then @column must have its “sizing” property
@@ -822,6 +1200,13 @@ public open class TreeView(
     public open fun insertColumn(column: TreeViewColumn, position: gint): gint = gtk_tree_view_insert_column(gtkTreeViewPointer, column.gtkTreeViewColumnPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Convenience function that inserts a new column into the `GtkTreeView`
      * with the given cell renderer and a `GtkTreeCellDataFunc` to set cell renderer
      * attributes (normally using data from the model). See also
@@ -843,6 +1228,13 @@ public open class TreeView(
     ): gint = gtk_tree_view_insert_column_with_data_func(gtkTreeViewPointer, position, title, cell.gtkCellRendererPointer, TreeCellDataFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Returns whether a rubber banding operation is currently being done
      * in @tree_view.
      *
@@ -852,6 +1244,13 @@ public open class TreeView(
     public open fun isRubberBandingActive(): Boolean = gtk_tree_view_is_rubber_banding_active(gtkTreeViewPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Calls @func on all expanded rows.
      *
      * @param func A function to be called
@@ -859,6 +1258,13 @@ public open class TreeView(
     public open fun mapExpandedRows(func: TreeViewMappingFunc): Unit = gtk_tree_view_map_expanded_rows(gtkTreeViewPointer, TreeViewMappingFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Moves @column to be after to @base_column.  If @base_column is null, then
      * @column is placed in the first position.
      *
@@ -868,6 +1274,13 @@ public open class TreeView(
     public open fun moveColumnAfter(column: TreeViewColumn, baseColumn: TreeViewColumn? = null): Unit = gtk_tree_view_move_column_after(gtkTreeViewPointer, column.gtkTreeViewColumnPointer, baseColumn?.gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Removes @column from @tree_view.
      *
      * @param column The `GtkTreeViewColumn` to remove.
@@ -876,6 +1289,13 @@ public open class TreeView(
     public open fun removeColumn(column: TreeViewColumn): gint = gtk_tree_view_remove_column(gtkTreeViewPointer, column.gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Activates the cell determined by @path and @column.
      *
      * @param path The `GtkTreePath` to be activated.
@@ -884,6 +1304,13 @@ public open class TreeView(
     public open fun rowActivated(path: TreePath, column: TreeViewColumn? = null): Unit = gtk_tree_view_row_activated(gtkTreeViewPointer, path.gtkTreePathPointer, column?.gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Returns true if the node pointed to by @path is expanded in @tree_view.
      *
      * @param path A `GtkTreePath` to test expansion state.
@@ -892,6 +1319,13 @@ public open class TreeView(
     public open fun rowExpanded(path: TreePath): Boolean = gtk_tree_view_row_expanded(gtkTreeViewPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Moves the alignments of @tree_view to the position specified by @column and
      * @path.  If @column is null, then no horizontal scrolling occurs.  Likewise,
      * if @path is null no vertical scrolling occurs.  At a minimum, one of @column
@@ -924,6 +1358,13 @@ public open class TreeView(
     ): Unit = gtk_tree_view_scroll_to_cell(gtkTreeViewPointer, path?.gtkTreePathPointer, column?.gtkTreeViewColumnPointer, useAlign.asGBoolean(), rowAlign, colAlign)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Scrolls the tree view such that the top-left corner of the visible
      * area is @tree_x, @tree_y, where @tree_x and @tree_y are specified
      * in tree coordinates.  The @tree_view must be realized before
@@ -938,6 +1379,13 @@ public open class TreeView(
     public open fun scrollToPoint(treeX: gint, treeY: gint): Unit = gtk_tree_view_scroll_to_point(gtkTreeViewPointer, treeX, treeY)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets a user function for determining where a column may be dropped when
      * dragged.  This function is called on every column pair in turn at the
      * beginning of a column drag to determine where a drop can take place.  The
@@ -953,6 +1401,13 @@ public open class TreeView(
     public open fun setColumnDragFunction(func: TreeViewColumnDropFunc?): Unit = gtk_tree_view_set_column_drag_function(gtkTreeViewPointer, func?.let { TreeViewColumnDropFuncFunc.reinterpret() }, func?.let { StableRef.create(func).asCPointer() }, func?.let { staticStableRefDestroy.reinterpret() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the current keyboard focus to be at @path, and selects it.  This is
      * useful when you want to focus the user’s attention on a particular row.  If
      * @focus_column is not null, then focus is given to the column specified by
@@ -976,6 +1431,13 @@ public open class TreeView(
     ): Unit = gtk_tree_view_set_cursor(gtkTreeViewPointer, path.gtkTreePathPointer, focusColumn?.gtkTreeViewColumnPointer, startEditing.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the current keyboard focus to be at @path, and selects it.  This is
      * useful when you want to focus the user’s attention on a particular row.  If
      * @focus_column is not null, then focus is given to the column specified by
@@ -1004,6 +1466,13 @@ public open class TreeView(
     ): Unit = gtk_tree_view_set_cursor_on_cell(gtkTreeViewPointer, path.gtkTreePathPointer, focusColumn?.gtkTreeViewColumnPointer, focusCell?.gtkCellRendererPointer, startEditing.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the row that is highlighted for feedback.
      * If @path is null, an existing highlight is removed.
      *
@@ -1013,6 +1482,13 @@ public open class TreeView(
     public open fun setDragDestRow(path: TreePath? = null, pos: TreeViewDropPosition): Unit = gtk_tree_view_set_drag_dest_row(gtkTreeViewPointer, path?.gtkTreePathPointer, pos.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets which grid lines to draw in @tree_view.
      *
      * @param gridLines a `GtkTreeView`GridLines value indicating which grid lines to
@@ -1021,6 +1497,13 @@ public open class TreeView(
     public open fun setGridLines(gridLines: TreeViewGridLines): Unit = gtk_tree_view_set_grid_lines(gtkTreeViewPointer, gridLines.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the row separator function, which is used to determine
      * whether a row should be drawn as a separator. If the row separator
      * function is null, no separators are drawn. This is the default value.
@@ -1030,6 +1513,13 @@ public open class TreeView(
     public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc?): Unit = gtk_tree_view_set_row_separator_func(gtkTreeViewPointer, func?.let { TreeViewRowSeparatorFuncFunc.reinterpret() }, func?.let { StableRef.create(func).asCPointer() }, func?.let { staticStableRefDestroy.reinterpret() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the entry which the interactive search code will use for this
      * @tree_view.  This is useful when you want to provide a search entry
      * in our interface at all time at a fixed position.  Passing null for
@@ -1041,6 +1531,13 @@ public open class TreeView(
     public open fun setSearchEntry(entry: Editable? = null): Unit = gtk_tree_view_set_search_entry(gtkTreeViewPointer, entry?.gtkEditablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the compare function for the interactive search capabilities; note
      * that somewhat like strcmp() returning 0 for equality
      * `GtkTreeView`SearchEqualFunc returns false on matches.
@@ -1050,6 +1547,13 @@ public open class TreeView(
     public open fun setSearchEqualFunc(searchEqualFunc: TreeViewSearchEqualFunc): Unit = gtk_tree_view_set_search_equal_func(gtkTreeViewPointer, TreeViewSearchEqualFuncFunc.reinterpret(), StableRef.create(searchEqualFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the tip area of @tooltip to the area @path, @column and @cell have
      * in common.  For example if @path is null and @column is set, the tip
      * area will be set to the full area covered by @column.  See also
@@ -1075,6 +1579,13 @@ public open class TreeView(
     ): Unit = gtk_tree_view_set_tooltip_cell(gtkTreeViewPointer, tooltip.gtkTooltipPointer, path?.gtkTreePathPointer, column?.gtkTreeViewColumnPointer, cell?.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Sets the tip area of @tooltip to be the area covered by the row at @path.
      * See also gtk_tree_view_set_tooltip_column() for a simpler alternative.
      * See also gtk_tooltip_set_tip_area().
@@ -1085,6 +1596,13 @@ public open class TreeView(
     public open fun setTooltipRow(tooltip: Tooltip, path: TreePath): Unit = gtk_tree_view_set_tooltip_row(gtkTreeViewPointer, tooltip.gtkTooltipPointer, path.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Undoes the effect of
      * gtk_tree_view_enable_model_drag_dest(). Calling this method sets
      * `GtkTreeView`:reorderable to false.
@@ -1092,6 +1610,13 @@ public open class TreeView(
     public open fun unsetRowsDragDest(): Unit = gtk_tree_view_unset_rows_drag_dest(gtkTreeViewPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.ListView] or [class@Gtk.ColumnView] instead
+     * ---
+     *
      * Undoes the effect of
      * gtk_tree_view_enable_model_drag_source(). Calling this method sets
      * `GtkTreeView`:reorderable to false.

@@ -117,7 +117,7 @@ public abstract class Device(
          * @return a `GdkDisplay`
          */
         get() = gdk_device_get_display(gdkDevicePointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -231,7 +231,7 @@ public abstract class Device(
          * @return a `GdkSeat`
          */
         get() = gdk_device_get_seat(gdkDevicePointer)!!.run {
-            InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!
         }
 
     /**
@@ -291,7 +291,7 @@ public abstract class Device(
      * @return the `GdkDeviceTool`
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer)?.run {
-        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!
     }
 
     /**

@@ -22,7 +22,7 @@ import org.gtkkn.native.gobject.GType
  * This is deprecated since version 2.28.
  *
  * The #GDesktopAppInfoLookup interface is deprecated and
-         *    unused by GIO.
+ *    unused by GIO.
  * ---
  *
  * #GDesktopAppInfoLookup is an opaque data structure and can only be accessed
@@ -32,6 +32,14 @@ public interface DesktopAppInfoLookup : Proxy, KGTyped {
     public val gioDesktopAppInfoLookupPointer: CPointer<GDesktopAppInfoLookup>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.28.
+     *
+     * The #GDesktopAppInfoLookup interface is deprecated and
+     *    unused by GIO.
+     * ---
+     *
      * Gets the default application for launching applications
      * using this URI scheme for a particular #GDesktopAppInfoLookup
      * implementation.

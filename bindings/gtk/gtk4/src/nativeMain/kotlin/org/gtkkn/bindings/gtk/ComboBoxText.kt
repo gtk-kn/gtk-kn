@@ -39,7 +39,7 @@ import org.gtkkn.native.gtk.gtk_combo_box_text_remove_all
  * This is deprecated since version 4.10.
  *
  * Use [class@Gtk.DropDown] with a [class@Gtk.StringList]
-         *   instead
+ *   instead
  * ---
  *
  * A `GtkComboBoxText` is a simple variant of `GtkComboBox` for text-only
@@ -122,6 +122,13 @@ public open class ComboBoxText(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Creates a new `GtkComboBoxText`.
      *
      * @return A new `GtkComboBoxText`
@@ -131,6 +138,13 @@ public open class ComboBoxText(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Appends @text to the list of strings stored in @combo_box.
      *
      * If @id is non-null then it is used as the ID of the row.
@@ -144,6 +158,13 @@ public open class ComboBoxText(
     public open fun append(id: String? = null, text: String): Unit = gtk_combo_box_text_append(gtkComboBoxTextPointer, id, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Appends @text to the list of strings stored in @combo_box.
      *
      * This is the same as calling [method@Gtk.ComboBoxText.insert_text]
@@ -154,6 +175,13 @@ public open class ComboBoxText(
     public open fun appendText(text: String): Unit = gtk_combo_box_text_append_text(gtkComboBoxTextPointer, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Returns the currently active string in @combo_box.
      *
      * If no row is currently selected, null is returned.
@@ -168,6 +196,13 @@ public open class ComboBoxText(
     public open fun getActiveText(): String? = gtk_combo_box_text_get_active_text(gtkComboBoxTextPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Inserts @text at @position in the list of strings stored in @combo_box.
      *
      * If @id is non-null then it is used as the ID of the row.
@@ -186,6 +221,13 @@ public open class ComboBoxText(
     ): Unit = gtk_combo_box_text_insert(gtkComboBoxTextPointer, position, id, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Inserts @text at @position in the list of strings stored in @combo_box.
      *
      * If @position is negative then @text is appended.
@@ -199,6 +241,13 @@ public open class ComboBoxText(
     public open fun insertText(position: gint, text: String): Unit = gtk_combo_box_text_insert_text(gtkComboBoxTextPointer, position, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Prepends @text to the list of strings stored in @combo_box.
      *
      * If @id is non-null then it is used as the ID of the row.
@@ -212,6 +261,13 @@ public open class ComboBoxText(
     public open fun prepend(id: String? = null, text: String): Unit = gtk_combo_box_text_prepend(gtkComboBoxTextPointer, id, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Prepends @text to the list of strings stored in @combo_box.
      *
      * This is the same as calling [method@Gtk.ComboBoxText.insert_text]
@@ -222,6 +278,13 @@ public open class ComboBoxText(
     public open fun prependText(text: String): Unit = gtk_combo_box_text_prepend_text(gtkComboBoxTextPointer, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Removes the string at @position from @combo_box.
      *
      * @param position Index of the item to remove
@@ -229,6 +292,13 @@ public open class ComboBoxText(
     public open fun remove(position: gint): Unit = gtk_combo_box_text_remove(gtkComboBoxTextPointer, position)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.DropDown]
+     * ---
+     *
      * Removes all the text entries from the combo box.
      */
     public open fun removeAll(): Unit = gtk_combo_box_text_remove_all(gtkComboBoxTextPointer)
@@ -258,6 +328,13 @@ public open class ComboBoxText(
         internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_combo_box_text_get_type")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.DropDown]
+         * ---
+         *
          * Creates a new `GtkComboBoxText` with an entry.
          *
          * @return a new `GtkComboBoxText`

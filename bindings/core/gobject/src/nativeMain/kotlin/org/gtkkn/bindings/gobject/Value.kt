@@ -176,7 +176,7 @@ public class Value(
      *          should be unreferenced when no longer needed.
      */
     public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer)?.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -232,6 +232,13 @@ public class Value(
     public fun getBoxed(): gpointer? = g_value_get_boxed(gobjectValuePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * This function's return type is broken, see g_value_get_schar()
+     * ---
+     *
      * Do not use this function; it is broken on platforms where the %char
      * type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
      *
@@ -305,7 +312,7 @@ public class Value(
      * @return object contents of @value
      */
     public fun getObject(): Object? = g_value_get_object(gobjectValuePointer)?.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -435,6 +442,13 @@ public class Value(
     public fun setBoxed(vBoxed: gpointer? = null): Unit = g_value_set_boxed(gobjectValuePointer, vBoxed)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.4.
+     *
+     * Use g_value_take_boxed() instead.
+     * ---
+     *
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param vBoxed duplicated unowned boxed value to be set
@@ -442,6 +456,13 @@ public class Value(
     public fun setBoxedTakeOwnership(vBoxed: gpointer? = null): Unit = g_value_set_boxed_take_ownership(gobjectValuePointer, vBoxed)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.32.
+     *
+     * This function's input type is broken, see g_value_set_schar()
+     * ---
+     *
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
      *
      * @param vChar character value to be set
@@ -543,6 +564,13 @@ public class Value(
     public fun setObject(vObject: Object? = null): Unit = g_value_set_object(gobjectValuePointer, vObject?.gobjectObjectPointer?.reinterpret())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.4.
+     *
+     * Use g_value_take_object() instead.
+     * ---
+     *
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param vObject object value to be set
@@ -557,6 +585,13 @@ public class Value(
     public fun setParam(`param`: ParamSpec? = null): Unit = g_value_set_param(gobjectValuePointer, `param`?.gobjectParamSpecPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.4.
+     *
+     * Use g_value_take_param() instead.
+     * ---
+     *
      * This is an internal function introduced mainly for C marshallers.
      *
      * @param param the #GParamSpec to be set

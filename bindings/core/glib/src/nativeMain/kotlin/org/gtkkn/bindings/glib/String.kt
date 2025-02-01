@@ -332,6 +332,15 @@ public class String(
         String(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * This function uses the locale-specific
+     *     tolower() function, which is almost never the right thing.
+     *     Use g_string_ascii_down() or g_utf8_strdown() instead.
+     * ---
+     *
      * Converts a #GString to lowercase.
      *
      * @return the #GString
@@ -596,6 +605,15 @@ public class String(
         String(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * This function uses the locale-specific
+     *     toupper() function, which is almost never the right thing.
+     *     Use g_string_ascii_up() or g_utf8_strup() instead.
+     * ---
+     *
      * Converts a #GString to uppercase.
      *
      * @return @string

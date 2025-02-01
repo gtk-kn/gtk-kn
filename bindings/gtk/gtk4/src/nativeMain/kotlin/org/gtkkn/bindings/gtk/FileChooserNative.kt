@@ -194,12 +194,26 @@ public open class FileChooserNative(
      */
     public open var acceptLabel: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Retrieves the custom label text for the accept button.
          *
          * @return The custom label
          */
         get() = gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer)?.toKString()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets the custom label text for the accept button.
          *
          * If characters in @label are preceded by an underscore, they are
@@ -219,12 +233,26 @@ public open class FileChooserNative(
      */
     public open var cancelLabel: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Retrieves the custom label text for the cancel button.
          *
          * @return The custom label
          */
         get() = gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer)?.toKString()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FileDialog] instead
+         * ---
+         *
          * Sets the custom label text for the cancel button.
          *
          * If characters in @label are preceded by an underscore, they are
@@ -239,6 +267,13 @@ public open class FileChooserNative(
         set(cancelLabel) = gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer, cancelLabel)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FileDialog] instead
+     * ---
+     *
      * Creates a new `GtkFileChooserNative`.
      *
      * @param title Title of the native

@@ -693,7 +693,7 @@ public open class Settings(
      */
     @GioVersion2_26
     public open fun getChild(name: String): Settings = g_settings_get_child(gioSettingsPointer, name)!!.run {
-        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!
     }
 
     /**
@@ -851,6 +851,13 @@ public open class Settings(
     public open fun getMapped(key: String, mapping: SettingsGetMapping): gpointer? = g_settings_get_mapped(gioSettingsPointer, key, SettingsGetMappingFunc.reinterpret(), StableRef.create(mapping).asCPointer())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.40.
+     *
+     * Use g_settings_schema_key_get_range() instead.
+     * ---
+     *
      * Queries the range of a key.
      *
      * @param key the key to query the range of
@@ -993,6 +1000,13 @@ public open class Settings(
     public open fun listChildren(): List<String> = g_settings_list_children(gioSettingsPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.46.
+     *
+     * Use g_settings_schema_list_keys() instead.
+     * ---
+     *
      * Introspects the list of keys on @settings.
      *
      * You should probably not be calling this function from "normal" code
@@ -1008,6 +1022,13 @@ public open class Settings(
     public open fun listKeys(): List<String> = g_settings_list_keys(gioSettingsPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.40.
+     *
+     * Use g_settings_schema_key_range_check() instead.
+     * ---
+     *
      * Checks if the given @value is of the correct type and within the
      * permitted range for @key.
      *
@@ -1330,6 +1351,13 @@ public open class Settings(
             GioTypeProvider.register()}
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.40.
+         *
+         * Use g_settings_schema_source_list_schemas() instead
+         * ---
+         *
          * Deprecated.
          *
          * @return a list of
@@ -1341,6 +1369,16 @@ public open class Settings(
         public fun listRelocatableSchemas(): List<String> = g_settings_list_relocatable_schemas()?.toKStringList() ?: error("Expected not null string array")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.40.
+         *
+         * Use g_settings_schema_source_list_schemas() instead.
+         * If you used g_settings_list_schemas() to check for the presence of
+         * a particular schema, use g_settings_schema_source_lookup() instead
+         * of your whole loop.
+         * ---
+         *
          * Deprecated.
          *
          * @return a list of

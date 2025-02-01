@@ -46,7 +46,7 @@ interface ConstantGenerator : KDocGenerator {
     fun buildConstant(constant: ConstantBlueprint): PropertySpec {
         val data = computeConstantPropertyData(constant)
         return PropertySpec.builder(constant.kotlinName, data.typeName, data.modifiers).apply {
-            addKdoc(buildPropertyKDoc(constant.kdoc, constant.optInVersionBlueprint))
+            addKdoc(buildPropertyKDoc(constant.kdoc, constant.optInVersionBlueprint, constant.deprecatedBlueprint))
             @Suppress("SpreadOperator")
             initializer(data.format, *data.values.toTypedArray())
         }.build()

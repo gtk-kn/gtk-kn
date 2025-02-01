@@ -144,6 +144,11 @@ public class TreeIter(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a dynamically allocated tree iterator as a copy of @iter.
      *
      * This function is not intended for use in applications,
@@ -157,6 +162,11 @@ public class TreeIter(
         TreeIter(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Frees an iterator that has been allocated by gtk_tree_iter_copy().
      *
      * This function is mainly used for language bindings.

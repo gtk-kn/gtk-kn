@@ -40,19 +40,40 @@ public class SqueezerPage(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * The the squeezer child to which the page belongs.
      */
     public val child: Widget
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Returns the squeezer child to which @self belongs.
          *
          * @return the child to which @self belongs
          */
         get() = adw_squeezer_page_get_child(adwSqueezerPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+     * ---
+     *
      * Whether the child is enabled.
      *
      * If a child is disabled, it will be ignored when looking for the child
@@ -66,12 +87,26 @@ public class SqueezerPage(
      */
     public var enabled: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Gets whether @self is enabled.
          *
          * @return whether @self is enabled
          */
         get() = adw_squeezer_page_get_enabled(adwSqueezerPagePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+         * ---
+         *
          * Sets whether @self is enabled.
          *
          * If a child is disabled, it will be ignored when looking for the child

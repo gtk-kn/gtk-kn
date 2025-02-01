@@ -53,9 +53,9 @@ import org.gtkkn.native.gtk.gtk_info_bar_set_show_close_button
  * This is deprecated since version 4.10.
  *
  * There is no replacement in GTK for an "info bar" widget;
-         *   you can use [class@Gtk.Revealer] with a [class@Gtk.Box] containing a
-         *   [class@Gtk.Label] and an optional [class@Gtk.Button], according to
-         *   your application's design.
+ *   you can use [class@Gtk.Revealer] with a [class@Gtk.Box] containing a
+ *   [class@Gtk.Label] and an optional [class@Gtk.Button], according to
+ *   your application's design.
  * ---
  *
  * `GtkInfoBar` can be used to show messages to the user without a dialog.
@@ -161,6 +161,11 @@ public open class InfoBar(
      */
     public open var messageType: MessageType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns the message type of the message area.
          *
          * @return the message type of the message area.
@@ -168,6 +173,11 @@ public open class InfoBar(
         get() = gtk_info_bar_get_message_type(gtkInfoBarPointer).run {
             MessageType.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the message type of the message area.
          *
          * GTK uses this type to determine how the message is displayed.
@@ -181,12 +191,22 @@ public open class InfoBar(
      */
     public open var revealed: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether the info bar is currently revealed.
          *
          * @return the current value of the [property@Gtk.InfoBar:revealed] property
          */
         get() = gtk_info_bar_get_revealed(gtkInfoBarPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether the `GtkInfoBar` is revealed.
          *
          * Changing this will make @info_bar reveal or conceal
@@ -205,12 +225,22 @@ public open class InfoBar(
      */
     public open var showCloseButton: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns whether the widget will display a standard close button.
          *
          * @return true if the widget displays standard close button
          */
         get() = gtk_info_bar_get_show_close_button(gtkInfoBarPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * If true, a standard close button is shown.
          *
          * When clicked it emits the response %GTK_RESPONSE_CLOSE.
@@ -220,6 +250,11 @@ public open class InfoBar(
         set(setting) = gtk_info_bar_set_show_close_button(gtkInfoBarPointer, setting.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkInfoBar` object.
      *
      * @return a new `GtkInfoBar` object
@@ -229,6 +264,11 @@ public open class InfoBar(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Add an activatable widget to the action area of a `GtkInfoBar`.
      *
      * This also connects a signal handler that will emit the
@@ -242,6 +282,11 @@ public open class InfoBar(
     public open fun addActionWidget(child: Widget, responseId: gint): Unit = gtk_info_bar_add_action_widget(gtkInfoBarPointer, child.gtkWidgetPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds a button with the given text.
      *
      * Clicking the button will emit the [signal@Gtk.InfoBar::response]
@@ -255,10 +300,15 @@ public open class InfoBar(
      * that was added
      */
     public open fun addButton(buttonText: String, responseId: gint): Button = gtk_info_bar_add_button(gtkInfoBarPointer, buttonText, responseId)!!.run {
-        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds a widget to the content area of the info bar.
      *
      * @param widget the child to be added
@@ -266,6 +316,11 @@ public open class InfoBar(
     public open fun addChild(widget: Widget): Unit = gtk_info_bar_add_child(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes a widget from the action area of @info_bar.
      *
      * The widget must have been put there by a call to
@@ -276,6 +331,11 @@ public open class InfoBar(
     public open fun removeActionWidget(widget: Widget): Unit = gtk_info_bar_remove_action_widget(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Removes a widget from the content area of the info bar.
      *
      * @param widget a child that has been added to the content area
@@ -283,6 +343,11 @@ public open class InfoBar(
     public open fun removeChild(widget: Widget): Unit = gtk_info_bar_remove_child(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits the “response” signal with the given @response_id.
      *
      * @param responseId a response ID
@@ -290,6 +355,11 @@ public open class InfoBar(
     public open fun response(responseId: gint): Unit = gtk_info_bar_response(gtkInfoBarPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the last widget in the info bar’s action area with
      * the given response_id as the default widget for the dialog.
      *
@@ -303,6 +373,11 @@ public open class InfoBar(
     public open fun setDefaultResponse(responseId: gint): Unit = gtk_info_bar_set_default_response(gtkInfoBarPointer, responseId)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the sensitivity of action widgets for @response_id.
      *
      * Calls `gtk_widget_set_sensitive (widget, setting)` for each

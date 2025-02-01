@@ -112,7 +112,7 @@ public class NavigationAction(
      */
     @WebKitVersion2_6
     public fun getRequest(): UriRequest = webkit_navigation_action_get_request(webkitNavigationActionPointer)!!.run {
-        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!
     }
 
     /**

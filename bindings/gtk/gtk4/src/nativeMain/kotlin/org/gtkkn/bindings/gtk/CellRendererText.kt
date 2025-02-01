@@ -37,7 +37,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_text_set_fixed_height_from_font
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You should use [class@Gtk.Inscription] or [class@Gtk.Label] instead
+ *   You should use [class@Gtk.Inscription] or [class@Gtk.Label] instead
  * ---
  *
  * Renders text in a cell
@@ -107,6 +107,11 @@ public open class CellRendererText(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererText`. Adjust how text is drawn using
      * object properties. Object properties can be
      * set globally (with g_object_set()). Also, with `GtkTreeViewColumn`,
@@ -122,6 +127,11 @@ public open class CellRendererText(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the height of a renderer to explicitly be determined by the “font” and
      * “y_pad” property set on it.  Further changes in these properties do not
      * affect the height, so they must be accompanied by a subsequent call to this

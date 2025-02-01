@@ -118,18 +118,39 @@ public class ViewSwitcherTitle(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * The stack the view switcher controls.
      */
     public var stack: ViewStack?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets the stack controlled by @self.
          *
          * @return the stack
          */
         get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer)?.run {
-            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
@@ -137,18 +158,39 @@ public class ViewSwitcherTitle(
         set(stack) = adw_view_switcher_title_set_stack(adwViewSwitcherTitlePointer, stack?.adwViewStackPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * The subtitle to display.
      *
      * The subtitle should give the user additional details.
      */
     public var subtitle: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets the subtitle of @self.
          *
          * @return the subtitle
          */
         get() = adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets the subtitle of @self.
          *
          * The subtitle should give the user additional details.
@@ -158,6 +200,13 @@ public class ViewSwitcherTitle(
         set(subtitle) = adw_view_switcher_title_set_subtitle(adwViewSwitcherTitlePointer, subtitle)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * The title to display.
      *
      * The title typically identifies the current view or content item, and
@@ -165,12 +214,26 @@ public class ViewSwitcherTitle(
      */
     public var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets the title of @self.
          *
          * @return the title
          */
         get() = adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets the title of @self.
          *
          * The title typically identifies the current view or content item, and
@@ -181,6 +244,13 @@ public class ViewSwitcherTitle(
         set(title) = adw_view_switcher_title_set_title(adwViewSwitcherTitlePointer, title)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * Whether the title is currently visible.
      *
      * If the title is visible, it means the view switcher is hidden an it may be
@@ -188,6 +258,13 @@ public class ViewSwitcherTitle(
      */
     public val titleVisible: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets whether the title of @self is currently visible.
          *
          * If the title is visible, it means the view switcher is hidden an it may be
@@ -198,6 +275,13 @@ public class ViewSwitcherTitle(
         get() = adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * Whether the view switcher is enabled.
      *
      * If it is disabled, the title will be displayed instead. This allows to
@@ -209,12 +293,26 @@ public class ViewSwitcherTitle(
      */
     public var viewSwitcherEnabled: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Gets whether @self's view switcher is enabled.
          *
          * @return whether the view switcher is enabled
          */
         get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+         * ---
+         *
          * Sets whether @self's view switcher is enabled.
          *
          * If it is disabled, the title will be displayed instead. This allows to
@@ -229,6 +327,13 @@ public class ViewSwitcherTitle(
         set(enabled) = adw_view_switcher_title_set_view_switcher_enabled(adwViewSwitcherTitlePointer, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+     * ---
+     *
      * Creates a new `AdwViewSwitcherTitle`.
      *
      * @return the newly created `AdwViewSwitcherTitle`

@@ -96,12 +96,26 @@ public open class FontButton(
      */
     public open var modal: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Gets whether the dialog is modal.
          *
          * @return true if the dialog is modal
          */
         get() = gtk_font_button_get_modal(gtkFontButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
@@ -113,6 +127,13 @@ public open class FontButton(
      */
     public open var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Retrieves the title of the font chooser dialog.
          *
          * @return an internal copy of the title string
@@ -120,6 +141,13 @@ public open class FontButton(
          */
         get() = gtk_font_button_get_title(gtkFontButtonPointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Sets the title for the font chooser dialog.
          *
          * @param title a string containing the font chooser dialog title
@@ -131,12 +159,26 @@ public open class FontButton(
      */
     public open var useFont: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Returns whether the selected font is used in the label.
          *
          * @return whether the selected font is used in the label.
          */
         get() = gtk_font_button_get_use_font(gtkFontButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * If @use_font is true, the font name will be written
          * using the selected font.
          *
@@ -149,12 +191,26 @@ public open class FontButton(
      */
     public open var useSize: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * Returns whether the selected size is used in the label.
          *
          * @return whether the selected size is used in the label.
          */
         get() = gtk_font_button_get_use_size(gtkFontButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialogButton] instead
+         * ---
+         *
          * If @use_size is true, the font name will be written using
          * the selected size.
          *
@@ -164,6 +220,13 @@ public open class FontButton(
         set(useSize) = gtk_font_button_set_use_size(gtkFontButtonPointer, useSize.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * Creates a new font picker widget.
      *
      * @return a new font picker widget.
@@ -173,6 +236,13 @@ public open class FontButton(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * Creates a new font picker widget showing the given font.
      *
      * @param fontname Name of font to display in font chooser dialog

@@ -95,7 +95,7 @@ public open class GutterLines(
      * @return a #GtkTextBuffer
      */
     public open fun getBuffer(): TextBuffer = gtk_source_gutter_lines_get_buffer(gtksourceGutterLinesPointer)!!.run {
-        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
     }
 
     /**
@@ -128,7 +128,7 @@ public open class GutterLines(
      * @return a #GtkTextView
      */
     public open fun getView(): TextView = gtk_source_gutter_lines_get_view(gtksourceGutterLinesPointer)!!.run {
-        InstanceCache.get(this, true) { TextView(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { TextView(reinterpret()) }!!
     }
 
     /**

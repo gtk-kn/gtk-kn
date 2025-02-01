@@ -145,6 +145,13 @@ public interface Drive : Proxy, KGTyped {
     public fun canStop(): Boolean = g_drive_can_stop(gioDrivePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_drive_eject_with_operation() instead.
+     * ---
+     *
      * Asynchronously ejects a drive.
      *
      * When the operation is finished, @callback will be called.
@@ -162,6 +169,13 @@ public interface Drive : Proxy, KGTyped {
     ): Unit = g_drive_eject(gioDrivePointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_drive_eject_with_operation_finish() instead.
+     * ---
+     *
      * Finishes ejecting a drive.
      *
      * @param result a #GAsyncResult.

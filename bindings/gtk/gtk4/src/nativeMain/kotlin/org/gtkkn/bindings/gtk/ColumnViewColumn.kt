@@ -76,7 +76,7 @@ public open class ColumnViewColumn(
          * @return The column view displaying @self.
          */
         get() = gtk_column_view_column_get_column_view(gtkColumnViewColumnPointer)?.run {
-            InstanceCache.get(this, true) { ColumnView(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ColumnView(reinterpret()) }!!
         }
 
     /**
@@ -110,7 +110,7 @@ public open class ColumnViewColumn(
          * @return The factory in use
          */
         get() = gtk_column_view_column_get_factory(gtkColumnViewColumnPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
         }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items for this
@@ -153,7 +153,7 @@ public open class ColumnViewColumn(
          * @return the `GMenuModel`
          */
         get() = gtk_column_view_column_get_header_menu(gtkColumnViewColumnPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets the menu model that is used to create the context menu
@@ -224,7 +224,7 @@ public open class ColumnViewColumn(
          * @return the `GtkSorter` of @self
          */
         get() = gtk_column_view_column_get_sorter(gtkColumnViewColumnPointer)?.run {
-            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!
         }
         /**
          * Associates a sorter with the column.

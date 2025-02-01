@@ -70,6 +70,13 @@ public open class FontChooserWidget(
         get() = handle.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Direct use of `GtkFontChooserWidget` is deprecated.
+     * ---
+     *
      * Creates a new `GtkFontChooserWidget`.
      *
      * @return a new `GtkFontChooserWidget`

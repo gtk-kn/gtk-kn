@@ -74,6 +74,13 @@ public class Relation(
     public val glibRelationPointer: CPointer<GRelation>,
 ) : ProxyInstance(glibRelationPointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Returns the number of tuples in a #GRelation that have the given
      * value in the given field.
      *
@@ -84,6 +91,13 @@ public class Relation(
     public fun count(key: gpointer? = null, `field`: gint): gint = g_relation_count(glibRelationPointer, key, `field`)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Deletes any records from a #GRelation that have the given key value
      * in the given field.
      *
@@ -94,6 +108,13 @@ public class Relation(
     public fun delete(key: gpointer? = null, `field`: gint): gint = g_relation_delete(glibRelationPointer, key, `field`)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Destroys the #GRelation, freeing all memory allocated. However, it
      * does not free memory allocated for the tuple data, so you should
      * free that first if appropriate.
@@ -101,12 +122,26 @@ public class Relation(
     public fun destroy(): Unit = g_relation_destroy(glibRelationPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Outputs information about all records in a #GRelation, as well as
      * the indexes. It is for debugging.
      */
     public fun print(): Unit = g_relation_print(glibRelationPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.26.
+     *
+     * Rarely used API
+     * ---
+     *
      * Returns all of the tuples which have the given key in the given
      * field. Use g_tuples_index() to access the returned records. The
      * returned records should be freed with g_tuples_destroy().
@@ -120,6 +155,13 @@ public class Relation(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.26.
+         *
+         * Rarely used API
+         * ---
+         *
          * Creates a new #GRelation with the given number of fields. Note that
          * currently the number of fields must be 2.
          *

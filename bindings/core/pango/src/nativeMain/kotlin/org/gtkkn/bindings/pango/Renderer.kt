@@ -313,7 +313,7 @@ public abstract class Renderer(
      */
     @PangoVersion1_20
     public open fun getLayout(): Layout? = pango_renderer_get_layout(pangoRendererPointer)?.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**

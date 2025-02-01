@@ -225,6 +225,13 @@ public abstract class ImContext(
     public open fun setCursorLocation(area: Rectangle): Unit = gtk_im_context_set_cursor_location(gtkImContextPointer, area.gdkRectanglePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.2.
+     *
+     * Use [method@Gtk.IMContext.set_surrounding_with_selection] instead
+     * ---
+     *
      * Sets surrounding context around the insertion point and preedit
      * string.
      *

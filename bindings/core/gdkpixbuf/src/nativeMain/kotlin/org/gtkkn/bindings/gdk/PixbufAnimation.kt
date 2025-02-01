@@ -203,7 +203,7 @@ public open class PixbufAnimation(
      * @return an iterator to move over the animation
      */
     public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter = gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.glibTimeValPointer)!!.run {
-        InstanceCache.get(this, true) { PixbufAnimationIter(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PixbufAnimationIter(reinterpret()) }!!
     }
 
     /**
@@ -222,7 +222,7 @@ public open class PixbufAnimation(
      * @return unanimated image representing the animation
      */
     public open fun getStaticImage(): Pixbuf = gdk_pixbuf_animation_get_static_image(gdkPixbufAnimationPointer)!!.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
     }
 
     /**
@@ -245,15 +245,29 @@ public open class PixbufAnimation(
     public open fun isStaticImage(): Boolean = gdk_pixbuf_animation_is_static_image(gdkPixbufAnimationPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.0.
+     *
+     * Use g_object_ref().
+     * ---
+     *
      * Adds a reference to an animation.
      *
      * @return The same as the @animation argument.
      */
     override fun ref(): PixbufAnimation = gdk_pixbuf_animation_ref(gdkPixbufAnimationPointer)!!.run {
-        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.0.
+     *
+     * Use g_object_unref().
+     * ---
+     *
      * Removes a reference from an animation.
      */
     override fun unref(): Unit = gdk_pixbuf_animation_unref(gdkPixbufAnimationPointer)

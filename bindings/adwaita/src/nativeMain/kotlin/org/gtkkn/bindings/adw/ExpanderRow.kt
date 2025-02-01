@@ -137,16 +137,37 @@ public open class ExpanderRow(
         set(expanded) = adw_expander_row_set_expanded(adwExpanderRowPointer, expanded.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.3.
+     *
+     * Use [method@ExpanderRow.add_prefix] to add an icon.
+     * ---
+     *
      * The icon name for this row.
      */
     public open var iconName: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ExpanderRow.add_prefix] to add an icon.
+         * ---
+         *
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
          */
         get() = adw_expander_row_get_icon_name(adwExpanderRowPointer)?.toKString()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ExpanderRow.add_prefix] to add an icon.
+         * ---
+         *
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
@@ -203,6 +224,13 @@ public open class ExpanderRow(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * Use [method@ExpanderRow.add_suffix] to add a suffix.
+     * ---
+     *
      * Adds an action widget to @self.
      *
      * @param widget a widget

@@ -146,7 +146,7 @@ public open class ListItem(
          * @return The child
          */
         get() = gtk_list_item_get_child(gtkListItemPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child to be used for this listitem.
@@ -203,7 +203,7 @@ public open class ListItem(
          * @return The item displayed
          */
         get() = gtk_list_item_get_item(gtkListItemPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
         }
 
     /**

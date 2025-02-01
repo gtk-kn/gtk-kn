@@ -87,7 +87,7 @@ public open class FileLoader(
          * @return the #GtkSourceBuffer to load the contents into.
          */
         get() = gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer)!!.run {
-            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
         }
 
     /**
@@ -101,7 +101,7 @@ public open class FileLoader(
          * @return the #GtkSourceFile.
          */
         get() = gtk_source_file_loader_get_file(gtksourceFileLoaderPointer)!!.run {
-            InstanceCache.get(this, true) { File(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { File(reinterpret()) }!!
         }
 
     /**
@@ -116,7 +116,7 @@ public open class FileLoader(
          * if a #GFile is used.
          */
         get() = gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
         }
 
     /**

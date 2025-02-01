@@ -240,6 +240,13 @@ public class Source(
         MainContext(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.28.
+     *
+     * use g_source_get_time() instead
+     * ---
+     *
      * This function ignores @source and is otherwise the same as
      * g_get_current_time().
      *

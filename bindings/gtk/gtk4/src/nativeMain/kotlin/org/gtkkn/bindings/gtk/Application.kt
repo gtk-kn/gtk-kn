@@ -155,7 +155,7 @@ public open class Application(
          * @return the active window
          */
         get() = gtk_application_get_active_window(gtkApplicationPointer)?.run {
-            InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!
         }
 
     /**
@@ -169,7 +169,7 @@ public open class Application(
          * @return the menubar for windows of `application`
          */
         get() = gtk_application_get_menubar(gtkApplicationPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets or unsets the menubar for windows of `application`.
@@ -289,7 +289,7 @@ public open class Application(
      *   given id from the automatically loaded resources
      */
     public open fun getMenuById(id: String): Menu? = gtk_application_get_menu_by_id(gtkApplicationPointer, id)?.run {
-        InstanceCache.get(this, true) { Menu(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Menu(reinterpret()) }!!
     }
 
     /**
@@ -302,7 +302,7 @@ public open class Application(
      * @return the window for the given `id`
      */
     public open fun getWindowById(id: guint): Window? = gtk_application_get_window_by_id(gtkApplicationPointer, id)?.run {
-        InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Window(reinterpret()) }!!
     }
 
     /**

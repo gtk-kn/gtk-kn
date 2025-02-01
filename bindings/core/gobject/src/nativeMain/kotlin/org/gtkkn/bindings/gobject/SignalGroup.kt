@@ -187,7 +187,7 @@ public open class SignalGroup(
      */
     @GObjectVersion2_72
     public open fun dupTarget(): Object? = g_signal_group_dup_target(gobjectSignalGroupPointer)?.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**

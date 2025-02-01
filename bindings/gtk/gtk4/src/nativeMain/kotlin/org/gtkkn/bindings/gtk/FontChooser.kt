@@ -61,7 +61,7 @@ import org.gtkkn.native.gtk.gtk_font_chooser_set_show_preview_entry
  * This is deprecated since version 4.10.
  *
  * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
-         * instead
+ * instead
  * ---
  *
  * `GtkFontChooser` is an interface that can be implemented by widgets
@@ -80,6 +80,13 @@ public interface FontChooser : Proxy, KGTyped {
     public val gtkFontChooserPointer: CPointer<GtkFontChooser>
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * The selected font features.
      *
      * The format of the string is compatible with
@@ -87,6 +94,14 @@ public interface FontChooser : Proxy, KGTyped {
      */
     public val fontFeatures: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Gets the currently-selected font features.
          *
          * The format of the returned string is compatible with the
@@ -98,16 +113,39 @@ public interface FontChooser : Proxy, KGTyped {
         get() = gtk_font_chooser_get_font_features(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * The language for which the font features were selected.
      */
     public var language: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Gets the language that is used for font features.
          *
          * @return the currently selected language
          */
         get() = gtk_font_chooser_get_language(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Sets the language to use for font features.
          *
          * @param language a language
@@ -115,10 +153,25 @@ public interface FontChooser : Proxy, KGTyped {
         set(language) = gtk_font_chooser_set_language(gtkFontChooserPointer, language)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * The level of granularity to offer for selecting fonts.
      */
     public var level: FontChooserLevel
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Returns the current level of granularity for selecting fonts.
          *
          * @return the current granularity level
@@ -126,6 +179,14 @@ public interface FontChooser : Proxy, KGTyped {
         get() = gtk_font_chooser_get_level(gtkFontChooserPointer).run {
             FontChooserLevel(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Sets the desired level of granularity for selecting fonts.
          *
          * @param level the desired level of granularity
@@ -133,16 +194,39 @@ public interface FontChooser : Proxy, KGTyped {
         set(level) = gtk_font_chooser_set_level(gtkFontChooserPointer, level.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * The string with which to preview the font.
      */
     public var previewText: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Gets the text displayed in the preview area.
          *
          * @return the text displayed in the preview area
          */
         get() = gtk_font_chooser_get_preview_text(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Sets the text displayed in the preview area.
          *
          * The @text is used to show how the selected font looks.
@@ -152,16 +236,39 @@ public interface FontChooser : Proxy, KGTyped {
         set(text) = gtk_font_chooser_set_preview_text(gtkFontChooserPointer, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * Whether to show an entry to change the preview text.
      */
     public var showPreviewEntry: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Returns whether the preview entry is shown or not.
          *
          * @return true if the preview entry is shown or false if it is hidden.
          */
         get() = gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+         * ---
+         *
          * Shows or hides the editable preview entry.
          *
          * @param showPreviewEntry whether to show the editable preview entry or not
@@ -169,6 +276,14 @@ public interface FontChooser : Proxy, KGTyped {
         set(showPreviewEntry) = gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer, showPreviewEntry.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the currently-selected font name.
      *
      * Note that this can be a different string than what you set with
@@ -186,6 +301,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun getFont(): String? = gtk_font_chooser_get_font(gtkFontChooserPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the currently-selected font.
      *
      * Note that this can be a different string than what you set with
@@ -204,6 +327,14 @@ public interface FontChooser : Proxy, KGTyped {
         FontDescription(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the `PangoFontFace` representing the selected font group
      * details (i.e. family, slant, weight, width, etc).
      *
@@ -213,10 +344,18 @@ public interface FontChooser : Proxy, KGTyped {
      *   selected font group details
      */
     public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer)?.run {
-        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the `PangoFontFamily` representing the selected font family.
      *
      * Font families are a collection of font faces.
@@ -227,10 +366,18 @@ public interface FontChooser : Proxy, KGTyped {
      *   selected font family
      */
     public fun getFontFamily(): FontFamily? = gtk_font_chooser_get_font_family(gtkFontChooserPointer)?.run {
-        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the currently-selected font features.
      *
      * The format of the returned string is compatible with the
@@ -242,16 +389,32 @@ public interface FontChooser : Proxy, KGTyped {
     public fun getFontFeatures(): String = gtk_font_chooser_get_font_features(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the custom font map of this font chooser widget,
      * or null if it does not have one.
      *
      * @return a `PangoFontMap`
      */
     public fun getFontChooserFontMap(): FontMap? = gtk_font_chooser_get_font_map(gtkFontChooserPointer)?.run {
-        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * The selected font size.
      *
      * @return A n integer representing the selected font size,
@@ -260,6 +423,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun getFontSize(): gint = gtk_font_chooser_get_font_size(gtkFontChooserPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the language that is used for font features.
      *
      * @return the currently selected language
@@ -267,6 +438,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun getLanguage(): String = gtk_font_chooser_get_language(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Returns the current level of granularity for selecting fonts.
      *
      * @return the current granularity level
@@ -275,6 +454,14 @@ public interface FontChooser : Proxy, KGTyped {
         FontChooserLevel(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Gets the text displayed in the preview area.
      *
      * @return the text displayed in the preview area
@@ -282,6 +469,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun getPreviewText(): String = gtk_font_chooser_get_preview_text(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Returns whether the preview entry is shown or not.
      *
      * @return true if the preview entry is shown or false if it is hidden.
@@ -289,6 +484,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun getShowPreviewEntry(): Boolean = gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Adds a filter function that decides which fonts to display
      * in the font chooser.
      *
@@ -297,6 +500,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setFilterFunc(filter: FontFilterFunc?): Unit = gtk_font_chooser_set_filter_func(gtkFontChooserPointer, filter?.let { FontFilterFuncFunc.reinterpret() }, filter?.let { StableRef.create(filter).asCPointer() }, filter?.let { staticStableRefDestroy.reinterpret() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Sets the currently-selected font.
      *
      * @param fontname a font name like “Helvetica 12” or “Times Bold 18”
@@ -304,6 +515,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setFont(fontname: String): Unit = gtk_font_chooser_set_font(gtkFontChooserPointer, fontname)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Sets the currently-selected font from @font_desc.
      *
      * @param fontDesc a `PangoFontDescription`
@@ -311,6 +530,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setFontDesc(fontDesc: FontDescription): Unit = gtk_font_chooser_set_font_desc(gtkFontChooserPointer, fontDesc.pangoFontDescriptionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Sets a custom font map to use for this font chooser widget.
      *
      * A custom font map can be used to present application-specific
@@ -342,6 +569,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setFontChooserFontMap(fontmap: FontMap? = null): Unit = gtk_font_chooser_set_font_map(gtkFontChooserPointer, fontmap?.pangoFontMapPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Sets the language to use for font features.
      *
      * @param language a language
@@ -349,6 +584,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setLanguage(language: String): Unit = gtk_font_chooser_set_language(gtkFontChooserPointer, language)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Sets the desired level of granularity for selecting fonts.
      *
      * @param level the desired level of granularity
@@ -356,6 +599,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setLevel(level: FontChooserLevel): Unit = gtk_font_chooser_set_level(gtkFontChooserPointer, level.mask)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Sets the text displayed in the preview area.
      *
      * The @text is used to show how the selected font looks.
@@ -365,6 +616,14 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setPreviewText(text: String): Unit = gtk_font_chooser_set_preview_text(gtkFontChooserPointer, text)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+     * instead
+     * ---
+     *
      * Shows or hides the editable preview entry.
      *
      * @param showPreviewEntry whether to show the editable preview entry or not
@@ -372,6 +631,13 @@ public interface FontChooser : Proxy, KGTyped {
     public fun setShowPreviewEntry(showPreviewEntry: Boolean): Unit = gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer, showPreviewEntry.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton] instead
+     * ---
+     *
      * Emitted when a font is activated.
      *
      * This usually happens when the user double clicks an item,

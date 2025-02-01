@@ -20,7 +20,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spinner_new
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You should use [class@Gtk.Spinner] instead
+ *   You should use [class@Gtk.Spinner] instead
  * ---
  *
  * Renders a spinning animation in a cell
@@ -51,6 +51,11 @@ public open class CellRendererSpinner(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a new cell renderer which will show a spinner to indicate
      * activity.
      *

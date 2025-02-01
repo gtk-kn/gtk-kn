@@ -131,7 +131,7 @@ public open class ActionRow(
          * @return the activatable widget for @self
          */
         get() = adw_action_row_get_activatable_widget(adwActionRowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the widget to activate when @self is activated.
@@ -148,16 +148,37 @@ public open class ActionRow(
         set(widget) = adw_action_row_set_activatable_widget(adwActionRowPointer, widget?.gtkWidgetPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.3.
+     *
+     * Use [method@ActionRow.add_prefix] to add an icon.
+     * ---
+     *
      * The icon name for this row.
      */
     public open var iconName: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ActionRow.add_prefix] to add an icon.
+         * ---
+         *
          * Gets the icon name for @self.
          *
          * @return the icon name for @self
          */
         get() = adw_action_row_get_icon_name(adwActionRowPointer)?.toKString()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.3.
+         *
+         * Use [method@ActionRow.add_prefix] to add an icon.
+         * ---
+         *
          * Sets the icon name for @self.
          *
          * @param iconName the icon name

@@ -154,7 +154,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_22
     public fun createContext(cr: CairoContext): PangoContext = pango_cairo_create_context(cr.cairoContextPointer)!!.run {
-        InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!
     }
 
     /**
@@ -177,7 +177,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun createLayout(cr: CairoContext): Layout = pango_cairo_create_layout(cr.cairoContextPointer)!!.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
     }
 
     /**

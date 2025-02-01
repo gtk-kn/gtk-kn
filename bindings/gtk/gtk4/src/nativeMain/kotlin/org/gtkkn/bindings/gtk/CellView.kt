@@ -43,7 +43,7 @@ import org.gtkkn.native.gtk.gtk_cell_view_set_model
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents.
-         *   You can use [class@Gtk.Box] instead
+ *   You can use [class@Gtk.Box] instead
  * ---
  *
  * A widget displaying a single row of a GtkTreeModel
@@ -105,6 +105,11 @@ public open class CellView(
      */
     public open var drawSensitive: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets whether @cell_view is configured to draw all of its
          * cells in a sensitive state.
          *
@@ -113,6 +118,11 @@ public open class CellView(
          */
         get() = gtk_cell_view_get_draw_sensitive(gtkCellViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether @cell_view should draw all of its
          * cells in a sensitive state, this is used by `GtkComboBox` menus
          * to ensure that rows with insensitive cells that contain
@@ -132,6 +142,11 @@ public open class CellView(
      */
     public open var fitModel: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets whether @cell_view is configured to request space
          * to fit the entire `GtkTreeModel`.
          *
@@ -140,6 +155,11 @@ public open class CellView(
          */
         get() = gtk_cell_view_get_fit_model(gtkCellViewPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets whether @cell_view should request space to fit the entire `GtkTreeModel`.
          *
          * This is used by `GtkComboBox` to ensure that the cell view displayed on
@@ -157,6 +177,11 @@ public open class CellView(
      */
     public open var model: TreeModel?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Returns the model for @cell_view. If no model is used null is
          * returned.
          *
@@ -165,6 +190,11 @@ public open class CellView(
         get() = gtk_cell_view_get_model(gtkCellViewPointer)?.run {
             TreeModel.TreeModelImpl(reinterpret())}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the model for @cell_view.  If @cell_view already has a model
          * set, it will remove it before setting the new model.  If @model is
          * null, then it will unset the old model.
@@ -174,6 +204,11 @@ public open class CellView(
         set(model) = gtk_cell_view_set_model(gtkCellViewPointer, model?.gtkTreeModelPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget.
      *
      * @return A newly created `GtkCellView` widget.
@@ -183,6 +218,11 @@ public open class CellView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget with a specific `GtkCellArea`
      * to layout cells and a specific `GtkCellAreaContext`.
      *
@@ -200,6 +240,11 @@ public open class CellView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
      * to it, and makes it show @text.
      *
@@ -211,6 +256,11 @@ public open class CellView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererPixbuf`
      * to it, and makes it show @texture.
      *
@@ -222,6 +272,11 @@ public open class CellView(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns a `GtkTreePath` referring to the currently
      * displayed row. If no row is currently displayed,
      * null is returned.
@@ -232,6 +287,11 @@ public open class CellView(
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the row of the model that is currently displayed
      * by the `GtkCellView`. If the path is unset, then the
      * contents of the cellview “stick” at their last value;
@@ -268,6 +328,11 @@ public open class CellView(
         internal fun getTypeOrNull(): GType? = org.gtkkn.extensions.glib.cinterop.getTypeOrNull("gtk_cell_view_get_type")
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
          * to it, and makes it show @markup. The text can be marked up with
          * the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).

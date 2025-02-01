@@ -271,7 +271,7 @@ public class ToolbarView(
          * @since 1.4
          */
         get() = adw_toolbar_view_get_content(adwToolbarViewPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the content widget for @self.

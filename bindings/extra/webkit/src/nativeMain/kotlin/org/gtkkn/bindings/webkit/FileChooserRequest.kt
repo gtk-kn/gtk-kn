@@ -158,7 +158,7 @@ public class FileChooserRequest(
      * owned by WebKit should not be modified or freed.
      */
     public fun getMimeTypesFilter(): FileFilter = webkit_file_chooser_request_get_mime_types_filter(webkitFileChooserRequestPointer)!!.run {
-        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!
     }
 
     /**

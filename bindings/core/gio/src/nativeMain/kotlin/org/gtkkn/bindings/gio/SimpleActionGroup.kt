@@ -62,6 +62,13 @@ public open class SimpleActionGroup(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.38.
+     *
+     * Use g_action_map_add_action()
+     * ---
+     *
      * Adds an action to the action group.
      *
      * If the action group already contains an action with the same name as
@@ -76,6 +83,13 @@ public open class SimpleActionGroup(
     public open fun insert(action: Action): Unit = g_simple_action_group_insert(gioSimpleActionGroupPointer, action.gioActionPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.38.
+     *
+     * Use g_action_map_lookup_action()
+     * ---
+     *
      * Looks up the action with the name @action_name in the group.
      *
      * If no such action exists, returns null.
@@ -89,6 +103,13 @@ public open class SimpleActionGroup(
         Action.ActionImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.38.
+     *
+     * Use g_action_map_remove_action()
+     * ---
+     *
      * Removes the named action from the action group.
      *
      * If no action of this name is in the group then nothing happens.

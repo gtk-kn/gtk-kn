@@ -280,7 +280,7 @@ public open class Entry(
          * @return A `GtkEntryBuffer` object.
          */
         get() = gtk_entry_get_buffer(gtkEntryPointer)!!.run {
-            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!
         }
         /**
          * Set the `GtkEntryBuffer` object which holds the text for
@@ -291,10 +291,24 @@ public open class Entry(
         set(buffer) = gtk_entry_set_buffer(gtkEntryPointer, buffer.gtkEntryBufferPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * GtkEntryCompletion will be removed in GTK 5.
+     * ---
+     *
      * The auxiliary completion object to use with the entry.
      */
     public open var completion: EntryCompletion?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Returns the auxiliary completion object currently
          * in use by @entry.
          *
@@ -302,9 +316,16 @@ public open class Entry(
          *   completion object currently in use by @entry
          */
         get() = gtk_entry_get_completion(gtkEntryPointer)?.run {
-            InstanceCache.get(this, true) { EntryCompletion(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { EntryCompletion(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * GtkEntryCompletion will be removed in GTK 5.
+         * ---
+         *
          * Sets @completion to be the auxiliary completion object
          * to use with @entry.
          *
@@ -326,7 +347,7 @@ public open class Entry(
          * @return the menu model
          */
         get() = gtk_entry_get_extra_menu(gtkEntryPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets a menu model to add when constructing

@@ -157,7 +157,7 @@ public class TabOverview(
          * @since 1.3
          */
         get() = adw_tab_overview_get_child(adwTabOverviewPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the child widget of @self.
@@ -371,7 +371,7 @@ public class TabOverview(
          * @since 1.3
          */
         get() = adw_tab_overview_get_secondary_menu(adwTabOverviewPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets the secondary menu model for @self.
@@ -454,7 +454,7 @@ public class TabOverview(
          * @since 1.3
          */
         get() = adw_tab_overview_get_view(adwTabOverviewPointer)?.run {
-            InstanceCache.get(this, true) { TabView(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!
         }
         /**
          * Sets the tab view to control.

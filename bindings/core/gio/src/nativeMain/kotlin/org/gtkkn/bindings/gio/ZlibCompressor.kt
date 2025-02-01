@@ -57,7 +57,7 @@ public open class ZlibCompressor(
          * @since 2.26
          */
         get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer)?.run {
-            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
         }
         /**
          * Sets @file_info in @compressor. If non-null, and @compressor's

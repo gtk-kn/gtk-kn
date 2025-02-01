@@ -77,7 +77,7 @@ public open class DBusActionGroup(
             busName: String? = null,
             objectPath: String,
         ): DBusActionGroup = g_dbus_action_group_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
-            InstanceCache.get(this, true) { DBusActionGroup(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { DBusActionGroup(reinterpret()) }!!
         }
 
         /**

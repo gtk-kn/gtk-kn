@@ -122,6 +122,13 @@ public interface Volume : Proxy, KGTyped {
     public fun canMount(): Boolean = g_volume_can_mount(gioVolumePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_volume_eject_with_operation() instead.
+     * ---
+     *
      * Ejects a volume. This is an asynchronous operation, and is
      * finished by calling g_volume_eject_finish() with the @volume
      * and #GAsyncResult returned in the @callback.
@@ -137,6 +144,13 @@ public interface Volume : Proxy, KGTyped {
     ): Unit = g_volume_eject(gioVolumePointer, flags.mask, cancellable?.gioCancellablePointer, callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.22.
+     *
+     * Use g_volume_eject_with_operation_finish() instead.
+     * ---
+     *
      * Finishes ejecting a volume. If any errors occurred during the operation,
      * @error will be set to contain the errors and false will be returned.
      *

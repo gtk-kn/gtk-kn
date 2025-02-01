@@ -89,7 +89,7 @@ import org.gtkkn.native.gtk.gtk_tree_view_column_set_widget
  * This is deprecated since version 4.10.
  *
  * Use [class@Gtk.ColumnView] and [class@Gtk.ColumnViewColumn]
-         *   instead of [class@Gtk.TreeView] to show a tabular list
+ *   instead of [class@Gtk.TreeView] to show a tabular list
  * ---
  *
  * A visible column in a [class@Gtk.TreeView] widget
@@ -129,6 +129,13 @@ public open class TreeViewColumn(
 
     public open var alignment: gfloat
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the current x alignment of @tree_column.  This value can range
          * between 0.0 and 1.0.
          *
@@ -136,6 +143,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_alignment(gtkTreeViewColumnPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the alignment of the title or custom widget inside the column header.
          * The alignment determines its location inside the button -- 0.0 for left, 0.5
          * for center, 1.0 for right.
@@ -146,12 +160,26 @@ public open class TreeViewColumn(
 
     public open var clickable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns true if the user can click on the header for the column.
          *
          * @return true if user can click the column header.
          */
         get() = gtk_tree_view_column_get_clickable(gtkTreeViewColumnPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the header to be active if @clickable is true.  When the header is
          * active, then it can take keyboard focus, and can be clicked.
          *
@@ -161,12 +189,26 @@ public open class TreeViewColumn(
 
     public open var expand: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns true if the column expands to fill available space.
          *
          * @return true if the column expands to fill available space.
          */
         get() = gtk_tree_view_column_get_expand(gtkTreeViewColumnPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the column to take available extra space.  This space is shared equally
          * amongst all columns that have the expand set to true.  If no column has this
          * option set, then the last column gets all extra space.  By default, every
@@ -181,6 +223,13 @@ public open class TreeViewColumn(
 
     public open var fixedWidth: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Gets the fixed width of the column.  This may not be the actual displayed
          * width of the column; for that, use gtk_tree_view_column_get_width().
          *
@@ -188,6 +237,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_fixed_width(gtkTreeViewColumnPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * If @fixed_width is not -1, sets the fixed width of @tree_column; otherwise
          * unsets it.  The effective value of @fixed_width is clamped between the
          * minimum and maximum width of the column; however, the value stored in the
@@ -206,6 +262,13 @@ public open class TreeViewColumn(
 
     public open var maxWidth: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the maximum width in pixels of the @tree_column, or -1 if no maximum
          * width is set.
          *
@@ -213,6 +276,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_max_width(gtkTreeViewColumnPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the maximum width of the @tree_column.  If @max_width is -1, then the
          * maximum width is unset.  Note, the column can actually be wider than max
          * width if it’s the last column in a view.  In this case, the column expands to
@@ -224,6 +294,13 @@ public open class TreeViewColumn(
 
     public open var minWidth: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the minimum width in pixels of the @tree_column, or -1 if no minimum
          * width is set.
          *
@@ -231,6 +308,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_min_width(gtkTreeViewColumnPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the minimum width of the @tree_column.  If @min_width is -1, then the
          * minimum width is unset.
          *
@@ -240,12 +324,26 @@ public open class TreeViewColumn(
 
     public open var reorderable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns true if the @tree_column can be reordered by the user.
          *
          * @return true if the @tree_column can be reordered by the user.
          */
         get() = gtk_tree_view_column_get_reorderable(gtkTreeViewColumnPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * If @reorderable is true, then the column can be reordered by the end user
          * dragging the header.
          *
@@ -255,12 +353,26 @@ public open class TreeViewColumn(
 
     public open var resizable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns true if the @tree_column can be resized by the end user.
          *
          * @return true, if the @tree_column can be resized.
          */
         get() = gtk_tree_view_column_get_resizable(gtkTreeViewColumnPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * If @resizable is true, then the user can explicitly resize the column by
          * grabbing the outer edge of the column button.
          *
@@ -274,6 +386,13 @@ public open class TreeViewColumn(
 
     public open var sizing: TreeViewColumnSizing
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the current type of @tree_column.
          *
          * @return The type of @tree_column.
@@ -281,6 +400,13 @@ public open class TreeViewColumn(
         get() = gtk_tree_view_column_get_sizing(gtkTreeViewColumnPointer).run {
             TreeViewColumnSizing.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the growth behavior of @tree_column to @type.
          *
          * @param type The `GtkTreeViewColumn`Sizing.
@@ -293,6 +419,13 @@ public open class TreeViewColumn(
      */
     public open var sortColumnId: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Gets the logical @sort_column_id that the model sorts on
          * when this column is selected for sorting.
          *
@@ -303,6 +436,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_sort_column_id(gtkTreeViewColumnPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the logical @sort_column_id that this column sorts on when this column
          * is selected for sorting.  Doing so makes the column header clickable.
          *
@@ -312,12 +452,26 @@ public open class TreeViewColumn(
 
     public open var sortIndicator: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Gets the value set by gtk_tree_view_column_set_sort_indicator().
          *
          * @return whether the sort indicator arrow is displayed
          */
         get() = gtk_tree_view_column_get_sort_indicator(gtkTreeViewColumnPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Call this function with a @setting of true to display an arrow in
          * the header button indicating the column is sorted. Call
          * gtk_tree_view_column_set_sort_order() to change the direction of
@@ -329,6 +483,13 @@ public open class TreeViewColumn(
 
     public open var sortOrder: SortType
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Gets the value set by gtk_tree_view_column_set_sort_order().
          *
          * @return the sort order the sort indicator is indicating
@@ -336,6 +497,13 @@ public open class TreeViewColumn(
         get() = gtk_tree_view_column_get_sort_order(gtkTreeViewColumnPointer).run {
             SortType.fromNativeValue(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Changes the appearance of the sort indicator.
          *
          * This does not actually sort the model.  Use
@@ -354,12 +522,26 @@ public open class TreeViewColumn(
 
     public open var spacing: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the spacing of @tree_column.
          *
          * @return the spacing of @tree_column.
          */
         get() = gtk_tree_view_column_get_spacing(gtkTreeViewColumnPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the spacing field of @tree_column, which is the number of pixels to
          * place between cell renderers packed into it.
          *
@@ -369,6 +551,13 @@ public open class TreeViewColumn(
 
     public open var title: String
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the title of the widget.
          *
          * @return the title of the column. This string should not be
@@ -376,6 +565,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_title(gtkTreeViewColumnPointer)?.toKString() ?: error("Expected not null string")
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the title of the @tree_column.  If a custom widget has been set, then
          * this value is ignored.
          *
@@ -385,6 +581,13 @@ public open class TreeViewColumn(
 
     public open var visible: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns true if @tree_column is visible.
          *
          * @return whether the column is visible or not.  If it is visible, then
@@ -392,6 +595,13 @@ public open class TreeViewColumn(
          */
         get() = gtk_tree_view_column_get_visible(gtkTreeViewColumnPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the visibility of @tree_column.
          *
          * @param visible true if the @tree_column is visible.
@@ -400,6 +610,13 @@ public open class TreeViewColumn(
 
     public open var widget: Widget?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the `GtkWidget` in the button on the column header.
          *
          * If a custom widget has not been set then null is returned.
@@ -407,9 +624,16 @@ public open class TreeViewColumn(
          * @return The `GtkWidget` in the column header
          */
         get() = gtk_tree_view_column_get_widget(gtkTreeViewColumnPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Sets the widget in the header to be @widget.  If widget is null, then the
          * header button is set with a `GtkLabel` set to the title of @tree_column.
          *
@@ -419,6 +643,13 @@ public open class TreeViewColumn(
 
     public open val width: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the current size of @tree_column in pixels.
          *
          * @return The current width of @tree_column.
@@ -427,6 +658,13 @@ public open class TreeViewColumn(
 
     public open val xOffset: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * Use GtkColumnView instead
+         * ---
+         *
          * Returns the current X offset of @tree_column in pixels.
          *
          * @return The current X offset of @tree_column.
@@ -434,6 +672,13 @@ public open class TreeViewColumn(
         get() = gtk_tree_view_column_get_x_offset(gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Creates a new `GtkTreeViewColumn`.
      *
      * @return A newly created `GtkTreeViewColumn`.
@@ -443,6 +688,13 @@ public open class TreeViewColumn(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Creates a new `GtkTreeViewColumn` using @area to render its cells.
      *
      * @param area the `GtkCellArea` that the newly created column should use to layout cells.
@@ -453,6 +705,13 @@ public open class TreeViewColumn(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Adds an attribute mapping to the list in @tree_column.
      *
      * The @column is the
@@ -473,6 +732,13 @@ public open class TreeViewColumn(
     ): Unit = gtk_tree_view_column_add_attribute(gtkTreeViewColumnPointer, cell.gtkCellRendererPointer, attribute, column)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Returns true if any of the cells packed into the @tree_column are visible.
      * For this to be meaningful, you must first initialize the cells with
      * gtk_tree_view_column_cell_set_cell_data()
@@ -482,6 +748,13 @@ public open class TreeViewColumn(
     public open fun cellIsVisible(): Boolean = gtk_tree_view_column_cell_is_visible(gtkTreeViewColumnPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Sets the cell renderer based on the @tree_model and @iter.  That is, for
      * every attribute mapping in @tree_column, it will get a value from the set
      * column on the @iter, and use that value to set the attribute on the cell
@@ -500,11 +773,25 @@ public open class TreeViewColumn(
     ): Unit = gtk_tree_view_column_cell_set_cell_data(gtkTreeViewColumnPointer, treeModel.gtkTreeModelPointer, iter.gtkTreeIterPointer, isExpander.asGBoolean(), isExpanded.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Unsets all the mappings on all renderers on the @tree_column.
      */
     override fun clear(): Unit = gtk_tree_view_column_clear(gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Clears all existing attributes previously set with
      * gtk_tree_view_column_set_attributes().
      *
@@ -513,12 +800,26 @@ public open class TreeViewColumn(
     override fun clearAttributes(cell: CellRenderer): Unit = gtk_tree_view_column_clear_attributes(gtkTreeViewColumnPointer, cell.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Emits the “clicked” signal on the column.  This function will only work if
      * @tree_column is clickable.
      */
     public open fun clicked(): Unit = gtk_tree_view_column_clicked(gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Sets the current keyboard focus to be at @cell, if the column contains
      * 2 or more editable and activatable cells.
      *
@@ -527,15 +828,29 @@ public open class TreeViewColumn(
     public open fun focusCell(cell: CellRenderer): Unit = gtk_tree_view_column_focus_cell(gtkTreeViewColumnPointer, cell.gtkCellRendererPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Returns the button used in the treeview column header
      *
      * @return The button for the column header.
      */
     public open fun getButton(): Widget = gtk_tree_view_column_get_button(gtkTreeViewColumnPointer)!!.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Returns the `GtkTreeView` wherein @tree_column has been inserted.
      * If @column is currently not inserted in any tree view, null is
      * returned.
@@ -544,10 +859,17 @@ public open class TreeViewColumn(
      *   has been inserted
      */
     public open fun getTreeView(): Widget? = gtk_tree_view_column_get_tree_view(gtkTreeViewColumnPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Adds the @cell to end of the column. If @expand is false, then the @cell
      * is allocated no more space than it needs. Any unused space is divided
      * evenly between cells for which @expand is true.
@@ -558,6 +880,13 @@ public open class TreeViewColumn(
     override fun packEnd(cell: CellRenderer, expand: Boolean): Unit = gtk_tree_view_column_pack_end(gtkTreeViewColumnPointer, cell.gtkCellRendererPointer, expand.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Packs the @cell into the beginning of the column. If @expand is false, then
      * the @cell is allocated no more space than it needs. Any unused space is divided
      * evenly between cells for which @expand is true.
@@ -568,12 +897,26 @@ public open class TreeViewColumn(
     override fun packStart(cell: CellRenderer, expand: Boolean): Unit = gtk_tree_view_column_pack_start(gtkTreeViewColumnPointer, cell.gtkCellRendererPointer, expand.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Flags the column, and the cell renderers added to this column, to have
      * their sizes renegotiated.
      */
     public open fun queueResize(): Unit = gtk_tree_view_column_queue_resize(gtkTreeViewColumnPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * Use GtkColumnView instead
+     * ---
+     *
      * Sets the `GtkTreeCellDataFunc` to use for the column.
      *
      * This

@@ -87,6 +87,15 @@ public class TimeZone(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.68.
+     *
+     * Use g_time_zone_new_identifier() instead, as it provides
+     *     error reporting. Change your code to handle a potentially %NULL return
+     *     value.
+     * ---
+     *
      * A version of g_time_zone_new_identifier() which returns the UTC time zone
      * if @identifier could not be parsed or loaded.
      *

@@ -234,6 +234,14 @@ public class DateTime(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use
+     *    g_date_time_new_from_unix_utc() instead.
+     * ---
+     *
      * Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
      *
      * The time contained in a #GTimeVal is always stored in the form of
@@ -890,6 +898,14 @@ public class DateTime(
         DateTime(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.62.
+     *
+     * #GTimeVal is not year-2038-safe. Use
+     *    g_date_time_to_unix() instead.
+     * ---
+     *
      * Stores the instant in time that @datetime represents into @tv.
      *
      * The time contained in a #GTimeVal is always stored in the form of
@@ -995,6 +1011,14 @@ public class DateTime(
         }
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.62.
+         *
+         * #GTimeVal is not year-2038-safe. Use
+         *    g_date_time_new_from_unix_local() instead.
+         * ---
+         *
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
          * local time zone.
          *

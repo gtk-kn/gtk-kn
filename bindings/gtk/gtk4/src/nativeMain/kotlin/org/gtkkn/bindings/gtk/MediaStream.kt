@@ -248,6 +248,13 @@ public abstract class MediaStream(
         set(volume) = gtk_media_stream_set_volume(gtkMediaStreamPointer, volume)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gtk.MediaStream.stream_ended] instead
+     * ---
+     *
      * Pauses the media stream and marks it as ended.
      *
      * This is a hint only, calls to [method@Gtk.MediaStream.play]
@@ -342,6 +349,13 @@ public abstract class MediaStream(
     public open fun play(): Unit = gtk_media_stream_play(gtkMediaStreamPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gtk.MediaStream.stream_prepared] instead.
+     * ---
+     *
      * Same as gtk_media_stream_stream_prepared().
      *
      * @param hasAudio true if the stream should advertise audio support
@@ -469,6 +483,13 @@ public abstract class MediaStream(
     public open fun streamUnprepared(): Unit = gtk_media_stream_stream_unprepared(gtkMediaStreamPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gtk.MediaStream.stream_unprepared] instead.
+     * ---
+     *
      * Same as gtk_media_stream_stream_unprepared().
      */
     public open fun unprepared(): Unit = gtk_media_stream_unprepared(gtkMediaStreamPointer)

@@ -44,29 +44,64 @@ public class LeafletPage(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * The leaflet child to which the page belongs.
      */
     public val child: Widget
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets the leaflet child to which @self belongs.
          *
          * @return the child to which @self belongs
          */
         get() = adw_leaflet_page_get_child(adwLeafletPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * The name of the child page.
      */
     public var name: String?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets the name of @self.
          *
          * @return the name of @self.
          */
         get() = adw_leaflet_page_get_name(adwLeafletPagePointer)?.toKString()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets the name of the @self.
          *
          * @param name the new value to set
@@ -74,6 +109,13 @@ public class LeafletPage(
         set(name) = adw_leaflet_page_set_name(adwLeafletPagePointer, name)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 1.4.
+     *
+     * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+     * ---
+     *
      * Whether the child can be navigated to when folded.
      *
      * If `FALSE`, the child will be ignored by
@@ -84,12 +126,26 @@ public class LeafletPage(
      */
     public var navigatable: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Gets whether the child can be navigated to when folded.
          *
          * @return whether @self can be navigated to when folded
          */
         get() = adw_leaflet_page_get_navigatable(adwLeafletPagePointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 1.4.
+         *
+         * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+         * ---
+         *
          * Sets whether @self can be navigated to when folded.
          *
          * If `FALSE`, the child will be ignored by [method@Leaflet.get_adjacent_child],

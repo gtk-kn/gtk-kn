@@ -189,6 +189,13 @@ public class IoChannel(
     public constructor(scope: AutofreeScope) : this(scope.alloc<GIOChannel>().ptr)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * Use g_io_channel_shutdown() instead.
+     * ---
+     *
      * Close an IO channel. Any pending data to be written will be
      * flushed, ignoring errors. The channel will not be freed until the
      * last reference is dropped using g_io_channel_unref().
@@ -292,6 +299,13 @@ public class IoChannel(
         IoChannel(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.2.
+     *
+     * Use g_io_channel_seek_position() instead.
+     * ---
+     *
      * Sets the current position in the #GIOChannel, similar to the standard
      * library function fseek().
      *

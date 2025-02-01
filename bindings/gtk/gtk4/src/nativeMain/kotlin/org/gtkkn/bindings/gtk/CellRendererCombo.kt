@@ -36,7 +36,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_combo_new
  * This is deprecated since version 4.10.
  *
  * List views use widgets to display their contents. You
-         *   should use [class@Gtk.DropDown] instead
+ *   should use [class@Gtk.DropDown] instead
  * ---
  *
  * Renders a combobox in a cell
@@ -67,6 +67,11 @@ public open class CellRendererCombo(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellRendererCombo`.
      * Adjust how text is drawn using object properties.
      * Object properties can be set globally (with g_object_set()).

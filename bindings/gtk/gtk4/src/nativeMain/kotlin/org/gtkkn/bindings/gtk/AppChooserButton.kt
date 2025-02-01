@@ -55,8 +55,8 @@ import org.gtkkn.native.gtk.gtk_app_chooser_button_set_show_dialog_item
  * This is deprecated since version 4.10.
  *
  * The application selection widgets should be
-         *   implemented according to the design of each platform and/or
-         *   application requiring them.
+ *   implemented according to the design of each platform and/or
+ *   application requiring them.
  * ---
  *
  * The `GtkAppChooserButton` lets the user select an application.
@@ -117,12 +117,26 @@ public open class AppChooserButton(
      */
     public open var modal: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Gets whether the dialog is modal.
          *
          * @return true if the dialog is modal
          */
         get() = gtk_app_chooser_button_get_modal(gtkAppChooserButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
@@ -135,6 +149,13 @@ public open class AppChooserButton(
      */
     public open var showDefaultItem: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Returns whether the dropdown menu should show the default
          * application at the top.
          *
@@ -142,6 +163,13 @@ public open class AppChooserButton(
          */
         get() = gtk_app_chooser_button_get_show_default_item(gtkAppChooserButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the dropdown menu of this button should show the
          * default application for the given content type at top.
          *
@@ -155,6 +183,13 @@ public open class AppChooserButton(
      */
     public open var showDialogItem: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Returns whether the dropdown menu shows an item
          * for a `GtkAppChooserDialog`.
          *
@@ -162,6 +197,13 @@ public open class AppChooserButton(
          */
         get() = gtk_app_chooser_button_get_show_dialog_item(gtkAppChooserButtonPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This widget will be removed in GTK 5
+         * ---
+         *
          * Sets whether the dropdown menu of this button should show an
          * entry to trigger a `GtkAppChooserDialog`.
          *
@@ -170,6 +212,13 @@ public open class AppChooserButton(
         set(setting) = gtk_app_chooser_button_set_show_dialog_item(gtkAppChooserButtonPointer, setting.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Creates a new `GtkAppChooserButton` for applications
      * that can handle content of the given type.
      *
@@ -181,6 +230,13 @@ public open class AppChooserButton(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Appends a custom item to the list of applications that is shown
      * in the popup.
      *
@@ -202,12 +258,26 @@ public open class AppChooserButton(
     ): Unit = gtk_app_chooser_button_append_custom_item(gtkAppChooserButtonPointer, name, label, icon.gioIconPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Appends a separator to the list of applications that is shown
      * in the popup.
      */
     public open fun appendSeparator(): Unit = gtk_app_chooser_button_append_separator(gtkAppChooserButtonPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Returns the text to display at the top of the dialog.
      *
      * @return the text to display at the top of the dialog,
@@ -216,6 +286,13 @@ public open class AppChooserButton(
     public open fun getHeading(): String? = gtk_app_chooser_button_get_heading(gtkAppChooserButtonPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Selects a custom item.
      *
      * See [method@Gtk.AppChooserButton.append_custom_item].
@@ -228,6 +305,13 @@ public open class AppChooserButton(
     public open fun setActiveCustomItem(name: String): Unit = gtk_app_chooser_button_set_active_custom_item(gtkAppChooserButtonPointer, name)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This widget will be removed in GTK 5
+     * ---
+     *
      * Sets the text to display at the top of the dialog.
      *
      * If the heading is not set, the dialog displays a default text.

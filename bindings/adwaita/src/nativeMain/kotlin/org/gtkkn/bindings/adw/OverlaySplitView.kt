@@ -250,7 +250,7 @@ public class OverlaySplitView(
          * @since 1.4
          */
         get() = adw_overlay_split_view_get_content(adwOverlaySplitViewPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the content widget for @self.
@@ -451,7 +451,7 @@ public class OverlaySplitView(
          * @since 1.4
          */
         get() = adw_overlay_split_view_get_sidebar(adwOverlaySplitViewPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
         /**
          * Sets the sidebar widget for @self.

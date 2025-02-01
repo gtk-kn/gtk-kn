@@ -104,10 +104,11 @@ interface FunctionGenerator : MethodGenerator {
      */
     private fun addKDocAndAnnotations(builder: FunSpec.Builder, func: FunctionBlueprint) {
         buildMethodKDoc(
-            func.kdoc,
-            func.parameters,
-            func.optInVersionBlueprint,
-            func.returnTypeKDoc,
+            kdoc = func.kdoc,
+            parameters = func.parameters,
+            optInVersionBlueprint = func.optInVersionBlueprint,
+            deprecatedBlueprint = func.deprecatedBlueprint,
+            returnTypeKDoc = func.returnTypeKDoc,
         )?.let { builder.addKdoc(it) }
 
         func.optInVersionBlueprint?.typeName?.let { annotationClassName ->

@@ -836,16 +836,31 @@ public class Settings(
         set(enabled) = webkit_settings_set_enable_mock_capture_devices(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.44.
+     * ---
+     *
      * Unsupported setting. This property does nothing.
      */
     public var enableOfflineWebApplicationCache: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.44.
+         * ---
+         *
          * Get the #WebKitSettings:enable-offline-web-application-cache property.
          *
          * @return false.
          */
         get() = webkit_settings_get_enable_offline_web_application_cache(webkitSettingsPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.44.
+         * ---
+         *
          * Setting no longer supported. This function does nothing.
          *
          * @param enabled Value to be set
@@ -1158,16 +1173,31 @@ public class Settings(
         set(enabled) = webkit_settings_set_javascript_can_open_windows_automatically(webkitSettingsPointer, enabled.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.42.
+     * ---
+     *
      * Unsupported setting. This property does nothing.
      */
     public var loadIconsIgnoringImageLoadSetting: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.42.
+         * ---
+         *
          * Setting no longer supported. This function returns false.
          *
          * @return false
          */
         get() = webkit_settings_get_load_icons_ignoring_image_load_setting(webkitSettingsPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.42.
+         * ---
+         *
          * Setting no longer supported. This function does nothing.
          *
          * @param enabled Value to be set

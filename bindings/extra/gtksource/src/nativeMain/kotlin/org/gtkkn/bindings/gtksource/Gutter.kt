@@ -75,7 +75,7 @@ public open class Gutter(
          * @return the associated #GtkSourceView.
          */
         get() = gtk_source_gutter_get_view(gtksourceGutterPointer)!!.run {
-            InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { View(reinterpret()) }!!
         }
 
     /**

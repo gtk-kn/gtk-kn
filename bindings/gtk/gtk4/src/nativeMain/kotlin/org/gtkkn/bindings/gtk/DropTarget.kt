@@ -167,14 +167,28 @@ public open class DropTarget(
          * @since 4.4
          */
         get() = gtk_drop_target_get_current_drop(gtkDropTargetPointer)?.run {
-            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [property@Gtk.DropTarget:current-drop] instead
+     * ---
+     *
      * The `GdkDrop` that is currently being performed.
      */
     public open val drop: Drop?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.4.
+         *
+         * Use [method@Gtk.DropTarget.get_current_drop] instead
+         * ---
+         *
          * Gets the currently handled drop operation.
          *
          * If no drop operation is going on, null is returned.
@@ -182,7 +196,7 @@ public open class DropTarget(
          * @return The current drop
          */
         get() = gtk_drop_target_get_drop(gtkDropTargetPointer)?.run {
-            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
         }
 
     /**

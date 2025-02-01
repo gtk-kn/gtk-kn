@@ -86,7 +86,7 @@ public open class DBusObjectManagerServer(
          * @since 2.30
          */
         get() = g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer)?.run {
-            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
         }
         /**
          * Exports all objects managed by @manager on @connection. If

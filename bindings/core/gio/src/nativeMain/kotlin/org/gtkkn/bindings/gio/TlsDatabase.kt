@@ -115,7 +115,7 @@ public abstract class TlsDatabase(
     ): Result<TlsCertificate?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_tls_database_lookup_certificate_for_handle(gioTlsDatabasePointer, handle, interaction?.gioTlsInteractionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -161,7 +161,7 @@ public abstract class TlsDatabase(
     public open fun lookupCertificateForHandleFinish(result: AsyncResult): Result<TlsCertificate> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_tls_database_lookup_certificate_for_handle_finish(gioTlsDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -210,7 +210,7 @@ public abstract class TlsDatabase(
     ): Result<TlsCertificate> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_tls_database_lookup_certificate_issuer(gioTlsDatabasePointer, certificate.gioTlsCertificatePointer, interaction?.gioTlsInteractionPointer, flags.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {
@@ -253,7 +253,7 @@ public abstract class TlsDatabase(
     public open fun lookupCertificateIssuerFinish(result: AsyncResult): Result<TlsCertificate> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_tls_database_lookup_certificate_issuer_finish(gioTlsDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
         }
 
         return if (gError.pointed != null) {

@@ -158,7 +158,7 @@ public class StyleManager(
          * @return the display
          */
         get() = adw_style_manager_get_display(adwStyleManagerPointer)?.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -215,7 +215,7 @@ public class StyleManager(
          * @return the default style manager
          */
         public fun getDefault(): StyleManager = adw_style_manager_get_default()!!.run {
-            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!
         }
 
         /**
@@ -230,7 +230,7 @@ public class StyleManager(
          * @return the style manager for @display
          */
         public fun getForDisplay(display: Display): StyleManager = adw_style_manager_get_for_display(display.gdkDisplayPointer)!!.run {
-            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!
         }
 
         /**

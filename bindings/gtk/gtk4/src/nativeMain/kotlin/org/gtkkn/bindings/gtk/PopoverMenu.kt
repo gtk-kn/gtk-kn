@@ -210,7 +210,7 @@ public open class PopoverMenu(
          * @return the menu model of @popover
          */
         get() = gtk_popover_menu_get_menu_model(gtkPopoverMenuPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
         }
         /**
          * Sets a new menu model on @popover.

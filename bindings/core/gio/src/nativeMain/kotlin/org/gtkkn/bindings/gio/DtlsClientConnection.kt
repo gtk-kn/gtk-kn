@@ -121,6 +121,13 @@ public interface DtlsClientConnection : Proxy, DatagramBased, DtlsConnection, KG
         set(identity) = g_dtls_client_connection_set_server_identity(gioDtlsClientConnectionPointer, identity.gioSocketConnectablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.74.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * What steps to perform when validating a certificate received from
      * a server. Server certificates that fail to validate in any of the
      * ways indicated here will be rejected unless the application
@@ -143,6 +150,13 @@ public interface DtlsClientConnection : Proxy, DatagramBased, DtlsConnection, KG
     @GioVersion2_48
     public var validationFlags: TlsCertificateFlags
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.74.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Gets @conn's validation flags
          *
          * This function does not work as originally designed and is impossible
@@ -155,6 +169,13 @@ public interface DtlsClientConnection : Proxy, DatagramBased, DtlsConnection, KG
         get() = g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer).run {
             TlsCertificateFlags(this)}
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 2.74.
+         *
+         * Do not attempt to ignore validation errors.
+         * ---
+         *
          * Sets @conn's validation flags, to override the default set of
          * checks performed when validating a server certificate. By default,
          * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.
@@ -200,6 +221,13 @@ public interface DtlsClientConnection : Proxy, DatagramBased, DtlsConnection, KG
         SocketConnectable.SocketConnectableImpl(reinterpret())}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.74.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * Gets @conn's validation flags
      *
      * This function does not work as originally designed and is impossible
@@ -226,6 +254,13 @@ public interface DtlsClientConnection : Proxy, DatagramBased, DtlsConnection, KG
     public fun setServerIdentity(identity: SocketConnectable): Unit = g_dtls_client_connection_set_server_identity(gioDtlsClientConnectionPointer, identity.gioSocketConnectablePointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 2.74.
+     *
+     * Do not attempt to ignore validation errors.
+     * ---
+     *
      * Sets @conn's validation flags, to override the default set of
      * checks performed when validating a server certificate. By default,
      * %G_TLS_CERTIFICATE_VALIDATE_ALL is used.

@@ -39,7 +39,7 @@ import org.gtkkn.native.gtk.gtk_tree_sortable_sort_column_changed
  * This is deprecated since version 4.10.
  *
  * There is no replacement for this interface. You should
-         *   use [class@Gtk.SortListModel] to wrap your list model instead
+ *   use [class@Gtk.SortListModel] to wrap your list model instead
  * ---
  *
  * The interface for sortable models used by GtkTreeView
@@ -59,6 +59,11 @@ public interface TreeSortable : Proxy, TreeModel, KGTyped {
         get() = gtkTreeSortablePointer.reinterpret()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if the model has a default sort function. This is used
      * primarily by GtkTreeViewColumns in order to determine if a model can
      * go back to the default state, or not.
@@ -68,6 +73,11 @@ public interface TreeSortable : Proxy, TreeModel, KGTyped {
     public fun hasDefaultSortFunc(): Boolean = gtk_tree_sortable_has_default_sort_func(gtkTreeSortablePointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the default comparison function used when sorting to be @sort_func.
      * If the current sort column id of @sortable is
      * %GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, then the model will sort using
@@ -83,6 +93,11 @@ public interface TreeSortable : Proxy, TreeModel, KGTyped {
     public fun setDefaultSortFunc(sortFunc: TreeIterCompareFunc): Unit = gtk_tree_sortable_set_default_sort_func(gtkTreeSortablePointer, TreeIterCompareFuncFunc.reinterpret(), StableRef.create(sortFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the current sort column to be @sort_column_id. The @sortable will
      * resort itself to reflect this change, after emitting a
      * `GtkTreeSortable::sort-column-changed` signal. @sort_column_id may either be
@@ -99,6 +114,11 @@ public interface TreeSortable : Proxy, TreeModel, KGTyped {
     public fun setSortColumnId(sortColumnId: gint, order: SortType): Unit = gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer, sortColumnId, order.nativeValue)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Sets the comparison function used when sorting to be @sort_func. If the
      * current sort column id of @sortable is the same as @sort_column_id, then
      * the model will sort using this function.
@@ -109,6 +129,11 @@ public interface TreeSortable : Proxy, TreeModel, KGTyped {
     public fun setSortFunc(sortColumnId: gint, sortFunc: TreeIterCompareFunc): Unit = gtk_tree_sortable_set_sort_func(gtkTreeSortablePointer, sortColumnId, TreeIterCompareFuncFunc.reinterpret(), StableRef.create(sortFunc).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Emits a `GtkTreeSortable::sort-column-changed` signal on @sortable.
      */
     public fun sortColumnChanged(): Unit = gtk_tree_sortable_sort_column_changed(gtkTreeSortablePointer)

@@ -16,8 +16,8 @@ import org.gtkkn.native.glib.G_TEST_TRAP_SILENCE_STDOUT
  * This is deprecated since version 2.38.
  *
  * #GTestTrapFlags is used only with g_test_trap_fork(),
-         * which is deprecated. g_test_trap_subprocess() uses
-         * #GTestSubprocessFlags.
+ * which is deprecated. g_test_trap_subprocess() uses
+ * #GTestSubprocessFlags.
  * ---
  *
  * Test traps are guards around forked tests.
@@ -35,8 +35,8 @@ public class TestTrapFlags(
          * This is deprecated since version 2.38.
          *
          * #GTestTrapFlags is used only with g_test_trap_fork(),
-                 * which is deprecated. g_test_trap_subprocess() uses
-                 * #GTestSubprocessFlags.
+         * which is deprecated. g_test_trap_subprocess() uses
+         * #GTestSubprocessFlags.
          * ---
          *
          * Default behaviour. Since: 2.74
@@ -49,8 +49,8 @@ public class TestTrapFlags(
          * This is deprecated since version 2.38.
          *
          * #GTestTrapFlags is used only with g_test_trap_fork(),
-                 * which is deprecated. g_test_trap_subprocess() uses
-                 * #GTestSubprocessFlags.
+         * which is deprecated. g_test_trap_subprocess() uses
+         * #GTestSubprocessFlags.
          * ---
          *
          * Redirect stdout of the test child to
@@ -66,8 +66,8 @@ public class TestTrapFlags(
          * This is deprecated since version 2.38.
          *
          * #GTestTrapFlags is used only with g_test_trap_fork(),
-                 * which is deprecated. g_test_trap_subprocess() uses
-                 * #GTestSubprocessFlags.
+         * which is deprecated. g_test_trap_subprocess() uses
+         * #GTestSubprocessFlags.
          * ---
          *
          * Redirect stderr of the test child to
@@ -83,8 +83,8 @@ public class TestTrapFlags(
          * This is deprecated since version 2.38.
          *
          * #GTestTrapFlags is used only with g_test_trap_fork(),
-                 * which is deprecated. g_test_trap_subprocess() uses
-                 * #GTestSubprocessFlags.
+         * which is deprecated. g_test_trap_subprocess() uses
+         * #GTestSubprocessFlags.
          * ---
          *
          * If this flag is given, stdin of the

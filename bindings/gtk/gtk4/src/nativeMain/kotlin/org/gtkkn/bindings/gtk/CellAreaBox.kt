@@ -31,7 +31,7 @@ import org.gtkkn.native.gtk.gtk_cell_area_box_set_spacing
  * This is deprecated since version 4.10.
  *
  * List views use widgets for displaying their
-         *   contents
+ *   contents
  * ---
  *
  * A cell area that renders GtkCellRenderers into a row or a column
@@ -77,12 +77,22 @@ public open class CellAreaBox(
      */
     public open var spacing: gint
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Gets the spacing added between cell renderers.
          *
          * @return the space added between cell renderers in @box.
          */
         get() = gtk_cell_area_box_get_spacing(gtkCellAreaBoxPointer)
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Sets the spacing to add between cell renderers in @box.
          *
          * @param spacing the space to add between `GtkCellRenderer`s
@@ -90,6 +100,11 @@ public open class CellAreaBox(
         set(spacing) = gtk_cell_area_box_set_spacing(gtkCellAreaBoxPointer, spacing)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkCellAreaBox`.
      *
      * @return a newly created `GtkCellAreaBox`
@@ -99,6 +114,11 @@ public open class CellAreaBox(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds @renderer to @box, packed with reference to the end of @box.
      *
      * The @renderer is packed after (away from end of) any other
@@ -118,6 +138,11 @@ public open class CellAreaBox(
     ): Unit = gtk_cell_area_box_pack_end(gtkCellAreaBoxPointer, renderer.gtkCellRendererPointer, expand.asGBoolean(), align.asGBoolean(), fixed.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Adds @renderer to @box, packed with reference to the start of @box.
      *
      * The @renderer is packed after any other `GtkCellRenderer` packed

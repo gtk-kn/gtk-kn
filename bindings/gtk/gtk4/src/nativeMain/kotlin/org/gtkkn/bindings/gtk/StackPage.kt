@@ -65,7 +65,7 @@ public open class StackPage(
          * @return the child to which @self belongs
          */
         get() = gtk_stack_page_get_child(gtkStackPagePointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
         }
 
     /**

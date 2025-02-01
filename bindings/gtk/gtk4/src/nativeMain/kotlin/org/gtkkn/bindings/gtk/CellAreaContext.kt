@@ -63,10 +63,24 @@ public open class CellAreaContext(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * The `GtkCellArea` this context was created by
      */
     public open val area: CellArea
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         *
+         * This object will be removed in GTK 5
+         * ---
+         *
          * Fetches the `GtkCellArea` this @context was created by.
          *
          * This is generally unneeded by layouting widgets; however,
@@ -81,10 +95,17 @@ public open class CellAreaContext(
          * @return the `GtkCellArea` this context was created by.
          */
         get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer)!!.run {
-            InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!
         }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Allocates a width and/or a height for all rows which are to be
      * rendered with @context.
      *
@@ -104,6 +125,13 @@ public open class CellAreaContext(
     public open fun allocate(width: gint, height: gint): Unit = gtk_cell_area_context_allocate(gtkCellAreaContextPointer, width, height)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Causes the minimum and/or natural height to grow if the new
      * proposed sizes exceed the current minimum and natural height.
      *
@@ -118,6 +146,13 @@ public open class CellAreaContext(
     public open fun pushPreferredHeight(minimumHeight: gint, naturalHeight: gint): Unit = gtk_cell_area_context_push_preferred_height(gtkCellAreaContextPointer, minimumHeight, naturalHeight)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Causes the minimum and/or natural width to grow if the new
      * proposed sizes exceed the current minimum and natural width.
      *
@@ -132,6 +167,13 @@ public open class CellAreaContext(
     public open fun pushPreferredWidth(minimumWidth: gint, naturalWidth: gint): Unit = gtk_cell_area_context_push_preferred_width(gtkCellAreaContextPointer, minimumWidth, naturalWidth)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     *
+     * This object will be removed in GTK 5
+     * ---
+     *
      * Resets any previously cached request and allocation
      * data.
      *

@@ -220,7 +220,7 @@ public open class Object(
         targetProperty: String,
         flags: BindingFlags,
     ): Binding = g_object_bind_property(gobjectObjectPointer, sourceProperty, target.gobjectObjectPointer.reinterpret(), targetProperty, flags.mask)!!.run {
-        InstanceCache.get(this, true) { Binding(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Binding(reinterpret()) }!!
     }
 
     /**
@@ -254,7 +254,7 @@ public open class Object(
         transformTo: Closure,
         transformFrom: Closure,
     ): Binding = g_object_bind_property_with_closures(gobjectObjectPointer, sourceProperty, target.gobjectObjectPointer.reinterpret(), targetProperty, flags.mask, transformTo.gobjectClosurePointer, transformFrom.gobjectClosurePointer)!!.run {
-        InstanceCache.get(this, true) { Binding(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Binding(reinterpret()) }!!
     }
 
     /**
@@ -457,7 +457,7 @@ public open class Object(
      * @return the same @object
      */
     public open fun ref(): Object = g_object_ref(gobjectObjectPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -478,7 +478,7 @@ public open class Object(
      */
     @GObjectVersion2_10
     public open fun refSink(): Object = g_object_ref_sink(gobjectObjectPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**
@@ -640,7 +640,7 @@ public open class Object(
      */
     @GObjectVersion2_70
     public open fun takeRef(): Object = g_object_take_ref(gobjectObjectPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
     }
 
     /**

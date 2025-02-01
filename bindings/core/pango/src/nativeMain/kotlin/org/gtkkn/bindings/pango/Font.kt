@@ -93,7 +93,7 @@ public abstract class Font(
      *   object.
      */
     public open fun getCoverage(language: Language): Coverage = pango_font_get_coverage(pangoFontPointer, language.pangoLanguagePointer)!!.run {
-        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class Font(
      */
     @PangoVersion1_46
     public open fun getFace(): FontFace = pango_font_get_face(pangoFontPointer)!!.run {
-        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!
     }
 
     /**
@@ -126,7 +126,7 @@ public abstract class Font(
      */
     @PangoVersion1_10
     public open fun getFontMap(): FontMap? = pango_font_get_font_map(pangoFontPointer)?.run {
-        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
     }
 
     /**
@@ -233,7 +233,7 @@ public abstract class Font(
         public fun deserialize(context: Context, bytes: Bytes): Result<Font?> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = pango_font_deserialize(context.pangoContextPointer, bytes.glibBytesPointer, gError.ptr)?.run {
-                InstanceCache.get(this, true) { FontImpl(reinterpret()) }!!.also { ref() }
+                InstanceCache.get(this, true) { FontImpl(reinterpret()) }!!
             }
 
             return if (gError.pointed != null) {

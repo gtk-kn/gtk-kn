@@ -284,7 +284,7 @@ public open class GlArea(
          * @return the `GdkGLContext`
          */
         get() = gtk_gl_area_get_context(gtkGlAreaPointer)?.run {
-            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
         }
 
     /**
@@ -336,11 +336,25 @@ public open class GlArea(
         set(hasStencilBuffer) = gtk_gl_area_set_has_stencil_buffer(gtkGlAreaPointer, hasStencilBuffer.asGBoolean())
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.12.
+     *
+     * Use [property@Gtk.GLArea:allowed-apis]
+     * ---
+     *
      * If set to true the widget will try to create a `GdkGLContext` using
      * OpenGL ES instead of OpenGL.
      */
     public open var useEs: Boolean
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.12.
+         *
+         * Use [method@Gtk.GLArea.get_api]
+         * ---
+         *
          * Returns whether the `GtkGLArea` should use OpenGL ES.
          *
          * See [method@Gtk.GLArea.set_use_es].
@@ -350,6 +364,13 @@ public open class GlArea(
          */
         get() = gtk_gl_area_get_use_es(gtkGlAreaPointer).asBoolean()
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.12.
+         *
+         * Use [method@Gtk.GLArea.set_allowed_apis]
+         * ---
+         *
          * Sets whether the @area should create an OpenGL or an OpenGL ES context.
          *
          * You should check the capabilities of the `GdkGLContext` before drawing

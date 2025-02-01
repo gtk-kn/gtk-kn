@@ -160,6 +160,14 @@ public abstract class GlContext(
             Glapi(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.4.
+     *
+     * Use [method@Gdk.GLContext.is_shared] to check if contexts
+     *   can be shared.
+     * ---
+     *
      * Always null
      *
      * As many contexts can share data now and no single shared context exists
@@ -167,6 +175,14 @@ public abstract class GlContext(
      */
     public open val sharedContext: GlContext?
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.4.
+         *
+         * Use [method@Gdk.GLContext.is_shared] to check if contexts
+         *   can be shared.
+         * ---
+         *
          * Used to retrieves the `GdkGLContext` that this @context share data with.
          *
          * As many contexts can share data now and no single shared context exists
@@ -175,7 +191,7 @@ public abstract class GlContext(
          * @return null
          */
         get() = gdk_gl_context_get_shared_context(gdkGlContextPointer)?.run {
-            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!
         }
 
     /**
@@ -188,7 +204,7 @@ public abstract class GlContext(
          * @return a `GdkDisplay`
          */
         get() = gdk_gl_context_get_display(gdkGlContextPointer)?.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!
         }
 
     /**
@@ -201,7 +217,7 @@ public abstract class GlContext(
          * @return a `GdkSurface`
          */
         get() = gdk_gl_context_get_surface(gdkGlContextPointer)?.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
         }
 
     /**
@@ -390,7 +406,7 @@ public abstract class GlContext(
          * @return the current `GdkGLContext`
          */
         public fun getCurrent(): GlContext? = gdk_gl_context_get_current()?.run {
-            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!.also { ref() }
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!
         }
 
         /**

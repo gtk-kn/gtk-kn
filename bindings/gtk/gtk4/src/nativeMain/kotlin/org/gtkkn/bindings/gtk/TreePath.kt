@@ -50,6 +50,11 @@ public class TreePath(
     public val gtkTreePathPointer: CPointer<GtkTreePath>,
 ) : ProxyInstance(gtkTreePathPointer) {
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkTreePath`
      * This refers to a row.
      *
@@ -60,6 +65,11 @@ public class TreePath(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkTreePath` initialized to @path.
      *
      * @path is expected to be a colon separated list of numbers.
@@ -76,6 +86,11 @@ public class TreePath(
     }
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Appends a new index to a path.
      *
      * As a result, the depth of the path is increased.
@@ -85,6 +100,11 @@ public class TreePath(
     public fun appendIndex(index: gint): Unit = gtk_tree_path_append_index(gtkTreePathPointer, index)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Compares two paths.
      *
      * If @a appears before @b in a tree, then -1 is returned.
@@ -97,6 +117,11 @@ public class TreePath(
     public fun compare(b: TreePath): gint = gtk_tree_path_compare(gtkTreePathPointer, b.gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Creates a new `GtkTreePath` as a copy of @path.
      *
      * @return a new `GtkTreePath`
@@ -105,16 +130,31 @@ public class TreePath(
         TreePath(this)}
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves @path to point to the first child of the current path.
      */
     public fun down(): Unit = gtk_tree_path_down(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Frees @path. If @path is null, it simply returns.
      */
     public fun free(): Unit = gtk_tree_path_free(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns the current depth of @path.
      *
      * @return The depth of @path
@@ -122,6 +162,11 @@ public class TreePath(
     public fun getDepth(): gint = gtk_tree_path_get_depth(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if @descendant is a descendant of @path.
      *
      * @param descendant another `GtkTreePath`
@@ -130,6 +175,11 @@ public class TreePath(
     public fun isAncestor(descendant: TreePath): Boolean = gtk_tree_path_is_ancestor(gtkTreePathPointer, descendant.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Returns true if @path is a descendant of @ancestor.
      *
      * @param ancestor another `GtkTreePath`
@@ -138,11 +188,21 @@ public class TreePath(
     public fun isDescendant(ancestor: TreePath): Boolean = gtk_tree_path_is_descendant(gtkTreePathPointer, ancestor.gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves the @path to point to the next node at the current depth.
      */
     public fun next(): Unit = gtk_tree_path_next(gtkTreePathPointer)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Prepends a new index to a path.
      *
      * As a result, the depth of the path is increased.
@@ -152,6 +212,11 @@ public class TreePath(
     public fun prependIndex(index: gint): Unit = gtk_tree_path_prepend_index(gtkTreePathPointer, index)
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves the @path to point to the previous node at the
      * current depth, if it exists.
      *
@@ -161,6 +226,11 @@ public class TreePath(
     public fun prev(): Boolean = gtk_tree_path_prev(gtkTreePathPointer).asBoolean()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Generates a string representation of the path.
      *
      * This string is a “:” separated list of numbers.
@@ -173,6 +243,11 @@ public class TreePath(
     public fun toStringTreePath(): String? = gtk_tree_path_to_string(gtkTreePathPointer)?.toKString()
 
     /**
+     * # ⚠️ Deprecated ⚠️
+     *
+     * This is deprecated since version 4.10.
+     * ---
+     *
      * Moves the @path to point to its parent node, if it has a parent.
      *
      * @return true if @path has a parent, and the move was made
@@ -181,6 +256,11 @@ public class TreePath(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * Creates a new `GtkTreePath`.
          *
          * The string representation of this path is “0”.
