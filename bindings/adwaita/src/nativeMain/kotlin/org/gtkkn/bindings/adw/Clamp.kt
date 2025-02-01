@@ -88,7 +88,8 @@ public class Clamp(
          * @return the child widget of @self
          */
         get() = adw_clamp_get_child(adwClampPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

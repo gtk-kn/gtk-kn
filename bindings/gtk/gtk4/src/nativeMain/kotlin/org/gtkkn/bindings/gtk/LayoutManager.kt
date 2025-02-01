@@ -7,6 +7,7 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -113,7 +114,8 @@ public abstract class LayoutManager(
      * @return a `GtkLayoutChild`
      */
     public open fun getLayoutChild(child: Widget): LayoutChild = gtk_layout_manager_get_layout_child(gtkLayoutManagerPointer, child.gtkWidgetPointer)!!.run {
-        LayoutChild.LayoutChildImpl(this)}
+        InstanceCache.get(this, true) { LayoutChild.LayoutChildImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the request mode of @manager.
@@ -129,7 +131,8 @@ public abstract class LayoutManager(
      * @return a `GtkWidget`
      */
     public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Queues a resize on the `GtkWidget` using @manager, if any.

@@ -194,8 +194,10 @@ private val onIncomingFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(connection: SocketConnection, sourceObject: Object?) -> Boolean>().get().invoke(connection!!.run {
-        SocketConnection(this)}
+        InstanceCache.get(this, false) { SocketConnection(reinterpret()) }!!
+    }
     , sourceObject?.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()

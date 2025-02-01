@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -44,7 +45,8 @@ public abstract class LayoutChild(
          * @return a `GtkWidget`
          */
         get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The layout manager that created the `GtkLayoutChild` instance.
@@ -57,7 +59,8 @@ public abstract class LayoutChild(
          * @return a `GtkLayoutManager`
          */
         get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer)!!.run {
-            LayoutManager.LayoutManagerImpl(this)}
+            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The LayoutChildImpl type represents a native instance of the abstract LayoutChild class.

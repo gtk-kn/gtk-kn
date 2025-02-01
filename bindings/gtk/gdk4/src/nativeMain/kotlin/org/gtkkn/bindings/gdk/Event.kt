@@ -9,6 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -62,7 +63,8 @@ public abstract class Event(
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gdk_event_get_device(gdkEventPointer)?.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns a `GdkDeviceTool` representing the tool that
@@ -79,7 +81,8 @@ public abstract class Event(
      * @return The current device tool
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_event_get_device_tool(gdkEventPointer)?.run {
-        DeviceTool(this)}
+        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the display associated to the @event.
@@ -87,7 +90,8 @@ public abstract class Event(
      * @return a `GdkDisplay`
      */
     public open fun getDisplay(): Display? = gdk_event_get_display(gdkEventPointer)?.run {
-        Display(this)}
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the event sequence to which the event belongs.
@@ -131,7 +135,8 @@ public abstract class Event(
      * @return a `GdkSeat`.
      */
     public open fun getSeat(): Seat? = gdk_event_get_seat(gdkEventPointer)?.run {
-        Seat.SeatImpl(this)}
+        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Extracts the surface associated with an event.
@@ -139,7 +144,8 @@ public abstract class Event(
      * @return The `GdkSurface` associated with the event
      */
     public open fun getSurface(): Surface? = gdk_event_get_surface(gdkEventPointer)?.run {
-        Surface.SurfaceImpl(this)}
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the timestamp of @event.
@@ -157,7 +163,8 @@ public abstract class Event(
      * @return @event
      */
     public open fun ref(): Event = gdk_event_ref(gdkEventPointer)!!.run {
-        EventImpl(this)}
+        EventImpl(this)
+    }
 
     /**
      * Returns whether a `GdkEvent` should trigger a context menu,

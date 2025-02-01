@@ -58,6 +58,13 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwflap)
+ * ---
+ *
  * An adaptive container acting like a box or an overlay.
  *
  * <picture>
@@ -153,7 +160,8 @@ public class Flap(
          * @return the content widget for @self
          */
         get() = adw_flap_get_content(adwFlapPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the content widget for @self.
          *
@@ -175,7 +183,8 @@ public class Flap(
          * @return the flap widget for @self
          */
         get() = adw_flap_get_flap(adwFlapPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the flap widget for @self.
          *
@@ -419,7 +428,8 @@ public class Flap(
          * @return the separator widget for @self
          */
         get() = adw_flap_get_separator(adwFlapPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the separator widget for @self.
          *

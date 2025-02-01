@@ -323,7 +323,8 @@ public class Message(
          *     hasn't been established
          */
         get() = soup_message_get_remote_address(soupMessagePointer)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The HTTP request headers.
@@ -375,7 +376,8 @@ public class Message(
          *   or null if @msg's connection is not SSL.
          */
         get() = soup_message_get_tls_peer_certificate(soupMessagePointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)}
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The verification errors on [property@Message:tls-peer-certificate].
@@ -1092,7 +1094,8 @@ private val onAcceptCertificateFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(tlsPeerCertificate: TlsCertificate, tlsPeerErrors: TlsCertificateFlags) -> Boolean>().get().invoke(tlsPeerCertificate!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+    }
     , tlsPeerErrors.run {
         TlsCertificateFlags(this)}
     ).asGBoolean()}
@@ -1106,7 +1109,8 @@ private val onAuthenticateFunc: CPointer<CFunction<(CPointer<SoupAuth>, gboolean
     userData: COpaquePointer
     ->
     userData.asStableRef<(auth: Auth, retrying: Boolean) -> Boolean>().get().invoke(auth!!.run {
-        Auth.AuthImpl(this)}
+        InstanceCache.get(this, false) { Auth.AuthImpl(reinterpret()) }!!
+    }
     , retrying.asBoolean()).asGBoolean()}
 .reinterpret()
 
@@ -1175,7 +1179,8 @@ private val onNetworkEventFunc:
     userData.asStableRef<(event: SocketClientEvent, connection: IoStream) -> Unit>().get().invoke(event.run {
         SocketClientEvent.fromNativeValue(this)}
     , connection!!.run {
-        IoStream.IoStreamImpl(this)}
+        InstanceCache.get(this, false) { IoStream.IoStreamImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1197,7 +1202,8 @@ private val onRequestCertificatePasswordFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(tlsPassword: TlsPassword) -> Boolean>().get().invoke(tlsPassword!!.run {
-        TlsPassword(this)}
+        InstanceCache.get(this, false) { TlsPassword(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 

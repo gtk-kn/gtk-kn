@@ -21,6 +21,7 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.CodeBlock
+import org.gtkkn.gir.blueprints.DeprecatedBlueprint
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.SkippedObject
@@ -30,10 +31,12 @@ interface KDocGenerator {
     fun buildTypeKDoc(
         kdoc: String?,
         optInVersionBlueprint: OptInVersionBlueprint?,
+        deprecatedBlueprint: DeprecatedBlueprint?,
         skippedObjects: List<SkippedObject> = emptyList()
     ): CodeBlock =
         CodeBlock.builder().apply {
             val documentedSkippedObjects = skippedObjects.filter { it.documented }
+            addDeprecation(deprecatedBlueprint)
             kdoc?.let { add("%L", it) }
             if (documentedSkippedObjects.isNotEmpty()) {
                 if (kdoc != null) {
@@ -46,6 +49,20 @@ interface KDocGenerator {
             }
             optInVersionBlueprint?.version?.let { add("\n@since %L", it) }
         }.build()
+
+    fun CodeBlock.Builder.addDeprecation(deprecatedBlueprint: DeprecatedBlueprint?) {
+        deprecatedBlueprint?.let { deprecated ->
+            addStatement("# ⚠\uFE0F Deprecated ⚠\uFE0F")
+            addStatement("")
+            addStatement("This is deprecated${deprecated.version?.let { " since version $it" } ?: ""}.")
+            deprecated.message?.let { message ->
+                addStatement("")
+                addStatement(message)
+            }
+            addStatement("---")
+            addStatement("")
+        }
+    }
 
     fun buildMethodKDoc(
         kdoc: String?,

@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -21,6 +22,13 @@ import org.gtkkn.native.adw.adw_squeezer_page_set_enabled
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+ * ---
+ *
  * An auxiliary class used by [class@Squeezer].
  */
 public class SqueezerPage(
@@ -41,7 +49,8 @@ public class SqueezerPage(
          * @return the child to which @self belongs
          */
         get() = adw_squeezer_page_get_child(adwSqueezerPagePointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the child is enabled.

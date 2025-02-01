@@ -12,6 +12,7 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
@@ -19,6 +20,7 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
@@ -56,7 +58,8 @@ public class LayoutLine(
      */
     public var layout: Layout?
         get() = pangoLayoutLinePointer.pointed.layout?.run {
-            Layout(this)}
+            InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+        }
         @UnsafeFieldSetter
         set(`value`) {
             pangoLayoutLinePointer.pointed.layout = value?.pangoLayoutPointer

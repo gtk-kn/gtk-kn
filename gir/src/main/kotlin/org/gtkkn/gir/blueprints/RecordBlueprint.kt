@@ -38,6 +38,7 @@ data class RecordBlueprint(
     val isOpaque: Boolean,
     val isDisguised: Boolean,
     override val optInVersionBlueprint: OptInVersionBlueprint?,
+    override val deprecatedBlueprint: DeprecatedBlueprint?,
     override val kdoc: String?,
 ) : RecordUnionCommonBlueprint {
     override val hasParent: Boolean = false

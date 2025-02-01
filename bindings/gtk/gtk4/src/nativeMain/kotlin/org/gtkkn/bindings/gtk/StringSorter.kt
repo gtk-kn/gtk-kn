@@ -82,7 +82,8 @@ public open class StringSorter(
          * @return a `GtkExpression`
          */
         get() = gtk_string_sorter_get_expression(gtkStringSorterPointer)?.run {
-            Expression.ExpressionImpl(this)}
+            Expression.ExpressionImpl(this)
+        }
         /**
          * Sets the expression that is evaluated to obtain strings from items.
          *

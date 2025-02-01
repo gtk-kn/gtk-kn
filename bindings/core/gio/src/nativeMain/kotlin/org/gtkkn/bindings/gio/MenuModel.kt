@@ -21,6 +21,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -211,7 +212,8 @@ public abstract class MenuModel(
      */
     @GioVersion2_32
     public open fun getItemLink(itemIndex: gint, link: String): MenuModel? = g_menu_model_get_item_link(gioMenuModelPointer, itemIndex, link)?.run {
-        MenuModelImpl(this)}
+        InstanceCache.get(this, true) { MenuModelImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Query the number of items in @model.
@@ -276,7 +278,8 @@ public abstract class MenuModel(
      */
     @GioVersion2_32
     public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter = g_menu_model_iterate_item_attributes(gioMenuModelPointer, itemIndex)!!.run {
-        MenuAttributeIter.MenuAttributeIterImpl(this)}
+        InstanceCache.get(this, true) { MenuAttributeIter.MenuAttributeIterImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a #GMenuLinkIter to iterate over the links of the item at
@@ -290,7 +293,8 @@ public abstract class MenuModel(
      */
     @GioVersion2_32
     public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter = g_menu_model_iterate_item_links(gioMenuModelPointer, itemIndex)!!.run {
-        MenuLinkIter.MenuLinkIterImpl(this)}
+        InstanceCache.get(this, true) { MenuLinkIter.MenuLinkIterImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Emitted when a change has occurred to the menu.

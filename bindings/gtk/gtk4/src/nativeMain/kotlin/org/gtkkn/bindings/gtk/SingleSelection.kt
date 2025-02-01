@@ -169,7 +169,8 @@ public open class SingleSelection(
          * @return The selected item
          */
         get() = gtk_single_selection_get_selected_item(gtkSingleSelectionPointer)?.run {
-            Object(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new selection to handle @model.

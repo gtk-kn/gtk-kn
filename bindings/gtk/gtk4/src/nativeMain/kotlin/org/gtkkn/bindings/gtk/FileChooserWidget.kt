@@ -35,6 +35,13 @@ import org.gtkkn.native.gtk.gtk_file_chooser_widget_get_type
 import org.gtkkn.native.gtk.gtk_file_chooser_widget_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Direct use of `GtkFileChooserWidget` is deprecated
+ * ---
+ *
  * `GtkFileChooserWidget` is a widget for choosing files.
  *
  * It exposes the [iface@Gtk.FileChooser] interface, and you should

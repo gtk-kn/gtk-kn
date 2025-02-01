@@ -17,6 +17,14 @@ import org.gtkkn.native.gio.g_desktop_app_info_lookup_get_type
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.28.
+ *
+ * The #GDesktopAppInfoLookup interface is deprecated and
+         *    unused by GIO.
+ * ---
+ *
  * #GDesktopAppInfoLookup is an opaque data structure and can only be accessed
  * using the following functions.
  */

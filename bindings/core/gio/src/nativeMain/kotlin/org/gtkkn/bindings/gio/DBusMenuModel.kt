@@ -7,6 +7,7 @@ import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -59,7 +60,8 @@ public open class DBusMenuModel(
             busName: String? = null,
             objectPath: String,
         ): DBusMenuModel = g_dbus_menu_model_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
-            DBusMenuModel(this)}
+            InstanceCache.get(this, true) { DBusMenuModel(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of DBusMenuModel

@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -149,7 +150,8 @@ public abstract class GutterRenderer(
          * @return a #GtkSourceView
          */
         get() = gtk_source_gutter_renderer_get_view(gtksourceGutterRendererPointer)!!.run {
-            View(this)}
+            InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The horizontal alignment of the renderer.
@@ -257,7 +259,8 @@ public abstract class GutterRenderer(
      * @return a #GtkTextBuffer or null
      */
     public open fun getBuffer(): Buffer? = gtk_source_gutter_renderer_get_buffer(gtksourceGutterRendererPointer)?.run {
-        Buffer(this)}
+        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get whether the renderer is activatable at the location provided. This is
@@ -417,6 +420,7 @@ private val onQueryDataFunc: CPointer<CFunction<(CPointer<GObject>, guint) -> Un
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object, p0: guint) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , p0)}
 .reinterpret()

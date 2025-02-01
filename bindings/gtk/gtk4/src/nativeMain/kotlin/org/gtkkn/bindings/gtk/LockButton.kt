@@ -22,6 +22,13 @@ import org.gtkkn.native.gtk.gtk_lock_button_new
 import org.gtkkn.native.gtk.gtk_lock_button_set_permission
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * `GtkLockButton` is a widget to obtain and revoke authorizations
  * needed to operate the controls.
  *
@@ -98,7 +105,8 @@ public open class LockButton(
          * @return the `GPermission` of @button
          */
         get() = gtk_lock_button_get_permission(gtkLockButtonPointer)?.run {
-            Permission.PermissionImpl(this)}
+            InstanceCache.get(this, true) { Permission.PermissionImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GPermission` object that controls @button.
          *

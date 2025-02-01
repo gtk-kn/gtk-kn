@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -47,7 +48,8 @@ public open class NotebookPage(
          * @return the child to which @page belongs
          */
         get() = gtk_notebook_page_get_child(gtkNotebookPagePointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     public companion object : TypeCompanion<NotebookPage> {
         override val type: GeneratedClassKGType<NotebookPage> =

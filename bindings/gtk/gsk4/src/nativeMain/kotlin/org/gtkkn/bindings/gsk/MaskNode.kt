@@ -61,7 +61,8 @@ public open class MaskNode(
      */
     @GskVersion4_10
     public open fun getMask(): RenderNode = gsk_mask_node_get_mask(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the mask mode used by @node.
@@ -81,7 +82,8 @@ public open class MaskNode(
      */
     @GskVersion4_10
     public open fun getSource(): RenderNode = gsk_mask_node_get_source(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     public companion object : TypeCompanion<MaskNode> {
         override val type: GeneratedClassKGType<MaskNode> =

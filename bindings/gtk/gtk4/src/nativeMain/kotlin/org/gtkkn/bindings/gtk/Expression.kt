@@ -261,7 +261,8 @@ public abstract class Expression(
      * @return the `GtkExpression` with an additional reference
      */
     public open fun ref(): Expression = gtk_expression_ref(gtkExpressionPointer)!!.run {
-        ExpressionImpl(this)}
+        ExpressionImpl(this)
+    }
 
     /**
      * Releases a reference on the given `GtkExpression`.

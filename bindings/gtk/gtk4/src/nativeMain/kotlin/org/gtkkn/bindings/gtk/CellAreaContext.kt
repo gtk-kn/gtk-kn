@@ -7,6 +7,7 @@ import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -21,6 +22,13 @@ import org.gtkkn.native.gtk.gtk_cell_area_context_push_preferred_width
 import org.gtkkn.native.gtk.gtk_cell_area_context_reset
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This object will be removed in GTK 5
+ * ---
+ *
  * Stores geometrical information for a series of rows in a GtkCellArea
  *
  * The `GtkCellAreaContext` object is created by a given `GtkCellArea`
@@ -73,7 +81,8 @@ public open class CellAreaContext(
          * @return the `GtkCellArea` this context was created by.
          */
         get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer)!!.run {
-            CellArea.CellAreaImpl(this)}
+            InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Allocates a width and/or a height for all rows which are to be

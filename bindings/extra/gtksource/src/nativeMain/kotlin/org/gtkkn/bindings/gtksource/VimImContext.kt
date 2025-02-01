@@ -254,7 +254,8 @@ private val onEditFunc: CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<By
     userData: COpaquePointer
     ->
     userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(view!!.run {
-        View(this)}
+        InstanceCache.get(this, false) { View(reinterpret()) }!!
+    }
     , path?.toKString())}
 .reinterpret()
 
@@ -290,6 +291,7 @@ private val onWriteFunc: CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<B
     userData: COpaquePointer
     ->
     userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(view!!.run {
-        View(this)}
+        InstanceCache.get(this, false) { View(reinterpret()) }!!
+    }
     , path?.toKString())}
 .reinterpret()

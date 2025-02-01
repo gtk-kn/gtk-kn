@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -89,7 +90,8 @@ public open class UnixConnection(
     public open fun receiveCredentials(cancellable: Cancellable? = null): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_connection_receive_credentials(gioUnixConnectionPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            Credentials(this)}
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -128,7 +130,8 @@ public open class UnixConnection(
     public open fun receiveCredentialsFinish(result: AsyncResult): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_unix_connection_receive_credentials_finish(gioUnixConnectionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            Credentials(this)}
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

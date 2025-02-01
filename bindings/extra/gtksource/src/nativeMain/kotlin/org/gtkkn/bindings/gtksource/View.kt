@@ -219,7 +219,8 @@ public open class View(
          * @return the #GtkSourceCompletion associated with @view.
          */
         get() = gtk_source_view_get_completion(gtksourceViewPointer)!!.run {
-            Completion(this)}
+            InstanceCache.get(this, true) { Completion(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The property denotes if snippets should be
@@ -488,7 +489,8 @@ public open class View(
          * @return the #GtkSourceSpaceDrawer associated with @view.
          */
         get() = gtk_source_view_get_space_drawer(gtksourceViewPointer)!!.run {
-            SpaceDrawer(this)}
+            InstanceCache.get(this, true) { SpaceDrawer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Width of a tab character expressed in number of spaces.
@@ -549,7 +551,8 @@ public open class View(
      * @return the #GtkSourceGutter.
      */
     public open fun getGutterView(windowType: TextWindowType): Gutter = gtk_source_view_get_gutter(gtksourceViewPointer, windowType.nativeValue.value)!!.run {
-        Gutter(this)}
+        InstanceCache.get(this, true) { Gutter(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the [class@Hover] associated with @view.
@@ -560,7 +563,8 @@ public open class View(
      * @return a #GtkSourceHover associated with @view.
      */
     public open fun getHover(): Hover = gtk_source_view_get_hover(gtksourceViewPointer)!!.run {
-        Hover(this)}
+        InstanceCache.get(this, true) { Hover(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Determines the visual column at @iter taking into consideration the

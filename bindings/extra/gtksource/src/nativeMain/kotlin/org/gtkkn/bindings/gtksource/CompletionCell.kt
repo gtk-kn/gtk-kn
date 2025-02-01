@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.bindings.pango.AttrList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -81,7 +82,8 @@ public open class CompletionCell(
      * @return a #GtkWidget or null
      */
     public open fun getWidget(): Widget? = gtk_source_completion_cell_get_widget(gtksourceCompletionCellPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     public open fun setGicon(gicon: Icon): Unit = gtk_source_completion_cell_set_gicon(gtksourceCompletionCellPointer, gicon.gioIconPointer)
 

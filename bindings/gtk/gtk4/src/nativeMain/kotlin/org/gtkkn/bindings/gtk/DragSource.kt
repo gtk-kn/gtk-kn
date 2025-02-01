@@ -171,7 +171,8 @@ public open class DragSource(
          * @return the `GdkContentProvider` of @source
          */
         get() = gtk_drag_source_get_content(gtkDragSourcePointer)?.run {
-            ContentProvider(this)}
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a content provider on a `GtkDragSource`.
          *
@@ -209,7 +210,8 @@ public open class DragSource(
      *   drag operation
      */
     public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer)?.run {
-        Drag.DragImpl(this)}
+        InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets a paintable to use as icon during DND operations.
@@ -334,7 +336,8 @@ private val onDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit>> = 
     userData: COpaquePointer
     ->
     userData.asStableRef<(drag: Drag) -> Unit>().get().invoke(drag!!.run {
-        Drag.DragImpl(this)}
+        InstanceCache.get(this, false) { Drag.DragImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -347,7 +350,8 @@ private val onDragCancelFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(drag: Drag, reason: DragCancelReason) -> Boolean>().get().invoke(drag!!.run {
-        Drag.DragImpl(this)}
+        InstanceCache.get(this, false) { Drag.DragImpl(reinterpret()) }!!
+    }
     , reason.run {
         DragCancelReason.fromNativeValue(this)}
     ).asGBoolean()}
@@ -361,7 +365,8 @@ private val onDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean) -> U
     userData: COpaquePointer
     ->
     userData.asStableRef<(drag: Drag, deleteData: Boolean) -> Unit>().get().invoke(drag!!.run {
-        Drag.DragImpl(this)}
+        InstanceCache.get(this, false) { Drag.DragImpl(reinterpret()) }!!
+    }
     , deleteData.asBoolean())}
 .reinterpret()
 

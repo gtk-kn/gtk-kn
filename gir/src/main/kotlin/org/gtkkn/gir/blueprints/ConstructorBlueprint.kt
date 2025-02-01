@@ -50,6 +50,7 @@ data class ConstructorBlueprint(
     override val exceptionResolvingFunctionMember: MemberName,
     val kdoc: String?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val returnTypeKDoc: String?,
     val memoryManagement: MemoryManagement,
 ) : CallableBlueprint {

@@ -18,6 +18,14 @@ import org.gtkkn.native.gio.g_io_scheduler_job_send_to_mainloop
 import org.gtkkn.native.gio.g_io_scheduler_job_send_to_mainloop_async
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.36.
+ *
+ * Use [struct@GLib.ThreadPool] or
+         *   [method@Gio.Task.run_in_thread]
+ * ---
+ *
  * Opaque class for defining and scheduling IO jobs.
  */
 public class IoSchedulerJob(

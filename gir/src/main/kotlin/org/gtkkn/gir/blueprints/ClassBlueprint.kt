@@ -44,6 +44,7 @@ data class ClassBlueprint(
     val isFinal: Boolean,
     override val glibGetTypeFunc: MemberName?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 ) : HasConstructorsBlueprint, TypeToRegister {
     override val hasParent: Boolean get() = parentClassName != null

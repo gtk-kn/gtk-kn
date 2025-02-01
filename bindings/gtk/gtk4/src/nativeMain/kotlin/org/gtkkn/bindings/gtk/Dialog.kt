@@ -45,6 +45,13 @@ import org.gtkkn.native.gtk.gtk_dialog_set_default_response
 import org.gtkkn.native.gtk.gtk_dialog_set_response_sensitive
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.Window] instead
+ * ---
+ *
  * Dialogs are a convenient way to prompt the user for a small amount
  * of input.
  *
@@ -241,7 +248,8 @@ public open class Dialog(
      * @return the `GtkButton` widget that was added
      */
     public open fun addButton(buttonText: String, responseId: gint): Widget = gtk_dialog_add_button(gtkDialogPointer, buttonText, responseId)!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the content area of @dialog.
@@ -249,7 +257,8 @@ public open class Dialog(
      * @return the content area `GtkBox`.
      */
     public open fun getContentArea(): Box = gtk_dialog_get_content_area(gtkDialogPointer)!!.run {
-        Box(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Box(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the header bar of @dialog.
@@ -260,7 +269,8 @@ public open class Dialog(
      * @return the header bar
      */
     public open fun getHeaderBar(): HeaderBar = gtk_dialog_get_header_bar(gtkDialogPointer)!!.run {
-        HeaderBar(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { HeaderBar(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the response id of a widget in the action area
@@ -281,7 +291,8 @@ public open class Dialog(
      *   @response_id
      */
     public open fun getWidgetForResponse(responseId: gint): Widget? = gtk_dialog_get_widget_for_response(gtkDialogPointer, responseId)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Emits the ::response signal with the given response ID.

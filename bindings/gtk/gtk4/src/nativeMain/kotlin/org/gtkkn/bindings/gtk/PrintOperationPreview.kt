@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -151,9 +152,11 @@ private val onGotPageSizeFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: PrintContext, pageSetup: PageSetup) -> Unit>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     , pageSetup!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -164,6 +167,7 @@ private val onReadyFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> Unit>
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: PrintContext) -> Unit>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     )}
 .reinterpret()

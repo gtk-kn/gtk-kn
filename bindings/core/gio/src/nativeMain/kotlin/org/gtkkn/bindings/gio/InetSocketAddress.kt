@@ -58,7 +58,8 @@ public open class InetSocketAddress(
          * @since 2.22
          */
         get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer)!!.run {
-            InetAddress(this)}
+            InstanceCache.get(this, true) { InetAddress(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `sin6_flowinfo` field, for IPv6 addresses.

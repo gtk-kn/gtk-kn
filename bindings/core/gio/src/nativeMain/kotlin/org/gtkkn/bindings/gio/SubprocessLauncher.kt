@@ -298,7 +298,8 @@ public open class SubprocessLauncher(
     public open fun spawnv(argv: List<String>): Result<Subprocess> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_subprocess_launcher_spawnv(gioSubprocessLauncherPointer, argv.toCStringList(this), gError.ptr)?.run {
-            Subprocess(this)}
+            InstanceCache.get(this, true) { Subprocess(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

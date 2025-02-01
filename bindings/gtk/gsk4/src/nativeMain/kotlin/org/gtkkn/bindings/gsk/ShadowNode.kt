@@ -37,7 +37,8 @@ public open class ShadowNode(
      * @return the child render node
      */
     public open fun getChild(): RenderNode = gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the number of shadows in the @node.

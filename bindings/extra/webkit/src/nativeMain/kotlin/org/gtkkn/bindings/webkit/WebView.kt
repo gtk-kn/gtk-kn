@@ -378,7 +378,8 @@ public open class WebView(
          *    icon associated with @web_view.
          */
         get() = webkit_web_view_get_favicon(webkitWebViewPointer)!!.run {
-            Texture.TextureImpl(this)}
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the #WebKitWebView audio is muted. When true, audio is silenced.
@@ -472,7 +473,8 @@ public open class WebView(
          * @since 2.40
          */
         get() = webkit_web_view_get_network_session(webkitWebViewPointer)!!.run {
-            NetworkSession(this)}
+            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The identifier of the #WebKitWebPage corresponding to the #WebKitWebView.
@@ -582,7 +584,8 @@ public open class WebView(
          * @since 2.6
          */
         get() = webkit_web_view_get_user_content_manager(webkitWebViewPointer)!!.run {
-            UserContentManager(this)}
+            InstanceCache.get(this, true) { UserContentManager(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * This configures @web_view to treat the content as a WebExtension.
@@ -627,7 +630,8 @@ public open class WebView(
          * @since 2.30
          */
         get() = webkit_web_view_get_website_policies(webkitWebViewPointer)!!.run {
-            WebsitePolicies(this)}
+            InstanceCache.get(this, true) { WebsitePolicies(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The zoom level of the #WebKitWebView content.
@@ -760,7 +764,8 @@ public open class WebView(
     public open fun callAsyncJavascriptFunctionFinish(result: AsyncResult): Result<Value> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_call_async_javascript_function_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            Value(this)}
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -831,7 +836,8 @@ public open class WebView(
      *    the download operation.
      */
     public open fun downloadUri(uri: String): Download = webkit_web_view_download_uri(webkitWebViewPointer, uri)!!.run {
-        Download(this)}
+        InstanceCache.get(this, true) { Download(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Asynchronously evaluate @script in the script world with name @world_name of the main frame current context in @web_view.
@@ -919,7 +925,8 @@ public open class WebView(
     public open fun evaluateJavascriptFinish(result: AsyncResult): Result<Value> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_evaluate_javascript_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            Value(this)}
+            InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -960,7 +967,8 @@ public open class WebView(
      * @return the #WebKitBackForwardList
      */
     public open fun getBackForwardList(): BackForwardList = webkit_web_view_get_back_forward_list(webkitWebViewPointer)!!.run {
-        BackForwardList(this)}
+        InstanceCache.get(this, true) { BackForwardList(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the color that is used to draw the @web_view background.
@@ -981,7 +989,8 @@ public open class WebView(
      * @return the #WebKitWebContext of the view
      */
     public open fun getContext(): WebContext = webkit_web_view_get_context(webkitWebViewPointer)!!.run {
-        WebContext(this)}
+        InstanceCache.get(this, true) { WebContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the current custom character encoding name of @web_view.
@@ -999,7 +1008,8 @@ public open class WebView(
      */
     @WebKitVersion2_10
     public open fun getEditorState(): EditorState = webkit_web_view_get_editor_state(webkitWebViewPointer)!!.run {
-        EditorState(this)}
+        InstanceCache.get(this, true) { EditorState(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the #WebKitFindController.
@@ -1011,7 +1021,8 @@ public open class WebView(
      * this particular #WebKitWebView.
      */
     public open fun getFindController(): FindController = webkit_web_view_get_find_controller(webkitWebViewPointer)!!.run {
-        FindController(this)}
+        InstanceCache.get(this, true) { FindController(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #WebKitInputMethodContext currently in use by @web_view.
@@ -1023,7 +1034,8 @@ public open class WebView(
      */
     @WebKitVersion2_28
     public open fun getInputMethodContext(): InputMethodContext? = webkit_web_view_get_input_method_context(webkitWebViewPointer)?.run {
-        InputMethodContext.InputMethodContextImpl(this)}
+        InstanceCache.get(this, true) { InputMethodContext.InputMethodContextImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #WebKitWebInspector associated to @web_view
@@ -1031,7 +1043,8 @@ public open class WebView(
      * @return the #WebKitWebInspector of @web_view
      */
     public open fun getInspector(): WebInspector = webkit_web_view_get_inspector(webkitWebViewPointer)!!.run {
-        WebInspector(this)}
+        InstanceCache.get(this, true) { WebInspector(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Return the main resource of @web_view.
@@ -1040,7 +1053,8 @@ public open class WebView(
      *    or null if nothing has been loaded.
      */
     public open fun getMainResource(): WebResource = webkit_web_view_get_main_resource(webkitWebViewPointer)!!.run {
-        WebResource(this)}
+        InstanceCache.get(this, true) { WebResource(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current session state of @web_view
@@ -1071,7 +1085,8 @@ public open class WebView(
      * @return the #WebKitSettings attached to @web_view
      */
     public open fun getWebViewSettings(): Settings = webkit_web_view_get_settings(webkitWebViewPointer)!!.run {
-        Settings(this)}
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Asynchronously retrieves a snapshot of @web_view for @region.
@@ -1103,7 +1118,8 @@ public open class WebView(
     public open fun getSnapshotFinish(result: AsyncResult): Result<Texture> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_get_snapshot_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            Texture.TextureImpl(this)}
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1121,7 +1137,8 @@ public open class WebView(
      * @return the #WebKitWindowProperties of @web_view
      */
     public open fun getWindowProperties(): WindowProperties = webkit_web_view_get_window_properties(webkitWebViewPointer)!!.run {
-        WindowProperties(this)}
+        InstanceCache.get(this, true) { WindowProperties(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Loads the previous history item.
@@ -1342,7 +1359,8 @@ public open class WebView(
     public open fun saveFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_save_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1421,7 +1439,8 @@ public open class WebView(
     public open fun sendMessageToPageFinish(result: AsyncResult): Result<UserMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_web_view_send_message_to_page_finish(webkitWebViewPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            UserMessage(this)}
+            InstanceCache.get(this, true) { UserMessage(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2261,7 +2280,8 @@ private val onAuthenticateFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(request: AuthenticationRequest) -> Boolean>().get().invoke(request!!.run {
-        AuthenticationRequest(this)}
+        InstanceCache.get(this, false) { AuthenticationRequest(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2281,9 +2301,11 @@ private val onContextMenuFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(contextMenu: ContextMenu, hitTestResult: HitTestResult) -> Boolean>().get().invoke(contextMenu!!.run {
-        ContextMenu(this)}
+        InstanceCache.get(this, false) { ContextMenu(reinterpret()) }!!
+    }
     , hitTestResult!!.run {
-        HitTestResult(this)}
+        InstanceCache.get(this, false) { HitTestResult(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2315,7 +2337,8 @@ private val onDecidePolicyFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(decision: PolicyDecision, decisionType: PolicyDecisionType) -> Boolean>().get().invoke(decision!!.run {
-        PolicyDecision.PolicyDecisionImpl(this)}
+        InstanceCache.get(this, false) { PolicyDecision.PolicyDecisionImpl(reinterpret()) }!!
+    }
     , decisionType.run {
         PolicyDecisionType.fromNativeValue(this)}
     ).asGBoolean()}
@@ -2394,7 +2417,8 @@ private val onLoadFailedWithTlsErrorsFunc: CPointer<CFunction<(
         certificate: TlsCertificate,
         errors: TlsCertificateFlags,
     ) -> Boolean>().get().invoke(failingUri?.toKString() ?: error("Expected not null string"), certificate!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+    }
     , errors.run {
         TlsCertificateFlags(this)}
     ).asGBoolean()}
@@ -2408,7 +2432,8 @@ private val onMouseTargetChangedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(hitTestResult: HitTestResult, modifiers: guint) -> Unit>().get().invoke(hitTestResult!!.run {
-        HitTestResult(this)}
+        InstanceCache.get(this, false) { HitTestResult(reinterpret()) }!!
+    }
     , modifiers)}
 .reinterpret()
 
@@ -2430,7 +2455,8 @@ private val onPrintFunc: CPointer<CFunction<(CPointer<WebKitPrintOperation>) -> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(printOperation: PrintOperation) -> Boolean>().get().invoke(printOperation!!.run {
-        PrintOperation(this)}
+        InstanceCache.get(this, false) { PrintOperation(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2461,9 +2487,11 @@ private val onResourceLoadStartedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(resource: WebResource, request: UriRequest) -> Unit>().get().invoke(resource!!.run {
-        WebResource(this)}
+        InstanceCache.get(this, false) { WebResource(reinterpret()) }!!
+    }
     , request!!.run {
-        UriRequest(this)}
+        InstanceCache.get(this, false) { UriRequest(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2481,7 +2509,8 @@ private val onRunColorChooserFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(request: ColorChooserRequest) -> Boolean>().get().invoke(request!!.run {
-        ColorChooserRequest(this)}
+        InstanceCache.get(this, false) { ColorChooserRequest(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2492,7 +2521,8 @@ private val onRunFileChooserFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(request: FileChooserRequest) -> Boolean>().get().invoke(request!!.run {
-        FileChooserRequest(this)}
+        InstanceCache.get(this, false) { FileChooserRequest(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2514,7 +2544,8 @@ private val onShowNotificationFunc: CPointer<CFunction<(CPointer<WebKitNotificat
     userData: COpaquePointer
     ->
     userData.asStableRef<(notification: Notification) -> Boolean>().get().invoke(notification!!.run {
-        Notification(this)}
+        InstanceCache.get(this, false) { Notification(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2527,7 +2558,8 @@ private val onShowOptionMenuFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(menu: OptionMenu, rectangle: Rectangle) -> Boolean>().get().invoke(menu!!.run {
-        OptionMenu(this)}
+        InstanceCache.get(this, false) { OptionMenu(reinterpret()) }!!
+    }
     , rectangle!!.run {
         Rectangle(this)}
     ).asGBoolean()}
@@ -2540,7 +2572,8 @@ private val onSubmitFormFunc: CPointer<CFunction<(CPointer<WebKitFormSubmissionR
     userData: COpaquePointer
     ->
     userData.asStableRef<(request: FormSubmissionRequest) -> Unit>().get().invoke(request!!.run {
-        FormSubmissionRequest(this)}
+        InstanceCache.get(this, false) { FormSubmissionRequest(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2551,7 +2584,8 @@ private val onUserMessageReceivedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(message: UserMessage) -> Boolean>().get().invoke(message!!.run {
-        UserMessage(this)}
+        InstanceCache.get(this, false) { UserMessage(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 

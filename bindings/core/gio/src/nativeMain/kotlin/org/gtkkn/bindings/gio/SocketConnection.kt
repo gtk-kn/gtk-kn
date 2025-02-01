@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -80,7 +81,8 @@ public open class SocketConnection(
          * @since 2.22
          */
         get() = g_socket_connection_get_socket(gioSocketConnectionPointer)!!.run {
-            Socket(this)}
+            InstanceCache.get(this, true) { Socket(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Connect @connection to the specified remote address.
@@ -154,7 +156,8 @@ public open class SocketConnection(
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -181,7 +184,8 @@ public open class SocketConnection(
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_remote_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

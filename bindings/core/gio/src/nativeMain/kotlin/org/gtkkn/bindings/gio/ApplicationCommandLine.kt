@@ -20,6 +20,7 @@ import org.gtkkn.bindings.glib.VariantDict
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -388,7 +389,8 @@ public open class ApplicationCommandLine(
      */
     @GioVersion2_34
     public open fun getStdin(): InputStream? = g_application_command_line_get_stdin(gioApplicationCommandLinePointer)?.run {
-        InputStream.InputStreamImpl(this)}
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the value of a particular environment variable of the command

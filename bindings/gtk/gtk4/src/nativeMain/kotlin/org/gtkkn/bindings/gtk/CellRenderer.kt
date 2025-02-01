@@ -57,6 +57,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_start_editing
 import org.gtkkn.native.gtk.gtk_cell_renderer_stop_editing
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+         *   contents
+ * ---
+ *
  * An object for rendering a single cell
  *
  * The `GtkCellRenderer` is a base class of a set of objects used for

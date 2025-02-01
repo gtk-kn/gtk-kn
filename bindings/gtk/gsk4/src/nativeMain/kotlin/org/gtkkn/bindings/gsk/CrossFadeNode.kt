@@ -53,7 +53,8 @@ public open class CrossFadeNode(
      * @return a `GskRenderNode`
      */
     public open fun getEndChild(): RenderNode = gsk_cross_fade_node_get_end_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the progress value of the cross fade.
@@ -68,7 +69,8 @@ public open class CrossFadeNode(
      * @return a `GskRenderNode`
      */
     public open fun getStartChild(): RenderNode = gsk_cross_fade_node_get_start_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     public companion object : TypeCompanion<CrossFadeNode> {
         override val type: GeneratedClassKGType<CrossFadeNode> =

@@ -189,7 +189,8 @@ public open class DBusObjectManagerClient(
          * @since 2.30
          */
         get() = g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer)!!.run {
-            DBusConnection(this)}
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Flags from the #GDBusObjectManagerClientFlags enumeration.
@@ -569,9 +570,11 @@ private val onInterfaceProxyPropertiesChangedFunc: CPointer<CFunction<(
             changedProperties: Variant,
             invalidatedProperties: List<String>,
         ) -> Unit>().get().invoke(objectProxy!!.run {
-            DBusObjectProxy(this)}
+            InstanceCache.get(this, false) { DBusObjectProxy(reinterpret()) }!!
+        }
         , interfaceProxy!!.run {
-            DBusProxy(this)}
+            InstanceCache.get(this, false) { DBusProxy(reinterpret()) }!!
+        }
         , changedProperties!!.run {
             Variant(this)}
         , invalidatedProperties?.toKStringList() ?: error("Expected not null string array"))}
@@ -600,9 +603,11 @@ private val onInterfaceProxySignalFunc: CPointer<CFunction<(
         signalName: String,
         parameters: Variant,
     ) -> Unit>().get().invoke(objectProxy!!.run {
-        DBusObjectProxy(this)}
+        InstanceCache.get(this, false) { DBusObjectProxy(reinterpret()) }!!
+    }
     , interfaceProxy!!.run {
-        DBusProxy(this)}
+        InstanceCache.get(this, false) { DBusProxy(reinterpret()) }!!
+    }
     , senderName?.toKString() ?: error("Expected not null string"), signalName?.toKString() ?: error("Expected not null string"), parameters!!.run {
         Variant(this)}
     )}

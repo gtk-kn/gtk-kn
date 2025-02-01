@@ -122,6 +122,14 @@ import org.gtkkn.native.gtk.gtk_tree_view_unset_rows_drag_dest
 import org.gtkkn.native.gtk.gtk_tree_view_unset_rows_drag_source
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ListView] for lists, and [class@Gtk.ColumnView]
+         *   for tabular lists
+ * ---
+ *
  * A widget for displaying both trees and lists
  *
  * Widget that displays any object that implements the [iface@Gtk.TreeModel] interface.
@@ -313,7 +321,8 @@ public open class TreeView(
          * @return The expander column.
          */
         get() = gtk_tree_view_get_expander_column(gtkTreeViewPointer)?.run {
-            TreeViewColumn(this)}
+            InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the column to draw the expander arrow at. It must be in @tree_view.
          * If @column is null, then the expander arrow is always at the first
@@ -742,7 +751,8 @@ public open class TreeView(
      * position is outside the range of columns.
      */
     public open fun getColumn(n: gint): TreeViewColumn? = gtk_tree_view_get_column(gtkTreeViewPointer, n)?.run {
-        TreeViewColumn(this)}
+        InstanceCache.get(this, true) { TreeViewColumn(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns a `GList` of all the `GtkTreeViewColumn`s currently in @tree_view.
@@ -785,7 +795,8 @@ public open class TreeView(
      * @return A `GtkTreeSelection` object.
      */
     public open fun getSelection(): TreeSelection = gtk_tree_view_get_selection(gtkTreeViewPointer)!!.run {
-        TreeSelection(this)}
+        InstanceCache.get(this, true) { TreeSelection(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Fills @visible_rect with the currently-visible region of the
@@ -1381,7 +1392,8 @@ private val onRowActivatedFunc:
     userData.asStableRef<(path: TreePath, column: TreeViewColumn?) -> Unit>().get().invoke(path!!.run {
         TreePath(this)}
     , column?.run {
-        TreeViewColumn(this)}
+        InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

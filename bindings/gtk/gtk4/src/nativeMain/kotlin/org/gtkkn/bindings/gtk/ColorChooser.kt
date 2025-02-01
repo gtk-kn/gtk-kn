@@ -34,6 +34,14 @@ import org.gtkkn.native.gtk.gtk_color_chooser_set_rgba
 import org.gtkkn.native.gtk.gtk_color_chooser_set_use_alpha
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ColorDialog] and [class@Gtk.ColorDialogButton]
+         *   instead of widgets implementing `GtkColorChooser`
+ * ---
+ *
  * `GtkColorChooser` is an interface that is implemented by widgets
  * for choosing colors.
  *

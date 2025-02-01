@@ -17,6 +17,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -106,7 +107,8 @@ public class FindController(
          * @return the #WebKitWebView.
          */
         get() = webkit_find_controller_get_web_view(webkitFindControllerPointer)!!.run {
-            WebView(this)}
+            InstanceCache.get(this, true) { WebView(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Counts the number of matches for @search_text.

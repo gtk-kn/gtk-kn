@@ -75,7 +75,7 @@ interface ClosureImplementationGenerator : ConversionBlockGenerator {
             .forEachIndexed { index, param ->
                 if (index > 0) add(", ")
                 add("%N", param.kotlinName)
-                add(buildNativeToKotlinConversionsBlock(param.typeInfo))
+                add(buildNativeToKotlinConversionsBlock(param.typeInfo, upCall = true))
             }
         add(")")
         add(buildKotlinToNativeTypeConversionBlock(closure.returnTypeInfo))

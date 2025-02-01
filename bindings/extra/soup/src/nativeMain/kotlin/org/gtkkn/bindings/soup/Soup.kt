@@ -26,6 +26,7 @@ import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHashTable
@@ -693,9 +694,11 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<CFunction<(
         username: KotlinString,
         password: KotlinString,
     ) -> Boolean>().get().invoke(domain!!.run {
-        AuthDomainBasic(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { AuthDomainBasic(reinterpret()) }!!
+    }
     , msg!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     , username?.toKString() ?: error("Expected not null string"), password?.toKString() ?: error("Expected not null string")).asGBoolean()}
 .reinterpret()
 
@@ -714,9 +717,11 @@ public val AuthDomainDigestAuthCallbackFunc: CPointer<CFunction<(
         msg: ServerMessage,
         username: KotlinString,
     ) -> KotlinString?>().get().invoke(domain!!.run {
-        AuthDomainDigest(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { AuthDomainDigest(reinterpret()) }!!
+    }
     , msg!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     , username?.toKString() ?: error("Expected not null string"))?.let { g_strdup(it) }}
 .reinterpret()
 
@@ -728,9 +733,11 @@ public val AuthDomainFilterFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(domain: AuthDomain, msg: ServerMessage) -> Boolean>().get().invoke(domain!!.run {
-        AuthDomain.AuthDomainImpl(this)}
+        InstanceCache.get(this, false) { AuthDomain.AuthDomainImpl(reinterpret()) }!!
+    }
     , msg!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -749,9 +756,11 @@ public val AuthDomainGenericAuthCallbackFunc: CPointer<CFunction<(
         msg: ServerMessage,
         username: KotlinString,
     ) -> Boolean>().get().invoke(domain!!.run {
-        AuthDomain.AuthDomainImpl(this)}
+        InstanceCache.get(this, false) { AuthDomain.AuthDomainImpl(reinterpret()) }!!
+    }
     , msg!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     , username?.toKString() ?: error("Expected not null string")).asGBoolean()}
 .reinterpret()
 
@@ -763,9 +772,11 @@ public val LoggerFilterFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(logger: Logger, msg: Message) -> LoggerLogLevel>().get().invoke(logger!!.run {
-        Logger(this)}
+        InstanceCache.get(this, false) { Logger(reinterpret()) }!!
+    }
     , msg!!.run {
-        Message(this)}
+        InstanceCache.get(this, false) { Message(reinterpret()) }!!
+    }
     ).nativeValue}
 .reinterpret()
 
@@ -787,7 +798,8 @@ public val LoggerPrinterFunc: CPointer<CFunction<(
         direction: Char,
         `data`: KotlinString,
     ) -> Unit>().get().invoke(logger!!.run {
-        Logger(this)}
+        InstanceCache.get(this, false) { Logger(reinterpret()) }!!
+    }
     , level.run {
         LoggerLogLevel.fromNativeValue(this)}
     , direction.toInt().toChar(), `data`?.toKString() ?: error("Expected not null string"))}
@@ -820,9 +832,11 @@ public val ServerCallbackFunc: CPointer<CFunction<(
         path: KotlinString,
         query: HashTable?,
     ) -> Unit>().get().invoke(server!!.run {
-        Server(this)}
+        InstanceCache.get(this, false) { Server(reinterpret()) }!!
+    }
     , msg!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     , path?.toKString() ?: error("Expected not null string"), query?.run {
         HashTable(this)}
     )}
@@ -846,11 +860,14 @@ public val ServerWebsocketCallbackFunc: CPointer<CFunction<(
         path: KotlinString,
         connection: WebsocketConnection,
     ) -> Unit>().get().invoke(server!!.run {
-        Server(this)}
+        InstanceCache.get(this, false) { Server(reinterpret()) }!!
+    }
     , msg!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     , path?.toKString() ?: error("Expected not null string"), connection!!.run {
-        WebsocketConnection(this)}
+        InstanceCache.get(this, false) { WebsocketConnection(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

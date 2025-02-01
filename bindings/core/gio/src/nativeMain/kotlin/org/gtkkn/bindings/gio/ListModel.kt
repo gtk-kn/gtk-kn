@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -148,7 +149,8 @@ public interface ListModel : Proxy, KGTyped {
      */
     @GioVersion2_44
     public fun getItem(position: guint): Object? = g_list_model_get_object(gioListModelPointer, position)?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Emits the #GListModel::items-changed signal on @list.

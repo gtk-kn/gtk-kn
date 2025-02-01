@@ -128,7 +128,8 @@ public open class ScaleButton(
          * @return the adjustment associated with the scale
          */
         get() = gtk_scale_button_get_adjustment(gtkScaleButtonPointer)!!.run {
-            Adjustment(this)}
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkAdjustment` to be used as a model
          * for the `GtkScaleButton`’s scale.
@@ -219,7 +220,8 @@ public open class ScaleButton(
      *   of the `GtkScaleButton`
      */
     public open fun getMinusButton(): Button = gtk_scale_button_get_minus_button(gtkScaleButtonPointer)!!.run {
-        Button(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the plus button of the `GtkScaleButton.`
@@ -228,7 +230,8 @@ public open class ScaleButton(
      *   of the `GtkScaleButton`
      */
     public open fun getPlusButton(): Button = gtk_scale_button_get_plus_button(gtkScaleButtonPointer)!!.run {
-        Button(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the popup of the `GtkScaleButton`.
@@ -236,7 +239,8 @@ public open class ScaleButton(
      * @return the popup of the `GtkScaleButton`
      */
     public open fun getPopup(): Widget = gtk_scale_button_get_popup(gtkScaleButtonPointer)!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the icons to be used by the scale button.

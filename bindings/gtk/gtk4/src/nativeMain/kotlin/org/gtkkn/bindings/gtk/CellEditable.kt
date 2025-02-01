@@ -28,6 +28,14 @@ import org.gtkkn.native.gtk.gtk_cell_editable_remove_widget
 import org.gtkkn.native.gtk.gtk_cell_editable_start_editing
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+         *   contents. See [iface@Gtk.Editable] for editable text widgets
+ * ---
+ *
  * Interface for widgets that can be used for editing cells
  *
  * The `GtkCellEditable` interface must be implemented for widgets to be usable

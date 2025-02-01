@@ -77,7 +77,8 @@ public class StatusPage(
          * @return the child widget of @self
          */
         get() = adw_status_page_get_child(adwStatusPagePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

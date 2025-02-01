@@ -33,6 +33,14 @@ import org.gtkkn.native.gobject.g_value_array_remove
 import org.gtkkn.native.gobject.g_value_array_sort_with_data
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Use `GArray` instead, if possible for the given use case,
+         *    as described above.
+ * ---
+ *
  * A `GValueArray` is a container structure to hold an array of generic values.
  *
  * The prime purpose of a `GValueArray` is for it to be used as an

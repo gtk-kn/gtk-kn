@@ -15,6 +15,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -74,7 +75,8 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_26
     public open fun getConnection(): DBusConnection = g_dbus_method_invocation_get_connection(gioDBusMethodInvocationPointer)!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the name of the D-Bus interface the method was invoked on.
@@ -105,7 +107,8 @@ public open class DBusMethodInvocation(
      */
     @GioVersion2_26
     public open fun getMessage(): DBusMessage = g_dbus_method_invocation_get_message(gioDBusMethodInvocationPointer)!!.run {
-        DBusMessage(this)}
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets information about the method call, if any.

@@ -77,7 +77,8 @@ public open class StyleSchemePreview(
          * @since 5.4
          */
         get() = gtk_source_style_scheme_preview_get_scheme(gtksourceStyleSchemePreviewPointer)!!.run {
-            StyleScheme(this)}
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.also { ref() }
+        }
 
     public open var selected: Boolean
         get() = gtk_source_style_scheme_preview_get_selected(gtksourceStyleSchemePreviewPointer).asBoolean()

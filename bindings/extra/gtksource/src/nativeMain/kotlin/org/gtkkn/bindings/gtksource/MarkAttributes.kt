@@ -148,7 +148,8 @@ public open class MarkAttributes(
          * should not be unreffed.
          */
         get() = gtk_source_mark_attributes_get_pixbuf(gtksourceMarkAttributesPointer)!!.run {
-            Pixbuf(this)}
+            InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a pixbuf to be used as a base for rendered icon.
          *
@@ -274,7 +275,8 @@ private val onQueryTooltipMarkupFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(mark: Mark) -> String>().get().invoke(mark!!.run {
-        Mark(this)}
+        InstanceCache.get(this, false) { Mark(reinterpret()) }!!
+    }
     ).let { g_strdup(it) }}
 .reinterpret()
 
@@ -285,6 +287,7 @@ private val onQueryTooltipTextFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(mark: Mark) -> String>().get().invoke(mark!!.run {
-        Mark(this)}
+        InstanceCache.get(this, false) { Mark(reinterpret()) }!!
+    }
     ).let { g_strdup(it) }}
 .reinterpret()

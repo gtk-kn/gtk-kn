@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -71,7 +72,8 @@ public open class ContentDeserializer(
      * @return the cancellable for the current operation
      */
     public open fun getCancellable(): Cancellable? = gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer)?.run {
-        Cancellable(this)}
+        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the `GType` to create an instance of.
@@ -88,7 +90,8 @@ public open class ContentDeserializer(
      * @return the input stream for the current operation
      */
     public open fun getInputStream(): InputStream = gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
-        InputStream.InputStreamImpl(this)}
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the mime type to deserialize from.

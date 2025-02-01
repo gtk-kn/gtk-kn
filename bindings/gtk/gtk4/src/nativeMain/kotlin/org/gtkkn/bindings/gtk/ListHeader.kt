@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -54,7 +55,8 @@ public open class ListHeader(
          * @since 4.12
          */
         get() = gtk_list_header_get_child(gtkListHeaderPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child to be used for this listitem.
          *
@@ -104,7 +106,8 @@ public open class ListHeader(
          * @since 4.12
          */
         get() = gtk_list_header_get_item(gtkListHeaderPointer)?.run {
-            Object(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Number of items in this section.

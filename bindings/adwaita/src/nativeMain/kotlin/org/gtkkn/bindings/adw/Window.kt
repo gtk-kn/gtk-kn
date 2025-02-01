@@ -147,7 +147,8 @@ public open class Window(
          * @return the content widget of @self
          */
         get() = adw_window_get_content(adwWindowPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the content widget of @self.
          *
@@ -171,7 +172,8 @@ public open class Window(
          * @since 1.4
          */
         get() = adw_window_get_current_breakpoint(adwWindowPointer)?.run {
-            Breakpoint(this)}
+            InstanceCache.get(this, true) { Breakpoint(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The open dialogs.
@@ -205,7 +207,8 @@ public open class Window(
          * @since 1.5
          */
         get() = adw_window_get_visible_dialog(adwWindowPointer)?.run {
-            Dialog(this)}
+            InstanceCache.get(this, true) { Dialog(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new `AdwWindow`.

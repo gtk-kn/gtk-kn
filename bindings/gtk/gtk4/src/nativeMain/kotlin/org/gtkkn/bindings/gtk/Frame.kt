@@ -108,7 +108,8 @@ public open class Frame(
          * @return the child widget of @frame
          */
         get() = gtk_frame_get_child(gtkFramePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @frame.
          *
@@ -149,7 +150,8 @@ public open class Frame(
          * @return the label widget
          */
         get() = gtk_frame_get_label_widget(gtkFramePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the label widget for the frame.
          *

@@ -57,7 +57,8 @@ public open class SubsurfaceNode(
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     public companion object : TypeCompanion<SubsurfaceNode> {
         override val type: GeneratedClassKGType<SubsurfaceNode> =

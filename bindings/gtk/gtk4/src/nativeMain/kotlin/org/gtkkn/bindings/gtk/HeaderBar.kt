@@ -191,7 +191,8 @@ public open class HeaderBar(
          * @return the title widget of the header
          */
         get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the title for the `GtkHeaderBar`.
          *

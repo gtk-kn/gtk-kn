@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -62,7 +63,8 @@ public open class HoverContext(
      * @return The #GtkSourceBuffer for the view
      */
     public open fun getBuffer(): Buffer = gtk_source_hover_context_get_buffer(gtksourceHoverContextPointer)!!.run {
-        Buffer(this)}
+        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+    }
 
     public open fun getIter(iter: TextIter): Boolean = gtk_source_hover_context_get_iter(gtksourceHoverContextPointer, iter.gtkTextIterPointer).asBoolean()
 
@@ -72,7 +74,8 @@ public open class HoverContext(
      * @return the #GtkSourceView that owns the context
      */
     public open fun getView(): View = gtk_source_hover_context_get_view(gtksourceHoverContextPointer)!!.run {
-        View(this)}
+        InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<HoverContext> {
         override val type: GeneratedClassKGType<HoverContext> =

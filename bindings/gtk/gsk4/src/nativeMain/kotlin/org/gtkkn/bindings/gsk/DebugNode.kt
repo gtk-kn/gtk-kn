@@ -52,7 +52,8 @@ public open class DebugNode(
      * @return the child `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_debug_node_get_child(gskDebugNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Gets the debug message that was set on this node

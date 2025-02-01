@@ -32,6 +32,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gboolean
@@ -488,7 +489,8 @@ public object GObject {
         defaultValue: Boolean,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_boolean(name, nick, blurb, defaultValue.asGBoolean(), flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_BOXED
@@ -510,7 +512,8 @@ public object GObject {
         boxedType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_boxed(name, nick, blurb, boxedType, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecChar instance specifying a %G_TYPE_CHAR property.
@@ -533,7 +536,8 @@ public object GObject {
         defaultValue: gint8,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_char(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecDouble instance specifying a %G_TYPE_DOUBLE
@@ -559,7 +563,8 @@ public object GObject {
         defaultValue: gdouble,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_double(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecEnum instance specifying a %G_TYPE_ENUM
@@ -583,7 +588,8 @@ public object GObject {
         defaultValue: gint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_enum(name, nick, blurb, enumType, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecFlags instance specifying a %G_TYPE_FLAGS
@@ -607,7 +613,8 @@ public object GObject {
         defaultValue: guint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_flags(name, nick, blurb, flagsType, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecFloat instance specifying a %G_TYPE_FLOAT property.
@@ -632,7 +639,8 @@ public object GObject {
         defaultValue: gfloat,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_float(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecGType instance specifying a
@@ -657,7 +665,8 @@ public object GObject {
         isAType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_gtype(name, nick, blurb, isAType, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecInt instance specifying a %G_TYPE_INT property.
@@ -682,7 +691,8 @@ public object GObject {
         defaultValue: gint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_int(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecInt64 instance specifying a %G_TYPE_INT64 property.
@@ -707,7 +717,8 @@ public object GObject {
         defaultValue: gint64,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_int64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecLong instance specifying a %G_TYPE_LONG property.
@@ -732,7 +743,8 @@ public object GObject {
         defaultValue: glong,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_long(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecBoxed instance specifying a %G_TYPE_OBJECT
@@ -754,7 +766,8 @@ public object GObject {
         objectType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_object(name, nick, blurb, objectType, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new property of type #GParamSpecOverride. This is used
@@ -768,7 +781,8 @@ public object GObject {
      */
     @GObjectVersion2_4
     public fun paramSpecOverride(name: String, overridden: ParamSpec): ParamSpec = g_param_spec_override(name, overridden.gobjectParamSpecPointer)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecParam instance specifying a %G_TYPE_PARAM
@@ -790,7 +804,8 @@ public object GObject {
         paramType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_param(name, nick, blurb, paramType, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecPointer instance specifying a pointer property.
@@ -811,7 +826,8 @@ public object GObject {
         blurb: String? = null,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_pointer(name, nick, blurb, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecString instance.
@@ -832,7 +848,8 @@ public object GObject {
         defaultValue: String? = null,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_string(name, nick, blurb, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecUChar instance specifying a %G_TYPE_UCHAR property.
@@ -855,7 +872,8 @@ public object GObject {
         defaultValue: guint8,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uchar(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecUInt instance specifying a %G_TYPE_UINT property.
@@ -880,7 +898,8 @@ public object GObject {
         defaultValue: guint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uint(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecUInt64 instance specifying a %G_TYPE_UINT64
@@ -906,7 +925,8 @@ public object GObject {
         defaultValue: guint64,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uint64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecULong instance specifying a %G_TYPE_ULONG
@@ -932,7 +952,8 @@ public object GObject {
         defaultValue: gulong,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_ulong(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecUnichar instance specifying a %G_TYPE_UINT
@@ -955,7 +976,8 @@ public object GObject {
         defaultValue: gunichar,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_unichar(name, nick, blurb, defaultValue, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecValueArray instance specifying a
@@ -980,7 +1002,8 @@ public object GObject {
         elementSpec: ParamSpec,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_value_array(name, nick, blurb, elementSpec.gobjectParamSpecPointer, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Creates a new #GParamSpecVariant instance specifying a #GVariant
@@ -1009,7 +1032,8 @@ public object GObject {
         defaultValue: Variant? = null,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_variant(name, nick, blurb, type.glibVariantTypePointer, defaultValue?.glibVariantPointer, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Registers @name as the name of a new static type derived
@@ -1983,7 +2007,8 @@ public val BindingTransformFuncFunc: CPointer<CFunction<(
         fromValue: Value,
         toValue: Value,
     ) -> Boolean>().get().invoke(binding!!.run {
-        Binding(this)}
+        InstanceCache.get(this, false) { Binding(reinterpret()) }!!
+    }
     , fromValue!!.run {
         Value(this)}
     , toValue!!.run {
@@ -2113,7 +2138,8 @@ public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2135,11 +2161,13 @@ public val ObjectGetPropertyFuncFunc: CPointer<CFunction<(
         `value`: Value,
         pspec: ParamSpec,
     ) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , propertyId, `value`!!.run {
         Value(this)}
     , pspec!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
     )}
 .reinterpret()
 
@@ -2161,11 +2189,13 @@ public val ObjectSetPropertyFuncFunc: CPointer<CFunction<(
         `value`: Value,
         pspec: ParamSpec,
     ) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , propertyId, `value`!!.run {
         Value(this)}
     , pspec!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
     )}
 .reinterpret()
 
@@ -2229,7 +2259,8 @@ public val ToggleNotifyFunc: CPointer<CFunction<(
         `object`: Object,
         isLastRef: Boolean,
     ) -> Unit>().get().invoke(`data`, `object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , isLastRef.asBoolean())}
 .reinterpret()
 
@@ -2426,7 +2457,8 @@ public val WeakNotifyFunc: CPointer<CFunction<(gpointer?, CPointer<GObject>) -> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(`data`: gpointer?, whereTheObjectWas: Object) -> Unit>().get().invoke(`data`, whereTheObjectWas!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

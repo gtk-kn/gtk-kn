@@ -167,7 +167,8 @@ public open class DropTarget(
          * @since 4.4
          */
         get() = gtk_drop_target_get_current_drop(gtkDropTargetPointer)?.run {
-            Drop.DropImpl(this)}
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDrop` that is currently being performed.
@@ -181,7 +182,8 @@ public open class DropTarget(
          * @return The current drop
          */
         get() = gtk_drop_target_get_drop(gtkDropTargetPointer)?.run {
-            Drop.DropImpl(this)}
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkContentFormats` that determine the supported data formats.
@@ -391,7 +393,8 @@ private val onAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> gboolean>> =
     userData: COpaquePointer
     ->
     userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(drop!!.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 

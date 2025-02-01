@@ -592,7 +592,8 @@ public open class Application(
      */
     @GioVersion2_34
     public open fun getDbusConnection(): DBusConnection? = g_application_get_dbus_connection(gioApplicationPointer)?.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the D-Bus object path being used by the application, or null.
@@ -1126,7 +1127,8 @@ public open class Application(
          */
         @GioVersion2_32
         public fun getDefault(): Application? = g_application_get_default()?.run {
-            Application(this)}
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Checks if @application_id is a valid application identifier.
@@ -1213,7 +1215,8 @@ private val onCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandL
     userData: COpaquePointer
     ->
     userData.asStableRef<(commandLine: ApplicationCommandLine) -> gint>().get().invoke(commandLine!!.run {
-        ApplicationCommandLine(this)}
+        InstanceCache.get(this, false) { ApplicationCommandLine(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

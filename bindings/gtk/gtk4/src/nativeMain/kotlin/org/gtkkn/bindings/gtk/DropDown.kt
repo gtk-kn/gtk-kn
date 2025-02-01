@@ -176,7 +176,8 @@ public open class DropDown(
          * @return a `GtkExpression`
          */
         get() = gtk_drop_down_get_expression(gtkDropDownPointer)?.run {
-            Expression.ExpressionImpl(this)}
+            Expression.ExpressionImpl(this)
+        }
         /**
          * Sets the expression that gets evaluated to obtain strings from items.
          *
@@ -201,7 +202,8 @@ public open class DropDown(
          * @return The factory in use
          */
         get() = gtk_drop_down_get_factory(gtkDropDownPointer)?.run {
-            ListItemFactory(this)}
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.
          *
@@ -223,7 +225,8 @@ public open class DropDown(
          * @since 4.12
          */
         get() = gtk_drop_down_get_header_factory(gtkDropDownPointer)?.run {
-            ListItemFactory(this)}
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
          *
@@ -245,7 +248,8 @@ public open class DropDown(
          * @return The factory in use
          */
         get() = gtk_drop_down_get_list_factory(gtkDropDownPointer)?.run {
-            ListItemFactory(this)}
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items in the popup.
          *
@@ -326,7 +330,8 @@ public open class DropDown(
          * @return The selected item
          */
         get() = gtk_drop_down_get_selected_item(gtkDropDownPointer)?.run {
-            Object(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether to show an arrow within the GtkDropDown widget.

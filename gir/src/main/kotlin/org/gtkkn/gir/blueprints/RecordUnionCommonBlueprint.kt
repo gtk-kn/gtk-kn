@@ -35,6 +35,7 @@ interface RecordUnionCommonBlueprint : HasConstructorsBlueprint {
     val fields: List<FieldBlueprint>
     val cStructTypeName: ClassName
     val optInVersionBlueprint: OptInVersionBlueprint?
+    val deprecatedBlueprint: DeprecatedBlueprint?
     val kdoc: String?
     val skippedObjects: List<SkippedObject>
 }

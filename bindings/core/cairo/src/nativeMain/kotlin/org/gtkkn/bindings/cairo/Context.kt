@@ -240,14 +240,16 @@ public class Context(
     public fun showText(utf8: String): Unit = cairo_show_text(cairoContextPointer, utf8)
 
     public fun getSource(): Pattern = cairo_get_source(cairoContextPointer)!!.run {
-        Pattern.PatternImpl(this)}
+        Pattern.PatternImpl(this)
+    }
 
     public fun translate(x: gdouble, y: gdouble): Unit = cairo_translate(cairoContextPointer, x, y)
 
     public fun scale(x: gdouble, y: gdouble): Unit = cairo_scale(cairoContextPointer, x, y)
 
     public fun getTarget(): Surface = cairo_get_target(cairoContextPointer)!!.run {
-        Surface(this)}
+        Surface(this)
+    }
 
     /**
      *
@@ -273,7 +275,8 @@ public class Context(
      */
     @CairoVersion1_2
     public fun popGroup(): Pattern = cairo_pop_group(cairoContextPointer)!!.run {
-        Pattern.PatternImpl(this)}
+        Pattern.PatternImpl(this)
+    }
 
     /**
      *
@@ -290,7 +293,8 @@ public class Context(
      */
     @CairoVersion1_2
     public fun getGroupTarget(): Surface = cairo_get_group_target(cairoContextPointer)!!.run {
-        Surface(this)}
+        Surface(this)
+    }
 
     public fun getAntialias(): Antialias = cairo_get_antialias(cairoContextPointer).run {
         Antialias.fromNativeValue(this)}
@@ -358,7 +362,8 @@ public class Context(
     public fun setFontFace(fontFace: FontFace): Unit = cairo_set_font_face(cairoContextPointer, fontFace.cairoFontFacePointer.reinterpret())
 
     public fun getFontFace(): FontFace = cairo_get_font_face(cairoContextPointer)!!.run {
-        FontFace(reinterpret())}
+        FontFace(reinterpret())
+    }
 
     /**
      *

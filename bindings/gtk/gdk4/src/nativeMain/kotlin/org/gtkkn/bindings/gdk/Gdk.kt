@@ -32,6 +32,7 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
@@ -5031,7 +5032,8 @@ public object Gdk {
         width: gint,
         height: gint,
     ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.cairoSurfacePointer, srcX, srcY, width, height)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a new pixbuf from @texture.
@@ -5044,7 +5046,8 @@ public object Gdk {
      * @return a new `GdkPixbuf`
      */
     public fun pixbufGetFromTexture(texture: Texture): Pixbuf? = gdk_pixbuf_get_from_texture(texture.gdkTexturePointer)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets a list of backends that GDK should try to use.
@@ -5175,7 +5178,8 @@ public val ContentDeserializeFuncFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(deserializer: ContentDeserializer) -> Unit>().get().invoke(deserializer!!.run {
-        ContentDeserializer(this)}
+        InstanceCache.get(this, false) { ContentDeserializer(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -5185,7 +5189,8 @@ public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSeri
     userData: COpaquePointer
     ->
     userData.asStableRef<(serializer: ContentSerializer) -> Unit>().get().invoke(serializer!!.run {
-        ContentSerializer(this)}
+        InstanceCache.get(this, false) { ContentSerializer(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

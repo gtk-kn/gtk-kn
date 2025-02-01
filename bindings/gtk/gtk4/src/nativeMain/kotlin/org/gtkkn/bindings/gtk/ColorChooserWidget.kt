@@ -19,6 +19,13 @@ import org.gtkkn.native.gtk.gtk_color_chooser_widget_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_widget_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Direct use of `GtkColorChooserWidget` is deprecated.
+ * ---
+ *
  * The `GtkColorChooserWidget` widget lets the user select a color.
  *
  * By default, the chooser presents a predefined palette of colors,

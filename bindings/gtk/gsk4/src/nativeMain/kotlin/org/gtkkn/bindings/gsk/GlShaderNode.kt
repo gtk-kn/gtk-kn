@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gsk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -48,7 +49,8 @@ public open class GlShaderNode(
      * @return the @idx'th child of @node
      */
     public open fun getChild(idx: guint): RenderNode = gsk_gl_shader_node_get_child(gskGlShaderNodePointer.reinterpret(), idx)!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Returns the number of children
@@ -63,7 +65,8 @@ public open class GlShaderNode(
      * @return the `GskGLShader` shader
      */
     public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGlShaderNodePointer.reinterpret())!!.run {
-        GlShader(this)}
+        InstanceCache.get(this, true) { GlShader(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<GlShaderNode> {
         override val type: GeneratedClassKGType<GlShaderNode> =

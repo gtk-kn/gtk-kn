@@ -21,6 +21,15 @@ import org.gtkkn.native.gtk.gtk_app_chooser_get_type
 import org.gtkkn.native.gtk.gtk_app_chooser_refresh
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+         *   implemented according to the design of each platform and/or
+         *   application requiring them.
+ * ---
+ *
  * `GtkAppChooser` is an interface for widgets which allow the user to
  * choose an application.
  *

@@ -22,6 +22,7 @@ import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -99,7 +100,8 @@ public open class CompletionContext(
          * @return an #GtkSourceCompletion or null
          */
         get() = gtk_source_completion_context_get_completion(gtksourceCompletionContextPointer)?.run {
-            Completion(this)}
+            InstanceCache.get(this, true) { Completion(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The "empty" property is true when there are no results.
@@ -149,7 +151,8 @@ public open class CompletionContext(
      * @return a #GtkTextBuffer or null
      */
     public open fun getBuffer(): Buffer? = gtk_source_completion_context_get_buffer(gtksourceCompletionContextPointer)?.run {
-        Buffer(this)}
+        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the language of the underlying buffer, if any.
@@ -157,7 +160,8 @@ public open class CompletionContext(
      * @return a #GtkSourceLanguage or null
      */
     public open fun getLanguage(): Language? = gtk_source_completion_context_get_language(gtksourceCompletionContextPointer)?.run {
-        Language(this)}
+        InstanceCache.get(this, true) { Language(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the #GListModel associated with the provider.
@@ -179,7 +183,8 @@ public open class CompletionContext(
      * @return a #GtkSourceView or null
      */
     public open fun getView(): View? = gtk_source_completion_context_get_view(gtksourceCompletionContextPointer)?.run {
-        View(this)}
+        InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the word that is being completed up to the position of the insert mark.

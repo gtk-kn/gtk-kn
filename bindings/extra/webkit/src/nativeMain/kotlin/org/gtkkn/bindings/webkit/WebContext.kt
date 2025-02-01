@@ -177,7 +177,8 @@ public class WebContext(
      */
     @WebKitVersion2_26
     public fun getGeolocationManager(): GeolocationManager = webkit_web_context_get_geolocation_manager(webkitWebContextPointer)!!.run {
-        GeolocationManager(this)}
+        InstanceCache.get(this, true) { GeolocationManager(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #WebKitNetworkSession used for automation sessions started in @context.
@@ -187,7 +188,8 @@ public class WebContext(
      */
     @WebKitVersion2_40
     public fun getNetworkSessionForAutomation(): NetworkSession? = webkit_web_context_get_network_session_for_automation(webkitWebContextPointer)?.run {
-        NetworkSession(this)}
+        InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #WebKitSecurityManager of @context.
@@ -195,7 +197,8 @@ public class WebContext(
      * @return the #WebKitSecurityManager of @context.
      */
     public fun getSecurityManager(): SecurityManager = webkit_web_context_get_security_manager(webkitWebContextPointer)!!.run {
-        SecurityManager(this)}
+        InstanceCache.get(this, true) { SecurityManager(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get whether spell checking feature is currently enabled.
@@ -524,7 +527,8 @@ public class WebContext(
          * @return a #WebKitWebContext
          */
         public fun getDefault(): WebContext = webkit_web_context_get_default()!!.run {
-            WebContext(this)}
+            InstanceCache.get(this, true) { WebContext(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of WebContext
@@ -552,7 +556,8 @@ private val onAutomationStartedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(session: AutomationSession) -> Unit>().get().invoke(session!!.run {
-        AutomationSession(this)}
+        InstanceCache.get(this, false) { AutomationSession(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -579,6 +584,7 @@ private val onUserMessageReceivedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(message: UserMessage) -> Boolean>().get().invoke(message!!.run {
-        UserMessage(this)}
+        InstanceCache.get(this, false) { UserMessage(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()

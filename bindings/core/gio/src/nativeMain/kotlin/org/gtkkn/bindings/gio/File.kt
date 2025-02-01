@@ -37,6 +37,7 @@ import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -318,7 +319,8 @@ public interface File : Proxy, KGTyped {
     public fun appendTo(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileOutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_append_to(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileOutputStream(this)}
+            InstanceCache.get(this, true) { FileOutputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -363,7 +365,8 @@ public interface File : Proxy, KGTyped {
     public fun appendToFinish(res: AsyncResult): Result<FileOutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_append_to_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileOutputStream(this)}
+            InstanceCache.get(this, true) { FileOutputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -575,7 +578,8 @@ public interface File : Proxy, KGTyped {
     public fun create(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileOutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_create(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileOutputStream(this)}
+            InstanceCache.get(this, true) { FileOutputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -620,7 +624,8 @@ public interface File : Proxy, KGTyped {
     public fun createFinish(res: AsyncResult): Result<FileOutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_create_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileOutputStream(this)}
+            InstanceCache.get(this, true) { FileOutputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -666,7 +671,8 @@ public interface File : Proxy, KGTyped {
     public fun createReadwrite(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_create_readwrite(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileIoStream(this)}
+            InstanceCache.get(this, true) { FileIoStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -715,7 +721,8 @@ public interface File : Proxy, KGTyped {
     public fun createReadwriteFinish(res: AsyncResult): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_create_readwrite_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileIoStream(this)}
+            InstanceCache.get(this, true) { FileIoStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -944,7 +951,8 @@ public interface File : Proxy, KGTyped {
     ): Result<FileEnumerator> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_enumerate_children(gioFilePointer, attributes, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileEnumerator(this)}
+            InstanceCache.get(this, true) { FileEnumerator(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -993,7 +1001,8 @@ public interface File : Proxy, KGTyped {
     public fun enumerateChildrenFinish(res: AsyncResult): Result<FileEnumerator> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_enumerate_children_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileEnumerator(this)}
+            InstanceCache.get(this, true) { FileEnumerator(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1565,7 +1574,8 @@ public interface File : Proxy, KGTyped {
     public fun monitor(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_monitor(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileMonitor.FileMonitorImpl(this)}
+            InstanceCache.get(this, true) { FileMonitor.FileMonitorImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1597,7 +1607,8 @@ public interface File : Proxy, KGTyped {
     public fun monitorDirectory(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_monitor_directory(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileMonitor.FileMonitorImpl(this)}
+            InstanceCache.get(this, true) { FileMonitor.FileMonitorImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1632,7 +1643,8 @@ public interface File : Proxy, KGTyped {
     public fun monitorFile(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_monitor_file(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileMonitor.FileMonitorImpl(this)}
+            InstanceCache.get(this, true) { FileMonitor.FileMonitorImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1871,7 +1883,8 @@ public interface File : Proxy, KGTyped {
     public fun openReadwrite(cancellable: Cancellable? = null): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_open_readwrite(gioFilePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileIoStream(this)}
+            InstanceCache.get(this, true) { FileIoStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -1917,7 +1930,8 @@ public interface File : Proxy, KGTyped {
     public fun openReadwriteFinish(res: AsyncResult): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_open_readwrite_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileIoStream(this)}
+            InstanceCache.get(this, true) { FileIoStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2130,7 +2144,8 @@ public interface File : Proxy, KGTyped {
     public fun queryFilesystemInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_query_filesystem_info(gioFilePointer, attributes, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2178,7 +2193,8 @@ public interface File : Proxy, KGTyped {
     public fun queryFilesystemInfoFinish(res: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_query_filesystem_info_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2233,7 +2249,8 @@ public interface File : Proxy, KGTyped {
     ): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_query_info(gioFilePointer, attributes, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2281,7 +2298,8 @@ public interface File : Proxy, KGTyped {
     public fun queryInfoFinish(res: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_query_info_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2367,7 +2385,8 @@ public interface File : Proxy, KGTyped {
     public fun read(cancellable: Cancellable? = null): Result<FileInputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_read(gioFilePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileInputStream(this)}
+            InstanceCache.get(this, true) { FileInputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2409,7 +2428,8 @@ public interface File : Proxy, KGTyped {
     public fun readFinish(res: AsyncResult): Result<FileInputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_read_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileInputStream(this)}
+            InstanceCache.get(this, true) { FileInputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2478,7 +2498,8 @@ public interface File : Proxy, KGTyped {
     ): Result<FileOutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_replace(gioFilePointer, etag, makeBackup.asGBoolean(), flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileOutputStream(this)}
+            InstanceCache.get(this, true) { FileOutputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2556,7 +2577,8 @@ public interface File : Proxy, KGTyped {
     public fun replaceFinish(res: AsyncResult): Result<FileOutputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_replace_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileOutputStream(this)}
+            InstanceCache.get(this, true) { FileOutputStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2596,7 +2618,8 @@ public interface File : Proxy, KGTyped {
     ): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_replace_readwrite(gioFilePointer, etag, makeBackup.asGBoolean(), flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileIoStream(this)}
+            InstanceCache.get(this, true) { FileIoStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -2651,7 +2674,8 @@ public interface File : Proxy, KGTyped {
     public fun replaceReadwriteFinish(res: AsyncResult): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_replace_readwrite_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            FileIoStream(this)}
+            InstanceCache.get(this, true) { FileIoStream(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

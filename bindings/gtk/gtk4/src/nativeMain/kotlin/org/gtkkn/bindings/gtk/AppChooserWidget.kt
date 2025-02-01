@@ -49,6 +49,15 @@ import org.gtkkn.native.gtk.gtk_app_chooser_widget_set_show_other
 import org.gtkkn.native.gtk.gtk_app_chooser_widget_set_show_recommended
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+         *   implemented according to the design of each platform and/or
+         *   application requiring them.
+ * ---
+ *
  * `GtkAppChooserWidget` is a widget for selecting applications.
  *
  * It is the main building block for [class@Gtk.AppChooserDialog].

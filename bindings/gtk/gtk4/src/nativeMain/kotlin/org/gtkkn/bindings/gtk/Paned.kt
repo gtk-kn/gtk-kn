@@ -160,7 +160,8 @@ public open class Paned(
          * @return the end child widget
          */
         get() = gtk_paned_get_end_child(gtkPanedPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the end child of @paned to @child.
          *
@@ -270,7 +271,8 @@ public open class Paned(
          * @return the start child widget
          */
         get() = gtk_paned_get_start_child(gtkPanedPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the start child of @paned to @child.
          *

@@ -155,7 +155,8 @@ public open class Application(
          * @return the active window
          */
         get() = gtk_application_get_active_window(gtkApplicationPointer)?.run {
-            Window(this)}
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GMenuModel` to be used for the application's menu bar.
@@ -168,7 +169,8 @@ public open class Application(
          * @return the menubar for windows of `application`
          */
         get() = gtk_application_get_menubar(gtkApplicationPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets or unsets the menubar for windows of `application`.
          *
@@ -287,7 +289,8 @@ public open class Application(
      *   given id from the automatically loaded resources
      */
     public open fun getMenuById(id: String): Menu? = gtk_application_get_menu_by_id(gtkApplicationPointer, id)?.run {
-        Menu(this)}
+        InstanceCache.get(this, true) { Menu(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the [class@Gtk.ApplicationWindow] with the given ID.
@@ -299,7 +302,8 @@ public open class Application(
      * @return the window for the given `id`
      */
     public open fun getWindowById(id: guint): Window? = gtk_application_get_window_by_id(gtkApplicationPointer, id)?.run {
-        Window(this)}
+        InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a list of the [class@Gtk.Window] instances associated with `application`.
@@ -511,7 +515,8 @@ private val onWindowAddedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> Unit>
     userData: COpaquePointer
     ->
     userData.asStableRef<(window: Window) -> Unit>().get().invoke(window!!.run {
-        Window(this)}
+        InstanceCache.get(this, false) { Window(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -522,6 +527,7 @@ private val onWindowRemovedFunc: CPointer<CFunction<(CPointer<GtkWindow>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(window: Window) -> Unit>().get().invoke(window!!.run {
-        Window(this)}
+        InstanceCache.get(this, false) { Window(reinterpret()) }!!
+    }
     )}
 .reinterpret()

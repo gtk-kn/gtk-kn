@@ -40,6 +40,7 @@ data class InterfaceBlueprint(
     val implClassSuperclassTypeName: ClassName,
     override val glibGetTypeFunc: MemberName?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 ) : TypeToRegister {
     override val instanceTypeName: ClassName = kotlinTypeName.nestedClass("${kotlinTypeName.simpleName}Impl")

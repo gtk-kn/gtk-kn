@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gtk.FileFilter
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -157,7 +158,8 @@ public class FileChooserRequest(
      * owned by WebKit should not be modified or freed.
      */
     public fun getMimeTypesFilter(): FileFilter = webkit_file_chooser_request_get_mime_types_filter(webkitFileChooserRequestPointer)!!.run {
-        FileFilter(this)}
+        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Ask WebKit to select local files for upload and complete the

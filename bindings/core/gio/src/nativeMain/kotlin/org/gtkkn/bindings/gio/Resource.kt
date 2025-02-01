@@ -14,6 +14,7 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Bytes
@@ -22,6 +23,7 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gio.GResource
 import org.gtkkn.native.gio.g_resource_enumerate_children
 import org.gtkkn.native.gio.g_resource_get_type
@@ -336,7 +338,8 @@ public class Resource(
     public fun openStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resource_open_stream(gioResourcePointer, path, lookupFlags.mask, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

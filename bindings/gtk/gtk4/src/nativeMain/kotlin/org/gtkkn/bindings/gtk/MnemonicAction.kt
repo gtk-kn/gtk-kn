@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -40,7 +41,8 @@ public open class MnemonicAction(
          * @return The mnemonic action
          */
         public fun `get`(): MnemonicAction = gtk_mnemonic_action_get()!!.run {
-            MnemonicAction(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { MnemonicAction(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of MnemonicAction

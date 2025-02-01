@@ -702,7 +702,8 @@ public open class TextView(
      * @return a `GtkTextBuffer`
      */
     public open fun getBuffer(): TextBuffer = gtk_text_view_get_buffer(gtkTextViewPointer)!!.run {
-        TextBuffer(this)}
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Determine the positions of the strong and weak cursors if the
@@ -743,7 +744,8 @@ public open class TextView(
      * @return the menu model
      */
     public open fun getExtraMenu(): MenuModel = gtk_text_view_get_extra_menu(gtkTextViewPointer)!!.run {
-        MenuModel.MenuModelImpl(this)}
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a `GtkWidget` that has previously been set as gutter.
@@ -757,7 +759,8 @@ public open class TextView(
      * @return a `GtkWidget`
      */
     public open fun getGutter(win: TextWindowType): Widget? = gtk_text_view_get_gutter(gtkTextViewPointer, win.nativeValue)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the iterator at buffer coordinates @x and @y.
@@ -801,7 +804,8 @@ public open class TextView(
      */
     @GtkVersion4_4
     public open fun getLtrContext(): Context = gtk_text_view_get_ltr_context(gtkTextViewPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the `PangoContext` that is used for rendering RTL directed
@@ -814,7 +818,8 @@ public open class TextView(
      */
     @GtkVersion4_4
     public open fun getRtlContext(): Context = gtk_text_view_get_rtl_context(gtkTextViewPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the default tabs for @text_view.

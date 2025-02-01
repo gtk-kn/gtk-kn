@@ -24,6 +24,13 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.26.
+ *
+ * Rarely used API
+ * ---
+ *
  * `GCompletion` provides support for automatic completion of a string
  * using any group of target strings. It is typically used for file
  * name completion as is common in many UNIX shells.

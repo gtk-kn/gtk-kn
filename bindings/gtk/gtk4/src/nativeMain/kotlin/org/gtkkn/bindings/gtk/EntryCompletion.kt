@@ -62,6 +62,11 @@ import org.gtkkn.native.gtk.gtk_entry_completion_set_popup_single_match
 import org.gtkkn.native.gtk.gtk_entry_completion_set_text_column
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * `GtkEntryCompletion` is an auxiliary object to provide completion functionality
  * for `GtkEntry`.
  *
@@ -357,7 +362,8 @@ public open class EntryCompletion(
      * @return The entry @completion has been attached to
      */
     public open fun getEntry(): Widget = gtk_entry_completion_get_entry(gtkEntryCompletionPointer)!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Requests a prefix insertion.

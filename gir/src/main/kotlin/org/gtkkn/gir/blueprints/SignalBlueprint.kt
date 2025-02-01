@@ -34,6 +34,7 @@ data class SignalBlueprint(
     override val lambdaTypeName: LambdaTypeName,
     val detailed: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : ClosureBlueprint {

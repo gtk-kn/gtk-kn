@@ -36,6 +36,13 @@ import org.gtkkn.native.gtk.gtk_list_store_set_value
 import org.gtkkn.native.gtk.gtk_list_store_swap
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gio.ListStore] instead
+ * ---
+ *
  * A list-like data structure that can be used with the [class@Gtk.TreeView].
  *
  * The `GtkListStore` object is a list model for use with a `GtkTreeView`

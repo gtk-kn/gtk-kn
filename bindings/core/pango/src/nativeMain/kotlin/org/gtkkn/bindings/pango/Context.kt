@@ -143,7 +143,8 @@ public open class Context(
      */
     @PangoVersion1_6
     public open fun getFontMap(): FontMap? = pango_context_get_font_map(pangoContextPointer)?.run {
-        FontMap.FontMapImpl(this)}
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the gravity for the context.
@@ -260,7 +261,8 @@ public open class Context(
      *   that was loaded, or null if no font matched.
      */
     public open fun loadFont(desc: FontDescription): Font? = pango_context_load_font(pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
-        Font.FontImpl(this)}
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Load a set of fonts in the context that can be used to render
@@ -272,7 +274,8 @@ public open class Context(
      *   `PangoFontset` loaded, or null if no font matched.
      */
     public open fun loadFontset(desc: FontDescription, language: Language): Fontset? = pango_context_load_fontset(pangoContextPointer, desc.pangoFontDescriptionPointer, language.pangoLanguagePointer)?.run {
-        Fontset.FontsetImpl(this)}
+        InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the base direction for the context.

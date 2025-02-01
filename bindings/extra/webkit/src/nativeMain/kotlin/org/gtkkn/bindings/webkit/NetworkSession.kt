@@ -141,7 +141,8 @@ public class NetworkSession(
      */
     @WebKitVersion2_40
     public fun downloadUri(uri: String): Download = webkit_network_session_download_uri(webkitNetworkSessionPointer, uri)!!.run {
-        Download(this)}
+        InstanceCache.get(this, true) { Download(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #WebKitCookieManager of @session.
@@ -151,7 +152,8 @@ public class NetworkSession(
      */
     @WebKitVersion2_40
     public fun getCookieManager(): CookieManager = webkit_network_session_get_cookie_manager(webkitNetworkSessionPointer)!!.run {
-        CookieManager(this)}
+        InstanceCache.get(this, true) { CookieManager(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get whether Intelligent Tracking Prevention (ITP) is enabled or not.
@@ -229,7 +231,8 @@ public class NetworkSession(
      */
     @WebKitVersion2_40
     public fun getWebsiteDataManager(): WebsiteDataManager = webkit_network_session_get_website_data_manager(webkitNetworkSessionPointer)!!.run {
-        WebsiteDataManager(this)}
+        InstanceCache.get(this, true) { WebsiteDataManager(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get whether @session is ephemeral.
@@ -344,7 +347,8 @@ public class NetworkSession(
          */
         @WebKitVersion2_40
         public fun getDefault(): NetworkSession = webkit_network_session_get_default()!!.run {
-            NetworkSession(this)}
+            InstanceCache.get(this, true) { NetworkSession(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Sets @settings as the #WebKitMemoryPressureSettings.
@@ -392,6 +396,7 @@ private val onDownloadStartedFunc: CPointer<CFunction<(CPointer<WebKitDownload>)
     userData: COpaquePointer
     ->
     userData.asStableRef<(download: Download) -> Unit>().get().invoke(download!!.run {
-        Download(this)}
+        InstanceCache.get(this, false) { Download(reinterpret()) }!!
+    }
     )}
 .reinterpret()

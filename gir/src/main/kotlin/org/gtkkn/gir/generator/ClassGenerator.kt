@@ -89,7 +89,7 @@ interface ClassGenerator :
      * Adds KDoc based on [ClassBlueprint] documentation and applies any opt-in version annotation.
      */
     private fun TypeSpec.Builder.addKDocAndOptInAnnotations(clazz: ClassBlueprint) {
-        addKdoc(buildTypeKDoc(clazz.kdoc, clazz.optInVersionBlueprint, clazz.skippedObjects))
+        addKdoc(buildTypeKDoc(clazz.kdoc, clazz.optInVersionBlueprint, clazz.deprecatedBlueprint, clazz.skippedObjects))
         clazz.optInVersionBlueprint?.typeName?.let { addAnnotation(it) }
     }
 

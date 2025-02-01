@@ -286,6 +286,7 @@ private val onNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) 
     userData: COpaquePointer
     ->
     userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()

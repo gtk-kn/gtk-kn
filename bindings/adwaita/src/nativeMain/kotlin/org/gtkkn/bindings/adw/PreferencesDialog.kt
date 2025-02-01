@@ -137,7 +137,8 @@ public open class PreferencesDialog(
      */
     @AdwVersion1_5
     public open fun getVisiblePage(): PreferencesPage? = adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer)?.run {
-        PreferencesPage(this)}
+        InstanceCache.get(this, true) { PreferencesPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the name of currently visible page of @self.

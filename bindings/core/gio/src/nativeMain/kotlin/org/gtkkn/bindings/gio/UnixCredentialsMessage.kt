@@ -65,7 +65,8 @@ public open class UnixCredentialsMessage(
          * @since 2.26
          */
         get() = g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer)!!.run {
-            Credentials(this)}
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new #GUnixCredentialsMessage with credentials matching the current processes.

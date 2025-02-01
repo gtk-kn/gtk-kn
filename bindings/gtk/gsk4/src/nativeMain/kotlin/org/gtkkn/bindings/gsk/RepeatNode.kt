@@ -53,7 +53,8 @@ public open class RepeatNode(
      * @return a `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the bounding rectangle of the child of @node.

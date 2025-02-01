@@ -49,7 +49,8 @@ public open class TreeListRowSorter(
          * @return the sorter used
          */
         get() = gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer)?.run {
-            Sorter(this)}
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the sorter to use for items with the same parent.
          *

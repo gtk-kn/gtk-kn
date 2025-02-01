@@ -62,6 +62,13 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+ * ---
+ *
  * An adaptive container acting like a box or a stack.
  *
  * <picture>
@@ -431,7 +438,8 @@ public class Leaflet(
      * @return the [class@LeafletPage] for @child
      */
     public fun append(child: Widget): LeafletPage = adw_leaflet_append(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-        LeafletPage(this)}
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Finds the previous or next navigatable child.
@@ -447,7 +455,8 @@ public class Leaflet(
      * @return the previous or next child
      */
     public fun getAdjacentChild(direction: NavigationDirection): Widget? = adw_leaflet_get_adjacent_child(adwLeafletPointer, direction.nativeValue)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Finds the child of @self with @name.
@@ -460,7 +469,8 @@ public class Leaflet(
      * @return the requested child of @self
      */
     public fun getChildByName(name: String): Widget? = adw_leaflet_get_child_by_name(adwLeafletPointer, name)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the [class@LeafletPage] object for @child.
@@ -469,7 +479,8 @@ public class Leaflet(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): LeafletPage = adw_leaflet_get_page(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-        LeafletPage(this)}
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the widget currently visible when the leaflet is folded.
@@ -477,7 +488,8 @@ public class Leaflet(
      * @return the visible child
      */
     public fun getVisibleChild(): Widget? = adw_leaflet_get_visible_child(adwLeafletPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the name of the currently visible child widget.
@@ -496,7 +508,8 @@ public class Leaflet(
      * @return the [class@LeafletPage] for @child
      */
     public fun insertChildAfter(child: Widget, sibling: Widget? = null): LeafletPage = adw_leaflet_insert_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)!!.run {
-        LeafletPage(this)}
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Navigates to the previous or next child.
@@ -519,7 +532,8 @@ public class Leaflet(
      * @return the [class@LeafletPage] for @child
      */
     public fun prepend(child: Widget): LeafletPage = adw_leaflet_prepend(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
-        LeafletPage(this)}
+        InstanceCache.get(this, true) { LeafletPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Removes a child widget from @self.

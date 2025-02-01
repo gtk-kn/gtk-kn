@@ -17,6 +17,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -105,7 +106,8 @@ public open class FileIoStream(
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_io_stream_query_info(gioFileIoStreamPointer, attributes, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -150,7 +152,8 @@ public open class FileIoStream(
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_io_stream_query_info_finish(gioFileIoStreamPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

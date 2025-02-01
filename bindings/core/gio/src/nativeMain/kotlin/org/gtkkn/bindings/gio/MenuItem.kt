@@ -188,7 +188,8 @@ public open class MenuItem(
      */
     @GioVersion2_34
     public open fun getLink(link: String): MenuModel? = g_menu_item_get_link(gioMenuItemPointer, link)?.run {
-        MenuModel.MenuModelImpl(this)}
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets or unsets the "action" and "target" attributes of @menu_item.

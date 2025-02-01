@@ -11,6 +11,11 @@ import org.gtkkn.native.gtk.GtkTreeModelFlags
 import org.gtkkn.native.gtk.gtk_tree_model_flags_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * These flags indicate various properties of a `GtkTreeModel`.
  *
  * They are returned by [method@Gtk.TreeModel.get_flags], and must be
@@ -25,12 +30,22 @@ public class TreeModelFlags(
 
     public companion object {
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * iterators survive all signals
          *   emitted by the tree
          */
         public val ITERS_PERSIST: TreeModelFlags = TreeModelFlags(GTK_TREE_MODEL_ITERS_PERSIST)
 
         /**
+         * # ⚠️ Deprecated ⚠️
+         *
+         * This is deprecated since version 4.10.
+         * ---
+         *
          * the model is a list only, and never
          *   has children
          */

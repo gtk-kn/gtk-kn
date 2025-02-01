@@ -10,10 +10,12 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.pango.PangoAnalysis
 
@@ -29,7 +31,8 @@ public class Analysis(
      */
     public var font: Font?
         get() = pangoAnalysisPointer.pointed.font?.run {
-            Font.FontImpl(this)}
+            InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.also { ref() }
+        }
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.font = value?.pangoFontPointer

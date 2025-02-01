@@ -43,6 +43,7 @@ import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -754,7 +755,8 @@ public abstract class Widget(
          *   currently in use or null if the cursor is inherited
          */
         get() = gtk_widget_get_cursor(gtkWidgetPointer)?.run {
-            Cursor(this)}
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the cursor to be shown when pointer devices point
          * towards @widget.
@@ -984,7 +986,8 @@ public abstract class Widget(
          * @return a `GtkLayoutManager`
          */
         get() = gtk_widget_get_layout_manager(gtkWidgetPointer)?.run {
-            LayoutManager.LayoutManagerImpl(this)}
+            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the layout manager delegate instance that provides an
          * implementation for measuring and allocating the children of @widget.
@@ -1192,7 +1195,8 @@ public abstract class Widget(
          * @return the parent widget of @widget
          */
         get() = gtk_widget_get_parent(gtkWidgetPointer)?.run {
-            WidgetImpl(this)}
+            InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the widget will receive the default action when it is focused.
@@ -1728,7 +1732,8 @@ public abstract class Widget(
      * @return the new `PangoContext`
      */
     public open fun createPangoContext(): Context = gtk_widget_create_pango_context(gtkWidgetPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a new `PangoLayout` with the appropriate font map,
@@ -1744,7 +1749,8 @@ public abstract class Widget(
      * @return the new `PangoLayout`
      */
     public open fun createPangoLayout(text: String? = null): Layout = gtk_widget_create_pango_layout(gtkWidgetPointer, text)!!.run {
-        Layout(this)}
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Clears the template children for the given widget.
@@ -1874,7 +1880,8 @@ public abstract class Widget(
      * @return the ancestor widget
      */
     public open fun getAncestor(widgetType: GType): Widget? = gtk_widget_get_ancestor(gtkWidgetPointer, widgetType)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the baseline that has currently been allocated to @widget.
@@ -1914,7 +1921,8 @@ public abstract class Widget(
      * @return the appropriate clipboard object
      */
     public open fun getClipboard(): Clipboard = gtk_widget_get_clipboard(gtkWidgetPointer)!!.run {
-        Clipboard(this)}
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current foreground color for the widget’s
@@ -1955,7 +1963,8 @@ public abstract class Widget(
      *   for this widget.
      */
     public open fun getDisplay(): Display = gtk_widget_get_display(gtkWidgetPointer)!!.run {
-        Display(this)}
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the widget’s first child.
@@ -1965,7 +1974,8 @@ public abstract class Widget(
      * @return The widget's first child
      */
     public open fun getFirstChild(): Widget? = gtk_widget_get_first_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the current focus child of @widget.
@@ -1974,7 +1984,8 @@ public abstract class Widget(
      *   child of @widget
      */
     public open fun getFocusChild(): Widget? = gtk_widget_get_focus_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the font map of @widget.
@@ -1984,7 +1995,8 @@ public abstract class Widget(
      * @return A `PangoFontMap`
      */
     public open fun getFontMap(): FontMap? = gtk_widget_get_font_map(gtkWidgetPointer)?.run {
-        FontMap.FontMapImpl(this)}
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the `cairo_font_options_t` of widget.
@@ -2024,7 +2036,8 @@ public abstract class Widget(
      * @return a `GdkFrameClock`
      */
     public open fun getFrameClock(): FrameClock? = gtk_widget_get_frame_clock(gtkWidgetPointer)?.run {
-        FrameClock.FrameClockImpl(this)}
+        InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the content height of the widget.
@@ -2050,7 +2063,8 @@ public abstract class Widget(
      * @return The widget's last child
      */
     public open fun getLastChild(): Widget? = gtk_widget_get_last_child(gtkWidgetPointer)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Whether the widget is mapped.
@@ -2080,7 +2094,8 @@ public abstract class Widget(
      * @return The widget's next sibling
      */
     public open fun getNextSibling(): Widget? = gtk_widget_get_next_sibling(gtkWidgetPointer)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a `PangoContext` with the appropriate font map, font description,
@@ -2096,7 +2111,8 @@ public abstract class Widget(
      * @return the `PangoContext` for the widget.
      */
     public open fun getPangoContext(): Context = gtk_widget_get_pango_context(gtkWidgetPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the minimum and natural size of a widget, taking
@@ -2127,7 +2143,8 @@ public abstract class Widget(
      * @return The widget's previous sibling
      */
     public open fun getPrevSibling(): Widget? = gtk_widget_get_prev_sibling(gtkWidgetPointer)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the primary clipboard of @widget.
@@ -2141,7 +2158,8 @@ public abstract class Widget(
      * @return the appropriate clipboard object
      */
     public open fun getPrimaryClipboard(): Clipboard = gtk_widget_get_primary_clipboard(gtkWidgetPointer)!!.run {
-        Clipboard(this)}
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Determines whether @widget is realized.
@@ -2175,7 +2193,8 @@ public abstract class Widget(
      * @return the relevant `GtkSettings` object
      */
     public open fun getSettings(): Settings = gtk_widget_get_settings(gtkWidgetPointer)!!.run {
-        Settings(this)}
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the content width or height of the widget.
@@ -2221,7 +2240,8 @@ public abstract class Widget(
      * @return the widget’s `GtkStyleContext`
      */
     public open fun getStyleContext(): StyleContext = gtk_widget_get_style_context(gtkWidgetPointer)!!.run {
-        StyleContext(this)}
+        InstanceCache.get(this, true) { StyleContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Fetch an object build from the template XML for @widget_type in
@@ -2241,7 +2261,8 @@ public abstract class Widget(
      *   the id @name
      */
     public open fun getTemplateChild(widgetType: GType, name: String): Object = gtk_widget_get_template_child(gtkWidgetPointer, widgetType, name)!!.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the content width of the widget.
@@ -2608,7 +2629,8 @@ public abstract class Widget(
         y: gdouble,
         flags: PickFlags,
     ): Widget? = gtk_widget_pick(gtkWidgetPointer, x, y, flags.mask)?.run {
-        WidgetImpl(this)}
+        InstanceCache.get(this, true) { WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Flags the widget for a rerun of the [vfunc@Gtk.Widget.size_allocate]
@@ -3357,7 +3379,8 @@ private val onQueryTooltipFunc: CPointer<CFunction<(
         keyboardMode: Boolean,
         tooltip: Tooltip,
     ) -> Boolean>().get().invoke(x, y, keyboardMode.asBoolean(), tooltip!!.run {
-        Tooltip(this)}
+        InstanceCache.get(this, false) { Tooltip(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 

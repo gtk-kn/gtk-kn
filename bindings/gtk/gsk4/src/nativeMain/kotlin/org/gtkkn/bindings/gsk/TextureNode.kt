@@ -8,6 +8,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -51,7 +52,8 @@ public open class TextureNode(
      * @return the `GdkTexture`
      */
     public open fun getTexture(): Texture = gsk_texture_node_get_texture(gskTextureNodePointer.reinterpret())!!.run {
-        Texture.TextureImpl(this)}
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<TextureNode> {
         override val type: GeneratedClassKGType<TextureNode> =

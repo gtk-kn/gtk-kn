@@ -24,6 +24,7 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.cairo.cairo_t
 import org.gtkkn.native.glib.gboolean
@@ -153,7 +154,8 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_22
     public fun createContext(cr: CairoContext): PangoContext = pango_cairo_create_context(cr.cairoContextPointer)!!.run {
-        PangoContext(this)}
+        InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a layout object set up to match the current transformation
@@ -175,7 +177,8 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun createLayout(cr: CairoContext): Layout = pango_cairo_create_layout(cr.cairoContextPointer)!!.run {
-        Layout(this)}
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Add a squiggly line to the current path in the specified cairo context that

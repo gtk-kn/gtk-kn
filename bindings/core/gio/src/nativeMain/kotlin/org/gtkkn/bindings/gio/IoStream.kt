@@ -19,6 +19,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -120,7 +121,8 @@ public abstract class IoStream(
          * @since 2.22
          */
         get() = g_io_stream_get_input_stream(gioIoStreamPointer)!!.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The [class@Gio.OutputStream] to write to.
@@ -138,7 +140,8 @@ public abstract class IoStream(
          * @since 2.22
          */
         get() = g_io_stream_get_output_stream(gioIoStreamPointer)!!.run {
-            OutputStream.OutputStreamImpl(this)}
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Clears the pending flag on @stream.

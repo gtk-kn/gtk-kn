@@ -57,7 +57,8 @@ public open class ZlibCompressor(
          * @since 2.26
          */
         get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets @file_info in @compressor. If non-null, and @compressor's
          * #GZlibCompressor:format property is %G_ZLIB_COMPRESSOR_FORMAT_GZIP,

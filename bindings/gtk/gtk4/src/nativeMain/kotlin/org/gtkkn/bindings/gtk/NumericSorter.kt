@@ -42,7 +42,8 @@ public open class NumericSorter(
          * @return a `GtkExpression`
          */
         get() = gtk_numeric_sorter_get_expression(gtkNumericSorterPointer)?.run {
-            Expression.ExpressionImpl(this)}
+            Expression.ExpressionImpl(this)
+        }
         /**
          * Sets the expression that is evaluated to obtain numbers from items.
          *

@@ -127,7 +127,8 @@ public open class TextMark(
      * @return the mark’s `GtkTextBuffer`
      */
     public open fun getBuffer(): TextBuffer? = gtk_text_mark_get_buffer(gtkTextMarkPointer)?.run {
-        TextBuffer(this)}
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns true if the mark has been removed from its buffer.

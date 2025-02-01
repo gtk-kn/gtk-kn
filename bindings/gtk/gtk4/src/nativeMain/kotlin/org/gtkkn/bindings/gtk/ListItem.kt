@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -145,7 +146,8 @@ public open class ListItem(
          * @return The child
          */
         get() = gtk_list_item_get_child(gtkListItemPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child to be used for this listitem.
          *
@@ -201,7 +203,8 @@ public open class ListItem(
          * @return The item displayed
          */
         get() = gtk_list_item_get_item(gtkListItemPointer)?.run {
-            Object(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Position of the item.

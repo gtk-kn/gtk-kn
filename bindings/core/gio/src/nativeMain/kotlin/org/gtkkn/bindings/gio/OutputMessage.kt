@@ -10,10 +10,12 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gio.GOutputMessage
 import org.gtkkn.native.glib.guint
 
@@ -41,7 +43,8 @@ public class OutputMessage(
      */
     public var address: SocketAddress?
         get() = gioOutputMessagePointer.pointed.address?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.address = value?.gioSocketAddressPointer

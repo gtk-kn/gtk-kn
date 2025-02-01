@@ -152,7 +152,8 @@ public class ContextMenuItem(
      *    @item or null if @item doesn't have a submenu.
      */
     public fun getSubmenu(): ContextMenu = webkit_context_menu_item_get_submenu(webkitContextMenuItemPointer)!!.run {
-        ContextMenu(this)}
+        InstanceCache.get(this, true) { ContextMenu(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Checks whether @item is a separator.

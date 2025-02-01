@@ -199,7 +199,8 @@ public open class ListView(
          * @return The factory in use
          */
         get() = gtk_list_view_get_factory(gtkListViewPointer)?.run {
-            ListItemFactory(this)}
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.
          *
@@ -221,7 +222,8 @@ public open class ListView(
          * @since 4.12
          */
         get() = gtk_list_view_get_header_factory(gtkListViewPointer)?.run {
-            ListItemFactory(this)}
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkListItemFactory` to use for populating the
          * [class@Gtk.ListHeader] objects used in section headers.

@@ -87,7 +87,8 @@ public open class FileLoader(
          * @return the #GtkSourceBuffer to load the contents into.
          */
         get() = gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer)!!.run {
-            Buffer(this)}
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The #GtkSourceFile. The #GtkSourceFileLoader object has a weak
@@ -100,7 +101,8 @@ public open class FileLoader(
          * @return the #GtkSourceFile.
          */
         get() = gtk_source_file_loader_get_file(gtksourceFileLoaderPointer)!!.run {
-            File(this)}
+            InstanceCache.get(this, true) { File(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The #GInputStream to load. Useful for reading stdin. If this property
@@ -114,7 +116,8 @@ public open class FileLoader(
          * if a #GFile is used.
          */
         get() = gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The #GFile to load. If the #GtkSourceFileLoader:input-stream is

@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -15,6 +16,13 @@ import org.gtkkn.native.gtk.gtk_assistant_page_get_child
 import org.gtkkn.native.gtk.gtk_assistant_page_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This object will be removed in GTK 5
+ * ---
+ *
  * `GtkAssistantPage` is an auxiliary object used by `GtkAssistant.
  *
  * ## Skipped during bindings generation
@@ -41,7 +49,8 @@ public open class AssistantPage(
          * @return the child to which @page belongs
          */
         get() = gtk_assistant_page_get_child(gtkAssistantPagePointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     public companion object : TypeCompanion<AssistantPage> {
         override val type: GeneratedClassKGType<AssistantPage> =

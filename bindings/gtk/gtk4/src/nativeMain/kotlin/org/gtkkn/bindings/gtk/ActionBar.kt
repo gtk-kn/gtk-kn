@@ -122,7 +122,8 @@ public open class ActionBar(
      * @return the center `GtkWidget`
      */
     public open fun getCenterWidget(): Widget? = gtk_action_bar_get_center_widget(gtkActionBarPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds @child to @action_bar, packed with reference to the

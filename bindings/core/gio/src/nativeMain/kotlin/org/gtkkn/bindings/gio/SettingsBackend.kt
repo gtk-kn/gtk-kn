@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Tree
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -230,7 +231,8 @@ public abstract class SettingsBackend(
          */
         @GioVersion2_28
         public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
-            SettingsBackendImpl(this)}
+            InstanceCache.get(this, true) { SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of SettingsBackend

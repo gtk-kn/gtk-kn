@@ -177,7 +177,8 @@ public open class SortListModel(
          * @since 4.12
          */
         get() = gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer)?.run {
-            Sorter(this)}
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a new section sorter on @self.
          *
@@ -197,7 +198,8 @@ public open class SortListModel(
          * @return the sorter of #self
          */
         get() = gtk_sort_list_model_get_sorter(gtkSortListModelPointer)?.run {
-            Sorter(this)}
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a new sorter on @self.
          *

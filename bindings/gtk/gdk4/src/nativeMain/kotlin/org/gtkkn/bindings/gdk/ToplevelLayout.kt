@@ -6,10 +6,12 @@ package org.gtkkn.bindings.gdk
 import kotlin.Boolean
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gdk.GdkToplevelLayout
 import org.gtkkn.native.gdk.gdk_toplevel_layout_copy
 import org.gtkkn.native.gdk.gdk_toplevel_layout_equal
@@ -82,7 +84,8 @@ public class ToplevelLayout(
      * @return the monitor on which @layout fullscreens
      */
     public fun getFullscreenMonitor(): Monitor? = gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer)?.run {
-        Monitor(this)}
+        InstanceCache.get(this, true) { Monitor(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns whether the layout should allow the user

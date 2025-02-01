@@ -20,6 +20,13 @@ import org.gtkkn.native.gtk.GtkShortcutManager
 import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FileDialog] instead
+ * ---
+ *
  * `GtkFileChooserDialog` is a dialog suitable for use with
  * “File Open” or “File Save” commands.
  *

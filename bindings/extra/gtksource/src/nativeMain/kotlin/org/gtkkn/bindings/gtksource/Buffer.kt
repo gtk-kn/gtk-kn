@@ -236,7 +236,8 @@ public open class Buffer(
          * with the buffer, or null.
          */
         get() = gtk_source_buffer_get_language(gtksourceBufferPointer)?.run {
-            Language(this)}
+            InstanceCache.get(this, true) { Language(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Associates a [class@Language] with the buffer.
          *
@@ -279,7 +280,8 @@ public open class Buffer(
          * associated with the buffer, or null.
          */
         get() = gtk_source_buffer_get_style_scheme(gtksourceBufferPointer)?.run {
-            StyleScheme(this)}
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a [class@StyleScheme] to be used by the buffer and the view.
          *
@@ -366,7 +368,8 @@ public open class Buffer(
         category: String,
         `where`: TextIter,
     ): Mark = gtk_source_buffer_create_source_mark(gtksourceBufferPointer, name, category, `where`.gtkTextIterPointer)!!.run {
-        Mark(this)}
+        InstanceCache.get(this, true) { Mark(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Forces buffer to analyze and highlight the given area synchronously.
@@ -615,6 +618,7 @@ private val onSourceMarkUpdatedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) 
     userData: COpaquePointer
     ->
     userData.asStableRef<(mark: TextMark) -> Unit>().get().invoke(mark!!.run {
-        TextMark(this)}
+        InstanceCache.get(this, false) { TextMark(reinterpret()) }!!
+    }
     )}
 .reinterpret()

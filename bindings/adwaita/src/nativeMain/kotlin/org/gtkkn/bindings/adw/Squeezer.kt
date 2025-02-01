@@ -50,6 +50,13 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
+ * ---
+ *
  * A best fit container.
  *
  * <picture>
@@ -287,7 +294,8 @@ public class Squeezer(
          * @return the visible child
          */
         get() = adw_squeezer_get_visible_child(adwSqueezerPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The horizontal alignment, from 0 (start) to 1 (end).
@@ -363,7 +371,8 @@ public class Squeezer(
      * @return the [class@SqueezerPage] for @child
      */
     public fun add(child: Widget): SqueezerPage = adw_squeezer_add(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
-        SqueezerPage(this)}
+        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the [class@SqueezerPage] object for @child.
@@ -372,7 +381,8 @@ public class Squeezer(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): SqueezerPage = adw_squeezer_get_page(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
-        SqueezerPage(this)}
+        InstanceCache.get(this, true) { SqueezerPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Removes a child widget from @self.

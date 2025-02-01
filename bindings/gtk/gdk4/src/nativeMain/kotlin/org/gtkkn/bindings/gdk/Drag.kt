@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -82,7 +83,8 @@ public abstract class Drag(
          * @return The `GdkContentProvider` associated to @drag.
          */
         get() = gdk_drag_get_content(gdkDragPointer)!!.run {
-            ContentProvider(this)}
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDevice` that is performing the drag.
@@ -94,7 +96,8 @@ public abstract class Drag(
          * @return The `GdkDevice` associated to @drag.
          */
         get() = gdk_drag_get_device(gdkDragPointer)!!.run {
-            Device.DeviceImpl(this)}
+            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDisplay` that the drag belongs to.
@@ -106,7 +109,8 @@ public abstract class Drag(
          * @return a `GdkDisplay`
          */
         get() = gdk_drag_get_display(gdkDragPointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The possible formats that the drag can provide its data in.
@@ -142,7 +146,8 @@ public abstract class Drag(
          * @return The `GdkSurface` where the drag originates
          */
         get() = gdk_drag_get_surface(gdkDragPointer)!!.run {
-            Surface.SurfaceImpl(this)}
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Informs GDK that the drop ended.
@@ -173,7 +178,8 @@ public abstract class Drag(
      * @return the drag surface
      */
     public open fun getDragSurface(): Surface? = gdk_drag_get_drag_surface(gdkDragPointer)?.run {
-        Surface.SurfaceImpl(this)}
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the position of the drag surface that will be kept
@@ -283,7 +289,8 @@ public abstract class Drag(
             dx: gdouble,
             dy: gdouble,
         ): Drag? = gdk_drag_begin(surface.gdkSurfacePointer, device.gdkDevicePointer, content.gdkContentProviderPointer, actions.mask, dx, dy)?.run {
-            DragImpl(this)}
+            InstanceCache.get(this, true) { DragImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of Drag

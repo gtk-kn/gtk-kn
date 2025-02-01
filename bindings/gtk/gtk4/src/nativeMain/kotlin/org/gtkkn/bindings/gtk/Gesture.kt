@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -179,7 +180,8 @@ public abstract class Gesture(
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gtk_gesture_get_device(gtkGesturePointer)?.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns all gestures in the group of @gesture
@@ -201,7 +203,8 @@ public abstract class Gesture(
      * @return The last event from @sequence
      */
     public open fun getLastEvent(sequence: EventSequence? = null): Event? = gtk_gesture_get_last_event(gtkGesturePointer, sequence?.gdkEventSequencePointer)?.run {
-        Event.EventImpl(this)}
+        Event.EventImpl(this)
+    }
 
     /**
      * Returns the `GdkEventSequence` that was last updated on @gesture.

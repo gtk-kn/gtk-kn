@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -107,7 +108,8 @@ public open class Range(
          * @return a `GtkAdjustment`
          */
         get() = gtk_range_get_adjustment(gtkRangePointer)!!.run {
-            Adjustment(this)}
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the adjustment to be used as the “model” object for the `GtkRange`
          *

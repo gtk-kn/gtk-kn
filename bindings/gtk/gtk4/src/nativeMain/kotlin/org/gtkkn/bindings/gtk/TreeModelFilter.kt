@@ -31,6 +31,13 @@ import org.gtkkn.native.gtk.gtk_tree_model_filter_set_visible_column
 import org.gtkkn.native.gtk.gtk_tree_model_filter_set_visible_func
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FilterListModel] instead.
+ * ---
+ *
  * A `GtkTreeModel` which hides parts of an underlying tree model
  *
  * A `GtkTreeModelFilter` is a tree model which wraps another tree model,

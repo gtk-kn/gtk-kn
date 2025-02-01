@@ -33,6 +33,15 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_accel_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Applications editing keyboard accelerators should
+         *   provide their own implementation according to platform design
+         *   guidelines
+ * ---
+ *
  * Renders a keyboard accelerator in a cell
  *
  * `GtkCellRendererAccel` displays a keyboard accelerator (i.e. a key

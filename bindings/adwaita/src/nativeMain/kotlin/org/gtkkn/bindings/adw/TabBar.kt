@@ -135,7 +135,8 @@ public class TabBar(
          * @return the widget shown after the tabs
          */
         get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the widget to show after the tabs.
          *
@@ -262,7 +263,8 @@ public class TabBar(
          * @return the widget shown before the tabs
          */
         get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the widget to show before the tabs.
          *
@@ -295,7 +297,8 @@ public class TabBar(
          * @return the view @self controls
          */
         get() = adw_tab_bar_get_view(adwTabBarPointer)?.run {
-            TabView(this)}
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the tab view @self controls.
          *
@@ -378,7 +381,8 @@ private val onExtraDragDropFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , `value`!!.run {
         Value(this)}
     ).asGBoolean()}
@@ -393,7 +397,8 @@ private val onExtraDragValueFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , `value`!!.run {
         Value(this)}
     ).mask}

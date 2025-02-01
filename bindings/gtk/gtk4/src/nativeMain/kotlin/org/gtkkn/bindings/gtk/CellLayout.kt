@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -32,6 +33,14 @@ import org.gtkkn.native.gtk.gtk_cell_layout_reorder
 import org.gtkkn.native.gtk.gtk_cell_layout_set_cell_data_func
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   See [class@Gtk.LayoutManager] for layout manager delegate objects
+ * ---
+ *
  * An interface for packing cells
  *
  * `GtkCellLayout` is an interface to be implemented by all objects which
@@ -189,7 +198,8 @@ public interface CellLayout : Proxy, KGTyped {
      * @return the cell area used by @cell_layout
      */
     public fun getArea(): CellArea? = gtk_cell_layout_get_area(gtkCellLayoutPointer)?.run {
-        CellArea.CellAreaImpl(this)}
+        InstanceCache.get(this, true) { CellArea.CellAreaImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the cell renderers which have been added to @cell_layout.

@@ -23,6 +23,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -106,7 +107,8 @@ public abstract class Drop(
          * @return The `GdkDevice` performing the drop.
          */
         get() = gdk_drop_get_device(gdkDropPointer)!!.run {
-            Device.DeviceImpl(this)}
+            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDisplay` that the drop belongs to.
@@ -118,7 +120,8 @@ public abstract class Drop(
          * @return a `GdkDisplay`
          */
         get() = gdk_drop_get_display(gdkDropPointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDrag` that initiated this drop
@@ -133,7 +136,8 @@ public abstract class Drop(
          * @return the corresponding `GdkDrag`
          */
         get() = gdk_drop_get_drag(gdkDropPointer)?.run {
-            Drag.DragImpl(this)}
+            InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The possible formats that the drop can provide its data in.
@@ -158,7 +162,8 @@ public abstract class Drop(
          * @return The `GdkSurface` performing the drop.
          */
         get() = gdk_drop_get_surface(gdkDropPointer)!!.run {
-            Surface.SurfaceImpl(this)}
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Ends the drag operation after a drop.

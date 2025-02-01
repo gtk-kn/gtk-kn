@@ -15,6 +15,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spinner_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_spinner_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You should use [class@Gtk.Spinner] instead
+ * ---
+ *
  * Renders a spinning animation in a cell
  *
  * `GtkCellRendererSpinner` renders a spinning animation in a cell, very

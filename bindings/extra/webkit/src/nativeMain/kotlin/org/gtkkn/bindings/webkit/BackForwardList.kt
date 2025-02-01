@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -70,7 +71,8 @@ public class BackForwardList(
      *    preceding the current item or null.
      */
     public fun getBackItem(): BackForwardListItem? = webkit_back_forward_list_get_back_item(webkitBackForwardListPointer)?.run {
-        BackForwardListItem(this)}
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtain the list of items preceding the current one.
@@ -98,7 +100,8 @@ public class BackForwardList(
      *    or null if @back_forward_list is empty.
      */
     public fun getCurrentItem(): BackForwardListItem? = webkit_back_forward_list_get_current_item(webkitBackForwardListPointer)?.run {
-        BackForwardListItem(this)}
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the item that follows the current item.
@@ -107,7 +110,8 @@ public class BackForwardList(
      *    following the current item or null.
      */
     public fun getForwardItem(): BackForwardListItem? = webkit_back_forward_list_get_forward_item(webkitBackForwardListPointer)?.run {
-        BackForwardListItem(this)}
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtain the list of items following the current one.
@@ -143,7 +147,8 @@ public class BackForwardList(
      *    located at the specified index relative to the current item or null.
      */
     public fun getNthItem(index: gint): BackForwardListItem? = webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer, index)?.run {
-        BackForwardListItem(this)}
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * This signal is emitted when @back_forward_list changes. This happens
@@ -202,6 +207,7 @@ private val onChangedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(itemAdded: BackForwardListItem?, itemsRemoved: gpointer?) -> Unit>().get().invoke(itemAdded?.run {
-        BackForwardListItem(this)}
+        InstanceCache.get(this, false) { BackForwardListItem(reinterpret()) }!!
+    }
     , itemsRemoved)}
 .reinterpret()

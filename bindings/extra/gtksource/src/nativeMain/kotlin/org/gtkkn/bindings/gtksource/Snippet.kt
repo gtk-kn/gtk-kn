@@ -174,7 +174,8 @@ public open class Snippet(
      * @return A new #GtkSourceSnippet
      */
     public open fun copy(): Snippet = gtk_source_snippet_copy(gtksourceSnippetPointer)!!.run {
-        Snippet(this)}
+        InstanceCache.get(this, true) { Snippet(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the context used for expanding the snippet.
@@ -182,7 +183,8 @@ public open class Snippet(
      * @return an #GtkSourceSnippetContext
      */
     public open fun getContext(): SnippetContext? = gtk_source_snippet_get_context(gtksourceSnippetPointer)?.run {
-        SnippetContext(this)}
+        InstanceCache.get(this, true) { SnippetContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the number of chunks in the snippet.
@@ -200,7 +202,8 @@ public open class Snippet(
      * @return an #GtkSourceSnippetChunk
      */
     public open fun getNthChunk(nth: guint): SnippetChunk = gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer, nth)!!.run {
-        SnippetChunk(this)}
+        InstanceCache.get(this, true) { SnippetChunk(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the trigger for the source snippet.

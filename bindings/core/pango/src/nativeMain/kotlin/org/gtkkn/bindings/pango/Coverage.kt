@@ -65,7 +65,8 @@ public open class Coverage(
      *   [method@Pango.Coverage.unref].
      */
     public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer)!!.run {
-        Coverage(this)}
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Determine whether a particular index is covered by @coverage.
@@ -91,7 +92,8 @@ public open class Coverage(
      * @return @coverage
      */
     override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer)!!.run {
-        Coverage(this)}
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Modify a particular index within @coverage

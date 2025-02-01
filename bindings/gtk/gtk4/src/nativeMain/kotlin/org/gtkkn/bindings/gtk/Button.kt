@@ -153,7 +153,8 @@ public open class Button(
          * @return the child widget of @button
          */
         get() = gtk_button_get_child(gtkButtonPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @button.
          *

@@ -68,7 +68,7 @@ interface InterfaceGenerator :
      */
     private fun TypeSpec.Builder.addKdocAndOptInAnnotations(iface: InterfaceBlueprint) {
         // KDoc
-        addKdoc(buildTypeKDoc(iface.kdoc, iface.optInVersionBlueprint, iface.skippedObjects))
+        addKdoc(buildTypeKDoc(iface.kdoc, iface.optInVersionBlueprint, iface.deprecatedBlueprint, iface.skippedObjects))
 
         // optInVersion
         iface.optInVersionBlueprint?.typeName?.let { annotationClassName ->

@@ -87,7 +87,8 @@ public open class Mark(
      * @return the next #GtkSourceMark, or null.
      */
     public open fun next(category: String? = null): Mark? = gtk_source_mark_next(gtksourceMarkPointer, category)?.run {
-        Mark(this)}
+        InstanceCache.get(this, true) { Mark(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the previous `GtkSourceMark` in the buffer or null if the mark
@@ -101,7 +102,8 @@ public open class Mark(
      * @return the previous #GtkSourceMark, or null.
      */
     public open fun prev(category: String? = null): Mark? = gtk_source_mark_prev(gtksourceMarkPointer, category)?.run {
-        Mark(this)}
+        InstanceCache.get(this, true) { Mark(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<Mark> {
         override val type: GeneratedClassKGType<Mark> =

@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextTag
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -75,7 +76,8 @@ public open class Style(
      * when you are done with it.
      */
     public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer)!!.run {
-        Style(this)}
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<Style> {
         override val type: GeneratedClassKGType<Style> =

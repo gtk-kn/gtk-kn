@@ -61,7 +61,8 @@ public open class ColorMatrixNode(
      * @return The child that is getting its colors modified
      */
     public open fun getChild(): RenderNode = gsk_color_matrix_node_get_child(gskColorMatrixNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the color matrix used by the @node.

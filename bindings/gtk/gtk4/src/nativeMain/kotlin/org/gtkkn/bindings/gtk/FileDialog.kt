@@ -134,7 +134,8 @@ public open class FileDialog(
          * @since 4.10
          */
         get() = gtk_file_dialog_get_default_filter(gtkFileDialogPointer)?.run {
-            FileFilter(this)}
+            InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the filter that will be selected by default
          * in the file chooser dialog.

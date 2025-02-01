@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -123,7 +124,8 @@ public open class TreeListRow(
          *   compatibility reasons.
          */
         get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer)?.run {
-            Object(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * If @self is not expanded or @position is greater than the
@@ -133,7 +135,8 @@ public open class TreeListRow(
      * @return the child in @position
      */
     public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_row_get_child_row(gtkTreeListRowPointer, position)?.run {
-        TreeListRow(this)}
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the row representing the parent for @self.
@@ -151,7 +154,8 @@ public open class TreeListRow(
      * @return The parent of @self
      */
     public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer)?.run {
-        TreeListRow(this)}
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the position in the `GtkTreeListModel` that @self occupies

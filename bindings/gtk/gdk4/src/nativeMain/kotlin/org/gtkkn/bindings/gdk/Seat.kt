@@ -16,6 +16,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -56,7 +57,8 @@ public abstract class Seat(
          *   is owned by GTK and must not be freed.
          */
         get() = gdk_seat_get_display(gdkSeatPointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Returns the capabilities this `GdkSeat` currently has.
@@ -84,7 +86,8 @@ public abstract class Seat(
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getKeyboard(): Device? = gdk_seat_get_keyboard(gdkSeatPointer)?.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the device that routes pointer events.
@@ -93,7 +96,8 @@ public abstract class Seat(
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getPointer(): Device? = gdk_seat_get_pointer(gdkSeatPointer)?.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns all `GdkDeviceTools` that are known to the application.
@@ -219,7 +223,8 @@ private val onDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>
     userData: COpaquePointer
     ->
     userData.asStableRef<(device: Device) -> Unit>().get().invoke(device!!.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, false) { Device.DeviceImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -230,7 +235,8 @@ private val onDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(device: Device) -> Unit>().get().invoke(device!!.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, false) { Device.DeviceImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -241,7 +247,8 @@ private val onToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(tool!!.run {
-        DeviceTool(this)}
+        InstanceCache.get(this, false) { DeviceTool(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -252,6 +259,7 @@ private val onToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> U
     userData: COpaquePointer
     ->
     userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(tool!!.run {
-        DeviceTool(this)}
+        InstanceCache.get(this, false) { DeviceTool(reinterpret()) }!!
+    }
     )}
 .reinterpret()

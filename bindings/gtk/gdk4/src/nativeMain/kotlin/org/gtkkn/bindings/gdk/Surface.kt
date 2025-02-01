@@ -110,7 +110,8 @@ public abstract class Surface(
          * @return a `GdkCursor`
          */
         get() = gdk_surface_get_cursor(gdkSurfacePointer)?.run {
-            Cursor(this)}
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the default mouse pointer for a `GdkSurface`.
          *
@@ -135,7 +136,8 @@ public abstract class Surface(
          * @return the `GdkDisplay` associated with @surface
          */
         get() = gdk_surface_get_display(gdkSurfacePointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkFrameClock` of the surface.
@@ -150,7 +152,8 @@ public abstract class Surface(
          * @return the frame clock
          */
         get() = gdk_surface_get_frame_clock(gdkSurfacePointer)!!.run {
-            FrameClock.FrameClockImpl(this)}
+            InstanceCache.get(this, true) { FrameClock.FrameClockImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The height of the surface, in pixels.
@@ -281,7 +284,8 @@ public abstract class Surface(
      * @return the newly created `GdkCairoContext`
      */
     public open fun createCairoContext(): CairoContext = gdk_surface_create_cairo_context(gdkSurfacePointer)!!.run {
-        CairoContext.CairoContextImpl(this)}
+        InstanceCache.get(this, true) { CairoContext.CairoContextImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a new `GdkGLContext` for the `GdkSurface`.
@@ -296,7 +300,8 @@ public abstract class Surface(
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_gl_context(gdkSurfacePointer, gError.ptr)?.run {
-            GlContext.GlContextImpl(this)}
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -334,7 +339,8 @@ public abstract class Surface(
         width: gint,
         height: gint,
     ): org.gtkkn.bindings.cairo.Surface = gdk_surface_create_similar_surface(gdkSurfacePointer, content.nativeValue, width, height)!!.run {
-        org.gtkkn.bindings.cairo.Surface(this)}
+        org.gtkkn.bindings.cairo.Surface(this)
+    }
 
     /**
      * Sets an error and returns null.
@@ -344,7 +350,8 @@ public abstract class Surface(
     public open fun createVulkanContext(): Result<VulkanContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_vulkan_context(gdkSurfacePointer, gError.ptr)?.run {
-            VulkanContext.VulkanContextImpl(this)}
+            InstanceCache.get(this, true) { VulkanContext.VulkanContextImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -379,7 +386,8 @@ public abstract class Surface(
      * @return a `GdkCursor`
      */
     public open fun getDeviceCursor(device: Device): Cursor? = gdk_surface_get_device_cursor(gdkSurfacePointer, device.gdkDevicePointer)?.run {
-        Cursor(this)}
+        InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Hide the surface.
@@ -584,7 +592,8 @@ private val onEnterMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(monitor: Monitor) -> Unit>().get().invoke(monitor!!.run {
-        Monitor(this)}
+        InstanceCache.get(this, false) { Monitor(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -594,7 +603,8 @@ private val onEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
     userData: COpaquePointer
     ->
     userData.asStableRef<(event: Event) -> Boolean>().get().invoke(event!!.run {
-        Event.EventImpl(reinterpret())}
+        Event.EventImpl(reinterpret())
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -614,7 +624,8 @@ private val onLeaveMonitorFunc: CPointer<CFunction<(CPointer<GdkMonitor>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(monitor: Monitor) -> Unit>().get().invoke(monitor!!.run {
-        Monitor(this)}
+        InstanceCache.get(this, false) { Monitor(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

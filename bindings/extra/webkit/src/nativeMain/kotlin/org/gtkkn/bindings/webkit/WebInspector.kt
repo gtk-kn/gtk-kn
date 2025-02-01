@@ -21,6 +21,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -153,7 +154,8 @@ public class WebInspector(
      * @return the #WebKitWebViewBase used to display the inspector or null
      */
     public fun getWebView(): WebViewBase = webkit_web_inspector_get_web_view(webkitWebInspectorPointer)!!.run {
-        WebViewBase(this)}
+        InstanceCache.get(this, true) { WebViewBase(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Whether the @inspector view is currently attached to the same window that contains

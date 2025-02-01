@@ -12,6 +12,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -312,7 +313,8 @@ public abstract class Renderer(
      */
     @PangoVersion1_20
     public open fun getLayout(): Layout? = pango_renderer_get_layout(pangoRendererPointer)?.run {
-        Layout(this)}
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the layout line currently being rendered using @renderer.

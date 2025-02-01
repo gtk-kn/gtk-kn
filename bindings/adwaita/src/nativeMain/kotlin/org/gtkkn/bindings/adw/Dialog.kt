@@ -185,7 +185,8 @@ public open class Dialog(
          * @since 1.5
          */
         get() = adw_dialog_get_child(adwDialogPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *
@@ -271,7 +272,8 @@ public open class Dialog(
          * @since 1.5
          */
         get() = adw_dialog_get_current_breakpoint(adwDialogPointer)?.run {
-            Breakpoint(this)}
+            InstanceCache.get(this, true) { Breakpoint(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The default widget.
@@ -289,7 +291,8 @@ public open class Dialog(
          * @since 1.5
          */
         get() = adw_dialog_get_default_widget(adwDialogPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the default widget for @self.
          *
@@ -455,7 +458,8 @@ public open class Dialog(
      */
     @AdwVersion1_5
     public open fun getFocus(): Widget? = adw_dialog_get_focus(adwDialogPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Presents @self within @parent's window.

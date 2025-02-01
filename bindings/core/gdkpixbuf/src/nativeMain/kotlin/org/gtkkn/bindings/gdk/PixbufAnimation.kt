@@ -203,7 +203,8 @@ public open class PixbufAnimation(
      * @return an iterator to move over the animation
      */
     public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter = gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.glibTimeValPointer)!!.run {
-        PixbufAnimationIter(this)}
+        InstanceCache.get(this, true) { PixbufAnimationIter(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves a static image for the animation.
@@ -221,7 +222,8 @@ public open class PixbufAnimation(
      * @return unanimated image representing the animation
      */
     public open fun getStaticImage(): Pixbuf = gdk_pixbuf_animation_get_static_image(gdkPixbufAnimationPointer)!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Queries the width of the bounding box of a pixbuf animation.
@@ -248,7 +250,8 @@ public open class PixbufAnimation(
      * @return The same as the @animation argument.
      */
     override fun ref(): PixbufAnimation = gdk_pixbuf_animation_ref(gdkPixbufAnimationPointer)!!.run {
-        PixbufAnimation(this)}
+        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Removes a reference from an animation.

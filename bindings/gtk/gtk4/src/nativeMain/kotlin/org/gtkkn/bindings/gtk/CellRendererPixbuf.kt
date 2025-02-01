@@ -15,6 +15,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_pixbuf_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents. You
+         *   should use [class@Gtk.Image] for icons, and [class@Gtk.Picture] for images
+ * ---
+ *
  * Renders a pixbuf in a cell
  *
  * A `GtkCellRendererPixbuf` can be used to render an image in a cell. It allows

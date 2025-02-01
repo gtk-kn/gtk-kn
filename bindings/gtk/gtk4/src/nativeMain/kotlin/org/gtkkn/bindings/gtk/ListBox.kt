@@ -272,7 +272,8 @@ public open class ListBox(
      * @return the adjustment
      */
     public open fun getAdjustment(): Adjustment? = gtk_list_box_get_adjustment(gtkListBoxPointer)?.run {
-        Adjustment(this)}
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the n-th child in the list (not counting headers).
@@ -284,7 +285,8 @@ public open class ListBox(
      * @return the child `GtkWidget`
      */
     public open fun getRowAtIndex(index: gint): ListBoxRow? = gtk_list_box_get_row_at_index(gtkListBoxPointer, index)?.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the row at the @y position.
@@ -293,7 +295,8 @@ public open class ListBox(
      * @return the row
      */
     public open fun getRowAtY(y: gint): ListBoxRow? = gtk_list_box_get_row_at_y(gtkListBoxPointer, y)?.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the selected row, or null if no rows are selected.
@@ -305,7 +308,8 @@ public open class ListBox(
      * @return the selected row
      */
     public open fun getSelectedRow(): ListBoxRow? = gtk_list_box_get_selected_row(gtkListBoxPointer)?.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, true) { ListBoxRow(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a list of all selected children.
@@ -729,7 +733,8 @@ private val onRowActivatedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(row: ListBoxRow) -> Unit>().get().invoke(row!!.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -740,7 +745,8 @@ private val onRowSelectedFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>?) -> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(row: ListBoxRow?) -> Unit>().get().invoke(row?.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

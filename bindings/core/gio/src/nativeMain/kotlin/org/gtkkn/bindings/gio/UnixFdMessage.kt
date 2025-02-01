@@ -72,7 +72,8 @@ public open class UnixFdMessage(
          * @since 2.24
          */
         get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer)!!.run {
-            UnixFdList(this)}
+            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new #GUnixFDMessage containing an empty file descriptor

@@ -85,7 +85,8 @@ public open class PropertyExpression(
      * @return the object expression
      */
     public open fun getExpression(): Expression? = gtk_property_expression_get_expression(gtkPropertyExpressionPointer.reinterpret())?.run {
-        Expression.ExpressionImpl(this)}
+        Expression.ExpressionImpl(this)
+    }
 
     /**
      * Gets the `GParamSpec` specifying the property of
@@ -94,7 +95,8 @@ public open class PropertyExpression(
      * @return the `GParamSpec` for the property
      */
     public open fun getPspec(): ParamSpec = gtk_property_expression_get_pspec(gtkPropertyExpressionPointer.reinterpret())!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     public companion object : TypeCompanion<PropertyExpression> {
         override val type: GeneratedClassKGType<PropertyExpression> =

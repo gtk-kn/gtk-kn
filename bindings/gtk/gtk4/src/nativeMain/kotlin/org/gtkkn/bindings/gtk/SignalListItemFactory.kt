@@ -212,7 +212,8 @@ private val onBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = stati
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -222,7 +223,8 @@ private val onSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = stat
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -232,7 +234,8 @@ private val onTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = s
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -242,6 +245,7 @@ private val onUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = sta
     userData: COpaquePointer
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(`object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()

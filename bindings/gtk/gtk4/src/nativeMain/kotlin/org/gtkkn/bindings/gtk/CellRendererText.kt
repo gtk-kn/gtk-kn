@@ -32,6 +32,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_text_new
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_set_fixed_height_from_font
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You should use [class@Gtk.Inscription] or [class@Gtk.Label] instead
+ * ---
+ *
  * Renders text in a cell
  *
  * A `GtkCellRendererText` renders a given text in its cell, using the font, color and

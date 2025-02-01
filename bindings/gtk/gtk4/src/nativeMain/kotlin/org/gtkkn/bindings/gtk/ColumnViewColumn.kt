@@ -76,7 +76,8 @@ public open class ColumnViewColumn(
          * @return The column view displaying @self.
          */
         get() = gtk_column_view_column_get_column_view(gtkColumnViewColumnPointer)?.run {
-            ColumnView(this)}
+            InstanceCache.get(this, true) { ColumnView(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Column gets share of extra width allocated to the view.
@@ -109,7 +110,8 @@ public open class ColumnViewColumn(
          * @return The factory in use
          */
         get() = gtk_column_view_column_get_factory(gtkColumnViewColumnPointer)?.run {
-            ListItemFactory(this)}
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items for this
          * column.
@@ -151,7 +153,8 @@ public open class ColumnViewColumn(
          * @return the `GMenuModel`
          */
         get() = gtk_column_view_column_get_header_menu(gtkColumnViewColumnPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the menu model that is used to create the context menu
          * for the column header.
@@ -221,7 +224,8 @@ public open class ColumnViewColumn(
          * @return the `GtkSorter` of @self
          */
         get() = gtk_column_view_column_get_sorter(gtkColumnViewColumnPointer)?.run {
-            Sorter(this)}
+            InstanceCache.get(this, true) { Sorter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Associates a sorter with the column.
          *

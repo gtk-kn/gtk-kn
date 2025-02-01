@@ -37,7 +37,7 @@ interface RecordUnionGenerator : FieldGenerator, MethodGenerator, FunctionGenera
     fun TypeSpec.Builder.addCommonTopLevelKdocAndAnnotations(
         blueprint: RecordUnionCommonBlueprint
     ) {
-        addKdoc(buildTypeKDoc(blueprint.kdoc, blueprint.optInVersionBlueprint, blueprint.skippedObjects))
+        addKdoc(buildTypeKDoc(blueprint.kdoc, blueprint.optInVersionBlueprint, blueprint.deprecatedBlueprint, blueprint.skippedObjects))
         blueprint.optInVersionBlueprint?.typeName?.let { addAnnotation(it) }
     }
 

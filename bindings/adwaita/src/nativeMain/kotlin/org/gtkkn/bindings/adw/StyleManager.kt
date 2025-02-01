@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -157,7 +158,8 @@ public class StyleManager(
          * @return the display
          */
         get() = adw_style_manager_get_display(adwStyleManagerPointer)?.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the application is using high contrast appearance.
@@ -213,7 +215,8 @@ public class StyleManager(
          * @return the default style manager
          */
         public fun getDefault(): StyleManager = adw_style_manager_get_default()!!.run {
-            StyleManager(this)}
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Gets the `AdwStyleManager` instance managing @display.
@@ -227,7 +230,8 @@ public class StyleManager(
          * @return the style manager for @display
          */
         public fun getForDisplay(display: Display): StyleManager = adw_style_manager_get_for_display(display.gdkDisplayPointer)!!.run {
-            StyleManager(this)}
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of StyleManager

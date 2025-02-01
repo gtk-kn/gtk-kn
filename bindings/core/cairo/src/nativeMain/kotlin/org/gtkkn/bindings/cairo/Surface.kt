@@ -131,7 +131,8 @@ public open class Surface(
      */
     @CairoVersion1_10
     public open fun getDevice(): Device = cairo_surface_get_device(cairoSurfacePointer)!!.run {
-        Device.DeviceImpl(this)}
+        Device.DeviceImpl(this)
+    }
 
     public open fun getFontOptions(options: FontOptions): Unit = cairo_surface_get_font_options(cairoSurfacePointer, options.cairoFontOptionsPointer)
 
@@ -225,7 +226,8 @@ public open class Surface(
      */
     @CairoVersion1_12
     public open fun mapToImage(extents: RectangleInt): ImageSurface = cairo_surface_map_to_image(cairoSurfacePointer, extents.cairoRectangleIntPointer)!!.run {
-        ImageSurface(reinterpret())}
+        ImageSurface(reinterpret())
+    }
 
     /**
      *

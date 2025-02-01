@@ -91,7 +91,8 @@ public class ObjectClass(
      *          null if the class doesn't have a property of that name
      */
     public fun findProperty(propertyName: String): ParamSpec = g_object_class_find_property(gobjectObjectClassPointer, propertyName)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Installs a new property.

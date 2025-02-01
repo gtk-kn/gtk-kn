@@ -15,6 +15,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -74,7 +75,8 @@ public abstract class SocketAddressEnumerator(
     public open fun next(cancellable: Cancellable? = null): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_address_enumerator_next(gioSocketAddressEnumeratorPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -110,7 +112,8 @@ public abstract class SocketAddressEnumerator(
     public open fun nextFinish(result: AsyncResult): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_address_enumerator_next_finish(gioSocketAddressEnumeratorPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

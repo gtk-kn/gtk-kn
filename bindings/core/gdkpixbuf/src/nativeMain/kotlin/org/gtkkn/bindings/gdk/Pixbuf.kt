@@ -705,7 +705,8 @@ public open class Pixbuf(
         g: guint8,
         b: guint8,
     ): Pixbuf = gdk_pixbuf_add_alpha(gdkPixbufPointer, substituteColor.asGBoolean(), r, g, b)!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Takes an existing pixbuf and checks for the presence of an
@@ -724,7 +725,8 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_12
     public open fun applyEmbeddedOrientation(): Pixbuf? = gdk_pixbuf_apply_embedded_orientation(gdkPixbufPointer)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a transformation of the source image @src by scaling by
@@ -840,7 +842,8 @@ public open class Pixbuf(
         color1: guint,
         color2: guint,
     ): Pixbuf? = gdk_pixbuf_composite_color_simple(gdkPixbufPointer, destWidth, destHeight, interpType.nativeValue, overallAlpha, checkSize, color1, color2)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a new `GdkPixbuf` with a copy of the information in the specified
@@ -852,7 +855,8 @@ public open class Pixbuf(
      * @return A newly-created pixbuf
      */
     public open fun copy(): Pixbuf? = gdk_pixbuf_copy(gdkPixbufPointer)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Copies a rectangular area from `src_pixbuf` to `dest_pixbuf`.
@@ -918,7 +922,8 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_6
     public open fun flip(horizontal: Boolean): Pixbuf? = gdk_pixbuf_flip(gdkPixbufPointer, horizontal.asGBoolean())?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the length of the pixel data, in bytes.
@@ -987,7 +992,8 @@ public open class Pixbuf(
         width: gint,
         height: gint,
     ): Pixbuf = gdk_pixbuf_new_subpixbuf(gdkPixbufPointer, srcX, srcY, width, height)!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Provides a #GBytes buffer containing the raw pixel data; the data
@@ -1012,7 +1018,8 @@ public open class Pixbuf(
      * @return The same as the @pixbuf argument.
      */
     override fun ref(): Pixbuf = gdk_pixbuf_ref(gdkPixbufPointer)!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Removes the key/value pair option attached to a `GdkPixbuf`.
@@ -1036,7 +1043,8 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_6
     public open fun rotateSimple(angle: PixbufRotation): Pixbuf? = gdk_pixbuf_rotate_simple(gdkPixbufPointer, angle.nativeValue)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Modifies saturation and optionally pixelates `src`, placing the result in
@@ -1261,7 +1269,8 @@ public open class Pixbuf(
         destHeight: gint,
         interpType: InterpType,
     ): Pixbuf? = gdk_pixbuf_scale_simple(gdkPixbufPointer, destWidth, destHeight, interpType.nativeValue)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Attaches a key/value pair as an option to a `GdkPixbuf`.

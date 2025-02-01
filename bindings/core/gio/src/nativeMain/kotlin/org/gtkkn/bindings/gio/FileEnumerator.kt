@@ -21,6 +21,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -216,7 +217,8 @@ public open class FileEnumerator(
     public open fun nextFile(cancellable: Cancellable? = null): Result<FileInfo?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_enumerator_next_file(gioFileEnumeratorPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileInfo(this)}
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

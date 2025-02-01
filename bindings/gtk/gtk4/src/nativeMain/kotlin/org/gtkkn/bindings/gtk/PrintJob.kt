@@ -107,7 +107,8 @@ public open class PrintJob(
          * @return the printer of @job
          */
         get() = gtk_print_job_get_printer(gtkPrintJobPointer)!!.run {
-            Printer(this)}
+            InstanceCache.get(this, true) { Printer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Printer settings.
@@ -119,7 +120,8 @@ public open class PrintJob(
          * @return the settings of @job
          */
         get() = gtk_print_job_get_settings(gtkPrintJobPointer)!!.run {
-            PrintSettings(this)}
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The title of the print job.
@@ -260,7 +262,8 @@ public open class PrintJob(
     public open fun getSurface(): Result<Surface> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_print_job_get_surface(gtkPrintJobPointer, gError.ptr)?.run {
-            Surface(this)}
+            Surface(this)
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

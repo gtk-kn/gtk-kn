@@ -296,7 +296,8 @@ public open class Subprocess(
      */
     @GioVersion2_40
     public open fun getStderrPipe(): InputStream? = g_subprocess_get_stderr_pipe(gioSubprocessPointer)?.run {
-        InputStream.InputStreamImpl(this)}
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the #GOutputStream that you can write to in order to give data
@@ -310,7 +311,8 @@ public open class Subprocess(
      */
     @GioVersion2_40
     public open fun getStdinPipe(): OutputStream? = g_subprocess_get_stdin_pipe(gioSubprocessPointer)?.run {
-        OutputStream.OutputStreamImpl(this)}
+        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the #GInputStream from which to read the stdout output of
@@ -324,7 +326,8 @@ public open class Subprocess(
      */
     @GioVersion2_40
     public open fun getStdoutPipe(): InputStream? = g_subprocess_get_stdout_pipe(gioSubprocessPointer)?.run {
-        InputStream.InputStreamImpl(this)}
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Checks if the process was "successful".  A process is considered

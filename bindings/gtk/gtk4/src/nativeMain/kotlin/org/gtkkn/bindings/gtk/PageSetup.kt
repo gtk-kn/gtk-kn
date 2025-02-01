@@ -188,7 +188,8 @@ public open class PageSetup(
      * @return a copy of @other
      */
     public open fun copy(): PageSetup = gtk_page_setup_copy(gtkPageSetupPointer)!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the bottom margin in units of @unit.

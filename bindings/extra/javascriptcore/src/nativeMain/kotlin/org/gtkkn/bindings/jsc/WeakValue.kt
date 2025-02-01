@@ -60,7 +60,8 @@ public class WeakValue(
      * @return a new #JSCValue or null if @weak_value was cleared.
      */
     public fun getValue(): Value = jsc_weak_value_get_value(jscWeakValuePointer)!!.run {
-        Value(this)}
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * This signal is emitted when the JavaScript value is destroyed.

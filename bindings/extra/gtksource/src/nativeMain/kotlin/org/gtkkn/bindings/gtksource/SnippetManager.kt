@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -78,7 +79,8 @@ public open class SnippetManager(
         languageId: String? = null,
         trigger: String,
     ): Snippet? = gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer, group, languageId, trigger)?.run {
-        Snippet(this)}
+        InstanceCache.get(this, true) { Snippet(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a [iface@Gio.ListModel] of all snippets.
@@ -157,7 +159,8 @@ public open class SnippetManager(
          *   is owned by GtkSourceView library and must not be unref'd.
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
-            SnippetManager(this)}
+            InstanceCache.get(this, true) { SnippetManager(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of SnippetManager

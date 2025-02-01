@@ -23,6 +23,13 @@ import org.gtkkn.native.gtk.gtk_color_chooser_dialog_get_type
 import org.gtkkn.native.gtk.gtk_color_chooser_dialog_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ColorDialog] instead
+ * ---
+ *
  * A dialog for choosing a color.
  *
  * ![An example GtkColorChooserDialog](colorchooser.png)

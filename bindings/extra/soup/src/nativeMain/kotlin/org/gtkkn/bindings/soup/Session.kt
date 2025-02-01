@@ -222,7 +222,8 @@ public open class Session(
          * @return a #GInetSocketAddress
          */
         get() = soup_session_get_local_address(soupSessionPointer)?.run {
-            InetSocketAddress(this)}
+            InstanceCache.get(this, true) { InetSocketAddress(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The maximum number of connections that the session can open at once.
@@ -341,7 +342,8 @@ public open class Session(
          * @return a #GTlsDatabase
          */
         get() = soup_session_get_tls_database(soupSessionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)}
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Set a [class@GIo.TlsDatabase] to be used by @session on new connections.
          *
@@ -365,7 +367,8 @@ public open class Session(
          * @return a #GTlsInteraction
          */
         get() = soup_session_get_tls_interaction(soupSessionPointer)?.run {
-            TlsInteraction(this)}
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Set a [class@Gio.TlsInteraction] to be used by @session on new connections.
          *
@@ -440,7 +443,8 @@ public open class Session(
      *   null if @result is not a valid @session async operation result.
      */
     public open fun getAsyncResultMessage(result: AsyncResult): Message? = soup_session_get_async_result_message(soupSessionPointer, result.gioAsyncResultPointer)?.run {
-        Message(this)}
+        InstanceCache.get(this, true) { Message(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the feature in @session of type @feature_type.
@@ -565,7 +569,8 @@ public open class Session(
     public open fun send(msg: Message, cancellable: Cancellable? = null): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send(soupSessionPointer, msg.soupMessagePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -748,7 +753,8 @@ public open class Session(
     public open fun sendFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -832,7 +838,8 @@ public open class Session(
     public open fun websocketConnectFinish(result: AsyncResult): Result<WebsocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_websocket_connect_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            WebsocketConnection(this)}
+            InstanceCache.get(this, true) { WebsocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -939,7 +946,8 @@ private val onRequestQueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> U
     userData: COpaquePointer
     ->
     userData.asStableRef<(msg: Message) -> Unit>().get().invoke(msg!!.run {
-        Message(this)}
+        InstanceCache.get(this, false) { Message(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -950,6 +958,7 @@ private val onRequestUnqueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) ->
     userData: COpaquePointer
     ->
     userData.asStableRef<(msg: Message) -> Unit>().get().invoke(msg!!.run {
-        Message(this)}
+        InstanceCache.get(this, false) { Message(reinterpret()) }!!
+    }
     )}
 .reinterpret()

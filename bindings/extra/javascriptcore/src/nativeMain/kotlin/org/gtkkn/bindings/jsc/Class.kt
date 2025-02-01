@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -67,7 +68,8 @@ public class Class(
          * @return the parent class of @jsc_class
          */
         get() = jsc_class_get_parent(jscClassPointer)!!.run {
-            Class(this)}
+            InstanceCache.get(this, true) { Class(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Add a constructor to @jsc_class. If @name is null, the class name will be used. When <function>new</function>
@@ -91,7 +93,8 @@ public class Class(
         callback: Callback,
         returnType: GType,
     ): Value = jsc_class_add_constructor_variadic(jscClassPointer, name, CallbackFunc.reinterpret(), StableRef.create(callback).asCPointer(), staticStableRefDestroy.reinterpret(), returnType)!!.run {
-        Value(this)}
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Add method with @name to @jsc_class. When the method is called by JavaScript or jsc_value_object_invoke_method(),

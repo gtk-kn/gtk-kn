@@ -144,7 +144,8 @@ public open class PrintCompositor(
          * @return the #GtkSourceBuffer associated with the compositor.
          */
         get() = gtk_source_print_compositor_get_buffer(gtksourcePrintCompositorPointer)!!.run {
-            Buffer(this)}
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether to print the document with highlighted syntax.

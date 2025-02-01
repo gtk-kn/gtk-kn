@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -127,7 +128,8 @@ public interface AsyncResult : Proxy, KGTyped {
      *    object for the @res, or null if there is none.
      */
     public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer)?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the user data from a #GAsyncResult.

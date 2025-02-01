@@ -421,7 +421,8 @@ public open class Builder(
          * @return the current object
          */
         get() = gtk_builder_get_current_object(gtkBuilderPointer)?.run {
-            Object(this)}
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the current object for the @builder.
          *
@@ -765,7 +766,8 @@ public open class Builder(
      * @return the object named @name
      */
     public open fun getObject(name: String): Object? = gtk_builder_get_object(gtkBuilderPointer, name)?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets all objects that have been constructed by @builder.

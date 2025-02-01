@@ -280,7 +280,8 @@ public open class Entry(
          * @return A `GtkEntryBuffer` object.
          */
         get() = gtk_entry_get_buffer(gtkEntryPointer)!!.run {
-            EntryBuffer(this)}
+            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Set the `GtkEntryBuffer` object which holds the text for
          * this widget.
@@ -301,7 +302,8 @@ public open class Entry(
          *   completion object currently in use by @entry
          */
         get() = gtk_entry_get_completion(gtkEntryPointer)?.run {
-            EntryCompletion(this)}
+            InstanceCache.get(this, true) { EntryCompletion(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets @completion to be the auxiliary completion object
          * to use with @entry.
@@ -324,7 +326,8 @@ public open class Entry(
          * @return the menu model
          */
         get() = gtk_entry_get_extra_menu(gtkEntryPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a menu model to add when constructing
          * the context menu for @entry.

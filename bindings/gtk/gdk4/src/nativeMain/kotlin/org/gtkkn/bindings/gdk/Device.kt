@@ -21,6 +21,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.Direction
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -116,7 +117,8 @@ public abstract class Device(
          * @return a `GdkDisplay`
          */
         get() = gdk_device_get_display(gdkDevicePointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the device is represented by a cursor on the screen.
@@ -229,7 +231,8 @@ public abstract class Device(
          * @return a `GdkSeat`
          */
         get() = gdk_device_get_seat(gdkDevicePointer)!!.run {
-            Seat.SeatImpl(this)}
+            InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Source type for the device.
@@ -288,7 +291,8 @@ public abstract class Device(
      * @return the `GdkDeviceTool`
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer)?.run {
-        DeviceTool(this)}
+        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the timestamp of the last activity for this device.
@@ -401,6 +405,7 @@ private val onToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> U
     userData: COpaquePointer
     ->
     userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(tool!!.run {
-        DeviceTool(this)}
+        InstanceCache.get(this, false) { DeviceTool(reinterpret()) }!!
+    }
     )}
 .reinterpret()

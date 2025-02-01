@@ -243,7 +243,8 @@ public class NavigationSplitView(
          * @since 1.4
          */
         get() = adw_navigation_split_view_get_content(adwNavigationSplitViewPointer)?.run {
-            NavigationPage(this)}
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the content widget for @self.
          *
@@ -373,7 +374,8 @@ public class NavigationSplitView(
          * @since 1.4
          */
         get() = adw_navigation_split_view_get_sidebar(adwNavigationSplitViewPointer)?.run {
-            NavigationPage(this)}
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the sidebar widget for @self.
          *

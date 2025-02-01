@@ -289,6 +289,7 @@ private val onAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>
     userData: COpaquePointer
     ->
     userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(invocation!!.run {
-        DBusMethodInvocation(this)}
+        InstanceCache.get(this, false) { DBusMethodInvocation(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()

@@ -24,6 +24,7 @@ import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
@@ -301,9 +302,11 @@ public val ClassDeletePropertyFunctionFunc: CPointer<CFunction<(
         instance: gpointer?,
         name: String,
     ) -> Boolean>().get().invoke(jscClass!!.run {
-        Class(this)}
+        InstanceCache.get(this, false) { Class(reinterpret()) }!!
+    }
     , context!!.run {
-        Context(this)}
+        InstanceCache.get(this, false) { Context(reinterpret()) }!!
+    }
     , instance, name?.toKString() ?: error("Expected not null string")).asGBoolean()}
 .reinterpret()
 
@@ -323,9 +326,11 @@ public val ClassEnumeratePropertiesFunctionFunc: CPointer<CFunction<(
             context: Context,
             instance: gpointer?,
         ) -> List<String>?>().get().invoke(jscClass!!.run {
-            Class(this)}
+            InstanceCache.get(this, false) { Class(reinterpret()) }!!
+        }
         , context!!.run {
-            Context(this)}
+            InstanceCache.get(this, false) { Context(reinterpret()) }!!
+        }
         , instance)?.toCStringList(this)}
 }
 .reinterpret()
@@ -348,9 +353,11 @@ public val ClassGetPropertyFunctionFunc: CPointer<CFunction<(
         instance: gpointer?,
         name: String,
     ) -> Value?>().get().invoke(jscClass!!.run {
-        Class(this)}
+        InstanceCache.get(this, false) { Class(reinterpret()) }!!
+    }
     , context!!.run {
-        Context(this)}
+        InstanceCache.get(this, false) { Context(reinterpret()) }!!
+    }
     , instance, name?.toKString() ?: error("Expected not null string"))?.jscValuePointer}
 .reinterpret()
 
@@ -372,9 +379,11 @@ public val ClassHasPropertyFunctionFunc: CPointer<CFunction<(
         instance: gpointer?,
         name: String,
     ) -> Boolean>().get().invoke(jscClass!!.run {
-        Class(this)}
+        InstanceCache.get(this, false) { Class(reinterpret()) }!!
+    }
     , context!!.run {
-        Context(this)}
+        InstanceCache.get(this, false) { Context(reinterpret()) }!!
+    }
     , instance, name?.toKString() ?: error("Expected not null string")).asGBoolean()}
 .reinterpret()
 
@@ -399,11 +408,14 @@ public val ClassSetPropertyFunctionFunc: CPointer<CFunction<(
         name: String,
         `value`: Value,
     ) -> Boolean>().get().invoke(jscClass!!.run {
-        Class(this)}
+        InstanceCache.get(this, false) { Class(reinterpret()) }!!
+    }
     , context!!.run {
-        Context(this)}
+        InstanceCache.get(this, false) { Context(reinterpret()) }!!
+    }
     , instance, name?.toKString() ?: error("Expected not null string"), `value`!!.run {
-        Value(this)}
+        InstanceCache.get(this, false) { Value(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -415,9 +427,11 @@ public val ExceptionHandlerFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(context: Context, exception: Exception) -> Unit>().get().invoke(context!!.run {
-        Context(this)}
+        InstanceCache.get(this, false) { Context(reinterpret()) }!!
+    }
     , exception!!.run {
-        Exception(this)}
+        InstanceCache.get(this, false) { Exception(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

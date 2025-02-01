@@ -69,6 +69,13 @@ import org.gtkkn.native.gtk.gtk_combo_box_set_popup_fixed_width
 import org.gtkkn.native.gtk.gtk_combo_box_set_row_separator_func
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.DropDown] instead
+ * ---
+ *
  * A `GtkComboBox` is a widget that allows the user to choose from a list of
  * valid choices.
  *
@@ -226,7 +233,8 @@ public open class ComboBox(
          * @return the child widget of @combo_box
          */
         get() = gtk_combo_box_get_child(gtkComboBoxPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @combo_box.
          *

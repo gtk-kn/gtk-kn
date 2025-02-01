@@ -25,6 +25,13 @@ import org.gtkkn.native.gtk.gtk_tree_row_reference_new_proxy
 import org.gtkkn.native.gtk.gtk_tree_row_reference_valid
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [iface@Gio.ListModel] instead
+ * ---
+ *
  * A GtkTreeRowReference tracks model changes so that it always refers to the
  * same row (a `GtkTreePath` refers to a position, not a fixed row). Create a
  * new GtkTreeRowReference with gtk_tree_row_reference_new().

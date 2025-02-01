@@ -89,7 +89,8 @@ public class OptionMenu(
      */
     @WebKitVersion2_40
     public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer)!!.run {
-        Event.EventImpl(this)}
+        Event.EventImpl(this)
+    }
 
     /**
      * Returns the #WebKitOptionMenuItem at @index in @menu.

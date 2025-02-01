@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -52,7 +53,8 @@ public abstract class DrawContext(
          * @return the `GdkDisplay`
          */
         get() = gdk_draw_context_get_display(gdkDrawContextPointer)?.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkSurface` the context is bound to.
@@ -64,7 +66,8 @@ public abstract class DrawContext(
          * @return a `GdkSurface`
          */
         get() = gdk_draw_context_get_surface(gdkDrawContextPointer)?.run {
-            Surface.SurfaceImpl(this)}
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Indicates that you are beginning the process of redrawing @region

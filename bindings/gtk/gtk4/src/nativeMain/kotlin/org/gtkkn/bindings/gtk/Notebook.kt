@@ -377,7 +377,8 @@ public open class Notebook(
      *   widget has not been set
      */
     public open fun getActionWidget(packType: PackType): Widget? = gtk_notebook_get_action_widget(gtkNotebookPointer, packType.nativeValue)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the page number of the current page.
@@ -397,7 +398,8 @@ public open class Notebook(
      *   the default (the tab label).
      */
     public open fun getMenuLabel(child: Widget): Widget? = gtk_notebook_get_menu_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the text of the menu label for the page containing
@@ -427,7 +429,8 @@ public open class Notebook(
      * is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_notebook_get_nth_page(gtkNotebookPointer, pageNum)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the `GtkNotebookPage` for @child.
@@ -436,7 +439,8 @@ public open class Notebook(
      * @return the `GtkNotebookPage` for @child
      */
     public open fun getPage(child: Widget): NotebookPage = gtk_notebook_get_page(gtkNotebookPointer, child.gtkWidgetPointer)!!.run {
-        NotebookPage(this)}
+        InstanceCache.get(this, true) { NotebookPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns whether the tab contents can be detached from @notebook.
@@ -456,7 +460,8 @@ public open class Notebook(
      * @return the tab label
      */
     public open fun getTabLabel(child: Widget): Widget? = gtk_notebook_get_tab_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the text of the tab label for the page containing
@@ -916,7 +921,8 @@ private val onCreateWindowFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> CPoi
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: Widget) -> Notebook?>().get().invoke(page!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     )?.gtkNotebookPointer}
 .reinterpret()
 
@@ -948,7 +954,8 @@ private val onPageAddedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(child!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , pageNum)}
 .reinterpret()
 
@@ -960,7 +967,8 @@ private val onPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -
     userData: COpaquePointer
     ->
     userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(child!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , pageNum)}
 .reinterpret()
 
@@ -972,7 +980,8 @@ private val onPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint)
     userData: COpaquePointer
     ->
     userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(child!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , pageNum)}
 .reinterpret()
 
@@ -1004,6 +1013,7 @@ private val onSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) ->
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: Widget, pageNum: guint) -> Unit>().get().invoke(page!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , pageNum)}
 .reinterpret()

@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.AttrList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -96,7 +97,8 @@ public open class Completion(
          * @return A #GtkSourceBuffer
          */
         get() = gtk_source_completion_get_buffer(gtksourceCompletionPointer)!!.run {
-            Buffer(this)}
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The number of rows to display to the user before scrolling.
@@ -116,7 +118,8 @@ public open class Completion(
          * @return A #GtkSourceView
          */
         get() = gtk_source_completion_get_view(gtksourceCompletionPointer)!!.run {
-            View(this)}
+            InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Adds a [iface@CompletionProvider] to the list of providers to be queried

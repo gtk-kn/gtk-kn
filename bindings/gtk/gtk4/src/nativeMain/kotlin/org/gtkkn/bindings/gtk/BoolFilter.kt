@@ -44,7 +44,8 @@ public open class BoolFilter(
          * @return a `GtkExpression`
          */
         get() = gtk_bool_filter_get_expression(gtkBoolFilterPointer)?.run {
-            Expression.ExpressionImpl(this)}
+            Expression.ExpressionImpl(this)
+        }
         /**
          * Sets the expression that the filter uses to check if items
          * should be filtered.

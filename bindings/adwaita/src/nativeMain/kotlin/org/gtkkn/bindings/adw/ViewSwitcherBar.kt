@@ -132,7 +132,8 @@ public class ViewSwitcherBar(
          * @return the stack
          */
         get() = adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer)?.run {
-            ViewStack(this)}
+            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the stack controlled by @self.
          *

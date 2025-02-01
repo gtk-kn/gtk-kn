@@ -58,6 +58,13 @@ import org.gtkkn.native.gtk.gtk_tree_model_row_inserted
 import org.gtkkn.native.gtk.gtk_tree_model_unref_node
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [iface@Gio.ListModel] instead
+ * ---
+ *
  * The tree interface used by GtkTreeView
  *
  * The `GtkTreeModel` interface defines a generic tree interface for

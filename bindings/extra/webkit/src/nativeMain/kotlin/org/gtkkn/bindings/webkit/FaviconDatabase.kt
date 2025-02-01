@@ -31,6 +31,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -102,7 +103,8 @@ public class FaviconDatabase(
     public fun getFaviconFinish(result: AsyncResult): Result<Texture> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_favicon_database_get_favicon_finish(webkitFaviconDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            Texture.TextureImpl(this)}
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

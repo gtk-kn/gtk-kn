@@ -157,7 +157,8 @@ public class TabOverview(
          * @since 1.3
          */
         get() = adw_tab_overview_get_child(adwTabOverviewPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *
@@ -370,7 +371,8 @@ public class TabOverview(
          * @since 1.3
          */
         get() = adw_tab_overview_get_secondary_menu(adwTabOverviewPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the secondary menu model for @self.
          *
@@ -452,7 +454,8 @@ public class TabOverview(
          * @since 1.3
          */
         get() = adw_tab_overview_get_view(adwTabOverviewPointer)?.run {
-            TabView(this)}
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the tab view to control.
          *
@@ -565,7 +568,8 @@ private val onExtraDragDropFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , `value`!!.run {
         Value(this)}
     ).asGBoolean()}
@@ -580,7 +584,8 @@ private val onExtraDragValueFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , `value`!!.run {
         Value(this)}
     ).mask}

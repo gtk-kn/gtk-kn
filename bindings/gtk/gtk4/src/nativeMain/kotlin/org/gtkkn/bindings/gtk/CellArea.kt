@@ -26,6 +26,7 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -79,6 +80,14 @@ import org.gtkkn.native.gtk.gtk_cell_area_snapshot
 import org.gtkkn.native.gtk.gtk_cell_area_stop_editing
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+         *   contents
+ * ---
+ *
  * An abstract class for laying out `GtkCellRenderer`s
  *
  * The `GtkCellArea` is an abstract class for [iface@Gtk.CellLayout]
@@ -452,7 +461,8 @@ public abstract class CellArea(
          * @return The currently edited `GtkCellRenderer`
          */
         get() = gtk_cell_area_get_edited_cell(gtkCellAreaPointer)?.run {
-            CellRenderer.CellRendererImpl(this)}
+            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The cell in the area that currently has focus
@@ -464,7 +474,8 @@ public abstract class CellArea(
          * @return the currently focused cell in @area.
          */
         get() = gtk_cell_area_get_focus_cell(gtkCellAreaPointer)?.run {
-            CellRenderer.CellRendererImpl(this)}
+            InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Explicitly sets the currently focused cell to @renderer.
          *
@@ -634,7 +645,8 @@ public abstract class CellArea(
      * @return a newly created `GtkCellArea`Context copy of @context.
      */
     public open fun copyContext(context: CellAreaContext): CellAreaContext = gtk_cell_area_copy_context(gtkCellAreaPointer, context.gtkCellAreaContextPointer)!!.run {
-        CellAreaContext(this)}
+        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a `GtkCellArea`Context to be used with @area for
@@ -647,7 +659,8 @@ public abstract class CellArea(
      * @return a newly created `GtkCellArea`Context which can be used with @area.
      */
     public open fun createContext(): CellAreaContext = gtk_cell_area_create_context(gtkCellAreaPointer)!!.run {
-        CellAreaContext(this)}
+        InstanceCache.get(this, true) { CellAreaContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Delegates event handling to a `GtkCellArea`.
@@ -747,7 +760,8 @@ public abstract class CellArea(
         y: gint,
         allocArea: Rectangle?,
     ): CellRenderer = gtk_cell_area_get_cell_at_position(gtkCellAreaPointer, context.gtkCellAreaContextPointer, widget.gtkWidgetPointer, cellArea.gdkRectanglePointer, x, y, allocArea?.gdkRectanglePointer)!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current `GtkTreePath` string for the currently
@@ -776,7 +790,8 @@ public abstract class CellArea(
      *   for which @renderer is a sibling
      */
     public open fun getFocusFromSibling(renderer: CellRenderer): CellRenderer? = gtk_cell_area_get_focus_from_sibling(gtkCellAreaPointer, renderer.gtkCellRendererPointer)?.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, true) { CellRenderer.CellRendererImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the focus sibling cell renderers for @renderer.
@@ -1052,7 +1067,8 @@ private val onAddEditableFunc: CPointer<CFunction<(
         cellArea: Rectangle,
         path: String,
     ) -> Unit>().get().invoke(renderer!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     , editable!!.run {
         CellEditable.CellEditableImpl(reinterpret())}
     , cellArea!!.run {
@@ -1094,7 +1110,8 @@ private val onFocusChangedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(renderer: CellRenderer, path: String) -> Unit>().get().invoke(renderer!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     , path?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
@@ -1107,7 +1124,8 @@ private val onRemoveEditableFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(renderer: CellRenderer, editable: CellEditable) -> Unit>().get().invoke(renderer!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     , editable!!.run {
         CellEditable.CellEditableImpl(reinterpret())}
     )}

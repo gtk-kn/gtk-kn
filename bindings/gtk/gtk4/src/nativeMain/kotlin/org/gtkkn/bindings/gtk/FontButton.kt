@@ -45,6 +45,13 @@ import org.gtkkn.native.gtk.gtk_font_button_set_use_font
 import org.gtkkn.native.gtk.gtk_font_button_set_use_size
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FontDialogButton] instead
+ * ---
+ *
  * The `GtkFontButton` allows to open a font chooser dialog to change
  * the font.
  *

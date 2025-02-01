@@ -365,7 +365,8 @@ private val onScriptMessageReceivedFunc: CPointer<CFunction<(CPointer<JSCValue>)
     userData: COpaquePointer
     ->
     userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(`value`!!.run {
-        Value(this)}
+        InstanceCache.get(this, false) { Value(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -378,7 +379,8 @@ private val onScriptMessageWithReplyReceivedFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(`value`: Value, reply: ScriptMessageReply) -> Boolean>().get().invoke(`value`!!.run {
-        Value(this)}
+        InstanceCache.get(this, false) { Value(reinterpret()) }!!
+    }
     , reply!!.run {
         ScriptMessageReply(this)}
     ).asGBoolean()}

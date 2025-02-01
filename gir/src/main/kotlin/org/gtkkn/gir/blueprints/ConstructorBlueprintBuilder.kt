@@ -96,6 +96,9 @@ class ConstructorBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.callable.info)
                 .build()
                 .getOrNull(),
+            deprecatedBlueprint = DeprecatedBlueprintBuilder(context, girNode.callable.info, girNode.doc)
+                .build()
+                .getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girNode.returnValue?.doc?.doc?.text),
             memoryManagement = memoryManagement,

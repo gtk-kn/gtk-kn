@@ -287,7 +287,8 @@ public open class Snapshot(
      * @return a newly-created [class@Gsk.RenderNode]
      */
     public open fun freeToNode(): RenderNode? = gtk_snapshot_free_to_node(gtkSnapshotPointer.reinterpret())?.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Returns a paintable for the node that was
@@ -694,7 +695,8 @@ public open class Snapshot(
      *   null if there are no nodes to render.
      */
     public open fun toNode(): RenderNode? = gtk_snapshot_to_node(gtkSnapshotPointer.reinterpret())?.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Returns a paintable encapsulating the render node

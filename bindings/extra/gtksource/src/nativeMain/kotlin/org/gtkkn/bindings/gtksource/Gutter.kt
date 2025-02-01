@@ -9,6 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -74,7 +75,8 @@ public open class Gutter(
          * @return the associated #GtkSourceView.
          */
         get() = gtk_source_gutter_get_view(gtksourceGutterPointer)!!.run {
-            View(this)}
+            InstanceCache.get(this, true) { View(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Insert @renderer into the gutter. If @renderer is yet unowned then gutter

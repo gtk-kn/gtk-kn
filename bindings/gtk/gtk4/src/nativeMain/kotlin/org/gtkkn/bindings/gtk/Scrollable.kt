@@ -10,6 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -71,7 +72,8 @@ public interface Scrollable : Proxy, KGTyped {
          * @return horizontal `GtkAdjustment`.
          */
         get() = gtk_scrollable_get_hadjustment(gtkScrollablePointer)?.run {
-            Adjustment(this)}
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the horizontal adjustment of the `GtkScrollable`.
          *
@@ -112,7 +114,8 @@ public interface Scrollable : Proxy, KGTyped {
          * @return vertical `GtkAdjustment`.
          */
         get() = gtk_scrollable_get_vadjustment(gtkScrollablePointer)?.run {
-            Adjustment(this)}
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the vertical adjustment of the `GtkScrollable`.
          *
@@ -160,7 +163,8 @@ public interface Scrollable : Proxy, KGTyped {
      * @return horizontal `GtkAdjustment`.
      */
     public fun getHadjustment(): Adjustment? = gtk_scrollable_get_hadjustment(gtkScrollablePointer)?.run {
-        Adjustment(this)}
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the horizontal `GtkScrollablePolicy`.
@@ -176,7 +180,8 @@ public interface Scrollable : Proxy, KGTyped {
      * @return vertical `GtkAdjustment`.
      */
     public fun getVadjustment(): Adjustment? = gtk_scrollable_get_vadjustment(gtkScrollablePointer)?.run {
-        Adjustment(this)}
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the vertical `GtkScrollablePolicy`.

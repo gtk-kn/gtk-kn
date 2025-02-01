@@ -284,7 +284,8 @@ public open class GlArea(
          * @return the `GdkGLContext`
          */
         get() = gtk_gl_area_get_context(gtkGlAreaPointer)?.run {
-            GlContext.GlContextImpl(this)}
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * If set to true the widget will allocate and enable a depth buffer for the
@@ -531,7 +532,8 @@ private val onRenderFunc: CPointer<CFunction<(CPointer<GdkGLContext>) -> gboolea
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: GlContext) -> Boolean>().get().invoke(context!!.run {
-        GlContext.GlContextImpl(this)}
+        InstanceCache.get(this, false) { GlContext.GlContextImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 

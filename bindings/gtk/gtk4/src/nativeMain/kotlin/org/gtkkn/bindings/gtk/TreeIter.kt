@@ -23,6 +23,11 @@ import org.gtkkn.native.gtk.gtk_tree_iter_free
 import org.gtkkn.native.gtk.gtk_tree_iter_get_type
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * The `GtkTreeIter` is the primary structure
  * for accessing a `GtkTreeModel`. Models are expected to put a unique
  * integer in the @stamp member, and put

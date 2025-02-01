@@ -297,6 +297,7 @@ private val onEventFunc: CPointer<CFunction<(GSocketListenerEvent, CPointer<GSoc
     userData.asStableRef<(event: SocketListenerEvent, socket: Socket) -> Unit>().get().invoke(event.run {
         SocketListenerEvent.fromNativeValue(this)}
     , socket!!.run {
-        Socket(this)}
+        InstanceCache.get(this, false) { Socket(reinterpret()) }!!
+    }
     )}
 .reinterpret()

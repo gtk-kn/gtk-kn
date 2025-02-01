@@ -76,7 +76,8 @@ public class ClampScrollable(
          * @return the child widget of @self
          */
         get() = adw_clamp_scrollable_get_child(adwClampScrollablePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

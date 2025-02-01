@@ -17,6 +17,13 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.26.
+ *
+ * Rarely used API
+ * ---
+ *
  * A `GRelation` is a table of data which can be indexed on any number
  * of fields, rather like simple database tables. A `GRelation` contains
  * a number of records, called tuples. Each record contains a number of

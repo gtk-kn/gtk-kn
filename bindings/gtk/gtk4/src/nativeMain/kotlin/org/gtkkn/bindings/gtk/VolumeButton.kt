@@ -20,6 +20,13 @@ import org.gtkkn.native.gtk.gtk_volume_button_get_type
 import org.gtkkn.native.gtk.gtk_volume_button_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * `GtkVolumeButton` is a `GtkScaleButton` subclass tailored for
  * volume control.
  *

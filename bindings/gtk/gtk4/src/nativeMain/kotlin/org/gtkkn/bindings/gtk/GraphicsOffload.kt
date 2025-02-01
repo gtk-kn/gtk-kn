@@ -93,7 +93,8 @@ public open class GraphicsOffload(
          * @since 4.14
          */
         get() = gtk_graphics_offload_get_child(gtkGraphicsOffloadPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child of @self.
          *

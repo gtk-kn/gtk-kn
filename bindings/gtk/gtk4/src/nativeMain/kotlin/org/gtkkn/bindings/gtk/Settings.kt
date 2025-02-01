@@ -9,6 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -144,7 +145,8 @@ public open class Settings(
          *   no default display, then returns null.
          */
         public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
-            Settings(this)}
+            InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Gets the `GtkSettings` object for @display, creating it if necessary.
@@ -153,7 +155,8 @@ public open class Settings(
          * @return a `GtkSettings` object
          */
         public fun getForDisplay(display: Display): Settings = gtk_settings_get_for_display(display.gdkDisplayPointer)!!.run {
-            Settings(this)}
+            InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of Settings

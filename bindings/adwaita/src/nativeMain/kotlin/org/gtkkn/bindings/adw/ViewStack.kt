@@ -214,7 +214,8 @@ public class ViewStack(
      * @return the [class@ViewStackPage] for @child
      */
     public fun add(child: Widget): ViewStackPage = adw_view_stack_add(adwViewStackPointer, child.gtkWidgetPointer)!!.run {
-        ViewStackPage(this)}
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds a child to @self.
@@ -226,7 +227,8 @@ public class ViewStack(
      * @return the `AdwViewStackPage` for @child
      */
     public fun addNamed(child: Widget, name: String? = null): ViewStackPage = adw_view_stack_add_named(adwViewStackPointer, child.gtkWidgetPointer, name)!!.run {
-        ViewStackPage(this)}
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds a child to @self.
@@ -244,7 +246,8 @@ public class ViewStack(
         name: String? = null,
         title: String,
     ): ViewStackPage = adw_view_stack_add_titled(adwViewStackPointer, child.gtkWidgetPointer, name, title)!!.run {
-        ViewStackPage(this)}
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds a child to @self.
@@ -266,7 +269,8 @@ public class ViewStack(
         title: String,
         iconName: String,
     ): ViewStackPage = adw_view_stack_add_titled_with_icon(adwViewStackPointer, child.gtkWidgetPointer, name, title, iconName)!!.run {
-        ViewStackPage(this)}
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Finds the child with @name in @self.
@@ -275,7 +279,8 @@ public class ViewStack(
      * @return the requested child
      */
     public fun getChildByName(name: String): Widget? = adw_view_stack_get_child_by_name(adwViewStackPointer, name)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the [class@ViewStackPage] object for @child.
@@ -284,7 +289,8 @@ public class ViewStack(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): ViewStackPage = adw_view_stack_get_page(adwViewStackPointer, child.gtkWidgetPointer)!!.run {
-        ViewStackPage(this)}
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the currently visible child of @self, .
@@ -292,7 +298,8 @@ public class ViewStack(
      * @return the visible child
      */
     public fun getVisibleChild(): Widget? = adw_view_stack_get_visible_child(adwViewStackPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the name of the currently visible child of @self.

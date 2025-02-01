@@ -30,6 +30,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -208,7 +209,8 @@ public class WebsiteDataManager(
      */
     @WebKitVersion2_40
     public fun getFaviconDatabase(): FaviconDatabase? = webkit_website_data_manager_get_favicon_database(webkitWebsiteDataManagerPointer)?.run {
-        FaviconDatabase(this)}
+        InstanceCache.get(this, true) { FaviconDatabase(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get whether website icons are enabled.

@@ -28,6 +28,7 @@ import org.gtkkn.bindings.soup.annotations.SoupVersion3_2
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -107,7 +108,8 @@ public class ServerMessage(
          * @since 3.2
          */
         get() = soup_server_message_get_tls_peer_certificate(soupServerMessagePointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)}
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The verification errors on #SoupServerMessage:tls-peer-certificate
@@ -144,7 +146,8 @@ public class ServerMessage(
      *   null if you used [method@Server.accept_iostream].
      */
     public fun getLocalAddress(): SocketAddress? = soup_server_message_get_local_address(soupServerMessagePointer)?.run {
-        SocketAddress.SocketAddressImpl(this)}
+        InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the HTTP method of @msg.
@@ -169,7 +172,8 @@ public class ServerMessage(
      *   null if you used [class@Server.accept_iostream].
      */
     public fun getRemoteAddress(): SocketAddress? = soup_server_message_get_remote_address(soupServerMessagePointer)?.run {
-        SocketAddress.SocketAddressImpl(this)}
+        InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the IP address associated with the remote end of a
@@ -227,7 +231,8 @@ public class ServerMessage(
      *   associated with, null if you used [method@Server.accept_iostream].
      */
     public fun getSocket(): Socket? = soup_server_message_get_socket(soupServerMessagePointer)?.run {
-        Socket(this)}
+        InstanceCache.get(this, true) { Socket(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the HTTP status code of @msg.
@@ -314,7 +319,8 @@ public class ServerMessage(
      *   is returned.
      */
     public fun stealConnection(): IoStream = soup_server_message_steal_connection(soupServerMessagePointer)!!.run {
-        IoStream.IoStreamImpl(this)}
+        InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Resumes I/O on @msg.
@@ -559,7 +565,8 @@ private val onAcceptCertificateFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(tlsPeerCertificate: TlsCertificate, tlsPeerErrors: TlsCertificateFlags) -> Boolean>().get().invoke(tlsPeerCertificate!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+    }
     , tlsPeerErrors.run {
         TlsCertificateFlags(this)}
     ).asGBoolean()}

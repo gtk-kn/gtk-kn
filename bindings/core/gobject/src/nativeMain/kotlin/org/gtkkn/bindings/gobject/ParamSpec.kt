@@ -128,7 +128,8 @@ public abstract class ParamSpec(
      */
     @GObjectVersion2_4
     public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gobjectParamSpecPointer)?.run {
-        ParamSpecImpl(this)}
+        ParamSpecImpl(this)
+    }
 
     /**
      * Increments the reference count of @pspec.
@@ -136,7 +137,8 @@ public abstract class ParamSpec(
      * @return the #GParamSpec that was passed into this function
      */
     public open fun ref(): ParamSpec = g_param_spec_ref(gobjectParamSpecPointer)!!.run {
-        ParamSpecImpl(this)}
+        ParamSpecImpl(this)
+    }
 
     /**
      * Convenience function to ref and sink a #GParamSpec.
@@ -146,7 +148,8 @@ public abstract class ParamSpec(
      */
     @GObjectVersion2_10
     public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gobjectParamSpecPointer)!!.run {
-        ParamSpecImpl(this)}
+        ParamSpecImpl(this)
+    }
 
     /**
      * Sets an opaque, named pointer on a #GParamSpec. The name is
@@ -227,7 +230,8 @@ public abstract class ParamSpec(
             blurb: String? = null,
             flags: ParamFlags,
         ): ParamSpec = g_param_spec_internal(paramType, name, nick, blurb, flags.mask)!!.run {
-            ParamSpecImpl(reinterpret())}
+            ParamSpecImpl(reinterpret())
+        }
 
         /**
          * Validate a property name for a #GParamSpec. This can be useful for

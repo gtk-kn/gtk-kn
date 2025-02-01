@@ -77,7 +77,8 @@ public open class Application(
          * @return the style manager
          */
         get() = adw_application_get_style_manager(adwApplicationPointer)!!.run {
-            StyleManager(this)}
+            InstanceCache.get(this, true) { StyleManager(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new `AdwApplication`.

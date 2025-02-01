@@ -28,5 +28,6 @@ data class EnumMemberBlueprint(
     val nativeValue: Long,
     val nativeMemberName: MemberName,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
 )

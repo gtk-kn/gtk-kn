@@ -61,7 +61,8 @@ public open class StrokeNode(
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_stroke_node_get_child(gskStrokeNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the path that will be stroked with the contents of

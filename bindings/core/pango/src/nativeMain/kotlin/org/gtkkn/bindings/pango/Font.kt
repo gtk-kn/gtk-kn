@@ -22,6 +22,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -92,7 +93,8 @@ public abstract class Font(
      *   object.
      */
     public open fun getCoverage(language: Language): Coverage = pango_font_get_coverage(pangoFontPointer, language.pangoLanguagePointer)!!.run {
-        Coverage(this)}
+        InstanceCache.get(this, true) { Coverage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the `PangoFontFace` to which @font belongs.
@@ -102,7 +104,8 @@ public abstract class Font(
      */
     @PangoVersion1_46
     public open fun getFace(): FontFace = pango_font_get_face(pangoFontPointer)!!.run {
-        FontFace.FontFaceImpl(this)}
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the font map for which the font was created.
@@ -123,7 +126,8 @@ public abstract class Font(
      */
     @PangoVersion1_10
     public open fun getFontMap(): FontMap? = pango_font_get_font_map(pangoFontPointer)?.run {
-        FontMap.FontMapImpl(this)}
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the logical and ink extents of a glyph within a font.
@@ -229,7 +233,8 @@ public abstract class Font(
         public fun deserialize(context: Context, bytes: Bytes): Result<Font?> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = pango_font_deserialize(context.pangoContextPointer, bytes.glibBytesPointer, gError.ptr)?.run {
-                FontImpl(this)}
+                InstanceCache.get(this, true) { FontImpl(reinterpret()) }!!.also { ref() }
+            }
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

@@ -187,7 +187,8 @@ public open class SignalGroup(
      */
     @GObjectVersion2_72
     public open fun dupTarget(): Object? = g_signal_group_dup_target(gobjectSignalGroupPointer)?.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the target instance used when connecting signals. Any signal
@@ -296,7 +297,8 @@ private val onBindFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.gobject.GO
     userData: COpaquePointer
     ->
     userData.asStableRef<(instance: Object) -> Unit>().get().invoke(instance!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

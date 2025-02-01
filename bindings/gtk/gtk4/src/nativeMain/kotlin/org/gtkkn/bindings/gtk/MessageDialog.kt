@@ -7,6 +7,7 @@ import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -23,6 +24,13 @@ import org.gtkkn.native.gtk.gtk_message_dialog_get_type
 import org.gtkkn.native.gtk.gtk_message_dialog_set_markup
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.AlertDialog] instead
+ * ---
+ *
  * `GtkMessageDialog` presents a dialog with some message text.
  *
  * ![An example GtkMessageDialog](messagedialog.png)
@@ -138,7 +146,8 @@ public open class MessageDialog(
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Sets the text of the message dialog.

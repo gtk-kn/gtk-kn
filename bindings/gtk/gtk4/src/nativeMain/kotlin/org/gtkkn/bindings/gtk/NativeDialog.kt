@@ -20,6 +20,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -105,7 +106,8 @@ public abstract class NativeDialog(
          *   or null if no transient parent has been set.
          */
         get() = gtk_native_dialog_get_transient_for(gtkNativeDialogPointer)?.run {
-            Window(this)}
+            InstanceCache.get(this, true) { Window(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Dialog windows should be set transient for the main application
          * window they were spawned from.

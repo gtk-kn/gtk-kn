@@ -84,7 +84,8 @@ public open class GlTextureBuilder(
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_context(gdkGlTextureBuilderPointer)?.run {
-            GlContext.GlContextImpl(this)}
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the context to be used for the texture. This is the context that owns
          * the texture.
@@ -297,7 +298,8 @@ public open class GlTextureBuilder(
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_update_texture(gdkGlTextureBuilderPointer)?.run {
-            Texture.TextureImpl(this)}
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the texture to be updated by this texture. See
          * [method@Gdk.GLTextureBuilder.set_update_region] for an explanation.

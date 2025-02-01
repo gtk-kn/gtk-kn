@@ -185,7 +185,8 @@ public open class FileInfo(
      * @return a duplicate #GFileInfo of @other.
      */
     public open fun dup(): FileInfo = g_file_info_dup(gioFileInfoPointer)!!.run {
-        FileInfo(this)}
+        InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the access time of the current @info and returns it as a
@@ -282,7 +283,8 @@ public open class FileInfo(
      * or null otherwise.
      */
     public open fun getAttributeObject(attribute: String): Object? = g_file_info_get_attribute_object(gioFileInfoPointer, attribute)?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the attribute status for an attribute key.

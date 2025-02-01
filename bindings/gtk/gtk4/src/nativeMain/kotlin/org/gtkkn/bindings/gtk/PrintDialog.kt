@@ -141,7 +141,8 @@ public open class PrintDialog(
          * @since 4.14
          */
         get() = gtk_print_dialog_get_page_setup(gtkPrintDialogPointer)!!.run {
-            PageSetup(this)}
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Set the page setup for the print dialog.
          *
@@ -165,7 +166,8 @@ public open class PrintDialog(
          * @since 4.14
          */
         get() = gtk_print_dialog_get_print_settings(gtkPrintDialogPointer)!!.run {
-            PrintSettings(this)}
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the print settings for the print dialog.
          *
@@ -299,7 +301,8 @@ public open class PrintDialog(
     public open fun printFinish(result: AsyncResult): Result<OutputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_print_dialog_print_finish(gtkPrintDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            OutputStream.OutputStreamImpl(this)}
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

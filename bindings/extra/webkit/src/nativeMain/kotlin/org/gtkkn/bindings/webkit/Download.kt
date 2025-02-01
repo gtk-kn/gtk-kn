@@ -24,6 +24,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -148,7 +149,8 @@ public class Download(
          *     the response hasn't been received yet.
          */
         get() = webkit_download_get_response(webkitDownloadPointer)!!.run {
-            UriResponse(this)}
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Cancels the download.
@@ -187,7 +189,8 @@ public class Download(
      * @return the #WebKitURIRequest of @download
      */
     public fun getRequest(): UriRequest = webkit_download_get_request(webkitDownloadPointer)!!.run {
-        UriRequest(this)}
+        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #WebKitWebView that initiated the download.
@@ -196,7 +199,8 @@ public class Download(
      *    or null if @download was not initiated by a #WebKitWebView.
      */
     public fun getWebView(): WebView = webkit_download_get_web_view(webkitDownloadPointer)!!.run {
-        WebView(this)}
+        InstanceCache.get(this, true) { WebView(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the destination to which the downloaded file will be written.

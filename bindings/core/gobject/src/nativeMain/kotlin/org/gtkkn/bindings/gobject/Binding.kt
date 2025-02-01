@@ -11,6 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_26
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_68
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -152,7 +153,8 @@ public open class Binding(
          * @since 2.26
          */
         get() = g_binding_get_source(gobjectBindingPointer)?.run {
-            Object(this)}
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The name of the property of #GBinding:source that should be used
@@ -197,7 +199,8 @@ public open class Binding(
          * @since 2.26
          */
         get() = g_binding_get_target(gobjectBindingPointer)?.run {
-            Object(this)}
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The name of the property of #GBinding:target that should be used
@@ -232,7 +235,8 @@ public open class Binding(
      */
     @GObjectVersion2_68
     public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer)?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the #GObject instance used as the target of the binding.
@@ -247,7 +251,8 @@ public open class Binding(
      */
     @GObjectVersion2_68
     public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer)?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Explicitly releases the binding between the source and the target

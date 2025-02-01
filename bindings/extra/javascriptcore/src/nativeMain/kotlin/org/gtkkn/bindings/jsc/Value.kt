@@ -119,7 +119,8 @@ public class Value(
          * @return the #JSCValue context.
          */
         get() = jsc_value_get_context(jscValuePointer)!!.run {
-            Context(this)}
+            InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new %ArrayBuffer from existing @data in memory.
@@ -434,7 +435,8 @@ public class Value(
         offset: gsize,
         length: Long,
     ): Value = jsc_value_new_typed_array_with_buffer(jscValuePointer, type.nativeValue, offset, length)!!.run {
-        Value(this)}
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Define or modify a property with @property_name in object referenced by @value. This is equivalent to
@@ -475,7 +477,8 @@ public class Value(
      * @return the property #JSCValue.
      */
     public fun objectGetProperty(name: String): Value = jsc_value_object_get_property(jscValuePointer, name)!!.run {
-        Value(this)}
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get property at @index from @value.
@@ -484,7 +487,8 @@ public class Value(
      * @return the property #JSCValue.
      */
     public fun objectGetPropertyAtIndex(index: guint): Value = jsc_value_object_get_property_at_index(jscValuePointer, index)!!.run {
-        Value(this)}
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get whether @value has property with @name.
@@ -575,7 +579,8 @@ public class Value(
      */
     @JavaScriptCoreVersion2_38
     public fun typedArrayGetBuffer(): Value = jsc_value_typed_array_get_buffer(jscValuePointer)!!.run {
-        Value(this)}
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the number of elements in a typed array.

@@ -10,6 +10,7 @@ import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.SelectionModel
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -61,7 +62,8 @@ public class ViewStackPages(
      */
     @AdwVersion1_4
     public fun getSelectedPage(): ViewStackPage? = adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer)?.run {
-        ViewStackPage(this)}
+        InstanceCache.get(this, true) { ViewStackPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the visible child in the associated [class@ViewStack].

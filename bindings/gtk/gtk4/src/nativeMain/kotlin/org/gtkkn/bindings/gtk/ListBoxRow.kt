@@ -96,7 +96,8 @@ public open class ListBoxRow(
          * @return the child widget of @row
          */
         get() = gtk_list_box_row_get_child(gtkListBoxRowPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *
@@ -163,7 +164,8 @@ public open class ListBoxRow(
      * @return the current header
      */
     public open fun getHeader(): Widget? = gtk_list_box_row_get_header(gtkListBoxRowPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current index of the @row in its `GtkListBox` container.

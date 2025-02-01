@@ -37,7 +37,8 @@ public open class ContainerNode(
      * @return the @idx'th child of @container
      */
     public open fun getChild(idx: guint): RenderNode = gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the number of direct children of @node.

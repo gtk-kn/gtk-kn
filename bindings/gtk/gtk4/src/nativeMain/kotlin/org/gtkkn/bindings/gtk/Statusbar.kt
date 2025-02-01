@@ -39,6 +39,13 @@ import org.gtkkn.native.gtk.gtk_statusbar_remove
 import org.gtkkn.native.gtk.gtk_statusbar_remove_all
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * A `GtkStatusbar` widget is usually placed along the bottom of an application's
  * main [class@Gtk.Window].
  *

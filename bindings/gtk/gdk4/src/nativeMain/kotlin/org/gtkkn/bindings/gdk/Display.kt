@@ -35,6 +35,7 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -162,7 +163,8 @@ public open class Display(
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_display_create_gl_context(gdkDisplayPointer, gError.ptr)?.run {
-            GlContext.GlContextImpl(this)}
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -200,7 +202,8 @@ public open class Display(
      * @return a new `GdkAppLaunchContext` for @display
      */
     public open fun getAppLaunchContext(): AppLaunchContext = gdk_display_get_app_launch_context(gdkDisplayPointer)!!.run {
-        AppLaunchContext(this)}
+        InstanceCache.get(this, true) { AppLaunchContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the clipboard used for copy/paste operations.
@@ -208,7 +211,8 @@ public open class Display(
      * @return the display's clipboard
      */
     public open fun getClipboard(): Clipboard = gdk_display_get_clipboard(gdkDisplayPointer)!!.run {
-        Clipboard(this)}
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the default `GdkSeat` for this display.
@@ -219,7 +223,8 @@ public open class Display(
      * @return the default seat.
      */
     public open fun getDefaultSeat(): Seat? = gdk_display_get_default_seat(gdkDisplayPointer)?.run {
-        Seat.SeatImpl(this)}
+        InstanceCache.get(this, true) { Seat.SeatImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the monitor in which the largest area of @surface
@@ -230,7 +235,8 @@ public open class Display(
      *   overlap with @surface
      */
     public open fun getMonitorAtSurface(surface: Surface): Monitor? = gdk_display_get_monitor_at_surface(gdkDisplayPointer, surface.gdkSurfacePointer)?.run {
-        Monitor(this)}
+        InstanceCache.get(this, true) { Monitor(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the list of monitors associated with this display.
@@ -263,7 +269,8 @@ public open class Display(
      * @return the primary clipboard
      */
     public open fun getPrimaryClipboard(): Clipboard = gdk_display_get_primary_clipboard(gdkDisplayPointer)!!.run {
-        Clipboard(this)}
+        InstanceCache.get(this, true) { Clipboard(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves a desktop-wide setting such as double-click time
@@ -527,7 +534,8 @@ public open class Display(
          *   there is no default display
          */
         public fun getDefault(): Display? = gdk_display_get_default()?.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Opens a display.
@@ -538,7 +546,8 @@ public open class Display(
          * @return a `GdkDisplay`
          */
         public fun `open`(displayName: String? = null): Display? = gdk_display_open(displayName)?.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of Display
@@ -580,7 +589,8 @@ private val onSeatAddedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> = 
     userData: COpaquePointer
     ->
     userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(seat!!.run {
-        Seat.SeatImpl(this)}
+        InstanceCache.get(this, false) { Seat.SeatImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -590,7 +600,8 @@ private val onSeatRemovedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(seat!!.run {
-        Seat.SeatImpl(this)}
+        InstanceCache.get(this, false) { Seat.SeatImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

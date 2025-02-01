@@ -7,12 +7,14 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNavigationAction
@@ -110,7 +112,8 @@ public class NavigationAction(
      */
     @WebKitVersion2_6
     public fun getRequest(): UriRequest = webkit_navigation_action_get_request(webkitNavigationActionPointer)!!.run {
-        UriRequest(this)}
+        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns whether the @navigation was redirected.

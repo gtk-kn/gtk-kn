@@ -13,6 +13,7 @@ import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphString
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -78,7 +79,8 @@ public open class TextNode(
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        Font.FontImpl(this)}
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the number of glyphs in the text node.

@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -56,7 +57,8 @@ public interface Popup : Proxy, KGTyped {
          * @return the parent surface
          */
         get() = gdk_popup_get_parent(gdkPopupPointer)?.run {
-            Surface.SurfaceImpl(this)}
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Returns whether this popup is set to hide on outside clicks.
@@ -71,7 +73,8 @@ public interface Popup : Proxy, KGTyped {
      * @return the parent surface
      */
     public fun getParent(): Surface? = gdk_popup_get_parent(gdkPopupPointer)?.run {
-        Surface.SurfaceImpl(this)}
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtains the position of the popup relative to its parent.

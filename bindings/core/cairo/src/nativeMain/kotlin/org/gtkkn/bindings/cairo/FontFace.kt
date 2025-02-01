@@ -42,7 +42,8 @@ public open class FontFace(
         FontType.fromNativeValue(this)}
 
     public open fun reference(): FontFace = cairo_font_face_reference(cairoFontFacePointer)!!.run {
-        FontFace(reinterpret())}
+        FontFace(reinterpret())
+    }
 
     public open fun getUserData(key: UserDataKey): gpointer = cairo_font_face_get_user_data(cairoFontFacePointer, key.cairoUserDataKeyPointer)!!
 

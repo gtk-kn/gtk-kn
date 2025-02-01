@@ -38,6 +38,14 @@ import org.gtkkn.native.gtk.gtk_cell_view_set_fit_model
 import org.gtkkn.native.gtk.gtk_cell_view_set_model
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You can use [class@Gtk.Box] instead
+ * ---
+ *
  * A widget displaying a single row of a GtkTreeModel
  *
  * A `GtkCellView` displays a single row of a `GtkTreeModel` using a `GtkCellArea`

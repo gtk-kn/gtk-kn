@@ -127,7 +127,8 @@ public open class CenterBox(
          * @return the center widget.
          */
         get() = gtk_center_box_get_center_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the center widget.
          *
@@ -154,7 +155,8 @@ public open class CenterBox(
          * @return the end widget.
          */
         get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the end widget.
          *
@@ -218,7 +220,8 @@ public open class CenterBox(
          * @return the start widget.
          */
         get() = gtk_center_box_get_start_widget(gtkCenterBoxPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the start widget.
          *

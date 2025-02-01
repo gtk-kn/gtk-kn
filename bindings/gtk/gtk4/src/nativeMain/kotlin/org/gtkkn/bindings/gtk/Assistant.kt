@@ -63,6 +63,13 @@ import org.gtkkn.native.gtk.gtk_assistant_set_page_type
 import org.gtkkn.native.gtk.gtk_assistant_update_buttons_state
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * This widget will be removed in GTK 5
+ * ---
+ *
  * `GtkAssistant` is used to represent a complex as a series of steps.
  *
  * ![An example GtkAssistant](assistant.png)
@@ -205,7 +212,8 @@ public open class Assistant(
      *   if @page_num is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer, pageNum)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the `GtkAssistantPage` object for @child.
@@ -214,7 +222,8 @@ public open class Assistant(
      * @return the `GtkAssistantPage` for @child
      */
     public open fun getPage(child: Widget): AssistantPage = gtk_assistant_get_page(gtkAssistantPointer, child.gtkWidgetPointer)!!.run {
-        AssistantPage(this)}
+        InstanceCache.get(this, true) { AssistantPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets whether @page is complete.
@@ -522,6 +531,7 @@ private val onPrepareFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> Unit>> = 
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: Widget) -> Unit>().get().invoke(page!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()

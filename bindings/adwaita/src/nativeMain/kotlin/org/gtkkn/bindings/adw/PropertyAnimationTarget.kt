@@ -57,7 +57,8 @@ public class PropertyAnimationTarget(
          * @since 1.2
          */
         get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer)!!.run {
-            Object(this)}
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GParamSpec` of the property to be animated.
@@ -73,7 +74,8 @@ public class PropertyAnimationTarget(
          * @since 1.2
          */
         get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer)!!.run {
-            ParamSpec.ParamSpecImpl(this)}
+            ParamSpec.ParamSpecImpl(this)
+        }
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @property_name property on

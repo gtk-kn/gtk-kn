@@ -9255,6 +9255,14 @@ public typealias RecMutexLocker = Unit
 public typealias RefString = Char
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.62.
+ *
+ * This is not [Y2038-safe](https://en.wikipedia.org/wiki/Year_2038_problem).
+         *    Use #GDateTime or #time_t instead.
+ * ---
+ *
  * Simply a replacement for `time_t`. It has been deprecated
  * since it is not equivalent to `time_t` on 64-bit platforms
  * with a 64-bit `time_t`.

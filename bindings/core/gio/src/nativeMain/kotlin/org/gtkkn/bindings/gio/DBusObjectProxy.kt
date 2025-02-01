@@ -67,7 +67,8 @@ public open class DBusObjectProxy(
      */
     @GioVersion2_30
     public open fun getConnection(): DBusConnection = g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer)!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<DBusObjectProxy> {
         override val type: GeneratedClassKGType<DBusObjectProxy> =

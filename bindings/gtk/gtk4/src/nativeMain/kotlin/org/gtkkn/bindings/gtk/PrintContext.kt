@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -119,7 +120,8 @@ public open class PrintContext(
      * @return a new Pango context for @context
      */
     public open fun createPangoContext(): PangoContext = gtk_print_context_create_pango_context(gtkPrintContextPointer)!!.run {
-        PangoContext(this)}
+        InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a new `PangoLayout` that is suitable for use
@@ -128,7 +130,8 @@ public open class PrintContext(
      * @return a new Pango layout for @context
      */
     public open fun createPangoLayout(): Layout = gtk_print_context_create_pango_layout(gtkPrintContextPointer)!!.run {
-        Layout(this)}
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtains the cairo context that is associated with the
@@ -169,7 +172,8 @@ public open class PrintContext(
      * @return the page setup of @context
      */
     public open fun getPageSetup(): PageSetup = gtk_print_context_get_page_setup(gtkPrintContextPointer)!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns a `PangoFontMap` that is suitable for use
@@ -178,7 +182,8 @@ public open class PrintContext(
      * @return the font map of @context
      */
     public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer)!!.run {
-        FontMap.FontMapImpl(this)}
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtains the width of the `GtkPrintContext`, in pixels.

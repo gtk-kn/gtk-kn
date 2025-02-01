@@ -16,6 +16,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_progress_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_progress_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You should use [class@Gtk.ProgressBar] instead
+ * ---
+ *
  * Renders numbers as progress bars
  *
  * `GtkCellRendererProgress` renders a numeric value as a progress par in a cell.

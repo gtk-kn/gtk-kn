@@ -693,7 +693,8 @@ public open class Settings(
      */
     @GioVersion2_26
     public open fun getChild(name: String): Settings = g_settings_get_child(gioSettingsPointer, name)!!.run {
-        Settings(this)}
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the "default value" of a key.

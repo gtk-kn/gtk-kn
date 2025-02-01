@@ -30,6 +30,15 @@ import org.gtkkn.native.gtk.gtk_app_chooser_dialog_new_for_content_type
 import org.gtkkn.native.gtk.gtk_app_chooser_dialog_set_heading
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+         *   implemented according to the design of each platform and/or
+         *   application requiring them.
+ * ---
+ *
  * `GtkAppChooserDialog` shows a `GtkAppChooserWidget` inside a `GtkDialog`.
  *
  * ![An example GtkAppChooserDialog](appchooserdialog.png)
@@ -133,7 +142,8 @@ public open class AppChooserDialog(
      * @return the `GtkAppChooserWidget` of @self
      */
     public open fun getWidget(): Widget = gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer)!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the text to display at the top of the dialog.

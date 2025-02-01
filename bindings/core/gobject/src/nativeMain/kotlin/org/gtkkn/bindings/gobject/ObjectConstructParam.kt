@@ -27,7 +27,8 @@ public class ObjectConstructParam(
      */
     public var pspec: ParamSpec?
         get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
-            ParamSpec.ParamSpecImpl(this)}
+            ParamSpec.ParamSpecImpl(this)
+        }
         @UnsafeFieldSetter
         set(`value`) {
             gobjectObjectConstructParamPointer.pointed.pspec = value?.gobjectParamSpecPointer

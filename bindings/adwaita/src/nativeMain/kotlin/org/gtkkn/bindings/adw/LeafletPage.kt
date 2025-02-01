@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -25,6 +26,13 @@ import org.gtkkn.native.adw.adw_leaflet_page_set_navigatable
 import org.gtkkn.native.gobject.GType
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwleaflet)
+ * ---
+ *
  * An auxiliary class used by [class@Leaflet].
  */
 public class LeafletPage(
@@ -45,7 +53,8 @@ public class LeafletPage(
          * @return the child to which @self belongs
          */
         get() = adw_leaflet_page_get_child(adwLeafletPagePointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The name of the child page.

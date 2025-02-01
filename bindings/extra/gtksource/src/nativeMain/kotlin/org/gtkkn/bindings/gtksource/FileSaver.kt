@@ -82,7 +82,8 @@ public open class FileSaver(
          * @return the #GtkSourceBuffer to save.
          */
         get() = gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer)!!.run {
-            Buffer(this)}
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The compression type.
@@ -114,7 +115,8 @@ public open class FileSaver(
          * @return the #GtkSourceFile.
          */
         get() = gtk_source_file_saver_get_file(gtksourceFileSaverPointer)!!.run {
-            File(this)}
+            InstanceCache.get(this, true) { File(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * File saving flags.

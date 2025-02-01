@@ -63,7 +63,8 @@ public open class CairoNode(
      * @return a Cairo surface
      */
     public open fun getSurface(): Surface = gsk_cairo_node_get_surface(gskCairoNodePointer.reinterpret())!!.run {
-        Surface(this)}
+        Surface(this)
+    }
 
     public companion object : TypeCompanion<CairoNode> {
         override val type: GeneratedClassKGType<CairoNode> =

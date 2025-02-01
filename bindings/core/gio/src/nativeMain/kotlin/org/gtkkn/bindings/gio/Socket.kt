@@ -598,7 +598,8 @@ public open class Socket(
     public open fun accept(cancellable: Cancellable? = null): Result<Socket> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_accept(gioSocketPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            Socket(this)}
+            InstanceCache.get(this, true) { Socket(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -849,7 +850,8 @@ public open class Socket(
      */
     @GioVersion2_22
     public open fun connectionFactoryCreateConnection(): SocketConnection = g_socket_connection_factory_create_connection(gioSocketPointer)!!.run {
-        SocketConnection(this)}
+        InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a #GSource that can be attached to a %GMainContext to monitor
@@ -933,7 +935,8 @@ public open class Socket(
     public open fun getCredentials(): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_credentials(gioSocketPointer, gError.ptr)?.run {
-            Credentials(this)}
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -955,7 +958,8 @@ public open class Socket(
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_local_address(gioSocketPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -976,7 +980,8 @@ public open class Socket(
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_remote_address(gioSocketPointer, gError.ptr)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

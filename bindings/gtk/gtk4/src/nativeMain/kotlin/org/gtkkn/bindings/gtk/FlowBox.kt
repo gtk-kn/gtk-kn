@@ -340,7 +340,8 @@ public open class FlowBox(
      *   with the given index exists.
      */
     public open fun getChildAtIndex(idx: gint): FlowBoxChild? = gtk_flow_box_get_child_at_index(gtkFlowBoxPointer, idx)?.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, true) { FlowBoxChild(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the child in the (@x, @y) position.
@@ -354,7 +355,8 @@ public open class FlowBox(
      *   exists for the given x and y coordinates.
      */
     public open fun getChildAtPos(x: gint, y: gint): FlowBoxChild? = gtk_flow_box_get_child_at_pos(gtkFlowBoxPointer, x, y)?.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, true) { FlowBoxChild(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a list of all selected children.
@@ -721,7 +723,8 @@ private val onChildActivatedFunc: CPointer<CFunction<(CPointer<GtkFlowBoxChild>)
     userData: COpaquePointer
     ->
     userData.asStableRef<(child: FlowBoxChild) -> Unit>().get().invoke(child!!.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

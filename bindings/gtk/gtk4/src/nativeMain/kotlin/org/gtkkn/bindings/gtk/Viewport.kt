@@ -79,7 +79,8 @@ public open class Viewport(
          * @return the child widget of @viewport
          */
         get() = gtk_viewport_get_child(gtkViewportPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @viewport.
          *

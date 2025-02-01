@@ -7,6 +7,7 @@ import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -33,7 +34,8 @@ public open class GrabBrokenEvent(
      * @return the grab surface of @event
      */
     public open fun getGrabSurface(): Surface = gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
-        Surface.SurfaceImpl(this)}
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Checks whether the grab broken event is for an implicit grab.

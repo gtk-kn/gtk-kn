@@ -60,7 +60,8 @@ public class UserMessage(
          * @since 2.28
          */
         get() = webkit_user_message_get_fd_list(webkitUserMessagePointer)?.run {
-            UnixFdList(this)}
+            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The name of the user message.

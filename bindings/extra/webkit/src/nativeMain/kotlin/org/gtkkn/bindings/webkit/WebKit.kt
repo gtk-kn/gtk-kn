@@ -19,6 +19,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -408,7 +409,8 @@ public val UriSchemeRequestCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(request: UriSchemeRequest) -> Unit>().get().invoke(request!!.run {
-        UriSchemeRequest(this)}
+        InstanceCache.get(this, false) { UriSchemeRequest(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

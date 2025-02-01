@@ -308,7 +308,8 @@ public class Carousel(
      * @return the page
      */
     public fun getNthPage(n: guint): Widget = adw_carousel_get_nth_page(adwCarouselPointer, n)!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Inserts @child into @self at position @position.

@@ -24,6 +24,7 @@ import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -58,6 +59,13 @@ import org.gtkkn.native.gtk.gtk_file_chooser_set_filter
 import org.gtkkn.native.gtk.gtk_file_chooser_set_select_multiple
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FileDialog] instead
+ * ---
+ *
  * `GtkFileChooser` is an interface that can be implemented by file
  * selection widgets.
  *
@@ -347,7 +355,8 @@ public interface FileChooser : Proxy, KGTyped {
      * @return the current filter
      */
     public fun getFilter(): FileFilter? = gtk_file_chooser_get_filter(gtkFileChooserPointer)?.run {
-        FileFilter(this)}
+        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current set of user-selectable filters, as a list model.

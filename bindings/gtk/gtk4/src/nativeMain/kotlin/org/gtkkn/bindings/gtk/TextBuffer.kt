@@ -213,7 +213,8 @@ public open class TextBuffer(
          * @return the buffer’s tag table
          */
         get() = gtk_text_buffer_get_tag_table(gtkTextBufferPointer)!!.run {
-            TextTagTable(this)}
+            InstanceCache.get(this, true) { TextTagTable(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new text buffer.
@@ -367,7 +368,8 @@ public open class TextBuffer(
      * @return the created child anchor
      */
     public open fun createChildAnchor(iter: TextIter): TextChildAnchor = gtk_text_buffer_create_child_anchor(gtkTextBufferPointer, iter.gtkTextIterPointer)!!.run {
-        TextChildAnchor(this)}
+        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a mark at position @where.
@@ -400,7 +402,8 @@ public open class TextBuffer(
         `where`: TextIter,
         leftGravity: Boolean,
     ): TextMark = gtk_text_buffer_create_mark(gtkTextBufferPointer, markName, `where`.gtkTextIterPointer, leftGravity.asGBoolean())!!.run {
-        TextMark(this)}
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Copies the currently-selected text to a clipboard,
@@ -557,7 +560,8 @@ public open class TextBuffer(
      * @return insertion point mark
      */
     public open fun getInsert(): TextMark = gtk_text_buffer_get_insert(gtkTextBufferPointer)!!.run {
-        TextMark(this)}
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtains the location of @anchor within @buffer.
@@ -659,7 +663,8 @@ public open class TextBuffer(
      * @return a `GtkTextMark`
      */
     public open fun getMark(name: String): TextMark? = gtk_text_buffer_get_mark(gtkTextBufferPointer, name)?.run {
-        TextMark(this)}
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the maximum number of undo levels to perform.
@@ -700,7 +705,8 @@ public open class TextBuffer(
      * @return selection bound mark
      */
     public open fun getSelectionBound(): TextMark = gtk_text_buffer_get_selection_bound(gtkTextBufferPointer)!!.run {
-        TextMark(this)}
+        InstanceCache.get(this, true) { TextMark(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns true if some text is selected; places the bounds
@@ -726,7 +732,8 @@ public open class TextBuffer(
      * @return a new `GdkContentProvider`.
      */
     public open fun getSelectionContent(): ContentProvider = gtk_text_buffer_get_selection_content(gtkTextBufferPointer)!!.run {
-        ContentProvider(this)}
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the text in the range [@start,@end).
@@ -1549,7 +1556,8 @@ private val onApplyTagFunc: CPointer<CFunction<(
         start: TextIter,
         end: TextIter,
     ) -> Unit>().get().invoke(tag!!.run {
-        TextTag(this)}
+        InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
+    }
     , start!!.run {
         TextIter(this)}
     , end!!.run {
@@ -1604,7 +1612,8 @@ private val onInsertChildAnchorFunc:
     userData.asStableRef<(location: TextIter, anchor: TextChildAnchor) -> Unit>().get().invoke(location!!.run {
         TextIter(this)}
     , anchor!!.run {
-        TextChildAnchor(this)}
+        InstanceCache.get(this, false) { TextChildAnchor(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1650,7 +1659,8 @@ private val onMarkDeletedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) -> Uni
     userData: COpaquePointer
     ->
     userData.asStableRef<(mark: TextMark) -> Unit>().get().invoke(mark!!.run {
-        TextMark(this)}
+        InstanceCache.get(this, false) { TextMark(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1665,7 +1675,8 @@ private val onMarkSetFunc:
     userData.asStableRef<(location: TextIter, mark: TextMark) -> Unit>().get().invoke(location!!.run {
         TextIter(this)}
     , mark!!.run {
-        TextMark(this)}
+        InstanceCache.get(this, false) { TextMark(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1683,7 +1694,8 @@ private val onPasteDoneFunc: CPointer<CFunction<(CPointer<GdkClipboard>) -> Unit
     userData: COpaquePointer
     ->
     userData.asStableRef<(clipboard: Clipboard) -> Unit>().get().invoke(clipboard!!.run {
-        Clipboard(this)}
+        InstanceCache.get(this, false) { Clipboard(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1710,7 +1722,8 @@ private val onRemoveTagFunc: CPointer<CFunction<(
         start: TextIter,
         end: TextIter,
     ) -> Unit>().get().invoke(tag!!.run {
-        TextTag(this)}
+        InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
+    }
     , start!!.run {
         TextIter(this)}
     , end!!.run {

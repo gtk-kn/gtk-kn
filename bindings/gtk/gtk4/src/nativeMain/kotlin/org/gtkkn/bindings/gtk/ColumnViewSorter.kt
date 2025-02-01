@@ -6,6 +6,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -86,7 +87,8 @@ public open class ColumnViewSorter(
          * @since 4.10
          */
         get() = gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer)?.run {
-            ColumnViewColumn(this)}
+            InstanceCache.get(this, true) { ColumnViewColumn(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The primary sort order.

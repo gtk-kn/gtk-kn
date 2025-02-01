@@ -35,6 +35,7 @@ data class MethodBlueprint(
     val reinterpretInstanceParameter: Boolean,
     val reinterpretReturnValue: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
 ) : CallableBlueprint {

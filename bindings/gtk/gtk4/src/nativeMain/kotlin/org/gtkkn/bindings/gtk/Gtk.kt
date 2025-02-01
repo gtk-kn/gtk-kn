@@ -47,6 +47,7 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.cairo.cairo_t
 import org.gtkkn.native.gdk.GdkFrameClock
@@ -1266,7 +1267,8 @@ public object Gtk {
         blurb: String,
         flags: ParamFlags,
     ): ParamSpec = gtk_param_spec_expression(name, nick, blurb, flags.mask)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Runs a page setup dialog, letting the user modify the values from
@@ -1288,7 +1290,8 @@ public object Gtk {
         pageSetup: PageSetup? = null,
         settings: PrintSettings,
     ): PageSetup = gtk_print_run_page_setup_dialog(parent?.gtkWindowPointer, pageSetup?.gtkPageSetupPointer, settings.gtkPrintSettingsPointer)!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Runs a page setup dialog, letting the user modify the values from @page_setup.
@@ -1725,7 +1728,8 @@ public object Gtk {
      * @return a new `GdkContentProvider`
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider = gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer)!!.run {
-        ContentProvider(this)}
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the `GtkExpression` stored inside the given `value`, and acquires
@@ -1735,7 +1739,8 @@ public object Gtk {
      * @return a `GtkExpression`
      */
     public fun valueDupExpression(`value`: Value): Expression? = gtk_value_dup_expression(`value`.gobjectValuePointer)?.run {
-        Expression.ExpressionImpl(this)}
+        Expression.ExpressionImpl(this)
+    }
 
     /**
      * Retrieves the `GtkExpression` stored inside the given `value`.
@@ -1744,7 +1749,8 @@ public object Gtk {
      * @return a `GtkExpression`
      */
     public fun valueGetExpression(`value`: Value): Expression? = gtk_value_get_expression(`value`.gobjectValuePointer)?.run {
-        Expression.ExpressionImpl(this)}
+        Expression.ExpressionImpl(this)
+    }
 
     /**
      * Stores the given `GtkExpression` inside `value`.
@@ -2123,7 +2129,8 @@ public val CellAllocCallbackFunc: CPointer<CFunction<(
         cellArea: Rectangle,
         cellBackground: Rectangle,
     ) -> Boolean>().get().invoke(renderer!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     , cellArea!!.run {
         Rectangle(this)}
     , cellBackground!!.run {
@@ -2137,7 +2144,8 @@ public val CellCallbackFunc: CPointer<CFunction<(CPointer<GtkCellRenderer>) -> g
     `data`: gpointer?,
     ->
     data!!.asStableRef<(renderer: CellRenderer) -> Boolean>().get().invoke(renderer!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2161,7 +2169,8 @@ public val CellLayoutDataFuncFunc: CPointer<CFunction<(
     ) -> Unit>().get().invoke(cellLayout!!.run {
         CellLayout.CellLayoutImpl(reinterpret())}
     , cell!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     , treeModel!!.run {
         TreeModel.TreeModelImpl(reinterpret())}
     , iter!!.run {
@@ -2175,7 +2184,8 @@ public val CustomFilterFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> gbool
     userData: gpointer?,
     ->
     userData!!.asStableRef<(item: Object) -> Boolean>().get().invoke(item!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2197,7 +2207,8 @@ public val DrawingAreaDrawFuncFunc: CPointer<CFunction<(
         width: gint,
         height: gint,
     ) -> Unit>().get().invoke(drawingArea!!.run {
-        DrawingArea(this)}
+        InstanceCache.get(this, false) { DrawingArea(reinterpret()) }!!
+    }
     , cr!!.run {
         Context(this)}
     , width, height)}
@@ -2218,7 +2229,8 @@ public val EntryCompletionMatchFuncFunc: CPointer<CFunction<(
         key: String,
         iter: TreeIter,
     ) -> Boolean>().get().invoke(completion!!.run {
-        EntryCompletion(this)}
+        InstanceCache.get(this, false) { EntryCompletion(reinterpret()) }!!
+    }
     , key?.toKString() ?: error("Expected not null string"), iter!!.run {
         TreeIter(this)}
     ).asGBoolean()}
@@ -2236,7 +2248,8 @@ public val FlowBoxCreateWidgetFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(item: Object) -> Widget>().get().invoke(item!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
+    }
     ).gtkWidgetPointer}
 .reinterpret()
 
@@ -2246,7 +2259,8 @@ public val FlowBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkFlowBoxChild>)
     userData: gpointer?,
     ->
     userData!!.asStableRef<(child: FlowBoxChild) -> Boolean>().get().invoke(child!!.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2258,9 +2272,11 @@ public val FlowBoxForeachFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(box: FlowBox, child: FlowBoxChild) -> Unit>().get().invoke(box!!.run {
-        FlowBox(this)}
+        InstanceCache.get(this, false) { FlowBox(reinterpret()) }!!
+    }
     , child!!.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2272,9 +2288,11 @@ public val FlowBoxSortFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(child1: FlowBoxChild, child2: FlowBoxChild) -> gint>().get().invoke(child1!!.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
+    }
     , child2!!.run {
-        FlowBoxChild(this)}
+        InstanceCache.get(this, false) { FlowBoxChild(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2286,9 +2304,11 @@ public val FontFilterFuncFunc:
     `data`: gpointer?,
     ->
     data!!.asStableRef<(family: FontFamily, face: FontFace) -> Boolean>().get().invoke(family!!.run {
-        FontFamily.FontFamilyImpl(this)}
+        InstanceCache.get(this, false) { FontFamily.FontFamilyImpl(reinterpret()) }!!
+    }
     , face!!.run {
-        FontFace.FontFaceImpl(this)}
+        InstanceCache.get(this, false) { FontFace.FontFaceImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2300,7 +2320,8 @@ public val IconViewForeachFuncFunc:
     `data`: gpointer?,
     ->
     data!!.asStableRef<(iconView: IconView, path: TreePath) -> Unit>().get().invoke(iconView!!.run {
-        IconView(this)}
+        InstanceCache.get(this, false) { IconView(reinterpret()) }!!
+    }
     , path!!.run {
         TreePath(this)}
     )}
@@ -2312,7 +2333,8 @@ public val ListBoxCreateWidgetFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(item: Object) -> Widget>().get().invoke(item!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
+    }
     ).gtkWidgetPointer}
 .reinterpret()
 
@@ -2322,7 +2344,8 @@ public val ListBoxFilterFuncFunc: CPointer<CFunction<(CPointer<GtkListBoxRow>) -
     userData: gpointer?,
     ->
     userData!!.asStableRef<(row: ListBoxRow) -> Boolean>().get().invoke(row!!.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2334,9 +2357,11 @@ public val ListBoxForeachFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(box: ListBox, row: ListBoxRow) -> Unit>().get().invoke(box!!.run {
-        ListBox(this)}
+        InstanceCache.get(this, false) { ListBox(reinterpret()) }!!
+    }
     , row!!.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2348,9 +2373,11 @@ public val ListBoxSortFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(row1: ListBoxRow, row2: ListBoxRow) -> gint>().get().invoke(row1!!.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     , row2!!.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2362,9 +2389,11 @@ public val ListBoxUpdateHeaderFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(row: ListBoxRow, before: ListBoxRow?) -> Unit>().get().invoke(row!!.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     , before?.run {
-        ListBoxRow(this)}
+        InstanceCache.get(this, false) { ListBoxRow(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2374,7 +2403,8 @@ public val MapListModelMapFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> CP
     userData: gpointer?,
     ->
     userData!!.asStableRef<(item: Object) -> Object>().get().invoke(item!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
+    }
     ).gobjectObjectPointer}
 .reinterpret()
 
@@ -2384,7 +2414,8 @@ public val MenuButtonCreatePopupFuncFunc: CPointer<CFunction<(CPointer<GtkMenuBu
     userData: gpointer?,
     ->
     userData!!.asStableRef<(menuButton: MenuButton) -> Unit>().get().invoke(menuButton!!.run {
-        MenuButton(this)}
+        InstanceCache.get(this, false) { MenuButton(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2394,7 +2425,8 @@ public val PageSetupDoneFuncFunc: CPointer<CFunction<(CPointer<GtkPageSetup>) ->
     `data`: gpointer?,
     ->
     data!!.asStableRef<(pageSetup: PageSetup) -> Unit>().get().invoke(pageSetup!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2406,7 +2438,8 @@ public val PrintJobCompleteFuncFunc:
     error: CPointer<org.gtkkn.native.glib.GError>?,
     ->
     userData!!.asStableRef<(printJob: PrintJob, error: Error) -> Unit>().get().invoke(printJob!!.run {
-        PrintJob(this)}
+        InstanceCache.get(this, false) { PrintJob(reinterpret()) }!!
+    }
     , error!!.run {
         Error(this)}
     )}
@@ -2427,7 +2460,8 @@ public val PrinterFuncFunc: CPointer<CFunction<(CPointer<GtkPrinter>) -> gboolea
     `data`: gpointer?,
     ->
     data!!.asStableRef<(printer: Printer) -> Boolean>().get().invoke(printer!!.run {
-        Printer(this)}
+        InstanceCache.get(this, false) { Printer(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2438,7 +2472,8 @@ public val ScaleFormatValueFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(scale: Scale, `value`: gdouble) -> String>().get().invoke(scale!!.run {
-        Scale(this)}
+        InstanceCache.get(this, false) { Scale(reinterpret()) }!!
+    }
     , `value`).let { g_strdup(it) }}
 .reinterpret()
 
@@ -2450,7 +2485,8 @@ public val ShortcutFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(widget: Widget, args: Variant?) -> Boolean>().get().invoke(widget!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , args?.run {
         Variant(this)}
     ).asGBoolean()}
@@ -2469,7 +2505,8 @@ public val TextTagTableForeachFunc: CPointer<CFunction<(CPointer<GtkTextTag>) ->
     `data`: gpointer?,
     ->
     data!!.asStableRef<(tag: TextTag) -> Unit>().get().invoke(tag!!.run {
-        TextTag(this)}
+        InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -2481,9 +2518,11 @@ public val TickCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(widget: Widget, frameClock: FrameClock) -> Boolean>().get().invoke(widget!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , frameClock!!.run {
-        FrameClock.FrameClockImpl(this)}
+        InstanceCache.get(this, false) { FrameClock.FrameClockImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2505,9 +2544,11 @@ public val TreeCellDataFuncFunc: CPointer<CFunction<(
         treeModel: TreeModel,
         iter: TreeIter,
     ) -> Unit>().get().invoke(treeColumn!!.run {
-        TreeViewColumn(this)}
+        InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
+    }
     , cell!!.run {
-        CellRenderer.CellRendererImpl(this)}
+        InstanceCache.get(this, false) { CellRenderer.CellRendererImpl(reinterpret()) }!!
+    }
     , treeModel!!.run {
         TreeModel.TreeModelImpl(reinterpret())}
     , iter!!.run {
@@ -2544,7 +2585,8 @@ public val TreeListModelCreateModelFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(item: Object) -> ListModel?>().get().invoke(item!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
+    }
     )?.gioListModelPointer}
 .reinterpret()
 
@@ -2652,7 +2694,8 @@ public val TreeSelectionFuncFunc: CPointer<CFunction<(
         path: TreePath,
         pathCurrentlySelected: Boolean,
     ) -> Boolean>().get().invoke(selection!!.run {
-        TreeSelection(this)}
+        InstanceCache.get(this, false) { TreeSelection(reinterpret()) }!!
+    }
     , model!!.run {
         TreeModel.TreeModelImpl(reinterpret())}
     , path!!.run {
@@ -2678,13 +2721,17 @@ public val TreeViewColumnDropFuncFunc: CPointer<CFunction<(
         prevColumn: TreeViewColumn,
         nextColumn: TreeViewColumn,
     ) -> Boolean>().get().invoke(treeView!!.run {
-        TreeView(this)}
+        InstanceCache.get(this, false) { TreeView(reinterpret()) }!!
+    }
     , column!!.run {
-        TreeViewColumn(this)}
+        InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
+    }
     , prevColumn!!.run {
-        TreeViewColumn(this)}
+        InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
+    }
     , nextColumn!!.run {
-        TreeViewColumn(this)}
+        InstanceCache.get(this, false) { TreeViewColumn(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -2696,7 +2743,8 @@ public val TreeViewMappingFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(treeView: TreeView, path: TreePath) -> Unit>().get().invoke(treeView!!.run {
-        TreeView(this)}
+        InstanceCache.get(this, false) { TreeView(reinterpret()) }!!
+    }
     , path!!.run {
         TreePath(this)}
     )}
@@ -2755,7 +2803,8 @@ public val WidgetActionActivateFuncFunc: CPointer<CFunction<(
         actionName: String,
         parameter: Variant?,
     ) -> Unit>().get().invoke(widget!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , actionName?.toKString() ?: error("Expected not null string"), parameter?.run {
         Variant(this)}
     )}

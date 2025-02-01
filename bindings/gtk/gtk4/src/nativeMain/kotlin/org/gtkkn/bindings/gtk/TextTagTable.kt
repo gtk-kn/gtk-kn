@@ -122,7 +122,8 @@ public open class TextTagTable(
      * @return The tag
      */
     public open fun lookup(name: String): TextTag? = gtk_text_tag_table_lookup(gtkTextTagTablePointer, name)?.run {
-        TextTag(this)}
+        InstanceCache.get(this, true) { TextTag(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Remove a tag from the table.
@@ -223,7 +224,8 @@ private val onTagAddedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Unit>> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(tag: TextTag) -> Unit>().get().invoke(tag!!.run {
-        TextTag(this)}
+        InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -235,7 +237,8 @@ private val onTagChangedFunc: CPointer<CFunction<(CPointer<GtkTextTag>, gboolean
     userData: COpaquePointer
     ->
     userData.asStableRef<(tag: TextTag, sizeChanged: Boolean) -> Unit>().get().invoke(tag!!.run {
-        TextTag(this)}
+        InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
+    }
     , sizeChanged.asBoolean())}
 .reinterpret()
 
@@ -246,6 +249,7 @@ private val onTagRemovedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Unit>
     userData: COpaquePointer
     ->
     userData.asStableRef<(tag: TextTag) -> Unit>().get().invoke(tag!!.run {
-        TextTag(this)}
+        InstanceCache.get(this, false) { TextTag(reinterpret()) }!!
+    }
     )}
 .reinterpret()

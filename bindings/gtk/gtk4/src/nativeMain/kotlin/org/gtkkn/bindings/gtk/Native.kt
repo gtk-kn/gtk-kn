@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.gsk.Renderer
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -51,7 +52,8 @@ public interface Native : Proxy, KGTyped {
      * @return the renderer for @self
      */
     public fun getRenderer(): Renderer? = gtk_native_get_renderer(gtkNativePointer)?.run {
-        Renderer.RendererImpl(this)}
+        InstanceCache.get(this, true) { Renderer.RendererImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the surface of this `GtkNative`.
@@ -59,7 +61,8 @@ public interface Native : Proxy, KGTyped {
      * @return the surface of @self
      */
     public fun getSurface(): Surface? = gtk_native_get_surface(gtkNativePointer)?.run {
-        Surface.SurfaceImpl(this)}
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Realizes a `GtkNative`.

@@ -84,6 +84,14 @@ import org.gtkkn.native.gtk.gtk_tree_view_column_set_visible
 import org.gtkkn.native.gtk.gtk_tree_view_column_set_widget
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ColumnView] and [class@Gtk.ColumnViewColumn]
+         *   instead of [class@Gtk.TreeView] to show a tabular list
+ * ---
+ *
  * A visible column in a [class@Gtk.TreeView] widget
  *
  * The `GtkTreeViewColumn` object represents a visible column in a `GtkTreeView` widget.
@@ -399,7 +407,8 @@ public open class TreeViewColumn(
          * @return The `GtkWidget` in the column header
          */
         get() = gtk_tree_view_column_get_widget(gtkTreeViewColumnPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the widget in the header to be @widget.  If widget is null, then the
          * header button is set with a `GtkLabel` set to the title of @tree_column.
@@ -523,7 +532,8 @@ public open class TreeViewColumn(
      * @return The button for the column header.
      */
     public open fun getButton(): Widget = gtk_tree_view_column_get_button(gtkTreeViewColumnPointer)!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the `GtkTreeView` wherein @tree_column has been inserted.
@@ -534,7 +544,8 @@ public open class TreeViewColumn(
      *   has been inserted
      */
     public open fun getTreeView(): Widget? = gtk_tree_view_column_get_tree_view(gtkTreeViewColumnPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds the @cell to end of the column. If @expand is false, then the @cell

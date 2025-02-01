@@ -316,7 +316,8 @@ public open class DBusConnection(
          * @since 2.26
          */
         get() = g_dbus_connection_get_stream(gioDBusConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)}
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The unique name as assigned by the message bus or null if the
@@ -995,7 +996,8 @@ public open class DBusConnection(
      */
     @GioVersion2_26
     public open fun getPeerCredentials(): Credentials? = g_dbus_connection_get_peer_credentials(gioDBusConnectionPointer)?.run {
-        Credentials(this)}
+        InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets whether @connection is closed.
@@ -1073,7 +1075,8 @@ public open class DBusConnection(
     public open fun sendMessageWithReplyFinish(res: AsyncResult): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_connection_send_message_with_reply_finish(gioDBusConnectionPointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            DBusMessage(this)}
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

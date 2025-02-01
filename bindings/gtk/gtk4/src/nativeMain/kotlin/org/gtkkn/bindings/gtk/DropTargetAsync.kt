@@ -268,7 +268,8 @@ private val onAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> gboolean>> =
     userData: COpaquePointer
     ->
     userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(drop!!.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -288,7 +289,8 @@ private val onDragEnterFunc: CPointer<CFunction<(
         x: gdouble,
         y: gdouble,
     ) -> DragAction>().get().invoke(drop!!.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
+    }
     , x, y).mask}
 .reinterpret()
 
@@ -298,7 +300,8 @@ private val onDragLeaveFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Unit>> = 
     userData: COpaquePointer
     ->
     userData.asStableRef<(drop: Drop) -> Unit>().get().invoke(drop!!.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -318,7 +321,8 @@ private val onDragMotionFunc: CPointer<CFunction<(
         x: gdouble,
         y: gdouble,
     ) -> DragAction>().get().invoke(drop!!.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
+    }
     , x, y).mask}
 .reinterpret()
 
@@ -338,6 +342,7 @@ private val onDropFunc: CPointer<CFunction<(
         x: gdouble,
         y: gdouble,
     ) -> Boolean>().get().invoke(drop!!.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, false) { Drop.DropImpl(reinterpret()) }!!
+    }
     , x, y).asGBoolean()}
 .reinterpret()

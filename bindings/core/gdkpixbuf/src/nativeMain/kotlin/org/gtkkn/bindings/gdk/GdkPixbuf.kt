@@ -22,6 +22,7 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gdk.GdkPixbuf
 import org.gtkkn.native.gdk.GdkPixbufAnimation
@@ -145,9 +146,11 @@ public val PixbufModulePreparedFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(pixbuf: Pixbuf, anim: PixbufAnimation) -> Unit>().get().invoke(pixbuf!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, false) { Pixbuf(reinterpret()) }!!
+    }
     , anim!!.run {
-        PixbufAnimation(this)}
+        InstanceCache.get(this, false) { PixbufAnimation(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -186,7 +189,8 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<CFunction<(
         width: gint,
         height: gint,
     ) -> Unit>().get().invoke(pixbuf!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, false) { Pixbuf(reinterpret()) }!!
+    }
     , x, y, width, height)}
 .reinterpret()
 

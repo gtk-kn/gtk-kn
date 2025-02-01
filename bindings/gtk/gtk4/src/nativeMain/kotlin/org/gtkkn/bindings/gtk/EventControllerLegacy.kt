@@ -93,6 +93,7 @@ private val onEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
     userData: COpaquePointer
     ->
     userData.asStableRef<(event: Event) -> Boolean>().get().invoke(event!!.run {
-        Event.EventImpl(this)}
+        Event.EventImpl(this)
+    }
     ).asGBoolean()}
 .reinterpret()

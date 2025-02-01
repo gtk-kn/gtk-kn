@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -44,6 +45,15 @@ import org.gtkkn.native.gtk.gtk_style_context_set_state
 import org.gtkkn.native.gtk.gtk_style_context_to_string
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The relevant API has been moved to [class@Gtk.Widget]
+         *   where applicable; otherwise, there is no replacement for querying the
+         *   style machinery. Stylable UI elements should use widgets.
+ * ---
+ *
  * `GtkStyleContext` stores styling information affecting a widget.
  *
  * In order to construct the final style information, `GtkStyleContext`
@@ -97,7 +107,8 @@ public open class StyleContext(
          * @return a `GdkDisplay`.
          */
         get() = gtk_style_context_get_display(gtkStyleContextPointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Attaches @context to the given display.
          *

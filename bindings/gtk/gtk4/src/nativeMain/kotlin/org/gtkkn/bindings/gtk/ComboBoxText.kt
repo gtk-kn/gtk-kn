@@ -34,6 +34,14 @@ import org.gtkkn.native.gtk.gtk_combo_box_text_remove
 import org.gtkkn.native.gtk.gtk_combo_box_text_remove_all
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.DropDown] with a [class@Gtk.StringList]
+         *   instead
+ * ---
+ *
  * A `GtkComboBoxText` is a simple variant of `GtkComboBox` for text-only
  * use cases.
  *

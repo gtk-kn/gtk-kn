@@ -119,7 +119,8 @@ public open class BindingGroup(
      */
     @GObjectVersion2_72
     public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer)?.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets @source as the source object used for creating property

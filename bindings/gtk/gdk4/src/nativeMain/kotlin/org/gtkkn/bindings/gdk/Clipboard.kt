@@ -33,6 +33,7 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -109,7 +110,8 @@ public open class Clipboard(
          *   if the clipboard does not maintain any content
          */
         get() = gdk_clipboard_get_content(gdkClipboardPointer)?.run {
-            ContentProvider(this)}
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDisplay` that the clipboard belongs to.
@@ -121,7 +123,8 @@ public open class Clipboard(
          * @return a `GdkDisplay`
          */
         get() = gdk_clipboard_get_display(gdkClipboardPointer)!!.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The possible formats that the clipboard can provide its data in.
@@ -230,7 +233,8 @@ public open class Clipboard(
     public open fun readTextureFinish(result: AsyncResult): Result<Texture?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_clipboard_read_texture_finish(gdkClipboardPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            Texture.TextureImpl(this)}
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

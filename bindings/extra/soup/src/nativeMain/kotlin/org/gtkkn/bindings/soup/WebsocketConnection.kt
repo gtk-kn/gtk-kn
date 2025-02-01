@@ -127,7 +127,8 @@ public class WebsocketConnection(
          * @return the WebSocket's I/O stream.
          */
         get() = soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer)!!.run {
-            IoStream.IoStreamImpl(this)}
+            InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Interval in seconds on when to send a ping message which will

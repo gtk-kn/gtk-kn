@@ -103,7 +103,8 @@ public open class GestureStylus(
      * @return The current stylus tool
      */
     public open fun getDeviceTool(): DeviceTool? = gtk_gesture_stylus_get_device_tool(gtkGestureStylusPointer)?.run {
-        DeviceTool(this)}
+        InstanceCache.get(this, true) { DeviceTool(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Emitted when the stylus touches the device.

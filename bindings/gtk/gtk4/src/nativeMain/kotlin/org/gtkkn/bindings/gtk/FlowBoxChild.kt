@@ -66,7 +66,8 @@ public open class FlowBoxChild(
          * @return the child widget of @self
          */
         get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

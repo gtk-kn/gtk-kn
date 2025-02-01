@@ -97,7 +97,8 @@ public abstract class RenderNode(
      * @return the `GskRenderNode` with an additional reference
      */
     public open fun ref(): RenderNode = gsk_render_node_ref(gskRenderNodePointer)!!.run {
-        RenderNodeImpl(this)}
+        RenderNodeImpl(this)
+    }
 
     /**
      * Serializes the @node for later deserialization via
@@ -171,7 +172,8 @@ public abstract class RenderNode(
          * @return a new `GskRenderNode`
          */
         public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc?): RenderNode? = gsk_render_node_deserialize(bytes.glibBytesPointer, errorFunc?.let { ParseErrorFuncFunc.reinterpret() }, errorFunc?.let { StableRef.create(errorFunc).asCPointer() })?.run {
-            RenderNodeImpl(this)}
+            RenderNodeImpl(this)
+        }
 
         /**
          * Get the GType of RenderNode

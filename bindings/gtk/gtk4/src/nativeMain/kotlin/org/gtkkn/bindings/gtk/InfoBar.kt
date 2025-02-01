@@ -48,6 +48,16 @@ import org.gtkkn.native.gtk.gtk_info_bar_set_revealed
 import org.gtkkn.native.gtk.gtk_info_bar_set_show_close_button
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * There is no replacement in GTK for an "info bar" widget;
+         *   you can use [class@Gtk.Revealer] with a [class@Gtk.Box] containing a
+         *   [class@Gtk.Label] and an optional [class@Gtk.Button], according to
+         *   your application's design.
+ * ---
+ *
  * `GtkInfoBar` can be used to show messages to the user without a dialog.
  *
  * ![An example GtkInfoBar](info-bar.png)
@@ -245,7 +255,8 @@ public open class InfoBar(
      * that was added
      */
     public open fun addButton(buttonText: String, responseId: gint): Button = gtk_info_bar_add_button(gtkInfoBarPointer, buttonText, responseId)!!.run {
-        Button(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds a widget to the content area of the info bar.

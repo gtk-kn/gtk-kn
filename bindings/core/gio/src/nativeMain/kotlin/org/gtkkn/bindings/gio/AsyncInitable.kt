@@ -20,6 +20,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Parameter
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -231,7 +232,8 @@ public interface AsyncInitable : Proxy, KGTyped {
     public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_async_initable_new_finish(gioAsyncInitablePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            Object(this)}
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

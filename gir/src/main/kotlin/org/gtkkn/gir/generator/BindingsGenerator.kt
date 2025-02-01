@@ -361,6 +361,7 @@ class BindingsGenerator(
         internal val GOBJECT_TYPES = ClassName("org.gtkkn.extensions.gobject", "Types")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject.legacy", "TypeCompanion")
         internal val INSTANCE_CACHE_TYPE = ClassName("org.gtkkn.extensions.gobject", "InstanceCache")
+        internal val IS_GOBJECT_MEMBER = MemberName("org.gtkkn.extensions.gobject.ext", "isGObject")
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject.legacy", "KGTyped")
         internal val MEMORY_CLEANER_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "MemoryCleaner")
         internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")

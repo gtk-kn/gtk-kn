@@ -20,6 +20,7 @@ import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -164,7 +165,8 @@ public abstract class Animation(
          * @return the animation target
          */
         get() = adw_animation_get_target(adwAnimationPointer)!!.run {
-            AnimationTarget.AnimationTargetImpl(this)}
+            InstanceCache.get(this, true) { AnimationTarget.AnimationTargetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the target @self animates to @target.
          *
@@ -207,7 +209,8 @@ public abstract class Animation(
          * @return the animation widget
          */
         get() = adw_animation_get_widget(adwAnimationPointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Pauses a playing animation for @self.

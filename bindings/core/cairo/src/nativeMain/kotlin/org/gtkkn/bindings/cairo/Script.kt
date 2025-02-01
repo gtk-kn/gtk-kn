@@ -56,10 +56,12 @@ public open class Script(
         width: gdouble,
         height: gdouble,
     ): Surface = cairo_script_surface_create(cairoScriptPointer, content.nativeValue, width, height)!!.run {
-        Surface(this)}
+        Surface(this)
+    }
 
     public open fun createScriptSurfaceForTarget(target: Surface): Surface = cairo_script_surface_create_for_target(cairoScriptPointer, target.cairoSurfacePointer)!!.run {
-        Surface(this)}
+        Surface(this)
+    }
 
     public open fun writeComment(comment: String, length: gint): Unit = cairo_script_write_comment(cairoScriptPointer, comment, length)
 

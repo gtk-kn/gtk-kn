@@ -61,7 +61,8 @@ public open class StringFilter(
          * @return a `GtkExpression`
          */
         get() = gtk_string_filter_get_expression(gtkStringFilterPointer)?.run {
-            Expression.ExpressionImpl(this)}
+            Expression.ExpressionImpl(this)
+        }
         /**
          * Sets the expression that the string filter uses to
          * obtain strings from items.

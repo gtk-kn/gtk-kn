@@ -24,6 +24,13 @@ import org.gtkkn.native.glib.g_static_rw_lock_writer_trylock
 import org.gtkkn.native.glib.g_static_rw_lock_writer_unlock
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Use a #GRWLock instead
+ * ---
+ *
  * The #GStaticRWLock struct represents a read-write lock. A read-write
  * lock can be used for protecting data that some portions of code only
  * read from, while others also write. In such situations it is

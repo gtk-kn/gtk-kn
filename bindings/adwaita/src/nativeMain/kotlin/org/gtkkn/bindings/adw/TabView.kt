@@ -222,7 +222,8 @@ public class TabView(
          * @return the tab context menu model for @self
          */
         get() = adw_tab_view_get_menu_model(adwTabViewPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the tab context menu model for @self.
          *
@@ -339,7 +340,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun addPage(child: Widget, parent: TabPage? = null): TabPage = adw_tab_view_add_page(adwTabViewPointer, child.gtkWidgetPointer, parent?.adwTabPagePointer)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Adds @shortcuts for @self.
@@ -359,7 +361,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun append(child: Widget): TabPage = adw_tab_view_append(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Inserts @child as the last pinned page.
@@ -368,7 +371,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun appendPinned(child: Widget): TabPage = adw_tab_view_append_pinned(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Requests to close all pages other than @page.
@@ -441,7 +445,8 @@ public class TabView(
      * @return the page object at @position
      */
     public fun getNthPage(position: gint): TabPage = adw_tab_view_get_nth_page(adwTabViewPointer, position)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the [class@TabPage] object representing @child.
@@ -450,7 +455,8 @@ public class TabView(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): TabPage = adw_tab_view_get_page(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Finds the position of @page in @self, starting from 0.
@@ -466,7 +472,8 @@ public class TabView(
      * @return the selected page
      */
     public fun getSelectedPage(): TabPage? = adw_tab_view_get_selected_page(adwTabViewPointer)?.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Inserts a non-pinned page at @position.
@@ -479,7 +486,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun insert(child: Widget, position: gint): TabPage = adw_tab_view_insert(adwTabViewPointer, child.gtkWidgetPointer, position)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Inserts a pinned page at @position.
@@ -492,7 +500,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun insertPinned(child: Widget, position: gint): TabPage = adw_tab_view_insert_pinned(adwTabViewPointer, child.gtkWidgetPointer, position)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Invalidates thumbnails for all pages in @self.
@@ -512,7 +521,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun prepend(child: Widget): TabPage = adw_tab_view_prepend(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Inserts @child as the first pinned page.
@@ -521,7 +531,8 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun prependPinned(child: Widget): TabPage = adw_tab_view_prepend_pinned(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Removes @shortcuts from @self.
@@ -843,7 +854,8 @@ private val onClosePageFunc: CPointer<CFunction<(CPointer<AdwTabPage>) -> gboole
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage) -> Boolean>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -861,7 +873,8 @@ private val onIndicatorActivatedFunc: CPointer<CFunction<(CPointer<AdwTabPage>) 
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage) -> Unit>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -873,7 +886,8 @@ private val onPageAttachedFunc: CPointer<CFunction<(CPointer<AdwTabPage>, gint) 
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, position: gint) -> Unit>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , position)}
 .reinterpret()
 
@@ -885,7 +899,8 @@ private val onPageDetachedFunc: CPointer<CFunction<(CPointer<AdwTabPage>, gint) 
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, position: gint) -> Unit>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , position)}
 .reinterpret()
 
@@ -897,7 +912,8 @@ private val onPageReorderedFunc: CPointer<CFunction<(CPointer<AdwTabPage>, gint)
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage, position: gint) -> Unit>().get().invoke(page!!.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     , position)}
 .reinterpret()
 
@@ -908,6 +924,7 @@ private val onSetupMenuFunc: CPointer<CFunction<(CPointer<AdwTabPage>?) -> Unit>
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: TabPage?) -> Unit>().get().invoke(page?.run {
-        TabPage(this)}
+        InstanceCache.get(this, false) { TabPage(reinterpret()) }!!
+    }
     )}
 .reinterpret()

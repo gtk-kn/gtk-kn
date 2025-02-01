@@ -495,7 +495,8 @@ public open class DBusProxy(
      */
     @GioVersion2_26
     public open fun getConnection(): DBusConnection = g_dbus_proxy_get_connection(gioDBusProxyPointer)!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the timeout to use if -1 (specifying default timeout) is

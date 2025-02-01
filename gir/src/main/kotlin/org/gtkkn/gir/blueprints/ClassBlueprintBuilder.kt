@@ -141,10 +141,11 @@ class ClassBlueprintBuilder(
             interfacePointerOverrides = interfacePointerOverrides,
             glibGetTypeFunc = glibGetTypeMember,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(
-                context,
-                girNamespace,
-                girNode.info,
+                context = context,
+                girNamespace = girNamespace,
+                girInfo = girNode.info,
             ).build().getOrNull(),
+            deprecatedBlueprint = DeprecatedBlueprintBuilder(context, girNode.info, girNode.doc).build().getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }

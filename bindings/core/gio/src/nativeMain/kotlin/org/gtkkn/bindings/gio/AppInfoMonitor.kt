@@ -16,6 +16,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -125,7 +126,8 @@ public open class AppInfoMonitor(
          */
         @GioVersion2_40
         public fun `get`(): AppInfoMonitor = g_app_info_monitor_get()!!.run {
-            AppInfoMonitor(this)}
+            InstanceCache.get(this, true) { AppInfoMonitor(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of AppInfoMonitor

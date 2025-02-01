@@ -25,6 +25,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_70
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_8
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -219,7 +220,8 @@ public open class Object(
         targetProperty: String,
         flags: BindingFlags,
     ): Binding = g_object_bind_property(gobjectObjectPointer, sourceProperty, target.gobjectObjectPointer.reinterpret(), targetProperty, flags.mask)!!.run {
-        Binding(this)}
+        InstanceCache.get(this, true) { Binding(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a binding between @source_property on @source and @target_property
@@ -252,7 +254,8 @@ public open class Object(
         transformTo: Closure,
         transformFrom: Closure,
     ): Binding = g_object_bind_property_with_closures(gobjectObjectPointer, sourceProperty, target.gobjectObjectPointer.reinterpret(), targetProperty, flags.mask, transformTo.gobjectClosurePointer, transformFrom.gobjectClosurePointer)!!.run {
-        Binding(this)}
+        InstanceCache.get(this, true) { Binding(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * This is a variant of g_object_get_data() which returns
@@ -454,7 +457,8 @@ public open class Object(
      * @return the same @object
      */
     public open fun ref(): Object = g_object_ref(gobjectObjectPointer)!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Increase the reference count of @object, and possibly remove the
@@ -474,7 +478,8 @@ public open class Object(
      */
     @GObjectVersion2_10
     public open fun refSink(): Object = g_object_ref_sink(gobjectObjectPointer)!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Removes a reference added with g_object_add_toggle_ref(). The
@@ -635,7 +640,8 @@ public open class Object(
      */
     @GObjectVersion2_70
     public open fun takeRef(): Object = g_object_take_ref(gobjectObjectPointer)!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Reverts the effect of a previous call to
@@ -772,7 +778,8 @@ public open class Object(
          */
         @GObjectVersion2_4
         public fun interfaceFindProperty(gIface: TypeInterface, propertyName: String): ParamSpec = g_object_interface_find_property(gIface.gobjectTypeInterfacePointer, propertyName)!!.run {
-            ParamSpec.ParamSpecImpl(this)}
+            ParamSpec.ParamSpecImpl(this)
+        }
 
         /**
          * Add a property to an interface; this is only useful for interfaces
@@ -826,6 +833,7 @@ private val onNotifyFunc: CPointer<CFunction<(CPointer<GParamSpec>) -> Unit>> = 
     userData: COpaquePointer
     ->
     userData.asStableRef<(pspec: ParamSpec) -> Unit>().get().invoke(pspec!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
     )}
 .reinterpret()

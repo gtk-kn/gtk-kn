@@ -197,7 +197,8 @@ public open class PixbufLoader(
      *   currently loading
      */
     public open fun getAnimation(): PixbufAnimation? = gdk_pixbuf_loader_get_animation(gdkPixbufLoaderPointer)?.run {
-        PixbufAnimation(this)}
+        InstanceCache.get(this, true) { PixbufAnimation(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Obtains the available information about the format of the
@@ -231,7 +232,8 @@ public open class PixbufLoader(
      *   creating
      */
     public open fun getPixbuf(): Pixbuf? = gdk_pixbuf_loader_get_pixbuf(gdkPixbufLoaderPointer)?.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Causes the image to be scaled while it is loaded.

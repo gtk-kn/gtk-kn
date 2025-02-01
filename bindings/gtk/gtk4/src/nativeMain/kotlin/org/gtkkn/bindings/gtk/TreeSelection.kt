@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -46,6 +47,13 @@ import org.gtkkn.native.gtk.gtk_tree_selection_unselect_path
 import org.gtkkn.native.gtk.gtk_tree_selection_unselect_range
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [iface@Gtk.SelectionModel] instead
+ * ---
+ *
  * The selection object for GtkTreeView
  *
  * The `GtkTreeSelection` object is a helper object to manage the selection
@@ -121,7 +129,8 @@ public open class TreeSelection(
      * @return A `GtkTreeView`
      */
     public open fun getTreeView(): TreeView = gtk_tree_selection_get_tree_view(gtkTreeSelectionPointer)!!.run {
-        TreeView(this)}
+        InstanceCache.get(this, true) { TreeView(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the user data for the selection function.

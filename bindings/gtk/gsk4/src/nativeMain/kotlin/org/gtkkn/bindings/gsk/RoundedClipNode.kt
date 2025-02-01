@@ -46,7 +46,8 @@ public open class RoundedClipNode(
      * @return The child that is getting clipped
      */
     public open fun getChild(): RenderNode = gsk_rounded_clip_node_get_child(gskRoundedClipNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the rounded rectangle used to clip the contents of the @node.

@@ -85,7 +85,8 @@ public open class PopoverMenuBar(
          * @return a `GMenuModel`
          */
         get() = gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a menu model from which @bar should take
          * its contents.

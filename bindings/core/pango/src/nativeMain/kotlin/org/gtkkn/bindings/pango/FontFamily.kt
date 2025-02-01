@@ -15,6 +15,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -85,7 +86,8 @@ public abstract class FontFamily(
      */
     @PangoVersion1_46
     public open fun getFace(name: String? = null): FontFace? = pango_font_family_get_face(pangoFontFamilyPointer, name)?.run {
-        FontFace.FontFaceImpl(this)}
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * A monospace font is a font designed for text display where the the

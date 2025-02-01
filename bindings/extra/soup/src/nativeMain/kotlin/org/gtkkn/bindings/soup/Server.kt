@@ -34,6 +34,7 @@ import org.gtkkn.bindings.soup.Soup.resolveException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -388,7 +389,8 @@ public open class Server(
      * @return a #GTlsCertificate or null
      */
     public open fun getTlsCertificate(): TlsCertificate? = soup_server_get_tls_certificate(soupServerPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the @server SSL/TLS database.
@@ -396,7 +398,8 @@ public open class Server(
      * @return a #GTlsDatabase
      */
     public open fun getTlsDatabase(): TlsDatabase? = soup_server_get_tls_database(soupServerPointer)?.run {
-        TlsDatabase.TlsDatabaseImpl(this)}
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a list of URIs corresponding to the interfaces @server is
@@ -741,7 +744,8 @@ private val onRequestAbortedFunc: CPointer<CFunction<(CPointer<SoupServerMessage
     userData: COpaquePointer
     ->
     userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -752,7 +756,8 @@ private val onRequestFinishedFunc: CPointer<CFunction<(CPointer<SoupServerMessag
     userData: COpaquePointer
     ->
     userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -763,7 +768,8 @@ private val onRequestReadFunc: CPointer<CFunction<(CPointer<SoupServerMessage>) 
     userData: COpaquePointer
     ->
     userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -774,6 +780,7 @@ private val onRequestStartedFunc: CPointer<CFunction<(CPointer<SoupServerMessage
     userData: COpaquePointer
     ->
     userData.asStableRef<(message: ServerMessage) -> Unit>().get().invoke(message!!.run {
-        ServerMessage(this)}
+        InstanceCache.get(this, false) { ServerMessage(reinterpret()) }!!
+    }
     )}
 .reinterpret()

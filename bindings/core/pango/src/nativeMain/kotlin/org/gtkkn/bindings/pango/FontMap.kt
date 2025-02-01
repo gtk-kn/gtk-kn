@@ -14,6 +14,7 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_32_4
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_34
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_52
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -87,7 +88,8 @@ public abstract class FontMap(
      */
     @PangoVersion1_22
     public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a font family by name.
@@ -98,7 +100,8 @@ public abstract class FontMap(
      */
     @PangoVersion1_46
     public open fun getFamily(name: String): FontFamily = pango_font_map_get_family(pangoFontMapPointer, name)!!.run {
-        FontFamily.FontFamilyImpl(this)}
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the current serial number of @fontmap.
@@ -129,7 +132,8 @@ public abstract class FontMap(
      *   loaded, or null if no font matched.
      */
     public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(pangoFontMapPointer, context.pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
-        Font.FontImpl(this)}
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Load a set of fonts in the fontmap that can be used to render
@@ -146,7 +150,8 @@ public abstract class FontMap(
         desc: FontDescription,
         language: Language,
     ): Fontset? = pango_font_map_load_fontset(pangoFontMapPointer, context.pangoContextPointer, desc.pangoFontDescriptionPointer, language.pangoLanguagePointer)?.run {
-        Fontset.FontsetImpl(this)}
+        InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns a new font that is like @font, except that its size
@@ -168,7 +173,8 @@ public abstract class FontMap(
         context: Context? = null,
         variations: String? = null,
     ): Font = pango_font_map_reload_font(pangoFontMapPointer, font.pangoFontPointer, scale, context?.pangoContextPointer, variations)!!.run {
-        Font.FontImpl(this)}
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * The FontMapImpl type represents a native instance of the abstract FontMap class.

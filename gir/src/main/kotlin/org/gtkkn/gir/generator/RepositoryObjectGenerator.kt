@@ -31,7 +31,7 @@ import org.gtkkn.gir.blueprints.TypeToRegister
 interface RepositoryObjectGenerator : FunctionGenerator, ConstantGenerator {
     fun buildRepositoryObject(repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.objectBuilder(repository.repositoryObjectName.simpleName).apply {
-            addKdoc(buildTypeKDoc(null, null, repository.skippedObjects))
+            addKdoc(buildTypeKDoc(null, null, null, repository.skippedObjects))
 
             val typesToRegister: Set<TypeToRegister> = buildSet {
                 addAll(repository.classBlueprints.filterNot { it.glibGetTypeFunc == null })

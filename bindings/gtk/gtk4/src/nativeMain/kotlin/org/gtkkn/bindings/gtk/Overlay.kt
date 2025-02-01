@@ -103,7 +103,8 @@ public open class Overlay(
          * @return the child widget of @overlay
          */
         get() = gtk_overlay_get_child(gtkOverlayPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @overlay.
          *
@@ -235,7 +236,8 @@ private val onGetChildPositionFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(widget: Widget, allocation: Rectangle) -> Boolean>().get().invoke(widget!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , allocation!!.run {
         Rectangle(this)}
     ).asGBoolean()}

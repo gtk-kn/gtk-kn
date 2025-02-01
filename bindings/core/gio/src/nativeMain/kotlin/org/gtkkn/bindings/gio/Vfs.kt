@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -156,7 +157,8 @@ public open class Vfs(
          *     file system #GVfs if no other implementation is available.
          */
         public fun getDefault(): Vfs = g_vfs_get_default()!!.run {
-            Vfs(this)}
+            InstanceCache.get(this, true) { Vfs(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Gets the local #GVfs for the system.
@@ -164,7 +166,8 @@ public open class Vfs(
          * @return a #GVfs.
          */
         public fun getLocal(): Vfs = g_vfs_get_local()!!.run {
-            Vfs(this)}
+            InstanceCache.get(this, true) { Vfs(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of Vfs

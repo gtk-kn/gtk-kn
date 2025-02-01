@@ -55,7 +55,8 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueDupRenderNode(`value`: Value): RenderNode? = gsk_value_dup_render_node(`value`.gobjectValuePointer)?.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`.
@@ -66,7 +67,8 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueGetRenderNode(`value`: Value): RenderNode? = gsk_value_get_render_node(`value`.gobjectValuePointer)?.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Stores the given `GskRenderNode` inside `value`.

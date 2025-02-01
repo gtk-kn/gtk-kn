@@ -50,6 +50,7 @@ class AliasBlueprintBuilder(
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
+            deprecatedBlueprint = DeprecatedBlueprintBuilder(context, girNode.info, girNode.doc).build().getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }

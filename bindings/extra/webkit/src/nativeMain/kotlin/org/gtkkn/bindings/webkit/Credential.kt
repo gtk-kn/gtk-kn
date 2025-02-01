@@ -7,6 +7,7 @@ import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.TlsCertificate
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
@@ -14,6 +15,7 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_credential_copy
@@ -107,7 +109,8 @@ public class Credential(
      */
     @WebKitVersion2_34
     public fun getCertificate(): TlsCertificate = webkit_credential_get_certificate(webkitCredentialPointer)!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the password currently held by this #WebKitCredential.

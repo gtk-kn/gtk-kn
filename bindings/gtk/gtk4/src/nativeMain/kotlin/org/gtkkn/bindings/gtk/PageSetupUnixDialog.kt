@@ -84,7 +84,8 @@ public open class PageSetupUnixDialog(
      * @return the current page setup
      */
     public open fun getPageSetup(): PageSetup = gtk_page_setup_unix_dialog_get_page_setup(gtkPageSetupUnixDialogPointer)!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current print settings from the dialog.
@@ -92,7 +93,8 @@ public open class PageSetupUnixDialog(
      * @return the current print settings
      */
     public open fun getPrintSettings(): PrintSettings? = gtk_page_setup_unix_dialog_get_print_settings(gtkPageSetupUnixDialogPointer)?.run {
-        PrintSettings(this)}
+        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the `GtkPageSetup` from which the page setup

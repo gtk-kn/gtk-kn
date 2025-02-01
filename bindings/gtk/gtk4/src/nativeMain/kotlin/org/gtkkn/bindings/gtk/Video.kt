@@ -165,7 +165,8 @@ public open class Video(
          * @return The media stream managed by @self
          */
         get() = gtk_video_get_media_stream(gtkVideoPointer)?.run {
-            MediaStream.MediaStreamImpl(this)}
+            InstanceCache.get(this, true) { MediaStream.MediaStreamImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the media stream to be played back.
          *

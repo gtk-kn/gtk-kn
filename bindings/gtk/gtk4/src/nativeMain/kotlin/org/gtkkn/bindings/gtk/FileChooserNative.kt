@@ -22,6 +22,13 @@ import org.gtkkn.native.gtk.gtk_file_chooser_native_set_accept_label
 import org.gtkkn.native.gtk.gtk_file_chooser_native_set_cancel_label
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FileDialog] instead
+ * ---
+ *
  * `GtkFileChooserNative` is an abstraction of a dialog suitable
  * for use with “File Open” or “File Save as” commands.
  *

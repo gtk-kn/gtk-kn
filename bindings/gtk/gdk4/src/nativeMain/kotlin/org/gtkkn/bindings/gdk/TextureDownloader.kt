@@ -5,9 +5,11 @@ package org.gtkkn.bindings.gdk
 
 import kotlin.Unit
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gdk.GdkTextureDownloader
 import org.gtkkn.native.gdk.gdk_texture_downloader_copy
 import org.gtkkn.native.gdk.gdk_texture_downloader_free
@@ -91,7 +93,8 @@ public class TextureDownloader(
      */
     @GdkVersion4_10
     public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer)!!.run {
-        Texture.TextureImpl(this)}
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the format the downloader will download.

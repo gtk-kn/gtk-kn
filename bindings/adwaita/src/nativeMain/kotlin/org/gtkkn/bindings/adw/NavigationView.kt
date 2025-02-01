@@ -338,7 +338,8 @@ public class NavigationView(
          * @since 1.4
          */
         get() = adw_navigation_view_get_visible_page(adwNavigationViewPointer)?.run {
-            NavigationPage(this)}
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new `AdwNavigationView`.
@@ -378,7 +379,8 @@ public class NavigationView(
      */
     @AdwVersion1_4
     public fun findPage(tag: String): NavigationPage? = adw_navigation_view_find_page(adwNavigationViewPointer, tag)?.run {
-        NavigationPage(this)}
+        InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the previous page for @page.
@@ -394,7 +396,8 @@ public class NavigationView(
      */
     @AdwVersion1_4
     public fun getPreviousPage(page: NavigationPage): NavigationPage? = adw_navigation_view_get_previous_page(adwNavigationViewPointer, page.adwNavigationPagePointer)?.run {
-        NavigationPage(this)}
+        InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Pops the visible page from the navigation stack.
@@ -658,7 +661,8 @@ private val onPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) -> Un
     userData: COpaquePointer
     ->
     userData.asStableRef<(page: NavigationPage) -> Unit>().get().invoke(page!!.run {
-        NavigationPage(this)}
+        InstanceCache.get(this, false) { NavigationPage(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 

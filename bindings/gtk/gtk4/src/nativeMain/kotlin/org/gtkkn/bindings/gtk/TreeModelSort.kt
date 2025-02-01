@@ -30,6 +30,13 @@ import org.gtkkn.native.gtk.gtk_tree_model_sort_new_with_model
 import org.gtkkn.native.gtk.gtk_tree_model_sort_reset_default_sort_func
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.SortListModel] instead
+ * ---
+ *
  * A GtkTreeModel which makes an underlying tree model sortable
  *
  * The `GtkTreeModelSort` is a model which implements the `GtkTreeSortable`

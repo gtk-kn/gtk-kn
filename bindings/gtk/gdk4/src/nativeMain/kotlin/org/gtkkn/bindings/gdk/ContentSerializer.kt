@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.OutputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -72,7 +73,8 @@ public open class ContentSerializer(
      * @return the cancellable for the current operation
      */
     public open fun getCancellable(): Cancellable? = gdk_content_serializer_get_cancellable(gdkContentSerializerPointer)?.run {
-        Cancellable(this)}
+        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the `GType` to of the object to serialize.
@@ -96,7 +98,8 @@ public open class ContentSerializer(
      * @return the output stream for the current operation
      */
     public open fun getOutputStream(): OutputStream = gdk_content_serializer_get_output_stream(gdkContentSerializerPointer)!!.run {
-        OutputStream.OutputStreamImpl(this)}
+        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the I/O priority for the current operation.

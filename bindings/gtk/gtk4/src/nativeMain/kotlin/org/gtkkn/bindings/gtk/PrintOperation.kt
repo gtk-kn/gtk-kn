@@ -258,7 +258,8 @@ public open class PrintOperation(
          * @return the current print settings of @op.
          */
         get() = gtk_print_operation_get_print_settings(gtkPrintOperationPointer)?.run {
-            PrintSettings(this)}
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the print settings for @op.
          *
@@ -361,7 +362,8 @@ public open class PrintOperation(
      * @return the default page setup
      */
     public open fun getDefaultPageSetup(): PageSetup = gtk_print_operation_get_default_page_setup(gtkPrintOperationPointer)!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Call this when the result of a print operation is
@@ -961,7 +963,8 @@ private val onBeginPrintFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> 
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: PrintContext) -> kotlin.Unit>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -980,7 +983,8 @@ private val onCustomWidgetApplyFunc: CPointer<CFunction<(CPointer<GtkWidget>) ->
     userData: COpaquePointer
     ->
     userData.asStableRef<(widget: Widget) -> kotlin.Unit>().get().invoke(widget!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1003,7 +1007,8 @@ private val onDrawPageFunc: CPointer<CFunction<(CPointer<GtkPrintContext>, gint)
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: PrintContext, pageNr: gint) -> kotlin.Unit>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     , pageNr)}
 .reinterpret()
 
@@ -1014,7 +1019,8 @@ private val onEndPrintFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> ko
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: PrintContext) -> kotlin.Unit>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1025,7 +1031,8 @@ private val onPaginateFunc: CPointer<CFunction<(CPointer<GtkPrintContext>) -> gb
     userData: COpaquePointer
     ->
     userData.asStableRef<(context: PrintContext) -> Boolean>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -1047,9 +1054,11 @@ private val onPreviewFunc: CPointer<CFunction<(
     ) -> Boolean>().get().invoke(preview!!.run {
         PrintOperationPreview.PrintOperationPreviewImpl(reinterpret())}
     , context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     , parent?.run {
-        Window(this)}
+        InstanceCache.get(this, false) { Window(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 
@@ -1069,9 +1078,11 @@ private val onRequestPageSetupFunc: CPointer<CFunction<(
         pageNr: gint,
         setup: PageSetup,
     ) -> kotlin.Unit>().get().invoke(context!!.run {
-        PrintContext(this)}
+        InstanceCache.get(this, false) { PrintContext(reinterpret()) }!!
+    }
     , pageNr, setup!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -1098,10 +1109,13 @@ private val onUpdateCustomWidgetFunc: CPointer<CFunction<(
         setup: PageSetup,
         settings: PrintSettings,
     ) -> kotlin.Unit>().get().invoke(widget!!.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, false) { Widget.WidgetImpl(reinterpret()) }!!
+    }
     , setup!!.run {
-        PageSetup(this)}
+        InstanceCache.get(this, false) { PageSetup(reinterpret()) }!!
+    }
     , settings!!.run {
-        PrintSettings(this)}
+        InstanceCache.get(this, false) { PrintSettings(reinterpret()) }!!
+    }
     )}
 .reinterpret()

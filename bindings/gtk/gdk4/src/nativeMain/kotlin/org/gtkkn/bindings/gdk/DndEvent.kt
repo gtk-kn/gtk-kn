@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -30,7 +31,8 @@ public open class DndEvent(
      * @return the drop
      */
     public open fun getDrop(): Drop? = gdk_dnd_event_get_drop(gdkDndEventPointer.reinterpret())?.run {
-        Drop.DropImpl(this)}
+        InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<DndEvent> {
         override val type: GeneratedClassKGType<DndEvent> =

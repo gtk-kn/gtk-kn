@@ -14,6 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -71,7 +72,8 @@ public interface TlsBackend : Proxy, KGTyped {
      */
     @GioVersion2_30
     public fun getDefaultDatabase(): TlsDatabase = g_tls_backend_get_default_database(gioTlsBackendPointer)!!.run {
-        TlsDatabase.TlsDatabaseImpl(this)}
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the #GType of @backend’s #GDtlsClientConnection implementation.

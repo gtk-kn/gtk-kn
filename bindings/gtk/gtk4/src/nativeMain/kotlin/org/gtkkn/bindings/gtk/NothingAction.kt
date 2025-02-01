@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -40,7 +41,8 @@ public open class NothingAction(
          * @return The nothing action
          */
         public fun `get`(): NothingAction = gtk_nothing_action_get()!!.run {
-            NothingAction(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { NothingAction(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of NothingAction

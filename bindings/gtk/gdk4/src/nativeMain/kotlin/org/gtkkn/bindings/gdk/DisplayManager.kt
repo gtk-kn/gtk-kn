@@ -17,6 +17,7 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -94,7 +95,8 @@ public open class DisplayManager(
      * @return a `GdkDisplay`
      */
     public open fun getDefaultDisplay(): Display? = gdk_display_manager_get_default_display(gdkDisplayManagerPointer)?.run {
-        Display(this)}
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * List all currently open displays.
@@ -113,7 +115,8 @@ public open class DisplayManager(
      *   if the display could not be opened
      */
     public open fun openDisplay(name: String? = null): Display? = gdk_display_manager_open_display(gdkDisplayManagerPointer, name)?.run {
-        Display(this)}
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets @display as the default display.
@@ -160,7 +163,8 @@ public open class DisplayManager(
          * @return The global `GdkDisplayManager` singleton
          */
         public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
-            DisplayManager(this)}
+            InstanceCache.get(this, true) { DisplayManager(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of DisplayManager
@@ -188,6 +192,7 @@ private val onDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) -> Un
     userData: COpaquePointer
     ->
     userData.asStableRef<(display: Display) -> Unit>().get().invoke(display!!.run {
-        Display(this)}
+        InstanceCache.get(this, false) { Display(reinterpret()) }!!
+    }
     )}
 .reinterpret()

@@ -61,7 +61,8 @@ public open class Shortcut(
          * @return the action
          */
         get() = gtk_shortcut_get_action(gtkShortcutPointer)?.run {
-            ShortcutAction.ShortcutActionImpl(this)}
+            InstanceCache.get(this, true) { ShortcutAction.ShortcutActionImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the new action for @self to be @action.
          *
@@ -98,7 +99,8 @@ public open class Shortcut(
          * @return the trigger used
          */
         get() = gtk_shortcut_get_trigger(gtkShortcutPointer)?.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)}
+            InstanceCache.get(this, true) { ShortcutTrigger.ShortcutTriggerImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the new trigger for @self to be @trigger.
          *

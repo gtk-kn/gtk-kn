@@ -5,6 +5,7 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -41,7 +42,8 @@ public open class NeverTrigger(
          * @return The never trigger
          */
         public fun `get`(): NeverTrigger = gtk_never_trigger_get()!!.run {
-            NeverTrigger(reinterpret())}
+            InstanceCache.get(reinterpret(), true) { NeverTrigger(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of NeverTrigger

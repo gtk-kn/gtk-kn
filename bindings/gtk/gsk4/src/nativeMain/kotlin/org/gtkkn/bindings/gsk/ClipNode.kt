@@ -47,7 +47,8 @@ public open class ClipNode(
      * @return The child that is getting clipped
      */
     public open fun getChild(): RenderNode = gsk_clip_node_get_child(gskClipNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the clip rectangle for @node.

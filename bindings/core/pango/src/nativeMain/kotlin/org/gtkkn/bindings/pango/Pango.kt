@@ -29,6 +29,7 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
@@ -1215,9 +1216,11 @@ public val FontsetForeachFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(fontset!!.run {
-        Fontset.FontsetImpl(this)}
+        InstanceCache.get(this, false) { Fontset.FontsetImpl(reinterpret()) }!!
+    }
     , font!!.run {
-        Font.FontImpl(this)}
+        InstanceCache.get(this, false) { Font.FontImpl(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
 

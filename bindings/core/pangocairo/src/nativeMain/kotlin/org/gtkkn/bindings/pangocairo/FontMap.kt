@@ -12,6 +12,7 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -48,7 +49,8 @@ public interface FontMap : Proxy, KGTyped {
      */
     @PangoCairoVersion1_10
     public fun createPangoCairoContext(): Context = pango_cairo_font_map_create_context(pangocairoFontMapPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the type of Cairo font backend that @fontmap uses.
@@ -156,7 +158,8 @@ public interface FontMap : Proxy, KGTyped {
          */
         @PangoCairoVersion1_10
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_get_default()!!.run {
-            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)}
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Creates a new `PangoCairoFontMap` object.
@@ -184,7 +187,8 @@ public interface FontMap : Proxy, KGTyped {
          */
         @PangoCairoVersion1_10
         public fun new(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_new()!!.run {
-            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)}
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Creates a new `PangoCairoFontMap` object of the type suitable
@@ -202,7 +206,8 @@ public interface FontMap : Proxy, KGTyped {
          */
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? = pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)}
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of FontMap

@@ -56,6 +56,7 @@ import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.GCancellable
@@ -1652,7 +1653,8 @@ public object Gio {
     public fun busGetFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_finish(res.gioAsyncResultPointer, gError.ptr)?.run {
-            DBusConnection(this)}
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -1691,7 +1693,8 @@ public object Gio {
     public fun busGetSync(busType: BusType, cancellable: Cancellable? = null): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_sync(busType.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            DBusConnection(this)}
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -2510,7 +2513,8 @@ public object Gio {
         rootPath: String,
         rootGroup: String? = null,
     ): SettingsBackend = g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
-        SettingsBackend.SettingsBackendImpl(this)}
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a memory-backed #GSettingsBackend.
@@ -2524,7 +2528,8 @@ public object Gio {
      */
     @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
-        SettingsBackend.SettingsBackendImpl(this)}
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Initializes the platform networking libraries (eg, on Windows, this
@@ -2548,7 +2553,8 @@ public object Gio {
      */
     @GioVersion2_28
     public fun nullSettingsBackendNew(): SettingsBackend = g_null_settings_backend_new()!!.run {
-        SettingsBackend.SettingsBackendImpl(this)}
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Utility method for #GPollableInputStream and #GPollableOutputStream
@@ -2662,7 +2668,8 @@ public object Gio {
     public fun resourcesOpenStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gio.Gio.resolveException(Error(gError.pointed!!.ptr)))
@@ -3130,7 +3137,8 @@ public val AsyncReadyCallbackFunc: CPointer<CFunction<(
         res: AsyncResult,
         `data`: gpointer?,
     ) -> Unit>().get().invoke(sourceObject?.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , res!!.run {
         AsyncResult.AsyncResultImpl(reinterpret())}
     , `data`)}
@@ -3144,7 +3152,8 @@ public val BusAcquiredCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , name?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
@@ -3156,7 +3165,8 @@ public val BusNameAcquiredCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , name?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
@@ -3175,7 +3185,8 @@ public val BusNameAppearedCallbackFunc: CPointer<CFunction<(
         name: String,
         nameOwner: String,
     ) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , name?.toKString() ?: error("Expected not null string"), nameOwner?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
@@ -3187,7 +3198,8 @@ public val BusNameLostCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , name?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
@@ -3199,7 +3211,8 @@ public val BusNameVanishedCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , name?.toKString() ?: error("Expected not null string"))}
 .reinterpret()
 
@@ -3210,7 +3223,8 @@ public val CancellableSourceFuncFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(cancellable: Cancellable?, `data`: gpointer?) -> Boolean>().get().invoke(cancellable?.run {
-        Cancellable(this)}
+        InstanceCache.get(this, false) { Cancellable(reinterpret()) }!!
+    }
     , `data`).asGBoolean()}
 .reinterpret()
 
@@ -3235,7 +3249,8 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<CFunction<(
         interfaceName: String,
         propertyName: String,
     ) -> Variant>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), propertyName?.toKString() ?: error("Expected not null string")).glibVariantPointer}
 .reinterpret()
 
@@ -3266,11 +3281,13 @@ public val DBusInterfaceMethodCallFuncFunc: CPointer<CFunction<(
         parameters: Variant,
         invocation: DBusMethodInvocation,
     ) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), methodName?.toKString() ?: error("Expected not null string"), parameters!!.run {
         Variant(this)}
     , invocation!!.run {
-        DBusMethodInvocation(this)}
+        InstanceCache.get(this, false) { DBusMethodInvocation(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -3298,7 +3315,8 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<CFunction<(
         propertyName: String,
         `value`: Variant,
     ) -> Boolean>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), propertyName?.toKString() ?: error("Expected not null string"), `value`!!.run {
         Variant(this)}
     ).asGBoolean()}
@@ -3319,9 +3337,11 @@ public val DBusMessageFilterFunctionFunc: CPointer<CFunction<(
         message: DBusMessage,
         incoming: Boolean,
     ) -> DBusMessage?>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , message!!.run {
-        DBusMessage(this)}
+        InstanceCache.get(this, false) { DBusMessage(reinterpret()) }!!
+    }
     , incoming.asBoolean())?.gioDBusMessagePointer}
 .reinterpret()
 
@@ -3343,7 +3363,8 @@ public val DBusProxyTypeFuncFunc: CPointer<CFunction<(
         interfaceName: String?,
         `data`: gpointer?,
     ) -> GType>().get().invoke(manager!!.run {
-        DBusObjectManagerClient(this)}
+        InstanceCache.get(this, false) { DBusObjectManagerClient(reinterpret()) }!!
+    }
     , objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString(), `data`)}
 .reinterpret()
 
@@ -3371,7 +3392,8 @@ public val DBusSignalCallbackFunc: CPointer<CFunction<(
         signalName: String,
         parameters: Variant,
     ) -> Unit>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , senderName?.toKString(), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), signalName?.toKString() ?: error("Expected not null string"), parameters!!.run {
         Variant(this)}
     )}
@@ -3398,7 +3420,8 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<CFunction<(
         interfaceName: String,
         node: String,
     ) -> DBusInterfaceVTable?>().get().invoke(connection!!.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+    }
     , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string"), interfaceName?.toKString() ?: error("Expected not null string"), node?.toKString() ?: error("Expected not null string"))?.gioDBusInterfaceVTablePointer}
 .reinterpret()
 
@@ -3418,7 +3441,8 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<CFunction<(
             sender: String,
             objectPath: String,
         ) -> CollectionsList<String>>().get().invoke(connection!!.run {
-            DBusConnection(this)}
+            InstanceCache.get(this, false) { DBusConnection(reinterpret()) }!!
+        }
         , sender?.toKString() ?: error("Expected not null string"), objectPath?.toKString() ?: error("Expected not null string")).toCStringList(this)}
 }
 .reinterpret()
@@ -3451,7 +3475,8 @@ public val DesktopAppLaunchCallbackFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(appinfo!!.run {
-        DesktopAppInfo(this)}
+        InstanceCache.get(this, false) { DesktopAppInfo(reinterpret()) }!!
+    }
     , pid)}
 .reinterpret()
 
@@ -3529,7 +3554,8 @@ public val IoSchedulerJobFuncFunc: CPointer<CFunction<(
     ) -> Boolean>().get().invoke(job!!.run {
         IoSchedulerJob(this)}
     , cancellable?.run {
-        Cancellable(this)}
+        InstanceCache.get(this, false) { Cancellable(reinterpret()) }!!
+    }
     , `data`).asGBoolean()}
 .reinterpret()
 
@@ -3540,7 +3566,8 @@ public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>, gpoint
     userData: COpaquePointer
     ->
     userData.asStableRef<(pollableStream: Object, `data`: gpointer?) -> Boolean>().get().invoke(pollableStream!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , `data`).asGBoolean()}
 .reinterpret()
 
@@ -3604,11 +3631,14 @@ public val SimpleAsyncThreadFuncFunc: CPointer<CFunction<(
         `object`: Object,
         cancellable: Cancellable?,
     ) -> Unit>().get().invoke(res!!.run {
-        SimpleAsyncResult(this)}
+        InstanceCache.get(this, false) { SimpleAsyncResult(reinterpret()) }!!
+    }
     , `object`!!.run {
-        Object(this)}
+        InstanceCache.get(this, false) { Object(reinterpret()) }!!
+    }
     , cancellable?.run {
-        Cancellable(this)}
+        InstanceCache.get(this, false) { Cancellable(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -3627,7 +3657,8 @@ public val SocketSourceFuncFunc: CPointer<CFunction<(
         condition: IoCondition,
         `data`: gpointer?,
     ) -> Boolean>().get().invoke(socket!!.run {
-        Socket(this)}
+        InstanceCache.get(this, false) { Socket(reinterpret()) }!!
+    }
     , condition.run {
         IoCondition(this)}
     , `data`).asGBoolean()}
@@ -3651,11 +3682,14 @@ public val TaskThreadFuncFunc: CPointer<CFunction<(
         taskData: gpointer?,
         cancellable: Cancellable?,
     ) -> Unit>().get().invoke(task!!.run {
-        Task(this)}
+        InstanceCache.get(this, false) { Task(reinterpret()) }!!
+    }
     , sourceObject!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), false) { Object(reinterpret()) }!!
+    }
     , taskData, cancellable?.run {
-        Cancellable(this)}
+        InstanceCache.get(this, false) { Cancellable(reinterpret()) }!!
+    }
     )}
 .reinterpret()
 
@@ -3667,7 +3701,8 @@ public val VfsFileLookupFuncFunc:
     userData: gpointer?,
     ->
     userData!!.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(vfs!!.run {
-        Vfs(this)}
+        InstanceCache.get(this, false) { Vfs(reinterpret()) }!!
+    }
     , identifier?.toKString() ?: error("Expected not null string")).gioFilePointer}
 .reinterpret()
 

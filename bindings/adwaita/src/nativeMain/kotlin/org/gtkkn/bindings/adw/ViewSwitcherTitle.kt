@@ -33,6 +33,13 @@ import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 1.4.
+ *
+ * See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
+ * ---
+ *
  * A view switcher title.
  *
  * <picture>
@@ -120,7 +127,8 @@ public class ViewSwitcherTitle(
          * @return the stack
          */
         get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer)?.run {
-            ViewStack(this)}
+            InstanceCache.get(this, true) { ViewStack(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the stack controlled by @self.
          *

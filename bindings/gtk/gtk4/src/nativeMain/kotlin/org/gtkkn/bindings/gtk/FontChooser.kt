@@ -26,6 +26,7 @@ import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -55,6 +56,14 @@ import org.gtkkn.native.gtk.gtk_font_chooser_set_preview_text
 import org.gtkkn.native.gtk.gtk_font_chooser_set_show_preview_entry
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.FontDialog] and [class@Gtk.FontDialogButton]
+         * instead
+ * ---
+ *
  * `GtkFontChooser` is an interface that can be implemented by widgets
  * for choosing fonts.
  *
@@ -204,7 +213,8 @@ public interface FontChooser : Proxy, KGTyped {
      *   selected font group details
      */
     public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer)?.run {
-        FontFace.FontFaceImpl(this)}
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the `PangoFontFamily` representing the selected font family.
@@ -217,7 +227,8 @@ public interface FontChooser : Proxy, KGTyped {
      *   selected font family
      */
     public fun getFontFamily(): FontFamily? = gtk_font_chooser_get_font_family(gtkFontChooserPointer)?.run {
-        FontFamily.FontFamilyImpl(this)}
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the currently-selected font features.
@@ -237,7 +248,8 @@ public interface FontChooser : Proxy, KGTyped {
      * @return a `PangoFontMap`
      */
     public fun getFontChooserFontMap(): FontMap? = gtk_font_chooser_get_font_map(gtkFontChooserPointer)?.run {
-        FontMap.FontMapImpl(this)}
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * The selected font size.

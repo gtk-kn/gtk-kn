@@ -26,7 +26,6 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.GLib
 import org.gtkkn.bindings.glib.MainContext
-import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamSpec
@@ -151,7 +150,7 @@ public object InstanceCache {
         // If it's a GObject-based type, store it in the cache
         return if (cache &&
             newInstance is TypeInstance &&
-            newInstance.gClass?.gType?.let { GObject.typeIsA(it, GOBJECT_TYPE) } == true
+            newInstance.handle.isGObject()
         ) {
             put(newInstance)
         } else {

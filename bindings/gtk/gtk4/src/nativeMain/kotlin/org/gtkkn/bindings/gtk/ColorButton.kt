@@ -42,6 +42,13 @@ import org.gtkkn.native.gtk.gtk_color_button_set_modal
 import org.gtkkn.native.gtk.gtk_color_button_set_title
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.ColorDialogButton] instead
+ * ---
+ *
  * The `GtkColorButton` allows to open a color chooser dialog to change
  * the color.
  *

@@ -187,7 +187,8 @@ public open class SocketClient(
          * @since 2.22
          */
         get() = g_socket_client_get_local_address(gioSocketClientPointer)?.run {
-            SocketAddress.SocketAddressImpl(this)}
+            InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the local address of the socket client.
          * The sockets created by this object will bound to the
@@ -416,7 +417,8 @@ public open class SocketClient(
     public open fun connect(connectable: SocketConnectable, cancellable: Cancellable? = null): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect(gioSocketClientPointer, connectable.gioSocketConnectablePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -464,7 +466,8 @@ public open class SocketClient(
     public open fun connectFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -519,7 +522,8 @@ public open class SocketClient(
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_host(gioSocketClientPointer, hostAndPort, defaultPort, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -560,7 +564,8 @@ public open class SocketClient(
     public open fun connectToHostFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_host_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -597,7 +602,8 @@ public open class SocketClient(
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_service(gioSocketClientPointer, domain, service, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -635,7 +641,8 @@ public open class SocketClient(
     public open fun connectToServiceFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_service_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -681,7 +688,8 @@ public open class SocketClient(
     ): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_uri(gioSocketClientPointer, uri, defaultPort, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -722,7 +730,8 @@ public open class SocketClient(
     public open fun connectToUriFinish(result: AsyncResult): Result<SocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_client_connect_to_uri_finish(gioSocketClientPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            SocketConnection(this)}
+            InstanceCache.get(this, true) { SocketConnection(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -911,6 +920,7 @@ private val onEventFunc: CPointer<CFunction<(
     , connectable!!.run {
         SocketConnectable.SocketConnectableImpl(reinterpret())}
     , connection?.run {
-        IoStream.IoStreamImpl(this)}
+        InstanceCache.get(this, false) { IoStream.IoStreamImpl(reinterpret()) }!!
+    }
     )}
 .reinterpret()

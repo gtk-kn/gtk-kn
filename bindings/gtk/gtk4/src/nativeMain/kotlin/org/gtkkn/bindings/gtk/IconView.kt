@@ -101,6 +101,13 @@ import org.gtkkn.native.gtk.gtk_icon_view_unset_model_drag_dest
 import org.gtkkn.native.gtk.gtk_icon_view_unset_model_drag_source
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Use [class@Gtk.GridView] instead
+ * ---
+ *
  * `GtkIconView` is a widget which displays data in a grid of icons.
  *
  * `GtkIconView` provides an alternative view on a `GtkTreeModel`.

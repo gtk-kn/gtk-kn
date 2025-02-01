@@ -32,6 +32,7 @@ data class FunctionBlueprint(
     override val exceptionResolvingFunctionMember: MemberName,
     override val noStringConversion: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
+    val deprecatedBlueprint: DeprecatedBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?
 ) : CallableBlueprint

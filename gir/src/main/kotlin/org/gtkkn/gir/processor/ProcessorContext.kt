@@ -229,6 +229,7 @@ class ProcessorContext(
             kotlinTypeNameImpl = kotlinTypeNameImpl,
             objectPointerName = objectPointerName,
             needsReinterpret = cleanCType == "gpointer",
+            isGObject = registeredType.isGObject,
         )
     }
 

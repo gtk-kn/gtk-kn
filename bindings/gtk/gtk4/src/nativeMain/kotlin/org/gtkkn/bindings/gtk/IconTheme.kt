@@ -111,7 +111,8 @@ public open class IconTheme(
          * @return the display of @icon_theme
          */
         get() = gtk_icon_theme_get_display(gtkIconThemePointer)?.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The icon names that are supported by the icon theme.
@@ -290,7 +291,8 @@ public open class IconTheme(
         direction: TextDirection,
         flags: IconLookupFlags,
     ): IconPaintable = gtk_icon_theme_lookup_by_gicon(gtkIconThemePointer, icon.gioIconPointer, size, scale, direction.nativeValue, flags.mask)!!.run {
-        IconPaintable(this)}
+        InstanceCache.get(this, true) { IconPaintable(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Looks up a named icon for a desired size and window scale,
@@ -328,7 +330,8 @@ public open class IconTheme(
         flags: IconLookupFlags,
     ): IconPaintable = memScoped {
         return gtk_icon_theme_lookup_icon(gtkIconThemePointer, iconName, fallbacks?.toCStringList(this), size, scale, direction.nativeValue, flags.mask)!!.run {
-            IconPaintable(this)}
+            InstanceCache.get(this, true) { IconPaintable(reinterpret()) }!!.also { ref() }
+        }
     }
 
     /**
@@ -385,7 +388,8 @@ public open class IconTheme(
          *   and can be used as long as the display is open. Do not ref or unref it.
          */
         public fun getForDisplay(display: Display): IconTheme = gtk_icon_theme_get_for_display(display.gdkDisplayPointer)!!.run {
-            IconTheme(this)}
+            InstanceCache.get(this, true) { IconTheme(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of IconTheme

@@ -120,7 +120,8 @@ public class MultipartInputStream(
     public fun nextPart(cancellable: Cancellable? = null): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_multipart_input_stream_next_part(soupMultipartInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -155,7 +156,8 @@ public class MultipartInputStream(
     public fun nextPartFinish(result: AsyncResult): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_multipart_input_stream_next_part_finish(soupMultipartInputStreamPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InputStream.InputStreamImpl(this)}
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

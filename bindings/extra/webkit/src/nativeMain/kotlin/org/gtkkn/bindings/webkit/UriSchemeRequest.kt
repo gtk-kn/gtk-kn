@@ -15,6 +15,7 @@ import org.gtkkn.bindings.soup.MessageHeaders
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_2
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -92,7 +93,8 @@ public class UriSchemeRequest(
      */
     @WebKitVersion2_40
     public fun getHttpBody(): InputStream = webkit_uri_scheme_request_get_http_body(webkitUriSchemeRequestPointer)!!.run {
-        InputStream.InputStreamImpl(this)}
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the #SoupMessageHeaders of the request.
@@ -140,7 +142,8 @@ public class UriSchemeRequest(
      * @return the #WebKitWebView that initiated @request.
      */
     public fun getWebView(): WebView = webkit_uri_scheme_request_get_web_view(webkitUriSchemeRequestPointer)!!.run {
-        WebView(this)}
+        InstanceCache.get(this, true) { WebView(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<UriSchemeRequest> {
         override val type: GeneratedClassKGType<UriSchemeRequest> =

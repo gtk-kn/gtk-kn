@@ -73,7 +73,8 @@ public class CarouselIndicatorDots(
          * @return the displayed carousel
          */
         get() = adw_carousel_indicator_dots_get_carousel(adwCarouselIndicatorDotsPointer)?.run {
-            Carousel(this)}
+            InstanceCache.get(this, true) { Carousel(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the displayed carousel.
          *

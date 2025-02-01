@@ -9,6 +9,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Drag
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.gobject.Value
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -75,7 +76,8 @@ public open class DragIcon(
          * @return The drag icon
          */
         get() = gtk_drag_icon_get_child(gtkDragIconPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the widget to display as the drag icon.
          *
@@ -107,7 +109,8 @@ public open class DragIcon(
          *   for displaying @value as a drag icon.
          */
         public fun createWidgetForValue(`value`: Value): Widget? = gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Gets the `GtkDragIcon` in use with @drag.
@@ -119,7 +122,8 @@ public open class DragIcon(
          * @return the `GtkDragIcon`
          */
         public fun getForDrag(drag: Drag): Widget = gtk_drag_icon_get_for_drag(drag.gdkDragPointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Creates a `GtkDragIcon` that shows @paintable, and associates

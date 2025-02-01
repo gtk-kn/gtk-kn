@@ -46,7 +46,8 @@ public open class TransformNode(
      * @return The child that is getting transformed
      */
     public open fun getChild(): RenderNode = gsk_transform_node_get_child(gskTransformNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the `GskTransform` used by the @node.

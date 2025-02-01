@@ -59,7 +59,8 @@ public open class FillNode(
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_fill_node_get_child(gskFillNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the fill rule used to determine how the path is filled.

@@ -19,6 +19,13 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GParameter
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.54.
+ *
+ * This type is not introspectable.
+ * ---
+ *
  * The GParameter struct is an auxiliary structure used
  * to hand parameter name/value pairs to g_object_newv().
  *

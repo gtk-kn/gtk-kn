@@ -34,6 +34,14 @@ import org.gtkkn.native.gtk.gtk_tree_sortable_set_sort_func
 import org.gtkkn.native.gtk.gtk_tree_sortable_sort_column_changed
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * There is no replacement for this interface. You should
+         *   use [class@Gtk.SortListModel] to wrap your list model instead
+ * ---
+ *
  * The interface for sortable models used by GtkTreeView
  *
  * `GtkTreeSortable` is an interface to be implemented by tree models which

@@ -33,6 +33,7 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -164,7 +165,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)}
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the certificate database that is used to verify peer certificates.
          * This is set to the default database by default. See
@@ -202,7 +204,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-            TlsInteraction(this)}
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Set the object that will be used to interact with the user. It will be used
          * for things like prompting the user for passwords.
@@ -260,7 +263,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
          * @since 2.48
          */
         get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)}
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The errors noticed while verifying
@@ -485,7 +489,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getCertificate(): TlsCertificate? = g_dtls_connection_get_certificate(gioDtlsConnectionPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the name of the current DTLS ciphersuite, or null if the
@@ -512,7 +517,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getDatabase(): TlsDatabase? = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-        TlsDatabase.TlsDatabaseImpl(this)}
+        InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the object that will be used to interact with the user. It will be used
@@ -524,7 +530,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getInteraction(): TlsInteraction? = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
-        TlsInteraction(this)}
+        InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the name of the application-layer protocol negotiated during
@@ -551,7 +558,8 @@ public interface DtlsConnection : Proxy, DatagramBased, KGTyped {
      */
     @GioVersion2_48
     public fun getPeerCertificate(): TlsCertificate? = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the errors associated with validating @conn's peer's
@@ -987,7 +995,8 @@ private val onAcceptCertificateFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean>().get().invoke(peerCert!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+    }
     , errors.run {
         TlsCertificateFlags(this)}
     ).asGBoolean()}

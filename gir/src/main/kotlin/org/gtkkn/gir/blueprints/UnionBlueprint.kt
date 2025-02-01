@@ -35,6 +35,7 @@ data class UnionBlueprint(
     override val fields: List<FieldBlueprint>,
     override val cStructTypeName: ClassName,
     override val optInVersionBlueprint: OptInVersionBlueprint?,
+    override val deprecatedBlueprint: DeprecatedBlueprint?,
     override val kdoc: String?,
     override val skippedObjects: List<SkippedObject>,
 ) : RecordUnionCommonBlueprint {

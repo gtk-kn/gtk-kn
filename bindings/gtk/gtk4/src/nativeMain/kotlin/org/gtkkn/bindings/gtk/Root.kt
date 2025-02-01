@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -46,7 +47,8 @@ public interface Root : Proxy, Native, KGTyped {
      * @return the display of @root
      */
     public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer)!!.run {
-        Display(this)}
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the current focused widget within the root.
@@ -59,7 +61,8 @@ public interface Root : Proxy, Native, KGTyped {
      * @return the currently focused widget
      */
     public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * If @focus is not the current focus widget, and is focusable, sets

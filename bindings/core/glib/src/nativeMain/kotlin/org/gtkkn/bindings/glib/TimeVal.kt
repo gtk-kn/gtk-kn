@@ -25,6 +25,13 @@ import org.gtkkn.native.glib.g_time_val_to_iso8601
 import org.gtkkn.native.glib.glong
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.62.
+ *
+ * Use #GDateTime or #guint64 instead.
+ * ---
+ *
  * Represents a precise time, with seconds and microseconds.
  *
  * Similar to the struct timeval returned by the `gettimeofday()`

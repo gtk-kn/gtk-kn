@@ -143,7 +143,8 @@ public open class TreeListModel(
      * @return the child in @position
      */
     public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_model_get_child_row(gtkTreeListModelPointer, position)?.run {
-        TreeListRow(this)}
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the row object for the given row.
@@ -168,7 +169,8 @@ public open class TreeListModel(
      * @return The row item
      */
     public open fun getRow(position: guint): TreeListRow? = gtk_tree_list_model_get_row(gtkTreeListModelPointer, position)?.run {
-        TreeListRow(this)}
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<TreeListModel> {
         override val type: GeneratedClassKGType<TreeListModel> =

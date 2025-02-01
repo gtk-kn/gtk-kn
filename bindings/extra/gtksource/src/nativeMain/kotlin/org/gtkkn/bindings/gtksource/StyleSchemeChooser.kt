@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -41,7 +42,8 @@ public interface StyleSchemeChooser : Proxy, KGTyped {
          * @return the currently-selected scheme.
          */
         get() = gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer)!!.run {
-            StyleScheme(this)}
+            InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the scheme.
          *
@@ -55,7 +57,8 @@ public interface StyleSchemeChooser : Proxy, KGTyped {
      * @return the currently-selected scheme.
      */
     public fun getStyleScheme(): StyleScheme = gtk_source_style_scheme_chooser_get_style_scheme(gtksourceStyleSchemeChooserPointer)!!.run {
-        StyleScheme(this)}
+        InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the scheme.

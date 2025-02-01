@@ -16,6 +16,13 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTrashStack
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.48.
+ *
+ * `GTrashStack` is deprecated without replacement
+ * ---
+ *
  * A `GTrashStack` is an efficient way to keep a stack of unused allocated
  * memory chunks. Each memory chunk is required to be large enough to hold
  * a `gpointer`. This allows the stack to be maintained without any space

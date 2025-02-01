@@ -20,6 +20,14 @@ import org.gtkkn.native.gtk.gtk_tree_drag_dest_get_type
 import org.gtkkn.native.gtk.gtk_tree_drag_dest_row_drop_possible
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You can use [class@Gtk.DropTarget] to implement a drop destination
+ * ---
+ *
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
 public interface TreeDragDest : Proxy, KGTyped {

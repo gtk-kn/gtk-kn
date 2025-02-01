@@ -8,6 +8,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -76,7 +77,8 @@ public open class DBusActionGroup(
             busName: String? = null,
             objectPath: String,
         ): DBusActionGroup = g_dbus_action_group_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
-            DBusActionGroup(this)}
+            InstanceCache.get(this, true) { DBusActionGroup(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of DBusActionGroup

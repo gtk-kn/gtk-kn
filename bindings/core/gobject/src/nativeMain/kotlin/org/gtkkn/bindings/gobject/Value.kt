@@ -26,6 +26,7 @@ import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gint
@@ -175,7 +176,8 @@ public class Value(
      *          should be unreferenced when no longer needed.
      */
     public fun dupObject(): Object? = g_value_dup_object(gobjectValuePointer)?.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the contents of a %G_TYPE_PARAM #GValue, increasing its
@@ -185,7 +187,8 @@ public class Value(
      *     unreferenced when no longer needed.
      */
     public fun dupParam(): ParamSpec = g_value_dup_param(gobjectValuePointer)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Get a copy the contents of a %G_TYPE_STRING #GValue.
@@ -302,7 +305,8 @@ public class Value(
      * @return object contents of @value
      */
     public fun getObject(): Object? = g_value_get_object(gobjectValuePointer)?.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get the contents of a %G_TYPE_PARAM #GValue.
@@ -310,7 +314,8 @@ public class Value(
      * @return #GParamSpec content of @value
      */
     public fun getParam(): ParamSpec = g_value_get_param(gobjectValuePointer)!!.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Get the contents of a pointer #GValue.

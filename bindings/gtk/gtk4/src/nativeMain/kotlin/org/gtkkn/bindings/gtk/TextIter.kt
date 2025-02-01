@@ -21,6 +21,7 @@ import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
@@ -826,7 +827,8 @@ public class TextIter(
      * @return the buffer
      */
     public fun getBuffer(): TextBuffer = gtk_text_iter_get_buffer(gtkTextIterPointer)!!.run {
-        TextBuffer(this)}
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the number of bytes in the line containing @iter,
@@ -868,7 +870,8 @@ public class TextIter(
      * @return the anchor at @iter
      */
     public fun getChildAnchor(): TextChildAnchor? = gtk_text_iter_get_child_anchor(gtkTextIterPointer)?.run {
-        TextChildAnchor(this)}
+        InstanceCache.get(this, true) { TextChildAnchor(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the language in effect at @iter.

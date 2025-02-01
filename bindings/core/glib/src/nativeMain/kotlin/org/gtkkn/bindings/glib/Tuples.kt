@@ -22,6 +22,13 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.26.
+ *
+ * Rarely used API
+ * ---
+ *
  * The #GTuples struct is used to return records (or tuples) from the
  * #GRelation by g_relation_select(). It only contains one public
  * member - the number of records that matched. To access the matched

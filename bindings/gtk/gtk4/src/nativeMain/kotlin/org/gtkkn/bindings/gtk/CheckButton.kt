@@ -167,7 +167,8 @@ public open class CheckButton(
          * @since 4.8
          */
         get() = gtk_check_button_get_child(gtkCheckButtonPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @button.
          *

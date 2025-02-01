@@ -7,6 +7,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -50,7 +51,8 @@ public open class ObjectExpression(
      * @return the object, or `NULL`
      */
     public open fun getObject(): Object? = gtk_object_expression_get_object(gtkObjectExpressionPointer.reinterpret())?.run {
-        Object(this)}
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<ObjectExpression> {
         override val type: GeneratedClassKGType<ObjectExpression> =

@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -126,7 +127,8 @@ public abstract class EventController(
          * @return a `GtkWidget`
          */
         get() = gtk_event_controller_get_widget(gtkEventControllerPointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Returns the event that is currently being handled by the controller.
@@ -137,7 +139,8 @@ public abstract class EventController(
      *   handled by @controller
      */
     public open fun getCurrentEvent(): Event? = gtk_event_controller_get_current_event(gtkEventControllerPointer)?.run {
-        Event.EventImpl(this)}
+        Event.EventImpl(this)
+    }
 
     /**
      * Returns the device of the event that is currently being
@@ -149,7 +152,8 @@ public abstract class EventController(
      *   currently handled by @controller
      */
     public open fun getCurrentEventDevice(): Device? = gtk_event_controller_get_current_event_device(gtkEventControllerPointer)?.run {
-        Device.DeviceImpl(this)}
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the modifier state of the event that is currently being

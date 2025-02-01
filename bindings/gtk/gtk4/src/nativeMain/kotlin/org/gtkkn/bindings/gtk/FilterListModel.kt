@@ -73,7 +73,8 @@ public open class FilterListModel(
          * @return The filter currently in use
          */
         get() = gtk_filter_list_model_get_filter(gtkFilterListModelPointer)?.run {
-            Filter(this)}
+            InstanceCache.get(this, true) { Filter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the filter used to filter items.
          *

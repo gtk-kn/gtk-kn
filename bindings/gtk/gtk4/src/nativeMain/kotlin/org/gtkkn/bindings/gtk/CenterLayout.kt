@@ -108,7 +108,8 @@ public open class CenterLayout(
      * @return the current center widget of @self
      */
     public open fun getCenterWidget(): Widget? = gtk_center_layout_get_center_widget(gtkCenterLayoutPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns the end widget of the layout.
@@ -116,7 +117,8 @@ public open class CenterLayout(
      * @return the current end widget of @self
      */
     public open fun getEndWidget(): Widget? = gtk_center_layout_get_end_widget(gtkCenterLayoutPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the current orienration of the layout manager.
@@ -132,7 +134,8 @@ public open class CenterLayout(
      * @return The current start widget of @self
      */
     public open fun getStartWidget(): Widget? = gtk_center_layout_get_start_widget(gtkCenterLayoutPointer)?.run {
-        Widget.WidgetImpl(this)}
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the new baseline position of @self

@@ -74,7 +74,8 @@ public open class StackSidebar(
      *   null if none has been set explicitly
      */
     public open fun getStack(): Stack? = gtk_stack_sidebar_get_stack(gtkStackSidebarPointer)?.run {
-        Stack(this)}
+        InstanceCache.get(this, true) { Stack(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Set the `GtkStack` associated with this `GtkStackSidebar`.

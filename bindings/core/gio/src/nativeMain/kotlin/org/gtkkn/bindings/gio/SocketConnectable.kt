@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -92,7 +93,8 @@ public interface SocketConnectable : Proxy, KGTyped {
      */
     @GioVersion2_22
     public fun enumerate(): SocketAddressEnumerator = g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
-        SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)}
+        InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a #GSocketAddressEnumerator for @connectable that will
@@ -108,7 +110,8 @@ public interface SocketConnectable : Proxy, KGTyped {
      */
     @GioVersion2_26
     public fun proxyEnumerate(): SocketAddressEnumerator = g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
-        SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)}
+        InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Format a #GSocketConnectable as a string. This is a human-readable format for

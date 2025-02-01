@@ -102,7 +102,8 @@ public open class GutterRendererPixbuf(
      * @return a #GdkPixbuf
      */
     public open fun getPixbuf(): Pixbuf = gtk_source_gutter_renderer_pixbuf_get_pixbuf(gtksourceGutterRendererPixbufPointer)!!.run {
-        Pixbuf(this)}
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Allows overlaying a paintable on top of any other image that

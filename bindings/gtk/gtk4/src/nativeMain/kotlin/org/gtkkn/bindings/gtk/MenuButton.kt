@@ -246,7 +246,8 @@ public open class MenuButton(
          * @since 4.6
          */
         get() = gtk_menu_button_get_child(gtkMenuButtonPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @menu_button.
          *
@@ -321,7 +322,8 @@ public open class MenuButton(
          * @return a `GMenuModel`
          */
         get() = gtk_menu_button_get_menu_model(gtkMenuButtonPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the `GMenuModel` from which the popup will be constructed.
          *
@@ -421,7 +423,8 @@ public open class MenuButton(
      * @return a `GtkPopover` or null
      */
     public open fun getPopover(): Popover? = gtk_menu_button_get_popover(gtkMenuButtonPointer)?.run {
-        Popover(this)}
+        InstanceCache.get(this, true) { Popover(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Dismiss the menu.

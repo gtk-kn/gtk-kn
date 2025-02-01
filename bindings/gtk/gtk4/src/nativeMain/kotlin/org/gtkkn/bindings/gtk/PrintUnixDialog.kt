@@ -219,7 +219,8 @@ public open class PrintUnixDialog(
          * @return the page setup of @dialog.
          */
         get() = gtk_print_unix_dialog_get_page_setup(gtkPrintUnixDialogPointer)!!.run {
-            PageSetup(this)}
+            InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the page setup of the `GtkPrintUnixDialog`.
          *
@@ -237,7 +238,8 @@ public open class PrintUnixDialog(
          * @return the currently selected printer
          */
         get() = gtk_print_unix_dialog_get_selected_printer(gtkPrintUnixDialogPointer)?.run {
-            Printer(this)}
+            InstanceCache.get(this, true) { Printer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the dialog supports selection.
@@ -292,7 +294,8 @@ public open class PrintUnixDialog(
      * @return a new `GtkPrintSettings` object with the values from @dialog
      */
     public open fun getPrintSettings(): PrintSettings = gtk_print_unix_dialog_get_settings(gtkPrintUnixDialogPointer)!!.run {
-        PrintSettings(this)}
+        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Sets the `GtkPrintSettings` for the `GtkPrintUnixDialog`.

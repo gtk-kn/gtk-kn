@@ -86,7 +86,8 @@ public open class StackSwitcher(
          * @return the stack
          */
         get() = gtk_stack_switcher_get_stack(gtkStackSwitcherPointer)?.run {
-            Stack(this)}
+            InstanceCache.get(this, true) { Stack(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the stack to control.
          *

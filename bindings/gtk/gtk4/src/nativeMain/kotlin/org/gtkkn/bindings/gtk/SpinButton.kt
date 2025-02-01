@@ -257,7 +257,8 @@ public open class SpinButton(
          * @return the `GtkAdjustment` of @spin_button
          */
         get() = gtk_spin_button_get_adjustment(gtkSpinButtonPointer)!!.run {
-            Adjustment(this)}
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Replaces the `GtkAdjustment` associated with @spin_button.
          *

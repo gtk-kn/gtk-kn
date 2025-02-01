@@ -39,6 +39,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_set_active
 import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_set_radio
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You should use [class@Gtk.ToggleButton] instead
+ * ---
+ *
  * Renders a toggle button in a cell
  *
  * `GtkCellRendererToggle` renders a toggle button in a cell. The

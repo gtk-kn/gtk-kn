@@ -34,6 +34,11 @@ import org.gtkkn.native.gtk.gtk_tree_path_to_string
 import org.gtkkn.native.gtk.gtk_tree_path_up
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ * ---
+ *
  * An opaque structure representing a path to a row in a model.
  *
  * ## Skipped during bindings generation

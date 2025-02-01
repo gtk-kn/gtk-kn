@@ -17,6 +17,7 @@ import org.gtkkn.bindings.gtk.Accessible
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -85,7 +86,8 @@ public class TabPage(
          * @return the child of @self
          */
         get() = adw_tab_page_get_child(adwTabPagePointer)!!.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The icon of the page.
@@ -344,7 +346,8 @@ public class TabPage(
          * @return the parent page
          */
         get() = adw_tab_page_get_parent(adwTabPagePointer)?.run {
-            TabPage(this)}
+            InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the page is pinned.

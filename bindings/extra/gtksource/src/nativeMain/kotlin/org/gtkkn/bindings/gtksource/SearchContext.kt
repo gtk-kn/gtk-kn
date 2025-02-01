@@ -129,7 +129,8 @@ public open class SearchContext(
          * @return the associated buffer.
          */
         get() = gtk_source_search_context_get_buffer(gtksourceSearchContextPointer)!!.run {
-            Buffer(this)}
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Highlight the search occurrences.
@@ -199,7 +200,8 @@ public open class SearchContext(
          * @return the search settings.
          */
         get() = gtk_source_search_context_get_settings(gtksourceSearchContextPointer)!!.run {
-            SearchSettings(this)}
+            InstanceCache.get(this, true) { SearchSettings(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new search context, associated with @buffer, and customized with
@@ -260,7 +262,8 @@ public open class SearchContext(
      * @return the #GtkSourceStyle to apply on search matches.
      */
     public open fun getMatchStyle(): Style = gtk_source_search_context_get_match_style(gtksourceSearchContextPointer)!!.run {
-        Style(this)}
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the position of a search occurrence.

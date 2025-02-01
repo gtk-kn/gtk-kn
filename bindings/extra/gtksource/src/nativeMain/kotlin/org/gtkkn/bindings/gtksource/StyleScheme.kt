@@ -11,6 +11,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_4
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -124,7 +125,8 @@ public open class StyleScheme(
      * @scheme and may not be unref'ed.
      */
     public open fun getStyle(styleId: String): Style? = gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer, styleId)?.run {
-        Style(this)}
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<StyleScheme> {
         override val type: GeneratedClassKGType<StyleScheme> =

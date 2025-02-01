@@ -60,7 +60,8 @@ public open class BlendNode(
      * @return the bottom child node
      */
     public open fun getBottomChild(): RenderNode = gsk_blend_node_get_bottom_child(gskBlendNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the top `GskRenderNode` child of the @node.
@@ -68,7 +69,8 @@ public open class BlendNode(
      * @return the top child node
      */
     public open fun getTopChild(): RenderNode = gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     public companion object : TypeCompanion<BlendNode> {
         override val type: GeneratedClassKGType<BlendNode> =

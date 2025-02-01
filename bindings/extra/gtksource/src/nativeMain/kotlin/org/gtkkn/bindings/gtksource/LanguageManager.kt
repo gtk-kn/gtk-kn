@@ -99,7 +99,8 @@ public open class LanguageManager(
      * owned by @lm and should not be freed.
      */
     public open fun getLanguage(id: String): Language? = gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer, id)?.run {
-        Language(this)}
+        InstanceCache.get(this, true) { Language(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the list directories where @lm looks for language files.
@@ -156,7 +157,8 @@ public open class LanguageManager(
      * value is owned by @lm and should not be freed.
      */
     public open fun guessLanguage(filename: String? = null, contentType: String? = null): Language? = gtk_source_language_manager_guess_language(gtksourceLanguageManagerPointer, filename, contentType)?.run {
-        Language(this)}
+        InstanceCache.get(this, true) { Language(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Prepends @path to the list of directories where the @manager looks
@@ -205,7 +207,8 @@ public open class LanguageManager(
          * Return value is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): LanguageManager = gtk_source_language_manager_get_default()!!.run {
-            LanguageManager(this)}
+            InstanceCache.get(this, true) { LanguageManager(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of LanguageManager

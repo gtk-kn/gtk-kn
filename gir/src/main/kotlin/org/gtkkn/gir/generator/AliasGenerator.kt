@@ -26,6 +26,6 @@ import org.gtkkn.gir.blueprints.AliasBlueprint
 interface AliasGenerator : KDocGenerator {
     fun buildAliasTypeAlias(alias: AliasBlueprint) =
         TypeAliasSpec.builder(alias.kotlinName, alias.parentTypeName)
-            .addKdoc(buildTypeKDoc(alias.kdoc, alias.optInVersionBlueprint))
+            .addKdoc(buildTypeKDoc(alias.kdoc, alias.optInVersionBlueprint, alias.deprecatedBlueprint))
             .build()
 }

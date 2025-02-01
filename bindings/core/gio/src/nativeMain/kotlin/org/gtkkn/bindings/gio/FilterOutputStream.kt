@@ -9,6 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -40,7 +41,8 @@ public abstract class FilterOutputStream(
          * @return a #GOutputStream.
          */
         get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer)!!.run {
-            OutputStream.OutputStreamImpl(this)}
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Whether the base stream should be closed when the filter stream is closed.

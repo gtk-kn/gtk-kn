@@ -10,6 +10,7 @@ import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -21,6 +22,14 @@ import org.gtkkn.native.gtk.gtk_tree_drag_source_get_type
 import org.gtkkn.native.gtk.gtk_tree_drag_source_row_draggable
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You can use [class@Gtk.DragSource] to implement a drag source
+ * ---
+ *
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
 public interface TreeDragSource : Proxy, KGTyped {
@@ -48,7 +57,8 @@ public interface TreeDragSource : Proxy, KGTyped {
      *    given @path
      */
     public fun dragDataGet(path: TreePath): ContentProvider? = gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gtkTreePathPointer)?.run {
-        ContentProvider(this)}
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Asks the `GtkTreeDragSource` whether a particular row can be used as

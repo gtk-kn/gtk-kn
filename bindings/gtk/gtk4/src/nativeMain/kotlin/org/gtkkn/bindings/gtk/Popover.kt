@@ -224,7 +224,8 @@ public open class Popover(
          * @return the child widget of @popover
          */
         get() = gtk_popover_get_child(gtkPopoverPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @popover.
          *

@@ -15,6 +15,14 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_spin_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_spin_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets to display their contents.
+         *   You should use [class@Gtk.SpinButton] instead
+ * ---
+ *
  * Renders a spin button in a cell
  *
  * `GtkCellRendererSpin` renders text in a cell like `GtkCellRendererText` from

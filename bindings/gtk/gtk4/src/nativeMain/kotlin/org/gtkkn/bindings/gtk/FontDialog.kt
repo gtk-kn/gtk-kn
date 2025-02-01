@@ -103,7 +103,8 @@ public open class FontDialog(
          * @since 4.10
          */
         get() = gtk_font_dialog_get_filter(gtkFontDialogPointer)?.run {
-            Filter(this)}
+            InstanceCache.get(this, true) { Filter(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Adds a filter that decides which fonts to display
          * in the font chooser dialog.
@@ -135,7 +136,8 @@ public open class FontDialog(
          * @since 4.10
          */
         get() = gtk_font_dialog_get_font_map(gtkFontDialogPointer)?.run {
-            FontMap.FontMapImpl(this)}
+            InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the fontmap from which fonts are selected.
          *
@@ -245,7 +247,8 @@ public open class FontDialog(
     public open fun chooseFaceFinish(result: AsyncResult): Result<FontFace?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_font_dialog_choose_face_finish(gtkFontDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            FontFace.FontFaceImpl(this)}
+            InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -292,7 +295,8 @@ public open class FontDialog(
     public open fun chooseFamilyFinish(result: AsyncResult): Result<FontFamily?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_font_dialog_choose_family_finish(gtkFontDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            FontFamily.FontFamilyImpl(this)}
+            InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))

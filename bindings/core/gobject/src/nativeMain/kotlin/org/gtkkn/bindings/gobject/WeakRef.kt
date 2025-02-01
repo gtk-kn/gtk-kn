@@ -13,6 +13,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_32
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.native.gobject.GWeakRef
 import org.gtkkn.native.gobject.g_weak_ref_clear
 import org.gtkkn.native.gobject.g_weak_ref_get
@@ -96,7 +97,8 @@ public class WeakRef(
      */
     @GObjectVersion2_32
     public fun `get`(): Object = g_weak_ref_get(gobjectWeakRefPointer)!!.run {
-        Object(reinterpret())}
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Initialise a non-statically-allocated #GWeakRef.

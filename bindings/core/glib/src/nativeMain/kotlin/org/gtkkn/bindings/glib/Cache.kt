@@ -17,6 +17,13 @@ import org.gtkkn.native.glib.g_cache_value_foreach
 import org.gtkkn.native.glib.gpointer
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 2.32.
+ *
+ * Use a #GHashTable instead
+ * ---
+ *
  * A `GCache` allows sharing of complex data structures, in order to
  * save system resources.
  *

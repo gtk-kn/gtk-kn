@@ -45,7 +45,8 @@ public open class AlternativeTrigger(
          * @return the first alternative trigger
          */
         get() = gtk_alternative_trigger_get_first(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)}
+            InstanceCache.get(this, true) { ShortcutTrigger.ShortcutTriggerImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The second `GtkShortcutTrigger` to check.
@@ -61,7 +62,8 @@ public open class AlternativeTrigger(
          * @return the second alternative trigger
          */
         get() = gtk_alternative_trigger_get_second(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger.ShortcutTriggerImpl(this)}
+            InstanceCache.get(this, true) { ShortcutTrigger.ShortcutTriggerImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a `GtkShortcutTrigger` that will trigger whenever

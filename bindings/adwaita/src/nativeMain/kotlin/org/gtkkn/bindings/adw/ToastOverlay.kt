@@ -90,7 +90,8 @@ public class ToastOverlay(
          * @return the child widget of @self
          */
         get() = adw_toast_overlay_get_child(adwToastOverlayPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

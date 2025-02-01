@@ -31,6 +31,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -128,7 +129,8 @@ public abstract class DBusInterfaceSkeleton(
      */
     @GioVersion2_30
     public open fun getConnection(): DBusConnection? = g_dbus_interface_skeleton_get_connection(gioDBusInterfaceSkeletonPointer)?.run {
-        DBusConnection(this)}
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets a list of the connections that @interface_ is exported on.
@@ -325,6 +327,7 @@ private val onGAuthorizeMethodFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(invocation!!.run {
-        DBusMethodInvocation(this)}
+        InstanceCache.get(this, false) { DBusMethodInvocation(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()

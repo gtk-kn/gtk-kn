@@ -15,6 +15,7 @@ import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_6
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -94,7 +95,8 @@ public open class GutterLines(
      * @return a #GtkTextBuffer
      */
     public open fun getBuffer(): TextBuffer = gtk_source_gutter_lines_get_buffer(gtksourceGutterLinesPointer)!!.run {
-        TextBuffer(this)}
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the line number (starting from 0) for the first line that is
@@ -126,7 +128,8 @@ public open class GutterLines(
      * @return a #GtkTextView
      */
     public open fun getView(): TextView = gtk_source_gutter_lines_get_view(gtksourceGutterLinesPointer)!!.run {
-        TextView(this)}
+        InstanceCache.get(this, true) { TextView(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Checks to see if the line has any GQuark classes set. This can be

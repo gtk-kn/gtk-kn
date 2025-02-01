@@ -32,6 +32,7 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -146,7 +147,8 @@ public abstract class TlsConnection(
          * @since 2.30
          */
         get() = g_tls_connection_get_database(gioTlsConnectionPointer)?.run {
-            TlsDatabase.TlsDatabaseImpl(this)}
+            InstanceCache.get(this, true) { TlsDatabase.TlsDatabaseImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the certificate database that is used to verify peer certificates.
          * This is set to the default database by default. See
@@ -184,7 +186,8 @@ public abstract class TlsConnection(
          * @since 2.30
          */
         get() = g_tls_connection_get_interaction(gioTlsConnectionPointer)?.run {
-            TlsInteraction(this)}
+            InstanceCache.get(this, true) { TlsInteraction(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Set the object that will be used to interact with the user. It will be used
          * for things like prompting the user for passwords.
@@ -242,7 +245,8 @@ public abstract class TlsConnection(
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate(gioTlsConnectionPointer)?.run {
-            TlsCertificate.TlsCertificateImpl(this)}
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The errors noticed while verifying
@@ -426,7 +430,8 @@ public abstract class TlsConnection(
      */
     @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? = g_tls_connection_get_certificate(gioTlsConnectionPointer)?.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Attempts a TLS handshake on @conn.
@@ -656,7 +661,8 @@ private val onAcceptCertificateFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean>().get().invoke(peerCert!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+    }
     , errors.run {
         TlsCertificateFlags(this)}
     ).asGBoolean()}

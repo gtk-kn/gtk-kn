@@ -18,6 +18,7 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -174,7 +175,8 @@ public abstract class GlContext(
          * @return null
          */
         get() = gdk_gl_context_get_shared_context(gdkGlContextPointer)?.run {
-            GlContextImpl(this)}
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkDisplay` used to create the `GdkDrawContext`.
@@ -186,7 +188,8 @@ public abstract class GlContext(
          * @return a `GdkDisplay`
          */
         get() = gdk_gl_context_get_display(gdkGlContextPointer)?.run {
-            Display(this)}
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The `GdkSurface` the context is bound to.
@@ -198,7 +201,8 @@ public abstract class GlContext(
          * @return a `GdkSurface`
          */
         get() = gdk_gl_context_get_surface(gdkGlContextPointer)?.run {
-            Surface.SurfaceImpl(this)}
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Retrieves whether the context is doing extra validations and runtime checking.
@@ -386,7 +390,8 @@ public abstract class GlContext(
          * @return the current `GdkGLContext`
          */
         public fun getCurrent(): GlContext? = gdk_gl_context_get_current()?.run {
-            GlContextImpl(this)}
+            InstanceCache.get(this, true) { GlContextImpl(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of GLContext

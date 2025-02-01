@@ -9,6 +9,7 @@ import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_10
 import org.gtkkn.extensions.glib.cinterop.MemoryCleaner
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -79,7 +80,8 @@ public open class TextureScaleNode(
      */
     @GskVersion4_10
     public open fun getTexture(): Texture = gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
-        Texture.TextureImpl(this)}
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+    }
 
     public companion object : TypeCompanion<TextureScaleNode> {
         override val type: GeneratedClassKGType<TextureScaleNode> =

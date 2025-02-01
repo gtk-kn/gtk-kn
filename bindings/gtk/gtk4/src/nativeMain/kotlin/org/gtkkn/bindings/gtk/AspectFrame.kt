@@ -74,7 +74,8 @@ public open class AspectFrame(
          * @return the child widget of @self
          */
         get() = gtk_aspect_frame_get_child(gtkAspectFramePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

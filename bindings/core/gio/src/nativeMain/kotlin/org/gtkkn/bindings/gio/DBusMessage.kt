@@ -172,7 +172,8 @@ public open class DBusMessage(
     public open fun copy(): Result<DBusMessage> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dbus_message_copy(gioDBusMessagePointer, gError.ptr)?.run {
-            DBusMessage(this)}
+            InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+        }
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
@@ -369,7 +370,8 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun getUnixFdList(): UnixFdList? = g_dbus_message_get_unix_fd_list(gioDBusMessagePointer)?.run {
-        UnixFdList(this)}
+        InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * If @message is locked, does nothing. Otherwise locks the message.
@@ -389,7 +391,8 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun newMethodErrorLiteral(errorName: String, errorMessage: String): DBusMessage = g_dbus_message_new_method_error_literal(gioDBusMessagePointer, errorName, errorMessage)!!.run {
-        DBusMessage(this)}
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Creates a new #GDBusMessage that is a reply to @method_call_message.
@@ -399,7 +402,8 @@ public open class DBusMessage(
      */
     @GioVersion2_26
     public open fun newMethodReply(): DBusMessage = g_dbus_message_new_method_reply(gioDBusMessagePointer)!!.run {
-        DBusMessage(this)}
+        InstanceCache.get(this, true) { DBusMessage(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Produces a human-readable multi-line description of @message.

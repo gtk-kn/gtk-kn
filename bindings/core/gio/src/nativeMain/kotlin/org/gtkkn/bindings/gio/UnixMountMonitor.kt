@@ -123,7 +123,8 @@ public open class UnixMountMonitor(
          */
         @GioVersion2_44
         public fun `get`(): UnixMountMonitor = g_unix_mount_monitor_get()!!.run {
-            UnixMountMonitor(this)}
+            InstanceCache.get(this, true) { UnixMountMonitor(reinterpret()) }!!.also { ref() }
+        }
 
         /**
          * Get the GType of UnixMountMonitor

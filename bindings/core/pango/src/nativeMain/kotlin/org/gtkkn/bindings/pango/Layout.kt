@@ -190,7 +190,8 @@ public open class Layout(
      * @return the newly allocated `PangoLayout`
      */
     public open fun copy(): Layout = pango_layout_copy(pangoLayoutPointer)!!.run {
-        Layout(this)}
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Gets the alignment for the layout: how partial lines are
@@ -273,7 +274,8 @@ public open class Layout(
      * @return the `PangoContext` for the layout
      */
     public open fun getContext(): Context = pango_layout_get_context(pangoLayoutPointer)!!.run {
-        Context(this)}
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Given an index within a layout, determines the positions that of the
@@ -1032,7 +1034,8 @@ public open class Layout(
         ): Result<Layout?> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = pango_layout_deserialize(context.pangoContextPointer, bytes.glibBytesPointer, flags.mask, gError.ptr)?.run {
-                Layout(this)}
+                InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+            }
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))

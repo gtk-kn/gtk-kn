@@ -13,6 +13,7 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -133,7 +134,8 @@ public interface Accessible : Proxy, KGTyped {
      */
     @GtkVersion4_10
     public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer)!!.run {
-        AtContext.AtContextImpl(this)}
+        InstanceCache.get(this, true) { AtContext.AtContextImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Retrieves the first accessible child of an accessible object.

@@ -85,7 +85,8 @@ public open class Cursor(
          *   to use the default cursor as fallback
          */
         get() = gdk_cursor_get_fallback(gdkCursorPointer)?.run {
-            Cursor(this)}
+            InstanceCache.get(this, true) { Cursor(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * X position of the cursor hotspot in the cursor image.
@@ -152,7 +153,8 @@ public open class Cursor(
          *   if it is a named cursor
          */
         get() = gdk_cursor_get_texture(gdkCursorPointer)?.run {
-            Texture.TextureImpl(this)}
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new cursor by looking up @name in the current cursor

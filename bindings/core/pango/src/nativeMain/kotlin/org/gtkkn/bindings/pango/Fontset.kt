@@ -9,6 +9,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -56,7 +57,8 @@ public abstract class Fontset(
      * @return a `PangoFont`
      */
     public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer, wc)!!.run {
-        Font.FontImpl(this)}
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Get overall metric information for the fonts in the fontset.

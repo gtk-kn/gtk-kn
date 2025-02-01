@@ -146,7 +146,8 @@ public open class NavigationPage(
          * @since 1.4
          */
         get() = adw_navigation_page_get_child(adwNavigationPagePointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets the child widget of @self.
          *

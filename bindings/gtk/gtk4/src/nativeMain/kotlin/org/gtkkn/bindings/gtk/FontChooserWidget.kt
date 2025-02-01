@@ -19,6 +19,13 @@ import org.gtkkn.native.gtk.gtk_font_chooser_widget_get_type
 import org.gtkkn.native.gtk.gtk_font_chooser_widget_new
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * Direct use of `GtkFontChooserWidget` is deprecated.
+ * ---
+ *
  * The `GtkFontChooserWidget` widget lets the user select a font.
  *
  * It is used in the `GtkFontChooserDialog` widget to provide a

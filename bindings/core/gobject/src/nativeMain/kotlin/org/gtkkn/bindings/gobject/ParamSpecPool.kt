@@ -78,7 +78,8 @@ public class ParamSpecPool(
         ownerType: GType,
         walkAncestors: Boolean,
     ): ParamSpec? = g_param_spec_pool_lookup(gobjectParamSpecPoolPointer, paramName, ownerType, walkAncestors.asGBoolean())?.run {
-        ParamSpec.ParamSpecImpl(this)}
+        ParamSpec.ParamSpecImpl(this)
+    }
 
     /**
      * Removes a #GParamSpec from the pool.

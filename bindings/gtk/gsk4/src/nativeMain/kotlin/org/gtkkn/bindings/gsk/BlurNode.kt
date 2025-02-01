@@ -46,7 +46,8 @@ public open class BlurNode(
      * @return the blurred child node
      */
     public open fun getChild(): RenderNode = gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
-        RenderNode.RenderNodeImpl(this)}
+        RenderNode.RenderNodeImpl(this)
+    }
 
     /**
      * Retrieves the blur radius of the @node.

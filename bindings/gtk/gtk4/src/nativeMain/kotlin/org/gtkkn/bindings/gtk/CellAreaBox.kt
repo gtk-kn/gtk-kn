@@ -26,6 +26,14 @@ import org.gtkkn.native.gtk.gtk_cell_area_box_pack_start
 import org.gtkkn.native.gtk.gtk_cell_area_box_set_spacing
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * List views use widgets for displaying their
+         *   contents
+ * ---
+ *
  * A cell area that renders GtkCellRenderers into a row or a column
  *
  * The `GtkCellAreaBox` renders cell renderers into a row or a column

@@ -381,7 +381,8 @@ public open class Label(
          * @return the menu model
          */
         get() = gtk_label_get_extra_menu(gtkLabelPointer)?.run {
-            MenuModel.MenuModelImpl(this)}
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Sets a menu model to add when constructing
          * the context menu for @label.
@@ -538,7 +539,8 @@ public open class Label(
          *   or null if none has been set and the default algorithm will be used.
          */
         get() = gtk_label_get_mnemonic_widget(gtkLabelPointer)?.run {
-            Widget.WidgetImpl(this)}
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.also { ref() }
+        }
         /**
          * Associate the label with its mnemonic target.
          *
@@ -886,7 +888,8 @@ public open class Label(
      * @return the [class@Pango.Layout] for this label
      */
     public open fun getLayout(): Layout = gtk_label_get_layout(gtkLabelPointer)!!.run {
-        Layout(this)}
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Fetches the text from a label.

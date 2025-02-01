@@ -208,8 +208,10 @@ private val onAuthorizeAuthenticatedPeerFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(stream: IoStream, credentials: Credentials?) -> Boolean>().get().invoke(stream!!.run {
-        IoStream.IoStreamImpl(this)}
+        InstanceCache.get(this, false) { IoStream.IoStreamImpl(reinterpret()) }!!
+    }
     , credentials?.run {
-        Credentials(this)}
+        InstanceCache.get(this, false) { Credentials(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()

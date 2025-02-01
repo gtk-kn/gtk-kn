@@ -50,6 +50,15 @@ import org.gtkkn.native.gtk.gtk_app_chooser_button_set_show_default_item
 import org.gtkkn.native.gtk.gtk_app_chooser_button_set_show_dialog_item
 
 /**
+ * # ⚠️ Deprecated ⚠️
+ *
+ * This is deprecated since version 4.10.
+ *
+ * The application selection widgets should be
+         *   implemented according to the design of each platform and/or
+         *   application requiring them.
+ * ---
+ *
  * The `GtkAppChooserButton` lets the user select an application.
  *
  * ![An example GtkAppChooserButton](appchooserbutton.png)

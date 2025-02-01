@@ -21,6 +21,7 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.TypeCache
 import org.gtkkn.native.gio.GMountOperation
 import org.gtkkn.native.glib.gboolean
@@ -338,7 +339,8 @@ public val MountOperationFactoryFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(`file`: File, userdata: gpointer?) -> MountOperation>().get().invoke(`file`!!.run {
-        File(this)}
+        InstanceCache.get(this, false) { File(reinterpret()) }!!
+    }
     , userdata).gioMountOperationPointer}
 .reinterpret()
 

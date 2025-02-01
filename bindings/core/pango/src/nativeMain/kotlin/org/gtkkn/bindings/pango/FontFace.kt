@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_18
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_46
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -73,7 +74,8 @@ public abstract class FontFace(
      */
     @PangoVersion1_46
     public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer)!!.run {
-        FontFamily.FontFamilyImpl(this)}
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.also { ref() }
+    }
 
     /**
      * Returns whether a `PangoFontFace` is synthesized.

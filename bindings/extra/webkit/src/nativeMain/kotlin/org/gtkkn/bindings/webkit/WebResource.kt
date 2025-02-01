@@ -24,6 +24,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.extensions.gobject.InstanceCache
 import org.gtkkn.extensions.gobject.legacy.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.legacy.KGTyped
 import org.gtkkn.extensions.gobject.legacy.TypeCompanion
@@ -81,7 +82,8 @@ public class WebResource(
          *     the response hasn't been received yet.
          */
         get() = webkit_web_resource_get_response(webkitWebResourcePointer)!!.run {
-            UriResponse(this)}
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * The current active URI of the #WebKitWebResource.
@@ -257,7 +259,8 @@ private val onFailedWithTlsErrorsFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(certificate: TlsCertificate, errors: TlsCertificateFlags) -> Unit>().get().invoke(certificate!!.run {
-        TlsCertificate.TlsCertificateImpl(this)}
+        InstanceCache.get(this, false) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+    }
     , errors.run {
         TlsCertificateFlags(this)}
     )}
@@ -279,8 +282,10 @@ private val onSentRequestFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(request: UriRequest, redirectedResponse: UriResponse) -> Unit>().get().invoke(request!!.run {
-        UriRequest(this)}
+        InstanceCache.get(this, false) { UriRequest(reinterpret()) }!!
+    }
     , redirectedResponse!!.run {
-        UriResponse(this)}
+        InstanceCache.get(this, false) { UriResponse(reinterpret()) }!!
+    }
     )}
 .reinterpret()

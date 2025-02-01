@@ -77,7 +77,8 @@ public open class DropControllerMotion(
          *   happening within @self
          */
         get() = gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer)?.run {
-            Drop.DropImpl(this)}
+            InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.also { ref() }
+        }
 
     /**
      * Creates a new event controller that will handle pointer motion

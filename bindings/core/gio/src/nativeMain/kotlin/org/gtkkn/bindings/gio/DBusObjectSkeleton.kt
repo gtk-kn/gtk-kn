@@ -182,8 +182,10 @@ private val onAuthorizeMethodFunc:
     userData: COpaquePointer
     ->
     userData.asStableRef<(`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean>().get().invoke(`interface`!!.run {
-        DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(this)}
+        InstanceCache.get(this, false) { DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(reinterpret()) }!!
+    }
     , invocation!!.run {
-        DBusMethodInvocation(this)}
+        InstanceCache.get(this, false) { DBusMethodInvocation(reinterpret()) }!!
+    }
     ).asGBoolean()}
 .reinterpret()
