@@ -89,7 +89,7 @@ public abstract class MediaFile(
          * @return The currently playing stream
          */
         get() = gtk_media_file_get_input_stream(gtkMediaFilePointer)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the `GtkMediaFile` to play the given stream.

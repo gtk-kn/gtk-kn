@@ -59,7 +59,7 @@ public open class ZlibDecompressor(
          * @since 2.26
          */
         get() = g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer)?.run {
-            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
+            InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.apply { ref() }
         }
 
     /**

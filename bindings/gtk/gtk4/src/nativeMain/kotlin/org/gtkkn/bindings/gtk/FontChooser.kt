@@ -344,7 +344,7 @@ public interface FontChooser : Proxy, KGTyped {
      *   selected font group details
      */
     public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer)?.run {
-        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontFace.FontFaceImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -366,7 +366,7 @@ public interface FontChooser : Proxy, KGTyped {
      *   selected font family
      */
     public fun getFontFamily(): FontFamily? = gtk_font_chooser_get_font_family(gtkFontChooserPointer)?.run {
-        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -403,7 +403,7 @@ public interface FontChooser : Proxy, KGTyped {
      * @return a `PangoFontMap`
      */
     public fun getFontChooserFontMap(): FontMap? = gtk_font_chooser_get_font_map(gtkFontChooserPointer)?.run {
-        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

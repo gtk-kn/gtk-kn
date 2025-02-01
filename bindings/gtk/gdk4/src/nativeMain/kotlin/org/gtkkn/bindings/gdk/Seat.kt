@@ -57,7 +57,7 @@ public abstract class Seat(
          *   is owned by GTK and must not be freed.
          */
         get() = gdk_seat_get_display(gdkSeatPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -86,7 +86,7 @@ public abstract class Seat(
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getKeyboard(): Device? = gdk_seat_get_keyboard(gdkSeatPointer)?.run {
-        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class Seat(
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getPointer(): Device? = gdk_seat_get_pointer(gdkSeatPointer)?.run {
-        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

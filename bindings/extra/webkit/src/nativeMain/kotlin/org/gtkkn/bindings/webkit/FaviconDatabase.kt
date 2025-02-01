@@ -103,7 +103,7 @@ public class FaviconDatabase(
     public fun getFaviconFinish(result: AsyncResult): Result<Texture> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_favicon_database_get_favicon_finish(webkitFaviconDatabasePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
         }
 
         return if (gError.pointed != null) {

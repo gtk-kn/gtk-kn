@@ -523,7 +523,7 @@ public interface FileChooser : Proxy, KGTyped {
      * @return the current filter
      */
     public fun getFilter(): FileFilter? = gtk_file_chooser_get_filter(gtkFileChooserPointer)?.run {
-        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!
+        InstanceCache.get(this, true) { FileFilter(reinterpret()) }!!.apply { ref() }
     }
 
     /**

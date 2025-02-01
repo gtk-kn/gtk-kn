@@ -53,7 +53,7 @@ public open class MediaControls(
          * @return The media stream managed by @controls
          */
         get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer)?.run {
-            InstanceCache.get(this, true) { MediaStream.MediaStreamImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { MediaStream.MediaStreamImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the stream that is controlled by @controls.

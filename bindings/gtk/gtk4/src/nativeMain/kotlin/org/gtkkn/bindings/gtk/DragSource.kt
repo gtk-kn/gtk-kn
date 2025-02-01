@@ -171,7 +171,7 @@ public open class DragSource(
          * @return the `GdkContentProvider` of @source
          */
         get() = gtk_drag_source_get_content(gtkDragSourcePointer)?.run {
-            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets a content provider on a `GtkDragSource`.
@@ -210,7 +210,7 @@ public open class DragSource(
      *   drag operation
      */
     public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer)?.run {
-        InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

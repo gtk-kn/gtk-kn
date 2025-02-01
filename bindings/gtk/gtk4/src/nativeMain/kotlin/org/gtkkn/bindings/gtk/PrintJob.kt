@@ -107,7 +107,7 @@ public open class PrintJob(
          * @return the printer of @job
          */
         get() = gtk_print_job_get_printer(gtkPrintJobPointer)!!.run {
-            InstanceCache.get(this, true) { Printer(reinterpret()) }!!
+            InstanceCache.get(this, true) { Printer(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -120,7 +120,7 @@ public open class PrintJob(
          * @return the settings of @job
          */
         get() = gtk_print_job_get_settings(gtkPrintJobPointer)!!.run {
-            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
+            InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.apply { ref() }
         }
 
     /**

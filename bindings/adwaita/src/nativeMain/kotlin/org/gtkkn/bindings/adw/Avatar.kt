@@ -209,7 +209,7 @@ public class Avatar(
      * @return the texture
      */
     public fun drawToTexture(scaleFactor: gint): Texture = adw_avatar_draw_to_texture(adwAvatarPointer, scaleFactor)!!.run {
-        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<Avatar> {

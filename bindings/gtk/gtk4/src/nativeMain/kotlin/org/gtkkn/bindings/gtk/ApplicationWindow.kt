@@ -185,7 +185,7 @@ public open class ApplicationWindow(
      *   with @window
      */
     public open fun getHelpOverlay(): ShortcutsWindow? = gtk_application_window_get_help_overlay(gtkApplicationWindowPointer)?.run {
-        InstanceCache.get(this, true) { ShortcutsWindow(reinterpret()) }!!
+        InstanceCache.get(this, true) { ShortcutsWindow(reinterpret()) }!!.apply { ref() }
     }
 
     /**

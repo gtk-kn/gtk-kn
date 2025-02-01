@@ -72,7 +72,7 @@ public open class ContentDeserializer(
      * @return the cancellable for the current operation
      */
     public open fun getCancellable(): Cancellable? = gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer)?.run {
-        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
+        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -90,7 +90,7 @@ public open class ContentDeserializer(
      * @return the input stream for the current operation
      */
     public open fun getInputStream(): InputStream = gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
-        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

@@ -280,7 +280,7 @@ public open class Entry(
          * @return A `GtkEntryBuffer` object.
          */
         get() = gtk_entry_get_buffer(gtkEntryPointer)!!.run {
-            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!
+            InstanceCache.get(this, true) { EntryBuffer(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Set the `GtkEntryBuffer` object which holds the text for
@@ -316,7 +316,7 @@ public open class Entry(
          *   completion object currently in use by @entry
          */
         get() = gtk_entry_get_completion(gtkEntryPointer)?.run {
-            InstanceCache.get(this, true) { EntryCompletion(reinterpret()) }!!
+            InstanceCache.get(this, true) { EntryCompletion(reinterpret()) }!!.apply { ref() }
         }
         /**
          * # ⚠️ Deprecated ⚠️
@@ -347,7 +347,7 @@ public open class Entry(
          * @return the menu model
          */
         get() = gtk_entry_get_extra_menu(gtkEntryPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets a menu model to add when constructing

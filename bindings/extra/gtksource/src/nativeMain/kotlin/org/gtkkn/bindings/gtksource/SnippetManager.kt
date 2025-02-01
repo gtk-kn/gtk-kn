@@ -79,7 +79,7 @@ public open class SnippetManager(
         languageId: String? = null,
         trigger: String,
     ): Snippet? = gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer, group, languageId, trigger)?.run {
-        InstanceCache.get(this, true) { Snippet(reinterpret()) }!!
+        InstanceCache.get(this, true) { Snippet(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -159,7 +159,7 @@ public open class SnippetManager(
          *   is owned by GtkSourceView library and must not be unref'd.
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
-            InstanceCache.get(this, true) { SnippetManager(reinterpret()) }!!
+            InstanceCache.get(this, true) { SnippetManager(reinterpret()) }!!.apply { ref() }
         }
 
         /**

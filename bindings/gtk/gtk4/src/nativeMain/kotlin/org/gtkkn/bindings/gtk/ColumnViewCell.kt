@@ -68,7 +68,7 @@ public open class ColumnViewCell(
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_child(gtkColumnViewCellPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the child to be used for this listitem.
@@ -131,7 +131,7 @@ public open class ColumnViewCell(
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_item(gtkColumnViewCellPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
         }
 
     /**

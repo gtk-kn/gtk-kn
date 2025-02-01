@@ -495,7 +495,7 @@ public open class DBusProxy(
      */
     @GioVersion2_26
     public open fun getConnection(): DBusConnection = g_dbus_proxy_get_connection(gioDBusProxyPointer)!!.run {
-        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.apply { ref() }
     }
 
     /**

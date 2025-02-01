@@ -300,7 +300,7 @@ public open class InfoBar(
      * that was added
      */
     public open fun addButton(buttonText: String, responseId: gint): Button = gtk_info_bar_add_button(gtkInfoBarPointer, buttonText, responseId)!!.run {
-        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.apply { ref() }
     }
 
     /**

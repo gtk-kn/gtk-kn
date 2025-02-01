@@ -71,7 +71,7 @@ public class BackForwardList(
      *    preceding the current item or null.
      */
     public fun getBackItem(): BackForwardListItem? = webkit_back_forward_list_get_back_item(webkitBackForwardListPointer)?.run {
-        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -100,7 +100,7 @@ public class BackForwardList(
      *    or null if @back_forward_list is empty.
      */
     public fun getCurrentItem(): BackForwardListItem? = webkit_back_forward_list_get_current_item(webkitBackForwardListPointer)?.run {
-        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -110,7 +110,7 @@ public class BackForwardList(
      *    following the current item or null.
      */
     public fun getForwardItem(): BackForwardListItem? = webkit_back_forward_list_get_forward_item(webkitBackForwardListPointer)?.run {
-        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -147,7 +147,7 @@ public class BackForwardList(
      *    located at the specified index relative to the current item or null.
      */
     public fun getNthItem(index: gint): BackForwardListItem? = webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer, index)?.run {
-        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!
+        InstanceCache.get(this, true) { BackForwardListItem(reinterpret()) }!!.apply { ref() }
     }
 
     /**

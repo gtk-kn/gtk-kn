@@ -296,7 +296,7 @@ public open class Subprocess(
      */
     @GioVersion2_40
     public open fun getStderrPipe(): InputStream? = g_subprocess_get_stderr_pipe(gioSubprocessPointer)?.run {
-        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -311,7 +311,7 @@ public open class Subprocess(
      */
     @GioVersion2_40
     public open fun getStdinPipe(): OutputStream? = g_subprocess_get_stdin_pipe(gioSubprocessPointer)?.run {
-        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -326,7 +326,7 @@ public open class Subprocess(
      */
     @GioVersion2_40
     public open fun getStdoutPipe(): InputStream? = g_subprocess_get_stdout_pipe(gioSubprocessPointer)?.run {
-        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

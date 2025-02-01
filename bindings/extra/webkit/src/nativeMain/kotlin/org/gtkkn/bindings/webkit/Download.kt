@@ -149,7 +149,7 @@ public class Download(
          *     the response hasn't been received yet.
          */
         get() = webkit_download_get_response(webkitDownloadPointer)!!.run {
-            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -189,7 +189,7 @@ public class Download(
      * @return the #WebKitURIRequest of @download
      */
     public fun getRequest(): UriRequest = webkit_download_get_request(webkitDownloadPointer)!!.run {
-        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!
+        InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -199,7 +199,7 @@ public class Download(
      *    or null if @download was not initiated by a #WebKitWebView.
      */
     public fun getWebView(): WebView = webkit_download_get_web_view(webkitDownloadPointer)!!.run {
-        InstanceCache.get(this, true) { WebView(reinterpret()) }!!
+        InstanceCache.get(this, true) { WebView(reinterpret()) }!!.apply { ref() }
     }
 
     /**

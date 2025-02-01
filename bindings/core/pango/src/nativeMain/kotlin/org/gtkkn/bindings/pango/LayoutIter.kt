@@ -128,7 +128,7 @@ public class LayoutIter(
      */
     @PangoVersion1_20
     public fun getLayout(): Layout? = pango_layout_iter_get_layout(pangoLayoutIterPointer)?.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
     }
 
     /**

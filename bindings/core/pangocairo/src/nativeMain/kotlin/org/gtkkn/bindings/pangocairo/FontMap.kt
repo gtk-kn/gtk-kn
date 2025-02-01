@@ -56,7 +56,7 @@ public interface FontMap : Proxy, KGTyped {
      */
     @PangoCairoVersion1_10
     public fun createPangoCairoContext(): Context = pango_cairo_font_map_create_context(pangocairoFontMapPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -165,7 +165,7 @@ public interface FontMap : Proxy, KGTyped {
          */
         @PangoCairoVersion1_10
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_get_default()!!.run {
-            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**
@@ -194,7 +194,7 @@ public interface FontMap : Proxy, KGTyped {
          */
         @PangoCairoVersion1_10
         public fun new(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_new()!!.run {
-            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**
@@ -213,7 +213,7 @@ public interface FontMap : Proxy, KGTyped {
          */
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? = pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { org.gtkkn.bindings.pango.FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**

@@ -108,7 +108,7 @@ public open class Scrollbar(
      * @return the scrollbar's adjustment
      */
     public open fun getAdjustment(): Adjustment = gtk_scrollbar_get_adjustment(gtkScrollbarPointer)!!.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
     }
 
     /**

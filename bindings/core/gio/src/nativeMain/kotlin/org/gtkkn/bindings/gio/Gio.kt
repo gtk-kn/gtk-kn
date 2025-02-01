@@ -1668,7 +1668,7 @@ public object Gio {
     public fun busGetFinish(res: AsyncResult): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_finish(res.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.apply { ref() }
         }
 
         return if (gError.pointed != null) {
@@ -1708,7 +1708,7 @@ public object Gio {
     public fun busGetSync(busType: BusType, cancellable: Cancellable? = null): Result<DBusConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bus_get_sync(busType.nativeValue, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
+            InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.apply { ref() }
         }
 
         return if (gError.pointed != null) {
@@ -2544,7 +2544,7 @@ public object Gio {
         rootPath: String,
         rootGroup: String? = null,
     ): SettingsBackend = g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
-        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -2559,7 +2559,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
-        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -2584,7 +2584,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun nullSettingsBackendNew(): SettingsBackend = g_null_settings_backend_new()!!.run {
-        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SettingsBackend.SettingsBackendImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -2699,7 +2699,7 @@ public object Gio {
     public fun resourcesOpenStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
-            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { InputStream.InputStreamImpl(reinterpret()) }!!.apply { ref() }
         }
 
         return if (gError.pointed != null) {

@@ -107,7 +107,7 @@ public abstract class Drop(
          * @return The `GdkDevice` performing the drop.
          */
         get() = gdk_drop_get_device(gdkDropPointer)!!.run {
-            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -120,7 +120,7 @@ public abstract class Drop(
          * @return a `GdkDisplay`
          */
         get() = gdk_drop_get_display(gdkDropPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -136,7 +136,7 @@ public abstract class Drop(
          * @return the corresponding `GdkDrag`
          */
         get() = gdk_drop_get_drag(gdkDropPointer)?.run {
-            InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Drag.DragImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -162,7 +162,7 @@ public abstract class Drop(
          * @return The `GdkSurface` performing the drop.
          */
         get() = gdk_drop_get_surface(gdkDropPointer)!!.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**

@@ -41,7 +41,7 @@ public abstract class FilterOutputStream(
          * @return a #GOutputStream.
          */
         get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer)!!.run {
-            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { OutputStream.OutputStreamImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**

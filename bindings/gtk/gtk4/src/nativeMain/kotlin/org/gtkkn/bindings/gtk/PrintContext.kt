@@ -120,7 +120,7 @@ public open class PrintContext(
      * @return a new Pango context for @context
      */
     public open fun createPangoContext(): PangoContext = gtk_print_context_create_pango_context(gtkPrintContextPointer)!!.run {
-        InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!
+        InstanceCache.get(this, true) { PangoContext(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -130,7 +130,7 @@ public open class PrintContext(
      * @return a new Pango layout for @context
      */
     public open fun createPangoLayout(): Layout = gtk_print_context_create_pango_layout(gtkPrintContextPointer)!!.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -172,7 +172,7 @@ public open class PrintContext(
      * @return the page setup of @context
      */
     public open fun getPageSetup(): PageSetup = gtk_print_context_get_page_setup(gtkPrintContextPointer)!!.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -182,7 +182,7 @@ public open class PrintContext(
      * @return the font map of @context
      */
     public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer)!!.run {
-        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

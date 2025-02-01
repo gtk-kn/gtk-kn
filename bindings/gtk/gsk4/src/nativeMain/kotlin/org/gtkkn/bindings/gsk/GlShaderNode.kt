@@ -65,7 +65,7 @@ public open class GlShaderNode(
      * @return the `GskGLShader` shader
      */
     public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGlShaderNodePointer.reinterpret())!!.run {
-        InstanceCache.get(this, true) { GlShader(reinterpret()) }!!
+        InstanceCache.get(this, true) { GlShader(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<GlShaderNode> {

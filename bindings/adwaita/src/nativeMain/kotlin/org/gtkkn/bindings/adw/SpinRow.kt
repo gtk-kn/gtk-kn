@@ -360,7 +360,7 @@ public class SpinRow(
      */
     @AdwVersion1_4
     public fun getAdjustment(): Adjustment = adw_spin_row_get_adjustment(adwSpinRowPointer)!!.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
     }
 
     /**

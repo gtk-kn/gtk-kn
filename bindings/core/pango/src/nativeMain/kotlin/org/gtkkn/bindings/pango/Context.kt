@@ -143,7 +143,7 @@ public open class Context(
      */
     @PangoVersion1_6
     public open fun getFontMap(): FontMap? = pango_context_get_font_map(pangoContextPointer)?.run {
-        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontMap.FontMapImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -261,7 +261,7 @@ public open class Context(
      *   that was loaded, or null if no font matched.
      */
     public open fun loadFont(desc: FontDescription): Font? = pango_context_load_font(pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
-        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -274,7 +274,7 @@ public open class Context(
      *   `PangoFontset` loaded, or null if no font matched.
      */
     public open fun loadFontset(desc: FontDescription, language: Language): Fontset? = pango_context_load_fontset(pangoContextPointer, desc.pangoFontDescriptionPointer, language.pangoLanguagePointer)?.run {
-        InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

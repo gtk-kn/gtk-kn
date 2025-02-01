@@ -76,7 +76,7 @@ public open class DragIcon(
          * @return The drag icon
          */
         get() = gtk_drag_icon_get_child(gtkDragIconPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the widget to display as the drag icon.
@@ -109,7 +109,7 @@ public open class DragIcon(
          *   for displaying @value as a drag icon.
          */
         public fun createWidgetForValue(`value`: Value): Widget? = gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**
@@ -122,7 +122,7 @@ public open class DragIcon(
          * @return the `GtkDragIcon`
          */
         public fun getForDrag(drag: Drag): Widget = gtk_drag_icon_get_for_drag(drag.gdkDragPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**

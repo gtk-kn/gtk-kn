@@ -702,7 +702,7 @@ public open class TextView(
      * @return a `GtkTextBuffer`
      */
     public open fun getBuffer(): TextBuffer = gtk_text_view_get_buffer(gtkTextViewPointer)!!.run {
-        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
+        InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -744,7 +744,7 @@ public open class TextView(
      * @return the menu model
      */
     public open fun getExtraMenu(): MenuModel = gtk_text_view_get_extra_menu(gtkTextViewPointer)!!.run {
-        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -759,7 +759,7 @@ public open class TextView(
      * @return a `GtkWidget`
      */
     public open fun getGutter(win: TextWindowType): Widget? = gtk_text_view_get_gutter(gtkTextViewPointer, win.nativeValue)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -804,7 +804,7 @@ public open class TextView(
      */
     @GtkVersion4_4
     public open fun getLtrContext(): Context = gtk_text_view_get_ltr_context(gtkTextViewPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -818,7 +818,7 @@ public open class TextView(
      */
     @GtkVersion4_4
     public open fun getRtlContext(): Context = gtk_text_view_get_rtl_context(gtkTextViewPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
     }
 
     /**

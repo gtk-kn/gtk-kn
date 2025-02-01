@@ -82,7 +82,7 @@ public open class FileSaver(
          * @return the #GtkSourceBuffer to save.
          */
         get() = gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer)!!.run {
-            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -115,7 +115,7 @@ public open class FileSaver(
          * @return the #GtkSourceFile.
          */
         get() = gtk_source_file_saver_get_file(gtksourceFileSaverPointer)!!.run {
-            InstanceCache.get(this, true) { File(reinterpret()) }!!
+            InstanceCache.get(this, true) { File(reinterpret()) }!!.apply { ref() }
         }
 
     /**

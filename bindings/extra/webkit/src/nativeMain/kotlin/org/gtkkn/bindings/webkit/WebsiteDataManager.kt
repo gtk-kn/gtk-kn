@@ -209,7 +209,7 @@ public class WebsiteDataManager(
      */
     @WebKitVersion2_40
     public fun getFaviconDatabase(): FaviconDatabase? = webkit_website_data_manager_get_favicon_database(webkitWebsiteDataManagerPointer)?.run {
-        InstanceCache.get(this, true) { FaviconDatabase(reinterpret()) }!!
+        InstanceCache.get(this, true) { FaviconDatabase(reinterpret()) }!!.apply { ref() }
     }
 
     /**

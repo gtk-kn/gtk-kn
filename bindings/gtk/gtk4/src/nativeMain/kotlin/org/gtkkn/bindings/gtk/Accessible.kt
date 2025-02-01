@@ -134,7 +134,7 @@ public interface Accessible : Proxy, KGTyped {
      */
     @GtkVersion4_10
     public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer)!!.run {
-        InstanceCache.get(this, true) { AtContext.AtContextImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { AtContext.AtContextImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

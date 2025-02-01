@@ -228,7 +228,7 @@ public open class SearchEntry(
      * @return The key capture widget.
      */
     public open fun getKeyCaptureWidget(): Widget? = gtk_search_entry_get_key_capture_widget(gtkSearchEntryPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

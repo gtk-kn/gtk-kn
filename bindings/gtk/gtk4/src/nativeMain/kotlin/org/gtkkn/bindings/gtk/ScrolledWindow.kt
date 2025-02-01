@@ -180,7 +180,7 @@ public open class ScrolledWindow(
          * @return the child widget of @scrolled_window
          */
         get() = gtk_scrolled_window_get_child(gtkScrolledWindowPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the child widget of @scrolled_window.
@@ -412,7 +412,7 @@ public open class ScrolledWindow(
      * @return the horizontal `GtkAdjustment`
      */
     public open fun getHadjustment(): Adjustment = gtk_scrolled_window_get_hadjustment(gtkScrolledWindowPointer)!!.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -421,7 +421,7 @@ public open class ScrolledWindow(
      * @return the horizontal scrollbar of the scrolled window.
      */
     public open fun getHscrollbar(): Widget = gtk_scrolled_window_get_hscrollbar(gtkScrolledWindowPointer)!!.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -441,7 +441,7 @@ public open class ScrolledWindow(
      * @return the vertical `GtkAdjustment`
      */
     public open fun getVadjustment(): Adjustment = gtk_scrolled_window_get_vadjustment(gtkScrolledWindowPointer)!!.run {
-        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
+        InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -450,7 +450,7 @@ public open class ScrolledWindow(
      * @return the vertical scrollbar of the scrolled window.
      */
     public open fun getVscrollbar(): Widget = gtk_scrolled_window_get_vscrollbar(gtkScrolledWindowPointer)!!.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

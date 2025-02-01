@@ -51,7 +51,7 @@ public open class ObjectExpression(
      * @return the object, or `NULL`
      */
     public open fun getObject(): Object? = gtk_object_expression_get_object(gtkObjectExpressionPointer.reinterpret())?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<ObjectExpression> {

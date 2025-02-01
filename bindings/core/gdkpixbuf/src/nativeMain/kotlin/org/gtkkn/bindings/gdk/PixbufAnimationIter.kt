@@ -97,7 +97,7 @@ public open class PixbufAnimationIter(
      * @return the pixbuf to be displayed
      */
     public open fun getPixbuf(): Pixbuf = gdk_pixbuf_animation_iter_get_pixbuf(gdkPixbufAnimationIterPointer)!!.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**

@@ -252,7 +252,7 @@ public open class FontDialogButton(
      */
     @GtkVersion4_10
     public open fun getDialog(): FontDialog? = gtk_font_dialog_button_get_dialog(gtkFontDialogButtonPointer)?.run {
-        InstanceCache.get(this, true) { FontDialog(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontDialog(reinterpret()) }!!.apply { ref() }
     }
 
     /**

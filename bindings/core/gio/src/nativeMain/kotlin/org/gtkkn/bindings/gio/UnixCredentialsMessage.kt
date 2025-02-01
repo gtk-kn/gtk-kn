@@ -65,7 +65,7 @@ public open class UnixCredentialsMessage(
          * @since 2.26
          */
         get() = g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer)!!.run {
-            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!
+            InstanceCache.get(this, true) { Credentials(reinterpret()) }!!.apply { ref() }
         }
 
     /**

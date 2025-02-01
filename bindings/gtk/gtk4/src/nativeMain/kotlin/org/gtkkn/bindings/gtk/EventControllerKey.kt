@@ -85,7 +85,7 @@ public open class EventControllerKey(
      * @return the `GtkIMContext`
      */
     public open fun getImContext(): ImContext? = gtk_event_controller_key_get_im_context(gtkEventControllerKeyPointer)?.run {
-        InstanceCache.get(this, true) { ImContext.ImContextImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { ImContext.ImContextImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

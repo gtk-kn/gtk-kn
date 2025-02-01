@@ -45,7 +45,7 @@ public abstract class LayoutChild(
          * @return a `GtkWidget`
          */
         get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -59,7 +59,7 @@ public abstract class LayoutChild(
          * @return a `GtkLayoutManager`
          */
         get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer)!!.run {
-            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { LayoutManager.LayoutManagerImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**

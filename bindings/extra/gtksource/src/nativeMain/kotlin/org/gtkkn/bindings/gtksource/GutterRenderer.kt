@@ -150,7 +150,7 @@ public abstract class GutterRenderer(
          * @return a #GtkSourceView
          */
         get() = gtk_source_gutter_renderer_get_view(gtksourceGutterRendererPointer)!!.run {
-            InstanceCache.get(this, true) { View(reinterpret()) }!!
+            InstanceCache.get(this, true) { View(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -259,7 +259,7 @@ public abstract class GutterRenderer(
      * @return a #GtkTextBuffer or null
      */
     public open fun getBuffer(): Buffer? = gtk_source_gutter_renderer_get_buffer(gtksourceGutterRendererPointer)?.run {
-        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
+        InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.apply { ref() }
     }
 
     /**

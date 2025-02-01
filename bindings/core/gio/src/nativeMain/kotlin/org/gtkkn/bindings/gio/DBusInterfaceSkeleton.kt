@@ -129,7 +129,7 @@ public abstract class DBusInterfaceSkeleton(
      */
     @GioVersion2_30
     public open fun getConnection(): DBusConnection? = g_dbus_interface_skeleton_get_connection(gioDBusInterfaceSkeletonPointer)?.run {
-        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.apply { ref() }
     }
 
     /**

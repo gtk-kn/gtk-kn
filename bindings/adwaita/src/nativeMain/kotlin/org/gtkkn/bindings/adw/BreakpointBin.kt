@@ -172,7 +172,7 @@ public open class BreakpointBin(
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_child(adwBreakpointBinPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the child widget of @self.
@@ -197,7 +197,7 @@ public open class BreakpointBin(
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_current_breakpoint(adwBreakpointBinPointer)?.run {
-            InstanceCache.get(this, true) { Breakpoint(reinterpret()) }!!
+            InstanceCache.get(this, true) { Breakpoint(reinterpret()) }!!.apply { ref() }
         }
 
     /**

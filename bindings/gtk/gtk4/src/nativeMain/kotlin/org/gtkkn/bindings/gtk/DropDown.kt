@@ -202,7 +202,7 @@ public open class DropDown(
          * @return The factory in use
          */
         get() = gtk_drop_down_get_factory(gtkDropDownPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.
@@ -225,7 +225,7 @@ public open class DropDown(
          * @since 4.12
          */
         get() = gtk_drop_down_get_header_factory(gtkDropDownPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
@@ -248,7 +248,7 @@ public open class DropDown(
          * @return The factory in use
          */
         get() = gtk_drop_down_get_list_factory(gtkDropDownPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items in the popup.
@@ -330,7 +330,7 @@ public open class DropDown(
          * @return The selected item
          */
         get() = gtk_drop_down_get_selected_item(gtkDropDownPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
         }
 
     /**

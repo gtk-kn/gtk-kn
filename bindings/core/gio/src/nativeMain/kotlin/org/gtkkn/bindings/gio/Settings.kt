@@ -693,7 +693,7 @@ public open class Settings(
      */
     @GioVersion2_26
     public open fun getChild(name: String): Settings = g_settings_get_child(gioSettingsPointer, name)!!.run {
-        InstanceCache.get(this, true) { Settings(reinterpret()) }!!
+        InstanceCache.get(this, true) { Settings(reinterpret()) }!!.apply { ref() }
     }
 
     /**

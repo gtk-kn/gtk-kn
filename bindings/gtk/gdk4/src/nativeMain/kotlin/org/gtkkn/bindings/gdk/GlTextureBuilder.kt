@@ -84,7 +84,7 @@ public open class GlTextureBuilder(
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_context(gdkGlTextureBuilderPointer)?.run {
-            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { GlContext.GlContextImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the context to be used for the texture. This is the context that owns
@@ -298,7 +298,7 @@ public open class GlTextureBuilder(
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_update_texture(gdkGlTextureBuilderPointer)?.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the texture to be updated by this texture. See

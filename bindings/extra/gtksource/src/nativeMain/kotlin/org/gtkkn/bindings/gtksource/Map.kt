@@ -86,7 +86,7 @@ public open class Map(
      * @return a #GtkSourceView or null.
      */
     public open fun getView(): View? = gtk_source_map_get_view(gtksourceMapPointer)?.run {
-        InstanceCache.get(this, true) { View(reinterpret()) }!!
+        InstanceCache.get(this, true) { View(reinterpret()) }!!.apply { ref() }
     }
 
     /**

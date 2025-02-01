@@ -119,7 +119,7 @@ public open class LockButton(
          * @return the `GPermission` of @button
          */
         get() = gtk_lock_button_get_permission(gtkLockButtonPointer)?.run {
-            InstanceCache.get(this, true) { Permission.PermissionImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Permission.PermissionImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * # ⚠️ Deprecated ⚠️

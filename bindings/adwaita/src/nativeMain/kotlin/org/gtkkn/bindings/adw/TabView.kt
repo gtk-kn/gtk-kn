@@ -222,7 +222,7 @@ public class TabView(
          * @return the tab context menu model for @self
          */
         get() = adw_tab_view_get_menu_model(adwTabViewPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the tab context menu model for @self.
@@ -340,7 +340,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun addPage(child: Widget, parent: TabPage? = null): TabPage = adw_tab_view_add_page(adwTabViewPointer, child.gtkWidgetPointer, parent?.adwTabPagePointer)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -361,7 +361,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun append(child: Widget): TabPage = adw_tab_view_append(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -371,7 +371,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun appendPinned(child: Widget): TabPage = adw_tab_view_append_pinned(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -445,7 +445,7 @@ public class TabView(
      * @return the page object at @position
      */
     public fun getNthPage(position: gint): TabPage = adw_tab_view_get_nth_page(adwTabViewPointer, position)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -455,7 +455,7 @@ public class TabView(
      * @return the page object for @child
      */
     public fun getPage(child: Widget): TabPage = adw_tab_view_get_page(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -472,7 +472,7 @@ public class TabView(
      * @return the selected page
      */
     public fun getSelectedPage(): TabPage? = adw_tab_view_get_selected_page(adwTabViewPointer)?.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -486,7 +486,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun insert(child: Widget, position: gint): TabPage = adw_tab_view_insert(adwTabViewPointer, child.gtkWidgetPointer, position)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -500,7 +500,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun insertPinned(child: Widget, position: gint): TabPage = adw_tab_view_insert_pinned(adwTabViewPointer, child.gtkWidgetPointer, position)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -521,7 +521,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun prepend(child: Widget): TabPage = adw_tab_view_prepend(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -531,7 +531,7 @@ public class TabView(
      * @return the page object representing @child
      */
     public fun prependPinned(child: Widget): TabPage = adw_tab_view_prepend_pinned(adwTabViewPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { TabPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**

@@ -694,7 +694,7 @@ public open class Task(
      */
     @GioVersion2_36
     public open fun getCancellable(): Cancellable? = g_task_get_cancellable(gioTaskPointer)?.run {
-        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!
+        InstanceCache.get(this, true) { Cancellable(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -758,7 +758,7 @@ public open class Task(
      */
     @GioVersion2_36
     override fun getSourceObject(): Object? = g_task_get_source_object(gioTaskPointer)?.run {
-        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
+        InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
     }
 
     /**

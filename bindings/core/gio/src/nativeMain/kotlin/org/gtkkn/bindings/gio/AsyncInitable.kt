@@ -232,7 +232,7 @@ public interface AsyncInitable : Proxy, KGTyped {
     public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_async_initable_new_finish(gioAsyncInitablePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Object(reinterpret()) }!!
+            InstanceCache.get(this, true) { Object(reinterpret()) }!!.apply { ref() }
         }
 
         return if (gError.pointed != null) {

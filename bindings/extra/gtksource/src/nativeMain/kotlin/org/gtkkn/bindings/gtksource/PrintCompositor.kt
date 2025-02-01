@@ -144,7 +144,7 @@ public open class PrintCompositor(
          * @return the #GtkSourceBuffer associated with the compositor.
          */
         get() = gtk_source_print_compositor_get_buffer(gtksourcePrintCompositorPointer)!!.run {
-            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!
+            InstanceCache.get(this, true) { Buffer(reinterpret()) }!!.apply { ref() }
         }
 
     /**

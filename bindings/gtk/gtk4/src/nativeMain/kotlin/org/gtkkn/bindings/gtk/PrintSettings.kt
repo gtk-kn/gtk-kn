@@ -216,7 +216,7 @@ public open class PrintSettings(
      * @return a newly allocated copy of @other
      */
     public open fun copy(): PrintSettings = gtk_print_settings_copy(gtkPrintSettingsPointer)!!.run {
-        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
+        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.apply { ref() }
     }
 
     /**

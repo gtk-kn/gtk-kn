@@ -119,7 +119,7 @@ public class Value(
          * @return the #JSCValue context.
          */
         get() = jsc_value_get_context(jscValuePointer)!!.run {
-            InstanceCache.get(this, true) { Context(reinterpret()) }!!
+            InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -435,7 +435,7 @@ public class Value(
         offset: gsize,
         length: Long,
     ): Value = jsc_value_new_typed_array_with_buffer(jscValuePointer, type.nativeValue, offset, length)!!.run {
-        InstanceCache.get(this, true) { Value(reinterpret()) }!!
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -477,7 +477,7 @@ public class Value(
      * @return the property #JSCValue.
      */
     public fun objectGetProperty(name: String): Value = jsc_value_object_get_property(jscValuePointer, name)!!.run {
-        InstanceCache.get(this, true) { Value(reinterpret()) }!!
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -487,7 +487,7 @@ public class Value(
      * @return the property #JSCValue.
      */
     public fun objectGetPropertyAtIndex(index: guint): Value = jsc_value_object_get_property_at_index(jscValuePointer, index)!!.run {
-        InstanceCache.get(this, true) { Value(reinterpret()) }!!
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -579,7 +579,7 @@ public class Value(
      */
     @JavaScriptCoreVersion2_38
     public fun typedArrayGetBuffer(): Value = jsc_value_typed_array_get_buffer(jscValuePointer)!!.run {
-        InstanceCache.get(this, true) { Value(reinterpret()) }!!
+        InstanceCache.get(this, true) { Value(reinterpret()) }!!.apply { ref() }
     }
 
     /**

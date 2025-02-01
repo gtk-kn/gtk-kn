@@ -102,7 +102,7 @@ public open class GutterRendererPixbuf(
      * @return a #GdkPixbuf
      */
     public open fun getPixbuf(): Pixbuf = gtk_source_gutter_renderer_pixbuf_get_pixbuf(gtksourceGutterRendererPixbufPointer)!!.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**

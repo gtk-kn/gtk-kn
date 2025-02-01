@@ -253,9 +253,9 @@ private object NativeToKotlinConversions {
                 add("%T.get(", BindingsGenerator.INSTANCE_CACHE_TYPE)
                 if (returnTypeInfo.needsReinterpret()) add("%M()", BindingsGenerator.REINTERPRET_FUNC) else add("this")
                 add(", %L) { %T(%M()) }!!", !upCall, returnTypeName, BindingsGenerator.REINTERPRET_FUNC)
-//                if (!upCall) { // TODO
-//                    add(".apply { ref() }")
-//                }
+                if (!upCall) {
+                    add(".apply { ref() }")
+                }
             } else {
                 add("%T(", returnTypeName)
                 if (returnTypeInfo.needsReinterpret()) add("%M()", BindingsGenerator.REINTERPRET_FUNC) else add("this")

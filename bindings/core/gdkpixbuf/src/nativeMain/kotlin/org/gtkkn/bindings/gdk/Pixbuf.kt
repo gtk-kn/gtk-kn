@@ -705,7 +705,7 @@ public open class Pixbuf(
         g: guint8,
         b: guint8,
     ): Pixbuf = gdk_pixbuf_add_alpha(gdkPixbufPointer, substituteColor.asGBoolean(), r, g, b)!!.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -725,7 +725,7 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_12
     public open fun applyEmbeddedOrientation(): Pixbuf? = gdk_pixbuf_apply_embedded_orientation(gdkPixbufPointer)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -842,7 +842,7 @@ public open class Pixbuf(
         color1: guint,
         color2: guint,
     ): Pixbuf? = gdk_pixbuf_composite_color_simple(gdkPixbufPointer, destWidth, destHeight, interpType.nativeValue, overallAlpha, checkSize, color1, color2)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -855,7 +855,7 @@ public open class Pixbuf(
      * @return A newly-created pixbuf
      */
     public open fun copy(): Pixbuf? = gdk_pixbuf_copy(gdkPixbufPointer)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -922,7 +922,7 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_6
     public open fun flip(horizontal: Boolean): Pixbuf? = gdk_pixbuf_flip(gdkPixbufPointer, horizontal.asGBoolean())?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -992,7 +992,7 @@ public open class Pixbuf(
         width: gint,
         height: gint,
     ): Pixbuf = gdk_pixbuf_new_subpixbuf(gdkPixbufPointer, srcX, srcY, width, height)!!.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -1025,7 +1025,7 @@ public open class Pixbuf(
      * @return The same as the @pixbuf argument.
      */
     override fun ref(): Pixbuf = gdk_pixbuf_ref(gdkPixbufPointer)!!.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -1050,7 +1050,7 @@ public open class Pixbuf(
      */
     @GdkPixbufVersion2_6
     public open fun rotateSimple(angle: PixbufRotation): Pixbuf? = gdk_pixbuf_rotate_simple(gdkPixbufPointer, angle.nativeValue)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -1276,7 +1276,7 @@ public open class Pixbuf(
         destHeight: gint,
         interpType: InterpType,
     ): Pixbuf? = gdk_pixbuf_scale_simple(gdkPixbufPointer, destWidth, destHeight, interpType.nativeValue)?.run {
-        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!
+        InstanceCache.get(this, true) { Pixbuf(reinterpret()) }!!.apply { ref() }
     }
 
     /**

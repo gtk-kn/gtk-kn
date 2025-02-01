@@ -178,7 +178,7 @@ public open class ColumnViewRow(
          * @since 4.12
          */
         get() = gtk_column_view_row_get_item(gtkColumnViewRowPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
         }
 
     /**

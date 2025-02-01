@@ -157,7 +157,7 @@ public open class Vfs(
          *     file system #GVfs if no other implementation is available.
          */
         public fun getDefault(): Vfs = g_vfs_get_default()!!.run {
-            InstanceCache.get(this, true) { Vfs(reinterpret()) }!!
+            InstanceCache.get(this, true) { Vfs(reinterpret()) }!!.apply { ref() }
         }
 
         /**
@@ -166,7 +166,7 @@ public open class Vfs(
          * @return a #GVfs.
          */
         public fun getLocal(): Vfs = g_vfs_get_local()!!.run {
-            InstanceCache.get(this, true) { Vfs(reinterpret()) }!!
+            InstanceCache.get(this, true) { Vfs(reinterpret()) }!!.apply { ref() }
         }
 
         /**

@@ -338,7 +338,7 @@ public class NavigationView(
          * @since 1.4
          */
         get() = adw_navigation_view_get_visible_page(adwNavigationViewPointer)?.run {
-            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!
+            InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -379,7 +379,7 @@ public class NavigationView(
      */
     @AdwVersion1_4
     public fun findPage(tag: String): NavigationPage? = adw_navigation_view_find_page(adwNavigationViewPointer, tag)?.run {
-        InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -396,7 +396,7 @@ public class NavigationView(
      */
     @AdwVersion1_4
     public fun getPreviousPage(page: NavigationPage): NavigationPage? = adw_navigation_view_get_previous_page(adwNavigationViewPointer, page.adwNavigationPagePointer)?.run {
-        InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { NavigationPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**

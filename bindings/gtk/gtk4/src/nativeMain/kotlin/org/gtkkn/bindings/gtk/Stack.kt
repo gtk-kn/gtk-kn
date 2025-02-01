@@ -273,7 +273,7 @@ public open class Stack(
      * @return the `GtkStackPage` for @child
      */
     public open fun addChild(child: Widget): StackPage = gtk_stack_add_child(gtkStackPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -286,7 +286,7 @@ public open class Stack(
      * @return the `GtkStackPage` for @child
      */
     public open fun addNamed(child: Widget, name: String? = null): StackPage = gtk_stack_add_named(gtkStackPointer, child.gtkWidgetPointer, name)!!.run {
-        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -306,7 +306,7 @@ public open class Stack(
         name: String? = null,
         title: String,
     ): StackPage = gtk_stack_add_titled(gtkStackPointer, child.gtkWidgetPointer, name, title)!!.run {
-        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -319,7 +319,7 @@ public open class Stack(
      *   of the `GtkStack`
      */
     public open fun getChildByName(name: String): Widget? = gtk_stack_get_child_by_name(gtkStackPointer, name)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -329,7 +329,7 @@ public open class Stack(
      * @return the `GtkStackPage` for @child
      */
     public open fun getPage(child: Widget): StackPage = gtk_stack_get_page(gtkStackPointer, child.gtkWidgetPointer)!!.run {
-        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!
+        InstanceCache.get(this, true) { StackPage(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -340,7 +340,7 @@ public open class Stack(
      * @return the visible child of the `GtkStack`
      */
     public open fun getVisibleChild(): Widget? = gtk_stack_get_visible_child(gtkStackPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

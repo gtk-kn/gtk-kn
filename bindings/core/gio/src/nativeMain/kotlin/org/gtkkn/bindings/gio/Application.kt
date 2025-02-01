@@ -592,7 +592,7 @@ public open class Application(
      */
     @GioVersion2_34
     public open fun getDbusConnection(): DBusConnection? = g_application_get_dbus_connection(gioApplicationPointer)?.run {
-        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!
+        InstanceCache.get(this, true) { DBusConnection(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -1138,7 +1138,7 @@ public open class Application(
          */
         @GioVersion2_32
         public fun getDefault(): Application? = g_application_get_default()?.run {
-            InstanceCache.get(this, true) { Application(reinterpret()) }!!
+            InstanceCache.get(this, true) { Application(reinterpret()) }!!.apply { ref() }
         }
 
         /**

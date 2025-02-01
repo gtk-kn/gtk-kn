@@ -114,7 +114,7 @@ public open class StyleContext(
          * @return a `GdkDisplay`.
          */
         get() = gtk_style_context_get_display(gtkStyleContextPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
         }
         /**
          * # ⚠️ Deprecated ⚠️

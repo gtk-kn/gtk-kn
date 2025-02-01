@@ -62,7 +62,7 @@ public open class SnippetChunk(
          * @return A #GtkSourceSnippetContext
          */
         get() = gtk_source_snippet_chunk_get_context(gtksourceSnippetChunkPointer)!!.run {
-            InstanceCache.get(this, true) { SnippetContext(reinterpret()) }!!
+            InstanceCache.get(this, true) { SnippetContext(reinterpret()) }!!.apply { ref() }
         }
         set(context) = gtk_source_snippet_chunk_set_context(gtksourceSnippetChunkPointer, context.gtksourceSnippetContextPointer)
 
@@ -153,7 +153,7 @@ public open class SnippetChunk(
      * @return A #GtkSourceSnippetChunk
      */
     public open fun copy(): SnippetChunk = gtk_source_snippet_chunk_copy(gtksourceSnippetChunkPointer)!!.run {
-        InstanceCache.get(this, true) { SnippetChunk(reinterpret()) }!!
+        InstanceCache.get(this, true) { SnippetChunk(reinterpret()) }!!.apply { ref() }
     }
 
     /**

@@ -1290,7 +1290,7 @@ public object Gtk {
         pageSetup: PageSetup? = null,
         settings: PrintSettings,
     ): PageSetup = gtk_print_run_page_setup_dialog(parent?.gtkWindowPointer, pageSetup?.gtkPageSetupPointer, settings.gtkPrintSettingsPointer)!!.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -1819,7 +1819,7 @@ public object Gtk {
      * @return a new `GdkContentProvider`
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider = gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer)!!.run {
-        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
+        InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.apply { ref() }
     }
 
     /**

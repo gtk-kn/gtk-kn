@@ -107,7 +107,7 @@ public class FindController(
          * @return the #WebKitWebView.
          */
         get() = webkit_find_controller_get_web_view(webkitFindControllerPointer)!!.run {
-            InstanceCache.get(this, true) { WebView(reinterpret()) }!!
+            InstanceCache.get(this, true) { WebView(reinterpret()) }!!.apply { ref() }
         }
 
     /**

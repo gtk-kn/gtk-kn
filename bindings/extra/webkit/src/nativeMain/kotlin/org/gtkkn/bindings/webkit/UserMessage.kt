@@ -60,7 +60,7 @@ public class UserMessage(
          * @since 2.28
          */
         get() = webkit_user_message_get_fd_list(webkitUserMessagePointer)?.run {
-            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!
+            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!.apply { ref() }
         }
 
     /**

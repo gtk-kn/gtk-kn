@@ -76,7 +76,7 @@ public open class Style(
      * when you are done with it.
      */
     public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer)!!.run {
-        InstanceCache.get(this, true) { Style(reinterpret()) }!!
+        InstanceCache.get(this, true) { Style(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<Style> {

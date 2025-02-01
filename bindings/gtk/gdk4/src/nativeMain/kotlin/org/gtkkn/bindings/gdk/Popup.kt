@@ -57,7 +57,7 @@ public interface Popup : Proxy, KGTyped {
          * @return the parent surface
          */
         get() = gdk_popup_get_parent(gdkPopupPointer)?.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -73,7 +73,7 @@ public interface Popup : Proxy, KGTyped {
      * @return the parent surface
      */
     public fun getParent(): Surface? = gdk_popup_get_parent(gdkPopupPointer)?.run {
-        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

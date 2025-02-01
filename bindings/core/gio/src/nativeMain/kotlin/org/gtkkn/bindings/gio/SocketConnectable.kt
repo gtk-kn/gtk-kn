@@ -93,7 +93,7 @@ public interface SocketConnectable : Proxy, KGTyped {
      */
     @GioVersion2_22
     public fun enumerate(): SocketAddressEnumerator = g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
-        InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -110,7 +110,7 @@ public interface SocketConnectable : Proxy, KGTyped {
      */
     @GioVersion2_26
     public fun proxyEnumerate(): SocketAddressEnumerator = g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
-        InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SocketAddressEnumerator.SocketAddressEnumeratorImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

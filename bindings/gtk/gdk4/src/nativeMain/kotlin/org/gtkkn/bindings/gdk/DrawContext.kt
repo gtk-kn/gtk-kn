@@ -53,7 +53,7 @@ public abstract class DrawContext(
          * @return the `GdkDisplay`
          */
         get() = gdk_draw_context_get_display(gdkDrawContextPointer)?.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -66,7 +66,7 @@ public abstract class DrawContext(
          * @return a `GdkSurface`
          */
         get() = gdk_draw_context_get_surface(gdkDrawContextPointer)?.run {
-            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**

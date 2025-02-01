@@ -101,7 +101,7 @@ public class TabButton(
          * @since 1.3
          */
         get() = adw_tab_button_get_view(adwTabButtonPointer)?.run {
-            InstanceCache.get(this, true) { TabView(reinterpret()) }!!
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the tab view to display.

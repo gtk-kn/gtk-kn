@@ -55,7 +55,7 @@ public open class ListHeader(
          * @since 4.12
          */
         get() = gtk_list_header_get_child(gtkListHeaderPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the child to be used for this listitem.
@@ -106,7 +106,7 @@ public open class ListHeader(
          * @since 4.12
          */
         get() = gtk_list_header_get_item(gtkListHeaderPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
         }
 
     /**

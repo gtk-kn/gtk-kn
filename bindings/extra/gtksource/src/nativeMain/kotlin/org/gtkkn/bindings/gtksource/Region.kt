@@ -96,7 +96,7 @@ public open class Region(
          * @return the #GtkTextBuffer.
          */
         get() = gtk_source_region_get_buffer(gtksourceRegionPointer)?.run {
-            InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!
+            InstanceCache.get(this, true) { TextBuffer(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -157,7 +157,7 @@ public open class Region(
      *   object.
      */
     public open fun intersectRegion(region2: Region? = null): Region? = gtk_source_region_intersect_region(gtksourceRegionPointer, region2?.gtksourceRegionPointer)?.run {
-        InstanceCache.get(this, true) { Region(reinterpret()) }!!
+        InstanceCache.get(this, true) { Region(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -172,7 +172,7 @@ public open class Region(
      *   #GtkSourceRegion.
      */
     public open fun intersectSubregion(start: TextIter, end: TextIter): Region? = gtk_source_region_intersect_subregion(gtksourceRegionPointer, start.gtkTextIterPointer, end.gtkTextIterPointer)?.run {
-        InstanceCache.get(this, true) { Region(reinterpret()) }!!
+        InstanceCache.get(this, true) { Region(reinterpret()) }!!.apply { ref() }
     }
 
     /**

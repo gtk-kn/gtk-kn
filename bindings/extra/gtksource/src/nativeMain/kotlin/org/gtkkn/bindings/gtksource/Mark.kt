@@ -87,7 +87,7 @@ public open class Mark(
      * @return the next #GtkSourceMark, or null.
      */
     public open fun next(category: String? = null): Mark? = gtk_source_mark_next(gtksourceMarkPointer, category)?.run {
-        InstanceCache.get(this, true) { Mark(reinterpret()) }!!
+        InstanceCache.get(this, true) { Mark(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -102,7 +102,7 @@ public open class Mark(
      * @return the previous #GtkSourceMark, or null.
      */
     public open fun prev(category: String? = null): Mark? = gtk_source_mark_prev(gtksourceMarkPointer, category)?.run {
-        InstanceCache.get(this, true) { Mark(reinterpret()) }!!
+        InstanceCache.get(this, true) { Mark(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<Mark> {

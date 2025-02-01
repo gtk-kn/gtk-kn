@@ -340,7 +340,7 @@ public open class FlowBox(
      *   with the given index exists.
      */
     public open fun getChildAtIndex(idx: gint): FlowBoxChild? = gtk_flow_box_get_child_at_index(gtkFlowBoxPointer, idx)?.run {
-        InstanceCache.get(this, true) { FlowBoxChild(reinterpret()) }!!
+        InstanceCache.get(this, true) { FlowBoxChild(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -355,7 +355,7 @@ public open class FlowBox(
      *   exists for the given x and y coordinates.
      */
     public open fun getChildAtPos(x: gint, y: gint): FlowBoxChild? = gtk_flow_box_get_child_at_pos(gtkFlowBoxPointer, x, y)?.run {
-        InstanceCache.get(this, true) { FlowBoxChild(reinterpret()) }!!
+        InstanceCache.get(this, true) { FlowBoxChild(reinterpret()) }!!.apply { ref() }
     }
 
     /**

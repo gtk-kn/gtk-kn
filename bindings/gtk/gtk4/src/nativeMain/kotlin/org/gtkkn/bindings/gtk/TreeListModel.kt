@@ -143,7 +143,7 @@ public open class TreeListModel(
      * @return the child in @position
      */
     public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_model_get_child_row(gtkTreeListModelPointer, position)?.run {
-        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -169,7 +169,7 @@ public open class TreeListModel(
      * @return The row item
      */
     public open fun getRow(position: guint): TreeListRow? = gtk_tree_list_model_get_row(gtkTreeListModelPointer, position)?.run {
-        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<TreeListModel> {

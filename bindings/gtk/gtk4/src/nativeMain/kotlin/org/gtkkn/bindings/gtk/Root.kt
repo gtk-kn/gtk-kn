@@ -47,7 +47,7 @@ public interface Root : Proxy, Native, KGTyped {
      * @return the display of @root
      */
     public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer)!!.run {
-        InstanceCache.get(this, true) { Display(reinterpret()) }!!
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -61,7 +61,7 @@ public interface Root : Proxy, Native, KGTyped {
      * @return the currently focused widget
      */
     public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

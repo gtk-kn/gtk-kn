@@ -265,7 +265,7 @@ public class Toast(
          * @since 1.2
          */
         get() = adw_toast_get_custom_title(adwToastPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the custom title widget of @self.

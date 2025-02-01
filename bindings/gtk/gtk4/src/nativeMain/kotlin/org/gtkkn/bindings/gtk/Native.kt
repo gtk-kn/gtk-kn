@@ -52,7 +52,7 @@ public interface Native : Proxy, KGTyped {
      * @return the renderer for @self
      */
     public fun getRenderer(): Renderer? = gtk_native_get_renderer(gtkNativePointer)?.run {
-        InstanceCache.get(this, true) { Renderer.RendererImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Renderer.RendererImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -61,7 +61,7 @@ public interface Native : Proxy, KGTyped {
      * @return the surface of @self
      */
     public fun getSurface(): Surface? = gtk_native_get_surface(gtkNativePointer)?.run {
-        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Surface.SurfaceImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

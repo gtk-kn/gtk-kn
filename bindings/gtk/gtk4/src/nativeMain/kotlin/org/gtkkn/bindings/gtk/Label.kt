@@ -381,7 +381,7 @@ public open class Label(
          * @return the menu model
          */
         get() = gtk_label_get_extra_menu(gtkLabelPointer)?.run {
-            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets a menu model to add when constructing
@@ -539,7 +539,7 @@ public open class Label(
          *   or null if none has been set and the default algorithm will be used.
          */
         get() = gtk_label_get_mnemonic_widget(gtkLabelPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Associate the label with its mnemonic target.
@@ -888,7 +888,7 @@ public open class Label(
      * @return the [class@Pango.Layout] for this label
      */
     public open fun getLayout(): Layout = gtk_label_get_layout(gtkLabelPointer)!!.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
     }
 
     /**

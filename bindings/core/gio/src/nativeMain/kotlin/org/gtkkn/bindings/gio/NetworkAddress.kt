@@ -186,7 +186,7 @@ public open class NetworkAddress(
         public fun parse(hostAndPort: String, defaultPort: guint16): Result<NetworkAddress> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_network_address_parse(hostAndPort, defaultPort, gError.ptr)?.run {
-                InstanceCache.get(reinterpret(), true) { NetworkAddress(reinterpret()) }!!
+                InstanceCache.get(reinterpret(), true) { NetworkAddress(reinterpret()) }!!.apply { ref() }
             }
 
             return if (gError.pointed != null) {
@@ -214,7 +214,7 @@ public open class NetworkAddress(
         public fun parseUri(uri: String, defaultPort: guint16): Result<NetworkAddress> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_network_address_parse_uri(uri, defaultPort, gError.ptr)?.run {
-                InstanceCache.get(reinterpret(), true) { NetworkAddress(reinterpret()) }!!
+                InstanceCache.get(reinterpret(), true) { NetworkAddress(reinterpret()) }!!.apply { ref() }
             }
 
             return if (gError.pointed != null) {

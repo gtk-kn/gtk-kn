@@ -157,7 +157,7 @@ public open class TreeSelection(
      * @return A `GtkTreeView`
      */
     public open fun getTreeView(): TreeView = gtk_tree_selection_get_tree_view(gtkTreeSelectionPointer)!!.run {
-        InstanceCache.get(this, true) { TreeView(reinterpret()) }!!
+        InstanceCache.get(this, true) { TreeView(reinterpret()) }!!.apply { ref() }
     }
 
     /**

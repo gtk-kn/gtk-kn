@@ -110,7 +110,7 @@ public open class Clipboard(
          *   if the clipboard does not maintain any content
          */
         get() = gdk_clipboard_get_content(gdkClipboardPointer)?.run {
-            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!
+            InstanceCache.get(this, true) { ContentProvider(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -123,7 +123,7 @@ public open class Clipboard(
          * @return a `GdkDisplay`
          */
         get() = gdk_clipboard_get_display(gdkClipboardPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -233,7 +233,7 @@ public open class Clipboard(
     public open fun readTextureFinish(result: AsyncResult): Result<Texture?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_clipboard_read_texture_finish(gdkClipboardPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Texture.TextureImpl(reinterpret()) }!!.apply { ref() }
         }
 
         return if (gError.pointed != null) {

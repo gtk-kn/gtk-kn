@@ -109,7 +109,7 @@ public class Credential(
      */
     @WebKitVersion2_34
     public fun getCertificate(): TlsCertificate = webkit_credential_get_certificate(webkitCredentialPointer)!!.run {
-        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

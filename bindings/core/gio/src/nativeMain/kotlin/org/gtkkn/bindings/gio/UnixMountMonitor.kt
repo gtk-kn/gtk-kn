@@ -137,7 +137,7 @@ public open class UnixMountMonitor(
          */
         @GioVersion2_44
         public fun `get`(): UnixMountMonitor = g_unix_mount_monitor_get()!!.run {
-            InstanceCache.get(this, true) { UnixMountMonitor(reinterpret()) }!!
+            InstanceCache.get(this, true) { UnixMountMonitor(reinterpret()) }!!.apply { ref() }
         }
 
         /**

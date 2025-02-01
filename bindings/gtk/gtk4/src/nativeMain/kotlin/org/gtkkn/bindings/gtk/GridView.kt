@@ -137,7 +137,7 @@ public open class GridView(
          * @return The factory in use
          */
         get() = gtk_grid_view_get_factory(gtkGridViewPointer)?.run {
-            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!
+            InstanceCache.get(this, true) { ListItemFactory(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the `GtkListItemFactory` to use for populating list items.

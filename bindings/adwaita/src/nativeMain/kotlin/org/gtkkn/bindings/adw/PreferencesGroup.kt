@@ -116,7 +116,7 @@ public open class PreferencesGroup(
          * @since 1.1
          */
         get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the suffix for @self's header.

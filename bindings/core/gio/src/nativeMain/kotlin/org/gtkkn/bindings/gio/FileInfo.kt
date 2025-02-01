@@ -185,7 +185,7 @@ public open class FileInfo(
      * @return a duplicate #GFileInfo of @other.
      */
     public open fun dup(): FileInfo = g_file_info_dup(gioFileInfoPointer)!!.run {
-        InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!
+        InstanceCache.get(this, true) { FileInfo(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -283,7 +283,7 @@ public open class FileInfo(
      * or null otherwise.
      */
     public open fun getAttributeObject(attribute: String): Object? = g_file_info_get_attribute_object(gioFileInfoPointer, attribute)?.run {
-        InstanceCache.get(this, true) { Object(reinterpret()) }!!
+        InstanceCache.get(this, true) { Object(reinterpret()) }!!.apply { ref() }
     }
 
     /**

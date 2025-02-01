@@ -31,7 +31,7 @@ public open class DndEvent(
      * @return the drop
      */
     public open fun getDrop(): Drop? = gdk_dnd_event_get_drop(gdkDndEventPointer.reinterpret())?.run {
-        InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Drop.DropImpl(reinterpret()) }!!.apply { ref() }
     }
 
     public companion object : TypeCompanion<DndEvent> {

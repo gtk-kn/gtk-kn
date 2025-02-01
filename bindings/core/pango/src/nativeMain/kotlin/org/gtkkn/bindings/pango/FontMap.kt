@@ -88,7 +88,7 @@ public abstract class FontMap(
      */
     @PangoVersion1_22
     public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -100,7 +100,7 @@ public abstract class FontMap(
      */
     @PangoVersion1_46
     public open fun getFamily(name: String): FontFamily = pango_font_map_get_family(pangoFontMapPointer, name)!!.run {
-        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { FontFamily.FontFamilyImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class FontMap(
      *   loaded, or null if no font matched.
      */
     public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(pangoFontMapPointer, context.pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
-        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class FontMap(
         desc: FontDescription,
         language: Language,
     ): Fontset? = pango_font_map_load_fontset(pangoFontMapPointer, context.pangoContextPointer, desc.pangoFontDescriptionPointer, language.pangoLanguagePointer)?.run {
-        InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Fontset.FontsetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -173,7 +173,7 @@ public abstract class FontMap(
         context: Context? = null,
         variations: String? = null,
     ): Font = pango_font_map_reload_font(pangoFontMapPointer, font.pangoFontPointer, scale, context?.pangoContextPointer, variations)!!.run {
-        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Font.FontImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

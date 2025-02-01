@@ -231,7 +231,7 @@ public abstract class SettingsBackend(
          */
         @GioVersion2_28
         public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
-            InstanceCache.get(this, true) { SettingsBackendImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { SettingsBackendImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**

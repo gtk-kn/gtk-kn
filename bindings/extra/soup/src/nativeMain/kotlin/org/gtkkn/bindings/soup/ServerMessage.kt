@@ -108,7 +108,7 @@ public class ServerMessage(
          * @since 3.2
          */
         get() = soup_server_message_get_tls_peer_certificate(soupServerMessagePointer)?.run {
-            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { TlsCertificate.TlsCertificateImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -146,7 +146,7 @@ public class ServerMessage(
      *   null if you used [method@Server.accept_iostream].
      */
     public fun getLocalAddress(): SocketAddress? = soup_server_message_get_local_address(soupServerMessagePointer)?.run {
-        InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -172,7 +172,7 @@ public class ServerMessage(
      *   null if you used [class@Server.accept_iostream].
      */
     public fun getRemoteAddress(): SocketAddress? = soup_server_message_get_remote_address(soupServerMessagePointer)?.run {
-        InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { SocketAddress.SocketAddressImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -231,7 +231,7 @@ public class ServerMessage(
      *   associated with, null if you used [method@Server.accept_iostream].
      */
     public fun getSocket(): Socket? = soup_server_message_get_socket(soupServerMessagePointer)?.run {
-        InstanceCache.get(this, true) { Socket(reinterpret()) }!!
+        InstanceCache.get(this, true) { Socket(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -319,7 +319,7 @@ public class ServerMessage(
      *   is returned.
      */
     public fun stealConnection(): IoStream = soup_server_message_steal_connection(soupServerMessagePointer)!!.run {
-        InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { IoStream.IoStreamImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

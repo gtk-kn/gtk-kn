@@ -390,7 +390,7 @@ public open class VolumeMonitor(
          *    g_object_unref() when done with it.
          */
         public fun `get`(): VolumeMonitor = g_volume_monitor_get()!!.run {
-            InstanceCache.get(this, true) { VolumeMonitor(reinterpret()) }!!
+            InstanceCache.get(this, true) { VolumeMonitor(reinterpret()) }!!.apply { ref() }
         }
 
         /**

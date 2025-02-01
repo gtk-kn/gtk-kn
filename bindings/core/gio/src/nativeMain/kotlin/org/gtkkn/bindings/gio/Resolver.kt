@@ -632,7 +632,7 @@ public abstract class Resolver(
          */
         @GioVersion2_22
         public fun getDefault(): Resolver = g_resolver_get_default()!!.run {
-            InstanceCache.get(this, true) { ResolverImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { ResolverImpl(reinterpret()) }!!.apply { ref() }
         }
 
         /**

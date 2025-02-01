@@ -95,7 +95,7 @@ public open class DisplayManager(
      * @return a `GdkDisplay`
      */
     public open fun getDefaultDisplay(): Display? = gdk_display_manager_get_default_display(gdkDisplayManagerPointer)?.run {
-        InstanceCache.get(this, true) { Display(reinterpret()) }!!
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -115,7 +115,7 @@ public open class DisplayManager(
      *   if the display could not be opened
      */
     public open fun openDisplay(name: String? = null): Display? = gdk_display_manager_open_display(gdkDisplayManagerPointer, name)?.run {
-        InstanceCache.get(this, true) { Display(reinterpret()) }!!
+        InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -163,7 +163,7 @@ public open class DisplayManager(
          * @return The global `GdkDisplayManager` singleton
          */
         public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
-            InstanceCache.get(this, true) { DisplayManager(reinterpret()) }!!
+            InstanceCache.get(this, true) { DisplayManager(reinterpret()) }!!.apply { ref() }
         }
 
         /**

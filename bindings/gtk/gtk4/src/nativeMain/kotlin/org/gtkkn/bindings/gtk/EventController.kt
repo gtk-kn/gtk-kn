@@ -127,7 +127,7 @@ public abstract class EventController(
          * @return a `GtkWidget`
          */
         get() = gtk_event_controller_get_widget(gtkEventControllerPointer)!!.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -152,7 +152,7 @@ public abstract class EventController(
      *   currently handled by @controller
      */
     public open fun getCurrentEventDevice(): Device? = gtk_event_controller_get_current_event_device(gtkEventControllerPointer)?.run {
-        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Device.DeviceImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

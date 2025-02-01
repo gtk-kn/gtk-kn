@@ -190,7 +190,7 @@ public open class Layout(
      * @return the newly allocated `PangoLayout`
      */
     public open fun copy(): Layout = pango_layout_copy(pangoLayoutPointer)!!.run {
-        InstanceCache.get(this, true) { Layout(reinterpret()) }!!
+        InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -274,7 +274,7 @@ public open class Layout(
      * @return the `PangoContext` for the layout
      */
     public open fun getContext(): Context = pango_layout_get_context(pangoLayoutPointer)!!.run {
-        InstanceCache.get(this, true) { Context(reinterpret()) }!!
+        InstanceCache.get(this, true) { Context(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -1034,7 +1034,7 @@ public open class Layout(
         ): Result<Layout?> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = pango_layout_deserialize(context.pangoContextPointer, bytes.glibBytesPointer, flags.mask, gError.ptr)?.run {
-                InstanceCache.get(this, true) { Layout(reinterpret()) }!!
+                InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
             }
 
             return if (gError.pointed != null) {

@@ -62,7 +62,7 @@ public open class WindowHandle(
          * @return the child widget of @self
          */
         get() = gtk_window_handle_get_child(gtkWindowHandlePointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the child widget of @self.

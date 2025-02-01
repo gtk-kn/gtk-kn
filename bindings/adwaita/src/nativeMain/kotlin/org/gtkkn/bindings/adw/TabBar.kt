@@ -135,7 +135,7 @@ public class TabBar(
          * @return the widget shown after the tabs
          */
         get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the widget to show after the tabs.
@@ -263,7 +263,7 @@ public class TabBar(
          * @return the widget shown before the tabs
          */
         get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer)?.run {
-            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+            InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the widget to show before the tabs.
@@ -297,7 +297,7 @@ public class TabBar(
          * @return the view @self controls
          */
         get() = adw_tab_bar_get_view(adwTabBarPointer)?.run {
-            InstanceCache.get(this, true) { TabView(reinterpret()) }!!
+            InstanceCache.get(this, true) { TabView(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the tab view @self controls.

@@ -55,7 +55,7 @@ public class ResponsePolicyDecision(
          * @return The URI request that is associated with this policy decision.
          */
         get() = webkit_response_policy_decision_get_request(webkitResponsePolicyDecisionPointer)!!.run {
-            InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!
+            InstanceCache.get(this, true) { UriRequest(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -69,7 +69,7 @@ public class ResponsePolicyDecision(
          * @return The URI response that is associated with this policy decision.
          */
         get() = webkit_response_policy_decision_get_response(webkitResponsePolicyDecisionPointer)!!.run {
-            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!
+            InstanceCache.get(this, true) { UriResponse(reinterpret()) }!!.apply { ref() }
         }
 
     /**

@@ -93,7 +93,7 @@ public open class StyleSchemeManager(
      *   The returned value is owned by @manager and must not be unref'ed.
      */
     public open fun getScheme(schemeId: String): StyleScheme? = gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer, schemeId)?.run {
-        InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!
+        InstanceCache.get(this, true) { StyleScheme(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -143,7 +143,7 @@ public open class StyleSchemeManager(
          * is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): StyleSchemeManager = gtk_source_style_scheme_manager_get_default()!!.run {
-            InstanceCache.get(this, true) { StyleSchemeManager(reinterpret()) }!!
+            InstanceCache.get(this, true) { StyleSchemeManager(reinterpret()) }!!.apply { ref() }
         }
 
         /**

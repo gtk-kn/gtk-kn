@@ -60,7 +60,7 @@ public open class DBusMenuModel(
             busName: String? = null,
             objectPath: String,
         ): DBusMenuModel = g_dbus_menu_model_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
-            InstanceCache.get(this, true) { DBusMenuModel(reinterpret()) }!!
+            InstanceCache.get(this, true) { DBusMenuModel(reinterpret()) }!!.apply { ref() }
         }
 
         /**

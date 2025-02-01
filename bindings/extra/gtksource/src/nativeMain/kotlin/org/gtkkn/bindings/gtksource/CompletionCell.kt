@@ -82,7 +82,7 @@ public open class CompletionCell(
      * @return a #GtkWidget or null
      */
     public open fun getWidget(): Widget? = gtk_source_completion_cell_get_widget(gtksourceCompletionCellPointer)?.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     public open fun setGicon(gicon: Icon): Unit = gtk_source_completion_cell_set_gicon(gtksourceCompletionCellPointer, gicon.gioIconPointer)

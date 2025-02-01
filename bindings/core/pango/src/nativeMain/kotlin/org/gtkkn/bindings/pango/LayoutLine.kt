@@ -58,7 +58,7 @@ public class LayoutLine(
      */
     public var layout: Layout?
         get() = pangoLayoutLinePointer.pointed.layout?.run {
-            InstanceCache.get(this, true) { Layout(reinterpret()) }!!
+            InstanceCache.get(this, true) { Layout(reinterpret()) }!!.apply { ref() }
         }
         @UnsafeFieldSetter
         set(`value`) {

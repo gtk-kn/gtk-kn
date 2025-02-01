@@ -188,7 +188,7 @@ public open class MenuItem(
      */
     @GioVersion2_34
     public open fun getLink(link: String): MenuModel? = g_menu_item_get_link(gioMenuItemPointer, link)?.run {
-        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { MenuModel.MenuModelImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

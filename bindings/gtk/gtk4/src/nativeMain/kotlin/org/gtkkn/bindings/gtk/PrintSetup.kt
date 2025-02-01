@@ -45,7 +45,7 @@ public class PrintSetup(
      */
     @GtkVersion4_14
     public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer)?.run {
-        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!
+        InstanceCache.get(this, true) { PageSetup(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -59,7 +59,7 @@ public class PrintSetup(
      */
     @GtkVersion4_14
     public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gtkPrintSetupPointer)?.run {
-        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!
+        InstanceCache.get(this, true) { PrintSettings(reinterpret()) }!!.apply { ref() }
     }
 
     /**

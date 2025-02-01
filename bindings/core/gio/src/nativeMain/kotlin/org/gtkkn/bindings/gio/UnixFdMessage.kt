@@ -72,7 +72,7 @@ public open class UnixFdMessage(
          * @since 2.24
          */
         get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer)!!.run {
-            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!
+            InstanceCache.get(this, true) { UnixFdList(reinterpret()) }!!.apply { ref() }
         }
 
     /**

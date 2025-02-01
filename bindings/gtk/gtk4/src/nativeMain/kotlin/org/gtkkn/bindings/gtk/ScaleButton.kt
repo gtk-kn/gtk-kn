@@ -128,7 +128,7 @@ public open class ScaleButton(
          * @return the adjustment associated with the scale
          */
         get() = gtk_scale_button_get_adjustment(gtkScaleButtonPointer)!!.run {
-            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!
+            InstanceCache.get(this, true) { Adjustment(reinterpret()) }!!.apply { ref() }
         }
         /**
          * Sets the `GtkAdjustment` to be used as a model
@@ -220,7 +220,7 @@ public open class ScaleButton(
      *   of the `GtkScaleButton`
      */
     public open fun getMinusButton(): Button = gtk_scale_button_get_minus_button(gtkScaleButtonPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -230,7 +230,7 @@ public open class ScaleButton(
      *   of the `GtkScaleButton`
      */
     public open fun getPlusButton(): Button = gtk_scale_button_get_plus_button(gtkScaleButtonPointer)!!.run {
-        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!
+        InstanceCache.get(reinterpret(), true) { Button(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -239,7 +239,7 @@ public open class ScaleButton(
      * @return the popup of the `GtkScaleButton`
      */
     public open fun getPopup(): Widget = gtk_scale_button_get_popup(gtkScaleButtonPointer)!!.run {
-        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!
+        InstanceCache.get(this, true) { Widget.WidgetImpl(reinterpret()) }!!.apply { ref() }
     }
 
     /**

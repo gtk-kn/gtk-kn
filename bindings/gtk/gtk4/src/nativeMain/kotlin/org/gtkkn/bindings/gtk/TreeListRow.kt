@@ -124,7 +124,7 @@ public open class TreeListRow(
          *   compatibility reasons.
          */
         get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer)?.run {
-            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!
+            InstanceCache.get(reinterpret(), true) { Object(reinterpret()) }!!.apply { ref() }
         }
 
     /**
@@ -135,7 +135,7 @@ public open class TreeListRow(
      * @return the child in @position
      */
     public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_row_get_child_row(gtkTreeListRowPointer, position)?.run {
-        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.apply { ref() }
     }
 
     /**
@@ -154,7 +154,7 @@ public open class TreeListRow(
      * @return The parent of @self
      */
     public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer)?.run {
-        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!
+        InstanceCache.get(this, true) { TreeListRow(reinterpret()) }!!.apply { ref() }
     }
 
     /**

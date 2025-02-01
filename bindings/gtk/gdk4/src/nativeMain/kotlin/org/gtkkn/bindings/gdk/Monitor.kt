@@ -110,7 +110,7 @@ public open class Monitor(
          * @return the display
          */
         get() = gdk_monitor_get_display(gdkMonitorPointer)!!.run {
-            InstanceCache.get(this, true) { Display(reinterpret()) }!!
+            InstanceCache.get(this, true) { Display(reinterpret()) }!!.apply { ref() }
         }
 
     /**
