@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../images/logo-icon.svg">
+<link href="../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">adwaita</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><span class="current">TabButton</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Tab</span><wbr><span><span>Button</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TabButton</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwTabButtonPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A button that displays the number of class@TabView pages.</p><picture>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TabButton</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwTabButtonPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/adwaita/src/nativeMain/kotlin/org/gtkkn/bindings/adw/TabButton.kt#L69">source</a>)</span></span></div><p class="paragraph">A button that displays the number of class@TabView pages.</p><picture>
 <source srcset="tab-button-dark.png" media="(prefers-color-scheme: dark)">
 <img src="tab-button.png" alt="tab-button">
 </picture><p class="paragraph"><code class="lang-kotlin">AdwTabButton</code> is a button that displays the number of pages in a given <code class="lang-kotlin">AdwTabView</code>, as well as whether one of the inactive pages needs attention.</p><p class="paragraph">It's intended to be used as a visible indicator when there's no visible tab bar, typically opening an class@TabOverview on click, e.g. via the <code class="lang-kotlin">overview.open</code> action name:</p><div class="sample-container"><pre><code class="block lang-xml" theme="idea">&lt;object class="AdwTabButton"&gt;<br>  &lt;property name="view"&gt;view&lt;/property&gt;<br>  &lt;property name="action-name"&gt;overview.open&lt;/property&gt;<br>&lt;/object&gt;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class="">CSS nodes</h2><p class="paragraph"><code class="lang-kotlin">AdwTabButton</code> has a main CSS node with name <code class="lang-kotlin">tabbutton</code>.</p><h1 class="">Accessibility</h1><p class="paragraph"><code class="lang-kotlin">AdwTabButton</code> uses the <code class="lang-kotlin">GTK_ACCESSIBLE_ROLE_BUTTON</code> role.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.3</p></span></div></div>
@@ -303,7 +305,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

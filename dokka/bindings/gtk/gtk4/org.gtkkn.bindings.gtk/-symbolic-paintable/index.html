@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../images/logo-icon.svg">
+<link href="../../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">SymbolicPaintable</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Symbolic</span><wbr><span><span>Paintable</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">SymbolicPaintable</a></div><p class="paragraph"><code class="lang-kotlin">GtkSymbolicPaintable</code> is an interface that support symbolic colors in paintables.</p><p class="paragraph"><code class="lang-kotlin">GdkPaintable</code>s implementing the interface will have the vfunc@Gtk.SymbolicPaintable.snapshot_symbolic function called and have the colors for drawing symbolic icons passed. At least 4 colors are guaranteed to be passed every time.</p><p class="paragraph">These 4 colors are the foreground color, and the colors to use for errors, warnings and success information in that order.</p><p class="paragraph">More colors may be added in the future.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">colors</code>: Array parameter of type Gdk.RGBA is not supported</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">4.6</p></span><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-icon-paintable/index.html">IconPaintable</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-symbolic-paintable-impl/index.html">SymbolicPaintableImpl</a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">SymbolicPaintable</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/gtk/gtk4/src/nativeMain/kotlin/org/gtkkn/bindings/gtk/SymbolicPaintable.kt#L42">source</a>)</span></span></div><p class="paragraph"><code class="lang-kotlin">GtkSymbolicPaintable</code> is an interface that support symbolic colors in paintables.</p><p class="paragraph"><code class="lang-kotlin">GdkPaintable</code>s implementing the interface will have the vfunc@Gtk.SymbolicPaintable.snapshot_symbolic function called and have the colors for drawing symbolic icons passed. At least 4 colors are guaranteed to be passed every time.</p><p class="paragraph">These 4 colors are the foreground color, and the colors to use for errors, warnings and success information in that order.</p><p class="paragraph">More colors may be added in the future.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">colors</code>: Array parameter of type Gdk.RGBA is not supported</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">4.6</p></span><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-icon-paintable/index.html">IconPaintable</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":bindings:gtk:gtk4/nativeMain" data-filterable-set=":bindings:gtk:gtk4/nativeMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-symbolic-paintable-impl/index.html">SymbolicPaintableImpl</a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -172,7 +174,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

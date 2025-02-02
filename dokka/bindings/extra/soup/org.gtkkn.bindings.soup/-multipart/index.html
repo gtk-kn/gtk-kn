@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../images/logo-icon.svg">
+<link href="../../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">soup</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.soup</a><span class="delimiter">/</span><span class="current">Multipart</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Multipart</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Multipart</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupMultipartPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Represents a multipart HTTP message body, parsed according to the syntax of RFC 2046.</p><p class="paragraph">Of particular interest to HTTP are <code class="lang-kotlin">multipart/byte-ranges</code> and <code class="lang-kotlin">multipart/form-data</code>,</p><p class="paragraph">Although the headers of a #SoupMultipart body part will contain the full headers from that body part, libsoup does not interpret them according to MIME rules. For example, each body part is assumed to have "binary" Content-Transfer-Encoding, even if its headers explicitly state otherwise. In other words, don't try to use #SoupMultipart for handling real MIME multiparts.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">headers</code>: headers: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">dest_body</code>: dest_body: Out parameter is not supported</p></li></ul></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Multipart</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupMultipartPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/extra/soup/src/nativeMain/kotlin/org/gtkkn/bindings/soup/Multipart.kt#L43">source</a>)</span></span></div><p class="paragraph">Represents a multipart HTTP message body, parsed according to the syntax of RFC 2046.</p><p class="paragraph">Of particular interest to HTTP are <code class="lang-kotlin">multipart/byte-ranges</code> and <code class="lang-kotlin">multipart/form-data</code>,</p><p class="paragraph">Although the headers of a #SoupMultipart body part will contain the full headers from that body part, libsoup does not interpret them according to MIME rules. For example, each body part is assumed to have "binary" Content-Transfer-Encoding, even if its headers explicitly state otherwise. In other words, don't try to use #SoupMultipart for handling real MIME multiparts.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">headers</code>: headers: Out parameter is not supported</p></li><li><p class="paragraph">parameter <code class="lang-kotlin">dest_body</code>: dest_body: Out parameter is not supported</p></li></ul></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -240,7 +242,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

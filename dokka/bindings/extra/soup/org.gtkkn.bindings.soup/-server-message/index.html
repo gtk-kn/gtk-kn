@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../images/logo-icon.svg">
+<link href="../../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">soup</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.soup</a><span class="delimiter">/</span><span class="current">ServerMessage</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Server</span><wbr><span><span>Message</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ServerMessage</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupServerMessagePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">An HTTP server request and response pair.</p><p class="paragraph">A SoupServerMessage represents an HTTP message that is being sent or received on a class@Server.</p><p class="paragraph">class@Server will create <code class="lang-kotlin">SoupServerMessage</code>s automatically for incoming requests, which your application will receive via handlers.</p><p class="paragraph">Note that libsoup's terminology here does not quite match the HTTP specification: in RFC 2616, an "HTTP-message" is <i>either</i> a Request, <i>or</i> a Response. In libsoup, a #SoupServerMessage combines both the request and the response.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">resp_body</code>: Array parameter of type guint8 is not supported</p></li></ul></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:extra:soup/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ServerMessage</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>soupServerMessagePointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/extra/soup/src/nativeMain/kotlin/org/gtkkn/bindings/soup/ServerMessage.kt#L86">source</a>)</span></span></div><p class="paragraph">An HTTP server request and response pair.</p><p class="paragraph">A SoupServerMessage represents an HTTP message that is being sent or received on a class@Server.</p><p class="paragraph">class@Server will create <code class="lang-kotlin">SoupServerMessage</code>s automatically for incoming requests, which your application will receive via handlers.</p><p class="paragraph">Note that libsoup's terminology here does not quite match the HTTP specification: in RFC 2616, an "HTTP-message" is <i>either</i> a Request, <i>or</i> a Response. In libsoup, a #SoupServerMessage combines both the request and the response.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">parameter <code class="lang-kotlin">resp_body</code>: Array parameter of type guint8 is not supported</p></li></ul></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -840,7 +842,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

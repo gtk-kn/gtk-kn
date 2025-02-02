@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../images/logo-icon.svg">
+<link href="../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">adwaita</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><span class="current">PreferencesGroup</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Preferences</span><wbr><span><span>Group</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">PreferencesGroup</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwPreferencesGroupPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A group of preference rows.</p><picture>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">PreferencesGroup</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwPreferencesGroupPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/adwaita/src/nativeMain/kotlin/org/gtkkn/bindings/adw/PreferencesGroup.kt#L66">source</a>)</span></span></div><p class="paragraph">A group of preference rows.</p><picture>
 <source srcset="preferences-group-dark.png" media="(prefers-color-scheme: dark)">
 <img src="preferences-group.png" alt="preferences-group">
 </picture><p class="paragraph">An <code class="lang-kotlin">AdwPreferencesGroup</code> represents a group or tightly related preferences, which in turn are represented by class@PreferencesRow.</p><p class="paragraph">To summarize the role of the preferences it gathers, a group can have both a title and a description. The title will be used by class@PreferencesDialog to let the user look for a preference.</p><h2 class="">AdwPreferencesGroup as GtkBuildable</h2><p class="paragraph">The <code class="lang-kotlin">AdwPreferencesGroup</code> implementation of the iface@Gtk.Buildable interface supports adding class@PreferencesRows to the list by omitting "type". If "type" is omitted and the widget isn't a class@PreferencesRow the child is added to a box below the list.</p><p class="paragraph">When the "type" attribute of a child is <code class="lang-kotlin">header-suffix</code>, the child is set as the suffix on the end of the title and description.</p><h2 class="">CSS nodes</h2><p class="paragraph"><code class="lang-kotlin">AdwPreferencesGroup</code> has a single CSS node with name <code class="lang-kotlin">preferencesgroup</code>.</p><h2 class="">Accessibility</h2><p class="paragraph"><code class="lang-kotlin">AdwPreferencesGroup</code> uses the <code class="lang-kotlin">GTK_ACCESSIBLE_ROLE_GROUP</code> role.</p></div></div>
@@ -288,7 +290,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

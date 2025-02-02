@@ -1,0 +1,9 @@
+:root {
+    --color-dark: #E24462;
+    --hover-link-color: var(--color-dark);
+
+    --active-section-color: var(--color-dark);
+    --active-tab-border-color: var(--color-dark);
+    --sidemenu-section-active-color: var(--color-dark);
+    --color-key-blue: var(--color-dark);
+}

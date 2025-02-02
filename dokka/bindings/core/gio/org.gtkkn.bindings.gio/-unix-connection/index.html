@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../images/logo-icon.svg">
+<link href="../../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">UnixConnection</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Unix</span><wbr><span><span>Connection</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">UnixConnection</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioUnixConnectionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-socket-connection/index.html">SocketConnection</a></div><p class="paragraph">This is the subclass of class@Gio.SocketConnection that is created for UNIX domain sockets.</p><p class="paragraph">It contains functions to do some of the UNIX socket specific functionality like passing file descriptors.</p><p class="paragraph">Since GLib 2.72, <code class="lang-kotlin">GUnixConnection</code> is available on all platforms. It requires underlying system support (such as Windows 10 with <code class="lang-kotlin">AF_UNIX</code>) at run time.</p><p class="paragraph">Before GLib 2.72, <code class="lang-kotlin">&lt;gio/gunixconnection.h&gt;</code> belonged to the UNIX-specific GIO interfaces, thus you had to use the <code class="lang-kotlin">gio-unix-2.0.pc</code> pkg-config file when using it. This is no longer necessary since GLib 2.72.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.22</p></span></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">UnixConnection</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioUnixConnectionPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-socket-connection/index.html">SocketConnection</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/gio/src/nativeMain/kotlin/org/gtkkn/bindings/gio/UnixConnection.kt#L56">source</a>)</span></span></div><p class="paragraph">This is the subclass of class@Gio.SocketConnection that is created for UNIX domain sockets.</p><p class="paragraph">It contains functions to do some of the UNIX socket specific functionality like passing file descriptors.</p><p class="paragraph">Since GLib 2.72, <code class="lang-kotlin">GUnixConnection</code> is available on all platforms. It requires underlying system support (such as Windows 10 with <code class="lang-kotlin">AF_UNIX</code>) at run time.</p><p class="paragraph">Before GLib 2.72, <code class="lang-kotlin">&lt;gio/gunixconnection.h&gt;</code> belonged to the UNIX-specific GIO interfaces, thus you had to use the <code class="lang-kotlin">gio-unix-2.0.pc</code> pkg-config file when using it. This is no longer necessary since GLib 2.72.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">2.22</p></span></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -570,7 +572,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

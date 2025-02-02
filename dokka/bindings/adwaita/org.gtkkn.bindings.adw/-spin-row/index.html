@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../images/logo-icon.svg">
+<link href="../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">adwaita</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.adw</a><span class="delimiter">/</span><span class="current">SpinRow</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Spin</span><wbr><span><span>Row</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SpinRow</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwSpinRowPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-action-row/index.html">ActionRow</a></div><p class="paragraph">An class@ActionRow with an embedded spin button.</p><picture>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:adwaita/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SpinRow</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>adwSpinRowPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-action-row/index.html">ActionRow</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/adwaita/src/nativeMain/kotlin/org/gtkkn/bindings/adw/SpinRow.kt#L103">source</a>)</span></span></div><p class="paragraph">An class@ActionRow with an embedded spin button.</p><picture>
 <source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)">
 <img src="spin-row.png" alt="spin-row">
 </picture><p class="paragraph">Example of an <code class="lang-kotlin">AdwSpinRow</code> UI definition:</p><div class="sample-container"><pre><code class="block lang-xml" theme="idea">&lt;object class="AdwSpinRow"&gt;<br>  &lt;property name="title" translatable="yes"&gt;Spin Row&lt;/property&gt;<br>  &lt;property name="adjustment"&gt;<br>    &lt;object class="GtkAdjustment"&gt;<br>      &lt;property name="lower"&gt;0&lt;/property&gt;<br>      &lt;property name="upper"&gt;100&lt;/property&gt;<br>      &lt;property name="value"&gt;50&lt;/property&gt;<br>      &lt;property name="page-increment"&gt;10&lt;/property&gt;<br>      &lt;property name="step-increment"&gt;1&lt;/property&gt;<br>    &lt;/object&gt;<br>  &lt;/property&gt;<br>&lt;/object&gt;</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">See class@Gtk.SpinButton for details.</p><h2 class="">CSS nodes</h2><p class="paragraph"><code class="lang-kotlin">AdwSpinRow</code> has the same structure as class@ActionRow, as well as the <code class="lang-kotlin">.spin</code> style class on the main node.</p><h2 class="">Skipped during bindings generation</h2><ul><li><p class="paragraph">method <code class="lang-kotlin">adjustment</code>: Property TypeInfo of getter and setter do not match</p></li><li><p class="paragraph">signal <code class="lang-kotlin">input</code>: Unsupported parameter <code class="lang-kotlin">new_value</code> : new_value: Out parameter is not supported</p></li></ul><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.4</p></span></div></div>
@@ -753,7 +755,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

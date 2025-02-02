@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../images/logo-icon.svg">
+<link href="../../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">gtk4</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gtk</a><span class="delimiter">/</span><span class="current">StringFilter</span></div>
   <div class="cover ">
     <h1 class="cover"><span>String</span><wbr><span><span>Filter</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">StringFilter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkStringFilterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-filter/index.html">Filter</a></div><p class="paragraph"><code class="lang-kotlin">GtkStringFilter</code> determines whether to include items by comparing strings to a fixed search term.</p><p class="paragraph">The strings are obtained from the items by evaluating a <code class="lang-kotlin">GtkExpression</code> set with method@Gtk.StringFilter.set_expression, and they are compared against a search term set with method@Gtk.StringFilter.set_search.</p><p class="paragraph"><code class="lang-kotlin">GtkStringFilter</code> has several different modes of comparison - it can match the whole string, just a prefix, or any substring. Use method@Gtk.StringFilter.set_match_mode choose a mode.</p><p class="paragraph">It is also possible to make case-insensitive comparisons, with method@Gtk.StringFilter.set_ignore_case.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:gtk:gtk4/nativeMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">StringFilter</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gtkStringFilterPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-filter/index.html">Filter</a><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/gtk/gtk4/src/nativeMain/kotlin/org/gtkkn/bindings/gtk/StringFilter.kt#L45">source</a>)</span></span></div><p class="paragraph"><code class="lang-kotlin">GtkStringFilter</code> determines whether to include items by comparing strings to a fixed search term.</p><p class="paragraph">The strings are obtained from the items by evaluating a <code class="lang-kotlin">GtkExpression</code> set with method@Gtk.StringFilter.set_expression, and they are compared against a search term set with method@Gtk.StringFilter.set_search.</p><p class="paragraph"><code class="lang-kotlin">GtkStringFilter</code> has several different modes of comparison - it can match the whole string, just a prefix, or any substring. Use method@Gtk.StringFilter.set_match_mode choose a mode.</p><p class="paragraph">It is also possible to make case-insensitive comparisons, with method@Gtk.StringFilter.set_ignore_case.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -315,7 +317,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">

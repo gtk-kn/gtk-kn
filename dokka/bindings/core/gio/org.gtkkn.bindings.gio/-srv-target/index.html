@@ -32,7 +32,9 @@
 <script type="text/javascript" src="../../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../../../images/logo-icon.svg">
+<link href="../../../../../styles/dokka.css" rel="Stylesheet"></head>
 <body>
     <div class="root">
     <nav class="navigation theme-dark" id="navigation-wrapper">
@@ -94,7 +96,7 @@
   <div class="breadcrumbs"><a href="../../index.html">gio</a><span class="delimiter">/</span><a href="../index.html">org.gtkkn.bindings.gio</a><span class="delimiter">/</span><span class="current">SrvTarget</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Srv</span><wbr><span><span>Target</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SrvTarget</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioSrvTargetPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A single target host/port that a network service is running on.</p><p class="paragraph">SRV (service) records are used by some network protocols to provide service-specific aliasing and load-balancing. For example, XMPP (Jabber) uses SRV records to locate the XMPP server for a domain; rather than connecting directly to ‘example.com’ or assuming a specific server hostname like ‘xmpp.example.com’, an XMPP client would look up the <code class="lang-kotlin">xmpp-client</code> SRV record for ‘example.com’, and then connect to whatever host was pointed to by that record.</p><p class="paragraph">You can use method@Gio.Resolver.lookup_service or method@Gio.Resolver.lookup_service_async to find the <code class="lang-kotlin">GSrvTarget</code>s for a given service. However, if you are simply planning to connect to the remote service, you can use class@Gio.NetworkService’s iface@Gio.SocketConnectable interface and not need to worry about <code class="lang-kotlin">GSrvTarget</code> at all.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":bindings:core:gio/nativeMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SrvTarget</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>gioSrvTargetPointer<span class="token operator">: </span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span data-unresolved-link="/<Error class: unknown class>///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/bindings/core/gio/src/nativeMain/kotlin/org/gtkkn/bindings/gio/SrvTarget.kt#L45">source</a>)</span></span></div><p class="paragraph">A single target host/port that a network service is running on.</p><p class="paragraph">SRV (service) records are used by some network protocols to provide service-specific aliasing and load-balancing. For example, XMPP (Jabber) uses SRV records to locate the XMPP server for a domain; rather than connecting directly to ‘example.com’ or assuming a specific server hostname like ‘xmpp.example.com’, an XMPP client would look up the <code class="lang-kotlin">xmpp-client</code> SRV record for ‘example.com’, and then connect to whatever host was pointed to by that record.</p><p class="paragraph">You can use method@Gio.Resolver.lookup_service or method@Gio.Resolver.lookup_service_async to find the <code class="lang-kotlin">GSrvTarget</code>s for a given service. However, if you are simply planning to connect to the remote service, you can use class@Gio.NetworkService’s iface@Gio.SocketConnectable interface and not need to worry about <code class="lang-kotlin">GSrvTarget</code> at all.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -255,7 +257,7 @@
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
+        <span>(c) 2025 gtk-kn</span>
         <span class="pull-right">
             <span>Generated by </span>
             <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
