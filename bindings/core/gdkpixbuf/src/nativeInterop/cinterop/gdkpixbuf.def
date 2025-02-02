@@ -23,18 +23,18 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include
 
 compilerOpts.osx = \
-    -I/opt/homebrew/Cellar/gdk-pixbuf/2.42.12/include/gdk-pixbuf-2.0 \
+    -I/opt/homebrew/opt/gdk-pixbuf/include/gdk-pixbuf-2.0 \
     -I/opt/homebrew/opt/libpng/include/libpng16 \
-    -I/opt/homebrew/Cellar/libtiff/4.7.0/include \
+    -I/opt/homebrew/opt/libtiff/include \
     -I/opt/homebrew/opt/zstd/include \
-    -I/opt/homebrew/Cellar/xz/5.6.3/include \
+    -I/opt/homebrew/opt/xz/include \
     -I/opt/homebrew/opt/jpeg-turbo/include \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include \
+    -I/opt/homebrew/opt/glib/include \
     -I/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/ffi \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
-    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/glib/include/glib-2.0 \
+    -I/opt/homebrew/opt/glib/lib/glib-2.0/include \
     -I/opt/homebrew/opt/gettext/include \
-    -I/opt/homebrew/Cellar/pcre2/10.44/include
+    -I/opt/homebrew/opt/pcre2/include
 
 # pkg-config --libs gdk-pixbuf-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux =\
@@ -43,9 +43,9 @@ linkerOpts.linux =\
     -lglib-2.0
 
 linkerOpts.osx = \
-    -L/opt/homebrew/Cellar/gdk-pixbuf/2.42.12/lib \
+    -L/opt/homebrew/opt/gdk-pixbuf/lib \
     -lgdk_pixbuf-2.0 \
-    -L/opt/homebrew/Cellar/glib/2.82.4/lib \
+    -L/opt/homebrew/opt/glib/lib \
     -lgobject-2.0 \
     -lglib-2.0 \
     -L/opt/homebrew/opt/gettext/lib \

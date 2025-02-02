@@ -14,11 +14,11 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include
 
 compilerOpts.osx = \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
-    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/glib/include \
+    -I/opt/homebrew/opt/glib/include/glib-2.0 \
+    -I/opt/homebrew/opt/glib/lib/glib-2.0/include \
     -I/opt/homebrew/opt/gettext/include \
-    -I/opt/homebrew/Cellar/pcre2/10.44/include \
+    -I/opt/homebrew/opt/pcre2/include \
     -I/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/ffi
 
 # pkg-config --libs gobject-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
@@ -27,7 +27,7 @@ linkerOpts.linux = \
     -lglib-2.0
 
 linkerOpts.osx = \
-    -L/opt/homebrew/Cellar/glib/2.82.4/lib \
+    -L/opt/homebrew/opt/glib/lib \
     -lgobject-2.0 \
     -lglib-2.0 \
     -L/opt/homebrew/opt/gettext/lib \

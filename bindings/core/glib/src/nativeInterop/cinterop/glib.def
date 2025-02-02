@@ -17,10 +17,10 @@ compilerOpts.linux_x64 = \
     -I/usr/lib64/glib-2.0/include
 
 compilerOpts.osx = \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
-    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/glib/include/glib-2.0 \
+    -I/opt/homebrew/opt/glib/lib/glib-2.0/include \
     -I/opt/homebrew/opt/gettext/include \
-    -I/opt/homebrew/Cellar/pcre2/10.44/include
+    -I/opt/homebrew/opt/pcre2/include
 
 # pkg-config --libs glib-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \

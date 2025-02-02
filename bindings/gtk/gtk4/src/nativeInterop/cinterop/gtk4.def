@@ -38,37 +38,37 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
 compilerOpts.osx = \
-    -I/opt/homebrew/Cellar/gtk4/4.16.12/include/gtk-4.0 \
-    -I/opt/homebrew/Cellar/gtk4/4.16.12/include/gtk-4.0/unix-print \
-    -I/opt/homebrew/Cellar/pango/1.56.1/include/pango-1.0 \
-    -I/opt/homebrew/Cellar/fribidi/1.0.16/include/fribidi \
-    -I/opt/homebrew/Cellar/harfbuzz/10.2.0/include/harfbuzz \
-    -I/opt/homebrew/Cellar/graphite2/1.3.14/include \
-    -I/opt/homebrew/Cellar/gdk-pixbuf/2.42.12/include/gdk-pixbuf-2.0 \
-    -I/opt/homebrew/Cellar/libtiff/4.7.0/include \
+    -I/opt/homebrew/opt/gtk4/include/gtk-4.0 \
+    -I/opt/homebrew/opt/gtk4/include/gtk-4.0/unix-print \
+    -I/opt/homebrew/opt/pango/include/pango-1.0 \
+    -I/opt/homebrew/opt/fribidi/include/fribidi \
+    -I/opt/homebrew/opt/harfbuzz/include/harfbuzz \
+    -I/opt/homebrew/opt/graphite2/include \
+    -I/opt/homebrew/opt/gdk-pixbuf/include/gdk-pixbuf-2.0 \
+    -I/opt/homebrew/opt/libtiff/include \
     -I/opt/homebrew/opt/zstd/include \
-    -I/opt/homebrew/Cellar/xz/5.6.3/include \
+    -I/opt/homebrew/opt/xz/include \
     -I/opt/homebrew/opt/jpeg-turbo/include \
-    -I/opt/homebrew/Cellar/cairo/1.18.2/include/cairo \
-    -I/opt/homebrew/Cellar/fontconfig/2.16.0/include \
+    -I/opt/homebrew/opt/cairo/include/cairo \
+    -I/opt/homebrew/opt/fontconfig/include \
     -I/opt/homebrew/opt/freetype/include/freetype2 \
     -I/opt/homebrew/opt/libpng/include/libpng16 \
-    -I/opt/homebrew/Cellar/libxext/1.3.6/include \
-    -I/opt/homebrew/Cellar/xorgproto/2024.1/include \
-    -I/opt/homebrew/Cellar/libxrender/0.9.12/include \
-    -I/opt/homebrew/Cellar/libx11/1.8.10/include \
-    -I/opt/homebrew/Cellar/libxcb/1.17.0/include \
-    -I/opt/homebrew/Cellar/libxau/1.0.12/include \
-    -I/opt/homebrew/Cellar/libxdmcp/1.1.5/include \
-    -I/opt/homebrew/Cellar/pixman/0.44.2/include/pixman-1 \
-    -I/opt/homebrew/Cellar/graphene/1.10.8/include/graphene-1.0 \
-    -I/opt/homebrew/Cellar/graphene/1.10.8/lib/graphene-1.0/include \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include \
+    -I/opt/homebrew/opt/libxext/include \
+    -I/opt/homebrew/opt/xorgproto/include \
+    -I/opt/homebrew/opt/libxrender/include \
+    -I/opt/homebrew/opt/libx11/include \
+    -I/opt/homebrew/opt/libxcb/include \
+    -I/opt/homebrew/opt/libxau/include \
+    -I/opt/homebrew/opt/libxdmcp/include \
+    -I/opt/homebrew/opt/pixman/include/pixman-1 \
+    -I/opt/homebrew/opt/graphene/include/graphene-1.0 \
+    -I/opt/homebrew/opt/graphene/lib/graphene-1.0/include \
+    -I/opt/homebrew/opt/glib/include \
     -I/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/ffi \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
-    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/glib/include/glib-2.0 \
+    -I/opt/homebrew/opt/glib/lib/glib-2.0/include \
     -I/opt/homebrew/opt/gettext/include \
-    -I/opt/homebrew/Cellar/pcre2/10.44/include
+    -I/opt/homebrew/opt/pcre2/include
 
 # pkg-config --libs gtk4 | tr ' ' '\n' | sed '$!s/$/ \\/'
 # can't add `-lvulkan`: https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
@@ -86,21 +86,21 @@ linkerOpts.linux = \
     -lglib-2.0
 
 linkerOpts.osx = \
-    -L/opt/homebrew/Cellar/gtk4/4.16.12/lib \
+    -L/opt/homebrew/opt/gtk4/lib \
     -lgtk-4 \
-    -L/opt/homebrew/Cellar/pango/1.56.1/lib \
+    -L/opt/homebrew/opt/pango/lib \
     -lpangocairo-1.0 \
     -lpango-1.0 \
-    -L/opt/homebrew/Cellar/harfbuzz/10.2.0/lib \
+    -L/opt/homebrew/opt/harfbuzz/lib \
     -lharfbuzz \
-    -L/opt/homebrew/Cellar/gdk-pixbuf/2.42.12/lib \
+    -L/opt/homebrew/opt/gdk-pixbuf/lib \
     -lgdk_pixbuf-2.0 \
-    -L/opt/homebrew/Cellar/cairo/1.18.2/lib \
+    -L/opt/homebrew/opt/cairo/lib \
     -lcairo-gobject \
     -lcairo \
-    -L/opt/homebrew/Cellar/graphene/1.10.8/lib \
+    -L/opt/homebrew/opt/graphene/lib \
     -lgraphene-1.0 \
-    -L/opt/homebrew/Cellar/glib/2.82.4/lib \
+    -L/opt/homebrew/opt/glib/lib \
     -lgio-2.0 \
     -lgobject-2.0 \
     -lglib-2.0 \

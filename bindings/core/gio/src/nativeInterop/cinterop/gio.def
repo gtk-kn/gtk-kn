@@ -34,13 +34,13 @@ compilerOpts.linux_x64 = \
 
 
 compilerOpts.osx = \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include/gio-unix-2.0 \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include \
+    -I/opt/homebrew/opt/glib/include/gio-unix-2.0 \
+    -I/opt/homebrew/opt/glib/include \
     -I/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/ffi \
-    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
-    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/glib/include/glib-2.0 \
+    -I/opt/homebrew/opt/glib/lib/glib-2.0/include \
     -I/opt/homebrew/opt/gettext/include \
-    -I/opt/homebrew/Cellar/pcre2/10.44/include
+    -I/opt/homebrew/opt/pcre2/include
 
 # pkg-config --libs gio-unix-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
@@ -49,7 +49,7 @@ linkerOpts.linux = \
     -lgobject-2.0
 
 linkerOpts.osx = \
-    -L/opt/homebrew/Cellar/glib/2.82.4/lib \
+    -L/opt/homebrew/opt/glib/lib \
     -lgio-2.0 \
     -lgobject-2.0 \
     -lglib-2.0 \
