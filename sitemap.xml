@@ -2,86 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://gtk-kn.org/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://gtk-kn.org/contact-us/</loc>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/contributor-guide/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/contributor-guide/deploying-to-mavenlocal/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/environment-setup/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/gradle-plugin/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/logging/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/adwaita/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gio/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gio/notifications/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtk4/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/visual-index/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/label/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/progress-bar/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtk4/widgets/examples/spinner/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/gtksource/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/developer-guide/bindings/webkitgtk/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/faq/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
     </url>
     <url>
          <loc>https://gtk-kn.org/get-started/</loc>
-         <lastmod>2025-01-31</lastmod>
+         <lastmod>2025-02-02</lastmod>
+    </url>
+    <url>
+         <loc>https://gtk-kn.org/sponsor/</loc>
+         <lastmod>2025-02-02</lastmod>
     </url>
 </urlset>
