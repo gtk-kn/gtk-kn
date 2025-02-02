@@ -111,7 +111,7 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
-  logo: 'assets/logo.svg'
+  logo: 'assets/logo-icon.svg'
   favicon: 'assets/favicon.ico'
 
 plugins:

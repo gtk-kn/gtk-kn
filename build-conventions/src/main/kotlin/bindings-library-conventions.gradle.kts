@@ -24,6 +24,7 @@ import java.nio.file.Files
 
 plugins {
     id("native-library-conventions")
+    id("dokka-conventions")
     id("publishing-conventions")
 }
 

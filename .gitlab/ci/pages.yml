@@ -17,12 +17,12 @@ pages:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
       changes:
         - ".gitlab/ci/pages.yml"
-        - "bindings/**"
-        - "compose/**"
-        - "coroutines/**"
-        - "docs/**"
-        - "gradle-plugin/**"
-        - "gradle/**"
+        - "bindings/**/*"
+        - "compose/**/*"
+        - "coroutines/**/*"
+        - "docs/**/*"
+        - "gradle-plugin/**/*"
+        - "gradle/**/*"
         - "*.json"
         - "*.kts"
         - "*.md"

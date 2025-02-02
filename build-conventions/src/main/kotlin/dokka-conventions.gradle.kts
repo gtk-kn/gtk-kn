@@ -19,14 +19,30 @@
  */
 
 import org.jetbrains.dokka.gradle.AbstractDokkaTask
+import java.time.LocalDate
 
 plugins {
     id("org.jetbrains.dokka")
 }
 
 dokka {
+    dokkaSourceSets.configureEach {
+        val relativePath = projectDir.relativeTo(rootProject.rootDir).invariantSeparatorsPath
+        val targetSourceFolder = "src/nativeMain/kotlin"
+        sourceLink {
+            localDirectory.set(file("src/nativeMain/kotlin"))
+            remoteUrl("https://gitlab.com/gtk-kn/gtk-kn/-/blob/master/$relativePath/$targetSourceFolder")
+            projectDir
+            remoteLineSuffix.set("#L")
+        }
+    }
     dokkaPublications.html {
         outputDirectory.set(rootDir.resolve("docs/dokka"))
+    }
+    pluginsConfiguration.html {
+        customStyleSheets.from("docs/assets/stylesheets/dokka.css")
+        customAssets.from("docs/assets/logo-icon.svg")
+        footerMessage.set("(c) ${LocalDate.now().year} gtk-kn")
     }
 }
 
