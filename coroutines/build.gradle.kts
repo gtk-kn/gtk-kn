@@ -20,6 +20,7 @@
 
 plugins {
     id("native-library-conventions")
+    id("dokka-conventions")
     id("publishing-conventions")
 }
 
