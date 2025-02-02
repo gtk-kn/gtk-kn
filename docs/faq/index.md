@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-??? question "Why does my simple project take several minutes to build and link?"
+??? question "Why are builds so slow?"
 
     Long build and link times for simple projects may result from not using Kotlin/Native incremental compilation.
     To speed up builds, add the following line to your project’s `gradle.properties` file:
